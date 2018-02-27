@@ -9,6 +9,7 @@ const { assets } = require('govuk-react-components');
 const views = require('express-react-views');
 
 const auth = require('../lib/auth');
+const api = require('../lib/api');
 const normalise = require('../lib/settings');
 
 module.exports = settings => {
@@ -44,6 +45,16 @@ module.exports = settings => {
     const keycloak = auth(Object.assign({ store: new MemoryStore() }, settings.auth));
     app.use(keycloak.middleware());
     app.protect = rules => app.use(keycloak.protect(rules));
+  }
+
+  if (settings.api) {
+    app.use((req, res, next) => {
+      const headers = req.user && {
+        Authorization: `bearer ${req.user.access_token}`
+      };
+      req.api = api(settings.api, { headers });
+      next();
+    });
   }
 
   app.static = staticrouter;
