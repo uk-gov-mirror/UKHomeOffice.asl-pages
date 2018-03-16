@@ -2,8 +2,6 @@ pipeline:
 
   test:
     image: node:8
-    secrets:
-      - npm_auth_token
     commands:
       - npm install
       - npm test
@@ -15,8 +13,8 @@ pipeline:
     secrets:
       - npm_auth_token
     commands:
+      - echo "_auth=$${NPM_AUTH_TOKEN}" >> .npmrc
+      - echo "email=test@example.com" >> .npmrc
       - npm publish
     when:
       event: tag
-      tag:
-        matches: /^v[0-9]+\.[0-9]+\.[0-9]+$/
