@@ -18,3 +18,5 @@ pipeline:
       - npm publish
     when:
       event: tag
+      tag:
+        matches: /^v[0-9]+\.[0-9]+\.[0-9]+$/
