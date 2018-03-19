@@ -12,6 +12,9 @@ const auth = require('../lib/auth');
 const api = require('../lib/api');
 const normalise = require('../lib/settings');
 
+const toolkitDir = path.dirname(require.resolve('govuk_frontend_toolkit/package.json'));
+const imagesDir = path.resolve(toolkitDir, './images');
+
 module.exports = settings => {
 
   settings = normalise(settings);
@@ -32,6 +35,7 @@ module.exports = settings => {
   app.use(staticrouter);
   app.use(assets());
 
+  app.use('/govuk/images', express.static(imagesDir));
   if (settings.assets) {
     app.use('/public', express.static(settings.assets));
   }
