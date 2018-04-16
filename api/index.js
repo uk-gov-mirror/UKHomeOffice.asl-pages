@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const auth = require('../lib/auth');
 const normalise = require('../lib/settings');
@@ -15,6 +16,8 @@ module.exports = settings => {
     app.use(keycloak.middleware());
     app.protect = rules => app.use(keycloak.protect(rules));
   }
+
+  app.use(bodyParser.json());
 
   return app;
 };
