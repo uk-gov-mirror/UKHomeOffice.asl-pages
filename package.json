@@ -5,7 +5,9 @@
   "main": "index.js",
   "style": "ui/assets/default.scss",
   "scripts": {
-    "test": "eslint ."
+    "test": "npm run test:lint && npm run test:unit",
+    "test:lint": "eslint .",
+    "test:unit": "mocha ./Test --recursive"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "eslint": "^4.19.1",
-    "eslint-config-lennym": "^2.0.0"
+    "eslint-config-lennym": "^2.0.1",
+    "mocha": "^5.1.1"
   }
 }
