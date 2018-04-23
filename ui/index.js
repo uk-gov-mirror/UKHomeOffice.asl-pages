@@ -1,5 +1,4 @@
 const express = require('express');
-const morgan = require('morgan');
 const path = require('path');
 
 const { MemoryStore } = require('express-session');
@@ -11,6 +10,7 @@ const views = require('express-react-views');
 const auth = require('../lib/auth');
 const api = require('../lib/api');
 const normalise = require('../lib/settings');
+const logger = require('../lib/logger');
 
 const toolkitDir = path.dirname(require.resolve('govuk_frontend_toolkit/package.json'));
 const imagesDir = path.resolve(toolkitDir, './images');
@@ -40,7 +40,7 @@ module.exports = settings => {
     app.use('/public', express.static(settings.assets));
   }
 
-  app.use(morgan(settings.logformat));
+  app.use(logger(settings));
 
   if (settings.session) {
     app.use(session(settings.session));
