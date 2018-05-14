@@ -30,7 +30,17 @@ module.exports = settings => {
   app.set('trust proxy', true);
   app.set('view engine', 'jsx');
   app.set('views', settings.views);
-  app.engine('jsx', views.createEngine());
+  app.engine('jsx', views.createEngine({
+    babel: {
+      presets: [
+        'react',
+        [
+          'env', { targets: { node: 'current' } }
+        ]
+      ],
+      plugins: 'transform-object-rest-spread'
+    }
+  }));
 
   app.use(staticrouter);
   app.use(assets());
