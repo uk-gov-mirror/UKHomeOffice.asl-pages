@@ -2,4 +2,7 @@ extends:
   - "../.eslintrc"
 
 env:
-  mocha: true
+  jest: true
+
+rules:
+  implicit-dependencies/no-implicit: 0

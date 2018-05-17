@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import App from '../../common/views/app';
 import DataTable from '../../common/views/containers/datatable';
 import SearchBar from '../../common/views/containers/search-bar';
@@ -9,7 +8,7 @@ import FilterSummary from '../../common/views/containers/filter-summary';
 const formatters = {
   name: {
     format: (name, something, item) => {
-      return <a href={`/establishment/${item.id}`}>{name}</a>
+      return <a href={`/establishment/${item.id}`}>{name}</a>;
     }
   }
 };

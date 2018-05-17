@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import GovUK from 'govuk-react-components/components/layout';
 import PhaseBanner from 'govuk-react-components/components/phase-banner';
 import { Breadcrumbs } from '@ukhomeoffice/asl-components';
