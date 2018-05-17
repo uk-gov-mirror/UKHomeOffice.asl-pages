@@ -11,9 +11,6 @@ const licencedToCarryOut = {
 };
 
 const Index = ({
-  store,
-  crumbs,
-  url,
   establishment: {
     name,
     licenceNumber,
@@ -26,13 +23,10 @@ const Index = ({
       }
     },
     ...rest
-  }
+  },
+  ...props
 }) => (
-  <App
-    store={store}
-    crumbs={crumbs}
-    url={url}
-  >
+  <App {...props}>
     <header>
       <h2>{ name }</h2>
       <h1>Establishment Details</h1>
@@ -67,10 +61,10 @@ const Index = ({
           <ExpandingPanel title="Conditions">
             { conditions
               ? (
-                <Fragment>
+                <div>
                   <p>In addition to the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193124/Project_Licence_-_Standard_Conditions.pdf">standard conditions of Section 2C licences</a>, this establishment will also:</p>
                   <p>{ conditions }</p>
-                </Fragment>
+                </div>
               )
               : <p>The <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193124/Project_Licence_-_Standard_Conditions.pdf">standard conditions of Section 2C licences</a> apply.</p>
             }
@@ -80,13 +74,13 @@ const Index = ({
             <dl>
               {
                 authorisations.filter(({ type }) => type === 'killing').map(({ method, description }, index) =>
-                  <Fragment key={index}>
+                  <div key={index}>
                     <dt>Method</dt>
                     <dd>{ method }</dd>
 
                     <dt>Applicable Animals</dt>
                     <dd>{ description }</dd>
-                  </Fragment>
+                  </div>
                 )
               }
             </dl>
@@ -111,6 +105,6 @@ const Index = ({
   </App>
 );
 
-const mapStateToProps = ({ url, establishment }) => ({ url, establishment });
+const mapStateToProps = ({ establishment }) => ({ establishment });
 
 module.exports = connect(mapStateToProps)(Index);

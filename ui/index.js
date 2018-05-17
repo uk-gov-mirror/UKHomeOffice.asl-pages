@@ -2,11 +2,16 @@ require('../lib/register');
 
 const express = require('express');
 const path = require('path');
-
+const { combineReducers, createStore } = require('redux');
+const reducers = require('../lib/reducers');
 const expressViews = require('express-react-views');
 const { MemoryStore } = require('express-session');
 const session = require('@lennym/redis-session');
 const { assets } = require('govuk-react-components');
+const { setUser } = require('../lib/actions');
+
+const sendResponse = require('../lib/send-response');
+const errorHandler = require('../lib/error-handler');
 
 const auth = require('../lib/auth');
 const api = require('../lib/api');
@@ -27,6 +32,7 @@ module.exports = settings => {
 
   const app = express();
   const staticrouter = express.Router();
+  const router = express.Router();
 
   app.set('trust proxy', true);
   app.set('view engine', 'jsx');
@@ -44,7 +50,7 @@ module.exports = settings => {
     app.use('/public', express.static(settings.assets));
   }
 
-  app.use('/public', express.static(path.resolve(__dirname, '../pages/common/dist')))
+  app.use('/public', express.static(path.resolve(__dirname, '../pages/common/dist')));
 
   app.use(logger(settings));
 
@@ -67,12 +73,33 @@ module.exports = settings => {
     });
   }
 
-  app.static = staticrouter;
-
   app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
   });
 
-  return app;
+  app.use((req, res, next) => {
+    res.store = createStore(combineReducers(reducers));
+    res.store.dispatch(setUser(req.user.id, req.user.get('name')));
+    res.locals.store = res.store;
+    next();
+  });
+
+  app.use(router);
+  /*
+  csv && app.use(generateCsv());
+  if (pdf) {
+    app.use(pdfRenderer(pdf));
+    app.use(generatePdf());
+  }
+*/
+  app.use(sendResponse(settings));
+  app.use(errorHandler());
+
+  return {
+    protect: (...args) => app.protect(...args),
+    listen: (...args) => app.listen(...args),
+    static: staticrouter,
+    use: (...args) => router.use(...args)
+  };
 };

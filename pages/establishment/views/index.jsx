@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import App from '../../common/views/app';
 
 const Index = ({
-  store,
-  crumbs,
-  url,
   establishment: {
     name,
     licenceNumber,
@@ -14,13 +11,11 @@ const Index = ({
         name: elhName
       }
     }
-  }
+  },
+  url,
+  ...props
 }) => (
-  <App
-    store={store}
-    crumbs={crumbs}
-    url={url}
-  >
+  <App url={url} {...props}>
     <header>
       <h2>&nbsp;</h2>
       <h1>{ name }</h1>

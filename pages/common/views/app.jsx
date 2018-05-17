@@ -7,11 +7,12 @@ const App = ({
   children,
   scripts,
   crumbs,
-  url
+  url,
+  reducers
 }) => (
   <Provider store={ store }>
     <Fragment>
-      <script dangerouslySetInnerHTML={{__html: `window.INITIAL_STATE=${JSON.stringify(store.getState())}`}} />
+      <script dangerouslySetInnerHTML={{__html: `window.INITIAL_STATE=${JSON.stringify(store.getState())}; window.REDUCERS = ${JSON.stringify(reducers)}`}} />
       <Layout
         scripts={[
           '/public/js/index.js',

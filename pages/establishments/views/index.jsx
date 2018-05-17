@@ -14,16 +14,8 @@ const formatters = {
   }
 };
 
-const Index = ({
-  store,
-  crumbs,
-  url
-}) => (
-  <App
-    store={store}
-    crumbs={crumbs}
-    url={url}
-  >
+const Index = props => (
+  <App {...props}>
     <header>
       <h2>&nbsp;</h2>
       <h1>Establishments</h1>
@@ -35,6 +27,4 @@ const Index = ({
   </App>
 );
 
-const mapStateToProps = ({ url }) => ({ url });
-
-export default connect(mapStateToProps)(Index);
+export default Index;

@@ -5,7 +5,7 @@ const StatusBar = ({
   logoutLink
 }) => (
   <div className="status-bar">
-    <span>{`${name}`}</span> | <span><a href={logoutLink}>Sign Out</a></span>
+    <span>{`${name}`}</span>|<span><a href={logoutLink}>Sign Out</a></span>
   </div>
 );
 

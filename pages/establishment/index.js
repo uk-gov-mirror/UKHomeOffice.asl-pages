@@ -1,16 +1,27 @@
 const page = require('../../lib/page');
-const path = require('path');
-const { setEstablishment } = require('../../lib/actions');
+const { setEstablishment, setUrl } = require('../../lib/actions');
 
 module.exports = settings => {
   const app = page({
     ...settings,
     root: __dirname,
-    rootReducer: require('./root-reducer')
+    reducers: [
+      'establishment'
+    ]
   });
 
-  app.page.use((req, res, next) => {
-    res.store.dispatch(setEstablishment(res.data))
+  app.get('/', (req, res, next) => {
+    req.api(`/establishment/${req.establishment}`)
+      .then(response => {
+        res.data = response.json.data;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.get('/', (req, res, next) => {
+    res.store.dispatch(setEstablishment(res.data));
+    res.store.dispatch(setUrl(res.locals.url));
     next();
   });
 

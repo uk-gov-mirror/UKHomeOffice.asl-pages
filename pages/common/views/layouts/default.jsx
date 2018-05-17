@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import GovUK from 'govuk-react-components/components/layout';
 import PhaseBanner from 'govuk-react-components/components/phase-banner';
 import { Breadcrumbs } from '@ukhomeoffice/asl-components';
@@ -11,7 +12,7 @@ const Layout = ({
   crumbs
 }) => (
   <GovUK
-    propositionHeader="TEST"
+    propositionHeader="Research and Testing with Animals"
     stylesheets={['/public/css/app.css']}
     scripts={scripts}
     headerContent={<StatusBar />}

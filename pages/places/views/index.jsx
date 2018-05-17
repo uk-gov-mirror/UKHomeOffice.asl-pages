@@ -29,16 +29,10 @@ export const formatters = {
 };
 
 const Places = ({
-  store,
   establishment: { name },
-  url,
-  crumbs
+  ...props
 }) => (
-  <App
-    store={store}
-    crumbs={crumbs}
-    url={url}
-  >
+  <App {...props}>
     <header>
       <h2>{name}</h2>
       <h1>Licensed premises</h1>
@@ -47,6 +41,6 @@ const Places = ({
   </App>
 );
 
-const mapStateToProps = ({ url, establishment }) => ({ url, establishment });
+const mapStateToProps = ({ establishment }) => ({ establishment });
 
 export default connect(mapStateToProps)(Places);

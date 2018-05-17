@@ -2,12 +2,13 @@
 
 import React from 'react';
 import url from 'url';
+import { pick } from 'lodash';
 import { stringify } from 'qs';
 import { render } from 'react-dom';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import Component from '../../../{{page}}/views';
-import rootReducer from '../../../{{page}}/root-reducer';
+import allReducers from '../../../../lib/reducers';
 
 const persistState = store => next => action => {
   const result = next(action);
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV === 'development') {
   middleware.push(logger);
 }
 
+const rootReducer = combineReducers(pick(allReducers, window.REDUCERS));
 const store = createStore(rootReducer, window.INITIAL_STATE, applyMiddleware(...middleware));
 
 render(
