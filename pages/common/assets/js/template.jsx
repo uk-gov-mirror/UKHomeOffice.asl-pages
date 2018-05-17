@@ -7,8 +7,8 @@ import { stringify } from 'qs';
 import { render } from 'react-dom';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import Component from '../../../{{page}}/views';
-import allReducers from '../../../../lib/reducers';
+import Component from '{{page}}';
+import allReducers from '{{root}}/lib/reducers';
 
 const persistState = store => next => action => {
   const result = next(action);

@@ -3,25 +3,31 @@
 const webpack = require('webpack');
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
+const mkdir = require('mkdirp');
 
 const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
 const TEMPLATE_PATH = path.resolve(__dirname, './pages/common/assets/js/template.jsx');
 const template = fs.readFileSync(TEMPLATE_PATH).toString();
 
-const pages = fs.readdirSync(path.resolve(__dirname, './pages')).filter(f => !f.includes('.') && f !== 'common');
+const pages = glob.sync('./pages/**/views/index.jsx', { ignore: ['./pages/common'] });
 
 const entry = pages.reduce((entrypoints, page) => {
-  const file = path.resolve(__dirname, `./pages/common/assets/.js/${page}.js`);
-  fs.writeFileSync(file, template.replace(/{{page}}/g, page));
-  return { ...entrypoints, [page]: file };
+  const file = path.resolve(page, '../../dist/entry.js');
+  mkdir.sync(path.dirname(file));
+  const js = template
+    .replace(/{{page}}/g, path.resolve(__dirname, page))
+    .replace(/{{root}}/g, __dirname);
+  fs.writeFileSync(file, js);
+  return { ...entrypoints, [path.relative(__dirname, path.dirname(file))]: file };
 }, {});
 
 module.exports = {
   entry,
   output: {
-    path: path.resolve(__dirname, './pages'),
-    filename: './[name]/dist/js/index.js'
+    path: __dirname,
+    filename: '[name]/index.js'
   },
   mode,
   devtool: mode === 'development' && 'inline-source-map',
@@ -45,7 +51,7 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         commons: {
-          name: 'common',
+          name: 'pages/common/dist',
           chunks: 'initial',
           minChunks: pages.length
         }
