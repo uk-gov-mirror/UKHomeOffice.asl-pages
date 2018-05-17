@@ -6,7 +6,6 @@ const expressViews = require('express-react-views');
 const { MemoryStore } = require('express-session');
 const session = require('@lennym/redis-session');
 const { assets } = require('govuk-react-components');
-const { setUser } = require('../lib/actions');
 
 const sendResponse = require('../lib/send-response');
 const errorHandler = require('../lib/error-handler');
