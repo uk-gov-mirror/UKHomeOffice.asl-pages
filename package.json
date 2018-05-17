@@ -29,7 +29,7 @@
     "@asl/dictionary": "^1.0.7",
     "@asl/pdf-renderer": "^1.0.0",
     "@lennym/redis-session": "^1.0.4",
-    "@ukhomeoffice/asl-components": "^1.3.2",
+    "@ukhomeoffice/asl-components": "^1.3.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
