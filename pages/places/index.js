@@ -1,6 +1,5 @@
 const page = require('../../lib/page');
-const { setEstablishment, setData, setSchema } = require('../../lib/actions');
-const { places } = require('../../lib/schema');
+const { setEstablishment, setData } = require('../../lib/actions');
 
 module.exports = settings => {
   const app = page({
@@ -11,7 +10,33 @@ module.exports = settings => {
       'list',
       'filters',
       'sort'
-    ]
+    ],
+    schema: {
+      id: {},
+      site: {
+        show: true,
+        filter: true
+      },
+      area: {
+        show: true
+      },
+      name: {
+        show: true
+      },
+      suitability: {
+        show: true,
+        filter: true,
+        comparator: 'AND',
+        exact: true
+      },
+      holding: {
+        show: true,
+        filter: true,
+        comparator: 'AND',
+        exact: true
+      },
+      updatedAt: {}
+    }
   });
 
   app.get('/', (req, res, next) => {
@@ -34,7 +59,6 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     res.store.dispatch(setEstablishment(res.establishment));
-    res.store.dispatch(setSchema(places));
     res.store.dispatch(setData(res.data));
     next();
   });

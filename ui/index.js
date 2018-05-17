@@ -2,8 +2,6 @@ require('../lib/register');
 
 const express = require('express');
 const path = require('path');
-const { combineReducers, createStore } = require('redux');
-const reducers = require('../lib/reducers');
 const expressViews = require('express-react-views');
 const { MemoryStore } = require('express-session');
 const session = require('@lennym/redis-session');
@@ -75,13 +73,6 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     res.locals.user = req.user;
-    next();
-  });
-
-  app.use((req, res, next) => {
-    res.store = createStore(combineReducers(reducers));
-    res.store.dispatch(setUser(req.user.id, req.user.get('name')));
-    res.locals.store = res.store;
     next();
   });
 

@@ -1,6 +1,5 @@
 const page = require('../../lib/page');
-const { setData, setSchema } = require('../../lib/actions');
-const { establishments } = require('../../lib/schema');
+const { setData } = require('../../lib/actions');
 
 module.exports = settings => {
   const app = page({
@@ -11,7 +10,15 @@ module.exports = settings => {
       'list',
       'filters',
       'sort'
-    ]
+    ],
+    schema: {
+      name: {
+        show: true
+      },
+      licenceNumber: {
+        show: true
+      }
+    }
   });
 
   app.get('/', (req, res, next) => {
@@ -24,7 +31,6 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    res.store.dispatch(setSchema(establishments));
     res.store.dispatch(setData(res.data));
     next();
   });
