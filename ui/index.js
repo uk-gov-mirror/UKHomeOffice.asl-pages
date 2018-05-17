@@ -1,11 +1,12 @@
+require('../lib/register');
+
 const express = require('express');
 const path = require('path');
 
+const expressViews = require('express-react-views');
 const { MemoryStore } = require('express-session');
 const session = require('@lennym/redis-session');
 const { assets } = require('govuk-react-components');
-
-const views = require('express-react-views');
 
 const auth = require('../lib/auth');
 const api = require('../lib/api');
@@ -29,17 +30,10 @@ module.exports = settings => {
 
   app.set('trust proxy', true);
   app.set('view engine', 'jsx');
-  app.set('views', settings.views);
-  app.engine('jsx', views.createEngine({
-    babel: {
-      presets: [
-        'react',
-        [
-          'env', { targets: { node: 'current' } }
-        ]
-      ],
-      plugins: 'transform-object-rest-spread'
-    }
+  app.set('views', path.resolve(__dirname, './views'));
+
+  app.engine('jsx', expressViews.createEngine({
+    transformViews: false
   }));
 
   app.use(staticrouter);
@@ -49,6 +43,8 @@ module.exports = settings => {
   if (settings.assets) {
     app.use('/public', express.static(settings.assets));
   }
+
+  app.use('/public', express.static(path.resolve(__dirname, '../pages/common/dist')))
 
   app.use(logger(settings));
 
@@ -72,6 +68,11 @@ module.exports = settings => {
   }
 
   app.static = staticrouter;
+
+  app.use((req, res, next) => {
+    res.locals.user = req.user;
+    next();
+  });
 
   return app;
 };
