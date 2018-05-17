@@ -47,7 +47,7 @@ module.exports = settings => {
     app.use('/public', express.static(settings.assets));
   }
 
-  app.use('/public', express.static(path.resolve(__dirname, '../pages/common/dist')));
+  app.use('/public/js', express.static(path.resolve(__dirname, '../pages/common/dist')));
 
   app.use(logger(settings));
 
