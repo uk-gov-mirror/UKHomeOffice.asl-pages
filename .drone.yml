@@ -10,6 +10,13 @@ pipeline:
     when:
       event: [push, pull_request, tag]
 
+  build:
+    image: node:8
+    commands:
+      - npm run build
+    when:
+      event: [push, pull_request, tag]
+
   publish:
     image: node:8
     secrets:
