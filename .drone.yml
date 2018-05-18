@@ -16,6 +16,8 @@ pipeline:
       - npm run build
     when:
       event: [push, pull_request, tag]
+    secrets:
+      - npm_auth_token
 
   publish:
     image: node:8
