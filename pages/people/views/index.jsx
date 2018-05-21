@@ -34,7 +34,7 @@ const People = ({
       <h2>{name}</h2>
       <h1>Named people and licence holders</h1>
     </header>
-    <SearchBar />
+    <SearchBar label="Search by name or licence number" />
     <FilterSummary />
     <DataTable formatters={formatters} />
   </App>
