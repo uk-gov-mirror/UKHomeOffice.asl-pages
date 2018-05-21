@@ -14,7 +14,11 @@ module.exports = settings => {
   app.get('/', (req, res, next) => {
     req.api(`/establishment/${req.establishment}/profile/${req.profile}`)
       .then(response => {
-        res.data = response.json.data;
+        if (response.json.data) {
+          res.data = response.json.data;
+        } else {
+          throw new Error('Profile not found');
+        }
       })
       .then(() => next())
       .catch(next);

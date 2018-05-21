@@ -83,10 +83,37 @@ th {
     }
   }
 
-  .establishment-summary {
+  .establishment-summary, .profile {
     aside {
-      border-top: 2px solid $govuk-blue;
+      border-top: 6px solid $govuk-blue;
       padding-top: $gutter-half;
+      box-sizing: border-box;
+    }
+  }
+
+  .profile {
+    .profile-section {
+      border-top: 1px solid $grey-2;
+      margin-top: $gutter-half;
+
+      h3 {
+        @extend h2;
+        margin-top: $gutter;
+        font-weight: normal;
+      }
+    }
+
+    dl {
+      @extend .grid-row;
+
+      dt, dd {
+        @extend .column-one-half;
+        font-weight: normal;
+      }
+    }
+
+    .accordion {
+      margin-top: $gutter;
     }
   }
 }
