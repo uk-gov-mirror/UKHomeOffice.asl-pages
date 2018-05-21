@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import App from '../../common/views/app';
-import SearchBar from '../../common/views/containers/search-bar';
+import SearchBar from '../../common/views/containers/search';
 import FilterSummary from '../../common/views/containers/filter-summary';
 import DataTable from '../../common/views/containers/datatable';
 import Acronym from '../../common/views/components/acronym';
@@ -16,7 +16,9 @@ const joinAcronyms = data => {
 };
 
 export const formatters = {
-  name: {},
+  name: {
+    format: (name, person) => <a href={`/profile/${ person.id }`}>{ name }</a>
+  },
   roles: {
     format: data => joinAcronyms(data.map(role => role.type.toUpperCase()))
   },
