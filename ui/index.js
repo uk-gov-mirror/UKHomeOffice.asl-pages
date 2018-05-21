@@ -7,6 +7,9 @@ const { MemoryStore } = require('express-session');
 const session = require('@lennym/redis-session');
 const { assets } = require('govuk-react-components');
 
+const { combineReducers, createStore } = require('redux');
+const allReducers = require('../lib/reducers');
+
 const sendResponse = require('../lib/send-response');
 const errorHandler = require('../lib/error-handler');
 
@@ -75,6 +78,17 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     res.locals.user = req.user;
+    next();
+  });
+
+  app.use((req, res, next) => {
+    res.store = createStore(combineReducers(allReducers), {
+      user: {
+        id: req.user.id,
+        name: req.user.get('name')
+      }
+    });
+    res.locals.store = res.store;
     next();
   });
 
