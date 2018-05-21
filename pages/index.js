@@ -3,5 +3,6 @@ module.exports = {
   establishment: require('./establishment'),
   establishments: require('./establishments'),
   places: require('./places'),
+  people: require('./people'),
   profile: require('./profile')
 };

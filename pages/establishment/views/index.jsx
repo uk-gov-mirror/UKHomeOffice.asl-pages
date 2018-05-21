@@ -25,6 +25,7 @@ const Index = ({
       <div className="column-two-thirds">
         <ul className="dashboard">
           <li><a href={`${url}/details`}>Establishment details</a></li>
+          <li><a href={`${url}/people`}>Named people and licence holders</a></li>
           <li><a href={`${url}/places`}>Licensed premises</a></li>
         </ul>
       </div>
