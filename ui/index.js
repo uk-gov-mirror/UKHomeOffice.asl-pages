@@ -33,7 +33,10 @@ module.exports = settings => {
 
   app.set('trust proxy', true);
   app.set('view engine', 'jsx');
-  app.set('views', path.resolve(__dirname, './views'));
+  app.set('views', [
+    settings.views,
+    path.resolve(__dirname, '../pages/common/views')
+  ]);
 
   app.engine('jsx', expressViews.createEngine({
     transformViews: false
