@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { uniq, flatten } from 'lodash';
-import { setFilter } from '@ukhomeoffice/asl-components/components/filters';
+import { setFilter } from '../../../../lib/actions';
 import LinkFilter from '../components/link-filter';
 
 const mapStateToProps = ({ filters , list: { data } }, { prop }) => {
