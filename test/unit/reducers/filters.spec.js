@@ -16,6 +16,33 @@ describe('rootReducer', () => {
     expect(reducer(undefined, { type: 'SET_FILTERS', filters: expected })).toEqual(expected);
   });
 
+  test('SET_FILTERS does not remove filters on other keys', () => {
+    const initial = {
+      test: ['test-value-1']
+    };
+    const input = {
+      '*': ['test']
+    };
+    const expected = {
+      '*': ['test'],
+      test: ['test-value-1']
+    };
+    expect(reducer(initial, { type: 'SET_FILTERS', filters: input })).toEqual(expected);
+  });
+
+  test('SET_FILTERS overwrites existing filters', () => {
+    const initial = {
+      test: ['test-value-1']
+    };
+    const input = {
+      test: ['test-value-2']
+    };
+    const expected = {
+      test: ['test-value-2']
+    };
+    expect(reducer(initial, { type: 'SET_FILTERS', filters: input })).toEqual(expected);
+  });
+
   test('SET_FILTER adds a new filter', () => {
     const key = 'test';
     const value = 'test-value';
@@ -25,14 +52,26 @@ describe('rootReducer', () => {
     expect(reducer({}, { type: 'SET_FILTER', key, value })).toEqual(expected);
   });
 
-  test('SET_FILTER appends a filter', () => {
+  test('SET_FILTER replaces an existing filter for a key', () => {
     const key = 'test';
     const value = 'test-value-2';
     const initial = {
       test: ['test-value-1']
     };
     const expected = {
-      test: ['test-value-1', 'test-value-2']
+      test: ['test-value-2']
+    };
+    expect(reducer(initial, { type: 'SET_FILTER', key, value })).toEqual(expected);
+  });
+
+  test('SET_FILTER sets to an empty array if passed a falsy value', () => {
+    const key = 'test';
+    const value = null;
+    const initial = {
+      test: ['test-value-1']
+    };
+    const expected = {
+      test: []
     };
     expect(reducer(initial, { type: 'SET_FILTER', key, value })).toEqual(expected);
   });
