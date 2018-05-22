@@ -17,6 +17,12 @@ module.exports = settings => {
         show: true
       },
       roles: {
+        show: true,
+        filter: true,
+        comparator: 'AND',
+        exact: true
+      },
+      licence: {
         show: true
       },
       pil: {
@@ -38,7 +44,16 @@ module.exports = settings => {
   app.get('/', (req, res, next) => {
     req.api(`/establishment/${req.establishment}/profiles`)
       .then(response => {
-        res.data = response.json.data;
+        res.data = response.json.data.map(profile => {
+          const roles = profile.roles.map(r => r.type.toUpperCase());
+          if (profile.pil) {
+            roles.push('PILH')
+          }
+          return {
+            ...profile,
+            roles
+          };
+        });
       })
       .then(() => next())
       .catch(next);

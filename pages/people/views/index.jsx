@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import App from '../../common/views/app';
 import SearchBar from '../../common/views/containers/search';
 import FilterSummary from '../../common/views/containers/filter-summary';
+import LinkFilter from '../../common/views/containers/link-filter';
 import DataTable from '../../common/views/containers/datatable';
 import Acronym from '../../common/views/components/acronym';
 import Join from '../../common/views/components/join';
@@ -15,14 +16,31 @@ const joinAcronyms = data => {
   return <Acronym key={data}>{data}</Acronym>;
 };
 
+const licenceTypes = profile => {
+  const types = [];
+  if (profile.pil) {
+    types.push('PIL');
+  }
+  if (profile.ppls && profile.ppls.length) {
+    types.push('PPL');
+  }
+  return joinAcronyms(types);
+}
+
 export const formatters = {
   name: {
     format: (name, person) => <a href={`/profile/${ person.id }`}>{ name }</a>
   },
   roles: {
-    format: data => joinAcronyms(data.map(role => role.type.toUpperCase()))
+    format: data => joinAcronyms(data)
   },
-  pil: {}
+  licence: {
+    title: 'Licence type',
+    format: (data, row) => licenceTypes(row)
+  },
+  pil: {
+    title: 'Licence number'
+  }
 };
 
 const People = ({
@@ -35,6 +53,7 @@ const People = ({
       <h1>Named people and licence holders</h1>
     </header>
     <SearchBar label="Search by name or licence number" />
+    <LinkFilter prop="roles" />
     <FilterSummary />
     <DataTable formatters={formatters} />
   </App>
