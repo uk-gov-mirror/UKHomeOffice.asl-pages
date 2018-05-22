@@ -16,7 +16,7 @@ describe('rootReducer', () => {
     expect(reducer(undefined, { type: 'SET_FILTERS', filters: expected })).toEqual(expected);
   });
 
-  test('SET_FILTERS does not remove filters on other keys', () => {
+  test('SET_FILTER removes filters on other keys', () => {
     const initial = {
       test: ['test-value-1']
     };
@@ -24,8 +24,7 @@ describe('rootReducer', () => {
       '*': ['test']
     };
     const expected = {
-      '*': ['test'],
-      test: ['test-value-1']
+      '*': ['test']
     };
     expect(reducer(initial, { type: 'SET_FILTERS', filters: input })).toEqual(expected);
   });

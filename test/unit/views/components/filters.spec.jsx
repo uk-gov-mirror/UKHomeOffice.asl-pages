@@ -53,17 +53,11 @@ describe('<Filters />', () => {
     });
 
     describe('clearFilters()', () => {
-      const preventDefault = jest.fn();
       const setFilters = jest.fn();
       const wrapper = shallow(<Filters setFilters={setFilters} />);
 
-      test('calls preventDefault', () => {
-        wrapper.instance().clearFilters({ preventDefault });
-        expect(preventDefault.mock.calls.length).toBe(1);
-      });
-
       test('calls setFilters with an empty object', () => {
-        wrapper.instance().clearFilters({ preventDefault });
+        wrapper.instance().clearFilters();
         expect(setFilters.mock.calls[0][0]).toEqual({});
       });
     });
