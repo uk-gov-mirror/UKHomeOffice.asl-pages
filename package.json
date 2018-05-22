@@ -29,7 +29,6 @@
     "@asl/dictionary": "^1.0.7",
     "@asl/pdf-renderer": "^1.0.0",
     "@lennym/redis-session": "^1.0.4",
-    "@ukhomeoffice/asl-components": "^1.3.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",

@@ -13,7 +13,7 @@ import allReducers from '{{root}}/lib/reducers';
 const persistState = store => next => action => {
   const result = next(action);
   switch (action.type) {
-    case 'SET_SORT':
+    case 'SET_SORT_COLUMN':
     case 'SET_FILTERS':
       const { filters, sort } = store.getState();
       const href = url.parse(window.location.href);

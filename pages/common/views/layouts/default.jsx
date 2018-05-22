@@ -1,7 +1,7 @@
 import React from 'react';
 import GovUK from 'govuk-react-components/components/layout';
 import PhaseBanner from 'govuk-react-components/components/phase-banner';
-import { Breadcrumbs } from '@ukhomeoffice/asl-components';
+import Breadcrumbs from '../components/breadcrumbs';
 
 import StatusBar from '../containers/status-bar';
 

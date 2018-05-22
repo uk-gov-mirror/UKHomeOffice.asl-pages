@@ -1,7 +1,10 @@
+@import "images";
 @import "default";
-@import "@ukhomeoffice/asl-components";
 
 @import "status-bar";
+@import "datatable";
+@import "accordion";
+@import "search";
 
 .data {
   padding: $gutter;

@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import App from '../../common/views/app';
-import Accordion from '@ukhomeoffice/asl-components/components/accordion';
-import ExpandingPanel from '@ukhomeoffice/asl-components/components/accordion/expanding-panel';
+import Accordion from '../../common/views/components/accordion';
+import ExpandingPanel from '../../common/views/components/expanding-panel';
 
 const licencedToCarryOut = {
   procedure: 'Regulated procedures on protected animals',
