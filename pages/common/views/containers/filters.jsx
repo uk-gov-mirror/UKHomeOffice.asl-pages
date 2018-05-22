@@ -1,18 +1,25 @@
-import { pickBy, merge } from 'lodash';
+import { pickBy, merge, uniq, flatten, reduce } from 'lodash';
 import { connect } from 'react-redux';
-import Filters, { setFilters } from '@ukhomeoffice/asl-components/components/filters';
+import Filters from '../components/filters';
+import { setFilters } from '../../../../lib/actions';
 
-const mapStateToProps = ({ filters, list: { schema, data } }, { formatters }) => ({
-  schema: pickBy(merge({}, schema, formatters), item => item.filter),
-  filters,
-  data
+const uniqueByType = (key, data, { title, formatFilterItems, format }) => ({
+  key,
+  title,
+  format: formatFilterItems || format,
+  values: uniq(flatten(data.map(row => row[key])))
 });
 
-const mapDispatchToProps = dispatch => ({
-  onChange: filters => dispatch(setFilters(filters))
-});
+const mapStateToProps = ({ filters, list: { schema, data } }, { formatters }) => {
+  const mergedSchema = pickBy(merge({}, schema, formatters), item => item.filter);
+  return {
+    filterSettings: reduce(mergedSchema, (obj, value, key) => ({ ...obj, [key]: uniqueByType(key, data, value) }), {}),
+    filters,
+    data
+  };
+};
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { setFilters }
 )(Filters);
