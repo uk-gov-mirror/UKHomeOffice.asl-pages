@@ -19,14 +19,16 @@ const Index = ({
     conditions,
     licenceHolder: {
       profile: {
+        id,
         name: elhName
       }
     },
     ...rest
   },
+  url,
   ...props
 }) => (
-  <App {...props}>
+  <App url={url} {...props}>
     <header>
       <h2>{ name }</h2>
       <h1>Establishment Details</h1>
@@ -42,7 +44,7 @@ const Index = ({
           <dd>{ address }</dd>
 
           <dt>Licence holder</dt>
-          <dd>{ elhName }</dd>
+          <dd><a href={`profile/${id}`}>{ elhName }</a></dd>
 
           <dt>Licensed to carry out</dt>
           <dd>
@@ -105,6 +107,6 @@ const Index = ({
   </App>
 );
 
-const mapStateToProps = ({ establishment }) => ({ establishment });
+const mapStateToProps = ({ url, establishment }) => ({ url, establishment });
 
 module.exports = connect(mapStateToProps)(Index);

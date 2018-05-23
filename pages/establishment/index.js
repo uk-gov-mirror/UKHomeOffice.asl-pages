@@ -1,5 +1,5 @@
 const page = require('../../lib/page');
-const { setEstablishment, setUrl } = require('../../lib/actions');
+const { setEstablishment } = require('../../lib/actions');
 
 module.exports = settings => {
   const app = page({
@@ -21,7 +21,6 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     res.store.dispatch(setEstablishment(res.data));
-    res.store.dispatch(setUrl(res.locals.url));
     next();
   });
 
