@@ -27,12 +27,10 @@ describe('<Filter />', () => {
 
   test('Calls the provided onChange method on form submission', () => {
     const onChange = jest.fn();
-    const preventDefault = jest.fn();
     const wrapper = shallow(<Filter onChange={ onChange } />);
     wrapper.find('input').prop('onChange')({ target: { value: 'foo' } });
-    wrapper.find('form').prop('onSubmit')({ preventDefault });
+    wrapper.find(ApplyChanges).prop('onApply')();
     expect(onChange.mock.calls.length).toBe(1);
-    expect(preventDefault.mock.calls.length).toBe(1);
     expect(onChange.mock.calls[0][0]).toEqual('foo');
   });
 });

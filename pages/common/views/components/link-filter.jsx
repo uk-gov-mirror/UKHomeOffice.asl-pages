@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 
+import ApplyChanges from '../containers/apply-changes';
+
 const LinkFilter = ({
   filters,
   selected,
@@ -11,7 +13,7 @@ const LinkFilter = ({
       <li>
         {
           selected
-            ? <a href="" onClick={e => { e.preventDefault(); onChange(null); }}>All</a>
+            ? <ApplyChanges onApply={() => onChange(null)} label="All" />
             : <Fragment>All</Fragment>
         }
       </li>
@@ -20,7 +22,9 @@ const LinkFilter = ({
           if (f === selected) {
             return <li key={ f }>{ f }</li>;
           }
-          return <li key={ f }><a href="" onClick={e => { e.preventDefault(); onChange(f); }}>{ f }</a></li>;
+          return <li key={ f }>
+            <ApplyChanges onApply={() => onChange(f)} label={ f } />
+          </li>;
         })
       }
     </ul>
