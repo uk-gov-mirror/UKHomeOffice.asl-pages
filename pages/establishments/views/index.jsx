@@ -19,7 +19,7 @@ const Index = props => (
       <h2>&nbsp;</h2>
       <h1>Establishments</h1>
     </header>
-    <SearchBar />
+    <SearchBar label="Search by name or licence number" />
     <FilterSummary />
     <DataTable formatters={formatters} />
     <ExportLink />
