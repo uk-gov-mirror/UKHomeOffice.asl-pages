@@ -4,7 +4,9 @@ import App from './app';
 class Index extends React.Component {
   render() {
     return (
-      <App {...this.props}>
+      <App
+        {...this.props}
+      >
         <h1 className="heading-large">{this.props.error.message}</h1>
         <pre>
           {this.props.error.stack}
