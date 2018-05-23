@@ -8,20 +8,13 @@ const App = ({
   scripts,
   crumbs,
   url,
-  reducers,
-  noScripts
+  reducers
 }) => (
   <Provider store={ store }>
     <Fragment>
       <script dangerouslySetInnerHTML={{__html: `window.INITIAL_STATE=${JSON.stringify(store.getState())}; window.REDUCERS = ${JSON.stringify(reducers)}`}} />
       <Layout
-        scripts={!noScripts
-          ? [
-            '/public/index.js',
-            `${url}/assets/index.js`
-          ]
-          : undefined
-        }
+        scripts={scripts}
         crumbs={crumbs}>{ children }</Layout>
     </Fragment>
   </Provider>

@@ -16,7 +16,7 @@ const Index = ({
   url,
   ...props
 }) => (
-  <App url={url} {...props}>
+  <App {...props}>
     <header>
       <h2>&nbsp;</h2>
       <h1>{ name }</h1>
