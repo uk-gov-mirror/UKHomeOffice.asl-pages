@@ -9,22 +9,22 @@ const LinkFilter = ({
     <label>Filter by:</label>
     <ul>
       <li>
-      {
-        selected ?
-          <a href="" onClick={e => { e.preventDefault(); onChange(null) }}>All</a> :
-          <Fragment>All</Fragment>
-      }
+        {
+          selected
+            ? <a href="" onClick={e => { e.preventDefault(); onChange(null); }}>All</a>
+            : <Fragment>All</Fragment>
+        }
       </li>
       {
         filters.map(f => {
           if (f === selected) {
-            return <li key={ f }>{ f }</li>
+            return <li key={ f }>{ f }</li>;
           }
-          return <li key={ f }><a href="" onClick={e => { e.preventDefault(); onChange(f); }}>{ f }</a></li>
+          return <li key={ f }><a href="" onClick={e => { e.preventDefault(); onChange(f); }}>{ f }</a></li>;
         })
       }
     </ul>
-  </div>
+  </div>;
 };
 
 export default LinkFilter;

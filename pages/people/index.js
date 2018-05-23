@@ -47,7 +47,7 @@ module.exports = settings => {
         res.data = response.json.data.map(profile => {
           const roles = profile.roles.map(r => r.type.toUpperCase());
           if (profile.pil) {
-            roles.push('PILH')
+            roles.push('PILH');
           }
           return {
             ...profile,

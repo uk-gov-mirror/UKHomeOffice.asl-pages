@@ -7,7 +7,6 @@ import LinkFilter from '../../common/views/containers/link-filter';
 import DataTable from '../../common/views/containers/datatable';
 import Acronym from '../../common/views/components/acronym';
 import Join from '../../common/views/components/join';
-import dict from '@asl/dictionary';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -25,11 +24,11 @@ const licenceTypes = profile => {
     types.push('PPL');
   }
   return joinAcronyms(types);
-}
+};
 
 export const formatters = {
   name: {
-    format: (name, person) => <a href={`/profile/${ person.id }`}>{ name }</a>
+    format: (name, person) => <a href={`/profile/${person.id}`}>{ name }</a>
   },
   roles: {
     format: data => joinAcronyms(data)
