@@ -18,8 +18,6 @@ module.exports = settings => {
       },
       roles: {
         show: true,
-        filter: true,
-        comparator: 'AND',
         exact: true
       },
       licence: {
