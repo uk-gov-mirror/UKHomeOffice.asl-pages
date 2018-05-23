@@ -8,5 +8,5 @@ const mapStateToProps = ({ filters }) => ({
 
 module.exports = connect(
   mapStateToProps,
-  { setFilter }
+  { onChange: value => setFilter('*', value) }
 )(Search);
