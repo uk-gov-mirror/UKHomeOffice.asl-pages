@@ -8,6 +8,7 @@ const Index = ({
     licenceNumber,
     licenceHolder: {
       profile: {
+        id,
         name: elhName
       }
     }
@@ -34,7 +35,7 @@ const Index = ({
             <dd>{ licenceNumber }</dd>
 
             <dt>Licence holder</dt>
-            <dd>{ elhName }</dd>
+            <dd><a href={`${url}/profile/${id}`}>{ elhName }</a></dd>
           </dl>
         </aside>
       </div>
