@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Filter from 'views/components/search';
+import ApplyChanges from 'views/containers/apply-changes';
 
 describe('<Filter />', () => {
   test('Creates a .text-filter element containing a govuk Input', () => {
