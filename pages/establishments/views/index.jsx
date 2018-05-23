@@ -7,8 +7,8 @@ import FilterSummary from '../../common/views/containers/filter-summary';
 
 const formatters = {
   name: {
-    format: (name, item) => {
-      return <a href={`/establishment/${item.id}`}>{name}</a>;
+    format: (name, est) => {
+      return <a href={`/establishment/${est.id}`}>{name}</a>;
     }
   }
 };

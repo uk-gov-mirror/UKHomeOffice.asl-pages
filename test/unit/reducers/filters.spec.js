@@ -187,5 +187,18 @@ describe('rootReducer', () => {
         expect(filtered.length).toBe(0);
       });
     });
+
+    describe('combined single-field and multi-field search', () => {
+      test('if wildcard filter is empty, filters only on specific field', () => {
+        const filters = {
+          '*': [],
+          animals: ['Painted stork']
+        };
+        const filtered = applyFilters({ ...state, filters, schema });
+        expect(filtered.length).toBe(1);
+        expect(filtered[0].id).toBe(1);
+      });
+    });
+
   });
 });

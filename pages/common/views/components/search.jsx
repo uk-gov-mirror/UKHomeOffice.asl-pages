@@ -1,19 +1,23 @@
 import React from 'react';
 
+import ApplyChanges from '../containers/apply-changes';
+
 class Search extends React.Component {
 
   componentDidMount() {
     this.setState({ value: this.props.filter });
   }
 
-  submit(e) {
-    e.preventDefault();
+  emitChange() {
     this.props.onChange(this.state.value);
   }
 
   render() {
     return (
-      <form onSubmit={e => this.submit(e)}>
+      <ApplyChanges
+        type="form"
+        onApply={() => this.emitChange()}
+      >
         <div className="grid-row">
           <div className="column-two-thirds">
             <div className="form-group search-box">
@@ -35,7 +39,7 @@ class Search extends React.Component {
             </div>
           </div>
         </div>
-      </form>
+      </ApplyChanges>
     );
   }
 }
