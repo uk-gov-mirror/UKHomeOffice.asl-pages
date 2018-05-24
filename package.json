@@ -8,6 +8,7 @@
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint . --ext jsx,js",
     "test:unit": "jest",
+    "test:functional": "wdio ./test/functional/config.js",
     "build": "npm run build:js && npm run build:css",
     "build:js": "webpack",
     "postbuild:js": "rm ./pages/**/dist/entry.js",
@@ -69,6 +70,8 @@
     "npm-sass": "^2.2.3",
     "redux-logger": "^3.0.6",
     "supertest": "^3.1.0",
+    "wdio-mocha-framework": "^0.5.13",
+    "webdriverio": "^4.12.0",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3"
   },
