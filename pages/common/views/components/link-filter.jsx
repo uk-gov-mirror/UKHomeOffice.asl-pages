@@ -5,7 +5,8 @@ import ApplyChanges from '../containers/apply-changes';
 const LinkFilter = ({
   filters,
   selected,
-  onChange
+  onChange,
+  formatter
 }) => {
   return <div className="link-filter">
     <label>Filter by:</label>
@@ -19,11 +20,12 @@ const LinkFilter = ({
       </li>
       {
         filters.map(f => {
+          const label = formatter ? formatter(f) : f;
           if (f === selected) {
-            return <li key={ f }>{ f }</li>;
+            return <li key={ f }>{ label }</li>;
           }
           return <li key={ f }>
-            <ApplyChanges onApply={() => onChange(f)} label={ f } />
+            <ApplyChanges onApply={() => onChange(f)} label={ label } />
           </li>;
         })
       }
