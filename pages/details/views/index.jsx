@@ -17,12 +17,7 @@ const Index = ({
     address,
     authorisations,
     conditions,
-    licenceHolder: {
-      profile: {
-        id,
-        name: elhName
-      }
-    },
+    pelh,
     ...rest
   },
   url,
@@ -44,7 +39,7 @@ const Index = ({
           <dd>{ address }</dd>
 
           <dt>Licence holder</dt>
-          <dd><a href={`profile/${id}`}>{ elhName }</a></dd>
+          <dd><a href={`profile/${pelh.id}`}>{ pelh.name }</a></dd>
 
           <dt>Licensed to carry out</dt>
           <dd>
