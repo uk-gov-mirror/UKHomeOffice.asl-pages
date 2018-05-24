@@ -22,7 +22,7 @@ pipeline:
   functionaltest:
     image: node:8
     commands:
-      - npm run test:functional -- --host selenium --baseUrl http://functionaltest:3456
+      - npm run test:functional:ci -- --host selenium --baseUrl http://functionaltest:3456
     when:
       event: [push, pull_request, tag]
     secrets:
