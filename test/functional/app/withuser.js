@@ -10,7 +10,7 @@ module.exports = (app, user = {}) => {
       get: (key) => {
         return {
           establishment: 8201,
-          name: 'User Name'
+          name: user.name || 'User Name'
         }[key];
       },
       is: () => true,
