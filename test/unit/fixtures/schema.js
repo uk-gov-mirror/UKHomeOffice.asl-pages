@@ -13,15 +13,13 @@ export default {
   },
   address: {
     show: true,
-    accessor() {
-      return get(this, 'country');
+    accessor(row) {
+      return get(row, 'country');
     }
   },
   car: {
     show: true,
-    accessor() {
-      return get(this, 'car.year');
-    }
+    accessor: 'car.year'
   },
   animals: {
     show: true

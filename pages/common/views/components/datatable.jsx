@@ -1,5 +1,6 @@
 import React from 'react';
-import { map, get, isEmpty, isUndefined } from 'lodash';
+import { map, isEmpty, isUndefined } from 'lodash';
+import { getValue } from '../../../../lib/utils';
 import DatatableHeader from '../containers/datatable-header';
 
 const Table = ({
@@ -31,9 +32,9 @@ const Table = ({
           data.map(row => (
             <tr key={row.id}>
               {
-                map(columns, ({ format, accessor }, key) => {
-                  const datum = get(row, accessor || key);
-                  return <td key={key}>{ format ? format(datum, row) : datum }</td>;
+                map(columns, (options, key) => {
+                  const datum = getValue({ row, schema: options, key });
+                  return <td key={key}>{ options.format ? options.format(datum, row) : datum }</td>;
                 })
               }
             </tr>
