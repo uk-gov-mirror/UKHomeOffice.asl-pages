@@ -13,10 +13,8 @@ describe('can', () => {
   test('Rejects with an error if task is unknown', () => {
     const task = 'unknown.task';
     const expected = 'Unknown task: unknown.task';
-    return can(user, task)
-      .catch(err => {
-        expect(err.message).toBe(expected);
-      });
+    return expect(can(user, task))
+      .rejects.toThrow(expected);
   });
 
   test('Inspector can view all establishments', () => {
