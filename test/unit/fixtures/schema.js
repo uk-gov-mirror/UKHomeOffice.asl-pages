@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 export default {
   id: {},
   name: {
@@ -11,7 +13,9 @@ export default {
   },
   address: {
     show: true,
-    sort: row => row.country
+    accessor(row) {
+      return get(row, 'country');
+    }
   },
   car: {
     show: true,
