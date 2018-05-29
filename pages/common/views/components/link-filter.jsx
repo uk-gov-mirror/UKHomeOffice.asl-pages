@@ -6,7 +6,8 @@ const LinkFilter = ({
   filters,
   selected,
   onChange,
-  formatter
+  formatter,
+  prop
 }) => {
   return <div className="link-filter">
     <label>Filter by:</label>
@@ -14,7 +15,11 @@ const LinkFilter = ({
       <li>
         {
           selected
-            ? <ApplyChanges onApply={() => onChange(null)} label="All" />
+            ? <ApplyChanges
+              onApply={() => onChange(null)}
+              label="All"
+              filters={{}}
+            />
             : <Fragment>All</Fragment>
         }
       </li>
@@ -25,7 +30,13 @@ const LinkFilter = ({
             return <li key={ f }>{ label }</li>;
           }
           return <li key={ f }>
-            <ApplyChanges onApply={() => onChange(f)} label={ label } />
+            <ApplyChanges
+              onApply={() => onChange(f)}
+              label={ label }
+              filters={{
+                [prop]: [f]
+              }}
+            />
           </li>;
         })
       }
