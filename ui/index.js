@@ -103,10 +103,13 @@ module.exports = settings => {
   app.use(sendResponse(settings));
   app.use(errorHandler());
 
-  return {
+  const _app = (...args) => app(...args);
+
+  return Object.assign(_app, {
     protect: (...args) => app.protect(...args),
     listen: (...args) => app.listen(...args),
     static: staticrouter,
     use: (...args) => router.use(...args)
-  };
+  });
+
 };

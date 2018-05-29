@@ -19,6 +19,15 @@ pipeline:
     secrets:
       - npm_auth_token
 
+  functionaltest:
+    image: node:8
+    commands:
+      - npm run test:functional:ci -- --host selenium --baseUrl http://functionaltest:3456
+    when:
+      event: [push, pull_request, tag]
+    secrets:
+      - npm_auth_token
+
   publish:
     image: node:8
     secrets:
@@ -31,3 +40,10 @@ pipeline:
 matrix:
   NPM_AUTH_USERNAME:
     - asl
+
+
+services:
+  selenium:
+    image: selenium/standalone-chrome
+    when:
+      event: [push, pull_request, tag]
