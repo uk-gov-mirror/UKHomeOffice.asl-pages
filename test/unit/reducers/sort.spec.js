@@ -114,19 +114,4 @@ describe('getSortedData', () => {
       data[5]
     ]);
   });
-
-  test('sorts using custom sort methods', () => {
-    const sort = {
-      column: 'address',
-      ascending: true
-    };
-    expect(getSortedData({ ...state, sort })).toEqual([
-      data[0],
-      data[2],
-      data[5],
-      data[1],
-      data[4],
-      data[3]
-    ]);
-  });
 });

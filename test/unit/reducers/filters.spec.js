@@ -163,7 +163,7 @@ describe('rootReducer', () => {
         const filters = {
           email: ['bpymar0@trellian.com']
         };
-        const filtered = applyFilters({ ...state, filters, schema });
+        const filtered = applyFilters({ ...state, filters });
         expect(filtered.length).toBe(1);
         expect(filtered[0].id).toBe(1);
       });
@@ -173,7 +173,7 @@ describe('rootReducer', () => {
           name: ['a'],
           email: ['bwintersgill2@wikimedia.org']
         };
-        const filtered = applyFilters({ ...state, filters, schema });
+        const filtered = applyFilters({ ...state, filters });
         expect(filtered.length).toBe(1);
         expect(filtered[0].id).toBe(3);
       });
@@ -183,8 +183,33 @@ describe('rootReducer', () => {
           name: ['abdc'],
           email: ['bwintersgill2@wikimedia.org']
         };
-        const filtered = applyFilters({ ...state, filters, schema });
+        const filtered = applyFilters({ ...state, filters });
         expect(filtered.length).toBe(0);
+      });
+
+      test('filters on complex data types using custom accessor functions', () => {
+        const filters = {
+          contacts: ['Chosen Name']
+        };
+        const withContacts = data.map(row => {
+          return {
+            ...row,
+            contacts: Array.from([1, 2, 3, 4, 5], id => {
+              return { id, name: 'Test name' };
+            })
+          };
+        });
+        withContacts[3].contacts[2].name = 'Chosen Name';
+        const schema = merge({}, state.schema, {
+          contacts: {
+            accessor() {
+              return this.contacts.map(c => c.name);
+            }
+          }
+        });
+        const filtered = applyFilters({ data: withContacts, schema, filters });
+        expect(filtered.length).toBe(1);
+        expect(filtered[0].id).toBe(4);
       });
     });
 
@@ -194,7 +219,7 @@ describe('rootReducer', () => {
           '*': [],
           animals: ['Painted stork']
         };
-        const filtered = applyFilters({ ...state, filters, schema });
+        const filtered = applyFilters({ ...state, filters });
         expect(filtered.length).toBe(1);
         expect(filtered[0].id).toBe(1);
       });

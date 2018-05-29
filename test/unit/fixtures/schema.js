@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 export default {
   id: {},
   name: {
@@ -11,11 +13,15 @@ export default {
   },
   address: {
     show: true,
-    sort: row => row.country
+    accessor() {
+      return get(this, 'country');
+    }
   },
   car: {
     show: true,
-    accessor: 'car.year'
+    accessor() {
+      return get(this, 'car.year');
+    }
   },
   animals: {
     show: true
