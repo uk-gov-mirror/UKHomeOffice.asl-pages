@@ -29,7 +29,7 @@ describe('can', () => {
 
   test('Inspector can view any establishment', () => {
     const task = 'establishment.read';
-    const params = { id: '123' };
+    const params = { establishment: '123' };
     user.is.mockReturnValueOnce(true);
     user.get.mockReturnValueOnce('321');
     return can(user, task, params)
@@ -51,7 +51,7 @@ describe('can', () => {
 
   test('User cannot view an establishment if they are not associated', () => {
     const task = 'establishment.read';
-    const params = { id: '123' };
+    const params = { establishment: '123' };
     user.is.mockReturnValueOnce(false);
     user.get.mockReturnValueOnce('321');
     return can(user, task, params)
@@ -63,7 +63,7 @@ describe('can', () => {
 
   test('User can view their own establishment', () => {
     const task = 'establishment.read';
-    const params = { id: '123' };
+    const params = { establishment: '123' };
     user.is.mockReturnValueOnce(false);
     user.get.mockReturnValueOnce('123');
     return can(user, task, params)
