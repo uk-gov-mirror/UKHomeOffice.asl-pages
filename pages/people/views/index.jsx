@@ -28,7 +28,7 @@ const licenceTypes = profile => {
 
 export const formatters = {
   name: {
-    format: (name, person) => <a href={`/profile/${person.id}`}>{ name }</a>
+    format: (name, person) => <a href={`profile/${person.id}`}>{ name }</a>
   },
   roles: {
     format: data => joinAcronyms(data)
