@@ -26,7 +26,7 @@ const Index = ({
   <App url={url} {...props}>
     <header>
       <h2>{ name }</h2>
-      <h1>Establishment Details</h1>
+      <h1>Establishment details</h1>
     </header>
     <div className="grid-row">
       <div className="column-two-thirds">

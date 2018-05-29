@@ -11,7 +11,7 @@ const Layout = ({
   crumbs
 }) => (
   <GovUK
-    propositionHeader="Research and Testing with Animals"
+    propositionHeader="Research and testing with animals"
     stylesheets={['/public/css/app.css']}
     scripts={scripts}
     headerContent={<StatusBar />}
