@@ -32,9 +32,9 @@ const Table = ({
           data.map(row => (
             <tr key={row.id}>
               {
-                map(columns, (options, key) => {
-                  const datum = getValue({ row, schema: options, key });
-                  return <td key={key}>{ options.format ? options.format(datum, row) : datum }</td>;
+                map(columns, (schema, key) => {
+                  const datum = getValue({ row, schema, key });
+                  return <td key={key}>{ schema.format ? schema.format(datum, row) : datum }</td>;
                 })
               }
             </tr>
