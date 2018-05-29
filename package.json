@@ -1,6 +1,6 @@
 {
   "name": "@asl/service",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "",
   "main": "index.js",
   "style": "pages/common/assets/sass/style.scss",
