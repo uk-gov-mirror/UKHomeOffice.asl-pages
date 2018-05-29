@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-service#readme",
   "dependencies": {
-    "@asl/dictionary": "^1.0.7",
+    "@asl/dictionary": "^1.1.0",
     "@asl/pdf-renderer": "^1.0.0",
     "@lennym/redis-session": "^1.0.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

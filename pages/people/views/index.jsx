@@ -12,7 +12,7 @@ const joinAcronyms = data => {
   if (Array.isArray(data)) {
     return <Join>{ data.map(a => <Acronym key={a}>{a}</Acronym>) }</Join>;
   }
-  return <Acronym key={data}>{data}</Acronym>;
+  return <Acronym>{data}</Acronym>;
 };
 
 const licenceTypes = profile => {
@@ -52,7 +52,7 @@ const People = ({
       <h1>Named people and licence holders</h1>
     </header>
     <SearchBar label="Search by name or licence number" />
-    <LinkFilter prop="roles" />
+    <LinkFilter prop="roles" formatter={filter => <Acronym>{filter}</Acronym>} />
     <FilterSummary />
     <DataTable formatters={formatters} />
   </App>
