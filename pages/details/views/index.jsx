@@ -21,11 +21,7 @@ const Index = ({
   <App url={url} {...props}>
     <header>
       <h2>{ name }</h2>
-<<<<<<< Updated upstream
-      <h1>Establishment details</h1>
-=======
       <h1><Snippet>pages.details</Snippet></h1>
->>>>>>> Stashed changes
     </header>
     <div className="grid-row">
       <div className="column-two-thirds">

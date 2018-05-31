@@ -12,11 +12,7 @@ const Layout = ({
   crumbs
 }) => (
   <GovUK
-<<<<<<< Updated upstream
-    propositionHeader="Research and testing with animals"
-=======
     propositionHeader={<Snippet>siteTitle</Snippet>}
->>>>>>> Stashed changes
     stylesheets={['/public/css/app.css']}
     scripts={scripts}
     headerContent={<StatusBar />}
