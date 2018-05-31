@@ -30,6 +30,10 @@ module.exports = ({ content } = {}) => {
         comparator: 'AND',
         exact: true
       },
+      notes: {
+        show: true,
+        expandable: true
+      },
       holding: {
         show: true,
         filter: true,
