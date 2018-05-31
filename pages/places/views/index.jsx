@@ -5,6 +5,7 @@ import FilterTable from '../../common/views/components/filter-table';
 import Acronym from '../../common/views/components/acronym';
 import Join from '../../common/views/components/join';
 import dict from '@asl/dictionary';
+import Snippet from '../../common/views/containers/snippet';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -17,12 +18,12 @@ const defineValue = val => `${dict[val] || dict[val.toUpperCase()]} (${val})`;
 
 export const formatters = {
   suitability: {
-    title: 'Suitability',
+    title: <Snippet>suitability</Snippet>,
     format: joinAcronyms,
     formatFilterItems: defineValue
   },
   holding: {
-    title: 'Holding',
+    title: <Snippet>holding</Snippet>,
     format: joinAcronyms,
     formatFilterItems: defineValue
   }
@@ -35,7 +36,7 @@ const Places = ({
   <App {...props}>
     <header>
       <h2>{name}</h2>
-      <h1>Licensed premises</h1>
+      <h1><Snippet>pages.places</Snippet></h1>
     </header>
     <FilterTable formatters={formatters} />
   </App>

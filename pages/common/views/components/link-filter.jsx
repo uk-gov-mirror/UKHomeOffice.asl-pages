@@ -7,11 +7,12 @@ const LinkFilter = ({
   selected,
   onChange,
   formatter,
-  prop
+  prop,
+  label = 'Filter by:'
 }) => {
   return (
     <div className="link-filter">
-      <label>Filter by:</label>
+      <label>{ label }</label>
       <ul>
         <li>
           {

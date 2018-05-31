@@ -11,12 +11,13 @@ export const Breadcrumb = ({
 const renderNull = crumbs => !crumbs || !crumbs.length || !Array.isArray(crumbs);
 
 const Breadcrumbs = ({
-  crumbs
+  crumbs,
+  homeLabel = 'Home'
 }) => {
   if (renderNull(crumbs)) {
     return null;
   }
-  crumbs = [ { label: 'Home', href: '/' }, ...crumbs ];
+  crumbs = [ { label: homeLabel, href: '/' }, ...crumbs ];
   return (
     <div className="breadcrumb">
       <ol>

@@ -1,5 +1,6 @@
 require('../lib/register');
 
+const { merge } = require('lodash');
 const express = require('express');
 const path = require('path');
 const expressViews = require('express-react-views');
@@ -20,6 +21,8 @@ const logger = require('../lib/logger');
 
 const toolkitDir = path.dirname(require.resolve('govuk_frontend_toolkit/package.json'));
 const imagesDir = path.resolve(toolkitDir, './images');
+
+const commonContent = require('../pages/common/content');
 
 module.exports = settings => {
 
@@ -75,6 +78,11 @@ module.exports = settings => {
       next();
     });
   }
+
+  app.use((req, res, next) => {
+    req.appContent = merge({}, commonContent, settings.content || {});
+    next();
+  });
 
   app.use((req, res, next) => {
     res.locals.user = req.user;

@@ -1,13 +1,13 @@
 const page = require('../../lib/page');
 const { setEstablishment } = require('../../lib/actions');
 
-module.exports = settings => {
+module.exports = ({ content } = {}) => {
   const app = page({
-    ...settings,
     root: __dirname,
     reducers: [
       'establishment'
-    ]
+    ],
+    pageContent: content
   });
 
   app.get('/', (req, res, next) => {

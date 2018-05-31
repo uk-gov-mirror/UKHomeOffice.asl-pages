@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import App from '../../common/views/app';
 import dictionary from '@asl/dictionary';
+import Snippet from '../../common/views/containers/snippet';
 
 const getPremises = roles => {
   if (!roles) {
@@ -49,12 +50,12 @@ const Index = ({
           </header>
 
           <dl>
-            <dt>Establishment name</dt>
+            <dt><Snippet>establishmentName</Snippet></dt>
             <dd>{establishmentName}</dd>
             {
               pil && pil.licenceNumber && (
                 <Fragment>
-                  <dt>Licence Number</dt>
+                  <dt><Snippet>licenceNumber</Snippet></dt>
                   <dd>{pil.licenceNumber}</dd>
                 </Fragment>
               )
@@ -64,12 +65,12 @@ const Index = ({
           {
             (qualifications || premises || !isEmpty(roles)) && (
               <section className='profile-section'>
-                <h3>Profile</h3>
+                <h3><Snippet>profile</Snippet></h3>
                 <dl>
                   {
                     !isEmpty(roles) && (
                       <Fragment>
-                        <dt>Roles</dt>
+                        <dt><Snippet>roles</Snippet></dt>
                         <dd>
                           <ul>
                             {
@@ -86,7 +87,7 @@ const Index = ({
                   {
                     qualifications && (
                       <Fragment>
-                        <dt>Qualifications</dt>
+                        <dt><Snippet>qualifications</Snippet></dt>
                         <dd>{qualifications}</dd>
                       </Fragment>
                     )
@@ -94,7 +95,7 @@ const Index = ({
                   {
                     premises && (
                       <Fragment>
-                        <dt>Premises</dt>
+                        <dt><Snippet>premises</Snippet></dt>
                         <dd>
                           <ul>
                             {
@@ -130,12 +131,12 @@ const Index = ({
           {
             (address || telephone || email) && (
               <section className='profile-section'>
-                <h3>Contact Details</h3>
+                <h3><Snippet>contactDetails.title</Snippet></h3>
                 <dl>
                   {
                     address && (
                       <Fragment>
-                        <dt>Professional Address</dt>
+                        <dt><Snippet>contactDetails.professionalAddress</Snippet></dt>
                         <dd>{address}<br />{postcode}</dd>
                       </Fragment>
                     )
@@ -143,7 +144,7 @@ const Index = ({
                   {
                     telephone && (
                       <Fragment>
-                        <dt>Telephone</dt>
+                        <dt><Snippet>contactDetails.telephone</Snippet></dt>
                         <dd>{telephone}</dd>
                       </Fragment>
                     )
@@ -151,7 +152,7 @@ const Index = ({
                   {
                     email && (
                       <Fragment>
-                        <dt>Email Address</dt>
+                        <dt><Snippet>contactDetails.email</Snippet></dt>
                         <dd><a href={`mailto:${email}`}>{email}</a></dd>
                       </Fragment>
                     )

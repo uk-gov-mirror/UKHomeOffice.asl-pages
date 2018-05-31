@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import App from '../../common/views/app';
+import Snippet from '../../common/views/containers/snippet';
 
 const Index = ({
   establishment: {
@@ -19,18 +20,18 @@ const Index = ({
     <div className="grid-row">
       <div className="column-two-thirds">
         <ul className="dashboard">
-          <li><a href={`${url}/details`}>Establishment details</a></li>
-          <li><a href={`${url}/people`}>Named people and licence holders</a></li>
-          <li><a href={`${url}/places`}>Licensed premises</a></li>
+          <li><a href={`${url}/details`}><Snippet>pages.details</Snippet></a></li>
+          <li><a href={`${url}/people`}><Snippet>pages.people</Snippet></a></li>
+          <li><a href={`${url}/places`}><Snippet>pages.places</Snippet></a></li>
         </ul>
       </div>
       <div className="column-one-third establishment-summary">
         <aside>
           <dl>
-            <dt>Licence number</dt>
+            <dt><Snippet>licenceNumber</Snippet></dt>
             <dd>{ licenceNumber }</dd>
 
-            <dt>Licence holder</dt>
+            <dt><Snippet>licenceHolder</Snippet></dt>
             <dd><a href={`${url}/profile/${pelh.id}`}>{ pelh.name }</a></dd>
           </dl>
         </aside>

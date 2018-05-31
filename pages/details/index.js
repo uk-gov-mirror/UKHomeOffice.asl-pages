@@ -1,13 +1,15 @@
+const { merge } = require('lodash');
 const page = require('../../lib/page');
 const { setEstablishment } = require('../../lib/actions');
+const pageContent = require('./content');
 
-module.exports = settings => {
+module.exports = ({ content } = {}) => {
   const app = page({
-    ...settings,
     root: __dirname,
     reducers: [
       'establishment'
-    ]
+    ],
+    pageContent: merge({}, pageContent, content)
   });
 
   app.get('/', (req, res, next) => {
