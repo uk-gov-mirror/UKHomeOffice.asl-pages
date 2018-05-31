@@ -27,9 +27,12 @@ class Accordion extends React.Component {
   }
 
   render() {
+    let { closeAll, openAll } = this.props;
+    closeAll = closeAll || 'Close all';
+    openAll = openAll || 'Open all';
     return (
       <div className="accordion">
-        <p className="toggles"><button onClick={() => this.toggleAll()}>{ this.allOpen() ? 'Close all' : 'Open all' }</button></p>
+        <p className="toggles"><button onClick={() => this.toggleAll()}>{ this.allOpen() ? closeAll : openAll }</button></p>
         {
           this.props.children.map((child, i) => React.cloneElement(child, {
             onToggle: () => this.toggle(i),

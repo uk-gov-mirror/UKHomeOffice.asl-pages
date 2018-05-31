@@ -58,10 +58,15 @@ class Filters extends Component {
   }
 
   render() {
-    const { filterSettings } = this.props;
+    const {
+      filterSettings,
+      label = 'Filter by',
+      applyLabel = 'Apply filters',
+      clearLabel = 'Clear filters'
+    } = this.props;
     return (
       <section className="filters">
-        <h3>Filter by</h3>
+        <h3>{ label }</h3>
         <ApplyChanges
           type="form"
           onApply={() => this.emitChange()}
@@ -70,7 +75,7 @@ class Filters extends Component {
             {
               map(filterSettings, ({ values, format }, key) =>
                 <div key={key} className="column-one-third">
-                  <OptionSelect title={ getTitle(key, filterSettings[key]) }>
+                  <OptionSelect title={ getTitle(key, filterSettings[key]) } id={key}>
                     {
                       values.map((filter, index) =>
                         <CheckedOption
@@ -91,11 +96,11 @@ class Filters extends Component {
             }
           </div>
           <p className="control-bar">
-            <input type="submit" className="button" value="Apply filters"/>
+            <input type="submit" className="button" value={applyLabel} />
             <ApplyChanges
               filters={{}}
               onApply={() => this.clearFilters()}
-              label="Clear filters" />
+              label={clearLabel} />
           </p>
         </ApplyChanges>
       </section>

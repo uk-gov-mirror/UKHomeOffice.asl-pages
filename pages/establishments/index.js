@@ -1,9 +1,10 @@
+const { merge } = require('lodash');
 const page = require('../../lib/page');
 const { setData } = require('../../lib/actions');
+const pageContent = require('./content');
 
-module.exports = settings => {
+module.exports = ({ content } = {}) => {
   const app = page({
-    ...settings,
     root: __dirname,
     csv: true,
     reducers: [
@@ -18,7 +19,8 @@ module.exports = settings => {
       licenceNumber: {
         show: true
       }
-    }
+    },
+    pageContent: merge({}, pageContent, content)
   });
 
   app.get('/', (req, res, next) => {

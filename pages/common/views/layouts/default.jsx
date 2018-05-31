@@ -4,6 +4,7 @@ import PhaseBanner from 'govuk-react-components/components/phase-banner';
 import Breadcrumbs from '../components/breadcrumbs';
 
 import StatusBar from '../containers/status-bar';
+import Snippet from '../containers/snippet';
 
 const Layout = ({
   children,
@@ -11,13 +12,13 @@ const Layout = ({
   crumbs
 }) => (
   <GovUK
-    propositionHeader="Research and testing with animals"
+    propositionHeader={<Snippet>siteTitle</Snippet>}
     stylesheets={['/public/css/app.css']}
     scripts={scripts}
     headerContent={<StatusBar />}
   >
     <main className="main" id="content">
-      <PhaseBanner phase="beta">This is a new service - your <a href="mailto:animalscience@digital.homeoffice.gov.uk">feedback</a> will help us to improve it.</PhaseBanner>
+      <PhaseBanner phase="beta"><Snippet>beta</Snippet></PhaseBanner>
       <Breadcrumbs crumbs={crumbs} />
       <div className="grid-row">
         <div className="column-full">

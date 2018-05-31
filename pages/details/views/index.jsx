@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import App from '../../common/views/app';
 import Accordion from '../../common/views/components/accordion';
 import ExpandingPanel from '../../common/views/components/expanding-panel';
-
-const licencedToCarryOut = {
-  procedure: 'Regulated procedures on protected animals',
-  breeding: 'Breeding of relevant protected animals',
-  supplying: 'Supply of relevant protected animals'
-};
+import Snippet from '../../common/views/containers/snippet';
 
 const Index = ({
   establishment: {
@@ -26,70 +21,67 @@ const Index = ({
   <App url={url} {...props}>
     <header>
       <h2>{ name }</h2>
-      <h1>Establishment details</h1>
+      <h1><Snippet>pages.details</Snippet></h1>
     </header>
     <div className="grid-row">
       <div className="column-two-thirds">
-
         <dl>
-          <dt>Licence number</dt>
+          <dt><Snippet>licenceNumber</Snippet></dt>
           <dd>{ licenceNumber }</dd>
 
-          <dt>Address</dt>
+          <dt><Snippet>address</Snippet></dt>
           <dd>{ address }</dd>
 
-          <dt>Licence holder</dt>
+          <dt><Snippet>licenceHolder</Snippet></dt>
           <dd><a href={`profile/${pelh.id}`}>{ pelh.name }</a></dd>
 
-          <dt>Licensed to carry out</dt>
+          <dt><Snippet>licenced.title</Snippet></dt>
           <dd>
             <ul>
               {
-                Object.keys(licencedToCarryOut).filter(auth => rest[auth]).map(auth =>
-                  <li key={auth}>{licencedToCarryOut[auth]}</li>
+                ['procedures', 'breeding', 'supplying'].filter(auth => rest[auth]).map(auth =>
+                  <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
                 )
               }
             </ul>
           </dd>
-
         </dl>
-
         <Accordion>
-          <ExpandingPanel title="Conditions">
+          <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>
             { conditions
               ? (
-                <div>
-                  <p>In addition to the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193124/Project_Licence_-_Standard_Conditions.pdf">standard conditions of Section 2C licences</a>, this establishment will also:</p>
+                <Fragment>
+                  <p><Snippet>conditions.hasConditions</Snippet></p>
                   <p>{ conditions }</p>
-                </div>
+                </Fragment>
               )
-              : <p>The <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193124/Project_Licence_-_Standard_Conditions.pdf">standard conditions of Section 2C licences</a> apply.</p>
+              : <p><Snippet>conditions.noConditions</Snippet></p>
             }
           </ExpandingPanel>
-          <ExpandingPanel title="Authorisations">
-            <h2>Methods of killing not mentioned in Schedule 1</h2>
+          <ExpandingPanel title={<Snippet>authorisations.title</Snippet>}>
+            <h2><Snippet>authorisations.killing.title</Snippet></h2>
             <dl>
               {
                 authorisations.filter(({ type }) => type === 'killing').map(({ method, description }, index) =>
                   <div key={index}>
-                    <dt>Method</dt>
+                    <dt><Snippet>authorisations.killing.method</Snippet></dt>
                     <dd>{ method }</dd>
 
-                    <dt>Applicable Animals</dt>
+                    <dt><Snippet>authorisations.killing.applicableAnimals</Snippet></dt>
                     <dd>{ description }</dd>
                   </div>
                 )
               }
             </dl>
-            <h2>Setting free and re-homing of protected animals</h2>
+            <h2><Snippet>authorisations.rehoming.title</Snippet></h2>
             <dl>
               {
                 authorisations.filter(({ type }) => type === 'rehomes').map(({ method, description }, index) =>
                   <Fragment key={index}>
-                    <dt>Circumstances</dt>
+                    <dt><Snippet>authorisations.rehoming.conditions</Snippet></dt>
                     <dd>{ method }</dd>
 
-                    <dt>Applicable Animals</dt>
+                    <dt><Snippet>authorisations.rehoming.applicableAnimals</Snippet></dt>
                     <dd>{ description }</dd>
                   </Fragment>
                 )

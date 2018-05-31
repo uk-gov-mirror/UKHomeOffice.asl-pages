@@ -1,9 +1,12 @@
 import React from 'react';
 import { stringify } from 'qs';
 
-const ExportLink = props => (
+const ExportLink = ({
+  label = 'Export as',
+  ...props
+}) => (
   <p>
-    Export as <a href={`?${stringify({ ...props, format: 'pdf' })}`}>PDF</a> | <a href={`?${stringify({ ...props, format: 'csv' })}`}>CSV</a>
+    {`${label} `}<a href={`?${stringify({ ...props, format: 'pdf' })}`}>PDF</a> | <a href={`?${stringify({ ...props, format: 'csv' })}`}>CSV</a>
   </p>
 );
 
