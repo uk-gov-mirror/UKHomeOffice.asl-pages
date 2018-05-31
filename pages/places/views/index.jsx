@@ -26,6 +26,9 @@ export const formatters = {
     title: <Snippet>holding</Snippet>,
     format: joinAcronyms,
     formatFilterItems: defineValue
+  },
+  notes: {
+    title: <Snippet>restrictions</Snippet>
   }
 };
 
@@ -38,7 +41,7 @@ const Places = ({
       <h2>{name}</h2>
       <h1><Snippet>pages.places</Snippet></h1>
     </header>
-    <FilterTable formatters={formatters} />
+    <FilterTable formatters={formatters} expandable={true} />
   </App>
 );
 

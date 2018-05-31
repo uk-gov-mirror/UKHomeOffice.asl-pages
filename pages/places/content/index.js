@@ -1,4 +1,5 @@
 module.exports = {
   suitability: 'Suitability',
-  holding: 'Holding'
+  holding: 'Holding',
+  restrictions: 'Restrictions'
 };

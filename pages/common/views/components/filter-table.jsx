@@ -5,12 +5,13 @@ import ExportLink from '../containers/export-link';
 import FilterSummary from '../containers/filter-summary';
 
 const FilterTable = ({
-  formatters
+  formatters,
+  expandable
 }) => (
   <Fragment>
     <Filters formatters={ formatters }/>
     <FilterSummary />
-    <DataTable formatters={ formatters } />
+    <DataTable formatters={ formatters } expandable={expandable} />
     <ExportLink />
   </Fragment>
 );

@@ -13,12 +13,12 @@
       }
 
       &:before {
-        content: " \25b2";
+        content: "\25b2";
         top: -0.2em;
       }
 
       &:after {
-        content: " \25bc";
+        content: "\25bc";
         bottom: -0.2em;
       }
     }
@@ -52,6 +52,68 @@
       }
       &.urgent {
         color: $error-colour;
+      }
+    }
+  }
+
+  tr.expandable {
+    cursor: pointer;
+
+    &.restrictions {
+      td.name:after {
+        @extend .icon-information;
+        content: '';
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        margin-left: 1em;
+      }
+    }
+
+    td:first-child {
+      &:before {
+        @extend .link;
+        text-decoration: none;
+        font-size: 0.75em;
+        margin-right: 1em;
+        content: "\25ba";
+      }
+    }
+
+    &.expanded {
+      background-color: $highlight-colour;
+
+      td {
+        border-bottom: none;
+
+        &:first-child:before {
+          content: "\25bc";
+        }
+      }
+    }
+  }
+
+  tr.expanded-content {
+    cursor: pointer;
+    background-color: $highlight-colour;
+
+    td.controls {
+      position: relative;
+      padding-left: 1em;
+
+      &:not(:only-of-type):after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        top: 1em;
+        right: 1em;
+        bottom: 1em;
+        background-color: #ccc;
+      }
+
+      a {
+        display: block;
+        margin-bottom: 0.5em;
       }
     }
   }
