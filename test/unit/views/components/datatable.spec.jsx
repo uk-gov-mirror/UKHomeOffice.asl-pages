@@ -102,7 +102,7 @@ describe('<Table />', () => {
         name: { show: true },
         number: { show: true }
       };
-      wrapper = shallow(<Table data={data} schema={schema} expandable={true} />);
+      wrapper = shallow(<Table data={data} schema={schema} ExpandableRow={() => {}} />);
     });
 
     test('renders expandable rows if expandable prop is true', () => {

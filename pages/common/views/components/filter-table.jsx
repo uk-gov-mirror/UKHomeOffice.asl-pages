@@ -6,12 +6,12 @@ import FilterSummary from '../containers/filter-summary';
 
 const FilterTable = ({
   formatters,
-  expandable
+  ExpandableRow
 }) => (
   <Fragment>
     <Filters formatters={ formatters }/>
     <FilterSummary />
-    <DataTable formatters={ formatters } expandable={expandable} />
+    <DataTable formatters={ formatters } ExpandableRow={ExpandableRow} />
     <ExportLink />
   </Fragment>
 );

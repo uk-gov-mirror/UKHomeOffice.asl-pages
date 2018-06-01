@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import classnames from 'classnames';
-import { map, isEmpty, isUndefined, size, pickBy } from 'lodash';
+import { map, isEmpty, isUndefined, size } from 'lodash';
 import { getValue } from '../../../../lib/utils';
 import DatatableHeader from '../containers/datatable-header';
 
@@ -12,7 +12,7 @@ class Table extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.expandable) {
+    if (!this.props.ExpandableRow) {
       return;
     }
     const expanded = this.props.data.reduce((obj, { id }) => {
@@ -28,7 +28,7 @@ class Table extends Component {
   }
 
   isExpandable(id) {
-    if (this.props.expandable) {
+    if (this.props.ExpandableRow) {
       if (!this.state) {
         return true;
       }
@@ -41,18 +41,14 @@ class Table extends Component {
       data,
       schema,
       sortable,
-      expandable,
-      url,
-      editLink = 'Change',
-      deleteLink = 'Remove'
+      ExpandableRow
     } = this.props;
     if (isUndefined(data)) {
       throw new Error('data must be provided');
     }
     const columns = !isEmpty(schema)
-      ? pickBy(schema, s => !s.expandable)
+      ? schema
       : Object.keys(data[0]).reduce((obj, key) => ({ ...obj, [key]: {} }), {});
-    const expandableData = pickBy(schema, s => s.expandable);
     return (
       <table className="govuk-react-datatable">
         <thead>
@@ -70,11 +66,11 @@ class Table extends Component {
             data.map(row => (
               <Fragment key={row.id}>
                 <tr
-                  onClick={ expandable && (() => this.toggleContent(row.id)) }
+                  onClick={ExpandableRow && (() => this.toggleContent(row.id))}
                   className={classnames({
-                    expandable,
+                    expandable: ExpandableRow,
                     restrictions: row.notes,
-                    expanded: expandable && this.state && this.state.expanded[row.id]
+                    expanded: ExpandableRow && this.state && this.state.expanded[row.id]
                   })}
                 >
                   {
@@ -88,27 +84,15 @@ class Table extends Component {
                 </tr>
                 {
                   this.isExpandable(row.id) && (
-                    <tr className='expanded-content' onClick={ expandable && (() => this.toggleContent(row.id)) }>
-                      <td className="controls" colSpan={row.notes ? 1 : size(columns)}>
-                        <a href={`${url}/${row.id}/edit`}>{ editLink }</a>
-                        <a href={`${url}/${row.id}/delete`}>{ deleteLink }</a>
+                    <tr className='expanded-content' onClick={() => this.toggleContent(row.id)}>
+                      <td colSpan={size(columns)}>
+                        {
+                          <ExpandableRow
+                            row={row}
+                            schema={schema}
+                          />
+                        }
                       </td>
-                      {
-                        Object.keys(expandableData).filter(r => row[r]).length > 0 && (
-                          <td colSpan={size(columns) - 1}>
-                            <dl>
-                              {
-                                Object.keys(expandableData).map(key => row[key] &&
-                                  <Fragment key={key}>
-                                    <dt>{schema[key].title || key}</dt>
-                                    <dd>{row[key]}</dd>
-                                  </Fragment>
-                                )
-                              }
-                            </dl>
-                          </td>
-                        )
-                      }
                     </tr>
                   )
                 }

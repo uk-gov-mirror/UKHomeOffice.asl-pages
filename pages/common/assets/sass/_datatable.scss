@@ -97,24 +97,18 @@
     cursor: pointer;
     background-color: $highlight-colour;
 
-    td.controls {
-      position: relative;
-      padding-left: 1em;
+    .column-one-third {
+      border-right: 1px solid #ccc;
+    }
 
-      &:not(:only-of-type):after {
-        content: '';
-        position: absolute;
-        width: 1px;
-        top: 1em;
-        right: 1em;
-        bottom: 1em;
-        background-color: #ccc;
-      }
+    a {
+      display: block;
+      text-indent: $gutter;
+      margin-bottom: 0.5em;
+    }
 
-      a {
-        display: block;
-        margin-bottom: 0.5em;
-      }
+    dl {
+      text-indent: $gutter-half;
     }
   }
 }
