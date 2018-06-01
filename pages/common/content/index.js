@@ -6,8 +6,18 @@ module.exports = {
     details: 'Establishment details',
     people: 'Named people and licence holders',
     places: 'Licensed premises',
-    projects: 'Projects'
+    projects: 'Projects',
+    place: {
+      edit: 'Change licenced premises',
+      confirm: 'Confirm changes'
+    }
   },
   licenceNumber: 'Licence number',
-  licenceHolder: 'Licence holder'
+  licenceHolder: 'Licence holder',
+  establishment: 'Establishment',
+  buttons: {
+    submit: 'Submit',
+    edit: 'Edit',
+    cancel: 'Cancel'
+  }
 };

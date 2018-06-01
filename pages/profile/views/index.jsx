@@ -24,7 +24,7 @@ const getPremises = roles => {
 };
 
 const Index = ({
-  profile: {
+  item: {
     name,
     pil,
     qualifications,
@@ -49,7 +49,7 @@ const Index = ({
             <h1>{ name }</h1>
           </header>
 
-          <dl>
+          <dl className="inline">
             <dt><Snippet>establishmentName</Snippet></dt>
             <dd>{establishmentName}</dd>
             {
@@ -66,7 +66,7 @@ const Index = ({
             (qualifications || premises || !isEmpty(roles)) && (
               <section className='profile-section'>
                 <h3><Snippet>profile</Snippet></h3>
-                <dl>
+                <dl className="inline">
                   {
                     !isEmpty(roles) && (
                       <Fragment>
@@ -132,7 +132,7 @@ const Index = ({
             (address || telephone || email) && (
               <section className='profile-section'>
                 <h3><Snippet>contactDetails.title</Snippet></h3>
-                <dl>
+                <dl className="inline">
                   {
                     address && (
                       <Fragment>
@@ -167,6 +167,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ establishment, profile }) => ({ establishment, profile });
+const mapStateToProps = ({ establishment, item }) => ({ establishment, item });
 
 module.exports = connect(mapStateToProps)(Index);

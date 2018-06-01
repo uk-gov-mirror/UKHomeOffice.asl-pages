@@ -35,6 +35,7 @@ class Accordion extends React.Component {
         <p className="toggles"><button onClick={() => this.toggleAll()}>{ this.allOpen() ? closeAll : openAll }</button></p>
         {
           this.props.children.map((child, i) => React.cloneElement(child, {
+            key: i,
             onToggle: () => this.toggle(i),
             open: !this.state || this.state.open[i]
           }))

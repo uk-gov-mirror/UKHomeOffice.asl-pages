@@ -1,6 +1,6 @@
 const { merge } = require('lodash');
 const page = require('../../lib/page');
-const { setProfile, setEstablishment } = require('../../lib/actions');
+const { setItem, setEstablishment } = require('../../lib/actions');
 const pageContent = require('./content');
 
 module.exports = ({ content } = {}) => {
@@ -28,7 +28,7 @@ module.exports = ({ content } = {}) => {
   });
 
   app.get('/', (req, res, next) => {
-    res.store.dispatch(setProfile(res.data));
+    res.store.dispatch(setItem(res.data));
     res.store.dispatch(setEstablishment(res.establishment));
     next();
   });

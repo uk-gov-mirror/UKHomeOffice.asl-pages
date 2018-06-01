@@ -5,5 +5,6 @@ module.exports = {
   places: require('./places'),
   people: require('./people'),
   profile: require('./profile'),
-  projects: require('./projects')
+  projects: require('./projects'),
+  place: require('./place')
 };

@@ -11,10 +11,11 @@ const mode = process.env.NODE_ENV === 'production' ? 'production' : 'development
 const TEMPLATE_PATH = path.resolve(__dirname, './pages/common/assets/js/template.jsx');
 const template = fs.readFileSync(TEMPLATE_PATH).toString();
 
-const pages = glob.sync('./pages/**/views/index.jsx', { ignore: ['./pages/common'] });
+const pages = glob.sync('./pages/**/views/*.jsx', { ignore: ['./pages/common/**'] });
 
 const entry = pages.reduce((entrypoints, page) => {
-  const file = path.resolve(page, '../../dist/entry.js');
+  const filename = path.basename(page, path.extname(page));
+  const file = path.resolve(page, `../../dist/${filename}/entry.js`);
   mkdir.sync(path.dirname(file));
   const js = template
     .replace(/{{page}}/g, path.resolve(__dirname, page))
@@ -27,7 +28,7 @@ module.exports = {
   entry,
   output: {
     path: __dirname,
-    filename: '[name]/index.js'
+    filename: '[name]/bundle.js'
   },
   mode,
   devtool: mode === 'development' && 'inline-source-map',

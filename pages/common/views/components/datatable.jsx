@@ -1,10 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import classnames from 'classnames';
-<<<<<<< HEAD
 import { map, isEmpty, isUndefined, size } from 'lodash';
-=======
-import { map, isEmpty, isUndefined, size, pickBy } from 'lodash';
->>>>>>> Added expandable rows to datatable element
 import { getValue } from '../../../../lib/utils';
 import DatatableHeader from '../containers/datatable-header';
 
@@ -16,11 +12,7 @@ class Table extends Component {
   }
 
   componentDidMount() {
-<<<<<<< HEAD
     if (!this.props.ExpandableRow) {
-=======
-    if (!this.props.expandable) {
->>>>>>> Added expandable rows to datatable element
       return;
     }
     const expanded = this.props.data.reduce((obj, { id }) => {
@@ -36,11 +28,7 @@ class Table extends Component {
   }
 
   isExpandable(id) {
-<<<<<<< HEAD
     if (this.props.ExpandableRow) {
-=======
-    if (this.props.expandable) {
->>>>>>> Added expandable rows to datatable element
       if (!this.state) {
         return true;
       }

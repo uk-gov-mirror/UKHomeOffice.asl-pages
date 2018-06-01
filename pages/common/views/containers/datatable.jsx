@@ -11,8 +11,7 @@ const mapStateToProps = ({
     schema
   },
   filters,
-  sort,
-  url
+  sort
 }, {
   formatters
 }) => ({
@@ -22,8 +21,7 @@ const mapStateToProps = ({
     sort
   }),
   schema: pickBy(merge({}, schema, formatters), item => item.show),
-  sort,
-  url
+  sort
 });
 
 export default connect(
