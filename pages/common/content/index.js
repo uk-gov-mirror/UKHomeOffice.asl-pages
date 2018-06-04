@@ -5,7 +5,8 @@ module.exports = {
     establishments: 'Establishments',
     details: 'Establishment details',
     people: 'Named people and licence holders',
-    places: 'Licensed premises'
+    places: 'Licensed premises',
+    projects: 'Projects'
   },
   licenceNumber: 'Licence number',
   licenceHolder: 'Licence holder'
