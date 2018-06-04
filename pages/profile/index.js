@@ -16,20 +16,12 @@ module.exports = ({ content } = {}) => {
   app.get('/', (req, res, next) => {
     req.api(`/establishment/${req.establishment}/profile/${req.profile}`)
       .then(response => {
+        res.establishment = response.json.meta.establishment;
         if (response.json.data) {
           res.data = response.json.data;
         } else {
           throw new Error('Profile not found');
         }
-      })
-      .then(() => next())
-      .catch(next);
-  });
-
-  app.get('/', (req, res, next) => {
-    req.api(`/establishment/${req.establishment}`)
-      .then(response => {
-        res.establishment = response.json.data;
       })
       .then(() => next())
       .catch(next);
