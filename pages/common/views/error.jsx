@@ -6,6 +6,7 @@ class Index extends React.Component {
     return (
       <App
         {...this.props}
+        scripts={[]}
       >
         <h1 className="heading-large">{this.props.error.message}</h1>
         <pre>
