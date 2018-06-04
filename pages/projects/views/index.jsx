@@ -23,10 +23,10 @@ const ExpiryDate = ({date}) => {
   return <Fragment>
     { expires.format('DD MMMM YYYY') }
     {
-      diff < 3 && <span className="notice warning">Less than 3 months left</span>
+      diff < 3 && <span className="notice warning"><Snippet diff={3}>diff.urgent</Snippet></span>
     }
     {
-      diff >= 3 && diff < 12 && <span className="notice">{diff} months left</span>
+      diff >= 3 && diff < 12 && <span className="notice"><Snippet diff={diff}>diff.default</Snippet></span>
     }
   </Fragment>
 }
