@@ -1,6 +1,6 @@
 const { merge } = require('lodash');
 const page = require('../../lib/page');
-const { setEstablishment, setData } = require('../../lib/actions');
+const { setEstablishment, setData, setDefaultSort } = require('../../lib/actions');
 const pageContent = require('./content');
 
 module.exports = ({ content } = {}) => {
@@ -55,6 +55,7 @@ module.exports = ({ content } = {}) => {
   app.get('/', (req, res, next) => {
     res.store.dispatch(setEstablishment(res.establishment));
     res.store.dispatch(setData(res.data));
+    res.store.dispatch(setDefaultSort({ column: 'expiryDate', ascending: true }));
     next();
   });
 
