@@ -28,8 +28,8 @@ const ExpiryDate = ({date}) => {
     {
       diff >= 3 && diff < 12 && <span className="notice"><Snippet diff={diff}>diff.default</Snippet></span>
     }
-  </Fragment>
-}
+  </Fragment>;
+};
 
 const Projects = ({
   establishment: { name },
