@@ -23,6 +23,7 @@ const Index = ({
           <li><a href={`${url}/details`}><Snippet>pages.details</Snippet></a></li>
           <li><a href={`${url}/people`}><Snippet>pages.people</Snippet></a></li>
           <li><a href={`${url}/places`}><Snippet>pages.places</Snippet></a></li>
+          <li><a href={`${url}/projects`}><Snippet>pages.projects</Snippet></a></li>
         </ul>
       </div>
       <div className="column-one-third establishment-summary">

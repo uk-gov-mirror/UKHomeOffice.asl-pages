@@ -38,4 +38,15 @@
       color: #ccc;
     }
   }
+
+  td {
+    .notice {
+      display: inline-block;
+      @include copy-16;
+
+      &.warning {
+        color: $error-colour;
+      }
+    }
+  }
 }

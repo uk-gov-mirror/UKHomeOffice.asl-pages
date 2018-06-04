@@ -4,5 +4,6 @@ module.exports = {
   establishments: require('./establishments'),
   places: require('./places'),
   people: require('./people'),
-  profile: require('./profile')
+  profile: require('./profile'),
+  projects: require('./projects')
 };
