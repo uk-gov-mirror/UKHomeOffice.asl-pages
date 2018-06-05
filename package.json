@@ -36,6 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.5",
     "csv-stringify": "^3.0.0",
     "express": "^4.16.2",
     "express-react-views": "^0.10.5",

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import classnames from 'classnames';
 import App from '../../common/views/app';
 import SearchBar from '../../common/views/containers/search';
 import FilterSummary from '../../common/views/containers/filter-summary';
@@ -20,13 +21,19 @@ const ExpiryDate = ({date}) => {
   const now = moment();
   const expires = moment(date);
   const diff = expires.diff(now, 'months');
+  const className = classnames('notice', {
+    urgent: diff < 3,
+    warning: diff >= 3 && diff < 6
+  });
+
   return <Fragment>
     { expires.format('DD MMMM YYYY') }
     {
-      diff < 3 && <span className="notice warning"><Snippet diff={3}>diff.urgent</Snippet></span>
-    }
-    {
-      diff >= 3 && diff < 12 && <span className="notice"><Snippet diff={diff}>diff.default</Snippet></span>
+      diff < 12 && (
+        <span className={className}>
+          <Snippet diff={diff + 1}>{ diff === 0 ? 'diff.singular' : 'diff.plural' }</Snippet>
+        </span>
+      )
     }
   </Fragment>;
 };
