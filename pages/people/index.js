@@ -41,6 +41,9 @@ module.exports = ({ content } = {}) => {
           if (profile.pil) {
             roles.push('PILH');
           }
+          if (profile.projects && profile.projects.length) {
+            roles.push('PPLH');
+          }
           return {
             ...profile,
             roles
