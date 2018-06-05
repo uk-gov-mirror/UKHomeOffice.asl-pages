@@ -41,10 +41,16 @@
 
   td {
     .notice {
-      display: inline-block;
+      display: block;
+      white-space: nowrap;
       @include copy-16;
 
+      color: $green;
+
       &.warning {
+        color: $orange;
+      }
+      &.urgent {
         color: $error-colour;
       }
     }

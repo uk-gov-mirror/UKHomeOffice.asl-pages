@@ -1,7 +1,7 @@
 module.exports = {
   searchText: 'Search by licence number or keyword',
   diff: {
-    urgent: 'Less than {{diff}} months left',
-    default: '{{diff}} months left'
+    singular: 'Less than 1 month left',
+    plural: 'Less than {{diff}} months left'
   }
 };
