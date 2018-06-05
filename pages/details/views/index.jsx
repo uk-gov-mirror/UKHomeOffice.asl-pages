@@ -78,7 +78,7 @@ const Index = ({
               {
                 authorisations.filter(({ type }) => type === 'rehomes').map(({ method, description }, index) =>
                   <Fragment key={index}>
-                    <dt><Snippet>authorisations.rehoming.conditions</Snippet></dt>
+                    <dt><Snippet>authorisations.rehoming.circumstances</Snippet></dt>
                     <dd>{ method }</dd>
 
                     <dt><Snippet>authorisations.rehoming.applicableAnimals</Snippet></dt>
