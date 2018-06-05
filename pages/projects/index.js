@@ -35,17 +35,9 @@ module.exports = ({ content } = {}) => {
   });
 
   app.get('/', (req, res, next) => {
-    req.api(`/establishment/${req.establishment}`)
-      .then(response => {
-        res.establishment = response.json.data;
-      })
-      .then(() => next())
-      .catch(next);
-  });
-
-  app.get('/', (req, res, next) => {
     req.api(`/establishment/${req.establishment}/projects`)
       .then(response => {
+        res.establishment = response.json.meta.establishment;
         res.data = response.json.data;
       })
       .then(() => next())
