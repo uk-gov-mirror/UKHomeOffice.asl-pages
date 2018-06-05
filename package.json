@@ -45,6 +45,7 @@
     "govuk_frontend_toolkit": "^7.4.1",
     "keycloak-connect": "^3.4.3",
     "lodash": "^4.17.5",
+    "minimatch": "^3.0.4",
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
     "mustache": "^2.3.0",

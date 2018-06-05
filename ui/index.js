@@ -1,6 +1,5 @@
 require('../lib/register');
 
-const { merge } = require('lodash');
 const express = require('express');
 const path = require('path');
 const expressViews = require('express-react-views');
@@ -10,6 +9,7 @@ const { assets } = require('govuk-react-components');
 
 const { combineReducers, createStore } = require('redux');
 const allReducers = require('../lib/reducers');
+const actions = require('../lib/actions');
 
 const sendResponse = require('../lib/send-response');
 const errorHandler = require('../lib/error-handler');
@@ -80,11 +80,6 @@ module.exports = settings => {
   }
 
   app.use((req, res, next) => {
-    req.appContent = merge({}, commonContent, settings.content || {});
-    next();
-  });
-
-  app.use((req, res, next) => {
     res.locals.user = req.user;
     next();
   });
@@ -97,6 +92,12 @@ module.exports = settings => {
       }
     });
     res.locals.store = res.store;
+    next();
+  });
+
+  app.use((req, res, next) => {
+    res.store.dispatch(actions.setContent(commonContent));
+    res.store.dispatch(actions.setContent(settings.content));
     next();
   });
 
