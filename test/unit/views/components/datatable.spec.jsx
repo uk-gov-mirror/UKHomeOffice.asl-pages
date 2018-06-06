@@ -87,4 +87,33 @@ describe('<Table />', () => {
     const wrapper = shallow(<Table data={data} schema={schema} />);
     expect(wrapper.find('tbody tr td').at(3).text()).toBe('A Name');
   });
+
+  describe('expandable rows', () => {
+    let wrapper;
+    let schema;
+    let data;
+
+    beforeEach(() => {
+      data = [
+        { id: 1, site: 'A Site', name: 'The Name', number: 3 }
+      ];
+      schema = {
+        site: { show: true },
+        name: { show: true },
+        number: { show: true }
+      };
+      wrapper = shallow(<Table data={data} schema={schema} ExpandableRow={() => {}} />);
+    });
+
+    test('renders expandable rows if expandable prop is true', () => {
+      expect(wrapper.find('tr.expandable').length).toBe(1);
+    });
+
+    test('sets state to expanded for the row if clicked', () => {
+      wrapper.find('tr.expandable').simulate('click');
+      expect(wrapper.instance().state.expanded).toEqual({ '1': true });
+    });
+
+  });
+
 });

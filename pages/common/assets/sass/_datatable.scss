@@ -13,12 +13,12 @@
       }
 
       &:before {
-        content: " \25b2";
+        content: "\25b2";
         top: -0.2em;
       }
 
       &:after {
-        content: " \25bc";
+        content: "\25bc";
         bottom: -0.2em;
       }
     }
@@ -53,6 +53,51 @@
       &.urgent {
         color: $error-colour;
       }
+    }
+  }
+
+  tr.expandable {
+    cursor: pointer;
+
+    td:first-child {
+      &:before {
+        @extend .link;
+        text-decoration: none;
+        font-size: 0.75em;
+        margin-right: 1em;
+        content: "\25ba";
+      }
+    }
+
+    &.expanded {
+      background-color: $highlight-colour;
+
+      td {
+        border-bottom: none;
+
+        &:first-child:before {
+          content: "\25bc";
+        }
+      }
+    }
+  }
+
+  tr.expanded-content {
+    cursor: pointer;
+    background-color: $highlight-colour;
+
+    .column-one-third {
+      border-right: 1px solid #ccc;
+    }
+
+    a {
+      display: block;
+      text-indent: $gutter;
+      margin-bottom: 0.5em;
+    }
+
+    dl {
+      text-indent: $gutter-half;
     }
   }
 }
