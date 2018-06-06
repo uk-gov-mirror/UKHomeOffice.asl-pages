@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import dict from '@asl/dictionary';
@@ -19,6 +19,20 @@ const joinAcronyms = data => {
 const defineValue = val => `${dict[val] || dict[val.toUpperCase()]} (${val})`;
 
 export const formatters = {
+  name: {
+    format: (val, row) => {
+      return (
+        <Fragment>
+          {
+            val
+          }
+          {
+            row.notes && <i className="icon icon-information" />
+          }
+        </Fragment>
+      );
+    }
+  },
   suitability: {
     title: <Snippet>suitability</Snippet>,
     format: joinAcronyms,

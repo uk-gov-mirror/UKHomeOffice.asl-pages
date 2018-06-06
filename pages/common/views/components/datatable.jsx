@@ -69,7 +69,6 @@ class Table extends Component {
                   onClick={ExpandableRow && (() => this.toggleContent(row.id))}
                   className={classnames({
                     expandable: ExpandableRow,
-                    restrictions: row.notes,
                     expanded: ExpandableRow && this.state && this.state.expanded[row.id]
                   })}
                 >

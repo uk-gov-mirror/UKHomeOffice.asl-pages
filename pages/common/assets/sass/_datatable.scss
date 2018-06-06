@@ -56,19 +56,15 @@
     }
   }
 
+  i.icon-information {
+    width: 1em;
+    vertical-align: middle;
+    margin-left: 1em;
+    display: inline-block;
+  }
+
   tr.expandable {
     cursor: pointer;
-
-    &.restrictions {
-      td.name:after {
-        @extend .icon-information;
-        content: '';
-        display: inline-block;
-        height: 1em;
-        width: 1em;
-        margin-left: 1em;
-      }
-    }
 
     td:first-child {
       &:before {
