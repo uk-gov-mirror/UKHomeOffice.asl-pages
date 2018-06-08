@@ -8,10 +8,10 @@ module.exports = settings => (req, res, next) => {
       site: {
         inputType: 'inputText'
       },
-      name: {
+      area: {
         inputType: 'inputText'
       },
-      area: {
+      name: {
         inputType: 'inputText'
       },
       suitability: {
