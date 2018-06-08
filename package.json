@@ -87,6 +87,7 @@
     "lib/*",
     "api/*",
     "ui/*",
+    "constants/*",
     "index.js"
   ]
 }
