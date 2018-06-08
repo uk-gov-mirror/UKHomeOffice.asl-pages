@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+const { merge } = require('lodash');
 
 const fields = {
   site: {
@@ -21,4 +21,4 @@ const fields = {
   }
 };
 
-export default (formatters = {}) => merge({}, fields, formatters);
+module.exports = (formatters = {}) => merge({}, fields, formatters);
