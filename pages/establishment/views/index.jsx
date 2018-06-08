@@ -26,7 +26,7 @@ const Index = ({
           <li><a href={`${url}/projects`}><Snippet>pages.projects</Snippet></a></li>
         </ul>
       </div>
-      <div className="column-one-third establishment-summary">
+      <div className="column-one-third sidebar">
         <aside>
           <dl>
             <dt><Snippet>licenceNumber</Snippet></dt>

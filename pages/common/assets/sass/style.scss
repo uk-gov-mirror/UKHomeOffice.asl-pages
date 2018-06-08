@@ -48,9 +48,17 @@ th {
 }
 
 .control-bar {
-  > * {
-    vertical-align: middle;
-    margin-right: 1em;
+  &.block {
+    > * {
+      display: block;
+      margin-top: $gutter-half;
+    }
+  }
+  &:not(.block) {
+    > * {
+      vertical-align: middle;
+      margin-right: 1em;
+    }
   }
 }
 
@@ -87,7 +95,7 @@ th {
     }
   }
 
-  .establishment-summary, .profile {
+  .sidebar, .profile {
     aside {
       border-top: 6px solid $govuk-blue;
       padding-top: $gutter-half;
@@ -107,18 +115,18 @@ th {
       }
     }
 
-    dl {
-      @extend .grid-row;
-
-      dt, dd {
-        @extend .column-one-half;
-        font-weight: normal;
-      }
-    }
-
     .accordion {
       margin-top: $gutter;
     }
+  }
+}
+
+dl.inline {
+  @extend .grid-row;
+
+  dt, dd {
+    @extend .column-one-half;
+    font-weight: normal;
   }
 }
 

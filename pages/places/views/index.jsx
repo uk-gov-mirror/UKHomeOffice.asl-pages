@@ -42,6 +42,9 @@ export const formatters = {
     title: <Snippet>holding</Snippet>,
     format: joinAcronyms,
     formatFilterItems: defineValue
+  },
+  notes: {
+    title: <Snippet>restrictions</Snippet>
   }
 };
 
