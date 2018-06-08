@@ -10,7 +10,7 @@ module.exports = settings => {
   const app = Router();
 
   app.use(getEstablishment());
-  app.use(getPlace({ parseItem: item => ({ ...item, nacwo: item.nacwo.id }) }));
+  app.use(getPlace({ parseItem: item => ({ ...item, nacwo: item.nacwo && item.nacwo.id }) }));
 
   app.get('/', (req, res, next) => {
     if (req.session.data && req.session.data[req.place]) {

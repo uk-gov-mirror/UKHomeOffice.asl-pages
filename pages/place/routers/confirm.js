@@ -30,7 +30,10 @@ module.exports = settings => {
     const { item } = res.store.getState();
     getRoles(req)
       .then(roles => {
-        const getNacwoName = id => roles.filter(r => r.type === 'nacwo').find(n => n.id === id).profile.name;
+        const getNacwoName = id => {
+          const nacwo = roles.filter(r => r.type === 'nacwo').find(n => n.id === id);
+          return nacwo && nacwo.profile.name;
+        };
 
         res.store.dispatch(
           setDiff(
