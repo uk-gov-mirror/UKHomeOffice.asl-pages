@@ -5,6 +5,7 @@ const { getPlace, setSchema } = require('../middleware');
 const update = require('./update');
 const confirm = require('./confirm');
 const success = require('./success');
+const schema = require('../schema');
 
 module.exports = settings => {
   const app = Router();
@@ -19,7 +20,7 @@ module.exports = settings => {
     }
     next();
   });
-  app.get('/', setSchema());
+  app.use(setSchema({ schema }));
 
   app.use('/confirm', confirm());
   app.use('/success', success());

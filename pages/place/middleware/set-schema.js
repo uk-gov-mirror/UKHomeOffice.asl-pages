@@ -1,35 +1,23 @@
-const { holdingCodes, suitabilityCodes } = require('../../../constants');
-const { setSchema } = require('../../../lib/actions');
+const { merge } = require('lodash');
 const getRoles = require('./get-roles');
 
-module.exports = settings => (req, res, next) => {
+module.exports = ({ schema }) => (req, res, next) => {
   getRoles(req)
-    .then(roles => res.store.dispatch(setSchema({
-      site: {
-        inputType: 'inputText'
-      },
-      area: {
-        inputType: 'inputText'
-      },
-      name: {
-        inputType: 'inputText'
-      },
-      suitability: {
-        inputType: 'checkboxGroup',
-        options: suitabilityCodes
-      },
-      holding: {
-        inputType: 'checkboxGroup',
-        options: holdingCodes
-      },
-      nacwo: {
-        inputType: 'select',
-        options: roles.filter(r => r.type === 'nacwo').map(({ id, profile: { name } }) => ({
-          label: name,
-          value: id
-        }))
-      }
-    })))
+    .then(roles => {
+      const options = roles.filter(r => r.type === 'nacwo').map(({ id, profile: { name } }) => ({
+        label: name,
+        value: id
+      }));
+      req.form.schema = merge({}, schema, {
+        nacwo: {
+          options,
+          validate: [
+            'required',
+            { definedValues: options.map(option => option.value) }
+          ]
+        }
+      });
+    })
     .then(() => next())
     .catch(next);
 };

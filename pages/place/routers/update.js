@@ -1,9 +1,15 @@
-const { reduce, some, isEqual } = require('lodash');
+const { some, isEqual } = require('lodash');
 const { Router } = require('express');
 const bodyParser = require('body-parser');
 const submitChange = require('../middleware/submit-change');
+const validate = require('../../../lib/middleware/validate');
 
-const castArray = data => Array.isArray(data) ? data : [data];
+const castArray = data => {
+  if (!data) {
+    return [];
+  }
+  return Array.isArray(data) ? data : [data];
+};
 
 const hasChanged = (value, key, item) => {
   if (Array.isArray(value)) {
@@ -30,21 +36,41 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     const { item } = res.store.getState();
+    const { schema } = req.form;
 
-    const data = reduce(req.body, (obj, value, key) => {
+    const data = Object.keys(schema).reduce((obj, key) => {
       return {
         ...obj,
         [key]: Array.isArray(item[key])
-          ? castArray(value)
-          : value || null
+          ? castArray(req.body[key])
+          : req.body[key] || null
       };
     }, {});
 
+    req.form.data = { [req.place]: data };
+    req.session.data = req.form.data;
+
     if (some(data, (value, key) => hasChanged(value, key, item))) {
-      req.session.data = { [req.place]: data };
-      return res.redirect(`${req.originalUrl}/confirm`);
+      return next();
     }
-    return res.redirect(`${req.originalUrl}`);
+    return next({ validation: {
+      form: 'unchanged'
+    }});
+  });
+
+  app.post('/', validate());
+
+  app.post('/', (req, res, next) => {
+    delete req.session.validationErrors;
+    return res.redirect(`${req.originalUrl}/confirm`);
+  });
+
+  app.use('/', (err, req, res, next) => {
+    if (err.validation) {
+      req.session.validationErrors = err.validation;
+      return res.redirect(`${req.originalUrl}`);
+    }
+    return next(err);
   });
 
   return app;
