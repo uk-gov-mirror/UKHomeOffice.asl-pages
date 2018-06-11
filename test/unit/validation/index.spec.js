@@ -7,7 +7,7 @@ describe('validate', () => {
         value: 'A site',
         validate: [
           {
-            type: 'type',
+            validator: 'type',
             params: 'number'
           }
         ]
@@ -23,11 +23,11 @@ describe('validate', () => {
         value: 1,
         validate: [
           {
-            type: 'type',
+            validator: 'type',
             params: 'string'
           },
           {
-            type: 'match',
+            validator: 'match',
             params: /\s/
           }
         ]
@@ -43,7 +43,7 @@ describe('validate', () => {
         value: 'A site',
         validate: [
           {
-            type: 'match',
+            validator: 'match',
             params: /^Another string/
           }
         ]
@@ -52,7 +52,7 @@ describe('validate', () => {
         value: [1, 2, 3],
         validate: [
           {
-            type: 'definedValues',
+            validator: 'definedValues',
             params: [1, 3, 4]
           }
         ]
@@ -68,11 +68,11 @@ describe('validate', () => {
         value: 'Another string',
         validate: [
           {
-            type: 'match',
+            validator: 'match',
             params: /^A string/
           },
           {
-            type: 'maxLength',
+            validator: 'maxLength',
             parms: 10
           }
         ]
@@ -81,11 +81,11 @@ describe('validate', () => {
         value: [1, 2, 3, 4, 5],
         validate: [
           {
-            type: 'definedValues',
+            validator: 'definedValues',
             params: [1, 2, 4, 5, 6]
           },
           {
-            type: 'maxLength',
+            validator: 'maxLength',
             params: 4
           }
         ]
@@ -101,11 +101,11 @@ describe('validate', () => {
         value: 'A site',
         validate: [
           {
-            type: 'type',
+            validator: 'type',
             params: 'string'
           },
           {
-            type: 'match',
+            validator: 'match',
             params: /^A site/
           }
         ]
@@ -114,7 +114,7 @@ describe('validate', () => {
         value: [1, 2, 3],
         validate: [
           {
-            type: 'definedValues',
+            validator: 'definedValues',
             params: [1, 2, 3, 4, 5]
           }
         ]
