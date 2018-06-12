@@ -2,6 +2,7 @@ const { merge } = require('lodash');
 const page = require('../../lib/page');
 const { setEstablishment, setData, setDefaultSort } = require('../../lib/actions');
 const pageContent = require('./content');
+const moment = require('moment');
 
 module.exports = ({ content } = {}) => {
   const app = page({
@@ -35,7 +36,13 @@ module.exports = ({ content } = {}) => {
   });
 
   app.get('/', (req, res, next) => {
-    req.api(`/establishment/${req.establishment}/projects`)
+    const today = moment().format('YYYY-MM-DD');
+    const query = {
+      expiryDate: {
+        $gte: today
+      }
+    };
+    req.api(`/establishment/${req.establishment}/projects`, { query })
       .then(response => {
         res.establishment = response.json.meta.establishment;
         res.data = response.json.data;
