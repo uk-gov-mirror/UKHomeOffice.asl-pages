@@ -6,7 +6,7 @@ module.exports = () => {
   const app = Router();
 
   app.get('/', getEstablishment());
-  app.get('/', getPlace({ parseItem: item => ({ ...item, nacwo: item.nacwo.profile.name }) }));
+  app.get('/', getPlace({ parseItem: item => ({ ...item, nacwo: item.nacwo && item.nacwo.profile.name }) }));
 
   return app;
 };
