@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import App from '../../common/views/app';
 import Snippet from '../../common/views/containers/snippet';
 import Inset from '../../common/views/components/inset';
@@ -32,6 +31,4 @@ const Page = ({
   </App>
 );
 
-const mapStateToProps = ({ item }) => ({ item });
-
-module.exports = connect(mapStateToProps)(Page);
+module.exports = Page;

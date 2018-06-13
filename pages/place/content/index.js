@@ -13,8 +13,11 @@ module.exports = {
     homepage: 'Go to homepage'
   },
   errors: {
+    site: {
+      required: 'Enter a site for the licensed premises'
+    },
     name: {
-      required: 'Add a name for the licenced premises'
+      required: 'Add a name for the licensed premises'
     },
     holding: {
       required: 'Select applicable holding code(s)',
@@ -25,7 +28,7 @@ module.exports = {
       definedValues: 'Invalid option, select from the list of available suitability codes'
     },
     nacwo: {
-      required: 'Select a NACWO for the licenced premises',
+      required: 'Select a NACWO for the licensed premises',
       definedValues: 'Invalid option, select from the list of available NACWOs'
     }
   }

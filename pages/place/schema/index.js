@@ -1,4 +1,12 @@
 const { suitabilityCodes, holdingCodes } = require('../../../constants');
+const { castArray } = require('lodash');
+
+const toArray = val => {
+  if (!val) {
+    return [];
+  }
+  return castArray(val);
+};
 
 module.exports = {
   site: {
@@ -19,6 +27,7 @@ module.exports = {
   suitability: {
     inputType: 'checkboxGroup',
     options: suitabilityCodes,
+    format: toArray,
     validate: [
       'required',
       {
@@ -29,6 +38,7 @@ module.exports = {
   holding: {
     inputType: 'checkboxGroup',
     options: holdingCodes,
+    format: toArray,
     validate: [
       'required',
       {
@@ -37,6 +47,8 @@ module.exports = {
     ]
   },
   nacwo: {
-    inputType: 'select'
+    inputType: 'select',
+    accessor: 'id',
+    validate: ['required']
   }
 };

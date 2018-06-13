@@ -1,4 +1,4 @@
-import validate from '../../../lib/validation';
+import { validate } from '../../../lib/validation';
 
 describe('validate', () => {
   test('validates a single field', () => {
