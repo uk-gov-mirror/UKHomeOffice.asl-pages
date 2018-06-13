@@ -8,7 +8,7 @@ module.exports = {
     places: 'Licensed premises',
     projects: 'Projects',
     place: {
-      edit: 'Change licenced premises',
+      edit: 'Change licensed premises',
       confirm: 'Confirm changes'
     }
   },
