@@ -1,6 +1,6 @@
 module.exports = {
   edit: {
-    inset: 'Any changes to suitability or holding codes will need to be approved by an inspector'
+    inset: 'Any changes to suitability or holding codes will need to be assessed.'
   },
   confirm: {
     declaration: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
