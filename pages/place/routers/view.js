@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { getEstablishment } = require('../../common/middleware');
-const { getPlace } = require('../middleware');
+const getPlace = require('../middleware/get-place');
 
 module.exports = () => {
   const app = Router();
