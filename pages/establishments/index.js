@@ -1,41 +1,17 @@
-const { merge } = require('lodash');
 const page = require('../../lib/page');
-const { setData } = require('../../lib/actions');
-const pageContent = require('./content');
+const datatable = require('../common/routers/datatable');
+const schema = require('./schema');
 
-module.exports = ({ content } = {}) => {
+module.exports = settings => {
   const app = page({
-    root: __dirname,
-    csv: true,
-    reducers: [
-      'list',
-      'filters',
-      'sort'
-    ],
-    schema: {
-      name: {
-        show: true
-      },
-      licenceNumber: {
-        show: true
-      }
-    },
-    pageContent: merge({}, pageContent, content)
+    ...settings,
+    root: __dirname
   });
 
-  app.get('/', (req, res, next) => {
-    req.api(`/establishments`)
-      .then(response => {
-        res.data = response.json.data;
-      })
-      .then(() => next())
-      .catch(next);
-  });
-
-  app.get('/', (req, res, next) => {
-    res.store.dispatch(setData(res.data));
-    next();
-  });
+  app.use(datatable()({
+    apiPath: '/establishments',
+    schema
+  }));
 
   return app;
 };

@@ -10,7 +10,7 @@ const uniqueByType = (key, data, { title, formatFilterItems, format }) => ({
   values: uniq(flatten(data.map(row => row[key])))
 });
 
-const mapStateToProps = ({ filters, list: { schema, data } }, { formatters }) => {
+const mapStateToProps = ({ static: { schema }, datatable: { filters, data } }, { formatters }) => {
   const mergedSchema = pickBy(merge({}, schema, formatters), item => item.filter);
   return {
     filterSettings: reduce(mergedSchema, (obj, value, key) => ({ ...obj, [key]: uniqueByType(key, data, value) }), {}),

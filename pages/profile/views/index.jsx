@@ -1,7 +1,6 @@
-import { isEmpty, map, chain } from 'lodash';
 import React, { Fragment } from 'react';
+import { isEmpty, map, chain } from 'lodash';
 import { connect } from 'react-redux';
-import App from '../../common/views/app';
 import dictionary from '@asl/dictionary';
 import Snippet from '../../common/views/containers/snippet';
 
@@ -41,7 +40,7 @@ const Index = ({
 }) => {
   const premises = getPremises(roles);
   return (
-    <App {...props}>
+    <Fragment>
       <article className='profile grid-row'>
         <div className='column-two-thirds'>
           <header>
@@ -163,10 +162,10 @@ const Index = ({
           }
         </div>
       </article>
-    </App>
+    </Fragment>
   );
 };
 
-const mapStateToProps = ({ establishment, item }) => ({ establishment, item });
+const mapStateToProps = ({ static: { establishment }, item }) => ({ establishment, item });
 
 module.exports = connect(mapStateToProps)(Index);

@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import App from '../../common/views/app';
 import Snippet from '../../common/views/containers/snippet';
+import Link from '../../common/views/containers/link';
+import Sidebar from '../../common/views/components/sidebar';
+
+const links = [
+  'details',
+  'people',
+  'places',
+  'projects'
+];
 
 const Index = ({
   establishment: {
     name,
     licenceNumber,
     pelh
-  },
-  url,
-  ...props
+  }
 }) => (
-  <App {...props}>
+  <Fragment>
     <header>
       <h2>&nbsp;</h2>
       <h1>{ name }</h1>
@@ -20,27 +26,26 @@ const Index = ({
     <div className="grid-row">
       <div className="column-two-thirds">
         <ul className="dashboard">
-          <li><a href={`${url}/details`}><Snippet>pages.details</Snippet></a></li>
-          <li><a href={`${url}/people`}><Snippet>pages.people</Snippet></a></li>
-          <li><a href={`${url}/places`}><Snippet>pages.places</Snippet></a></li>
-          <li><a href={`${url}/projects`}><Snippet>pages.projects</Snippet></a></li>
+          {
+            links.map(link =>
+              <li key={link}><Link path={link} label={<Snippet>{`pages.${link}`}</Snippet>} /></li>
+            )
+          }
         </ul>
       </div>
-      <div className="column-one-third sidebar">
-        <aside>
-          <dl>
-            <dt><Snippet>licenceNumber</Snippet></dt>
-            <dd>{ licenceNumber }</dd>
+      <Sidebar>
+        <dl>
+          <dt><Snippet>licenceNumber</Snippet></dt>
+          <dd>{ licenceNumber }</dd>
 
-            <dt><Snippet>licenceHolder</Snippet></dt>
-            <dd><a href={`${url}/profile/${pelh.id}`}>{ pelh.name }</a></dd>
-          </dl>
-        </aside>
-      </div>
+          <dt><Snippet>licenceHolder</Snippet></dt>
+          <dd><Link path={`/profile/${pelh.id}`} label={pelh.name} /></dd>
+        </dl>
+      </Sidebar>
     </div>
-  </App>
+  </Fragment>
 );
 
-const mapStateToProps = ({ url, establishment }) => ({ url, establishment });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
-module.exports = connect(mapStateToProps)(Index);
+export default connect(mapStateToProps)(Index);

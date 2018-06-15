@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
-import App from '../../common/views/app';
 import Diff from '../../common/views/containers/diff';
 import getFields from '../fields';
 import Snippet from '../../common/views/containers/snippet';
@@ -25,7 +24,7 @@ const Confirm = ({
   },
   ...props
 }) => (
-  <App { ...props }>
+  <Fragment>
     <div className="grid-row">
       <div className="column-two-thirds">
         <header>
@@ -48,14 +47,14 @@ const Confirm = ({
           <p><Snippet>confirm.declaration</Snippet></p>
           <form method="POST">
             <input type="hidden" name="submit" value="true" />
-            <input type="submit" className="button" value={() => <Snippet>buttons.submit</Snippet>} />
+            <button className="button"><Snippet>buttons.submit</Snippet></button>
           </form>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
           <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
         </div>
       </div>
     </div>
-  </App>
+  </Fragment>
 );
 
 const mapStateToProps = ({ establishment }) => ({ establishment });

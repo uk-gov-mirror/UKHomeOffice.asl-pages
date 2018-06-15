@@ -46,7 +46,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.NormalModuleReplacementPlugin(/common\/views\/app/, require.resolve('./pages/common/assets/js/stub.jsx'))
+    new webpack.NormalModuleReplacementPlugin(/common\/views\/layouts\/default/, require.resolve('./pages/common/assets/js/stub.jsx'))
   ],
   optimization: {
     splitChunks: {

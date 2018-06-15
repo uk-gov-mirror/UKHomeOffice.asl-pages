@@ -1,5 +1,4 @@
-import React from 'react';
-import App from '../../common/views/app';
+import React, { Fragment } from 'react';
 import DataTable from '../../common/views/containers/datatable';
 import SearchBar from '../../common/views/containers/search';
 import ExportLink from '../../common/views/containers/export-link';
@@ -15,7 +14,7 @@ const formatters = {
 };
 
 const Index = props => (
-  <App {...props}>
+  <Fragment>
     <header>
       <h2>&nbsp;</h2>
       <h1><Snippet>pages.establishments</Snippet></h1>
@@ -24,7 +23,7 @@ const Index = props => (
     <FilterSummary />
     <DataTable formatters={formatters} />
     <ExportLink />
-  </App>
+  </Fragment>
 );
 
 export default Index;

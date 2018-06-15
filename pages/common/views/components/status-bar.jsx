@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StatusBar = ({
-  name,
+  user: { name },
   logoutLink = '/logout',
   logoutLabel = 'Sign Out'
 }) => (

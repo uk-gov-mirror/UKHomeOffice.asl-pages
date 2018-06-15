@@ -1,61 +1,19 @@
-const { merge } = require('lodash');
 const page = require('../../lib/page');
-const { setEstablishment, setData } = require('../../lib/actions');
-const pageContent = require('./content');
+const datatable = require('../common/routers/datatable');
+const schema = require('./schema');
 
-module.exports = ({ content } = {}) => {
+module.exports = settings => {
   const app = page({
-    root: __dirname,
-    reducers: [
-      'establishment',
-      'list',
-      'filters',
-      'sort'
-    ],
-    schema: {
-      id: {},
-      site: {
-        show: true,
-        filter: true
-      },
-      area: {
-        show: true
-      },
-      name: {
-        show: true
-      },
-      suitability: {
-        show: true,
-        filter: true,
-        comparator: 'AND',
-        exact: true
-      },
-      holding: {
-        show: true,
-        filter: true,
-        comparator: 'AND',
-        exact: true
-      },
-      updatedAt: {}
-    },
-    pageContent: merge({}, pageContent, content)
+    ...settings,
+    root: __dirname
   });
 
-  app.get('/', (req, res, next) => {
-    req.api(`/establishment/${req.establishment}/places`)
-      .then(response => {
-        res.establishment = response.json.meta.establishment;
-        res.data = response.json.data;
-      })
-      .then(() => next())
-      .catch(next);
-  });
-
-  app.get('/', (req, res, next) => {
-    res.store.dispatch(setEstablishment(res.establishment));
-    res.store.dispatch(setData(res.data));
-    next();
-  });
+  app.use(datatable({
+    getApiPath: (req, res, next) => {
+      req.datatable.apiPath = `/establishment/${req.establishment}/places`;
+      next();
+    }
+  })({ schema }));
 
   return app;
 };

@@ -14,7 +14,7 @@ const extendSchema = (field, formatter) => {
   };
 };
 
-const mapStateToProps = ({ schema, item, errors }, { formatters = {} }) => {
+const mapStateToProps = ({ static: { schema, errors }, item }, { formatters = {} }) => {
   return {
     item,
     errors,

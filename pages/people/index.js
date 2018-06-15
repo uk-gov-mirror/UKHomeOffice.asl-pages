@@ -1,64 +1,35 @@
-const { merge } = require('lodash');
 const page = require('../../lib/page');
-const { setEstablishment, setData } = require('../../lib/actions');
-const pageContent = require('./content');
+const datatable = require('../common/routers/datatable');
+const schema = require('./schema');
 
-module.exports = ({ content } = {}) => {
+module.exports = settings => {
   const app = page({
-    root: __dirname,
-    reducers: [
-      'establishment',
-      'list',
-      'filters',
-      'sort'
-    ],
-    schema: {
-      id: {},
-      name: {
-        show: true
-      },
-      roles: {
-        show: true,
-        exact: true
-      },
-      licence: {
-        show: true
-      },
-      pil: {
-        show: true,
-        accessor: 'pil.licenceNumber'
-      }
+    ...settings,
+    root: __dirname
+  });
+
+  app.use(datatable({
+    getApiPath: (req, res, next) => {
+      req.datatable.apiPath = `/establishment/${req.establishment}/profiles`;
+      return next();
     },
-    pageContent: merge({}, pageContent, content)
-  });
-
-  app.get('/', (req, res, next) => {
-    req.api(`/establishment/${req.establishment}/profiles`)
-      .then(response => {
-        res.establishment = response.json.meta.establishment;
-        res.data = response.json.data.map(profile => {
-          const roles = profile.roles.map(r => r.type.toUpperCase());
-          if (profile.pil) {
-            roles.push('PILH');
-          }
-          if (profile.projects && profile.projects.length) {
-            roles.push('PPLH');
-          }
-          return {
-            ...profile,
-            roles
-          };
-        });
-      })
-      .then(() => next())
-      .catch(next);
-  });
-
-  app.get('/', (req, res, next) => {
-    res.store.dispatch(setEstablishment(res.establishment));
-    res.store.dispatch(setData(res.data));
-    next();
-  });
+    getValues: (req, res, next) => {
+      req.datatable.data = req.datatable.data.map(profile => {
+        const roles = profile.roles.map(r => r.type.toUpperCase());
+        if (profile.pil) {
+          roles.push('PILH');
+        }
+        if (profile.projects && profile.projects.length) {
+          roles.push('PPLH');
+        }
+        return {
+          ...profile,
+          roles
+        };
+      });
+      next();
+    }
+  })({ schema }));
 
   return app;
 };

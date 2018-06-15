@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import dict from '@asl/dictionary';
-import App from '../../common/views/app';
 import FilterTable from '../../common/views/components/filter-table';
 import Acronym from '../../common/views/components/acronym';
 import Join from '../../common/views/components/join';
@@ -73,15 +72,15 @@ const Places = ({
   establishment: { name },
   ...props
 }) => (
-  <App {...props}>
+  <Fragment>
     <header>
       <h2>{name}</h2>
       <h1><Snippet>pages.places</Snippet></h1>
     </header>
     <FilterTable formatters={formatters} ExpandableRow={ExpandableRow} />
-  </App>
+  </Fragment>
 );
 
-const mapStateToProps = ({ establishment }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(Places);

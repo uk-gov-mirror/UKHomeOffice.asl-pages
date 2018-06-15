@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import FilterSummary from '../components/filter-summary';
-import { applyFilters } from '../../../../lib/reducers/filters';
+import { applyFilters } from '../../../../lib/reducers/datatable';
 
-const mapStateToProps = ({ list: { data, schema }, filters }) => ({
+const mapStateToProps = ({ static: { schema }, datatable: { data, filters } }) => ({
   all: data,
   filtered: applyFilters({ data, filters, schema })
 });

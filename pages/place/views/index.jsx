@@ -1,7 +1,6 @@
-import { map } from 'lodash';
 import React, { Fragment } from 'react';
+import { map } from 'lodash';
 import { connect } from 'react-redux';
-import App from '../../common/views/app';
 import Snippet from '../../common/views/containers/snippet';
 import getFields from '../fields';
 import { define } from '../../common/formatters';
@@ -17,7 +16,7 @@ const Place = ({
   item,
   ...props
 }) => (
-  <App { ...props }>
+  <Fragment>
     <div className="grid-row">
       <div className="column-two-thirds">
         <header>
@@ -43,7 +42,7 @@ const Place = ({
       </div>
     </div>
 
-  </App>
+  </Fragment>
 );
 
 const mapStateToProps = ({ item }) => ({ item });

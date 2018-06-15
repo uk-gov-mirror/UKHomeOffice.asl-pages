@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import ApplyChanges from '../components/apply-changes';
 
 const mapStateToProps = ({
-  filters,
-  sort
+  datatable: { filters, sort }
 }, {
   filters: newFilters,
   sort: newSort
