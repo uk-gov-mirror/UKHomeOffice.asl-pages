@@ -1,5 +1,4 @@
-import React from 'react';
-import App from '../../common/views/app';
+import React, { Fragment } from 'react';
 import Snippet from '../../common/views/containers/snippet';
 import Inset from '../../common/views/components/inset';
 import FormLayout from '../../common/views/layouts/form';
@@ -13,10 +12,8 @@ const formatters = {
 
 const fields = getFields(formatters);
 
-const Page = ({
-  ...props
-}) => (
-  <App {...props}>
+const Page = () => (
+  <Fragment>
     <FormLayout fields={fields}>
       <header>
         <h2>&nbsp;</h2>
@@ -28,7 +25,7 @@ const Page = ({
         </p>
       </Inset>
     </FormLayout>
-  </App>
+  </Fragment>
 );
 
 module.exports = Page;

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import classnames from 'classnames';
-import App from '../../common/views/app';
 import SearchBar from '../../common/views/containers/search';
 import FilterSummary from '../../common/views/containers/filter-summary';
 import DataTable from '../../common/views/containers/datatable';
@@ -42,7 +41,7 @@ const Projects = ({
   establishment: { name },
   ...props
 }) => (
-  <App {...props}>
+  <Fragment>
     <header>
       <h2>{name}</h2>
       <h1><Snippet>pages.projects</Snippet></h1>
@@ -50,9 +49,9 @@ const Projects = ({
     <SearchBar label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
     <DataTable formatters={formatters} />
-  </App>
+  </Fragment>
 );
 
-const mapStateToProps = ({ establishment }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(Projects);

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import App from '../../common/views/app';
 import SearchBar from '../../common/views/containers/search';
 import FilterSummary from '../../common/views/containers/filter-summary';
 import LinkFilter from '../../common/views/containers/link-filter';
@@ -47,7 +46,7 @@ const People = ({
   establishment: { name },
   ...props
 }) => (
-  <App {...props}>
+  <Fragment>
     <header>
       <h2>{name}</h2>
       <h1><Snippet>pages.people</Snippet></h1>
@@ -56,9 +55,9 @@ const People = ({
     <LinkFilter prop="roles" formatter={filter => <Acronym>{filter}</Acronym>} />
     <FilterSummary />
     <DataTable formatters={formatters} />
-  </App>
+  </Fragment>
 );
 
-const mapStateToProps = ({ establishment }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(People);

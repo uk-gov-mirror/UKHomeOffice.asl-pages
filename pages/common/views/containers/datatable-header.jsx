@@ -3,13 +3,9 @@ import { setSortColumn } from '../../../../lib/actions';
 import TableHeader from '../components/datatable-header';
 
 const mapStateToProps = ({
-  sort: {
-    column,
-    ascending
-  }
+  datatable: { sort: { column, ascending } }
 }, {
-  sortable,
-  title
+  sortable, title
 }) => ({
   column,
   ascending,

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { setFilter } from '../../../../lib/actions';
 import Search from '../components/search';
 
-const mapStateToProps = ({ filters }) => ({
+const mapStateToProps = ({ datatable: { filters } }) => ({
   filter: filters['*'] ? filters['*'][0] : ''
 });
 

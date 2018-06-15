@@ -1,8 +1,6 @@
 const { Router } = require('express');
 const { merge } = require('lodash');
-const { setItem, setSchema, setErrors } = require('../../../lib/actions');
 const form = require('./form');
-
 const confirm = require('./confirm');
 const success = require('./success');
 const schema = require('../schema');
@@ -22,15 +20,15 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    const { values, schema, validationErrors } = req.form;
-    res.store.dispatch(setSchema(schema));
-    res.store.dispatch(setErrors(validationErrors));
+    const { values, validationErrors, schema } = req.form;
+    res.locals.static.errors = validationErrors;
+    res.locals.static.schema = schema;
     getNacwos(req)
       .then(nacwos => {
-        res.store.dispatch(setItem({
+        res.locals.item = {
           ...values,
           nacwo: nacwos.find(n => n.id === values.nacwo)
-        }));
+        };
       })
       .then(() => next())
       .catch(next);
@@ -49,7 +47,7 @@ module.exports = settings => {
         .then(() => next())
         .catch(next);
     },
-    populateStore: getEstablishment()
+    locals: getEstablishment()
   })({ model: 'place', schema }));
 
   app.use('/success', success({ model: 'place' }));

@@ -1,20 +1,10 @@
-const { merge } = require('lodash');
-const { setSchema } = require('../../lib/actions');
 const page = require('../../lib/page');
-const pageContent = require('./content');
 const routers = require('./routers');
 
-module.exports = ({ content } = {}) => {
+module.exports = settings => {
   const app = page({
-    root: __dirname,
-    reducers: [
-      'establishment',
-      'item',
-      'schema',
-      'diff',
-      'errors'
-    ],
-    pageContent: merge({}, pageContent, content)
+    ...settings,
+    root: __dirname
   });
 
   app.use((req, res, next) => {
@@ -27,13 +17,6 @@ module.exports = ({ content } = {}) => {
   app.use('/edit', routers.edit());
   app.use('/delete', routers.delete());
   app.use('/', routers.view());
-
-  app.use((req, res, next) => {
-    if (req.form && req.form.schema) {
-      res.store.dispatch(setSchema(req.form.schema));
-    }
-    next();
-  });
 
   return app;
 };

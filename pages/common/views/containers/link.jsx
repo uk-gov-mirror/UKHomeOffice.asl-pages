@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import Controls from '../components/controls';
+import Link from '../components/link';
 
 const mapStateToProps = ({ static: { url } }) => ({ url });
 
-export default connect(mapStateToProps)(Controls);
+export default connect(mapStateToProps)(Link);

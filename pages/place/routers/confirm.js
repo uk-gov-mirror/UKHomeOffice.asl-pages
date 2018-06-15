@@ -1,6 +1,5 @@
 const { mapValues } = require('lodash');
 const { Router } = require('express');
-const { setDiff } = require('../../../lib/actions');
 const getItem = require('../helpers/get-item');
 const submitChange = require('../middleware/submit-change');
 
@@ -10,7 +9,7 @@ module.exports = ({
   configure = defaultMiddleware,
   checkSession = defaultMiddleware,
   getValues = defaultMiddleware,
-  populateStore = defaultMiddleware
+  locals = defaultMiddleware
 } = {}) => ({ model, schema }) => {
   const app = Router();
 
@@ -55,9 +54,9 @@ module.exports = ({
       .catch(next);
   };
 
-  const _populateStore = (req, res, next) => {
-    res.store.dispatch(setDiff(req.form.diff));
-    return populateStore(req, res, next);
+  const _locals = (req, res, next) => {
+    res.locals.static.diff = req.form.diff;
+    return locals(req, res, next);
   };
 
   const submit = (req, res, next) => {
@@ -76,7 +75,7 @@ module.exports = ({
     _processQuery,
     _checkSession,
     _getValues,
-    _populateStore
+    _locals
   );
 
   app.post('/',

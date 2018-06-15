@@ -1,30 +1,25 @@
 import { merge, pickBy } from 'lodash';
 import { connect } from 'react-redux';
-import { setSort } from '../../../../lib/actions';
-import { applyFilters } from '../../../../lib/reducers/filters';
-import { getSortedData } from '../../../../lib/reducers/sort';
+import { applyFilters, getSortedData } from '../../../../lib/reducers/datatable';
 import DataTable from '../components/datatable';
 
 const mapStateToProps = ({
-  list: {
-    data,
-    schema
-  },
-  filters,
-  sort
+  static: { schema },
+  datatable: { data, filters, sort }
 }, {
   formatters
-}) => ({
-  data: getSortedData({
-    data: applyFilters({ data, filters, schema }),
-    schema,
+}) => {
+  return {
+    data: getSortedData({
+      data: applyFilters({ data, filters, schema }),
+      schema,
+      sort
+    }),
+    schema: pickBy(merge({}, schema, formatters), item => item.show),
     sort
-  }),
-  schema: pickBy(merge({}, schema, formatters), item => item.show),
-  sort
-});
+  };
+};
 
 export default connect(
-  mapStateToProps,
-  { setSort }
+  mapStateToProps
 )(DataTable);

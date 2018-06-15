@@ -1,11 +1,10 @@
-import React from 'react';
-import App from '../../common/views/app';
+import React, { Fragment } from 'react';
 import Snippet from '../../common/views/containers/snippet';
 
 const Success = ({
   ...props
 }) => (
-  <App { ...props }>
+  <Fragment>
     <div className="grid-row">
       <div className="column-two-thirds">
         <div className="govuk-box-highlight">
@@ -17,7 +16,7 @@ const Success = ({
         <a href="/" className="button"><Snippet>success.homepage</Snippet></a>
       </div>
     </div>
-  </App>
+  </Fragment>
 );
 
 export default Success;
