@@ -57,6 +57,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ establishment }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(Confirm);

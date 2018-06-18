@@ -15,6 +15,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.api = fixtures;
+    req.session = {};
     next();
   });
 

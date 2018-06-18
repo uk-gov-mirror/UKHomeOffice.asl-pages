@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UKHomeOffice/asl-service.git"
+    "url": "git+https://github.com/UKHomeOffice/asl-pages.git"
   },
   "author": "Leonard Martin <lenny@marvell-consulting.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UKHomeOffice/asl-service/issues"
+    "url": "https://github.com/UKHomeOffice/asl-pages/issues"
   },
-  "homepage": "https://github.com/UKHomeOffice/asl-service#readme",
+  "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
     "@asl/dictionary": "^1.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

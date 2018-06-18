@@ -15,7 +15,7 @@ const fields = {
 const Form = ({
   schema,
   item,
-  errors,
+  errors = {},
   applyLabel = 'Submit',
   onFieldChange
 }) => (
