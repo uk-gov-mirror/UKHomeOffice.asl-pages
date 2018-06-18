@@ -6,7 +6,6 @@ const getPages = require('../helpers/pages');
 
 const { views, content, assets } = require('../../../');
 
-
 module.exports = () => {
   const app = ui({
     auth: false,
