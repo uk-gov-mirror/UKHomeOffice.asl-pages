@@ -10,11 +10,7 @@ module.exports = settings => {
     req.api(`/establishment/${req.establishment}/profile/${req.profile}`)
       .then(response => {
         res.locals.static.establishment = response.json.meta.establishment;
-        if (response.json.data) {
-          res.locals.item = response.json.data;
-        } else {
-          throw new Error('Profile not found');
-        }
+        res.locals.item = response.json.data;
       })
       .then(() => next())
       .catch(next);

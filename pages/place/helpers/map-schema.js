@@ -9,6 +9,7 @@ const mapSchema = (schema, nacwos) => {
     nacwo: {
       options,
       validate: [
+        ...schema.nacwo.validate,
         {
           definedValues: options.map(option => option.value)
         }

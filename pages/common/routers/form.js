@@ -19,8 +19,8 @@ const flattedNested = (data, schema) => {
   );
 };
 
-const getDefaultValues = (req, model) => {
-  return req.api(`/establishment/${req.establishment}/${model}/${req.form.id}`)
+const getDefaultValues = req => {
+  return req.api(req.form.apiKey)
     .then(({ json: { data } }) => {
       return Promise.resolve(flattedNested(data, req.form.schema));
     })
@@ -28,18 +28,18 @@ const getDefaultValues = (req, model) => {
 };
 
 module.exports = ({
+  model,
+  schema = {},
   configure = defaultMiddleware,
   clearErrors = defaultMiddleware,
+  getApiKey = defaultMiddleware,
   getValues = defaultMiddleware,
   process = defaultMiddleware,
   validate = defaultMiddleware,
   getValidationErrors = defaultMiddleware,
+  locals = defaultMiddleware,
   saveValues = defaultMiddleware
-} = {}) => ({
-  model,
-  schema = {},
-  confirmStep = 'confirm'
-}) => {
+} = {}) => {
   const form = Router();
 
   const _configure = (req, res, next) => {
@@ -56,8 +56,13 @@ module.exports = ({
     return clearErrors(req, res, next);
   };
 
+  const _getApiKey = (req, res, next) => {
+    req.form.apiKey = `/establishment/${req.establishment}/${model}/${req.form.id}`;
+    return getApiKey(req, res, next);
+  };
+
   const _getValues = (req, res, next) => {
-    getDefaultValues(req, model)
+    getDefaultValues(req)
       .then(defaultValues => {
         req.form.values = {
           ...defaultValues,
@@ -76,7 +81,7 @@ module.exports = ({
   };
 
   const _checkChanged = (req, res, next) => {
-    getDefaultValues(req, model)
+    getDefaultValues(req)
       .then(defaultValues => {
         if (some(req.form.values, (value, key) => hasChanged(value, key, defaultValues))) {
           return next();
@@ -104,6 +109,13 @@ module.exports = ({
     return getValidationErrors(req, res, next);
   };
 
+  const _locals = (req, res, next) => {
+    const { values, validationErrors, schema } = req.form;
+    Object.assign(res.locals.static, { errors: validationErrors, schema });
+    Object.assign(res.locals, { item: values });
+    return locals(req, res, next);
+  };
+
   const errorHandler = (err, req, res, next) => {
     if (err.validation) {
       req.session.form[req.form.id].validationErrors = err.validation;
@@ -115,8 +127,10 @@ module.exports = ({
 
   form.get('/',
     _configure,
+    _getApiKey,
     _getValues,
-    _getValidationErrors
+    _getValidationErrors,
+    _locals
   );
 
   form.post('/',
@@ -124,6 +138,7 @@ module.exports = ({
     _configure,
     _clearErrors,
     _process,
+    _getApiKey,
     _checkChanged,
     _validate,
     _saveValues,

@@ -1,16 +1,22 @@
 const { mapValues } = require('lodash');
 const { Router } = require('express');
-const getItem = require('../helpers/get-item');
-const submitChange = require('../middleware/submit-change');
+
+const getItem = (req, model) =>
+  req.api(`/establishment/${req.establishment}/${model}/${req.form.id}`)
+    .then(({ json: { data } }) => Promise.resolve(data))
+    .catch(err => Promise.reject(err));
 
 const defaultMiddleware = (req, res, next) => next();
 
 module.exports = ({
+  model,
+  schema,
+  submitChange = defaultMiddleware,
   configure = defaultMiddleware,
   checkSession = defaultMiddleware,
   getValues = defaultMiddleware,
   locals = defaultMiddleware
-} = {}) => ({ model, schema }) => {
+} = {}) => {
   const app = Router();
 
   const _configure = (req, res, next) => {
@@ -61,11 +67,7 @@ module.exports = ({
 
   const submit = (req, res, next) => {
     if (req.session.form && req.session.form[req.form.id]) {
-      return submitChange(req.session.form[req.form.id])
-        .then(() => {
-          res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
-        })
-        .catch(next);
+      return submitChange(req, res, next);
     }
     return res.redirect(req.originalUrl);
   };

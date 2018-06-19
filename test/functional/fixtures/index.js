@@ -14,10 +14,9 @@ const fixtures = [
 ];
 
 module.exports = url => {
-  console.log(url);
   const data = fixtures.reduce((r, fixture) => {
     return r || (url.match(fixture.url) && fixture.response);
   }, null);
 
-  return Promise.resolve({ json: { data } });
+  return Promise.resolve({ json: { data, meta: {} } });
 };
