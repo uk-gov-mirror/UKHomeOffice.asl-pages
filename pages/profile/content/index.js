@@ -1,13 +1,8 @@
 module.exports = {
-  establishmentName: 'Establishment name',
-  profile: 'Profile',
-  roles: 'Roles',
-  qualifications: 'Qualifications',
-  premises: 'Premises',
-  contactDetails: {
-    title: 'Contact Details',
-    professionalAddress: 'Professional Address',
-    telephone: 'Telephone',
-    email: 'Email Address'
+  fieldLabels: {
+    name: 'Name',
+    roles: 'Roles',
+    licence: 'Licence type',
+    pil: 'Licence number'
   }
 };

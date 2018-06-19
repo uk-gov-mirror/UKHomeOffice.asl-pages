@@ -16,7 +16,6 @@ const Form = ({
   schema,
   item,
   errors = {},
-  applyLabel = 'Submit',
   onFieldChange
 }) => (
   <form method="POST">
@@ -25,7 +24,7 @@ const Form = ({
         fields[inputType]({
           key,
           value: accessor ? get(item[key], accessor) : (item[key] || ''),
-          label: key,
+          label: <Snippet>{`fieldLabels.${key}`}</Snippet>,
           name: key,
           error: errors[key] && <Snippet>{`errors.${key}.${errors[key]}`}</Snippet>,
           onChange: e => onFieldChange(key, e.target.value),
@@ -33,7 +32,7 @@ const Form = ({
         })
       )
     }
-    <input type="submit" className="button" value={applyLabel} />
+    <button type="submit" className="button"><Snippet>buttons.submit</Snippet></button>
   </form>
 );
 

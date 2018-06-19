@@ -1,10 +1,6 @@
 module.exports = {
-  details: require('./details'),
   establishment: require('./establishment'),
-  establishments: require('./establishments'),
-  places: require('./places'),
-  people: require('./people'),
+  place: require('./place'),
   profile: require('./profile'),
-  projects: require('./projects'),
-  place: require('./place')
+  project: require('./project')
 };

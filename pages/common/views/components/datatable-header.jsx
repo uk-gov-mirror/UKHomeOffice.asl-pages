@@ -1,14 +1,15 @@
 import React from 'react';
-import { getTitle } from '../../../../lib/utils';
 import ApplyChanges from '../containers/apply-changes';
+import Snippet from '../containers/snippet';
+
+const getLabel = id => <Snippet>{`fieldLabels.${id}`}</Snippet>;
 
 const TableHeader = ({
   id,
   column,
   ascending,
   setSortColumn,
-  sortable,
-  title
+  sortable
 }) => {
   const isSortable = sortable !== false && column !== undefined && ascending !== undefined;
   return (
@@ -23,9 +24,9 @@ const TableHeader = ({
               ascending: column === id ? !ascending : true
             }}
             onApply={() => setSortColumn(id)}
-            label={getTitle(id, { title })}
+            label={getLabel(id)}
           />
-          : getTitle(id, { title })
+          : getLabel(id)
       }
     </th>
   );
