@@ -7,6 +7,15 @@ module.exports = () => {
   return glob.sync('./pages/**/views/index.jsx', opts)
     .map(page => path.resolve(page, '../..'))
     .reduce((paths, page) => {
-      return Object.assign(paths, { [path.relative(cwd, page)]: require(page)() });
+      let middleware = (req, res, next) => next();
+      try {
+        middleware = require(`${page}/tests/middleware`);
+      } catch (e) {}
+      return Object.assign(paths, {
+        [path.relative(cwd, page)]: {
+          router: require(page)(),
+          middleware
+        }
+      });
     }, {});
 };
