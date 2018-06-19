@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { map } from 'lodash';
 import OptionSelect, { CheckedOption } from 'govuk-react-components/components/option-select';
 import ApplyChanges from '../containers/apply-changes';
-import { getTitle } from '../../../../lib/utils';
+import Snippet from '../containers/snippet';
 
 class Filters extends Component {
 
@@ -58,15 +58,10 @@ class Filters extends Component {
   }
 
   render() {
-    const {
-      filterSettings,
-      label = 'Filter by',
-      applyLabel = 'Apply filters',
-      clearLabel = 'Clear filters'
-    } = this.props;
+    const { filterSettings } = this.props;
     return (
       <section className="filters">
-        <h3>{ label }</h3>
+        <h3><Snippet>filters.filterBy</Snippet></h3>
         <ApplyChanges
           type="form"
           onApply={() => this.emitChange()}
@@ -75,7 +70,7 @@ class Filters extends Component {
             {
               map(filterSettings, ({ values, format }, key) =>
                 <div key={key} className="column-one-third">
-                  <OptionSelect title={ getTitle(key, filterSettings[key]) } id={key}>
+                  <OptionSelect title={ <Snippet>{`fieldLabels.${key}`}</Snippet> } id={key}>
                     {
                       values.map((filter, index) =>
                         <CheckedOption
@@ -96,11 +91,11 @@ class Filters extends Component {
             }
           </div>
           <p className="control-bar">
-            <input type="submit" className="button" value={applyLabel} />
+            <button type="submit" className="button"><Snippet>filters.applyLabel</Snippet></button>
             <ApplyChanges
               filters={{}}
               onApply={() => this.clearFilters()}
-              label={clearLabel} />
+              label={<Snippet>filters.clearLabel</Snippet>} />
           </p>
         </ApplyChanges>
       </section>

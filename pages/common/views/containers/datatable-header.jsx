@@ -5,12 +5,11 @@ import TableHeader from '../components/datatable-header';
 const mapStateToProps = ({
   datatable: { sort: { column, ascending } }
 }, {
-  sortable, title
+  sortable
 }) => ({
   column,
   ascending,
-  sortable,
-  title
+  sortable
 });
 
 export default connect(

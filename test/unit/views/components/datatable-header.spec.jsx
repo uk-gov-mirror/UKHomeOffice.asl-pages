@@ -4,15 +4,9 @@ import TableHeader from 'views/components/datatable-header';
 import ApplyChanges from 'views/containers/apply-changes';
 
 describe('<TableHeader />', () => {
-  test('renders a <th> element with a title-case id if only passed id', () => {
+  test('renders a <th> element', () => {
     const wrapper = shallow(<TableHeader id="test" />);
     expect(wrapper.get(0).type).toBe('th');
-    expect(wrapper.text()).toBe('Test');
-  });
-
-  test('formats text if passed a title function', () => {
-    const wrapper = shallow(<TableHeader id="test" title={text => text.toUpperCase() }/>);
-    expect(wrapper.text()).toBe('TEST');
   });
 
   test('adds aria-sort="none" to the th if sortable but not current column', () => {

@@ -4,7 +4,7 @@ import Form from '../containers/form';
 
 const FormLayout = ({
   children,
-  fields
+  formatters
 }) => (
   <div className="grid-row">
     <div className="column-two-thirds">
@@ -12,7 +12,7 @@ const FormLayout = ({
       {
         children
       }
-      <Form formatters={fields} />
+      <Form formatters={formatters} />
     </div>
   </div>
 );
