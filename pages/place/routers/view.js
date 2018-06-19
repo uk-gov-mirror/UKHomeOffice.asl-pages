@@ -1,12 +1,20 @@
 const { Router } = require('express');
-const getEstablishment = require('../../common/middleware/get-establishment');
-const getPlace = require('../middleware/get-place');
 
 module.exports = () => {
   const app = Router();
 
-  app.get('/', getEstablishment());
-  app.get('/', getPlace({ parseItem: item => ({ ...item, nacwo: item.nacwo && item.nacwo.profile.name }) }));
+  app.get('/', (req, res, next) =>
+    req.api(`/establishment/${req.establishment}/places/${req.place}`)
+      .then(({ json: { data, meta } }) => {
+        res.locals.static.establishment = meta.establishment;
+        res.locals.item = {
+          ...data,
+          nacwo: data.nacwo && data.nacwo.profile.name
+        };
+      })
+      .then(() => next())
+      .catch(next)
+  );
 
   return app;
 };
