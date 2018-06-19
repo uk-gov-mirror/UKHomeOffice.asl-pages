@@ -1,4 +1,5 @@
 import React from 'react';
+import { omit } from 'lodash';
 import { createStore } from 'redux';
 import GovUK from 'govuk-react-components/components/layout';
 import { Provider } from 'react-redux';
@@ -27,7 +28,10 @@ const Layout = ({
   ...props
 }) => {
   const store = wrap
-    ? createStore(rootReducer, { ...props, static: { ...staticContent, content } })
+    ? createStore(rootReducer, {
+      ...omit(props, ['settings', '_locals', 'cache']),
+      static: { ...staticContent, content }
+    })
     : {};
   const page = (
     <GovUK
