@@ -26,7 +26,8 @@ module.exports = () => {
 
   Object.keys(pages).forEach(page => {
     console.log(`Mounting ${page}`);
-    app.use(`/${page}`, pages[page]);
+    app.use(`/${page}`, pages[page].middleware);
+    app.use(`/${page}`, pages[page].router);
   });
 
   return withuser(app);

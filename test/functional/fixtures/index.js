@@ -1,14 +1,14 @@
 const fixtures = [
   {
-    url: /^\/establishments?\/[a-z0-9]+$/,
+    url: /^\/establishments?\/[a-z0-9-]+$/,
     response: require('./establishment.json')
   },
   {
-    url: /^\/establishments?\/[a-z0-9]+\/places?\/[a-z0-9]+$/,
+    url: /^\/establishments?\/[a-z0-9-]+\/places?\/[a-z0-9-]+$/,
     response: require('./place.json')
   },
   {
-    url: /^\/establishments?\/[a-z0-9]+\/roles?$/,
+    url: /^\/establishments?\/[a-z0-9-]+\/roles?$/,
     response: require('./nacwos.json')
   }
 ];
