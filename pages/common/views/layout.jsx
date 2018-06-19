@@ -6,7 +6,7 @@ const Index = ({
   ...props
 }) => (
   <Layout { ...props }>
-    <Component />
+    <Component { ...props } />
   </Layout>
 );
 
