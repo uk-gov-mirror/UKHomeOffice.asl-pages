@@ -1,5 +1,5 @@
 import React from 'react';
-import { map } from 'lodash';
+import { map, isEqual } from 'lodash';
 
 const getLabel = (key, { label } = {}) => label || key;
 
@@ -21,13 +21,16 @@ const Diff = ({
     </thead>
     <tbody>
       {
-        map(diff, ({ oldValue, newValue }, key) =>
-          <tr key={key}>
+        map(diff, ({ oldValue, newValue }, key) => {
+          const className = isEqual(oldValue, newValue) ? '' : 'highlight';
+          return <tr key={key}>
             <td>{getLabel(key, formatters[key])}</td>
             <td>{getValue(oldValue, formatters[key])}</td>
-            <td>{getValue(newValue, formatters[key])}</td>
-          </tr>
-        )
+            <td>
+              <span className={className}>{getValue(newValue, formatters[key])}</span>
+            </td>
+          </tr>;
+        })
       }
     </tbody>
   </table>
