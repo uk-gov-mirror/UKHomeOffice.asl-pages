@@ -3,7 +3,10 @@ import { map, isEqual } from 'lodash';
 
 const getLabel = (key, { label } = {}) => label || key;
 
-const getValue = (key, { format } = {}) => format ? format(key) : key;
+const getValue = (key, { format } = {}) => {
+  const value = format ? format(key) : key;
+  return value || '-';
+};
 
 const Diff = ({
   diff,
