@@ -12,7 +12,7 @@ import StatusBar from '../components/status-bar';
 const Wrapped = ({ store, children }) => <Provider store={store}>{ children }</Provider>;
 
 const Layout = ({
-  wrap = true,
+  error,
   children,
   rootReducer,
   scripts,
@@ -27,6 +27,7 @@ const Layout = ({
   },
   ...props
 }) => {
+  const wrap = !error;
   const store = wrap
     ? createStore(rootReducer, {
       ...omit(props, ['settings', '_locals', 'cache']),
@@ -37,7 +38,7 @@ const Layout = ({
     <GovUK
       propositionHeader={siteTitle}
       stylesheets={['/public/css/app.css']}
-      scripts={scripts}
+      scripts={['/public/js/common/bundle.js'].concat(scripts)}
       headerContent={<StatusBar user={user} />}
     >
       <main className="main" id="content">
