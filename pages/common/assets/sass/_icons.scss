@@ -3,4 +3,7 @@ i.icon-information {
   vertical-align: middle;
   margin-left: 1em;
   display: inline-block;
+  background-image: $alert-icon;
+  background-size: 100%;
+  background-position: 0 2px;
 }
