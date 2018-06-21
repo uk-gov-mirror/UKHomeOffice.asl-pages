@@ -1,31 +1,30 @@
 import React, { Fragment } from 'react';
-import { map, merge } from 'lodash';
 import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
 import { define } from '../../../common/formatters';
 
 const formatters = {
-  suitability: { format: define },
-  holding: { format: define }
+  suitability: define,
+  holding: define
 };
 
 const Place = ({
-  schema,
-  item,
+  fields,
+  model,
   ...props
 }) => (
   <Fragment>
     <div className="grid-row">
       <div className="column-two-thirds">
         <header>
-          <h2>{item.name}</h2>
+          <h2>{model.name}</h2>
           <h1><Snippet>pages.places</Snippet></h1>
           <dl>
             {
-              map(merge({}, schema, formatters), ({ format }, key) =>
+              fields.map(key =>
                 <Fragment key={key}>
                   <dt><Snippet>{`fieldLabels.${key}`}</Snippet></dt>
-                  <dd>{format ? format(item[key]) : item[key]}</dd>
+                  <dd>{formatters[key] ? formatters[key](model[key]) : (model[key] || '-')}</dd>
                 </Fragment>
               )
             }
@@ -43,6 +42,6 @@ const Place = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ item, datatable: { schema } }) => ({ schema, item });
+const mapStateToProps = ({ model, static: { fields } }) => ({ fields, model });
 
 export default connect(mapStateToProps)(Place);

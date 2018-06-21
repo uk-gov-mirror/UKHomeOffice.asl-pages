@@ -4,10 +4,18 @@ module.exports = {
     singular: 'Less than 1 month left',
     plural: 'Less than {{diff}} months left'
   },
-  fieldLabels: {
-    title: 'Title',
-    licenceHolder: 'Licence holder',
-    licenceNumber: 'Licence number',
-    expiryDate: 'Expiry date'
+  fields: {
+    title: {
+      label: 'Title'
+    },
+    licenceHolder: {
+      label: 'Licence holder'
+    },
+    licenceNumber: {
+      label: 'Licence number'
+    },
+    expiryDate: {
+      label: 'Expiry date'
+    }
   }
 };

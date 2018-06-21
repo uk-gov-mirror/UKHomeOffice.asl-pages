@@ -14,7 +14,7 @@ const fields = {
 
 const Form = ({
   schema,
-  item,
+  model,
   errors = {},
   onFieldChange
 }) => (
@@ -23,8 +23,9 @@ const Form = ({
       map(schema, ({ inputType, accessor, ...props }, key) =>
         fields[inputType]({
           key,
-          value: accessor ? get(item[key], accessor) : (item[key] || ''),
-          label: <Snippet>{`fieldLabels.${key}`}</Snippet>,
+          value: accessor ? get(model[key], accessor) : (model[key] || ''),
+          label: <Snippet>{`fields.${key}.label`}</Snippet>,
+          hint: <Snippet optional>{`fields.${key}.hint`}</Snippet>,
           name: key,
           error: errors[key] && <Snippet>{`errors.${key}.${errors[key]}`}</Snippet>,
           onChange: e => onFieldChange(key, e.target.value),

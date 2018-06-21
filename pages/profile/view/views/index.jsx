@@ -23,7 +23,7 @@ const getPremises = roles => {
 };
 
 const Index = ({
-  item: {
+  model: {
     name,
     pil,
     qualifications,
@@ -166,6 +166,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment }, item }) => ({ establishment, item });
+const mapStateToProps = ({ static: { establishment }, model }) => ({ establishment, model });
 
 module.exports = connect(mapStateToProps)(Index);

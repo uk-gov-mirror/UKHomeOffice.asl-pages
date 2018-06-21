@@ -70,7 +70,7 @@ class Filters extends Component {
             {
               map(filterSettings, ({ values, format }, key) =>
                 <div key={key} className="column-one-third">
-                  <OptionSelect title={ <Snippet>{`fieldLabels.${key}`}</Snippet> } id={key}>
+                  <OptionSelect title={ <Snippet>{`fields.${key}.label`}</Snippet> } id={key}>
                     {
                       values.map((filter, index) =>
                         <CheckedOption

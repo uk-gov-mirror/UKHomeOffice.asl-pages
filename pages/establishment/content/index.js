@@ -1,6 +1,10 @@
 module.exports = {
-  fieldLabels: {
-    name: 'Name',
-    licenceNumber: 'Licence number'
+  fields: {
+    name: {
+      label: 'Name'
+    },
+    licenceNumber: {
+      label: 'Licence number'
+    }
   }
 };
