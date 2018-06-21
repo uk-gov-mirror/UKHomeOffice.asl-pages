@@ -1,3 +1,17 @@
+.table-heading {
+  margin-top: $gutter * 2;
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    margin-top: 0
+  }
+
+  a {
+    margin-left: $gutter;
+  }
+}
+
 .govuk-react-datatable {
   th[aria-sort] {
 
