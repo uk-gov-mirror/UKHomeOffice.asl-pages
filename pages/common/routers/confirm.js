@@ -4,6 +4,7 @@ const defaultMiddleware = (req, res, next) => next();
 
 module.exports = ({
   model = 'model',
+  cancelPath = '/',
   schema,
   submitChange = defaultMiddleware,
   configure = defaultMiddleware,
@@ -25,8 +26,7 @@ module.exports = ({
     const { clear, edit } = req.query;
     if (clear) {
       delete req.session.form[req.model.id];
-      const re = new RegExp(`/${req.model.id}/edit/confirm`);
-      res.redirect(req.baseUrl.replace(re, ''));
+      res.redirect(cancelPath);
     }
     if (edit) {
       res.redirect(req.baseUrl.replace(/\/confirm/, ''));
