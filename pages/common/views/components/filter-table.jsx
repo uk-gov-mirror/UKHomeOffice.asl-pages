@@ -13,10 +13,12 @@ const FilterTable = ({
 }) => (
   <Fragment>
     <Filters formatters={ formatters }/>
-    <FilterSummary />
-    {
-      editable && <Link label={<Snippet>addNew</Snippet>} path="create" />
-    }
+    <div className="table-heading">
+      <FilterSummary />
+      {
+        editable && <Link label={<Snippet>addNew</Snippet>} path="create" />
+      }
+    </div>
     <DataTable formatters={ formatters } ExpandableRow={ExpandableRow} />
     <ExportLink />
   </Fragment>
