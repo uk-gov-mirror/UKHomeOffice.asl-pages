@@ -80,4 +80,4 @@ const getSchemaWithNacwos = req =>
 module.exports = {
   schema,
   getSchemaWithNacwos
-}
+};

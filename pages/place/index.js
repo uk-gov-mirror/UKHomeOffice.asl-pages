@@ -1,5 +1,4 @@
 const { Router } = require('express');
-// const
 
 module.exports = () => {
   const app = Router();
@@ -16,14 +15,13 @@ module.exports = () => {
       .catch(next);
   });
 
+  app.use('/:id/edit', require('./update')());
+  app.use('/:id/delete', require('./delete')());
+  app.use('/:id', require('./read')());
 
-  app.use('/:id/edit', require('./update')())
-  app.use('/:id/delete', require('./delete')())
-  app.use('/:id', require('./read')())
+  app.use('/create', require('./create')());
 
-  app.use('/create', require('./create')())
-
-  app.use('/', require('./list')())
+  app.use('/', require('./list')());
 
   return app;
-}
+};

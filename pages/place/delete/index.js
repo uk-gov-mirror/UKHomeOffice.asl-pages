@@ -1,4 +1,4 @@
-const page = require('../../../lib/page')
+const page = require('../../../lib/page');
 
 module.exports = settings => {
   const app = page({

@@ -1,4 +1,3 @@
-const { merge } = require('lodash');
 const page = require('../../../lib/page');
 const edit = require('../routers/edit');
 

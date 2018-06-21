@@ -42,7 +42,7 @@ module.exports = settings => {
             }
           });
         })
-        .then(() => {console.log(res.locals.static.content); next()})
+        .then(() => next())
         .catch(next)
       }
     }
