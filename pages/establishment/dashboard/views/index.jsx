@@ -39,7 +39,7 @@ const Index = ({
           <dd>{ licenceNumber }</dd>
 
           <dt><Snippet>licenceHolder</Snippet></dt>
-          <dd><Link path={`/profile/${pelh.id}`} label={pelh.name} /></dd>
+          <dd><Link path={`profile/${pelh.id}`} label={pelh.name} /></dd>
         </dl>
       </Sidebar>
     </div>
