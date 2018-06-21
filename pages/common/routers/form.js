@@ -20,6 +20,7 @@ const flattedNested = (data, schema) =>
 
 module.exports = ({
   schema = {},
+  model = 'model',
   configure = defaultMiddleware,
   clearErrors = defaultMiddleware,
   getValues = defaultMiddleware,
@@ -34,7 +35,7 @@ module.exports = ({
   const _configure = (req, res, next) => {
     req.form = req.form || {};
     req.model = req.model || {};
-    req.model.id = req.model.id || 'new-model';
+    req.model.id = req.model.id || `new-${model}`;
     req.form.schema = schema;
     req.session.form = req.session.form || {};
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};

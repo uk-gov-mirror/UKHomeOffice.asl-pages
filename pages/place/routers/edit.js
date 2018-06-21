@@ -9,6 +9,7 @@ module.exports = settings => {
 
   app.use(edit(merge({
     schema,
+    model: 'place',
     formSettings: {
       configure: (req, res, next) => {
         getSchemaWithNacwos(req)

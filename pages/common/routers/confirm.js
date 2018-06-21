@@ -3,7 +3,7 @@ const { Router } = require('express');
 const defaultMiddleware = (req, res, next) => next();
 
 module.exports = ({
-  model,
+  model = 'model',
   schema,
   submitChange = defaultMiddleware,
   configure = defaultMiddleware,
@@ -16,7 +16,7 @@ module.exports = ({
   const _configure = (req, res, next) => {
     req.form = req.form || {};
     req.model = req.model || {};
-    req.model.id = req.model.id || 'new-model';
+    req.model.id = req.model.id || `new-${model}`;
     req.form.schema = schema;
     return configure(req, res, next);
   };
