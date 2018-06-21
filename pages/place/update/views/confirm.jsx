@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 import Diff from '../../../common/views/containers/diff';
+import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
 import { joinAcronyms } from '../../../common/formatters';
 
@@ -19,6 +20,7 @@ const Confirm = ({
       name: pelhName
     }
   },
+  newModel,
   ...props
 }) => (
   <Fragment>
@@ -39,7 +41,11 @@ const Confirm = ({
           <dd>{ pelhName }</dd>
         </dl>
         <hr />
-        <Diff formatters={formatters} />
+        {
+          newModel
+            ? <ModelSummary formatters={formatters} />
+            : <Diff formatters={formatters} />
+        }
         <div className="control-bar block">
           <p><Snippet>declaration</Snippet></p>
           <form method="POST">

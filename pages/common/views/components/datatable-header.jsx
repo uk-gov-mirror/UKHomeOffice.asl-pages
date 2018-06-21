@@ -2,7 +2,7 @@ import React from 'react';
 import ApplyChanges from '../containers/apply-changes';
 import Snippet from '../containers/snippet';
 
-const getLabel = id => <Snippet>{`fieldLabels.${id}`}</Snippet>;
+const getLabel = id => <Snippet>{`fields.${id}.label`}</Snippet>;
 
 const TableHeader = ({
   id,

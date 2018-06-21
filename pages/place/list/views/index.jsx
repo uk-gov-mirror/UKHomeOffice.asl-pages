@@ -54,7 +54,7 @@ const ExpandableRow = ({ row, schema }) => (
       row.notes && (
         <div className="column-two-thirds">
           <dl>
-            <dt>{<Snippet>fieldLabels.restrictions</Snippet>}</dt>
+            <dt>{<Snippet>fields.restrictions.label</Snippet>}</dt>
             <dd>{row.notes}</dd>
           </dl>
         </div>
@@ -72,7 +72,7 @@ const Places = ({
       <h2>{name}</h2>
       <h1><Snippet>pages.places</Snippet></h1>
     </header>
-    <FilterTable formatters={formatters} ExpandableRow={ExpandableRow} />
+    <FilterTable formatters={formatters} ExpandableRow={ExpandableRow} editable={true} />
   </Fragment>
 );
 

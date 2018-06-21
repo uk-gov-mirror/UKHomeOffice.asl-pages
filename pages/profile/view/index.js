@@ -10,7 +10,7 @@ module.exports = settings => {
     req.api(`/establishment/${req.establishment}/profile/${req.profile}`)
       .then(response => {
         res.locals.static.establishment = response.json.meta.establishment;
-        res.locals.item = response.json.data;
+        res.locals.model = response.json.data;
       })
       .then(() => next())
       .catch(next);

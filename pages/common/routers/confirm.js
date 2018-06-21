@@ -1,15 +1,10 @@
-const { mapValues } = require('lodash');
 const { Router } = require('express');
-
-const getItem = (req, model) =>
-  req.api(`/establishment/${req.establishment}/${model}/${req.form.id}`)
-    .then(({ json: { data } }) => Promise.resolve(data))
-    .catch(err => Promise.reject(err));
 
 const defaultMiddleware = (req, res, next) => next();
 
 module.exports = ({
-  model,
+  model = 'model',
+  cancelPath = '/',
   schema,
   submitChange = defaultMiddleware,
   configure = defaultMiddleware,
@@ -21,7 +16,8 @@ module.exports = ({
 
   const _configure = (req, res, next) => {
     req.form = req.form || {};
-    req.form.id = req[model];
+    req.model = req.model || {};
+    req.model.id = req.model.id || `new-${model}`;
     req.form.schema = schema;
     return configure(req, res, next);
   };
@@ -29,9 +25,8 @@ module.exports = ({
   const _processQuery = (req, res, next) => {
     const { clear, edit } = req.query;
     if (clear) {
-      delete req.session.form[req.form.id];
-      const re = new RegExp(`/${req.form.id}/edit/confirm`);
-      res.redirect(req.baseUrl.replace(re, ''));
+      delete req.session.form[req.model.id];
+      res.redirect(cancelPath);
     }
     if (edit) {
       res.redirect(req.baseUrl.replace(/\/confirm/, ''));
@@ -40,33 +35,25 @@ module.exports = ({
   };
 
   const _checkSession = (req, res, next) => {
-    if (req.session.form && req.session.form[req.form.id]) {
+    if (req.session.form && req.session.form[req.model.id]) {
       return checkSession(req, res, next);
     }
     res.redirect(req.baseUrl.replace(/\/confirm/, ''));
   };
 
   const _getValues = (req, res, next) => {
-    getItem(req, model)
-      .then(item => {
-        req.form.diff = mapValues(req.form.schema, ({ parse }, key) => {
-          return {
-            oldValue: item[key],
-            newValue: req.session.form[req.form.id].values[key]
-          };
-        });
-      })
-      .then(() => getValues(req, res, next))
-      .catch(next);
+    req.form.values = req.session.form[req.model.id].values;
+    return getValues(req, res, next);
   };
 
   const _locals = (req, res, next) => {
-    res.locals.static.diff = req.form.diff;
+    Object.assign(res.locals, { model: req.model });
+    Object.assign(res.locals.static, { values: req.form.values });
     return locals(req, res, next);
   };
 
   const submit = (req, res, next) => {
-    if (req.session.form && req.session.form[req.form.id]) {
+    if (req.session.form && req.session.form[req.model.id]) {
       return submitChange(req, res, next);
     }
     return res.redirect(req.originalUrl);
