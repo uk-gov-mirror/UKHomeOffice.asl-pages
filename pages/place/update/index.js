@@ -1,5 +1,5 @@
 const page = require('../../../lib/page');
-const edit = require('../routers/edit');
+const edit = require('../routers/add-or-edit');
 
 module.exports = settings => {
   const app = page({

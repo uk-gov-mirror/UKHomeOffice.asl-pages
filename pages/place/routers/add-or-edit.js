@@ -1,13 +1,13 @@
 const { merge } = require('lodash');
 const { Router } = require('express');
-const edit = require('../../common/routers/edit');
+const addOrEdit = require('../../common/routers/add-or-edit');
 const { schema, getSchemaWithNacwos } = require('../schema');
 const { getEstablishment, getNacwoById } = require('../../common/helpers');
 
 module.exports = settings => {
   const app = Router();
 
-  app.use(edit(merge({
+  app.use(addOrEdit(merge({
     schema,
     model: 'place',
     formSettings: {
@@ -17,7 +17,7 @@ module.exports = settings => {
             req.form.schema = schema;
           })
           .then(() => next())
-          .catch(next)
+          .catch(next);
       },
       locals: (req, res, next) => {
         getNacwoById(req, res.locals.model.nacwo)
@@ -34,20 +34,20 @@ module.exports = settings => {
           getNacwoById(req, req.form.values.nacwo),
           getEstablishment(req)
         ])
-        .then(([nacwo, establishment]) => {
-          Object.assign(res.locals.static, {
-            establishment,
-            values: {
-              ...res.locals.static.values,
-              nacwo
-            }
-          });
-        })
-        .then(() => next())
-        .catch(next)
+          .then(([nacwo, establishment]) => {
+            Object.assign(res.locals.static, {
+              establishment,
+              values: {
+                ...res.locals.static.values,
+                nacwo
+              }
+            });
+          })
+          .then(() => next())
+          .catch(next);
       }
     }
   }, settings)));
 
   return app;
-}
+};

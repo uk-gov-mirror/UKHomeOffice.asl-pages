@@ -1,5 +1,5 @@
 const page = require('../../../lib/page');
-const edit = require('../routers/edit');
+const add = require('../routers/add-or-edit');
 
 module.exports = settings => {
   const app = page({
@@ -8,7 +8,7 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use(edit());
+  app.use(add());
 
   return app;
 };
