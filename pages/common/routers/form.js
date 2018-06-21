@@ -115,8 +115,8 @@ module.exports = ({
     _configure,
     _clearErrors,
     _process,
-    _checkChanged,
     _validate,
+    _checkChanged,
     _saveValues,
     errorHandler
   );
