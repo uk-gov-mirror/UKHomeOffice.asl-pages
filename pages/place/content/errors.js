@@ -16,5 +16,8 @@ module.exports = {
   nacwo: {
     required: 'Select a NACWO for the licensed premises',
     definedValues: 'Invalid option, select from the list of available NACWOs'
+  },
+  declaration: {
+    unchecked: 'Click on the declaration'
   }
 };

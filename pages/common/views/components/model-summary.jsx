@@ -2,13 +2,20 @@ import React, { Fragment } from 'react';
 import { map } from 'lodash';
 import Snippet from '../containers/snippet';
 
+const getValue = (value, format) => {
+  if (!value) {
+    return '-';
+  }
+  return format ? format(value) : value;
+};
+
 const ModelSummary = ({ model, formatters }) => (
   <dl className="inline">
     {
       map(model, (item, key) =>
         <Fragment>
           <dt><Snippet>{`fields.${key}.label`}</Snippet></dt>
-          <dd>{formatters[key] ? formatters[key].format(model[key]) : model[key]}</dd>
+          <dd>{getValue(model[key], formatters[key] && formatters[key].format)}</dd>
         </Fragment>
       )
     }

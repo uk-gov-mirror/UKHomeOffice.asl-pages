@@ -21,5 +21,8 @@ module.exports = {
   },
   nacwo: {
     label: 'NACWO'
+  },
+  declaration: {
+    label: 'I have the auth'
   }
 };

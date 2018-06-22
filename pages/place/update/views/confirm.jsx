@@ -4,6 +4,8 @@ import { get } from 'lodash';
 import Diff from '../../../common/views/containers/diff';
 import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
+import ErrorSummary from '../../../common/views/containers/error-summary';
+import RadioGroup from 'govuk-react-components/components/forms/radio-group';
 import { joinAcronyms } from '../../../common/formatters';
 
 const formatters = {
@@ -13,6 +15,9 @@ const formatters = {
 };
 
 const Confirm = ({
+  declaration = true,
+  errors = {},
+  newModel,
   establishment: {
     name,
     licenceNumber,
@@ -20,12 +25,12 @@ const Confirm = ({
       name: pelhName
     }
   },
-  newModel,
   ...props
 }) => (
   <Fragment>
     <div className="grid-row">
       <div className="column-two-thirds">
+        <ErrorSummary />
         <header>
           <h2>&nbsp;</h2>
           <h1><Snippet>pages.place.confirm</Snippet></h1>
@@ -47,9 +52,26 @@ const Confirm = ({
             : <Diff formatters={formatters} />
         }
         <div className="control-bar block">
-          <p><Snippet>declaration</Snippet></p>
           <form method="POST">
-            <input type="hidden" name="submit" value="true" />
+            {
+              declaration && (
+                <RadioGroup
+                  id="declaration-checkbox"
+                  type="checkbox"
+                  name="declaration-checkbox"
+                  error={
+                    errors.declaration && <Snippet>{`errors.declaration.${errors.declaration}`}</Snippet>
+                  }
+                  label=""
+                  options={[
+                    {
+                      value: true,
+                      label: <Snippet>declaration</Snippet>
+                    }
+                  ]}
+                />
+              )
+            }
             <button className="button"><Snippet>buttons.submit</Snippet></button>
           </form>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
@@ -60,6 +82,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, errors } }) => ({ establishment, errors });
 
 export default connect(mapStateToProps)(Confirm);
