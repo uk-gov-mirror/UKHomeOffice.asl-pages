@@ -10,7 +10,13 @@ module.exports = ({
   configure = defaultMiddleware,
   checkSession = defaultMiddleware,
   getValues = defaultMiddleware,
-  locals = defaultMiddleware
+  locals = defaultMiddleware,
+  cancelEdit = (req, res, next) => {
+    return res.redirect(cancelPath);
+  },
+  editAnswers = (req, res, next) => {
+    return res.redirect(req.baseUrl.replace(/\/confirm/, ''));
+  }
 } = {}) => {
   const app = Router();
 
@@ -26,10 +32,10 @@ module.exports = ({
     const { clear, edit } = req.query;
     if (clear) {
       delete req.session.form[req.model.id];
-      res.redirect(cancelPath);
+      return cancelEdit(req, res, next);
     }
     if (edit) {
-      res.redirect(req.baseUrl.replace(/\/confirm/, ''));
+      return editAnswers(req, res, next);
     }
     next();
   };

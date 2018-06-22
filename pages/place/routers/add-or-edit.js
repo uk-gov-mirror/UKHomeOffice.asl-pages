@@ -45,6 +45,9 @@ module.exports = settings => {
           })
           .then(() => next())
           .catch(next);
+      },
+      cancelEdit: (req, res, next) => {
+        return res.redirect(req.listPath);
       }
     }
   }, settings)));

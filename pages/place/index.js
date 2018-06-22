@@ -15,6 +15,11 @@ module.exports = () => {
       .catch(next);
   });
 
+  app.use((req, res, next) => {
+    req.listPath = req.baseUrl;
+    next();
+  });
+
   app.use('/:id/edit', require('./update')());
   app.use('/:id/delete', require('./delete')());
   app.use('/:id', require('./read')());
