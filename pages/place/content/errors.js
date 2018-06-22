@@ -1,23 +1,23 @@
 module.exports = {
   site: {
-    required: 'Enter a site for the licensed premises'
+    required: 'Licensed premises all need a site name.'
   },
   name: {
-    required: 'Add a name for the licensed premises'
+    required: 'This could be a room number, like G1 for example.'
   },
   holding: {
-    required: 'Select applicable holding code(s)',
+    required: 'Select at least one holding code.',
     definedValues: 'Invalid option, select from the list of available holding codes'
   },
   suitability: {
-    required: 'Select applicable suitability code(s)',
+    required: 'Select at least one suitability code',
     definedValues: 'Invalid option, select from the list of available suitability codes'
   },
   nacwo: {
-    required: 'Select a NACWO for the licensed premises',
+    required: 'Select a NACWO.',
     definedValues: 'Invalid option, select from the list of available NACWOs'
   },
   declaration: {
-    unchecked: 'Click on the declaration'
+    unchecked: 'Check the declaration to confirm you have permission from the PEL holder.'
   }
 };
