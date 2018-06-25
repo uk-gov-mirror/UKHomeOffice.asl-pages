@@ -23,6 +23,6 @@ module.exports = {
     label: 'NACWO'
   },
   declaration: {
-    label: 'I have the auth'
+    label: 'Declaration'
   }
 };

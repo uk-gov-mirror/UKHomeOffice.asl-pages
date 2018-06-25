@@ -1,5 +1,7 @@
 const page = require('../../../lib/page');
-const edit = require('../routers/add-or-edit');
+const confirm = require('../routers/confirm');
+const amend = require('../routers/amend');
+const success = require('../../common/routers/success');
 
 module.exports = settings => {
   const app = page({
@@ -8,12 +10,19 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use(edit());
+  app.use('/', amend());
 
-  app.use((req, res, next) => {
-    Object.assign(res.locals, { model: req.model });
-    return next();
+  app.post('/', (req, res, next) => {
+    return res.redirect(`${req.baseUrl}/confirm`);
   });
+
+  app.use('/confirm', confirm());
+
+  app.post('/confirm', (req, res, next) => {
+    return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
+  });
+
+  app.use('/success', success({ model: 'place' }));
 
   return app;
 };

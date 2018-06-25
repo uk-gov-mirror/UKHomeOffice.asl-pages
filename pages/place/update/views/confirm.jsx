@@ -65,9 +65,9 @@ const Confirm = ({
             {
               declaration && (
                 <RadioGroup
-                  id="declaration-checkbox"
+                  id="declaration"
                   type="checkbox"
-                  name="declaration-checkbox"
+                  name="declaration"
                   error={
                     errors.declaration && <Snippet>{`errors.declaration.${errors.declaration}`}</Snippet>
                   }

@@ -18,6 +18,6 @@ module.exports = {
     definedValues: 'Invalid option, select from the list of available NACWOs'
   },
   declaration: {
-    unchecked: 'Check the declaration to confirm you have permission from the PEL holder.'
+    required: 'Check the declaration to confirm you have permission from the PEL holder.'
   }
 };

@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { schema } = require('./schema');
 
 module.exports = () => {
   const app = Router();
@@ -16,6 +17,7 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
+    res.locals.static.schema = schema;
     req.listPath = req.baseUrl;
     next();
   });
