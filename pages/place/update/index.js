@@ -10,5 +10,10 @@ module.exports = settings => {
 
   app.use(edit());
 
+  app.use((req, res, next) => {
+    Object.assign(res.locals, { model: req.model });
+    return next();
+  });
+
   return app;
 };

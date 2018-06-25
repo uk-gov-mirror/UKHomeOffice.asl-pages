@@ -6,5 +6,6 @@ module.exports = merge({}, confirmPage, {
     place: {
       confirm: 'Confirm addition'
     }
-  }
+  },
+  subtitle: 'Add new premises to {{name}}'
 });

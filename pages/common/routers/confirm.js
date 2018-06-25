@@ -70,8 +70,7 @@ module.exports = ({
   };
 
   const _locals = (req, res, next) => {
-    Object.assign(res.locals, { model: req.model });
-    Object.assign(res.locals.static, { values: req.form.values, errors: req.form.validationErrors });
+    Object.assign(res.locals.static, { values: req.form.values });
     return locals(req, res, next);
   };
 
