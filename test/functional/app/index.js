@@ -1,3 +1,4 @@
+const { set } = require('lodash');
 const ui = require('@asl/service/ui');
 const withuser = require('./withuser');
 const fixtures = require('../fixtures');
@@ -24,8 +25,17 @@ module.exports = () => {
 
   const pages = getPages();
 
+  const urls = Object.keys(pages).reduce((all, path) => {
+    const key = path.replace('pages/', '').split('/').join('.');
+    return set(all, key, `/${path}`);
+  }, {});
+
+  app.use((req, res, next) => {
+    set(res.locals, 'static.urls', urls);
+    next();
+  });
+
   Object.keys(pages).forEach(page => {
-    console.log(`Mounting ${page}`);
     app.use(`/${page}`, pages[page].middleware);
     app.use(`/${page}`, pages[page].router);
   });
