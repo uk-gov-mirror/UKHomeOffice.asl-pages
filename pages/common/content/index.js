@@ -4,7 +4,7 @@ module.exports = {
   pages: {
     establishments: 'Establishments',
     details: 'Establishment details',
-    people: 'Named people and licence holders',
+    people: 'People',
     places: 'Licensed premises',
     projects: 'Projects',
     place: {

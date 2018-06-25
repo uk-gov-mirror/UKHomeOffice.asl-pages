@@ -6,8 +6,8 @@ import Sidebar from '../../../common/views/components/sidebar';
 
 const links = [
   'details',
-  'people',
   'places',
+  'people',
   'projects'
 ];
 
@@ -28,7 +28,10 @@ const Index = ({
         <ul className="dashboard">
           {
             links.map(link =>
-              <li key={link}><Link path={link} label={<Snippet>{`pages.${link}`}</Snippet>} /></li>
+              <li key={link}>
+                <Link path={link} label={<Snippet>{`pages.${link}`}</Snippet>} />
+                <p><Snippet>{`dashboard.${link}.subtitle`}</Snippet></p>
+              </li>
             )
           }
         </ul>
