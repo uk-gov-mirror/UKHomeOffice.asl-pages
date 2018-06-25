@@ -23,7 +23,7 @@ const Place = ({
             {
               fields.map(key =>
                 <Fragment key={key}>
-                  <dt><Snippet>{`fieldLabels.${key}`}</Snippet></dt>
+                  <dt><Snippet>{`fields.${key}.label`}</Snippet></dt>
                   <dd>{formatters[key] ? formatters[key](model[key]) : (model[key] || '-')}</dd>
                 </Fragment>
               )

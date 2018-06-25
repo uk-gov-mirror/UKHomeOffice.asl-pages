@@ -2,14 +2,18 @@ import { reduce } from 'lodash';
 import { connect } from 'react-redux';
 import Diff from '../components/diff';
 
-const mapStateToProps = ({ model, static: { values } }) => ({
-  diff: reduce(values, (all, value, key) => {
-    return { ...all,
-      [key]: {
-        oldValue: model[key],
-        newValue: value
-      }};
-  }, {})
-});
+const mapStateToProps = ({ model, static: { values, schema } }) => {
+  console.log('SSS', schema);
+  return {
+    diff: reduce(schema, (all, value, key) => {
+      return { ...all,
+        [key]: {
+          oldValue: model[key],
+          newValue: values[key]
+        }};
+    }, {})
+  };
+
+};
 
 export default connect(mapStateToProps)(Diff);

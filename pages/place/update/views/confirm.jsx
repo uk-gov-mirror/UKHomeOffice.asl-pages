@@ -17,7 +17,10 @@ const formatters = {
 const Confirm = ({
   declaration = true,
   errors = {},
-  newModel,
+  action = 'update',
+  model: {
+    name: modelName
+  },
   establishment: {
     name,
     licenceNumber,
@@ -46,9 +49,15 @@ const Confirm = ({
           <dd>{ pelhName }</dd>
         </dl>
         <hr />
+        <h2><Snippet optional name={modelName}>subtitle</Snippet></h2>
         {
-          newModel
-            ? <ModelSummary formatters={formatters} />
+          action === 'create' || action === 'delete'
+            ? (
+              <Fragment>
+                <ModelSummary formatters={formatters} />
+                <hr />
+              </Fragment>
+            )
             : <Diff formatters={formatters} />
         }
         <div className="control-bar block">
@@ -56,9 +65,9 @@ const Confirm = ({
             {
               declaration && (
                 <RadioGroup
-                  id="declaration-checkbox"
+                  id="declaration"
                   type="checkbox"
-                  name="declaration-checkbox"
+                  name="declaration"
                   error={
                     errors.declaration && <Snippet>{`errors.declaration.${errors.declaration}`}</Snippet>
                   }
@@ -82,6 +91,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, errors } }) => ({ establishment, errors });
+const mapStateToProps = ({ model, static: { establishment, errors } }) => ({ establishment, model, errors });
 
 export default connect(mapStateToProps)(Confirm);
