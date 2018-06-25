@@ -6,11 +6,8 @@ module.exports = {
     roles: {
       label: 'Roles'
     },
-    licence: {
-      label: 'Licence type'
-    },
     pil: {
-      label: 'Licence number'
+      label: 'PIL number'
     }
   }
 };

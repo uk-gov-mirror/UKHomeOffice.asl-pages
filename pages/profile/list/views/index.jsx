@@ -15,17 +15,6 @@ const joinAcronyms = data => {
   return <Acronym>{data}</Acronym>;
 };
 
-const licenceTypes = profile => {
-  const types = [];
-  if (profile.pil) {
-    types.push('PIL');
-  }
-  if (profile.ppls && profile.ppls.length) {
-    types.push('PPL');
-  }
-  return joinAcronyms(types);
-};
-
 export const formatters = {
   name: {
     format: (name, person) => <a href={`profile/${person.id}`}>{ name }</a>
@@ -33,8 +22,8 @@ export const formatters = {
   roles: {
     format: data => joinAcronyms(data)
   },
-  licence: {
-    format: (data, row) => licenceTypes(row)
+  pil: {
+    format: data => data || '-'
   }
 };
 
