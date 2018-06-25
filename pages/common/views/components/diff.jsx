@@ -1,7 +1,6 @@
 import React from 'react';
 import { map, isEqual } from 'lodash';
-
-const getLabel = (key, { label } = {}) => label || key;
+import Snippet from '../containers/snippet';
 
 const getValue = (key, { format } = {}) => {
   const value = format ? format(key) : key;
@@ -27,7 +26,7 @@ const Diff = ({
         map(diff, ({ oldValue, newValue }, key) => {
           const className = isEqual(oldValue, newValue) ? '' : 'highlight';
           return <tr key={key}>
-            <td>{getLabel(key, formatters[key])}</td>
+            <td><Snippet>{`fields.${key}.label`}</Snippet></td>
             <td>{getValue(oldValue, formatters[key])}</td>
             <td>
               <span className={className}>{getValue(newValue, formatters[key])}</span>
