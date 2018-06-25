@@ -3,10 +3,12 @@ import { map, get } from 'lodash';
 import InputText from 'govuk-react-components/components/forms/input-text';
 import RadioGroup from 'govuk-react-components/components/forms/radio-group';
 import Select from 'govuk-react-components/components/forms/select';
+import Textarea from 'govuk-react-components/components/forms/textarea';
 import Snippet from '../containers/snippet';
 
 const fields = {
   inputText: ({ ...props }) => <InputText { ...props } />,
+  textarea: props => <Textarea { ...props } />,
   radioGroup: ({ ...props }) => <RadioGroup { ...props } />,
   checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
   select: ({ ...props }) => <Select { ...props } />

@@ -18,6 +18,7 @@ const Confirm = ({
   declaration = true,
   errors = {},
   action = 'update',
+  values,
   model: {
     name: modelName
   },
@@ -60,6 +61,14 @@ const Confirm = ({
             )
             : <Diff formatters={formatters} />
         }
+        {
+          values && values.comments && (
+            <Fragment>
+              <h2><Snippet>fields.comments.label</Snippet></h2>
+              <p>{ values && values.comments }</p>
+            </Fragment>
+          )
+        }
         <div className="control-bar block">
           <form method="POST">
             {
@@ -91,6 +100,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ model, static: { establishment, errors } }) => ({ establishment, model, errors });
+const mapStateToProps = ({ model, static: { establishment, errors, values } }) => ({ establishment, model, errors, values });
 
 export default connect(mapStateToProps)(Confirm);
