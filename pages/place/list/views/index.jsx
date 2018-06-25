@@ -69,7 +69,7 @@ const Places = ({
   <Fragment>
     <header>
       <h2>{name}</h2>
-      <h1><Snippet>pages.places</Snippet></h1>
+      <h1><Snippet>pages.place.list</Snippet></h1>
     </header>
     <FilterTable formatters={formatters} ExpandableRow={ExpandableRow} editable={true} />
   </Fragment>

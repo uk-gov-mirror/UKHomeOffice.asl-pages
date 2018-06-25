@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Accordion from '../../../common/views/components/accordion';
 import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
+import Link from '../../../common/views/containers/link';
 
 const Index = ({
   establishment: {
@@ -21,7 +22,7 @@ const Index = ({
     <Fragment>
       <header>
         <h2>{ name }</h2>
-        <h1><Snippet>pages.details</Snippet></h1>
+        <h1><Snippet>pages.establishment.details</Snippet></h1>
       </header>
       <div className="grid-row">
         <div className="column-two-thirds">
@@ -33,7 +34,7 @@ const Index = ({
             <dd>{ address }</dd>
 
             <dt><Snippet>licenceHolder</Snippet></dt>
-            <dd><a href={`profile/${pelh.id}`}>{ pelh.name }</a></dd>
+            <dd><Link page="profile.view" profile={ pelh.id } label={ pelh.name } /></dd>
 
             <dt><Snippet>licenced.title</Snippet></dt>
             <dd>

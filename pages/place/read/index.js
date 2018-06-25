@@ -1,5 +1,5 @@
 const page = require('../../../lib/page');
-const schema = require('../schema');
+const { schema } = require('../schema');
 
 module.exports = settings => {
   const app = page({

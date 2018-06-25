@@ -18,7 +18,7 @@ const Place = ({
       <div className="column-two-thirds">
         <header>
           <h2>{model.name}</h2>
-          <h1><Snippet>pages.places</Snippet></h1>
+          <h1><Snippet>pages.place.list</Snippet></h1>
           <dl>
             {
               fields.map(key =>
