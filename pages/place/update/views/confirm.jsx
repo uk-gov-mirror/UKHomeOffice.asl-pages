@@ -18,9 +18,8 @@ const Confirm = ({
   declaration = true,
   errors = {},
   action = 'update',
-  model: {
-    name: modelName
-  },
+  values,
+  model,
   establishment: {
     name,
     licenceNumber,
@@ -49,7 +48,7 @@ const Confirm = ({
           <dd>{ pelhName }</dd>
         </dl>
         <hr />
-        <h2><Snippet optional name={modelName}>subtitle</Snippet></h2>
+        <h2><Snippet optional name={model.name}>subtitle</Snippet></h2>
         {
           action === 'create' || action === 'delete'
             ? (
@@ -60,6 +59,15 @@ const Confirm = ({
             )
             : <Diff formatters={formatters} />
         }
+        {
+          values && values.comments && (
+            <Fragment>
+              <h2><Snippet>fields.comments.label</Snippet></h2>
+              <p>{ values.comments }</p>
+            </Fragment>
+          )
+        }
+
         <div className="control-bar block">
           <form method="POST">
             {
@@ -91,6 +99,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ model, static: { establishment, errors } }) => ({ establishment, model, errors });
+const mapStateToProps = ({ model, static: { establishment, errors, values } }) => ({ establishment, model, errors, values });
 
 export default connect(mapStateToProps)(Confirm);

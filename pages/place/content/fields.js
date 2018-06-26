@@ -24,5 +24,8 @@ module.exports = {
   },
   declaration: {
     label: 'Declaration'
+  },
+  comments: {
+    label: 'Why are you making this change?'
   }
 };

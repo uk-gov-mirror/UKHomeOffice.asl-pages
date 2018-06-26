@@ -3,10 +3,12 @@ import { map, get } from 'lodash';
 import InputText from 'govuk-react-components/components/forms/input-text';
 import RadioGroup from 'govuk-react-components/components/forms/radio-group';
 import Select from 'govuk-react-components/components/forms/select';
+import Textarea from 'govuk-react-components/components/forms/textarea';
 import Snippet from '../containers/snippet';
 
 const fields = {
   inputText: ({ ...props }) => <InputText { ...props } />,
+  textarea: ({ value, ...props }) => <Textarea { ...props }>{ value }</Textarea>,
   radioGroup: ({ ...props }) => <RadioGroup { ...props } />,
   checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
   select: ({ ...props }) => <Select { ...props } />
@@ -15,8 +17,7 @@ const fields = {
 const Form = ({
   schema,
   model,
-  errors = {},
-  onFieldChange
+  errors = {}
 }) => (
   <form method="POST">
     {
@@ -28,7 +29,6 @@ const Form = ({
           hint: <Snippet optional>{`fields.${key}.hint`}</Snippet>,
           name: key,
           error: errors[key] && <Snippet>{`errors.${key}.${errors[key]}`}</Snippet>,
-          onChange: e => onFieldChange(key, e.target.value),
           ...props
         })
       )

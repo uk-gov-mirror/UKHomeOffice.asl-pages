@@ -7,7 +7,12 @@ module.exports = settings => form(Object.assign({
   configure: (req, res, next) => {
     getSchemaWithNacwos(req)
       .then(schema => {
-        req.form.schema = schema;
+        req.form.schema = {
+          ...schema,
+          comments: {
+            inputType: 'textarea'
+          }
+        };
       })
       .then(() => next())
       .catch(next);

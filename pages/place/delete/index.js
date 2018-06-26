@@ -14,6 +14,11 @@ module.exports = settings => {
 
   app.use(form({
     model: 'place',
+    schema: {
+      comments: {
+        inputType: 'textarea'
+      }
+    },
     locals: (req, res, next) => {
       res.locals.model = pick(req.model, Object.keys(schema));
       res.locals.static = res.locals.static || {};
@@ -34,7 +39,8 @@ module.exports = settings => {
   }));
 
   app.use('/confirm', (req, res, next) => {
-    res.locals.model = pick(req.model, Object.keys(schema));
+    res.locals.model = req.model;
+    res.locals.static.values = req.form.values;
     return next();
   });
 
