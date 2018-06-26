@@ -92,6 +92,11 @@ th {
         display: block;
         padding: $gutter-half $gutter;
       }
+      p {
+        padding: 0 $gutter $gutter/2;
+        margin: 0;
+        @extend .font-xsmall;
+      }
     }
   }
 
