@@ -16,6 +16,8 @@ module.exports = settings => {
     model: 'place',
     locals: (req, res, next) => {
       res.locals.model = pick(req.model, Object.keys(schema));
+      res.locals.static = res.locals.static || {};
+      res.locals.static.schema = schema;
       return next();
     }
   }));
