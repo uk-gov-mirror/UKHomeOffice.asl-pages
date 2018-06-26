@@ -60,6 +60,22 @@ const Confirm = ({
             : <Diff formatters={formatters} />
         }
         {
+          model && model.notes && (
+            <Fragment>
+              <h2><Snippet>fields.notes.label</Snippet></h2>
+              <p>{ model.notes }</p>
+            </Fragment>
+          )
+        }
+        {
+          values && values.restrictions && (
+            <Fragment>
+              <h2><Snippet>fields.restrictions.label</Snippet></h2>
+              <p>{ values.restrictions }</p>
+            </Fragment>
+          )
+        }
+        {
           values && values.comments && (
             <Fragment>
               <h2><Snippet>fields.comments.label</Snippet></h2>

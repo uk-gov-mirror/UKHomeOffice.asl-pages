@@ -17,13 +17,21 @@ module.exports = {
     label: 'Holding'
   },
   restrictions: {
-    label: 'Restrictions'
+    label: 'Restrictions',
+    conditionalReveal: {
+      label: 'Do these restrictions need to be changed?',
+      yesLabel: 'Yes',
+      noLabel: 'No'
+    }
   },
   nacwo: {
     label: 'NACWO'
   },
   declaration: {
     label: 'Declaration'
+  },
+  notes: {
+    label: 'Current restrictions'
   },
   comments: {
     label: 'Why are you making this change?'

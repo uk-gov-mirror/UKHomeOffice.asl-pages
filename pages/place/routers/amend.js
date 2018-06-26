@@ -1,18 +1,13 @@
 const form = require('../../common/routers/form');
-const { getSchemaWithNacwos } = require('../schema');
+const { getSchemaWithNacwos, schema } = require('../schema');
 const { getNacwoById } = require('../../common/helpers');
 
 module.exports = settings => form(Object.assign({
   model: 'place',
   configure: (req, res, next) => {
-    getSchemaWithNacwos(req)
-      .then(schema => {
-        req.form.schema = {
-          ...schema,
-          comments: {
-            inputType: 'textarea'
-          }
-        };
+    getSchemaWithNacwos(req, settings.schema || schema)
+      .then(mappedSchema => {
+        req.form.schema = mappedSchema;
       })
       .then(() => next())
       .catch(next);

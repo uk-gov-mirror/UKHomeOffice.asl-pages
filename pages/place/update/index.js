@@ -2,6 +2,7 @@ const page = require('../../../lib/page');
 const confirm = require('../routers/confirm');
 const amend = require('../routers/amend');
 const success = require('../../common/routers/success');
+const { schema } = require('../schema');
 
 module.exports = settings => {
   const app = page({
@@ -10,7 +11,21 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use('/', amend());
+  app.use('/', amend({
+    schema: Object.assign({}, schema, {
+      notes: {
+        inputType: 'text',
+        editable: false
+      },
+      restrictions: {
+        inputType: 'textarea',
+        conditionalReveal: true
+      },
+      comments: {
+        inputType: 'textarea'
+      }
+    })
+  }));
 
   app.post('/', (req, res, next) => {
     return res.redirect(`${req.baseUrl}/confirm`);

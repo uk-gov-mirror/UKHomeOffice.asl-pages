@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const { mapValues, size, some, get, isEqual, merge } = require('lodash');
+const { mapValues, size, some, get, isEqual } = require('lodash');
 const validator = require('../../../lib/validation');
 
 const defaultMiddleware = (req, res, next) => next();
@@ -12,10 +12,10 @@ const hasChanged = (value, key, item) => {
   return value !== item[key];
 };
 
-const flattedNested = (data, schema) =>
-  mapValues(schema, ({ accessor }, key) => accessor
-    ? get(data[key], accessor)
-    : data[key]
+const flattenNested = (data, schema) =>
+  mapValues(data, (value, key) => schema[key] && schema[key].accessor
+    ? get(value, schema[key].accessor)
+    : value
   );
 
 module.exports = ({
@@ -41,11 +41,10 @@ module.exports = ({
 
   const _configure = (req, res, next) => {
     req.form = req.form || {};
-    req.model = req.model || {};
-    req.model.id = req.model.id || `new-${model}`;
     req.form.schema = schema;
     req.session.form = req.session.form || {};
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
+    req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
     return configure(req, res, next);
   };
 
@@ -58,7 +57,7 @@ module.exports = ({
     if (edit) {
       return editAnswers(req, res, next);
     }
-    next();
+    return next();
   };
 
   const _clearErrors = (req, res, next) => {
@@ -67,16 +66,18 @@ module.exports = ({
   };
 
   const _getValues = (req, res, next) => {
-    req.form.values = {
-      ...flattedNested(req.model, req.form.schema),
-      ...req.session.form[req.model.id].values
-    };
+    req.form.values = Object.assign(
+      flattenNested(req.model, req.form.schema),
+      req.session.form[req.model.id].values
+    );
     return getValues(req, res, next);
   };
 
   const _process = (req, res, next) => {
-    req.form.values = mapValues(req.form.schema, ({ format }, key) => {
-      return format ? format(req.body[key]) : req.body[key] || null;
+    req.form.values = mapValues(req.body, (value, key) => {
+      return req.form.schema[key] && req.form.schema[key].format
+        ? req.form.schema[key].format(value)
+        : value || null;
     });
     return process(req, res, next);
   };
@@ -97,7 +98,7 @@ module.exports = ({
   };
 
   const _saveValues = (req, res, next) => {
-    merge(req.session.form[req.model.id], { values: req.form.values });
+    Object.assign(req.session.form[req.model.id].values, req.form.values);
     return saveValues(req, res, next);
   };
 
@@ -116,7 +117,7 @@ module.exports = ({
   const errorHandler = (err, req, res, next) => {
     if (err.validation) {
       req.session.form[req.model.id].validationErrors = err.validation;
-      merge(req.session.form[req.model.id], { values: req.form.values });
+      Object.assign(req.session.form[req.model.id].values, req.form.values);
       return res.redirect(req.originalUrl);
     }
     return next(err);

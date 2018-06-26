@@ -6,7 +6,8 @@ import { labelFromCode } from '../../../common/formatters';
 
 const formatters = {
   suitability: { mapOptions: labelFromCode },
-  holding: { mapOptions: labelFromCode }
+  holding: { mapOptions: labelFromCode },
+  restrictions: { showIf: model => model.notes }
 };
 
 const Page = () => (
