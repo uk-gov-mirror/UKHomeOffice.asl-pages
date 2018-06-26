@@ -19,9 +19,7 @@ const Confirm = ({
   errors = {},
   action = 'update',
   values,
-  model: {
-    name: modelName
-  },
+  model,
   establishment: {
     name,
     licenceNumber,
@@ -50,7 +48,7 @@ const Confirm = ({
           <dd>{ pelhName }</dd>
         </dl>
         <hr />
-        <h2><Snippet optional name={modelName}>subtitle</Snippet></h2>
+        <h2><Snippet optional name={model.name}>subtitle</Snippet></h2>
         {
           action === 'create' || action === 'delete'
             ? (
@@ -65,10 +63,11 @@ const Confirm = ({
           values && values.comments && (
             <Fragment>
               <h2><Snippet>fields.comments.label</Snippet></h2>
-              <p>{ values && values.comments }</p>
+              <p>{ values.comments }</p>
             </Fragment>
           )
         }
+
         <div className="control-bar block">
           <form method="POST">
             {

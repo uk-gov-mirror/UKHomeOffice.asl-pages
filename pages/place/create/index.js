@@ -2,6 +2,7 @@ const page = require('../../../lib/page');
 const amend = require('../routers/amend');
 const confirm = require('../routers/confirm');
 const success = require('../../common/routers/success');
+const { getNacwoById } = require('../../common/helpers');
 
 module.exports = settings => {
   const app = page({
@@ -19,8 +20,15 @@ module.exports = settings => {
   app.use('/confirm', confirm());
 
   app.use('/confirm', (req, res, next) => {
-    res.locals.model = req.form.values;
-    return next();
+    return getNacwoById(req, req.form.values.nacwo)
+      .then(nacwo => {
+        res.locals.model = {
+          ...req.form.values,
+          nacwo
+        };
+      })
+      .then(() => next())
+      .catch(next);
   });
 
   app.post('/confirm', (req, res, next) => {

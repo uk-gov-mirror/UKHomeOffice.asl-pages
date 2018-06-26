@@ -7,5 +7,10 @@ module.exports = merge({}, commonContent, {
       edit: 'Add new premises'
     }
   },
+  fields: {
+    comments: {
+      label: 'Why are you making this addition?'
+    }
+  },
   inset: 'Any addition to your licensed premises will need to be assesed'
 });

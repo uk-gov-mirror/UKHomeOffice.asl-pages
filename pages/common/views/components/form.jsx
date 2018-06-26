@@ -8,7 +8,7 @@ import Snippet from '../containers/snippet';
 
 const fields = {
   inputText: ({ ...props }) => <InputText { ...props } />,
-  textarea: props => <Textarea { ...props } />,
+  textarea: ({ value, ...props }) => <Textarea { ...props }>{ value }</Textarea>,
   radioGroup: ({ ...props }) => <RadioGroup { ...props } />,
   checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
   select: ({ ...props }) => <Select { ...props } />
@@ -17,8 +17,7 @@ const fields = {
 const Form = ({
   schema,
   model,
-  errors = {},
-  onFieldChange
+  errors = {}
 }) => (
   <form method="POST">
     {
@@ -30,7 +29,6 @@ const Form = ({
           hint: <Snippet optional>{`fields.${key}.hint`}</Snippet>,
           name: key,
           error: errors[key] && <Snippet>{`errors.${key}.${errors[key]}`}</Snippet>,
-          onChange: e => onFieldChange(key, e.target.value),
           ...props
         })
       )
