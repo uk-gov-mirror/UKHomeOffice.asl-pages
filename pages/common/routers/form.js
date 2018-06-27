@@ -74,10 +74,10 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    req.form.values = mapValues(req.body, (value, key) => {
-      return req.form.schema[key] && req.form.schema[key].format
-        ? req.form.schema[key].format(value)
-        : value || null;
+    req.form.values = mapValues(req.form.schema, ({ format }, key) => {
+      return format
+        ? format(req.body[key])
+        : req.body[key] || null;
     });
     return process(req, res, next);
   };

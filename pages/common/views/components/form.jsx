@@ -2,9 +2,10 @@ import React, { Fragment } from 'react';
 import { map, get } from 'lodash';
 import { TextArea, Input, RadioGroup, Select } from 'govuk-react-components';
 import Snippet from '../containers/snippet';
+import ConditionalReveal from './conditional-reveal';
 
 const fields = {
-  inputText: ({ ...props }) => <InputText { ...props } />,
+  inputText: ({ ...props }) => <Input { ...props } />,
   textarea: ({ value, ...props }) => <TextArea value={value} { ...props } />,
   radioGroup: ({ ...props }) => <RadioGroup { ...props } />,
   checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
