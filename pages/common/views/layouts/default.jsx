@@ -1,9 +1,8 @@
 import React from 'react';
 import { omit } from 'lodash';
 import { createStore } from 'redux';
-import GovUK from 'govuk-react-components/components/layout';
+import { Layout as GovUK, PhaseBanner } from 'govuk-react-components';
 import { Provider } from 'react-redux';
-import PhaseBanner from 'govuk-react-components/components/phase-banner';
 import Breadcrumbs from '../components/breadcrumbs';
 import Snippet from '../containers/snippet';
 
