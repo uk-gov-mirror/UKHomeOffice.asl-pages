@@ -25,5 +25,8 @@ module.exports = settings => form(Object.assign({
       })
       .then(() => next())
       .catch(next);
+  },
+  cancelEdit: (req, res, next) => {
+    return res.redirect(req.listPath);
   }
 }, settings));
