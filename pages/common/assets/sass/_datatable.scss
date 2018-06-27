@@ -103,14 +103,23 @@
       border-right: 1px solid #ccc;
     }
 
+    .column-two-thirds {
+      margin-left: $gutter-half;
+
+      h3 {
+        margin-top: 0;
+      }
+
+      ul {
+        list-style-type: disc;
+        list-style-position: inside;
+      }
+    }
+
     a {
       display: block;
       margin-left: $gutter;
       margin-bottom: 0.5em;
-    }
-
-    dl {
-      margin-left: $gutter-half;
     }
   }
 }

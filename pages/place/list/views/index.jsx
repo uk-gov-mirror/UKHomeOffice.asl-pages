@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import dict from '@asl/dictionary';
+import ReactMarkdown from 'react-markdown';
 import FilterTable from '../../../common/views/components/filter-table';
 import Acronym from '../../../common/views/components/acronym';
 import Join from '../../../common/views/components/join';
@@ -52,11 +53,9 @@ const ExpandableRow = ({ row, schema }) => (
     </div>
     {
       row.notes && (
-        <div className="column-three-quarters">
-          <dl>
-            <dt>{<Snippet>fields.restrictions.label</Snippet>}</dt>
-            <dd>{row.notes}</dd>
-          </dl>
+        <div className="column-two-thirds">
+          <h3>{<Snippet>fields.restrictions.label</Snippet>}</h3>
+          <ReactMarkdown>{row.notes}</ReactMarkdown>
         </div>
       )
     }
