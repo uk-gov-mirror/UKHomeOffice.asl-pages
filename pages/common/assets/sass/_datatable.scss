@@ -104,7 +104,7 @@
     }
 
     .column-two-thirds {
-      padding-left: $gutter;
+      margin-left: $gutter-half;
 
       h3 {
         margin-top: 0;
@@ -112,6 +112,7 @@
 
       ul {
         list-style-type: disc;
+        list-style-position: inside;
       }
     }
 
