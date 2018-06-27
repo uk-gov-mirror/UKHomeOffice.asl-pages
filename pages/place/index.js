@@ -1,3 +1,4 @@
+const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
 const { schema } = require('./schema');
 
@@ -6,6 +7,10 @@ module.exports = () => {
 
   app.param('id', (req, res, next, id) => {
     if (id === 'create') {
+      req.model = reduce(schema, (all, { nullValue }, key) => {
+        return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
+      }, {});
+      req.model.id = 'new-place';
       return next('route');
     }
     return req.api(`/establishment/${req.establishment}/place/${id}`)

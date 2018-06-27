@@ -1,9 +1,11 @@
 import React from 'react';
+import classnames from 'classnames';
 
 const Inset = ({
-  children
+  children,
+  className
 }) => (
-  <div className="panel panel-border-wide">
+  <div className={classnames('panel', 'panel-wide', className)}>
     {children}
   </div>
 );

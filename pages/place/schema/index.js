@@ -9,7 +9,7 @@ const toArray = val => {
   return castArray(val);
 };
 
-const schema = {
+const baseSchema = {
   site: {
     inputType: 'inputText',
     validate: [
@@ -29,6 +29,7 @@ const schema = {
     inputType: 'checkboxGroup',
     options: suitabilityCodes,
     format: toArray,
+    nullValue: [],
     validate: [
       'required',
       {
@@ -40,6 +41,7 @@ const schema = {
     inputType: 'checkboxGroup',
     options: holdingCodes,
     format: toArray,
+    nullValue: [],
     validate: [
       'required',
       {
@@ -54,7 +56,7 @@ const schema = {
   }
 };
 
-const mapSchema = nacwos => {
+const mapSchema = (nacwos, schema) => {
   const options = nacwos.map(({ id, profile: { name } }) => ({
     label: name,
     value: id
@@ -72,12 +74,12 @@ const mapSchema = nacwos => {
   });
 };
 
-const getSchemaWithNacwos = req =>
+const getSchemaWithNacwos = (req, schema) =>
   getNacwos(req)
-    .then(nacwos => Promise.resolve(mapSchema(nacwos)))
+    .then(nacwos => Promise.resolve(mapSchema(nacwos, schema)))
     .catch(err => Promise.reject(err));
 
 module.exports = {
-  schema,
+  schema: baseSchema,
   getSchemaWithNacwos
 };

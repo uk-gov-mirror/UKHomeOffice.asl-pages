@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Diff from '../components/diff';
 
 const mapStateToProps = ({ model, static: { values, schema } }) => {
-  console.log('SSS', schema);
   return {
     diff: reduce(schema, (all, value, key) => {
       return { ...all,
@@ -13,7 +12,6 @@ const mapStateToProps = ({ model, static: { values, schema } }) => {
         }};
     }, {})
   };
-
 };
 
 export default connect(mapStateToProps)(Diff);

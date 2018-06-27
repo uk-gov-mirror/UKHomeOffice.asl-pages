@@ -2,6 +2,7 @@ const page = require('../../../lib/page');
 const amend = require('../routers/amend');
 const confirm = require('../routers/confirm');
 const success = require('../../common/routers/success');
+const { schema } = require('../schema');
 const { getNacwoById } = require('../../common/helpers');
 
 module.exports = settings => {
@@ -11,7 +12,13 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use('/', amend());
+  app.use('/', amend({
+    schema: Object.assign({}, schema, {
+      comments: {
+        inputType: 'textarea'
+      }
+    })
+  }));
 
   app.post('/', (req, res, next) => {
     return res.redirect(`${req.baseUrl}/confirm`);

@@ -5,6 +5,7 @@ import Diff from '../../../common/views/containers/diff';
 import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
 import ErrorSummary from '../../../common/views/containers/error-summary';
+import Field from '../../../common/views/components/field';
 import { RadioGroup } from 'govuk-react-components';
 import { joinAcronyms } from '../../../common/formatters';
 
@@ -60,11 +61,27 @@ const Confirm = ({
             : <Diff formatters={formatters} />
         }
         {
+          model && model.notes && (
+            <Field
+              title={<Snippet>fields.notes.label</Snippet>}
+              content={model.notes}
+            />
+          )
+        }
+        {
+          values && values.restrictions && (
+            <Field
+              title={<Snippet>fields.restrictions.label</Snippet>}
+              content={values.restrictions}
+            />
+          )
+        }
+        {
           values && values.comments && (
-            <Fragment>
-              <h2><Snippet>fields.comments.label</Snippet></h2>
-              <p>{ values.comments }</p>
-            </Fragment>
+            <Field
+              title={<Snippet>fields.comments.label</Snippet>}
+              content={values.comments}
+            />
           )
         }
 
