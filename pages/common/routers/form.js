@@ -75,12 +75,16 @@ module.exports = ({
 
   const _process = (req, res, next) => {
     req.form.values = reduce(req.form.schema, (all, { format }, key) => {
-      if (isUndefined(req.body[key])) {
+      let value = req.body[key];
+      if (isUndefined(value)) {
         return all;
+      }
+      if (typeof value === 'string') {
+        value = value.trim();
       }
       return {
         ...all,
-        [key]: format ? format(req.body[key]) : req.body[key]
+        [key]: format ? format(value) : value
       };
     }, {});
     return process(req, res, next);
