@@ -1,0 +1,18 @@
+.filters-component {
+  margin-bottom: $gutter;
+  
+  .toggle-filter-link {
+    @extend .font-medium;
+
+    &:before {
+      color: $govuk-blue;
+      font-size: 0.75em;
+      margin-right: $gutter / 4;
+      content: "\25bc";
+    }
+
+    &.filters-hidden:before {
+      content: "\25ba";
+    }
+  }
+}

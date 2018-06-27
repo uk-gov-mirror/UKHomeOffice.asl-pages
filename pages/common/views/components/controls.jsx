@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import Snippet from '../containers/snippet';
 
 const Controls = ({
   url,
@@ -7,8 +8,8 @@ const Controls = ({
   deleteLabel = 'Remove'
 }) => (
   <Fragment>
-    <a href={`${url}/${item}/edit`}>{editLabel}</a>
-    <a href={`${url}/${item}/delete`}>{deleteLabel}</a>
+    <a href={`${url}/${item}/edit`}><Snippet>buttons.edit</Snippet></a>
+    <a href={`${url}/${item}/delete`}><Snippet>buttons.delete</Snippet></a>
   </Fragment>
 );
 

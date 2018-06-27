@@ -45,14 +45,14 @@ export const formatters = {
 const ExpandableRow = ({ row, schema }) => (
   <div className="grid-row">
     <div className={classnames({
-      'column-one-third': row.notes,
+      'column-one-quarter': row.notes,
       'column-full': !row.notes
     })}>
       <Controls item={row.id} />
     </div>
     {
       row.notes && (
-        <div className="column-two-thirds">
+        <div className="column-three-quarters">
           <dl>
             <dt>{<Snippet>fields.restrictions.label</Snippet>}</dt>
             <dd>{row.notes}</dd>

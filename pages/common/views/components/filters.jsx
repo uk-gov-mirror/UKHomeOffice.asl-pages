@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { map } from 'lodash';
 import { OptionSelect, CheckedOption } from 'govuk-react-components';
+import classnames from 'classnames';
+import { map, some } from 'lodash';
 import ApplyChanges from '../containers/apply-changes';
 import Snippet from '../containers/snippet';
 
@@ -8,7 +9,11 @@ class Filters extends Component {
 
   componentDidMount() {
     const { filters } = this.props;
-    this.setState({ filters }, () => {
+
+    this.setState({
+      filters,
+      visible: some(filters, 'length')
+    }, () => {
       this.scrollToCheckedElements();
     });
   }
@@ -57,47 +62,67 @@ class Filters extends Component {
     return filters[key] && filters[key].includes(filter);
   }
 
+  toggleVisible(e) {
+    e.preventDefault();
+    this.setState({
+      visible: !this.state.visible
+    });
+  }
+
   render() {
     const { filterSettings } = this.props;
     return (
-      <section className="filters">
-        <h3><Snippet>filters.filterBy</Snippet></h3>
-        <ApplyChanges
-          type="form"
-          onApply={() => this.emitChange()}
+      <section className="filters-component">
+        <h3 className={classnames({
+          'toggle-filter-link': true,
+          'filters-hidden': this.state && !this.state.visible
+        })}
         >
-          <div className="filters grid-row">
-            {
-              map(filterSettings, ({ values, format }, key) =>
-                <div key={key} className="column-one-third">
-                  <OptionSelect title={ <Snippet>{`fields.${key}.label`}</Snippet> } id={key}>
-                    {
-                      values.map((filter, index) =>
-                        <CheckedOption
-                          key={index}
-                          name={`filter-${key}`}
-                          id={`${key}-${filter}`}
-                          value={filter}
-                          onChange={e => this.onCheckboxChange(key, filter, e.target.checked)}
-                          checked={!!this.isChecked(key, filter)}
-                        >
-                          { format ? format(filter) : filter }
-                        </CheckedOption>
-                      )
-                    }
-                  </OptionSelect>
-                </div>
-              )
-            }
-          </div>
-          <p className="control-bar">
-            <button type="submit" className="button"><Snippet>filters.applyLabel</Snippet></button>
-            <ApplyChanges
-              filters={{}}
-              onApply={() => this.clearFilters()}
-              label={<Snippet>filters.clearLabel</Snippet>} />
-          </p>
-        </ApplyChanges>
+          <a href="#" onClick={e => this.toggleVisible(e)}><Snippet>filters.filterBy</Snippet></a>
+        </h3>
+        <section className={classnames({
+          hidden: this.state && !this.state.visible
+        })}>
+          <ApplyChanges
+            type="form"
+            onApply={() => this.emitChange()}
+          >
+            <div className="filters grid-row">
+              {
+                map(filterSettings, ({ values, format }, key) =>
+                  <div key={key} className="column-one-third">
+                    <OptionSelect
+                      title={<Snippet>{`fields.${key}.label`}</Snippet>}
+                      id={key}>
+                      {
+                        values.map((filter, index) =>
+                          <CheckedOption
+                            key={index}
+                            name={`filter-${key}`}
+                            id={`${key}-${filter}`}
+                            value={filter}
+                            onChange={e => this.onCheckboxChange(key, filter, e.target.checked)}
+                            checked={!!this.isChecked(key, filter)}
+                          >
+                            { format ? format(filter) : filter }
+                          </CheckedOption>
+                        )
+                      }
+                    </OptionSelect>
+                  </div>
+                )
+              }
+            </div>
+            <p className="control-bar">
+              <button type="submit" className="button"><Snippet>filters.applyLabel</Snippet></button>
+              <ApplyChanges
+                filters={{}}
+                onApply={() => this.clearFilters()}
+                label={<Snippet>filters.clearLabel</Snippet>} />
+            </p>
+          </ApplyChanges>
+        </section>
+
       </section>
     );
   }
