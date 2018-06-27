@@ -1,14 +1,11 @@
 import React from 'react';
 import { map, get } from 'lodash';
-import InputText from 'govuk-react-components/components/forms/input-text';
-import RadioGroup from 'govuk-react-components/components/forms/radio-group';
-import Select from 'govuk-react-components/components/forms/select';
-import Textarea from 'govuk-react-components/components/forms/textarea';
+import { TextArea, Input, RadioGroup, Select } from 'govuk-react-components';
 import Snippet from '../containers/snippet';
 
 const fields = {
-  inputText: ({ ...props }) => <InputText { ...props } />,
-  textarea: ({ value, ...props }) => <Textarea { ...props }>{ value }</Textarea>,
+  inputText: ({ ...props }) => <Input { ...props } />,
+  textarea: ({ value, ...props }) => <TextArea { ...props }>{ value }</TextArea>,
   radioGroup: ({ ...props }) => <RadioGroup { ...props } />,
   checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
   select: ({ ...props }) => <Select { ...props } />

@@ -5,7 +5,7 @@ import Diff from '../../../common/views/containers/diff';
 import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
 import ErrorSummary from '../../../common/views/containers/error-summary';
-import RadioGroup from 'govuk-react-components/components/forms/radio-group';
+import { RadioGroup } from 'govuk-react-components';
 import { joinAcronyms } from '../../../common/formatters';
 
 const formatters = {

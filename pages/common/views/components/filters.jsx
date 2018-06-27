@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { map } from 'lodash';
-import OptionSelect, { CheckedOption } from 'govuk-react-components/components/option-select';
+import { OptionSelect, CheckedOption } from 'govuk-react-components';
 import ApplyChanges from '../containers/apply-changes';
 import Snippet from '../containers/snippet';
 
