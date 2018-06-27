@@ -1,3 +1,25 @@
 textarea.form-control {
   width: 100%;
 }
+
+.control-bar .multiple-choice {
+  background-color: $grey-3;
+  padding: $gutter-half $gutter-half $gutter-half $gutter * 2.5;
+
+  label {
+    &:before, &:after {
+      top: 50%;
+      margin-left: $gutter;
+    }
+
+    &:before {
+      // half height + parent padding (14px + 7px)
+      margin-top: -21px;
+    }
+
+    &:after {
+      // half height + parent padding (4px + 7px)
+      margin-top: -11px;
+    }
+  }
+}
