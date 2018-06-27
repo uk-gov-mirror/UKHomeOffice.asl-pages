@@ -1,5 +1,4 @@
 .table-heading {
-  margin-top: $gutter * 2;
   display: flex;
   justify-content: space-between;
 
@@ -100,7 +99,7 @@
     cursor: pointer;
     background-color: $highlight-colour;
 
-    .column-one-third {
+    .column-one-quarter {
       border-right: 1px solid #ccc;
     }
 

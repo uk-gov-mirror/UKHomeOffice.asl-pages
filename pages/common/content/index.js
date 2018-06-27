@@ -18,7 +18,8 @@ module.exports = {
   buttons: {
     submit: 'Submit',
     edit: 'Edit',
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    delete: 'Delete'
   },
   errors: {
     heading: 'Please fix the following error',
