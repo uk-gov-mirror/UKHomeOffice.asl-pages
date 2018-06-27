@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { map, get } from 'lodash';
+import ReactMarkdown from 'react-markdown';
 import { TextArea, Input, RadioGroup, Select } from 'govuk-react-components';
 import Snippet from '../containers/snippet';
 import ConditionalReveal from './conditional-reveal';
@@ -11,10 +12,10 @@ const fields = {
   checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
   select: ({ ...props }) => <Select { ...props } />,
   text: props => props.value &&
-    <Fragment>
+    <div className="form-group">
       <h3>{ props.label }</h3>
-      <p>{ props.value }</p>
-    </Fragment>
+      <ReactMarkdown>{props.value }</ReactMarkdown>
+    </div>
 };
 
 const Form = ({
@@ -38,7 +39,6 @@ const Form = ({
         });
 
         if (showIf && !showIf(model)) {
-          console.log(model);
           return null;
         }
 

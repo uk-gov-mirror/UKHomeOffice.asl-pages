@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 const Field = ({ title, content }) => (
-  <Fragment>
+  <div className="field">
     <h2>{ title }</h2>
     <ReactMarkdown>{ content }</ReactMarkdown>
-  </Fragment>
+  </div>
 );
 
 export default Field;
