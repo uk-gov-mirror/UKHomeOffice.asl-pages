@@ -21,8 +21,7 @@ const ExpiryDate = ({date}) => {
   const expires = moment(date);
   const diff = expires.diff(now, 'months');
   const className = classnames('notice', {
-    urgent: diff < 3,
-    warning: diff >= 3 && diff < 6
+    urgent: diff < 3
   });
 
   return <Fragment>
@@ -30,7 +29,9 @@ const ExpiryDate = ({date}) => {
     {
       diff < 12 && (
         <span className={className}>
-          <Snippet diff={diff + 1}>{ diff === 0 ? 'diff.singular' : 'diff.plural' }</Snippet>
+          <Snippet diff={diff + 1}>{ diff > 2
+            ? 'diff.standard'
+            : diff === 0 ? 'diff.singular' : 'diff.plural' }</Snippet>
         </span>
       )
     }
