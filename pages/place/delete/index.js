@@ -24,6 +24,9 @@ module.exports = settings => {
       res.locals.static = res.locals.static || {};
       res.locals.static.schema = schema;
       return next();
+    },
+    cancelEdit: (req, res, next) => {
+      return res.redirect(req.listPath);
     }
   }));
 

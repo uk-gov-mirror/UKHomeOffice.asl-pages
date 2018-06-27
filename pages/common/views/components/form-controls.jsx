@@ -7,7 +7,7 @@ const FormControls = () => (
       <button className="button"><Snippet>buttons.submit</Snippet></button>
     </p>
     <p>
-      <a href="?cancel=true">
+      <a href="?clear=true">
         <Snippet>buttons.cancel</Snippet>
       </a>
     </p>
