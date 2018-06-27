@@ -38,18 +38,23 @@ const Form = ({
         });
 
         if (showIf && !showIf(model)) {
+          console.log(model);
           return null;
         }
 
-        return conditionalReveal
-          ? <ConditionalReveal
-            fieldName={key}
-            open={model[key]}
-            label={<Snippet>{`fields.${key}.conditionalReveal.label`}</Snippet>}
-            yesLabel={<Snippet>{`fields.${key}.conditionalReveal.yesLabel`}</Snippet>}
-            noLabel={<Snippet>{`fields.${key}.conditionalReveal.noLabel`}</Snippet>}
-          >{ field }</ConditionalReveal>
-          : field;
+        if (conditionalReveal) {
+          return (
+            <ConditionalReveal
+              fieldName={key}
+              open={model[key]}
+              label={<Snippet>{`fields.${key}.conditionalReveal.label`}</Snippet>}
+              yesLabel={<Snippet>{`fields.${key}.conditionalReveal.yesLabel`}</Snippet>}
+              noLabel={<Snippet>{`fields.${key}.conditionalReveal.noLabel`}</Snippet>}
+            >{ field }</ConditionalReveal>
+          );
+        }
+
+        return field;
       })
 
     }

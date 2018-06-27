@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const { mapValues, size, some, get, isEqual } = require('lodash');
+const { mapValues, size, some, get, isEqual, reduce, isUndefined } = require('lodash');
 const validator = require('../../../lib/validation');
 
 const defaultMiddleware = (req, res, next) => next();
@@ -74,11 +74,15 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    req.form.values = mapValues(req.form.schema, ({ format }, key) => {
-      return format
-        ? format(req.body[key])
-        : req.body[key] || null;
-    });
+    req.form.values = reduce(req.form.schema, (all, { format }, key) => {
+      if (isUndefined(req.body[key])) {
+        return all;
+      }
+      return {
+        ...all,
+        [key]: format ? format(req.body[key]) : req.body[key]
+      };
+    }, {});
     return process(req, res, next);
   };
 
