@@ -20,18 +20,18 @@ const ExpiryDate = ({date}) => {
   const now = moment();
   const expires = moment(date);
   const diff = expires.diff(now, 'months');
-  const className = classnames('notice', {
-    urgent: diff < 3
-  });
+  const urgent = diff < 3;
+  let contentKey = 'diff.standard';
+  if (urgent) {
+    contentKey = diff === 0 ? 'diff.singular' : 'diff.plural';
+  }
 
   return <Fragment>
     { expires.format('DD MMMM YYYY') }
     {
       diff < 12 && (
-        <span className={className}>
-          <Snippet diff={diff + 1}>{ diff > 2
-            ? 'diff.standard'
-            : diff === 0 ? 'diff.singular' : 'diff.plural' }</Snippet>
+        <span className={classnames('notice', { urgent })}>
+          <Snippet diff={diff + 1}>{contentKey}</Snippet>
         </span>
       )
     }
