@@ -38,7 +38,6 @@ const Form = ({
         });
 
         if (showIf && !showIf(model)) {
-          console.log(model);
           return null;
         }
 
