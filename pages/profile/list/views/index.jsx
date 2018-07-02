@@ -7,6 +7,7 @@ import DataTable from '../../../common/views/containers/datatable';
 import Acronym from '../../../common/views/components/acronym';
 import Join from '../../../common/views/components/join';
 import Snippet from '../../../common/views/containers/snippet';
+import Link from '../../../common/views/containers/link';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -17,7 +18,7 @@ const joinAcronyms = data => {
 
 export const formatters = {
   name: {
-    format: (name, person) => <a href={`profile/${person.id}`}>{ name }</a>
+    format: (name, person) => <Link page="profile.view" profile={person.id} label={ name } />
   },
   roles: {
     format: data => joinAcronyms(data)
@@ -34,7 +35,7 @@ const People = ({
   <Fragment>
     <header>
       <h2>{name}</h2>
-      <h1><Snippet>pages.people</Snippet></h1>
+      <h1><Snippet>pages.profile.list</Snippet></h1>
     </header>
     <SearchBar label={<Snippet>searchText</Snippet>} />
     <LinkFilter prop="roles" formatter={filter => <Acronym>{filter}</Acronym>} />

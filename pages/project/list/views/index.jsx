@@ -6,10 +6,11 @@ import SearchBar from '../../../common/views/containers/search';
 import FilterSummary from '../../../common/views/containers/filter-summary';
 import DataTable from '../../../common/views/containers/datatable';
 import Snippet from '../../../common/views/containers/snippet';
+import Link from '../../../common/views/containers/link';
 
 export const formatters = {
   licenceHolder: {
-    format: (name, row) => <a href={`profile/${row.licenceHolder.id}`}>{ name }</a>
+    format: (name, project) => <Link page="profile.view" profile={project.licenceHolder.id} label={ name } />
   },
   expiryDate: {
     format: date => <ExpiryDate date={date}/>
@@ -45,7 +46,7 @@ const Projects = ({
   <Fragment>
     <header>
       <h2>{name}</h2>
-      <h1><Snippet>pages.projects</Snippet></h1>
+      <h1><Snippet>pages.project.list</Snippet></h1>
     </header>
     <SearchBar label={<Snippet>searchText</Snippet>} />
     <FilterSummary />

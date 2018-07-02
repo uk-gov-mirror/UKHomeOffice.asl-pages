@@ -1,0 +1,20 @@
+{
+  "name": "Leonard Martin",
+  "id": "8a85de80-5f33-11e8-91cd-c7ceba8eb031",
+  "migrated_id": "elh_8201",
+  "title": "Dr",
+  "firstName": "Leonard",
+  "lastName": "Martin",
+  "dob": "1970-04-23",
+  "position": "University Vice-Chancellor",
+  "qualifications": "BLib",
+  "certifications": null,
+  "address": "University of Croydon",
+  "postcode": "CR0 2YF",
+  "email": "vice-chancellor@croydon.ac.uk",
+  "telephone": "01840 345 678",
+  "notes": "",
+  "createdAt": "2018-05-24T09:19:20.681Z",
+  "updatedAt": "2018-05-24T09:19:20.681Z",
+  "establishmentId": "8201"
+}

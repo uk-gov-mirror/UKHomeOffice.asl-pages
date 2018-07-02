@@ -5,10 +5,10 @@ import Link from '../../../common/views/containers/link';
 import Sidebar from '../../../common/views/components/sidebar';
 
 const links = [
-  'details',
-  'places',
-  'people',
-  'projects'
+  'establishment.details',
+  'place.list',
+  'profile.list',
+  'project.list'
 ];
 
 const Index = ({
@@ -29,7 +29,7 @@ const Index = ({
           {
             links.map(link =>
               <li key={link}>
-                <Link path={link} label={<Snippet>{`pages.${link}`}</Snippet>} />
+                <Link page={link} label={<Snippet>{`pages.${link}`}</Snippet>} />
                 <p><Snippet>{`dashboard.${link}.subtitle`}</Snippet></p>
               </li>
             )
@@ -42,7 +42,7 @@ const Index = ({
           <dd>{ licenceNumber }</dd>
 
           <dt><Snippet>licenceHolder</Snippet></dt>
-          <dd><Link path={`profile/${pelh.id}`} label={pelh.name} /></dd>
+          <dd><Link page="profile.view" profile={ pelh.id } label={pelh.name} /></dd>
         </dl>
       </Sidebar>
     </div>
