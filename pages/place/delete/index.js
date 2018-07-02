@@ -34,17 +34,21 @@ module.exports = settings => {
     return res.redirect(`${req.baseUrl}/confirm`);
   });
 
-  app.use('/confirm', confirm({
-    submitChange: (req, res, next) => {
-      // TODO: delete model
-      return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
-    }
-  }));
+  app.use('/confirm', confirm());
 
-  app.use('/confirm', (req, res, next) => {
+  app.get('/confirm', (req, res, next) => {
     res.locals.model = req.model;
     res.locals.static.values = req.form.values;
     return next();
+  });
+
+  app.post('/confirm', (req, res, next) => {
+    const opts = {
+      method: 'DELETE'
+    };
+    return req.api(`/establishment/${req.establishment}/place/${req.model.id}`, opts)
+      .then(() => next())
+      .catch(next);
   });
 
   app.post('/confirm', (req, res, next) => {
