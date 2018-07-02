@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const { mapValues, size, some, get, isEqual, reduce, isUndefined } = require('lodash');
+const { mapValues, size, some, get, isEqual, reduce, isUndefined, identity } = require('lodash');
 const validator = require('../../../lib/validation');
 
 const defaultMiddleware = (req, res, next) => next();
@@ -12,11 +12,22 @@ const hasChanged = (value, key, item) => {
   return value !== item[key];
 };
 
-const flattenNested = (data, schema) =>
-  mapValues(data, (value, key) => schema[key] && schema[key].accessor
-    ? get(value, schema[key].accessor)
-    : value
-  );
+const flattenNested = (data, schema) => {
+  return mapValues(data, (value, key) => {
+    const accessor = get(schema, `${key}.accessor`);
+    return get(value, accessor, value);
+  });
+};
+
+const trim = value => {
+  if (typeof value === 'string') {
+    // split input into lines, trim each one, and then rejoin
+    return value.split('\n').map(s => s.trim()).join('\n').trim();
+  } else if (Array.isArray(value)) {
+    return value.map(trim);
+  }
+  return value;
+};
 
 module.exports = ({
   schema = {},
@@ -75,13 +86,12 @@ module.exports = ({
 
   const _process = (req, res, next) => {
     req.form.values = reduce(req.form.schema, (all, { format }, key) => {
-      if (isUndefined(req.body[key])) {
-        return all;
+      const value = trim(req.body[key]);
+      format = format || identity;
+      if (!isUndefined(value)) {
+        all[key] = format(value);
       }
-      return {
-        ...all,
-        [key]: format ? format(req.body[key]) : req.body[key]
-      };
+      return all;
     }, {});
     return process(req, res, next);
   };
