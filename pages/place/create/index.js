@@ -26,7 +26,7 @@ module.exports = settings => {
 
   app.use('/confirm', confirm());
 
-  app.use('/confirm', (req, res, next) => {
+  app.get('/confirm', (req, res, next) => {
     return getNacwoById(req, req.form.values.nacwo)
       .then(nacwo => {
         res.locals.model = {
@@ -34,6 +34,18 @@ module.exports = settings => {
           nacwo
         };
       })
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.post('/confirm', (req, res, next) => {
+    const values = req.session.form[req.model.id].values;
+    const opts = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    return req.api(`/establishment/${req.establishment}/place`, opts)
       .then(() => next())
       .catch(next);
   });

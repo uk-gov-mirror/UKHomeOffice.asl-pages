@@ -34,6 +34,18 @@ module.exports = settings => {
   app.use('/confirm', confirm());
 
   app.post('/confirm', (req, res, next) => {
+    const values = req.session.form[req.model.id].values;
+    const opts = {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    return req.api(`/establishment/${req.establishment}/place/${req.model.id}`, opts)
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.post('/confirm', (req, res, next) => {
     return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
   });
 
