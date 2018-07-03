@@ -8,7 +8,7 @@ const defaultMiddleware = (req, res, next) => next();
 const hasChanged = ({ accessor }, newValue, oldValue) => {
   oldValue = get(oldValue, accessor, oldValue);
   if (Array.isArray(newValue)) {
-    return !isEqual([ ...newValue ].sort(), [ ...oldValue ].sort());
+    return !isEqual(newValue.sort(), oldValue.sort());
   }
   return newValue !== oldValue;
 };
