@@ -1,11 +1,11 @@
+const { values, flatten } = require('lodash');
 const path = require('path');
-const glob = require('glob');
+const pages = require('../pages');
 
 module.exports = () => {
   const cwd = path.resolve(__dirname, '../../..');
-  const opts = { ignore: ['./pages/common/**'], cwd };
-  return glob.sync('./pages/**/views/index.jsx', opts)
-    .map(page => path.resolve(page, '../..'))
+  return flatten(values(pages).map(values))
+    .map(page => path.resolve(cwd, `./${page}`))
     .reduce((paths, page) => {
       let middleware = (req, res, next) => next();
       try {

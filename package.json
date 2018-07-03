@@ -60,6 +60,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.19.1",
     "eslint-config-lennym": "^2.0.1",
+    "express-session": "^1.15.6",
     "funkie": "0.0.6",
     "funkie-chromedriver": "0.0.1",
     "glob": "^7.1.2",

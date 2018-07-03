@@ -4,6 +4,7 @@ import Snippet from '../../../common/views/containers/snippet';
 import ModelSummary from '../../../common/views/containers/model-summary';
 import Textarea from 'govuk-react-components/components/forms/textarea';
 import FormControls from '../../../common/views/components/form-controls';
+import formatters from '../../formatters';
 
 const DeletePage = ({
   model
@@ -15,7 +16,7 @@ const DeletePage = ({
           <h2>&nbsp;</h2>
           <h1><Snippet>pages.place.delete</Snippet></h1>
         </header>
-        <ModelSummary />
+        <ModelSummary formatters={formatters} />
         <hr />
         <form method="post">
           <input type="hidden" name="delete" value="true" />

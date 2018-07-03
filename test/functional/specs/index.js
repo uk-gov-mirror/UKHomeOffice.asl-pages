@@ -1,5 +1,4 @@
 const path = require('path');
-
 const pages = require('../helpers/pages')();
 
 describe('pages', () => {

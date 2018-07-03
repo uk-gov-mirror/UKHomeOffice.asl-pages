@@ -16,5 +16,10 @@
   "notes": "",
   "createdAt": "2018-05-24T09:19:20.681Z",
   "updatedAt": "2018-05-24T09:19:20.681Z",
-  "establishmentId": "8201"
+  "establishmentId": "8201",
+  "roles": [
+    {
+      "type": "nacwo"
+    }
+  ]
 }

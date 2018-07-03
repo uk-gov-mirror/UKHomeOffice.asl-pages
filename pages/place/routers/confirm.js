@@ -26,6 +26,12 @@ module.exports = settings => form(Object.assign({
       .then(() => next())
       .catch(next);
   },
+  checkSession: (req, res, next) => {
+    if (req.session.form && req.session.form[req.model.id]) {
+      return next();
+    }
+    return res.redirect(req.originalUrl.replace(/\/confirm$/, ''));
+  },
   cancelEdit: (req, res, next) => {
     return res.redirect(req.listPath);
   }

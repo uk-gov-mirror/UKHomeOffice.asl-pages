@@ -1,15 +1,16 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const { mapValues, size, some, get, isEqual, reduce, isUndefined, identity } = require('lodash');
+const { mapValues, size, get, isEqual, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
 
 const defaultMiddleware = (req, res, next) => next();
 
-const hasChanged = (value, key, item) => {
-  if (Array.isArray(value)) {
-    return !isEqual([ ...value ].sort(), [ ...item[key] ].sort());
+const hasChanged = ({ accessor }, newValue, oldValue) => {
+  oldValue = get(oldValue, accessor, oldValue);
+  if (Array.isArray(newValue)) {
+    return !isEqual(newValue.sort(), oldValue.sort());
   }
-  return value !== item[key];
+  return newValue !== oldValue;
 };
 
 const flattenNested = (data, schema) => {
@@ -33,6 +34,8 @@ module.exports = ({
   schema = {},
   model = 'model',
   cancelPath = '/',
+  checkChanged = false,
+  checkSession = defaultMiddleware,
   configure = defaultMiddleware,
   clearErrors = defaultMiddleware,
   getValues = defaultMiddleware,
@@ -85,19 +88,29 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    req.form.values = reduce(req.form.schema, (all, { format }, key) => {
-      const value = trim(req.body[key]);
-      format = format || identity;
-      if (!isUndefined(value)) {
-        all[key] = format(value);
+    req.form.values = reduce(req.form.schema, (all, { format, nullValue }, key) => {
+      let value = req.body[key];
+      if (!value && !isUndefined(nullValue)) {
+        value = nullValue;
       }
+      value = trim(value);
+      format = format || identity;
+      all[key] = format(value);
       return all;
     }, {});
     return process(req, res, next);
   };
 
   const _checkChanged = (req, res, next) => {
-    if (!size(req.form.schema) || some(req.form.values, (value, key) => hasChanged(value, key, req.model))) {
+    if (!checkChanged) {
+      return next();
+    }
+    const changedFields = pickBy(req.form.schema, (field, key) => {
+      return field.editable !== false &&
+        Object.keys(req.model).includes(key) &&
+        hasChanged(field, req.form.values[key], req.model[key]);
+    });
+    if (size(changedFields)) {
       return next();
     }
     return next({ validation: { form: 'unchanged' } });
@@ -138,6 +151,7 @@ module.exports = ({
   };
 
   form.get('/',
+    checkSession,
     _configure,
     _processQuery,
     _getValues,

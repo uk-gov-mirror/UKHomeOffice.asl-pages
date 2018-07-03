@@ -4,6 +4,7 @@ const { getNacwoById } = require('../../common/helpers');
 
 module.exports = settings => form(Object.assign({
   model: 'place',
+  checkChanged: true,
   configure: (req, res, next) => {
     getSchemaWithNacwos(req, settings.schema || schema)
       .then(mappedSchema => {

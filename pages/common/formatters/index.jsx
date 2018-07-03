@@ -9,6 +9,8 @@ export const labelFromCode = value => ({
   value: value.toUpperCase()
 });
 
+export const defineValue = val => `${dict[val] || dict[val.toUpperCase()]} (${val})`;
+
 export const define = arr => (
   <ul>
     {
