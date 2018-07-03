@@ -14,7 +14,7 @@ const formatters = {
   }
 };
 
-const Index = props => (
+const Index = () => (
   <Fragment>
     <header>
       <h2>&nbsp;</h2>

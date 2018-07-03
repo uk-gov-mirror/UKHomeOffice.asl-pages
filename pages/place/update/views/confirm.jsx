@@ -1,19 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { get } from 'lodash';
 import Diff from '../../../common/views/containers/diff';
 import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
 import ErrorSummary from '../../../common/views/containers/error-summary';
 import Field from '../../../common/views/components/field';
 import { RadioGroup } from 'govuk-react-components';
-import { joinAcronyms } from '../../../common/formatters';
-
-const formatters = {
-  suitability: { format: joinAcronyms },
-  holding: { format: joinAcronyms },
-  nacwo: { format: val => get(val, 'profile.name') }
-};
+import formatters from '../../formatters';
 
 const Confirm = ({
   declaration = true,
@@ -106,7 +99,7 @@ const Confirm = ({
                 />
               )
             }
-            <button className="button"><Snippet>buttons.submit</Snippet></button>
+            <button type="submit" className="button"><Snippet>buttons.submit</Snippet></button>
           </form>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
           <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>

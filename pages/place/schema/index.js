@@ -12,15 +12,18 @@ const toArray = val => {
 const baseSchema = {
   site: {
     inputType: 'inputText',
+    nullValue: null,
     validate: [
       'required'
     ]
   },
   area: {
-    inputType: 'inputText'
+    inputType: 'inputText',
+    nullValue: null
   },
   name: {
     inputType: 'inputText',
+    nullValue: null,
     validate: [
       'required'
     ]

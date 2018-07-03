@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-describe('Establishment Page', () => {
+describe('Establishment Dashboard', () => {
 
   it('can load', () => {
     browser.url('/pages/establishment/dashboard');

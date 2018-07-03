@@ -1,9 +1,12 @@
 const { set } = require('lodash');
 const ui = require('@asl/service/ui');
 const withuser = require('./withuser');
+const session = require('express-session');
 const fixtures = require('../fixtures');
 
 const getPages = require('../helpers/pages');
+
+const urls = require('../pages');
 
 const { views, content, assets } = require('../../../');
 
@@ -14,26 +17,26 @@ module.exports = () => {
     views
   });
 
+  app.use(session({
+    secret: 'apple sauce',
+    resave: false,
+    saveUnitialized: false
+  }));
+
   app.use((req, res, next) => {
     req.api = fixtures;
-    req.session = {};
     next();
   });
 
   app.use(content);
   app.use('/public', assets);
 
-  const pages = getPages();
-
-  const urls = Object.keys(pages).reduce((all, path) => {
-    const key = path.replace('pages/', '').split('/').join('.');
-    return set(all, key, `/${path}`);
-  }, {});
-
   app.use((req, res, next) => {
     set(res.locals, 'static.urls', urls);
     next();
   });
+
+  const pages = getPages();
 
   Object.keys(pages).forEach(page => {
     app.use(`/${page}`, pages[page].middleware);

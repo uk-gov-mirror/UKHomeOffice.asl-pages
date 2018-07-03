@@ -8,8 +8,8 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    res.locals.model = req.model;
-    res.locals.static.fields = Object.keys(schema);
+    Object.assign(res.locals, { model: req.model });
+    Object.assign(res.locals.static, { schema });
     next();
   });
 

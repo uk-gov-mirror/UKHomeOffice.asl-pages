@@ -1,24 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import dict from '@asl/dictionary';
 import ReactMarkdown from 'react-markdown';
 import FilterTable from '../../../common/views/components/filter-table';
-import Acronym from '../../../common/views/components/acronym';
-import Join from '../../../common/views/components/join';
 import Snippet from '../../../common/views/containers/snippet';
 import Controls from '../../../common/views/containers/controls';
+import formatters from '../../formatters';
 
-const joinAcronyms = data => {
-  if (Array.isArray(data)) {
-    return <Join>{ data.map(a => <Acronym key={a}>{a}</Acronym>) }</Join>;
-  }
-  return <Acronym key={data}>{data}</Acronym>;
-};
-
-const defineValue = val => `${dict[val] || dict[val.toUpperCase()]} (${val})`;
-
-export const formatters = {
+const pageFormatters = {
   name: {
     format: (val, row) => {
       return (
@@ -32,14 +21,6 @@ export const formatters = {
         </Fragment>
       );
     }
-  },
-  suitability: {
-    format: joinAcronyms,
-    formatFilterItems: defineValue
-  },
-  holding: {
-    format: joinAcronyms,
-    formatFilterItems: defineValue
   }
 };
 
@@ -71,7 +52,7 @@ const Places = ({
       <h2>{name}</h2>
       <h1><Snippet>pages.place.list</Snippet></h1>
     </header>
-    <FilterTable formatters={formatters} ExpandableRow={ExpandableRow} editable={true} />
+    <FilterTable formatters={Object.assign({}, formatters, pageFormatters)} ExpandableRow={ExpandableRow} editable={true} />
   </Fragment>
 );
 

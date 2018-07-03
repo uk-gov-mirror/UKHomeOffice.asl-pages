@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import Filters from '../components/filters';
 import { setFilters } from '../../../../lib/actions';
 
-const uniqueByType = (key, data, { title, formatFilterItems, format }) => ({
+const uniqueByType = (key, data, { title, label, format }) => ({
   key,
   title,
-  format: formatFilterItems || format,
+  format: label || format,
   values: uniq(flatten(data.map(row => row[key])))
 });
 
