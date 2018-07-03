@@ -7,7 +7,7 @@ module.exports = {
       details: 'Establishment details'
     },
     profile: {
-      list: 'Named people and licence holders'
+      list: 'People'
     },
     project: {
       list: 'Projects'
