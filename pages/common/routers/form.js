@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const { mapValues, size, some, get, isEqual, reduce, isUndefined, identity, pickBy } = require('lodash');
+const { mapValues, size, get, isEqual, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
 
 const defaultMiddleware = (req, res, next) => next();
@@ -34,6 +34,7 @@ module.exports = ({
   schema = {},
   model = 'model',
   cancelPath = '/',
+  checkChanged = false,
   checkSession = defaultMiddleware,
   configure = defaultMiddleware,
   clearErrors = defaultMiddleware,
@@ -101,10 +102,15 @@ module.exports = ({
   };
 
   const _checkChanged = (req, res, next) => {
-    const fields = pickBy(req.form.schema, (field, key) => {
-      return field.editable !== false && Object.keys(req.model).includes(key);
+    if (!checkChanged) {
+      return next();
+    }
+    const changedFields = pickBy(req.form.schema, (field, key) => {
+      return field.editable !== false &&
+        Object.keys(req.model).includes(key) &&
+        hasChanged(field, req.form.values[key], req.model[key]);
     });
-    if (!size(fields) || some(fields, (field, key) => hasChanged(field, req.form.values[key], req.model[key]))) {
+    if (size(changedFields)) {
       return next();
     }
     return next({ validation: { form: 'unchanged' } });
