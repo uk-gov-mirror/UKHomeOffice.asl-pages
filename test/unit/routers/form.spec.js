@@ -304,7 +304,7 @@ describe('Form Router', () => {
             validate: [{ type: 'string' }]
           }
         };
-        formRouter = form({ schema });
+        formRouter = form({ schema, checkChanged: true });
       });
 
       test('validates fields and sets errors to session', done => {
