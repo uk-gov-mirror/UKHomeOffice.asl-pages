@@ -9,7 +9,6 @@ const extendSchema = (field, formatter) => {
   }
   return {
     ...field,
-    ...formatter,
     options: formatter.mapOptions ? field.options.map(formatter.mapOptions) : field.options,
     showIf: formatter.showIf
   };

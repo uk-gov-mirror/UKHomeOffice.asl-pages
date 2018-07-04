@@ -37,7 +37,7 @@
     "express": "^4.16.3",
     "find-root": "^1.1.0",
     "govuk-elements-sass": "^3.1.2",
-    "govuk-react-components": "^1.0.0",
+    "govuk-react-components": "^1.1.0",
     "govuk_frontend_toolkit": "^7.4.1",
     "lodash": "^4.17.5",
     "minimatch": "^3.0.4",

@@ -92,7 +92,7 @@ const Confirm = ({
                   label=""
                   options={[
                     {
-                      value: true,
+                      value: 'true',
                       label: <Snippet>declaration</Snippet>
                     }
                   ]}
