@@ -7,6 +7,11 @@ import ErrorSummary from '../../../common/views/containers/error-summary';
 import Field from '../../../common/views/components/field';
 import { RadioGroup } from 'govuk-react-components';
 import formatters from '../../formatters';
+import { hasChanged } from '../../../../lib/utils';
+
+const comparator = (oldValue, newValue) => {
+  return hasChanged({}, oldValue, newValue);
+};
 
 const Confirm = ({
   declaration = true,
@@ -51,7 +56,7 @@ const Confirm = ({
                 <hr />
               </Fragment>
             )
-            : <Diff formatters={formatters} />
+            : <Diff formatters={formatters} comparator={comparator} />
         }
         {
           model && model.notes && (
