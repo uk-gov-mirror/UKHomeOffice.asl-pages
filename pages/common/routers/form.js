@@ -1,10 +1,13 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
+const csurf = require('csurf');
 const { mapValues, size, get, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
+
+const csrf = process.env.NODE_ENV === 'test' ? defaultMiddleware : csurf();
 
 const flattenNested = (data, schema) => {
   return mapValues(data, (value, key) => {
@@ -129,7 +132,10 @@ module.exports = ({
 
   const _locals = (req, res, next) => {
     const { values, validationErrors } = req.form;
-    Object.assign(res.locals.static, { errors: validationErrors });
+    Object.assign(res.locals.static, {
+      errors: validationErrors,
+      csrfToken: req.csrfToken && req.csrfToken()
+    });
     Object.assign(res.locals, { model: values });
     return locals(req, res, next);
   };
@@ -144,6 +150,7 @@ module.exports = ({
   };
 
   form.get('/',
+    csrf,
     checkSession,
     _configure,
     _processQuery,
@@ -154,6 +161,7 @@ module.exports = ({
 
   form.post('/',
     bodyParser.urlencoded({ extended: false }),
+    csrf,
     _configure,
     _clearErrors,
     _process,

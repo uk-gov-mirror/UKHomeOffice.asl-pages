@@ -14,10 +14,11 @@ const extendSchema = (field, formatter) => {
   };
 };
 
-const mapStateToProps = ({ static: { schema, errors }, model }, { formatters = {} }) => {
+const mapStateToProps = ({ static: { schema, errors, csrfToken }, model }, { formatters = {} }) => {
   return {
     model,
     errors,
+    csrfToken,
     schema: mapValues(schema, (field, key) => extendSchema(field, formatters[key]))
   };
 };
