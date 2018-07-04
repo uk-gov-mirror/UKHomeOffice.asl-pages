@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 class ExpandingPanel extends React.Component {
 
@@ -30,8 +31,7 @@ class ExpandingPanel extends React.Component {
         <header onClick={() => this.toggle()}>
           <h3>{ this.props.title }</h3>
         </header>
-
-        { this.isOpen() && <div className="content">{ this.props.children }</div> }
+        <div className={classnames('content', { hidden: !this.isOpen() })}>{ this.props.children }</div>
       </section>
     );
   }
