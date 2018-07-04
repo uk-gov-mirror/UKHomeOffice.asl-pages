@@ -21,5 +21,15 @@
     {
       "type": "nacwo"
     }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "title": "Oncolytic HSV as an anti-cancer therapy"
+    },
+    {
+      "id": "2",
+      "title": "Hypoxy and angiogenesis in cancer therapy"
+    }
   ]
 }
