@@ -1,5 +1,5 @@
 import React from 'react';
-import { every } from 'lodash';
+import { every, castArray } from 'lodash';
 
 class Accordion extends React.Component {
 
@@ -34,7 +34,7 @@ class Accordion extends React.Component {
       <div className="accordion">
         <p className="toggles"><button onClick={() => this.toggleAll()}>{ this.allOpen() ? closeAll : openAll }</button></p>
         {
-          this.props.children.map((child, i) => React.cloneElement(child, {
+          castArray(this.props.children).map((child, i) => child && React.cloneElement(child, {
             key: i,
             onToggle: () => this.toggle(i),
             open: !this.state || this.state.open[i]

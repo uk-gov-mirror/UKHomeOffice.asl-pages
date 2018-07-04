@@ -1,8 +1,9 @@
 module.exports = {
-  establishmentName: 'Establishment name',
   profile: 'Profile',
   roles: 'Roles',
   qualifications: 'Qualifications',
+  training: 'Training',
+  projectTitles: 'Project titles',
   premises: 'Premises',
   contactDetails: {
     title: 'Contact Details',
