@@ -42,17 +42,6 @@ describe('<Diff />', () => {
     ).toBe('');
   });
 
-  test('adds a doesn\'t add a highlight class if comparing falsy values', () => {
-    const diff = {
-      name: { oldValue: null, newValue: '' }
-    };
-    const container = shallow(<Diff diff={diff} />);
-    expect(container
-      .find('tbody tr span')
-      .prop('className')
-    ).toBe('');
-  });
-
   test('renders a hyphen if value is falsy', () => {
     const diff = {
       name: { oldValue: null, newValue: '' }

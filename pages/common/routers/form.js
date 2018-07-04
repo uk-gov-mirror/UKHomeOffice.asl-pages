@@ -1,17 +1,10 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const { mapValues, size, get, isEqual, reduce, isUndefined, identity, pickBy } = require('lodash');
+const { mapValues, size, get, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
+const { hasChanged } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
-
-const hasChanged = ({ accessor }, newValue, oldValue) => {
-  oldValue = get(oldValue, accessor, oldValue);
-  if (Array.isArray(newValue)) {
-    return !isEqual(newValue.sort(), oldValue.sort());
-  }
-  return newValue !== oldValue;
-};
 
 const flattenNested = (data, schema) => {
   return mapValues(data, (value, key) => {

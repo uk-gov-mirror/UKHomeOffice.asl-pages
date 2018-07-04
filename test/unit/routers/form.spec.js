@@ -335,7 +335,7 @@ describe('Form Router', () => {
         formRouter(req, res);
       });
 
-      test('throw a validation error if the form is submitted unchanged', done => {
+      test('throws a validation error if the form is submitted unchanged', done => {
         req.model = {
           id: 'test-model',
           field1: 'a value',
@@ -350,6 +350,39 @@ describe('Form Router', () => {
           done();
         });
         formRouter(req, res);
+      });
+
+      test('throws a validation error if arrays contain the same values', done => {
+        req.model = {
+          id: 'test-model',
+          field1: ['a value', 'another value']
+        };
+        req.body = {
+          field1: ['another value', 'a value']
+        };
+        const expected = {
+          form: 'unchanged'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+          done();
+        });
+        formRouter(req, res);
+      });
+
+      test('doesn\'t mutate the arrays', done => {
+        req.model = {
+          id: 'test-model',
+          field1: ['a value', 'another value']
+        };
+        req.body = {
+          field1: ['another value', 'a value', 'blah']
+        };
+
+        formRouter(req, res, () => {
+          expect(req.session.form['test-model'].values.field1).toEqual(req.body.field1);
+          done();
+        });
       });
     });
 
