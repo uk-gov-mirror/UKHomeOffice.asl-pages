@@ -6,15 +6,15 @@ import Snippet from '../containers/snippet';
 import ConditionalReveal from './conditional-reveal';
 
 const fields = {
-  inputText: ({ ...props }) => <Input { ...props } />,
-  textarea: ({ value, ...props }) => <TextArea value={value} { ...props } />,
-  radioGroup: ({ ...props }) => <RadioGroup { ...props } />,
-  checkboxGroup: ({ ...props }) => <RadioGroup type="checkbox" { ...props } />,
-  select: ({ ...props }) => <Select { ...props } />,
+  inputText: props => <Input { ...props } />,
+  textarea: props => <TextArea { ...props } />,
+  radioGroup: props => <RadioGroup { ...props } />,
+  checkboxGroup: props => <RadioGroup type="checkbox" { ...props } />,
+  select: props => <Select { ...props } />,
   text: props => props.value &&
     <div className="form-group">
       <h3>{ props.label }</h3>
-      <ReactMarkdown>{props.value }</ReactMarkdown>
+      <ReactMarkdown>{ props.value }</ReactMarkdown>
     </div>
 };
 

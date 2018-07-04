@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
 import ModelSummary from '../../../common/views/containers/model-summary';
-import Textarea from 'govuk-react-components/components/forms/textarea';
+import { TextArea } from 'govuk-react-components';
 import FormControls from '../../../common/views/components/form-controls';
 import formatters from '../../formatters';
 
@@ -20,7 +20,7 @@ const DeletePage = ({
         <hr />
         <form method="post">
           <input type="hidden" name="delete" value="true" />
-          <Textarea
+          <TextArea
             label={<Snippet>fields.comments.label</Snippet>}
             value={model.comments}
             name="comments"
