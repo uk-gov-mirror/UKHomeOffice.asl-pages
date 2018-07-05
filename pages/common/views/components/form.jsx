@@ -21,6 +21,7 @@ const fields = {
 const Form = ({
   schema,
   model,
+  csrfToken,
   errors = {},
   onFieldChange
 }) => (
@@ -58,6 +59,7 @@ const Form = ({
       })
 
     }
+    <input type="hidden" name="_csrf" value={csrfToken} />
     <button type="submit" className="button"><Snippet>buttons.submit</Snippet></button>
   </form>
 );

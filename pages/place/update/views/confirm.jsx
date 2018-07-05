@@ -19,6 +19,7 @@ const Confirm = ({
   action = 'update',
   values,
   model,
+  csrfToken,
   establishment: {
     name,
     licenceNumber,
@@ -104,6 +105,7 @@ const Confirm = ({
                 />
               )
             }
+            <input type="hidden" name="_csrf" value={csrfToken} />
             <button type="submit" className="button"><Snippet>buttons.submit</Snippet></button>
           </form>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
@@ -114,6 +116,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ model, static: { establishment, errors, values } }) => ({ establishment, model, errors, values });
+const mapStateToProps = ({ model, static: { establishment, errors, values, csrfToken } }) => ({ establishment, model, errors, csrfToken, values });
 
 export default connect(mapStateToProps)(Confirm);

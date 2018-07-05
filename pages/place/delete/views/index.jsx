@@ -7,7 +7,8 @@ import FormControls from '../../../common/views/components/form-controls';
 import formatters from '../../formatters';
 
 const DeletePage = ({
-  model
+  model,
+  csrfToken
 }) => (
   <Fragment>
     <div className="grid-row">
@@ -25,6 +26,7 @@ const DeletePage = ({
             value={model.comments}
             name="comments"
           />
+          <input type="hidden" name="_csrf" value={csrfToken} />
           <FormControls />
         </form>
       </div>
@@ -32,6 +34,6 @@ const DeletePage = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ model }) => ({ model });
+const mapStateToProps = ({ model, static: { csrfToken } }) => ({ model, csrfToken });
 
 export default connect(mapStateToProps)(DeletePage);

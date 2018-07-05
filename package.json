@@ -7,7 +7,7 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint . --ext jsx,js",
-    "test:unit": "jest",
+    "test:unit": "CSRF=false jest",
     "pretest:functional": "webpack && npm run build",
     "pretest:functional:ci": "npm run pretest:functional",
     "test:functional": "funkie --driver chromedriver wdio ./test/functional/config.js",
@@ -34,6 +34,7 @@
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
+    "csrf": "^3.0.6",
     "express": "^4.16.3",
     "find-root": "^1.1.0",
     "govuk-elements-sass": "^3.1.2",
