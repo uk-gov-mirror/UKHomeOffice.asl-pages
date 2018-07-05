@@ -1,13 +1,11 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const csurf = require('csurf');
+const Tokens = require('csrf');
 const { mapValues, size, get, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
-
-const csrf = process.env.NODE_ENV === 'test' ? defaultMiddleware : csurf();
 
 const flattenNested = (data, schema) => {
   return mapValues(data, (value, key) => {
@@ -56,6 +54,25 @@ module.exports = ({
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
     req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
     return configure(req, res, next);
+  };
+
+  const _generateSecret = (req, res, next) => {
+    const tokens = new Tokens();
+    tokens.secret((err, secret) => {
+      if (err) {
+        return next(err);
+      }
+      req.csrfToken = tokens.create(secret);
+      req.session.form[req.model.id].csrfToken = req.csrfToken;
+      return next();
+    });
+  };
+
+  const _checkSecret = (req, res, next) => {
+    if (req.body._csrf && req.body._csrf === req.session.form[req.model.id].csrfToken) {
+      return next();
+    }
+    return next({ validation: { form: 'csrf' } });
   };
 
   const _processQuery = (req, res, next) => {
@@ -134,7 +151,7 @@ module.exports = ({
     const { values, validationErrors } = req.form;
     Object.assign(res.locals.static, {
       errors: validationErrors,
-      csrfToken: req.csrfToken && req.csrfToken()
+      csrfToken: req.csrfToken
     });
     Object.assign(res.locals, { model: values });
     return locals(req, res, next);
@@ -150,9 +167,9 @@ module.exports = ({
   };
 
   form.get('/',
-    csrf,
     checkSession,
     _configure,
+    _generateSecret,
     _processQuery,
     _getValues,
     _getValidationErrors,
@@ -161,8 +178,8 @@ module.exports = ({
 
   form.post('/',
     bodyParser.urlencoded({ extended: false }),
-    csrf,
     _configure,
+    _checkSecret,
     _clearErrors,
     _process,
     _validate,

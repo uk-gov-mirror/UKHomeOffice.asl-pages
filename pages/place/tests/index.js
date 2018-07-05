@@ -268,6 +268,16 @@ describe('Place', () => {
       browser.url('/pages/place/an-id/edit');
       assert.equal(browser.$('[name="name"]').getValue(), '1st Floor 20.15');
     });
+
+    it('reloads form if CSRF check fails', () => {
+      browser.newWindow('/pages/place/an-id/edit', 'tab-1');
+      browser.newWindow('/pages/place/an-id/edit', 'tab-2');
+      browser.switchTab('tab-1');
+      fillForm(browser);
+      submitForm(browser);
+      const error = browser.getText('.error-summary');
+      assert(error.includes('This form data has been changed somewhere else.'));
+    });
   });
 
   describe('Delete', () => {

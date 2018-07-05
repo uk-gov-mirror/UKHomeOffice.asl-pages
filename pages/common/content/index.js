@@ -31,7 +31,8 @@ module.exports = {
     heading: 'Please fix the following error',
     headingPlural: 'Please fix the following errors',
     form: {
-      unchanged: 'No changes have been made'
+      unchanged: 'No changes have been made',
+      csrf: 'This form data has been changed somewhere else.'
     }
   }
 };
