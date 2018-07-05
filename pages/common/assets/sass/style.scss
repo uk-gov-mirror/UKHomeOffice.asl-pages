@@ -39,6 +39,12 @@ dl {
     margin-bottom: $gutter/2;
     white-space: pre-line;
   }
+
+  &.light {
+    dt {
+      font-weight: normal;
+    }
+  }
 }
 
 .headline {
@@ -135,8 +141,18 @@ th {
 dl.inline {
   @extend .grid-row;
 
-  dt, dd {
-    @extend .column-one-half;
+  > dt {
+    @extend .column-one-third;
+  }
+
+  > dd {
+    @extend .column-two-thirds;
+  }
+}
+
+.expanding-panel {
+  header, .content {
+    padding-left: 0;
   }
 }
 
