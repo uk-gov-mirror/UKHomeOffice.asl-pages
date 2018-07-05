@@ -8,10 +8,10 @@ describe('<ExpandingPanel />', () => {
     expect(wrapper.instance().state.open).toBe(false);
   });
 
-  test('renders only a header if not passed open prop', () => {
+  test('shows only a header if not passed open prop', () => {
     const wrapper = shallow(<ExpandingPanel title="The Title">The Content</ExpandingPanel>);
     expect(wrapper.find('header').text()).toBe('The Title');
-    expect(wrapper.find('.content').length).toBe(0);
+    expect(wrapper.find('.content').prop('className').includes('hidden')).toBe(true);
   });
 
   test('renders content if open prop is set to true', () => {
