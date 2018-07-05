@@ -7,7 +7,7 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint . --ext jsx,js",
-    "test:unit": "jest",
+    "test:unit": "CSRF=false jest",
     "pretest:functional": "webpack && npm run build",
     "pretest:functional:ci": "npm run pretest:functional",
     "test:functional": "funkie --driver chromedriver wdio ./test/functional/config.js",

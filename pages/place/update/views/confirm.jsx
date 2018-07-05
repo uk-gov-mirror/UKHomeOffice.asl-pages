@@ -116,6 +116,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ model, static: { establishment, errors, values, csrfToken } }) => ({ establishment, model, errors, values });
+const mapStateToProps = ({ model, static: { establishment, errors, values, csrfToken } }) => ({ establishment, model, errors, csrfToken, values });
 
 export default connect(mapStateToProps)(Confirm);

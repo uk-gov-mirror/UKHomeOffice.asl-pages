@@ -1,11 +1,18 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
-const Tokens = require('csrf');
+const { generateSecret, checkSecret } = require('../../../lib/middleware/csrf');
 const { mapValues, size, get, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
+
+let _generateSecret = generateSecret;
+let _checkSecret = checkSecret;
+if (process.env.CSRF === 'false') {
+  _generateSecret = defaultMiddleware;
+  _checkSecret = defaultMiddleware;
+}
 
 const flattenNested = (data, schema) => {
   return mapValues(data, (value, key) => {
@@ -54,25 +61,6 @@ module.exports = ({
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
     req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
     return configure(req, res, next);
-  };
-
-  const _generateSecret = (req, res, next) => {
-    const tokens = new Tokens();
-    tokens.secret((err, secret) => {
-      if (err) {
-        return next(err);
-      }
-      req.csrfToken = tokens.create(secret);
-      req.session.form[req.model.id].csrfToken = req.csrfToken;
-      return next();
-    });
-  };
-
-  const _checkSecret = (req, res, next) => {
-    if (req.body._csrf && req.body._csrf === req.session.form[req.model.id].csrfToken) {
-      return next();
-    }
-    return next({ validation: { form: 'csrf' } });
   };
 
   const _processQuery = (req, res, next) => {
