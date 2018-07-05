@@ -278,6 +278,26 @@ describe('Place', () => {
       const error = browser.getText('.error-summary');
       assert(error.includes('This form data has been changed somewhere else.'));
     });
+
+    it('redirects to edit page if session expires', () => {
+      browser.url('/pages/place/an-id/edit');
+      browser.$('[name="name"]').setValue('New Name');
+      submitForm(browser);
+      browser.deleteCookie();
+      browser.refresh()
+      const title = browser.getText('h1');
+      assert.equal(title, 'Change licensed premises');
+    });
+
+    it('doesn\'t throw an error if sessionState query appended to url', () => {
+      browser.url('/pages/place/an-id/edit');
+      browser.$('[name="name"]').setValue('New Name');
+      submitForm(browser);
+      browser.deleteCookie();
+      browser.url('/pages/place/an-id/edit/confirm?sessionState=123-abc');
+      const title = browser.getText('h1');
+      assert.equal(title, 'Change licensed premises');
+    });
   });
 
   describe('Delete', () => {
