@@ -22,6 +22,7 @@ const Layout = ({
       siteTitle,
       ...content
     },
+    nonce,
     ...staticContent
   },
   ...props
@@ -39,6 +40,7 @@ const Layout = ({
       stylesheets={['/public/css/app.css']}
       scripts={['/public/js/common/bundle.js'].concat(scripts)}
       headerContent={<StatusBar user={user} />}
+      nonce={nonce}
     >
       <main className="main" id="content">
         {
@@ -54,7 +56,7 @@ const Layout = ({
         </div>
       </main>
       {
-        wrap && <script dangerouslySetInnerHTML={{__html: `window.INITIAL_STATE=${JSON.stringify(store.getState())};`}} />
+        wrap && <script nonce={nonce} dangerouslySetInnerHTML={{__html: `window.INITIAL_STATE=${JSON.stringify(store.getState())};`}} />
       }
     </GovUK>
   );
