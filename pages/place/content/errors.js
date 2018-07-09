@@ -1,9 +1,9 @@
 module.exports = {
   site: {
-    required: 'Licensed premises all need a site name.'
+    required: 'Select a site for this new approved area.'
   },
   name: {
-    required: 'This could be a room number, like G1 for example.'
+    required: 'Enter a name for this approved area.'
   },
   holding: {
     required: 'Select at least one holding code.',
