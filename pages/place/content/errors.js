@@ -3,7 +3,7 @@ module.exports = {
     required: 'Select a site for this new approved area.'
   },
   name: {
-    required: 'Enter a name for this new approved area.'
+    required: 'Enter a name for this approved area.'
   },
   holding: {
     required: 'Select at least one holding code.',
