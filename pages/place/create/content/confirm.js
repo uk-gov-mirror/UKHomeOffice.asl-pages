@@ -8,5 +8,5 @@ module.exports = merge({}, confirmPage, baseContent, {
       confirm: 'Confirm addition'
     }
   },
-  subtitle: 'Add new premises to {{name}}'
+  subtitle: 'Add new premises to {{site}}'
 });
