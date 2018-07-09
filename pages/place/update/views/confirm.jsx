@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Diff from '../../../common/views/containers/diff';
@@ -8,10 +9,6 @@ import Field from '../../../common/views/components/field';
 import { RadioGroup } from 'govuk-react-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
-
-const comparator = (oldValue, newValue) => {
-  return hasChanged({}, oldValue, newValue);
-};
 
 const Confirm = ({
   declaration = true,
@@ -57,7 +54,7 @@ const Confirm = ({
                 <hr />
               </Fragment>
             )
-            : <Diff formatters={formatters} comparator={comparator} />
+            : <Diff formatters={formatters} comparator={hasChanged} />
         }
         {
           model && model.notes && (
