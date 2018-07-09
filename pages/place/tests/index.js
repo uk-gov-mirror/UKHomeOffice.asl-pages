@@ -182,6 +182,15 @@ describe('Place', () => {
       browser.url('/pages/place/create');
       assert.equal(browser.$('[name="site"]').getValue(), '');
     });
+
+    it('strips html tags from user input', () => {
+      browser.url('/pages/place/create');
+      fillForm(browser);
+      browser.$(`[name="site"]`).setValue('<script>window.location="http://www.test.com/"</script>');
+      submitForm(browser);
+      assert.equal(browser.getText('h1'), 'Confirm addition');
+      assert.equal(browser.getText('body').match(/<\/?script>/g), null);
+    });
   });
 
   describe('Read', () => {
@@ -297,6 +306,14 @@ describe('Place', () => {
       browser.url('/pages/place/an-id/edit/confirm?sessionState=123-abc');
       const title = browser.getText('h1');
       assert.equal(title, 'Change licensed premises');
+    });
+
+    it('strips html tags from user input', () => {
+      browser.url('/pages/place/an-id/edit');
+      browser.$(`[name="site"]`).setValue('<script>window.location="http://www.test.com/"</script>');
+      submitForm(browser);
+      assert.equal(browser.getText('h1'), 'Confirm changes');
+      assert.equal(browser.getText('body').match(/<\/?script>/g), null);
     });
   });
 

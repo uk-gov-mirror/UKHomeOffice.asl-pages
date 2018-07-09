@@ -29,10 +29,7 @@ module.exports = settings => {
   app.get('/confirm', (req, res, next) => {
     return getNacwoById(req, req.form.values.nacwo)
       .then(nacwo => {
-        res.locals.model = {
-          ...req.form.values,
-          nacwo
-        };
+        Object.assign(res.locals.model, { nacwo });
       })
       .then(() => next())
       .catch(next);

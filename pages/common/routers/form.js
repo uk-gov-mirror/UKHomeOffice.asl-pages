@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { generateSecret, checkSecret } = require('../../../lib/middleware/csrf');
 const { mapValues, size, get, reduce, isUndefined, identity, pickBy } = require('lodash');
 const validator = require('../../../lib/validation');
-const { hasChanged } = require('../../../lib/utils');
+const { hasChanged, cleanModel } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
 
@@ -81,15 +81,15 @@ module.exports = ({
   };
 
   const _getValues = (req, res, next) => {
-    req.form.values = Object.assign(
+    req.form.values = cleanModel(Object.assign(
       flattenNested(req.model, req.form.schema),
       req.session.form[req.model.id].values
-    );
+    ));
     return getValues(req, res, next);
   };
 
   const _process = (req, res, next) => {
-    req.form.values = reduce(req.form.schema, (all, { format, nullValue }, key) => {
+    req.form.values = cleanModel(reduce(req.form.schema, (all, { format, nullValue }, key) => {
       let value = req.body[key];
       if (!value && !isUndefined(nullValue)) {
         value = nullValue;
@@ -98,7 +98,7 @@ module.exports = ({
       format = format || identity;
       all[key] = format(value);
       return all;
-    }, {});
+    }, {}));
     return process(req, res, next);
   };
 

@@ -1,6 +1,7 @@
 const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
 const { schema } = require('./schema');
+const { cleanModel } = require('../../lib/utils');
 
 module.exports = () => {
   const app = Router();
@@ -15,7 +16,7 @@ module.exports = () => {
     }
     return req.api(`/establishment/${req.establishment}/place/${id}`)
       .then(({ json: { data } }) => {
-        req.model = data;
+        req.model = cleanModel(data);
       })
       .then(() => next())
       .catch(next);
