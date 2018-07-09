@@ -48,7 +48,7 @@ const Confirm = ({
           <dd>{ pelhName }</dd>
         </dl>
         <hr />
-        <h2><Snippet optional name={model.name}>subtitle</Snippet></h2>
+        <h2><Snippet optional site={model.site}>subtitle</Snippet></h2>
         {
           action === 'create' || action === 'delete'
             ? (
