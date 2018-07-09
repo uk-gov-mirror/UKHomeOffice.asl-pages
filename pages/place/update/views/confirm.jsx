@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash';
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Diff from '../../../common/views/containers/diff';

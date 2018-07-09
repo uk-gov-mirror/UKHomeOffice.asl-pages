@@ -10,7 +10,7 @@ const getValue = (key, { format } = {}) => {
 const Diff = ({
   diff,
   formatters = {},
-  comparator = (...args) => !(isEqual(...args)),
+  comparator = (...args) => !(isEqual(args[1], args[2])),
   currentLabel = 'Current',
   proposedLabel = 'Proposed'
 }) => (
