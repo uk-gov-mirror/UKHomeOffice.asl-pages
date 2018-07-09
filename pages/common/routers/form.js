@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const bodyParser = require('body-parser');
 const { generateSecret, checkSecret } = require('../../../lib/middleware/csrf');
-const { mapValues, size, get, reduce, isUndefined, identity, pickBy } = require('lodash');
+const { mapValues, size, get, isUndefined, identity, pickBy, pick } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged, cleanModel } = require('../../../lib/utils');
 
@@ -89,16 +89,17 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    req.form.values = cleanModel(reduce(req.form.schema, (all, { format, nullValue }, key) => {
-      let value = req.body[key];
-      if (!value && !isUndefined(nullValue)) {
-        value = nullValue;
-      }
-      value = trim(value);
-      format = format || identity;
-      all[key] = format(value);
-      return all;
-    }, {}));
+    req.form.values = pick(req.body, Object.keys(req.form.schema));
+    req.form.values = mapValues(req.form.values, (value, key) => {
+      const nullValue = req.form.schema[key].nullValue;
+      return (value || isUndefined(nullValue)) ? value : nullValue;
+    });
+    req.form.values = mapValues(req.form.values, (value, key) => {
+      const format = req.form.schema[key].format || identity;
+      return format(value);
+    });
+    req.form.values = mapValues(req.form.values, trim);
+    req.form.values = cleanModel(req.form.values);
     return process(req, res, next);
   };
 
