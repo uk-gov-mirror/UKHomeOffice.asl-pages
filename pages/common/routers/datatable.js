@@ -1,6 +1,7 @@
 const { castArray } = require('lodash');
 const { Router } = require('express');
 const { parse, stringify } = require('qs');
+const { cleanModel } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
 
@@ -58,7 +59,7 @@ module.exports = ({
         if (meta) {
           req.datatable.establishment = meta.establishment;
         }
-        req.datatable.data = data;
+        req.datatable.data = data.map(cleanModel);
       })
       .then(() => getValues(req, res, next))
       .catch(next);
