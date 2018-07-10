@@ -110,7 +110,7 @@ module.exports = ({
     const changedFields = pickBy(req.form.schema, (field, key) => {
       return field.editable !== false &&
         Object.keys(req.model).includes(key) &&
-        hasChanged(field, req.form.values[key], req.model[key]);
+        hasChanged(req.form.values[key], req.model[key], field);
     });
     if (size(changedFields)) {
       return next();

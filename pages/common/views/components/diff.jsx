@@ -25,7 +25,7 @@ const Diff = ({
     <tbody>
       {
         map(diff, ({ oldValue, newValue }, key) => {
-          const className = comparator(formatters[key] || {}, oldValue, newValue) ? 'highlight' : '';
+          const className = comparator(oldValue, newValue, formatters[key]) ? 'highlight' : '';
           return <tr key={key}>
             <td><Snippet>{`fields.${key}.label`}</Snippet></td>
             <td>{getValue(oldValue, formatters[key])}</td>
