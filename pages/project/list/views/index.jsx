@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import differenceInMonths from 'date-fns/difference_in_months';
+import format from 'date-fns/format';
 import classnames from 'classnames';
 import SearchBar from '../../../common/views/containers/search';
 import FilterSummary from '../../../common/views/containers/filter-summary';
@@ -18,9 +19,7 @@ export const formatters = {
 };
 
 const ExpiryDate = ({date}) => {
-  const now = moment();
-  const expires = moment(date);
-  const diff = expires.diff(now, 'months');
+  const diff = differenceInMonths(date, new Date());
   const urgent = diff < 3;
   let contentKey = 'diff.standard';
   if (urgent) {
@@ -28,7 +27,7 @@ const ExpiryDate = ({date}) => {
   }
 
   return <Fragment>
-    { expires.format('DD MMMM YYYY') }
+    { format(date, 'DD MMMM YYYY') }
     {
       diff < 12 && (
         <span className={classnames('notice', { urgent })}>

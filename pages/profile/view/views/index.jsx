@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { isEmpty, map, chain } from 'lodash';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import format from 'date-fns/format';
 import dictionary from '@asl/dictionary';
 import Accordion from '../../../common/views/components/accordion';
 import ExpandingPanel from '../../../common/views/components/expanding-panel';
@@ -44,7 +44,7 @@ const Index = ({
   },
   ...props
 }) => {
-  const formatDate = date => moment(date).format('DD MMMM YYYY');
+  const formatDate = date => format(date, 'DD MMMM YYYY');
   const premises = getPremises(roles);
   const hasNacwoCertifications = roles.length > 0 && roles.find(role => role.type === 'nacwo') && certifications;
   return (

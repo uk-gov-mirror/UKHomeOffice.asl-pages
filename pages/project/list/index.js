@@ -1,5 +1,5 @@
 const page = require('../../../lib/page');
-const moment = require('moment');
+const format = require('date-fns/format');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
 
@@ -15,7 +15,7 @@ module.exports = settings => {
       next();
     },
     getApiPath: (req, res, next) => {
-      const today = moment().format('YYYY-MM-DD');
+      const today = format(new Date(), 'YYYY-MM-DD');
       const query = {
         expiryDate: {
           $gte: today
