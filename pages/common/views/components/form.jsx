@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import { map, get } from 'lodash';
 import ReactMarkdown from 'react-markdown';
 import { TextArea, Input, RadioGroup, Select } from 'govuk-react-components';
@@ -12,7 +13,7 @@ const fields = {
   checkboxGroup: props => <RadioGroup type="checkbox" { ...props } />,
   select: props => <Select { ...props } />,
   text: props => props.value &&
-    <div className="form-group">
+    <div className={classnames('form-group', props.name)}>
       <h3>{ props.label }</h3>
       <ReactMarkdown>{ props.value }</ReactMarkdown>
     </div>
@@ -47,7 +48,7 @@ const Form = ({
           return (
             <ConditionalReveal
               fieldName={key}
-              open={model[key]}
+              value={model[`conditional-reveal-${key}`]}
               label={<Snippet>{`fields.${key}.conditionalReveal.label`}</Snippet>}
               yesLabel={<Snippet>{`fields.${key}.conditionalReveal.yesLabel`}</Snippet>}
               noLabel={<Snippet>{`fields.${key}.conditionalReveal.noLabel`}</Snippet>}

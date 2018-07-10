@@ -4,9 +4,8 @@ import Inset from './inset';
 
 class ConditionalReveal extends Component {
   componentDidMount() {
-    const visible = !!this.props.open;
     this.setState({
-      visible
+      visible: this.props.value === 'true'
     });
     this.toggle = this.toggle.bind(this);
   }

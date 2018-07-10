@@ -100,6 +100,8 @@ module.exports = ({
     });
     req.form.values = mapValues(req.form.values, trim);
     req.form.values = cleanModel(req.form.values);
+    const conditionalRevealKeys = Object.keys(schema).filter(key => schema[key].conditionalReveal).map(key => `conditional-reveal-${key}`);
+    Object.assign(req.form.values, { ...pick(req.body, conditionalRevealKeys) });
     return process(req, res, next);
   };
 
