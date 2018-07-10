@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { get } from 'lodash';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import ReactMarkdown from 'react-markdown';
@@ -6,6 +7,7 @@ import FilterTable from '../../../common/views/components/filter-table';
 import Snippet from '../../../common/views/containers/snippet';
 import Controls from '../../../common/views/containers/controls';
 import formatters from '../../formatters';
+import Link from '../../../common/views/containers/link';
 
 const pageFormatters = {
   name: {
@@ -21,6 +23,9 @@ const pageFormatters = {
         </Fragment>
       );
     }
+  },
+  nacwo: {
+    format: val => val && <Link page="profile.view" profile={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />
   }
 };
 
