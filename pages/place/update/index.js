@@ -19,7 +19,8 @@ module.exports = settings => {
       },
       restrictions: {
         inputType: 'textarea',
-        conditionalReveal: true
+        conditionalReveal: true,
+        validate: ['required']
       },
       comments: {
         inputType: 'textarea'

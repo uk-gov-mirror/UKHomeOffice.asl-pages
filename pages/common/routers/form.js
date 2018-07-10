@@ -100,6 +100,7 @@ module.exports = ({
     });
     req.form.values = mapValues(req.form.values, trim);
     req.form.values = cleanModel(req.form.values);
+    Object.assign(req.form.values, { ...pickBy(req.body, (field, key) => key.includes('conditional-reveal')) });
     return process(req, res, next);
   };
 

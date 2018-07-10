@@ -231,6 +231,38 @@ describe('Place', () => {
       assert(errors.getText().includes('No changes have been made'));
     });
 
+    it('toggles textarea for editing restrictions using conditional reveal', () => {
+      browser.url('/pages/place/an-id/edit');
+      const restrictions = browser.$('[name="restrictions"]');
+      assert(restrictions.isExisting());
+      assert(!restrictions.isVisible());
+      browser.$('[name="conditional-reveal-restrictions"][value="true"]').click();
+      assert(restrictions.isVisible());
+    });
+
+    it('renders markdown in restrictions', () => {
+      browser.url('/pages/place/an-id/edit');
+      assert.equal(browser.$('.notes').$$('li').length, 2);
+    });
+
+    it('persists conditional reveal state if a validation error is thrown', () => {
+      browser.url('/pages/place/an-id/edit');
+      browser.$('[name="suitability"][value="SA"]').click();
+      const trueRadio = browser.$('[name="conditional-reveal-restrictions"][value="true"]');
+      trueRadio.click();
+      submitForm(browser);
+      assert(browser.$('.error-summary').isVisible());
+      assert(trueRadio.isSelected());
+    });
+
+    it('throws a validation error if user chooses to amend restrictions but doesn\'t add any content', () => {
+      browser.url('/pages/place/an-id/edit');
+      const trueRadio = browser.$('[name="conditional-reveal-restrictions"][value="true"]');
+      trueRadio.click();
+      submitForm(browser);
+      assert(browser.$('.error-summary').$('#restrictions').isExisting())
+    });
+
     it('redirects you to the confirm page if changes have been made', () => {
       browser.url('/pages/place/an-id/edit')
       browser.$('[name="name"]').setValue('New Name');
