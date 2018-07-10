@@ -1,7 +1,5 @@
-import React from 'react';
 import { get } from 'lodash';
 import { defineValue, joinAcronyms, labelFromCode } from '../../common/formatters';
-import Link from '../../common/views/containers/link';
 
 export default {
   suitability: {
@@ -15,7 +13,7 @@ export default {
     mapOptions: labelFromCode
   },
   nacwo: {
-    format: val => val && <Link page="profile.view" profile={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />,
+    format: val => get(val, 'profile.name'),
     accessor: 'id'
   }
 };
