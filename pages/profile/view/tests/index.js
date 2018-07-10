@@ -11,7 +11,7 @@ describe('Profile Page', () => {
     browser.url('/pages/profile/view');
     const training = browser.$('h3=Training');
     assert(training.isVisible());
-    const content = browser.$('dd=BLib');
+    const content = browser.$('dd=NACWO training course 1');
     assert(!content.isVisible());
     training.click();
     assert(content.isVisible());
