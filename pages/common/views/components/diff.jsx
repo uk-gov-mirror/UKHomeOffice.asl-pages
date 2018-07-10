@@ -10,7 +10,7 @@ const getValue = (key, { format } = {}) => {
 const Diff = ({
   diff,
   formatters = {},
-  comparator = (...args) => !(isEqual(...args)),
+  comparator = (a, b) => !(isEqual(a, b)),
   currentLabel = 'Current',
   proposedLabel = 'Proposed'
 }) => (
@@ -25,7 +25,7 @@ const Diff = ({
     <tbody>
       {
         map(diff, ({ oldValue, newValue }, key) => {
-          const className = comparator(oldValue, newValue) ? 'highlight' : '';
+          const className = comparator(oldValue, newValue, formatters[key]) ? 'highlight' : '';
           return <tr key={key}>
             <td><Snippet>{`fields.${key}.label`}</Snippet></td>
             <td>{getValue(oldValue, formatters[key])}</td>

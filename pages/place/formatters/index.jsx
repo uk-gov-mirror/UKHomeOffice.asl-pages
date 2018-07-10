@@ -15,6 +15,7 @@ export default {
     mapOptions: labelFromCode
   },
   nacwo: {
-    format: val => val && <Link page="profile.view" profile={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />
+    format: val => val && <Link page="profile.view" profile={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />,
+    accessor: 'id'
   }
 };
