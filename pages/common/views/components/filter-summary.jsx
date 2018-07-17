@@ -1,14 +1,14 @@
 import React from 'react';
 
 const FilterSummary = ({
-  all,
+  total,
   filtered,
-  filteredLabel = `Showing ${filtered.length} of ${all.length} results`,
-  allShowingLabel = `All ${all.length} results`
+  filteredLabel = `Showing ${filtered} of ${total} results`,
+  allShowingLabel = `All ${total} results`
 }) => (
   <h2 className="filter-summary">
     {
-      filtered.length !== all.length
+      filtered !== total
         ? filteredLabel
         : allShowingLabel
     }

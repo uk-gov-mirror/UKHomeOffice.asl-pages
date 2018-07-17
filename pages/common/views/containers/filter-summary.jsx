@@ -1,10 +1,16 @@
 import { connect } from 'react-redux';
 import FilterSummary from '../components/filter-summary';
-import { applyFilters } from '../../../../lib/reducers/datatable';
 
-const mapStateToProps = ({ static: { schema }, datatable: { data, filters } }) => ({
-  all: data,
-  filtered: applyFilters({ data, filters, schema })
+const mapStateToProps = ({
+  datatable: {
+    pagination: {
+      count: filtered,
+      totalCount: total
+    }
+  }
+}) => ({
+  total,
+  filtered
 });
 
 export default connect(

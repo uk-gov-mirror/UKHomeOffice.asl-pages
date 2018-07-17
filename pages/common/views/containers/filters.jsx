@@ -1,25 +1,27 @@
-import { pickBy, merge, uniq, flatten, reduce } from 'lodash';
 import { connect } from 'react-redux';
 import Filters from '../components/filters';
-import { setFilters } from '../../../../lib/actions';
+import { changeFilters } from '../../../../lib/actions';
 
-const uniqueByType = (key, data, { title, label, format }) => ({
-  key,
-  title,
-  format: label || format,
-  values: uniq(flatten(data.map(row => row[key])))
-});
-
-const mapStateToProps = ({ static: { schema }, datatable: { filters, data } }, { formatters }) => {
-  const mergedSchema = pickBy(merge({}, schema, formatters), item => item.filter);
+const mapStateToProps = ({ datatable: { filters: { options, active } } }, { formatters }) => {
   return {
-    filterSettings: reduce(mergedSchema, (obj, value, key) => ({ ...obj, [key]: uniqueByType(key, data, value) }), {}),
-    filters,
-    data
+    active,
+    options: options.reduce((obj, { key, values }) => {
+      return {
+        ...obj,
+        [key]: {
+          values,
+          format: formatters[key] && formatters[key].format
+        }
+      };
+    }, {})
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  onFiltersChange: filters => dispatch(changeFilters(filters))
+});
+
 export default connect(
   mapStateToProps,
-  { setFilters }
+  mapDispatchToProps
 )(Filters);

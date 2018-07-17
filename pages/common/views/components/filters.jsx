@@ -8,21 +8,21 @@ import Snippet from '../containers/snippet';
 class Filters extends Component {
 
   componentDidMount() {
-    const { filters } = this.props;
+    const { active } = this.props;
 
     this.setState({
-      filters,
-      visible: some(filters, 'length')
+      active,
+      visible: some(active, 'length')
     }, () => {
       this.scrollToCheckedElements();
     });
   }
 
   scrollToCheckedElements() {
-    const filters = this.state.filters || {};
-    Object.keys(filters).forEach(key => {
+    const active = this.state.active || {};
+    Object.keys(active).forEach(key => {
       const container = document.getElementById(`${key}-options`);
-      const child = document.getElementById(`${key}-${filters[key][0]}`);
+      const child = document.getElementById(`${key}-${active[key][0]}`);
       if (container && child) {
         const offset = child.parentNode.offsetTop;
         container.scrollTo(0, offset);
@@ -31,35 +31,35 @@ class Filters extends Component {
   }
 
   emitChange() {
-    const { filters } = this.state;
-    this.props.setFilters(filters);
+    const { active } = this.state;
+    this.props.onFiltersChange(active);
   }
 
   clearFilters() {
-    this.props.setFilters({});
-    this.setState({ filters: {} });
+    this.props.onFiltersChange(null);
+    this.setState({ active: {} });
   }
 
   onCheckboxChange(key, filter, checked) {
-    const filters = { ...this.state.filters };
+    const active = { ...this.state.active };
     if (checked) {
-      filters[key] = filters[key] || [];
-      if (!filters[key].includes(filter)) {
-        filters[key].push(filter);
+      active[key] = active[key] || [];
+      if (!active[key].includes(filter)) {
+        active[key].push(filter);
       }
     } else {
-      const index = filters[key].indexOf(filter);
-      filters[key].splice(index, 1);
+      const index = active[key].indexOf(filter);
+      active[key].splice(index, 1);
     }
-    if (!filters[key].length) {
-      delete filters[key];
+    if (!active[key].length) {
+      delete active[key];
     }
-    this.setState({ filters });
+    this.setState({ active });
   }
 
   isChecked(key, filter) {
-    const { filters } = this.state || this.props;
-    return filters[key] && filters[key].includes(filter);
+    const { active } = this.state || this.props;
+    return active[key] && active[key].includes(filter);
   }
 
   toggleVisible(e) {
@@ -70,7 +70,7 @@ class Filters extends Component {
   }
 
   render() {
-    const { filterSettings } = this.props;
+    const { options } = this.props;
     return (
       <section className="filters-component">
         <h3 className={classnames({
@@ -89,7 +89,7 @@ class Filters extends Component {
           >
             <div className="filters grid-row">
               {
-                map(filterSettings, ({ values, format }, key) =>
+                map(options, ({ values, format }, key) =>
                   <div key={key} className="column-one-third">
                     <OptionSelect
                       title={<Snippet>{`fields.${key}.label`}</Snippet>}
@@ -116,7 +116,9 @@ class Filters extends Component {
             <p className="control-bar">
               <button type="submit" className="button"><Snippet>filters.applyLabel</Snippet></button>
               <ApplyChanges
-                filters={{}}
+                query={{
+                  filters: {}
+                }}
                 onApply={() => this.clearFilters()}
                 label={<Snippet>filters.clearLabel</Snippet>} />
             </p>

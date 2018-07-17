@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import classnames from 'classnames';
-import { map, isEmpty, isUndefined, size } from 'lodash';
+import { map, size } from 'lodash';
 import { getValue } from '../../../../lib/utils';
 import DatatableHeader from '../containers/datatable-header';
+import Pagination from '../containers/pagination';
 
 class Table extends Component {
   constructor(options) {
@@ -43,18 +44,12 @@ class Table extends Component {
       sortable,
       ExpandableRow
     } = this.props;
-    if (isUndefined(data)) {
-      throw new Error('data must be provided');
-    }
-    const columns = !isEmpty(schema)
-      ? schema
-      : Object.keys(data[0]).reduce((obj, key) => ({ ...obj, [key]: {} }), {});
     return (
       <table className="govuk-react-datatable">
         <thead>
           <tr>
             {
-              map(columns, (column, key) =>
+              map(schema, (column, key) =>
                 <DatatableHeader key={key} id={key} sortable={sortable} { ...column } />
               )
             }
@@ -73,10 +68,10 @@ class Table extends Component {
                   })}
                 >
                   {
-                    map(columns, (schema, key) => {
-                      const datum = getValue({ row, schema, key });
+                    map(schema, (column, key) => {
+                      const datum = getValue({ row, schema: column, key });
                       return <td key={key} className={key}>
-                        { schema.format ? schema.format(datum, row) : datum }
+                        { column.format ? column.format(datum, row) : datum }
                       </td>;
                     })
                   }
@@ -84,7 +79,7 @@ class Table extends Component {
                 {
                   this.isExpandable(row.id) && (
                     <tr className='expanded-content' onClick={() => this.toggleContent(row.id)}>
-                      <td colSpan={size(columns)}>
+                      <td colSpan={size(schema)}>
                         {
                           <ExpandableRow
                             row={row}
@@ -100,6 +95,13 @@ class Table extends Component {
             ))
           }
         </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan={size(schema)}>
+              <Pagination />
+            </td>
+          </tr>
+        </tfoot>
       </table>
     );
   }

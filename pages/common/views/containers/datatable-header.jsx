@@ -1,18 +1,26 @@
 import { connect } from 'react-redux';
-import { setSortColumn } from '../../../../lib/actions';
+import { doSort } from '../../../../lib/actions';
 import TableHeader from '../components/datatable-header';
 
 const mapStateToProps = ({
-  datatable: { sort: { column, ascending } }
+  datatable: {
+    sort: { column, ascending },
+    data: { isFetching }
+  }
 }, {
   sortable
 }) => ({
+  disabled: isFetching,
   column,
   ascending,
   sortable
 });
 
+const mapDispatchToProps = dispatch => ({
+  onHeaderClick: id => dispatch(doSort(id))
+});
+
 export default connect(
   mapStateToProps,
-  { setSortColumn }
+  mapDispatchToProps
 )(TableHeader);

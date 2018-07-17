@@ -1,3 +1,4 @@
+const { pickBy } = require('lodash');
 const page = require('../../../lib/page');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
@@ -9,6 +10,7 @@ module.exports = settings => {
   });
 
   app.use(datatable({
+    filters: Object.keys(pickBy(schema, s => s.filter)),
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishment}/places`;
       next();
