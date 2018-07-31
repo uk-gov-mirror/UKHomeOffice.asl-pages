@@ -3,8 +3,7 @@ import dict from '@asl/dictionary';
 import JoinAcronyms from '../views/components/join-acronyms';
 
 export const joinAcronyms = val => {
-  console.log(val);
-  return <JoinAcronyms>{ val }</JoinAcronyms>;
+  return <JoinAcronyms>{ val }</JoinAcronyms>
 };
 
 export const labelFromCode = value => ({

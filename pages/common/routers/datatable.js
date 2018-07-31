@@ -102,15 +102,10 @@ module.exports = ({
         if (meta.establishment) {
           res.establishment = meta.establishment;
         }
-        if (meta.filters) {
-          set(req.datatable, 'filters.options', meta.filters);
-        }
-        if (meta.total) {
-          set(req.datatable, 'pagination.totalCount', meta.total);
-        }
-        if (meta.count) {
-          set(req.datatable, 'pagination.count', meta.count);
-        }
+
+        set(req.datatable, 'filters.options', meta.filters);
+        set(req.datatable, 'pagination.totalCount', meta.total);
+        set(req.datatable, 'pagination.count', meta.count);
         set(req.datatable, 'data.rows', data.map(cleanModel));
 
         if (!data.length && meta.count) {
