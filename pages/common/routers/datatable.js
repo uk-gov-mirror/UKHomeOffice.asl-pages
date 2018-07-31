@@ -1,4 +1,4 @@
-const { castArray, pick, pickBy, merge, set, get, reduce, omit, map, flatten } = require('lodash');
+const { castArray, pick, merge, set, get, omit } = require('lodash');
 const { Router } = require('express');
 const { parse, stringify } = require('qs');
 const { cleanModel, removeQueryParams } = require('../../../lib/utils');
@@ -14,7 +14,7 @@ const buildQuery = (req, schema) => {
   const { sort, pagination: { limit, offset } } = merge({}, req.datatable);
 
   const filters = get(req.datatable, 'filters.active');
-  const search = get(filters, '*');
+  let search = get(filters, '*');
 
   if (Array.isArray(search)) {
     search = search[0];
@@ -105,11 +105,15 @@ module.exports = ({
         if (meta.filters) {
           set(req.datatable, 'filters.options', meta.filters);
         }
-        set(req.datatable, 'pagination.totalCount', data.total);
-        set(req.datatable, 'pagination.count', data.count);
-        set(req.datatable, 'data.rows', data.rows.map(cleanModel));
+        if (meta.total) {
+          set(req.datatable, 'pagination.totalCount', meta.total);
+        }
+        if (meta.count) {
+          set(req.datatable, 'pagination.count', meta.count);
+        }
+        set(req.datatable, 'data.rows', data.map(cleanModel));
 
-        if (!data.rows.length && data.count) {
+        if (!data.length && meta.count) {
           const redirect = removeQueryParams(req.originalUrl, ['page', 'rows']);
           res.redirect(redirect);
         }

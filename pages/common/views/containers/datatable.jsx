@@ -1,6 +1,5 @@
-import { merge, pickBy, get } from 'lodash';
+import { merge, pickBy } from 'lodash';
 import { connect } from 'react-redux';
-import { getValue } from '../../../../lib/utils';
 import DataTable from '../components/datatable';
 
 const mapStateToProps = ({

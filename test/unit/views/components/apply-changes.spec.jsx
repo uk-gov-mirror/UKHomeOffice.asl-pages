@@ -21,13 +21,15 @@ describe('<ApplyChanges />', () => {
 
     test('creates a stringified href from superfluous props', () => {
       const props = {
-        filters: {
-          a: [1, 2, 3],
-          b: [2, 3, 4]
-        },
-        sort: {
-          ascending: true,
-          column: 'test'
+        query: {
+          filters: {
+            a: [1, 2, 3],
+            b: [2, 3, 4]
+          },
+          sort: {
+            ascending: true,
+            column: 'test'
+          }
         }
       };
       const expected = '?filters%5Ba%5D%5B0%5D=1&filters%5Ba%5D%5B1%5D=2&filters%5Ba%5D%5B2%5D=3&filters%5Bb%5D%5B0%5D=2&filters%5Bb%5D%5B1%5D=3&filters%5Bb%5D%5B2%5D=4&sort%5Bascending%5D=true&sort%5Bcolumn%5D=test';
@@ -60,13 +62,15 @@ describe('<ApplyChanges />', () => {
 
     test('adds a hidden input with stringified superfluous props', () => {
       const props = {
-        filters: {
-          a: [1, 2, 3],
-          b: [2, 3, 4]
-        },
-        sort: {
-          ascending: true,
-          column: 'test'
+        query: {
+          filters: {
+            a: [1, 2, 3],
+            b: [2, 3, 4]
+          },
+          sort: {
+            ascending: true,
+            column: 'test'
+          }
         }
       };
       const wrapper = shallow(

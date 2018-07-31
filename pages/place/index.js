@@ -32,7 +32,6 @@ module.exports = () => {
   app.use('/:id/delete', require('./delete')());
   app.use('/:id', require('./read')());
 
-
   app.use('/create', require('./create')());
 
   app.get('/', require('./list')());

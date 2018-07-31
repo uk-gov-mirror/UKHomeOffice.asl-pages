@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { map } from 'lodash';
 import { connect } from 'react-redux';
 import SearchBar from '../../../common/views/containers/search';
 import FilterSummary from '../../../common/views/containers/filter-summary';

@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { uniq, flatten } from 'lodash';
 import { clickLinkFilter } from '../../../../lib/actions';
 import LinkFilter from '../components/link-filter';
 

@@ -39,7 +39,7 @@ class Table extends Component {
 
   render() {
     const {
-      data,
+      data = [],
       schema,
       sortable,
       ExpandableRow

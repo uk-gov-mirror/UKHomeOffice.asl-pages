@@ -20,7 +20,7 @@ module.exports = settings => {
           roles.push({ type: 'pilh' });
         }
         if (profile.projects && profile.projects.length) {
-          roles.push({ type: 'pplh'});
+          roles.push({ type: 'pplh' });
         }
         return {
           ...profile,

@@ -7,10 +7,7 @@ const mapStateToProps = ({ datatable: { pagination } }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onPageChange: page => {
-    console.log('changing page', page)
-    dispatch(changePage(page))
-  }
+  onPageChange: page => dispatch(changePage(page))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
