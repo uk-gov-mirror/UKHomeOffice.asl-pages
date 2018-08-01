@@ -34,7 +34,7 @@ module.exports = () => {
 
   app.use('/create', require('./create')());
 
-  app.use('/', require('./list')());
+  app.get('/', require('./list')());
 
   return app;
 };

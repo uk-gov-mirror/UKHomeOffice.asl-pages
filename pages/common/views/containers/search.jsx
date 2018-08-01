@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setFilter } from '../../../../lib/actions';
+import { doSearch } from '../../../../lib/actions';
 import Search from '../components/search';
 
 const mapStateToProps = ({ datatable: { filters } }) => ({
@@ -8,5 +8,5 @@ const mapStateToProps = ({ datatable: { filters } }) => ({
 
 module.exports = connect(
   mapStateToProps,
-  { onChange: value => setFilter('*', value) }
+  { onChange: value => doSearch(value) }
 )(Search);

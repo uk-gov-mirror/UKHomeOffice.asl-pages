@@ -5,25 +5,25 @@ import { OptionSelect, CheckedOption } from 'govuk-react-components';
 
 describe('<Filters />', () => {
   describe('render', () => {
-    const filterSettings = {
+    const options = {
       a: {
         values: ['a', 'b', 'c']
       }
     };
-    const filters = { a: [] };
+    const active = { a: [] };
 
-    test('creates an OptionSelect element for each filterSettings item passed in', () => {
-      const wrapper = shallow(<Filters filterSettings={filterSettings} filters={filters} />);
+    test('creates an OptionSelect element for each options item passed in', () => {
+      const wrapper = shallow(<Filters options={options} active={active} />);
       expect(wrapper.find(OptionSelect).length).toBe(1);
     });
 
-    test('creates a CheckedOption element for each value in each filterSettings item', () => {
-      const wrapper = shallow(<Filters filterSettings={filterSettings} filters={filters} />);
+    test('creates a CheckedOption element for each value in each options item', () => {
+      const wrapper = shallow(<Filters options={options} active={active} />);
       expect(wrapper.find(CheckedOption).length).toBe(3);
     });
 
-    test('creates a passes checked option from props', () => {
-      const wrapper = shallow(<Filters filterSettings={filterSettings} filters={{
+    test('passes checked option from props', () => {
+      const wrapper = shallow(<Filters options={options} active={{
         a: ['a']
       }} />);
       expect(wrapper.find(CheckedOption).at(0).prop('checked')).toBe(true);
@@ -35,30 +35,30 @@ describe('<Filters />', () => {
   describe('methods', () => {
     describe('componentDidMount()', () => {
       test('sets state from filters passed in via props', () => {
-        const filters = { a: ['b', 'c', 'd'] };
-        const wrapper = shallow(<Filters filters={filters} />);
-        expect(wrapper.instance().state.filters).toEqual(filters);
+        const active = { a: ['b', 'c', 'd'] };
+        const wrapper = shallow(<Filters active={active} />);
+        expect(wrapper.instance().state.active).toEqual(active);
       });
     });
 
     describe('emitChange()', () => {
-      test('calls props.setFilters with state.filters when called', () => {
-        const setFilters = jest.fn();
-        const filters = { a: ['b'] };
-        const wrapper = shallow(<Filters setFilters={setFilters} />);
-        wrapper.instance().state = { filters };
+      test('calls props.onFiltersChange with state.active when called', () => {
+        const onFiltersChange = jest.fn();
+        const active = { a: ['b'] };
+        const wrapper = shallow(<Filters onFiltersChange={onFiltersChange} />);
+        wrapper.instance().state = { active };
         wrapper.instance().emitChange();
-        expect(setFilters.mock.calls[0][0]).toEqual(filters);
+        expect(onFiltersChange.mock.calls[0][0]).toEqual(active);
       });
     });
 
     describe('clearFilters()', () => {
-      const setFilters = jest.fn();
-      const wrapper = shallow(<Filters setFilters={setFilters} />);
+      const onFiltersChange = jest.fn();
+      const wrapper = shallow(<Filters onFiltersChange={onFiltersChange} />);
 
-      test('calls setFilters with an empty object', () => {
+      test('calls onFiltersChange with null', () => {
         wrapper.instance().clearFilters();
-        expect(setFilters.mock.calls[0][0]).toEqual({});
+        expect(onFiltersChange.mock.calls[0][0]).toEqual(null);
       });
     });
 
@@ -68,63 +68,63 @@ describe('<Filters />', () => {
       beforeEach(done => {
         const wrapper = shallow(<Filters />);
         instance = wrapper.instance();
-        instance.setState({ filters: {} }, done);
+        instance.setState({ active: {} }, done);
       });
 
       test('adds the filter to state if checked', () => {
         instance.onCheckboxChange('a', 'b', true);
-        expect(instance.state.filters).toEqual({ a: ['b'] });
+        expect(instance.state.active).toEqual({ a: ['b'] });
         instance.onCheckboxChange('a', 'c', true);
-        expect(instance.state.filters).toEqual({ a: ['b', 'c'] });
+        expect(instance.state.active).toEqual({ a: ['b', 'c'] });
         instance.onCheckboxChange('b', 'a', true);
-        expect(instance.state.filters).toEqual({ a: ['b', 'c'], b: ['a'] });
+        expect(instance.state.active).toEqual({ a: ['b', 'c'], b: ['a'] });
       });
 
       test('removes the filter from the state if not checked', () => {
-        instance.state.filters = {
+        instance.state.active = {
           a: ['b', 'c', 'd'],
           b: ['e', 'f', 'g']
         };
         instance.onCheckboxChange('a', 'b', false);
-        expect(instance.state.filters).toEqual({
+        expect(instance.state.active).toEqual({
           a: ['c', 'd'],
           b: ['e', 'f', 'g']
         });
         instance.onCheckboxChange('a', 'd', false);
-        expect(instance.state.filters).toEqual({
+        expect(instance.state.active).toEqual({
           a: ['c'],
           b: ['e', 'f', 'g']
         });
         instance.onCheckboxChange('b', 'f', false);
-        expect(instance.state.filters).toEqual({
+        expect(instance.state.active).toEqual({
           a: ['c'],
           b: ['e', 'g']
         });
       });
 
-      test('removed the key from state.filters if no filters exist', () => {
-        instance.state.filters = {
+      test('removed the key from state.active if no filters exist', () => {
+        instance.state.active = {
           a: ['b'],
           b: ['c']
         };
         instance.onCheckboxChange('a', 'b', false);
-        expect(instance.state.filters).toEqual({ b: ['c'] });
+        expect(instance.state.active).toEqual({ b: ['c'] });
         instance.onCheckboxChange('b', 'a', false);
-        expect(instance.state.filters).toEqual({});
+        expect(instance.state.active).toEqual({});
       });
     });
 
     describe('isChecked()', () => {
-      test('returns true if item is in state.filters', () => {
+      test('returns true if item is in state.active', () => {
         const wrapper = shallow(<Filters />);
         const instance = wrapper.instance();
-        instance.state = { filters: { a: ['test'] } };
+        instance.state = { active: { a: ['test'] } };
         expect(instance.isChecked('a', 'test')).toBe(true);
       });
 
       test('returns true if item is in props and state is null', () => {
-        const filters = { a: ['test'] };
-        const wrapper = shallow(<Filters filters={filters} />);
+        const active = { a: ['test'] };
+        const wrapper = shallow(<Filters active={active} />);
         const instance = wrapper.instance();
         instance.state = null;
         expect(instance.isChecked('a', 'test')).toBe(true);

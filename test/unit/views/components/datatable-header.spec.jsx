@@ -54,16 +54,16 @@ describe('<TableHeader />', () => {
   });
 
   test('calls setSortColumn with the current column id if changes applied', () => {
-    const mockSetSortColumn = jest.fn();
+    const mockOnHeaderClick = jest.fn();
     const wrapper = shallow(
       <TableHeader
         id="test"
         column="another"
         ascending={false}
-        setSortColumn={mockSetSortColumn}
+        onHeaderClick={mockOnHeaderClick}
       />
     );
     wrapper.find(ApplyChanges).prop('onApply')();
-    expect(mockSetSortColumn.mock.calls[0][0]).toBe('test');
+    expect(mockOnHeaderClick.mock.calls[0][0]).toBe('test');
   });
 });

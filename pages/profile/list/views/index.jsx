@@ -21,7 +21,8 @@ export const formatters = {
     format: (name, person) => <Link page="profile.view" profile={person.id} label={ name } />
   },
   roles: {
-    format: data => joinAcronyms(data)
+    accessor: row => row.roles.map(v => v.type),
+    format: data => joinAcronyms(data.map(d => d.toUpperCase()))
   },
   pil: {
     format: data => data || '-'
@@ -38,7 +39,11 @@ const People = ({
       <h1><Snippet>pages.profile.list</Snippet></h1>
     </header>
     <SearchBar label={<Snippet>searchText</Snippet>} />
-    <LinkFilter prop="roles" formatter={filter => <Acronym>{filter}</Acronym>} />
+    <LinkFilter
+      prop="roles"
+      formatter={filter => <Acronym>{filter.toUpperCase()}</Acronym>}
+      append={['pilh', 'pplh']}
+    />
     <FilterSummary />
     <DataTable formatters={formatters} />
   </Fragment>

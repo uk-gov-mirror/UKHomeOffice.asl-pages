@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import ApplyChanges from '../containers/apply-changes';
 import Snippet from '../containers/snippet';
 
@@ -8,8 +9,9 @@ const TableHeader = ({
   id,
   column,
   ascending,
-  setSortColumn,
-  sortable
+  onHeaderClick,
+  sortable,
+  disabled
 }) => {
   const isSortable = sortable !== false && column !== undefined && ascending !== undefined;
   return (
@@ -19,11 +21,14 @@ const TableHeader = ({
       {
         isSortable
           ? <ApplyChanges
-            sort={{
-              column: id,
-              ascending: column === id ? !ascending : true
+            query={{
+              sort: {
+                column: id,
+                ascending: column === id ? !ascending : true
+              }
             }}
-            onApply={() => setSortColumn(id)}
+            className={classnames({ disabled })}
+            onApply={() => onHeaderClick(id)}
             label={getLabel(id)}
           />
           : getLabel(id)

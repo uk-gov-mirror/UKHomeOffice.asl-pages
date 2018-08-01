@@ -14,13 +14,13 @@ module.exports = settings => {
       return next();
     },
     getValues: (req, res, next) => {
-      req.datatable.data = req.datatable.data.map(profile => {
-        const roles = profile.roles.map(r => r.type.toUpperCase());
+      req.datatable.data.rows = req.datatable.data.rows.map(profile => {
+        const roles = profile.roles;
         if (profile.pil) {
-          roles.push('PILH');
+          roles.push({ type: 'pilh' });
         }
         if (profile.projects && profile.projects.length) {
-          roles.push('PPLH');
+          roles.push({ type: 'pplh' });
         }
         return {
           ...profile,

@@ -4,41 +4,35 @@ import Table from 'views/components/datatable';
 import TableHeader from 'views/containers/datatable-header';
 
 describe('<Table />', () => {
-  test('throws an error if no data provided', () => {
-    expect(() => {
-      shallow(<Table />);
-    }).toThrow('data must be provided');
-  });
-
-  test('renders a <TableHeader /> element for each column, taken from the first entry', () => {
-    const data = [
-      { id: 1, site: 'A Site', name: 'The Name', number: 3 }
-    ];
-    const wrapper = shallow(<Table data={data} />);
+  test('renders a <TableHeader /> element for each column, taken from schema', () => {
+    const schema = { site: {}, name: {}, number: {} };
+    const wrapper = shallow(<Table schema={schema} />);
     const tableHeaders = wrapper.find(TableHeader);
-    expect(tableHeaders.length).toBe(4);
-    Object.keys(data[0]).forEach((key, index) => {
+    expect(tableHeaders.length).toBe(3);
+    Object.keys(schema).forEach((key, index) => {
       expect(tableHeaders.get(index).props.id).toBe(key);
     });
   });
 
   test('renders a <tr /> element for each row', () => {
+    const schema = { id: {}, site: {}, name: {}, number: {} };
     const data = [
       { id: 1, site: 'A Site', name: 'The Name', number: 3 },
       { id: 2, site: 'A Site', name: 'The Name', number: 3 },
       { id: 3, site: 'A Site', name: 'The Name', number: 3 }
     ];
-    const wrapper = shallow(<Table data={data} />);
+    const wrapper = shallow(<Table data={data} schema={schema} />);
     expect(wrapper.find('tbody tr').length).toBe(3);
   });
 
   test('renders a <td /> element for each key in each row', () => {
+    const schema = { id: {}, site: {}, name: {}, number: {} };
     const data = [
       { id: 1, site: 'A Site', name: 'The Name', number: 3 },
       { id: 2, site: 'A Site', name: 'The Name', number: 3 },
       { id: 3, site: 'A Site', name: 'The Name', number: 3 }
     ];
-    const wrapper = shallow(<Table data={data} />);
+    const wrapper = shallow(<Table data={data} schema={schema} />);
     expect(wrapper.find('tbody tr td').length).toBe(12);
   });
 

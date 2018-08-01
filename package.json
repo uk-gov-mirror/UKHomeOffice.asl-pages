@@ -46,12 +46,14 @@
     "morgan": "^1.9.0",
     "mustache": "^2.3.0",
     "qs": "^6.5.2",
+    "r2": "^2.0.1",
     "react": "^16.3.2",
     "react-dom": "^16.2.0",
     "react-markdown": "^3.3.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "striptags": "^3.1.1"
   },
   "devDependencies": {

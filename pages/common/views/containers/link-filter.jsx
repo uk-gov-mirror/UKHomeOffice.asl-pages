@@ -1,18 +1,17 @@
 import { connect } from 'react-redux';
-import { uniq, flatten } from 'lodash';
-import { setFilter } from '../../../../lib/actions';
+import { clickLinkFilter } from '../../../../lib/actions';
 import LinkFilter from '../components/link-filter';
 
-const mapStateToProps = ({ datatable: { filters, data } }, { prop }) => {
+const mapStateToProps = ({ datatable: { filters: { active, options } } }, { prop, append }) => {
   return {
-    selected: filters[prop] && filters[prop][0],
-    filters: uniq(flatten(data.map(row => row[prop]))).sort()
+    selected: active[prop] && active[prop][0],
+    filters: [ ...options, ...append ]
   };
 };
 
 const mapDispatchToProps = (dispatch, { prop }) => {
   return {
-    onChange: val => dispatch(setFilter(prop, val))
+    onChange: val => dispatch(clickLinkFilter(prop, val))
   };
 };
 

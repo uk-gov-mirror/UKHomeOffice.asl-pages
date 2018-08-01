@@ -2,13 +2,11 @@ import { connect } from 'react-redux';
 import ApplyChanges from '../components/apply-changes';
 
 const mapStateToProps = ({
-  datatable: { filters, sort }
+  datatable: { filters: { active: filters }, sort, pagination: { page } }
 }, {
-  filters: newFilters,
-  sort: newSort
+  query = {}
 }) => ({
-  filters: newFilters || filters,
-  sort: newSort || sort
+  query: Object.assign({}, { filters, sort, page: page + 1 }, query)
 });
 
 export default connect(mapStateToProps)(ApplyChanges);
