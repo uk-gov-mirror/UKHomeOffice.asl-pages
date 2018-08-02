@@ -42,10 +42,12 @@ class Table extends Component {
       data = [],
       schema,
       sortable,
+      isFetching,
       ExpandableRow
     } = this.props;
+
     return (
-      <table className="govuk-react-datatable">
+      <table className={classnames('govuk-react-datatable', isFetching && 'loading')}>
         <thead>
           <tr>
             {
