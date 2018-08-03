@@ -9,7 +9,11 @@ const PaginationControls = ({
   count,
   onPageChange
 }) => {
-  const numberLinks = totalPages < 5 ? totalPages : 5;
+  const pagesToShow = () => {
+    const end = Math.min(totalPages, Math.max(5, page + 3));
+    const start = Math.max(0, end - 5);
+    return Array.from(Array(totalPages).keys()).slice(start, end);
+  };
   const links = [
     {
       ariaLabel: 'Previous page',
@@ -18,11 +22,11 @@ const PaginationControls = ({
       target: (page - 1) || 0,
       disabled: page <= 0
     },
-    ...Array.from(Array(numberLinks + 1).keys()).slice(1).map(p => ({
-      ariaLabel: `Page ${p}`,
-      label: p,
-      target: p - 1,
-      disabled: page + 1 === p
+    ...pagesToShow().map(p => ({
+      ariaLabel: `Page ${p + 1}`,
+      label: p + 1,
+      target: p,
+      disabled: page === p
     })),
     {
       ariaLabel: 'Next page',

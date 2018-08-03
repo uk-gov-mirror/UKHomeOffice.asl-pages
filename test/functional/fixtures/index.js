@@ -51,7 +51,11 @@ module.exports = url => {
   return Promise.resolve({
     json: {
       data,
-      meta: { establishment }
+      meta: {
+        establishment,
+        total: 50,
+        count: 50
+      }
     }
   });
 };
