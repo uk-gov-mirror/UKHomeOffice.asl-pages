@@ -39,7 +39,7 @@ const Layout = ({
       propositionHeader={siteTitle}
       stylesheets={['/public/css/app.css']}
       scripts={['/public/js/common/bundle.js'].concat(scripts)}
-      headerContent={<StatusBar user={user} />}
+      headerContent={<StatusBar user={wrap ? user : {}} />}
       nonce={nonce}
     >
       <main className="main" id="content">
