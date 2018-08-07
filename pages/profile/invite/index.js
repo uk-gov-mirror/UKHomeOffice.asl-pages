@@ -1,7 +1,6 @@
 const { set } = require('lodash');
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
-const success = require('../../common/routers/success');
 const schema = require('./schema');
 
 module.exports = settings => {

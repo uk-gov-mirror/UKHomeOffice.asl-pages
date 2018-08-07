@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Inset from '../../../common/views/components/inset';
 import FormLayout from '../../../common/views/layouts/form';
