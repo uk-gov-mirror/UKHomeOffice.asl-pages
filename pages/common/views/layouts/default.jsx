@@ -22,6 +22,7 @@ const Layout = ({
       siteTitle,
       ...content
     },
+    urls,
     nonce,
     ...staticContent
   },
@@ -31,7 +32,7 @@ const Layout = ({
   const store = wrap
     ? createStore(rootReducer, {
       ...omit(props, ['settings', '_locals', 'cache']),
-      static: { ...staticContent, content }
+      static: { ...staticContent, content, urls }
     })
     : {};
   const page = (

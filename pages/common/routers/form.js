@@ -33,7 +33,6 @@ const trim = value => {
 
 module.exports = ({
   schema = {},
-  model = 'model',
   cancelPath = '/',
   checkChanged = false,
   checkSession = defaultMiddleware,
@@ -139,8 +138,9 @@ module.exports = ({
   };
 
   const _locals = (req, res, next) => {
-    const { values, validationErrors } = req.form;
+    const { values, validationErrors, schema } = req.form;
     Object.assign(res.locals.static, {
+      schema,
       errors: validationErrors,
       csrfToken: req.csrfToken
     });

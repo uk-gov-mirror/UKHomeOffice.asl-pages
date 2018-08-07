@@ -9,19 +9,17 @@ const pageFormatters = {
 };
 
 const Page = () => (
-  <Fragment>
-    <FormLayout formatters={Object.assign({}, formatters, pageFormatters)}>
-      <header>
-        <h2>&nbsp;</h2>
-        <h1><Snippet>pages.place.edit</Snippet></h1>
-      </header>
-      <Inset>
-        <p>
-          <Snippet>inset</Snippet>
-        </p>
-      </Inset>
-    </FormLayout>
-  </Fragment>
+  <FormLayout formatters={Object.assign({}, formatters, pageFormatters)}>
+    <header>
+      <h2>&nbsp;</h2>
+      <h1><Snippet>pages.place.edit</Snippet></h1>
+    </header>
+    <Inset>
+      <p>
+        <Snippet>inset</Snippet>
+      </p>
+    </Inset>
+  </FormLayout>
 );
 
 module.exports = Page;

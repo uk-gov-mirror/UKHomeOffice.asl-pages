@@ -21,8 +21,8 @@ export const formatters = {
     format: (name, person) => <Link page="profile.view" profile={person.id} label={ name } />
   },
   roles: {
-    accessor: row => row.roles.map(v => v.type),
-    format: data => joinAcronyms(data.map(d => d.toUpperCase()))
+    accessor: row => row.roles && row.roles.map(v => v.type),
+    format: data => data && joinAcronyms(data.map(d => d.toUpperCase()))
   },
   pil: {
     format: data => data || '-'
