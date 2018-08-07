@@ -24,12 +24,6 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use((req, res, next) => {
-    res.locals.static.schema = schema;
-    req.listPath = req.baseUrl;
-    next();
-  });
-
   app.use('/:profile', require('./read')());
 
   app.use('/invite', require('./invite')());

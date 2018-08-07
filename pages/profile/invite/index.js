@@ -1,6 +1,6 @@
+const { set } = require('lodash');
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
-// const confirm = require('../../common/routers/confirm');
 const success = require('../../common/routers/success');
 const schema = require('./schema');
 
@@ -25,14 +25,14 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    const id = (req.model && req.model.id) || `new-${model}`;
-    if (req.session.form && req.session.form[id]) {
-      delete req.session.form[id];
-    }
-    next();
-  });
-
-  app.post('/', (req, res, next) => {
+    const id = req.model.id;
+    set(req.session, 'notifications', [{
+      type: 'success',
+      props: {
+        email: req.session.form[id].values.email
+      }
+    }]);
+    delete req.session.form[id];
     return res.redirect(req.originalUrl.replace(/\/invite/, ''));
   });
 

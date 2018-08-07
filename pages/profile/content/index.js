@@ -53,5 +53,8 @@ module.exports = {
     role: {
       required: 'Select a permission level for the new user'
     }
+  },
+  notifications: {
+    success: 'Invitation sent to {{email}}.'
   }
 };

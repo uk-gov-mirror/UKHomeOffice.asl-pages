@@ -76,6 +76,15 @@ th {
 
 .main {
 
+  .notification-summary {
+    @extend .error-summary;
+    border-color: $green;
+
+    .notification-summary-heading {
+      @extend .error-summary-heading;
+    }
+  }
+
   header {
 
     h1, h2 {
