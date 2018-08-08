@@ -5,8 +5,8 @@ module.exports = {
     list: '/pages/establishment/list'
   },
   profile: {
-    list: '/pages/profile/list',
-    view: '/pages/profile/view'
+    list: '/pages/profile',
+    view: '/pages/profile/read'
   },
   project: {
     list: '/pages/project/list'

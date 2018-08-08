@@ -8,6 +8,7 @@ import Acronym from '../../../common/views/components/acronym';
 import Join from '../../../common/views/components/join';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
+import Notifications from '../../../common/views/containers/notifications';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -21,8 +22,8 @@ export const formatters = {
     format: (name, person) => <Link page="profile.view" profile={person.id} label={ name } />
   },
   roles: {
-    accessor: row => row.roles.map(v => v.type),
-    format: data => joinAcronyms(data.map(d => d.toUpperCase()))
+    accessor: row => row.roles && row.roles.map(v => v.type),
+    format: data => data && joinAcronyms(data.map(d => d.toUpperCase()))
   },
   pil: {
     format: data => data || '-'
@@ -34,6 +35,7 @@ const People = ({
   ...props
 }) => (
   <Fragment>
+    <Notifications />
     <header>
       <h2>{name}</h2>
       <h1><Snippet>pages.profile.list</Snippet></h1>

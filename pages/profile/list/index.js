@@ -31,5 +31,13 @@ module.exports = settings => {
     }
   })({ schema }));
 
+  app.use((req, res, next) => {
+    if (req.session.notifications) {
+      res.locals.static.notifications = req.session.notifications;
+      delete req.session.notifications;
+    }
+    next();
+  });
+
   return app;
 };

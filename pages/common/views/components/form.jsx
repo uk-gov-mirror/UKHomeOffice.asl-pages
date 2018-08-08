@@ -8,6 +8,7 @@ import ConditionalReveal from './conditional-reveal';
 
 const fields = {
   inputText: props => <Input { ...props } />,
+  inputEmail: props => <Input type="email" { ...props } />,
   textarea: props => <TextArea { ...props } />,
   radioGroup: props => <RadioGroup { ...props } />,
   checkboxGroup: props => <RadioGroup type="checkbox" { ...props } />,
@@ -26,7 +27,7 @@ const Form = ({
   errors = {},
   onFieldChange
 }) => (
-  <form method="POST">
+  <form method="POST" noValidate>
     {
       map(schema, ({ inputType, conditionalReveal, showIf, accessor, ...props }, key) => {
         const field = fields[inputType]({
