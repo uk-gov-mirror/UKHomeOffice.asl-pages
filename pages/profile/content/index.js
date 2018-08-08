@@ -41,14 +41,14 @@ module.exports = {
   },
   errors: {
     firstName: {
-      required: 'First name is required'
+      required: 'You need to enter a first name.'
     },
     lastName: {
-      required: 'Last name is required'
+      required: 'You need to enter a last name.'
     },
     email: {
       required: 'Email address is required',
-      match: 'Invalid email address'
+      match: 'You need to enter an email address for this person.'
     },
     role: {
       required: 'Select a permission level for the new user'
