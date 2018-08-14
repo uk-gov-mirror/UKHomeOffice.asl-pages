@@ -9,6 +9,7 @@ import ConditionalReveal from './conditional-reveal';
 const fields = {
   inputText: props => <Input { ...props } />,
   inputEmail: props => <Input type="email" { ...props } />,
+  inputPassword: props => <Input type="password" { ...props } />,
   textarea: props => <TextArea { ...props } />,
   radioGroup: props => <RadioGroup { ...props } />,
   checkboxGroup: props => <RadioGroup type="checkbox" { ...props } />,

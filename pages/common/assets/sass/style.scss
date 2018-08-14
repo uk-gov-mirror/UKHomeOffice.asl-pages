@@ -74,6 +74,10 @@ th {
   display: none;
 }
 
+.grey {
+  color: $grey-1;
+}
+
 .main {
 
   .notification-summary {
@@ -95,7 +99,7 @@ th {
       margin-bottom: $gutter;
     }
 
-    h2 {
+    h2, h3 {
       margin-bottom: $gutter/4;
       font-weight: normal;
     }
