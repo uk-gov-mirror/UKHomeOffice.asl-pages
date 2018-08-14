@@ -17,24 +17,27 @@ const Layout = ({
   scripts,
   user,
   crumbs,
-  static: {
-    content: {
-      siteTitle,
-      ...content
-    },
-    urls,
-    nonce,
-    ...staticContent
-  },
+  static: staticContent = {},
   ...props
 }) => {
+  const {
+    content: {
+      siteTitle = 'Research and testing with animals',
+      ...content
+    } = {},
+    urls,
+    nonce,
+    ...rest
+  } = staticContent;
+
   const wrap = !error;
   const store = wrap
     ? createStore(rootReducer, {
       ...omit(props, ['settings', '_locals', 'cache']),
-      static: { ...staticContent, content, urls }
+      static: { ...rest, content, urls }
     })
     : {};
+
   const page = (
     <GovUK
       propositionHeader={siteTitle}
