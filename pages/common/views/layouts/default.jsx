@@ -14,7 +14,7 @@ const Layout = ({
   error,
   children,
   rootReducer,
-  scripts,
+  scripts = [],
   user,
   crumbs,
   static: staticContent = {},
@@ -37,12 +37,14 @@ const Layout = ({
       static: { ...rest, content, urls }
     })
     : {};
-
+  if (scripts.length) {
+    scripts = ['/public/js/common/bundle.js'].concat(scripts);
+  }
   const page = (
     <GovUK
       propositionHeader={siteTitle}
       stylesheets={['/public/css/app.css']}
-      scripts={['/public/js/common/bundle.js'].concat(scripts)}
+      scripts={scripts}
       headerContent={<StatusBar user={wrap ? user : {}} />}
       nonce={nonce}
     >
