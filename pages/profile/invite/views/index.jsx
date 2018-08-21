@@ -1,26 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
 import FormLayout from '../../../common/views/layouts/form';
 
 const formatters = {
-  permissions: {
+  role: {
     mapOptions: opt => {
       return {
         value: opt,
-        label: <Snippet>{`fields.permissions.options.${opt}.label`}</Snippet>,
-        hint: <Snippet optional>{`fields.permissions.options.${opt}.hint`}</Snippet>
+        label: <Snippet>{`fields.role.options.${opt}.label`}</Snippet>,
+        hint: <Snippet optional>{`fields.role.options.${opt}.hint`}</Snippet>
       };
     }
   }
 };
 
-const Page = () => (
+const Page = ({
+  establishment: {
+    name
+  }
+}) => (
   <FormLayout formatters={formatters}>
     <header>
-      <h2>&nbsp;</h2>
+      <h2>{name}</h2>
       <h1><Snippet>pages.profile.invite</Snippet></h1>
     </header>
   </FormLayout>
 );
 
-module.exports = Page;
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+
+export default connect(mapStateToProps)(Page);
