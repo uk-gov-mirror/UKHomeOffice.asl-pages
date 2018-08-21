@@ -21,7 +21,7 @@ module.exports = settings => {
     const establishment = req.user.profile.establishments.find(e => e.id === req.establishment);
     res.locals.static.establishment = establishment;
     next();
-  })
+  });
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
