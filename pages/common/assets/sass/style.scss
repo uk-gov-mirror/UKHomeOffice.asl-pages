@@ -82,6 +82,7 @@ th {
 
     .notification-summary-heading {
       @extend .error-summary-heading;
+      margin-bottom: 0;
     }
   }
 
