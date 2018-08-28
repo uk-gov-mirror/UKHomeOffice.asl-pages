@@ -15,13 +15,13 @@ module.exports = {
         basic: {
           label: 'Basic',
           hint: `* View and request amendments to the licences they hold.
-                 * View details of the establishment, including the named people and Schedule of Premises.
                  * View details of projects they're working on.`
         },
         read: {
           label: 'Intermediate',
           hint: `* View details of all people and all licences at the establishment.
-                 * Request amendments to the licences they hold.
+                 * View details of the establishment, including named people and Schedule of Premises.
+                 * Request amendments to the licences they hold.`
         },
         admin: {
           label: 'Admin',
