@@ -1,3 +1,5 @@
+const { omit } = require('lodash');
+
 const page = require('../../../lib/page');
 const confirm = require('../routers/confirm');
 const amend = require('../routers/amend');
@@ -35,7 +37,7 @@ module.exports = settings => {
   app.use('/confirm', confirm());
 
   app.post('/confirm', (req, res, next) => {
-    const values = req.session.form[req.model.id].values;
+    const values = omit(req.session.form[req.model.id].values, 'declaration');
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
