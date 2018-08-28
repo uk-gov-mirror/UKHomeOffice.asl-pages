@@ -39,6 +39,20 @@ const { views } = require('@asl/pages');
 const app = ui({ ...settings, views });
 ```
 
+### Content
+
+A middleware function used to set common content to res.locals.static.content
+
+#### Usage
+
+```js
+const ui = require('@asl/service/ui');
+const { content } = require('@asl/pages');
+const app = ui(settings);
+
+app.use(content);
+```
+
 ### Page
 
 An express router which can be extended to create a new ASL page. This takes care of setting common properties: rootReducer, content, template, js bundle and URL

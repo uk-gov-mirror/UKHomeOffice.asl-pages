@@ -34,6 +34,7 @@ const trim = value => {
 module.exports = ({
   schema = {},
   cancelPath = '/',
+  checkChanged = false,
   checkSession = defaultMiddleware,
   configure = defaultMiddleware,
   getValues = defaultMiddleware,
@@ -74,6 +75,7 @@ module.exports = ({
 
   const _clearErrors = (req, res, next) => {
     delete req.session.form[req.model.id].validationErrors;
+    next();
   };
 
   const _getValues = (req, res, next) => {

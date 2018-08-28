@@ -22,6 +22,8 @@ app.use(form({
   schema: require('./schema'),
   // path to redirect to form editing is cancelled
   cancelPath: '/',
+  // if true, check fields have changed, if not throw validation error
+  checkChanged: false,
   // middleware called on get, can be used to check for
   // session validity before
   checkSession: (req, res, next) => next(),
@@ -113,12 +115,16 @@ const { datatable } = routers;
 const app = page({ root: __dirname });
 
 app.use(datatable({
-  configure = defaultMiddleware,
-  getApiPath = defaultMiddleware,
-  getFilterOptions = defaultMiddleware,
-  getValues = defaultMiddleware,
-  persistQuery = defaultMiddleware,
-  locals = defaultMiddleware
+  // middleware to perform any setup
+  configure: (req, res, next) => next(),
+  // middleware called to set apiPath if dynamically generated
+  getApiPath: (req, res, next) => next(),
+  // middleware called after values have been returned from the api
+  getValues: (req, res, next) => next(),
+  // middleware called after API query string has been constructed
+  persistQuery: (req, res, next) => next(),
+  // middleware for adding any custom locals
+  locals: (req, res, next) => next()
 })({
   apiPath: `/establishment/${req.establishment}/places`
   schema: require('./schema')

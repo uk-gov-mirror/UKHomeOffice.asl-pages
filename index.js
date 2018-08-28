@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const { merge } = require('lodash');
 const content = require('./pages/common/content');
+const page = require('./lib/page');
 const pages = require('./pages');
 const routers = require('./pages/common/routers');
 
