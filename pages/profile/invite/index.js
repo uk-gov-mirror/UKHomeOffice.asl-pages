@@ -30,7 +30,7 @@ module.exports = settings => {
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(values)
     };
-    return req.api(`/establishment/${req.establishment}/profile`, opts)
+    return req.api(`/establishment/${req.establishment}/invite-user`, opts)
       .then(() => next())
       .catch(next);
   });
