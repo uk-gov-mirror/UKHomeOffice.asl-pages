@@ -12,17 +12,21 @@ module.exports = {
     role: {
       label: 'What permission level should this user have?',
       options: {
-        admin: {
-          label: 'Full',
-          hint: 'View, apply, and amend rights for all related licence information. Create and amend rights for all related user accounts. Manage other users\' permissions.'
+        basic: {
+          label: 'Basic',
+          hint: `* View and request amendments to the licences they hold.
+                 * View details of projects they're working on.`
         },
         read: {
           label: 'Intermediate',
-          hint: 'View, apply, and amend rights for their own persional and project licences. View and amend rights for their own user account and profile. View only rights for all related licence information.'
+          hint: `* View details of all people and all licences at the establishment.
+                 * View details of the establishment, including named people and Schedule of Premises.
+                 * Request amendments to the licences they hold.`
         },
-        basic: {
-          label: 'Basic',
-          hint: 'View and amend rights for their own profile. View only rights for other establishment, project, and personal licences by invitation.'
+        admin: {
+          label: 'Admin',
+          hint: `* View and request amendments to all licences at the establishment.
+                 * Manage user accounts and permissions at the establishment.`
         }
       }
     },
