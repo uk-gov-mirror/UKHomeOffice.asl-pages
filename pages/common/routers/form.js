@@ -37,12 +37,11 @@ module.exports = ({
   checkChanged = false,
   checkSession = defaultMiddleware,
   configure = defaultMiddleware,
-  clearErrors = defaultMiddleware,
   getValues = defaultMiddleware,
-  process = defaultMiddleware,
-  validate = defaultMiddleware,
   getValidationErrors = defaultMiddleware,
   locals = defaultMiddleware,
+  process = defaultMiddleware,
+  validate = defaultMiddleware,
   saveValues = defaultMiddleware,
   cancelEdit = (req, res, next) => {
     return res.redirect(cancelPath);
@@ -76,7 +75,7 @@ module.exports = ({
 
   const _clearErrors = (req, res, next) => {
     delete req.session.form[req.model.id].validationErrors;
-    return clearErrors(req, res, next);
+    next();
   };
 
   const _getValues = (req, res, next) => {

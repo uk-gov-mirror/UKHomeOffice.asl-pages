@@ -1,103 +1,79 @@
-# asl-service
+# asl-pages
 
-Module for rapid bootstrapping of an express app for a govuk themed, react-based ui or api with logging, authentication and session handling configured as appropriate.
+Module containing a set of pages used across ASL services, along with the building blocks for creating isomorphic React pages.
 
-## Usage
+## Exports:
 
-### UI
+### Pages
 
+A map of connected pages/journeys for creating an ASL service
+
+#### Usage:
 ```js
-const ui = require('asl-service/ui');
+const ui = require('@asl/service/ui');
+
+const { pages } = require('@asl/pages');
+const { establishment, place, profile, project, dashboard } = pages;
+
 const app = ui(settings);
 
-app.use(/* mount your middleware and routes here */);
+app.use('/e/:establishment/projects', project());
+app.use('/e/:establishment/profiles', profile());
+app.use('/e/:establishment/places', place());
+app.use('/e/:establishment', establishment());
+app.use('/', dashboard());
 
 app.listen(port);
 ```
 
-#### Static middleware
+### Views
 
-If you wish to mount middleware before the session and auth handlers in a UI app you can do so with `app.static.use` which will mount your handlers before any dynamic middlewares are mounted.
+Absolute path to common views directory. This is unshifted to an array of express views directories in `@asl/service`;
 
-This is primarily expected to be used for css, js or iamge assets.
-
-### API
-
+#### Usage:
 ```js
-const api = require('asl-service/api');
-const app = api(settings);
+const ui = require('@asl/service/ui');
+const { views } = require('@asl/pages');
 
-app.use(/* mount your middleware and routes here */);
-
-app.listen(port);
+// pass views dir to app to properly mount error pages etc
+const app = ui({ ...settings, views });
 ```
 
-### Settings
+### Content
 
-An example settings object looks like this:
+A middleware function used to set common content to res.locals.static.content
+
+#### Usage
 
 ```js
-{
-  auth: {
-    // all apps
-  },
-  session: {
-    // ui only
-  }
-}
+const ui = require('@asl/service/ui');
+const { content } = require('@asl/pages');
+const app = ui(settings);
+
+app.use(content);
 ```
 
-#### auth
+### Page
 
-Both UI and API applications will mount keycloak authentication middlewares. This requires the following properties to be set:
+An express router which can be extended to create a new ASL page. This takes care of setting common properties: rootReducer, content, template, js bundle and URL
 
-* `realm`
-* `url`
-* `client`
-* `secret`
-
-The values for these can be found in the `Installation` tab of your client's settings in the keycloak admin console. Select the `Keycloak OIDC JSON` option.
-
-Once the auth middleware has been mounted, subsequent requests will have a `req.user` property with basic information about the logged in user.
-
-##### User roles
-
-You can limit access to routes to particular user roles by either checking the user's role directly with `req.user.is('role')` or by protecting the routes with `app.protect('role')`.
-
-Examples:
-
+#### Usage:
 ```js
-const api = require('asl-service/api');
-const app = api(settings);
+const { page } = require('@asl/pages');
 
-app.protect('administrator');
-app.use(/* only users with the `administrator` role will be able to access routes mounted here */);
-
-app.listen(port);
-```
-
-```js
-app.use((req, res, next) => {
-  if (!req.user.is('administrator')) {
-    return next(new Error('Access denied'));
-  }
+const app = page({
+  // this is needed to locate page templates and content
+  root: __dirname,
+  // an array of allowed subpaths. '/' is always allowed
+  paths: ['/confirm', '/success'],
+  // any page-specific content, this will extend content
+  // provided in __dirname/content
+  content: {},
 });
+
+router.use('/', page)
 ```
 
-#### session
+### Routers
 
-UI applications also require session storage configuration to be set.
-
-* `secret`
-* `host` - redis host
-* `port` - redis port
-* `password` - redis password if required
-
-Other session configuration settings are [documented here](https://github.com/lennym/redis-session/blob/master/README.md).
-
-#### Other settings
-
-UI applications can also use the following settings:
-
-* `assets` - defines a folder that will be served as static assets - default: `./public`
-* `views` - defines the location of the application's views - default `./views`
+see [Routers](pages/common/routers/README.md)

@@ -35,7 +35,6 @@ const buildQuery = (req, schema) => {
 module.exports = ({
   configure = defaultMiddleware,
   getApiPath = defaultMiddleware,
-  getFilterOptions = defaultMiddleware,
   getValues = defaultMiddleware,
   persistQuery = defaultMiddleware,
   locals = defaultMiddleware
