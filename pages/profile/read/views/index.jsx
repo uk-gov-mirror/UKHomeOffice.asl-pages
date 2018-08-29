@@ -7,6 +7,7 @@ import Accordion from '../../../common/views/components/accordion';
 import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
+import { readableDateFormat } from '../../../../constants';
 
 const getPremises = roles => {
   if (!roles) {
@@ -141,6 +142,9 @@ const Index = ({
                               </dt>
                               <dd>
                                 <span><Snippet licenceNumber={project.licenceNumber}>projects.licenceNumber</Snippet></span>
+                              </dd>
+                              <dd>
+                                <span><Snippet expiryDate={format(project.expiryDate, readableDateFormat)}>projects.expiryDate</Snippet></span>
                               </dd>
                             </Fragment>
                           )
