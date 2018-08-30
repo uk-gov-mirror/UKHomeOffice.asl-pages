@@ -13,15 +13,15 @@ const Snippet = ({ content, children, optional, ...props }) => {
   if (str === undefined) {
     throw new Error(`Failed to lookup content snippet: ${children}`);
   }
-  const source = render(str, props);
+  const source = trim(render(str, props));
 
   const isRootParagraph = (node, i, parent) => {
     return node.type !== 'paragraph' || parent.type !== 'root' || parent.children.length !== 1;
-  }
+  };
 
   return (
     <ReactMarkdown
-      source={trim(source)}
+      source={source}
       renderers={{ root: Fragment }}
       allowNode={isRootParagraph}
       unwrapDisallowed={true}
