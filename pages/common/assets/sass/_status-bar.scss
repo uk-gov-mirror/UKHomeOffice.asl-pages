@@ -9,16 +9,16 @@
     @extend .column-one-third;
     padding-left: 0;
 
-    margin-top: $gutter / 4;
+    margin-top: $govuk-gutter / 4;
     text-align: right;
     color: white;
 
     span:first-child {
-      margin-right: $gutter / 4;
+      margin-right: $govuk-gutter / 4;
     }
 
     span:nth-child(2) {
-      margin-left: $gutter / 4;
+      margin-left: $govuk-gutter / 4;
     }
 
     a {

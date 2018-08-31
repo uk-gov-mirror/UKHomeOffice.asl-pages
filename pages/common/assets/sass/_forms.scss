@@ -4,12 +4,12 @@ textarea.form-control {
 
 .control-bar .multiple-choice {
   background-color: $grey-3;
-  padding: $gutter-half $gutter-half $gutter-half $gutter * 2.5;
+  padding: $govuk-gutter-half $govuk-gutter-half $govuk-gutter-half $govuk-gutter * 2.5;
 
   label {
     &:before, &:after {
       top: 50%;
-      margin-left: $gutter;
+      margin-left: $govuk-gutter;
     }
 
     &:before {
@@ -25,7 +25,7 @@ textarea.form-control {
 }
 
 .conditional-reveal {
-  margin-bottom: $gutter;
+  margin-bottom: $govuk-gutter;
 }
 
 .form-group, .field {

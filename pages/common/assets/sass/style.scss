@@ -10,7 +10,7 @@
 @import "filters";
 
 .data {
-  padding: $gutter;
+  padding: $govuk-gutter;
   background: $govuk-blue;
   color: white;
   a {
@@ -20,7 +20,7 @@
 }
 
 details {
-  margin-top: 2*$gutter;
+  margin-top: 2*$govuk-gutter;
 }
 
 .code {
@@ -31,12 +31,12 @@ details {
 }
 
 dl {
-  margin-bottom: $gutter;
+  margin-bottom: $govuk-gutter;
   dt {
     font-weight: bold;
   }
   dd {
-    margin-bottom: $gutter/2;
+    margin-bottom: $govuk-gutter/2;
     white-space: pre-line;
   }
 
@@ -59,7 +59,7 @@ th {
   &.block {
     > * {
       display: block;
-      margin-top: $gutter-half;
+      margin-top: $govuk-gutter-half;
     }
   }
   &:not(.block) {
@@ -93,11 +93,11 @@ th {
     }
 
     h1 {
-      margin-bottom: $gutter;
+      margin-bottom: $govuk-gutter;
     }
 
     h2, h3 {
-      margin-bottom: $gutter/4;
+      margin-bottom: $govuk-gutter/4;
       font-weight: normal;
     }
   }
@@ -112,10 +112,10 @@ th {
 
       a {
         display: block;
-        padding: $gutter-half $gutter;
+        padding: $govuk-gutter-half $govuk-gutter;
       }
       p {
-        padding: 0 $gutter $gutter/2;
+        padding: 0 $govuk-gutter $govuk-gutter/2;
         margin: 0;
         @extend .font-xsmall;
       }
@@ -125,25 +125,25 @@ th {
   .sidebar, .profile {
     aside {
       border-top: 6px solid $govuk-blue;
-      padding-top: $gutter-half;
+      padding-top: $govuk-gutter-half;
       box-sizing: border-box;
     }
   }
 
   .profile {
     .profile-section {
-      border-top: 1px solid $grey-2;
-      margin-top: $gutter-half;
+      border-top: 1px solid govuk-colour("grey-2");
+      margin-top: $govuk-gutter-half;
 
       h3 {
         @extend h2;
-        margin-top: $gutter;
+        margin-top: $govuk-gutter;
         font-weight: normal;
       }
     }
 
     .accordion {
-      margin-top: $gutter;
+      margin-top: $govuk-gutter;
     }
   }
 }

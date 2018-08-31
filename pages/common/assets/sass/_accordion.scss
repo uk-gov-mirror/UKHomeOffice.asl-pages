@@ -5,7 +5,7 @@
   }
 
   header {
-    padding: $gutter-half;
+    padding: $govuk-gutter-half;
     position: relative;
     cursor: pointer;
     margin: 0;
@@ -19,8 +19,8 @@
         content: "";
         display: block;
         position: absolute;
-        top: $gutter-half;
-        right: $gutter-half;
+        top: $govuk-gutter-half;
+        right: $govuk-gutter-half;
         width: 16px;
         height: 16px;
         margin-top: 4px;
@@ -36,7 +36,7 @@
   }
 
   .content {
-    padding: $gutter-half;
+    padding: $govuk-gutter-half;
 
     h2:first-child {
       margin-top:0;
