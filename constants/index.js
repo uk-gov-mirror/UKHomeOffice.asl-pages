@@ -15,5 +15,6 @@ module.exports = {
     'CAT',
     'EQU',
     'NHP'
-  ]
+  ],
+  readableDateFormat: 'DD MMMM YYYY'
 };

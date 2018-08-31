@@ -39,5 +39,10 @@ module.exports = {
       unchanged: 'No changes have been made',
       csrf: 'This form data has been changed somewhere else.'
     }
+  },
+  diff: {
+    singular: 'Less than 1 month left',
+    plural: 'Less than {{diff}} months left',
+    standard: '{{diff}} months left'
   }
 };
