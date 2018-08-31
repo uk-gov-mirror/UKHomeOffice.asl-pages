@@ -12,7 +12,3 @@ h3 {
 h4 {
   @extend .heading-small;
 }
-
-.breadcrumb {
-  @include breadcrumbs;
-}

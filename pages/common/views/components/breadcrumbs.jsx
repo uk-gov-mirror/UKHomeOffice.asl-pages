@@ -3,9 +3,9 @@ import React from 'react';
 export const Breadcrumb = ({
   crumb
 }) => typeof crumb === 'string'
-  ? <li>{crumb}</li>
+  ? <li className="govuk-breadcrumbs__list-item">{crumb}</li>
   : <li>
-    <a href={crumb.href}>{crumb.label}</a>
+    <a href={crumb.href} className="govuk-breadcrumbs__link">{crumb.label}</a>
   </li>;
 
 const renderNull = crumbs => !crumbs || !crumbs.length || !Array.isArray(crumbs);
@@ -19,8 +19,8 @@ const Breadcrumbs = ({
   }
   crumbs = [ { label: homeLabel, href: '/' }, ...crumbs ];
   return (
-    <div className="breadcrumb">
-      <ol>
+    <div className="govuk-breadcrumbs">
+      <ol className="govuk-breadcrumbs__list">
         {
           crumbs.map((crumb, index) =>
             <Breadcrumb key={index} crumb={crumb} />
