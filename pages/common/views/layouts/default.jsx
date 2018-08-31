@@ -1,7 +1,8 @@
 import React from 'react';
 import { omit } from 'lodash';
 import { createStore } from 'redux';
-import { Layout as GovUK, PhaseBanner } from 'govuk-react-components';
+import HomeOffice from './home-office';
+import { PhaseBanner } from 'govuk-react-components';
 import { Provider } from 'react-redux';
 import Breadcrumbs from '../components/breadcrumbs';
 import Snippet from '../containers/snippet';
@@ -41,30 +42,32 @@ const Layout = ({
     scripts = ['/public/js/common/bundle.js'].concat(scripts);
   }
   const page = (
-    <GovUK
+    <HomeOffice
       propositionHeader={siteTitle}
       stylesheets={['/public/css/app.css']}
       scripts={scripts}
       headerContent={<StatusBar user={wrap ? user : {}} />}
       nonce={nonce}
     >
-      <main className="main" id="content">
+      <div className="govuk-width-container">
         {
           wrap && <PhaseBanner phase="beta"><Snippet>beta</Snippet></PhaseBanner>
         }
         <Breadcrumbs crumbs={crumbs} />
-        <div className="grid-row">
-          <div className="column-full">
-            <div id="page-component">
-              { children }
+        <main className="main govuk-main-wrapper" id="content">
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-full">
+              <div id="page-component">
+                { children }
+              </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
       {
         wrap && <script nonce={nonce} dangerouslySetInnerHTML={{__html: `window.INITIAL_STATE=${JSON.stringify(store.getState())};`}} />
       }
-    </GovUK>
+    </HomeOffice>
   );
   if (wrap) {
     return <Wrapped store={store}>{ page }</Wrapped>;
