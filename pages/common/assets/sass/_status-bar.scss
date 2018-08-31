@@ -1,12 +1,12 @@
 .header-proposition .content {
-  @extend .grid-row;
+  @include govuk-grid-row;
 
   > nav {
-    @extend .column-two-thirds;
+    @include govuk-grid-column(two-thirds)
   }
 
   > .status-bar {
-    @extend .column-one-third;
+    @include govuk-grid-column(one-third);
     padding-left: 0;
 
     margin-top: $govuk-gutter / 4;

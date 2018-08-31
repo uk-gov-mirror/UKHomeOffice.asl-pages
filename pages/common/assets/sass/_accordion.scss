@@ -1,7 +1,7 @@
 .expanding-panel {
-  border-top: 1px solid $border-colour;
+  border-top: 1px solid $govuk-border-colour;
   &:last-child {
-    border-bottom: 1px solid $border-colour;
+    border-bottom: 1px solid $govuk-border-colour;
   }
 
   header {
@@ -51,7 +51,7 @@
     button {
       background: none;
       border: none;
-      color: $link-colour;
+      color: $govuk-link-colour;
       font-size: 16px;
       cursor: pointer;
     }

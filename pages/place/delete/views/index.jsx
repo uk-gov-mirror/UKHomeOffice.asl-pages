@@ -11,8 +11,8 @@ const DeletePage = ({
   csrfToken
 }) => (
   <Fragment>
-    <div className="grid-row">
-      <div className="column-two-thirds">
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
         <header>
           <h2>&nbsp;</h2>
           <h1><Snippet>pages.place.delete</Snippet></h1>

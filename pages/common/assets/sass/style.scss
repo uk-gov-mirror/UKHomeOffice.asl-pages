@@ -11,7 +11,7 @@
 
 .data {
   padding: $govuk-gutter;
-  background: $govuk-blue;
+  background: govuk-colour("blue");
   color: white;
   a {
     color: white;
@@ -77,16 +77,17 @@ th {
 .main {
 
   .notification-summary {
-    @extend .error-summary;
+    @extend .govuk-error-summary;
     border-color: $green;
 
     .notification-summary-heading {
-      @extend .error-summary-heading;
+      @extend .govuk-error-summary__title;
       margin-bottom: 0;
     }
   }
 
   header {
+    background-color: $background;
 
     h1, h2 {
       margin: 0;
@@ -102,12 +103,16 @@ th {
     }
   }
 
+  footer {
+    background-color: $background;
+  }
+
   ul.dashboard {
     list-style: none;
     padding-left: 0;
     li {
       background: $highlight-colour;
-      @extend .heading-medium;
+      @extend .govuk-heading-m;
       margin-top: 0;
 
       a {
@@ -117,14 +122,14 @@ th {
       p {
         padding: 0 $govuk-gutter $govuk-gutter/2;
         margin: 0;
-        @extend .font-xsmall;
+        @extend .govuk-body-s;
       }
     }
   }
 
   .sidebar, .profile {
     aside {
-      border-top: 6px solid $govuk-blue;
+      border-top: 6px solid govuk-colour("blue");
       padding-top: $govuk-gutter-half;
       box-sizing: border-box;
     }
@@ -149,14 +154,14 @@ th {
 }
 
 dl.inline {
-  @extend .grid-row;
+  @include govuk-grid-row;
 
   > dt {
-    @extend .column-one-third;
+    @include govuk-grid-column(one-third);
   }
 
   > dd {
-    @extend .column-two-thirds;
+    @include govuk-grid-column(two-thirds)
   }
 }
 

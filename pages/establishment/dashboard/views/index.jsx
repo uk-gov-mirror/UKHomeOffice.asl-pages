@@ -23,8 +23,8 @@ const Index = ({
       <h2>&nbsp;</h2>
       <h1>{ name }</h1>
     </header>
-    <div className="grid-row">
-      <div className="column-two-thirds">
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
         <ul className="dashboard">
           {
             links.map(link =>

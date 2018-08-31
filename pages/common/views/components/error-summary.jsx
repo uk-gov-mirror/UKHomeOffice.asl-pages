@@ -10,7 +10,7 @@ const Errors = ({
   }
   return (
     <div className="error-summary" role="alert" aria-labelledby="error-summary-heading" tabIndex="-1">
-      <h2 className="heading-medium error-summary-heading" id="error-summary-heading">
+      <h2 className="govuk-heading-m error-summary-heading" id="error-summary-heading">
         <Snippet>
           {
             size(errors) > 1

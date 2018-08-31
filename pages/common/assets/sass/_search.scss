@@ -14,11 +14,11 @@
       margin-right: -33px;
       padding: 5px 0 4px;
       border: none;
-      background: $govuk-blue $search-icon no-repeat left center;
+      background: govuk-colour("blue") $search-icon no-repeat left center;
       cursor: pointer;
       vertical-align: middle;
 
-      @include media(tablet){
+      @include govuk-media-query($from: tablet) {
         height:38px;
         width:38px;
         margin-right: -38px;

@@ -2,10 +2,10 @@
   margin-bottom: $govuk-gutter;
 
   .toggle-filter-link {
-    @extend .font-medium;
+    @extend .govuk-\!-font-size-24;
 
     &:before {
-      color: $govuk-blue;
+      color: govuk-colour("blue");
       font-size: 0.75em;
       margin-right: $govuk-gutter / 4;
       content: "\25bc";
