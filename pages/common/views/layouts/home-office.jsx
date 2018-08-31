@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { images } from '@ukhomeoffice/frontend-toolkit';
+
+const hoLogoPath = `${images}/ho-logo.svg`;
 
 class HomeOffice extends React.Component {
 
@@ -42,7 +45,7 @@ class HomeOffice extends React.Component {
             <div className="font-ui wrapper-header">
               <div className="header-logo">
                 <a href={ this.props.homepageUrl } title={ this.props.logoLinkTitle } id="logo" className="content">
-                  <img src={`${this.props.assetPath}/images/ho-logo.svg`} />
+                  <img src={ hoLogoPath } />
                 </a>
               </div>
               {
@@ -67,29 +70,13 @@ class HomeOffice extends React.Component {
 
           {this.props.children}
 
-          <footer className="group js-footer" id="footer" role="contentinfo">
-            <div className="footer-wrapper">
-              <div className="footer-meta">
-                <div className="footer-meta-inner">
-                  {
-                    this.props.footerLinks.length && (
-                      <ul>
-                        {
-                          this.props.footerLinks.map(link => (
-                            <li key={ link.href }><a href={ link.href }>{ link.label }</a></li>
-                          ))
-                        }
-                      </ul>
-                    )
-                  }
+          <footer role="contentinfo" id="footer-withphase">
+            <div className="govuk-width-container">
+              <div className="govuk-grid-row">
+                <div className="govuk-grid-column-full">
                   <div className="open-government-licence">
-                    <p className="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
-                    <p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated</p>
+                    <p><a href="http://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">© Crown copyright</a> - All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated</p>
                   </div>
-                </div>
-
-                <div className="copyright">
-                  <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">© Crown copyright</a>
                 </div>
               </div>
             </div>
