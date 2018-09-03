@@ -1,13 +1,12 @@
 import React from 'react';
 import { omit } from 'lodash';
 import { createStore } from 'redux';
-import HomeOffice from './home-office';
-import { PhaseBanner } from 'govuk-react-components';
 import { Provider } from 'react-redux';
+import HomeOffice from './home-office';
+import PhaseBanner from '../components/phase-banner';
 import Breadcrumbs from '../components/breadcrumbs';
-import Snippet from '../containers/snippet';
-
 import StatusBar from '../components/status-bar';
+import Snippet from '../containers/snippet';
 
 const Wrapped = ({ store, children }) => <Provider store={store}>{ children }</Provider>;
 

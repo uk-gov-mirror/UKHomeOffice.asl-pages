@@ -1,9 +1,11 @@
-$path: "/govuk/images/";
+// GOV.UK Design System
+// @see https://github.com/alphagov/govuk-frontend
+// @see https://design-system.service.gov.uk/
 
-// GOV.UK front end toolkit
-// Sass variables, mixins and functions
-// https://github.com/alphagov/govuk_frontend_toolkit/tree/master/stylesheets
-
-@import "@ukhomeoffice/frontend-toolkit";
 @import "govuk-frontend/components/breadcrumbs/breadcrumbs";
 @import "govuk-frontend/components/error-summary/error-summary";
+@import "govuk-frontend/components/phase-banner/phase-banner";
+
+// Home Office Frontend Toolkit
+// @see https://github.com/UKHomeOffice/frontend-toolkit
+@import "@ukhomeoffice/frontend-toolkit";
