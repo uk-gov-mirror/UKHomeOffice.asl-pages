@@ -4,7 +4,7 @@ export const Breadcrumb = ({
   crumb
 }) => typeof crumb === 'string'
   ? <li className="govuk-breadcrumbs__list-item">{crumb}</li>
-  : <li>
+  : <li className="govuk-breadcrumbs__list-item">
     <a href={crumb.href} className="govuk-breadcrumbs__link">{crumb.label}</a>
   </li>;
 
