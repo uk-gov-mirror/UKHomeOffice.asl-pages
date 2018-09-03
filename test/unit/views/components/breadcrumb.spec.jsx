@@ -39,7 +39,9 @@ describe('<Breadcrumb />', () => {
     });
 
     test('passes the href and label as props', () => {
-      expect(el.find('a').props()).toEqual({ children: 'A link', href: '/a-link' });
+      expect(el.find('a').props()).toEqual(
+        { children: 'A link', href: '/a-link', className: 'govuk-breadcrumbs__link' }
+      );
     });
   });
 });
