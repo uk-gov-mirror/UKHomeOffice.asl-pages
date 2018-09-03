@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { images } from '@ukhomeoffice/frontend-toolkit';
-
-const hoLogoPath = `${images}/ho-logo.svg`;
 
 class HomeOffice extends React.Component {
 
@@ -28,7 +25,6 @@ class HomeOffice extends React.Component {
           <link rel="apple-touch-icon" sizes="167x167" href={`${this.props.assetPath}/images/apple-touch-icon-167x167.png?0.23.0`}/>
           <link rel="apple-touch-icon" sizes="152x152" href={`${this.props.assetPath}/images/apple-touch-icon-152x152.png?0.23.0`}/>
           <link rel="apple-touch-icon" href={`${this.props.assetPath}/images/apple-touch-icon.png?0.23.0`}/>
-          <meta name="theme-color" content="#0b0c0c" />
           <meta name="viewport" content="width=device-width, initial-scale=1"/>
           <meta property="og:image" content={`${this.props.assetPath}/images/opengraph-image.png?0.23.0`}/>
         </head>
@@ -45,7 +41,7 @@ class HomeOffice extends React.Component {
             <div className="font-ui wrapper-header">
               <div className="header-logo">
                 <a href={ this.props.homepageUrl } title={ this.props.logoLinkTitle } id="logo" className="content">
-                  <img src={ hoLogoPath } />
+                  <img src={`${this.props.hoAssetPath}/images/ho-logo.svg`} />
                 </a>
               </div>
               {
@@ -99,6 +95,7 @@ class HomeOffice extends React.Component {
 
 HomeOffice.defaultProps = {
   assetPath: '/govuk',
+  hoAssetPath: '/ho',
   stylesheets: ['/govuk/elements.css'],
   scripts: [],
   homepageUrl: 'https://www.gov.uk',
@@ -117,6 +114,7 @@ HomeOffice.propTypes = {
   title: PropTypes.string,
 
   assetPath: PropTypes.string,
+  hoAssetPath: PropTypes.string,
   stylesheets: PropTypes.arrayOf(PropTypes.string),
   scripts: PropTypes.arrayOf(PropTypes.string),
   homepageUrl: PropTypes.string,
