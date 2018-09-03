@@ -19,7 +19,7 @@ class Search extends React.Component {
         onApply={() => this.emitChange()}
       >
         <div className="govuk-grid-row">
-          <div className="column-two-thirds">
+          <div className="govuk-grid-column-two-thirds">
             <div className="form-group search-box">
               <label className="form-label" htmlFor="filter">
                 <span className="form-label-bold">{this.props.label || 'Search'}</span>

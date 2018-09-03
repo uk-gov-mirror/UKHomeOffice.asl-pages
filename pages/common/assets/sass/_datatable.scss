@@ -100,11 +100,11 @@ $highlight-colour: govuk-colour("grey-4");
     cursor: pointer;
     background-color: $highlight-colour;
 
-    .column-one-quarter {
+    .govuk-grid-column-one-quarter {
       border-right: 1px solid #ccc;
     }
 
-    .column-two-thirds {
+    .govuk-grid-column-two-thirds {
       margin-left: $govuk-gutter-half;
 
       h3 {

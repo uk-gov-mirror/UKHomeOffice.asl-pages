@@ -9,7 +9,7 @@ const Notifications = ({
   }
   return (
     <div className="govuk-grid-row">
-      <div className="column-two-thirds">
+      <div className="govuk-grid-column-two-thirds">
         <div className="notification-summary" role="alert" aria-labelledby="notification-summary-heading" tabIndex="-1">
           <h2 className="govuk-heading-m notification-summary-heading" id="notification-summary-heading">
             {

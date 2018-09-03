@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Sidebar = ({ children }) => (
-  <div className="column-one-third sidebar">
+  <div className="govuk-grid-column-one-third sidebar">
     <aside>
       { children }
     </aside>
