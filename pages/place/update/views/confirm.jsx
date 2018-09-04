@@ -26,8 +26,8 @@ const Confirm = ({
   ...props
 }) => (
   <Fragment>
-    <div className="grid-row">
-      <div className="column-two-thirds">
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
         <ErrorSummary />
         <header>
           <h2>&nbsp;</h2>

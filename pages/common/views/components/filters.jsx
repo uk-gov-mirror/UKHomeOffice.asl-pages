@@ -87,10 +87,10 @@ class Filters extends Component {
             type="form"
             onApply={() => this.emitChange()}
           >
-            <div className="filters grid-row">
+            <div className="filters govuk-grid-row">
               {
                 map(options, ({ values, format }, key) =>
-                  <div key={key} className="column-one-third">
+                  <div key={key} className="govuk-grid-column-one-third">
                     <OptionSelect
                       title={<Snippet>{`fields.${key}.label`}</Snippet>}
                       id={key}>

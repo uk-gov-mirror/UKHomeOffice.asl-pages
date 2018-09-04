@@ -6,8 +6,8 @@ const FormLayout = ({
   children,
   formatters
 }) => (
-  <div className="grid-row">
-    <div className="column-two-thirds">
+  <div className="govuk-grid-row">
+    <div className="govuk-grid-column-two-thirds">
       <ErrorSummary />
       {
         children

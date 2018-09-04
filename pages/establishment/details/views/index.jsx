@@ -24,8 +24,8 @@ const Index = ({
         <h2>{ name }</h2>
         <h1><Snippet>pages.establishment.details</Snippet></h1>
       </header>
-      <div className="grid-row">
-        <div className="column-two-thirds">
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
           <dl>
             <dt><Snippet>licenceNumber</Snippet></dt>
             <dd>{ licenceNumber }</dd>

@@ -5,8 +5,8 @@ const Success = ({
   ...props
 }) => (
   <Fragment>
-    <div className="grid-row">
-      <div className="column-two-thirds">
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
         <div className="govuk-box-highlight">
           <h1 className="heading-xlarge"><Snippet>heading</Snippet></h1>
         </div>

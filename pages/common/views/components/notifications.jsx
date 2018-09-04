@@ -8,10 +8,10 @@ const Notifications = ({
     return null;
   }
   return (
-    <div className="grid-row">
-      <div className="column-two-thirds">
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
         <div className="notification-summary" role="alert" aria-labelledby="notification-summary-heading" tabIndex="-1">
-          <h2 className="heading-medium notification-summary-heading" id="notification-summary-heading">
+          <h2 className="govuk-heading-m notification-summary-heading" id="notification-summary-heading">
             {
               notifications.map(({ type, props }, index) =>
                 <Snippet key={index} { ...props }>{`notifications.${type}`}</Snippet>

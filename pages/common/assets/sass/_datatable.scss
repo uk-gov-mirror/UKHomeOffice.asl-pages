@@ -1,3 +1,5 @@
+$highlight-colour: govuk-colour("grey-4");
+
 .table-heading {
   display: flex;
   justify-content: space-between;
@@ -7,7 +9,7 @@
   }
 
   a {
-    margin-left: $gutter;
+    margin-left: $govuk-gutter;
   }
 }
 
@@ -44,7 +46,7 @@
 
     &[aria-sort="none"] a {
       &:before, &:after {
-        color: $grey-2;
+        color: govuk-colour("grey-2");
       }
     }
 
@@ -61,10 +63,9 @@
     .notice {
       display: block;
       white-space: nowrap;
-      @include copy-16;
 
       &.urgent {
-        color: $error-colour;
+        color: $govuk-error-colour;
       }
     }
   }
@@ -74,7 +75,7 @@
 
     td:first-child {
       &:before {
-        @extend .link;
+        @extend .govuk-link;
         text-decoration: none;
         font-size: 0.75em;
         margin-right: 1em;
@@ -99,12 +100,12 @@
     cursor: pointer;
     background-color: $highlight-colour;
 
-    .column-one-quarter {
+    .govuk-grid-column-one-quarter {
       border-right: 1px solid #ccc;
     }
 
-    .column-two-thirds {
-      margin-left: $gutter-half;
+    .govuk-grid-column-two-thirds {
+      margin-left: $govuk-gutter-half;
 
       h3 {
         margin-top: 0;
@@ -118,7 +119,7 @@
 
     a {
       display: block;
-      margin-left: $gutter;
+      margin-left: $govuk-gutter;
       margin-bottom: 0.5em;
     }
   }
@@ -129,8 +130,10 @@
   li {
     display: inline-block;
     a {
-      @extend .bold-small;
-      color: $govuk-blue;
+      @extend .govuk-\!-font-size-19;
+      @extend .govuk-\!-font-weight-bold;
+
+      color: govuk-colour("blue");
       display: inline-block;
       padding: 15px 5px 10px 5px;
       margin-right: 15px;
@@ -142,10 +145,10 @@
     }
     &.active a,
     &.active a:hover {
-      color: $govuk-blue;
-      -webkit-box-shadow: inset 0px -5px 0px 0px $govuk-blue;
-      -moz-box-shadow: inset 0px -5px 0px 0px $govuk-blue;
-      box-shadow: inset 0px -5px 0px 0px $govuk-blue;
+      color: govuk-colour("blue");
+      -webkit-box-shadow: inset 0px -5px 0px 0px govuk-colour("blue");
+      -moz-box-shadow: inset 0px -5px 0px 0px govuk-colour("blue");
+      box-shadow: inset 0px -5px 0px 0px govuk-colour("blue");
     }
   }
 }
@@ -168,32 +171,32 @@
 
   &:hover, &:focus {
     background: $highlight-colour;
-    outline: 3px solid $focus-colour;
+    outline: 3px solid $govuk-focus-colour;
   }
 
   &.current {
-    color: $text-colour;
+    color: $govuk-text-colour;
     font-weight: 700;
     border: none;
     pointer-events: none;
     cursor: default;
 
     &:hover, &:focus {
-      color: $text-colour;
+      color: $govuk-text-colour;
       background: none;
     }
   }
 
   &.current.next, &.current.prev {
     font-weight: 400;
-    color: $grey-1;
+    color: govuk-colour("grey-1");
   }
 }
 
 .pagination-summary {
   padding: 8px 0;
 
-  @media (min-width: 642px) {
+  @include govuk-media-query($from: tablet) {
     float: right;
   }
 }

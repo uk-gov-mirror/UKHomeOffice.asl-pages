@@ -1,29 +1,11 @@
-$path: "/govuk/images/";
+// GOV.UK Design System
+// @see https://github.com/alphagov/govuk-frontend
+// @see https://design-system.service.gov.uk/
 
-// GOV.UK front end toolkit
-// Sass variables, mixins and functions
-// https://github.com/alphagov/govuk_frontend_toolkit/tree/master/stylesheets
+@import "govuk-frontend/components/breadcrumbs/breadcrumbs";
+@import "govuk-frontend/components/error-summary/error-summary";
+@import "govuk-frontend/components/phase-banner/phase-banner";
 
-// Settings (variables)
-@import "govuk_frontend_toolkit/stylesheets/colours";
-@import "govuk_frontend_toolkit/stylesheets/font_stack";
-@import "govuk_frontend_toolkit/stylesheets/measurements";
-
-// Mixins
-@import "govuk_frontend_toolkit/stylesheets/conditionals";
-@import "govuk_frontend_toolkit/stylesheets/device-pixels";
-@import "govuk_frontend_toolkit/stylesheets/grid_layout";
-@import "govuk_frontend_toolkit/stylesheets/typography";
-@import "govuk_frontend_toolkit/stylesheets/shims";
-
-// Mixins to generate components (chunks of UI)
-@import "govuk_frontend_toolkit/stylesheets/design-patterns/alpha-beta";
-@import "govuk_frontend_toolkit/stylesheets/design-patterns/buttons";
-@import "govuk_frontend_toolkit/stylesheets/design-patterns/breadcrumbs";
-
-// Functions
-@import "govuk_frontend_toolkit/stylesheets/url-helpers";
-
-@import "govuk-elements-sass/public/sass/elements";
-
-@import "govuk-react-components/assets/elements.css";
+// Home Office Frontend Toolkit
+// @see https://github.com/UKHomeOffice/frontend-toolkit
+@import "@ukhomeoffice/frontend-toolkit";

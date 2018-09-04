@@ -50,8 +50,8 @@ const Index = ({
   const hasNacwoCertifications = roles.length > 0 && roles.find(role => role.type === 'nacwo') && certifications;
   return (
     <Fragment>
-      <article className='profile grid-row'>
-        <div className='column-two-thirds'>
+      <article className='profile govuk-grid-row'>
+        <div className='govuk-grid-column-two-thirds'>
           <header>
             <h2>&nbsp;</h2>
             <h1>{ name }</h1>

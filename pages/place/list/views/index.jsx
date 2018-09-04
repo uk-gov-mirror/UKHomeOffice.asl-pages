@@ -30,16 +30,16 @@ const pageFormatters = {
 };
 
 const ExpandableRow = ({ row, schema }) => (
-  <div className="grid-row">
+  <div className="govuk-grid-row">
     <div className={classnames({
-      'column-one-quarter': row.notes,
-      'column-full': !row.notes
+      'govuk-grid-column-one-quarter': row.notes,
+      'govuk-grid-column-full': !row.notes
     })}>
       <Controls item={row.id} />
     </div>
     {
       row.notes && (
-        <div className="column-two-thirds">
+        <div className="govuk-grid-column-two-thirds">
           <h3>{<Snippet>fields.restrictions.label</Snippet>}</h3>
           <ReactMarkdown>{row.notes}</ReactMarkdown>
         </div>

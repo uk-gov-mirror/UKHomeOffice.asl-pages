@@ -1,18 +1,14 @@
 @import "govuk";
 
 h1 {
-  @extend .heading-large;
+  @extend .govuk-heading-l;
 }
 h2 {
-  @extend .heading-medium;
+  @extend .govuk-heading-m;
 }
 h3 {
-  @extend .heading-small;
+  @extend .govuk-heading-s;
 }
 h4 {
-  @extend .heading-small;
-}
-
-.breadcrumb {
-  @include breadcrumbs;
+  @extend .govuk-heading-s;
 }

@@ -10,8 +10,8 @@
 @import "filters";
 
 .data {
-  padding: $gutter;
-  background: $govuk-blue;
+  padding: $govuk-gutter;
+  background: govuk-colour("blue");
   color: white;
   a {
     color: white;
@@ -20,7 +20,7 @@
 }
 
 details {
-  margin-top: 2*$gutter;
+  margin-top: 2*$govuk-gutter;
 }
 
 .code {
@@ -31,12 +31,12 @@ details {
 }
 
 dl {
-  margin-bottom: $gutter;
+  margin-bottom: $govuk-gutter;
   dt {
     font-weight: bold;
   }
   dd {
-    margin-bottom: $gutter/2;
+    margin-bottom: $govuk-gutter/2;
     white-space: pre-line;
   }
 
@@ -59,7 +59,7 @@ th {
   &.block {
     > * {
       display: block;
-      margin-top: $gutter-half;
+      margin-top: $govuk-gutter-half;
     }
   }
   &:not(.block) {
@@ -77,29 +77,34 @@ th {
 .main {
 
   .notification-summary {
-    @extend .error-summary;
+    @extend .govuk-error-summary;
     border-color: $green;
 
     .notification-summary-heading {
-      @extend .error-summary-heading;
+      @extend .govuk-error-summary__title;
       margin-bottom: 0;
     }
   }
 
   header {
+    background-color: $background;
 
     h1, h2 {
       margin: 0;
     }
 
     h1 {
-      margin-bottom: $gutter;
+      margin-bottom: $govuk-gutter;
     }
 
     h2, h3 {
-      margin-bottom: $gutter/4;
+      margin-bottom: $govuk-gutter/4;
       font-weight: normal;
     }
+  }
+
+  footer {
+    background-color: $background;
   }
 
   ul.dashboard {
@@ -107,56 +112,56 @@ th {
     padding-left: 0;
     li {
       background: $highlight-colour;
-      @extend .heading-medium;
+      @extend .govuk-heading-m;
       margin-top: 0;
 
       a {
         display: block;
-        padding: $gutter-half $gutter;
+        padding: $govuk-gutter-half $govuk-gutter;
       }
       p {
-        padding: 0 $gutter $gutter/2;
+        padding: 0 $govuk-gutter $govuk-gutter/2;
         margin: 0;
-        @extend .font-xsmall;
+        @extend .govuk-body-s;
       }
     }
   }
 
   .sidebar, .profile {
     aside {
-      border-top: 6px solid $govuk-blue;
-      padding-top: $gutter-half;
+      border-top: 6px solid govuk-colour("blue");
+      padding-top: $govuk-gutter-half;
       box-sizing: border-box;
     }
   }
 
   .profile {
     .profile-section {
-      border-top: 1px solid $grey-2;
-      margin-top: $gutter-half;
+      border-top: 1px solid govuk-colour("grey-2");
+      margin-top: $govuk-gutter-half;
 
       h3 {
         @extend h2;
-        margin-top: $gutter;
+        margin-top: $govuk-gutter;
         font-weight: normal;
       }
     }
 
     .accordion {
-      margin-top: $gutter;
+      margin-top: $govuk-gutter;
     }
   }
 }
 
 dl.inline {
-  @extend .grid-row;
+  @include govuk-grid-row;
 
   > dt {
-    @extend .column-one-third;
+    @include govuk-grid-column(one-third);
   }
 
   > dd {
-    @extend .column-two-thirds;
+    @include govuk-grid-column(two-thirds)
   }
 }
 
