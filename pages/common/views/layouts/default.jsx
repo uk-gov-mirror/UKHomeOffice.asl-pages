@@ -2,7 +2,7 @@ import React from 'react';
 import { omit } from 'lodash';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import HomeOffice from '@asl/service/components';
+import HomeOffice from '@asl/service/ui/components/home-office';
 import PhaseBanner from '../components/phase-banner';
 import Breadcrumbs from '../components/breadcrumbs';
 import StatusBar from '../components/status-bar';
