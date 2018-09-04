@@ -8,8 +8,6 @@
   > .status-bar {
     @include govuk-grid-column(one-third);
     padding-left: 0;
-
-    margin-top: $govuk-gutter / 4;
     text-align: right;
 
     span:first-child {
