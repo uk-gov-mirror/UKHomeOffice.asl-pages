@@ -24,7 +24,9 @@ module.exports = {
     },
     pil: {
       categories: 'Choose personal license (PIL) category',
-      dashboard: 'Apply for categories A, B, C, D and F PIL'
+      dashboard: 'Apply for categories A, B, C, D and F PIL',
+      categoryAToF: 'Categories A,B,C,D and F',
+      categoryE: 'Category E'
     }
   },
   licenceNumber: 'Licence number',
