@@ -21,6 +21,11 @@ module.exports = {
       list: 'Licensed premises',
       edit: 'Change licensed premises',
       confirm: 'Confirm changes'
+    },
+    pil: {
+      categories: 'Choose personal license (PIL) category',
+      categoryAToF: 'Categories A,B,C,D and F',
+      categoryE: 'Category E'
     }
   },
   licenceNumber: 'Licence number',
