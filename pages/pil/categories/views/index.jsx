@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 
-const links = ['pil.categoryAToF', 'pil.categoryE'];
+const links = ['pil.catAF', 'pil.catE'];
 
 const Index = () => (
   <Fragment>
@@ -17,7 +17,7 @@ const Index = () => (
         <ul className="dashboard">
           {links.map(link => (
             <li key={link}>
-              <Link label={<Snippet>{`pages.${link}`}</Snippet>} />
+              <Link page="pil.dashboard" label={<Snippet>{`${link}.title`}</Snippet>} />
               <p>
                 <Snippet>{`${link}.subtitle`}</Snippet>
               </p>

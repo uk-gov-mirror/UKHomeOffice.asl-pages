@@ -6,10 +6,5 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.get('/categories', (req, res, next) => {
-    console.log('get categories');
-    next();
-  });
-
   return app;
 };

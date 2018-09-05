@@ -22,7 +22,7 @@ const Index = ({
               <li key={est}>
                 <Link page="establishment.dashboard" establishment={ est.id } label={ est.name } />
                 <Link page="profile.invite" establishment={ est.id } label={<Snippet>pages.dashboard.invite</Snippet>}/>
-                <Link page="pil.apply" label={<Snippet>pages.pil.categories</Snippet>}/>
+                <Link page="pil.categories" label={<Snippet>pages.pil.categories</Snippet>}/>
               </li>
             )
           }
