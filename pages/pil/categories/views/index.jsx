@@ -1,22 +1,10 @@
 import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
-import { LinkButton } from 'govuk-react-components';
-import { connect } from 'react-redux';
 
 const links = ['pil.catAF', 'pil.catE'];
 
-const Index = ({
-  establishment: {
-    id: estId
-  },
-  pilApplication: {
-    id: pilId
-  },
-  profile: {
-    id: profId
-  }
-}) => (
+const Index = () => (
   <Fragment>
     <header>
       <h2>&nbsp;</h2>
@@ -34,11 +22,9 @@ const Index = ({
                 <Snippet>{`${link}.subtitle`}</Snippet>
               </p>
               <p>
-                <p>
-                  <LinkButton type="button" href={`/e/${estId}/people/${profId}/pil/${pilId}`} className="button">
-                    <Snippet>pil.buttons.applyNow</Snippet>
-                  </LinkButton>
-                </p>
+                <button type="submit" className="button">
+                  <Snippet>pil.buttons.applyNow</Snippet>
+                </button>
               </p>
             </li>
           ))}
@@ -48,6 +34,4 @@ const Index = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, pilApplication, profile } }) => ({ establishment, pilApplication, profile });
-
-export default connect(mapStateToProps)(Index);
+export default Index;
