@@ -6,6 +6,9 @@
 @import "govuk-frontend/components/error-summary/error-summary";
 @import "govuk-frontend/components/phase-banner/phase-banner";
 
+
 // Home Office Frontend Toolkit
 // @see https://github.com/UKHomeOffice/frontend-toolkit
+
+$assetPath: '/ho';
 @import "@ukhomeoffice/frontend-toolkit";
