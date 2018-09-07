@@ -23,5 +23,17 @@ module.exports = {
     'Scottish Accreditation Board',
     'Royal Veterinary College',
     'Other'
+  ],
+  moduleCodes: [
+    'L',
+    'E1',
+    'PILA(theory)',
+    'PILA(skills)',
+    'PILB',
+    'PILC',
+    'K(theory)',
+    'K(skills)',
+    'E2',
+    'PPL'
   ]
 };

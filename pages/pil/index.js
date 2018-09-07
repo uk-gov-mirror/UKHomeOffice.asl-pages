@@ -13,6 +13,8 @@ module.exports = () => {
     return next('route');
   });
 
+  app.use('/training/modules', require('./modules')());
+
   app.use('/training', require('./training')());
 
   app.use('/apply', require('./dashboard')());
