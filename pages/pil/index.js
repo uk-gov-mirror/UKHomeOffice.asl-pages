@@ -17,6 +17,8 @@ module.exports = () => {
     return next('route');
   });
 
+  app.use('/training/procedures', require('./procedures')());
+
   app.use('/training/exemptions', require('./exemptions')());
 
   app.use('/training/modules', require('./modules')());

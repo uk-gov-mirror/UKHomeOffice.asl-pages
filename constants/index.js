@@ -35,5 +35,12 @@ module.exports = {
     'K(skills)',
     'E2',
     'PPL'
+  ],
+  procedureOptions: [
+    'A. Minor/minimally invasive procedures which not requiring sedation, analgesia or general anaesthesia',
+    'B. Minor/minimally invasive procedures involving sedation...',
+    'C. Surgical procedures...',
+    'D. Use of neuro...',
+    'F. Other'
   ]
 };
