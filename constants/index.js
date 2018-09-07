@@ -16,5 +16,12 @@ module.exports = {
     'EQU',
     'NHP'
   ],
-  readableDateFormat: 'DD MMMM YYYY'
+  readableDateFormat: 'DD MMMM YYYY',
+  accreditationBodies: [
+    'Society of Biology',
+    'Universities Group',
+    'Scottish Accreditation Board',
+    'Royal Veterinary College',
+    'Other'
+  ]
 };

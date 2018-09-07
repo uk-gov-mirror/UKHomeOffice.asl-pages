@@ -3,10 +3,11 @@ import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 
 const links = [
-  'pil.dashboard.details',
-  'pil.dashboard.training',
-  'pil.dashboard.exemptions',
-  'pil.dashboard.categories'
+  // 'pil.dashboard.details',
+  'pil.dashboard.training'
+  // ,
+  // 'pil.dashboard.exemptions',
+  // 'pil.dashboard.categories'
 ];
 
 const Index = () => (
@@ -22,7 +23,7 @@ const Index = () => (
         <ul className="dashboard">
           {links.map(link => (
             <li key={link}>
-              <Link label={<Snippet>{`${link}.title`}</Snippet>} />
+              <Link key={link} label={<Snippet>{`${link}.title`}</Snippet>} />
             </li>
           ))}
         </ul>
