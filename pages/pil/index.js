@@ -6,12 +6,18 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
-    req.model = reduce(schema, (all, { nullValue }, key) => {
-      return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
-    }, {});
+    req.model = reduce(
+      schema,
+      (all, { nullValue }, key) => {
+        return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
+      },
+      {}
+    );
     req.model.id = 'new-training';
     return next('route');
   });
+
+  app.use('/training/exemptions', require('./exemptions')());
 
   app.use('/training/modules', require('./modules')());
 
