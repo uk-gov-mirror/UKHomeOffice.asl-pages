@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
+import { LinkButton } from 'govuk-react-components';
 
 const links = ['pil.catAF', 'pil.catE'];
 
@@ -22,9 +23,11 @@ const Index = () => (
                 <Snippet>{`${link}.subtitle`}</Snippet>
               </p>
               <p>
-                <button type="submit" className="button">
-                  <Snippet>pil.buttons.applyNow</Snippet>
-                </button>
+                <p>
+                  <LinkButton type="button" href="/pil/apply" className="button">
+                    <Snippet>pil.buttons.applyNow</Snippet>
+                  </LinkButton>
+                </p>
               </p>
             </li>
           ))}
