@@ -6,7 +6,6 @@ import FormLayout from '../../../common/views/layouts/form';
 const Page = () => (
   <FormLayout>
     <header>
-      <br />
       <h1><Snippet>pil.training.title</Snippet></h1>
     </header>
   </FormLayout>

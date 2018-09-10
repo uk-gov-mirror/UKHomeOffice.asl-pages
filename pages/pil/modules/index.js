@@ -23,29 +23,29 @@ module.exports = settings => {
   //   next();
   // });
 
-  // // app.post('/', (req, res, next) => {
-  // //   const values = req.session.form[req.model.id].values;
-  // //   const opts = {
-  // //     method: 'POST',
-  // //     headers: { 'Content-type': 'application/json' },
-  // //     body: JSON.stringify(values)
-  // //   };
-  // //   return req.api(`/establishment/${req.establishment}/invite-user`, opts)
-  // //     .then(() => next())
-  // //     .catch(next);
-  // // });
+  // app.post('/', (req, res, next) => {
+  //   const values = req.session.form[req.model.id].values;
+  //   const opts = {
+  //     method: 'POST',
+  //     headers: { 'Content-type': 'application/json' },
+  //     body: JSON.stringify(values)
+  //   };
+  //   return req.api(`/establishment/${req.establishment}/invite-user`, opts)
+  //     .then(() => next())
+  //     .catch(next);
+  // });
 
-  // // app.post('/', (req, res, next) => {
-  // //   const id = req.model.id;
-  // //   set(req.session, 'notifications', [{
-  // //     type: 'success',
-  // //     props: {
-  // //       email: req.session.form[id].values.email
-  // //     }
-  // //   }]);
-  // //   delete req.session.form[id];
-  // //   return res.redirect(req.originalUrl.replace(/\/invite/, ''));
-  // // });
+  app.post('/', (req, res, next) => {
+    // const id = req.model.id;
+    // set(req.session, 'notifications', [{
+    //   type: 'success',
+    //   props: {
+    //     email: req.session.form[id].values.email
+    //   }
+    // }]);
+    // delete req.session.form[id];
+    return res.redirect(req.originalUrl.replace(/\/modules/, ''));
+  });
 
   return app;
 };

@@ -4,15 +4,12 @@ module.exports = {
       label: 'Select all that apply'
     }
   },
+  buttons: {
+    submit: 'Continue'
+  },
   errors: {
-    certificateNumber: {
-      required: 'You need to enter a certificate number'
-    },
-    accreditationBody: {
-      required: 'You need to chose an accreditation body.'
-    },
-    dateAwarded: {
-      required: 'You need to enter the date when the certificate was awarded.'
+    modules: {
+      required: 'You need to select at least one module.'
     }
   },
   pil: {
