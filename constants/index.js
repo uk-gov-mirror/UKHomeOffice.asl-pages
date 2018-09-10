@@ -37,7 +37,7 @@ module.exports = {
     'PPL'
   ],
   procedureOptions: [
-    'A. Minor/minimally invasive procedures which not requiring sedation, analgesia or general anaesthesia',
+    'A. Minor/minimally invasive procedures not requiring sedation, analgesia or general anaesthesia',
     'B. Minor/minimally invasive procedures involving sedation...',
     'C. Surgical procedures...',
     'D. Use of neuro...',

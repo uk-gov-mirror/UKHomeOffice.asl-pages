@@ -39,10 +39,12 @@ const Index = ({
     email,
     roles,
     projects,
-    trainingModules
+    trainingModules,
+    id
   },
   establishment: {
-    name: establishmentName
+    name: establishmentName,
+    id: estId
   },
   ...props
 }) => {
@@ -74,7 +76,7 @@ const Index = ({
           <div>
             <p><Snippet>warning</Snippet></p>
             <p>
-              <LinkButton type="button" href="/pil"><Snippet>buttons.applyNow</Snippet></LinkButton>
+              <LinkButton type="button" href={`/e/${estId}/pil`}><Snippet>buttons.applyNow</Snippet></LinkButton>
             </p>
           </div>
           <Accordion>
