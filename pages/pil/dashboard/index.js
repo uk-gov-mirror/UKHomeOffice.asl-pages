@@ -10,6 +10,8 @@ module.exports = settings => {
 
   app.use('/exemptions', require('../exemptions')());
 
+  app.use('/modules', require('../modules')());
+
   app.use('/training', require('../training')());
 
   return app;
