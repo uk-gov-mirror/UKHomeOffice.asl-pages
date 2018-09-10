@@ -35,17 +35,22 @@ module.exports = settings => {
   // //     .catch(next);
   // // });
 
-  // // app.post('/', (req, res, next) => {
-  // //   const id = req.model.id;
-  // //   set(req.session, 'notifications', [{
-  // //     type: 'success',
-  // //     props: {
-  // //       email: req.session.form[id].values.email
-  // //     }
-  // //   }]);
-  // //   delete req.session.form[id];
-  // //   return res.redirect(req.originalUrl.replace(/\/invite/, ''));
-  // // });
+  app.post('/', (req, res, next) => {
+    // const id = req.model.id;
+    // set(req.session, 'notifications', [{
+    //   type: 'success',
+    //   props: {
+    //     email: req.session.form[id].values.email
+    //   }
+    // }]);
+    // delete req.session.form[id];
+    if (req.body.exempt === 'Yes') {
+      return res.redirect(req.originalUrl.replace(/\/invite/, ''));
+    } else {
+      return res.redirect(req.originalUrl.replace(/\/exemptions/, ''));
+    }
+
+  });
 
   return app;
 };

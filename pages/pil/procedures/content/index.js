@@ -1,7 +1,7 @@
 module.exports = {
   fields: {
     procedures: {
-      label: 'Select each category taht you want your license to cover'
+      label: 'Select each category that you want your license to cover'
     }
   },
   errors: {
