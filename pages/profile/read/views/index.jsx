@@ -8,6 +8,7 @@ import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import { readableDateFormat } from '../../../../constants';
+import { LinkButton } from 'govuk-react-components';
 
 const getPremises = roles => {
   if (!roles) {
@@ -69,6 +70,13 @@ const Index = ({
               )
             }
           </dl>
+
+          <div>
+            <p><Snippet>warning</Snippet></p>
+            <p>
+              <LinkButton type="button" href="/pil"><Snippet>buttons.applyNow</Snippet></LinkButton>
+            </p>
+          </div>
           <Accordion>
             {
               (!isEmpty(roles) || !isEmpty(premises)) && (

@@ -6,5 +6,11 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.use('/procedures', require('../procedures')());
+
+  app.use('/exemptions', require('../exemptions')());
+
+  app.use('/training', require('../training')());
+
   return app;
 };
