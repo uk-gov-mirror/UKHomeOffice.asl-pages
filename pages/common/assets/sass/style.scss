@@ -1,3 +1,5 @@
+@import "ho-frontend-toolkit";
+
 @import "images";
 @import "default";
 
@@ -129,7 +131,7 @@ th {
 
   .sidebar, .profile {
     aside {
-      border-top: 6px solid govuk-colour("blue");
+      border-top: 3px solid $ho-brand;
       padding-top: $govuk-gutter-half;
       box-sizing: border-box;
     }
