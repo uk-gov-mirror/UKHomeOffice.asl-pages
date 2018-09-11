@@ -1,4 +1,5 @@
 module.exports = {
+  invite: 'Invite user',
   fields: {
     firstName: {
       label: 'First name'
