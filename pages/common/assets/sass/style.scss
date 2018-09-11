@@ -1,4 +1,7 @@
+$govuk-font-family: 'Inter UI', sans-serif;
+
 @import "images";
+@import "govuk";
 @import "default";
 
 @import "status-bar";
@@ -129,7 +132,7 @@ th {
 
   .sidebar, .profile {
     aside {
-      border-top: 6px solid govuk-colour("blue");
+      border-top: 3px solid $ho-brand;
       padding-top: $govuk-gutter-half;
       box-sizing: border-box;
     }
