@@ -8,6 +8,7 @@ $assetPath: '/ho';
 @import '@ukhomeoffice/frontend-toolkit';
 
 // any required components (inc. proxies to govuk-frontend)
+@import '@ukhomeoffice/frontend-toolkit/assets/styles/forms';
 @import '@ukhomeoffice/frontend-toolkit/assets/styles/components/breadcrumbs';
 @import '@ukhomeoffice/frontend-toolkit/assets/styles/components/error-summary';
 @import '@ukhomeoffice/frontend-toolkit/assets/styles/components/phase-banner';
