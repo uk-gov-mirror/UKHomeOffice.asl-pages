@@ -19,7 +19,7 @@ module.exports = settings => {
 
   app.use('/modules', require('../modules')());
 
-  app.use('/training', require('../training')());
+  app.use('/training', require('../certificate')());
 
   return app;
 };

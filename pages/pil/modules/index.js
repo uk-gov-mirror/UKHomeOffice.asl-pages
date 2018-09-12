@@ -36,14 +36,17 @@ module.exports = settings => {
   // });
 
   app.post('/', (req, res, next) => {
-    // const id = req.model.id;
+    const id = req.model.id;
+    const values = req.session.form[id].values;
+    console.log('MODEL ID ', id);
+    console.log('TRAINING MODULES FORM VALUES ', values);
     // set(req.session, 'notifications', [{
     //   type: 'success',
     //   props: {
     //     email: req.session.form[id].values.email
     //   }
     // }]);
-    // delete req.session.form[id];
+    delete req.session.form[id];
     return res.redirect(req.originalUrl.replace(/\/modules/, ''));
   });
 

@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   pil: {
-    training: {
+    certificate: {
       title: 'Enter training details'
     }
   }

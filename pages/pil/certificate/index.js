@@ -10,6 +10,8 @@ module.exports = settings => {
     ...settings
   });
 
+  // app.use('/:id', form({ schema }));
+
   app.use('/', form({ schema }));
 
   // app.use(crumbs([
@@ -36,6 +38,8 @@ module.exports = settings => {
   // });
 
   app.post('/', (req, res, next) => {
+    // const values = req.session.form[req.model.id].values;
+    // console.log('TRAINING ', values);
     // const id = req.model.id;
     // set(req.session, 'notifications', [{
     //   type: 'success',
