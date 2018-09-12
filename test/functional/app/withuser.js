@@ -7,6 +7,15 @@ module.exports = (app, user = {}) => {
   wrapper.use((req, res, next) => {
     req.user = {
       id: user.id || 123,
+      profile: {
+        allowedActions: {
+          8201: [
+            'profile.invite',
+            'place.create'
+          ]
+        }
+      },
+      isAllowed: () => true,
       get: (key) => {
         return {
           establishment: 8201,

@@ -32,7 +32,7 @@ module.exports = () => {
   app.use('/public', assets);
 
   app.use((req, res, next) => {
-    set(res.locals, 'static.urls', urls);
+    set(res.locals, 'static.urls', { ...urls, place: { create: '/create-place' } });
     next();
   });
 
