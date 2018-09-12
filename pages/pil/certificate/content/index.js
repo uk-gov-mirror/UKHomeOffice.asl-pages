@@ -1,9 +1,9 @@
 module.exports = {
   fields: {
-    certificate_number: {
+    certificateNumber: {
       label: 'Certificate Number'
     },
-    accrediting_body: {
+    accreditationBody: {
       label: 'Accreditation Body'
     },
     dateAwarded: {
@@ -11,10 +11,10 @@ module.exports = {
     }
   },
   errors: {
-    certificate_number: {
+    certificateNumber: {
       required: 'You need to enter a certificate number'
     },
-    accrediting_body: {
+    accreditationBody: {
       required: 'You need to chose an accreditation body.'
     },
     dateAwarded: {
