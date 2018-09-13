@@ -1,7 +1,7 @@
 module.exports = {
   dashboard: {
     establishment: {
-      details: {
+      read: {
         subtitle: 'Contact information for this establishment, as well as any conditions and authorisations.'
       }
     },

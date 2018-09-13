@@ -5,10 +5,10 @@ import Link from '../../../common/views/containers/link';
 import Sidebar from '../../../common/views/components/sidebar';
 
 const links = [
-  'establishment.details',
-  'place.list',
-  'profile.list',
-  'project.list'
+  { path: 'establishment.read', permissions: 'establishment.read' },
+  { path: 'place.list', permissions: 'place.read' },
+  { path: 'profile.list', permissions: 'profile.read.basic' },
+  { path: 'project.list', permissions: 'project.read.basic' }
 ];
 
 const Index = ({
@@ -16,7 +16,8 @@ const Index = ({
     name,
     licenceNumber,
     pelh
-  }
+  },
+  allowedActions
 }) => (
   <Fragment>
     <header>
@@ -27,10 +28,10 @@ const Index = ({
       <div className="govuk-grid-column-two-thirds">
         <ul className="dashboard">
           {
-            links.map(link =>
-              <li key={link}>
-                <Link page={link} label={<Snippet>{`pages.${link}`}</Snippet>} />
-                <p><Snippet>{`dashboard.${link}.subtitle`}</Snippet></p>
+            links.filter(link => allowedActions.includes(link.permissions)).map(link =>
+              <li key={link.path}>
+                <Link page={link.path} label={<Snippet>{`pages.${link.path}`}</Snippet>} />
+                <p><Snippet>{`dashboard.${link.path}.subtitle`}</Snippet></p>
               </li>
             )
           }
@@ -49,6 +50,6 @@ const Index = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
 
 export default connect(mapStateToProps)(Index);

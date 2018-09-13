@@ -8,14 +8,14 @@ import Snippet from '../containers/snippet';
 const FilterTable = ({
   formatters,
   ExpandableRow,
-  editable
+  createPath
 }) => (
   <Fragment>
     <Filters formatters={ formatters }/>
     <div className="table-heading">
       <FilterSummary />
       {
-        editable && <Link label={<Snippet>addNew</Snippet>} path="create" />
+        createPath && <Link label={<Snippet>addNew</Snippet>} page={createPath} />
       }
     </div>
     <DataTable formatters={ formatters } ExpandableRow={ExpandableRow} />

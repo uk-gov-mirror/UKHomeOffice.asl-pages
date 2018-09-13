@@ -50,6 +50,7 @@ const ExpandableRow = ({ row, schema }) => (
 
 const Places = ({
   establishment: { name },
+  allowedActions,
   ...props
 }) => (
   <Fragment>
@@ -57,10 +58,14 @@ const Places = ({
       <h2>{name}</h2>
       <h1><Snippet>pages.place.list</Snippet></h1>
     </header>
-    <FilterTable formatters={Object.assign({}, formatters, pageFormatters)} ExpandableRow={ExpandableRow} editable={true} />
+    <FilterTable
+      formatters={Object.assign({}, formatters, pageFormatters)}
+      ExpandableRow={ExpandableRow}
+      createPath={allowedActions.includes('place.create') && 'place.create'}
+    />
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
 
 export default connect(mapStateToProps)(Places);

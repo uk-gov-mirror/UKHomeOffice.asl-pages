@@ -32,6 +32,7 @@ export const formatters = {
 
 const People = ({
   establishment: { name },
+  allowedActions,
   ...props
 }) => (
   <Fragment>
@@ -46,11 +47,18 @@ const People = ({
       formatter={filter => <Acronym>{filter.toUpperCase()}</Acronym>}
       append={['pilh', 'pplh']}
     />
-    <FilterSummary />
+    <div className="table-heading">
+      <FilterSummary />
+      {
+        allowedActions.includes('profile.invite') && (
+          <Link page="profile.invite" label={<Snippet>invite</Snippet>} />
+        )
+      }
+    </div>
     <DataTable formatters={formatters} />
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
 
 export default connect(mapStateToProps)(People);

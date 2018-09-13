@@ -2,9 +2,10 @@ const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
+const { permissions } = require('../../lib/middleware');
 
 module.exports = () => {
-  const app = Router();
+  const app = Router({ mergeParams: true });
 
   app.param('profile', (req, res, next, profile) => {
     if (profile === 'invite') {
@@ -24,9 +25,8 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use('/:profile', require('./read')());
-
-  app.use('/invite', require('./invite')());
+  app.use('/:profile', permissions('profile.read.basic'), require('./read')());
+  app.use('/invite', permissions('profile.invite'), require('./invite')());
 
   app.get('/', require('./list')());
 

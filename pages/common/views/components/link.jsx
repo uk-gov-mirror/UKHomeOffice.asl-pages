@@ -11,6 +11,7 @@ const Link = ({
   page,
   path,
   label,
+  className,
   ...props
 }) => {
   if (page) {
@@ -20,9 +21,9 @@ const Link = ({
     }
     const replacer = replace(props);
     url = href.split('/').map(replacer).join('/');
-    return <a href={url}>{label}</a>;
+    return <a className={className} href={url}>{label}</a>;
   } else {
-    return <a href={`${url}/${path}`}>{label}</a>;
+    return <a className={className} href={`${url}/${path}`}>{label}</a>;
   }
 };
 

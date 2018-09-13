@@ -2,6 +2,7 @@ const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
 const { schema } = require('./schema');
 const { cleanModel } = require('../../lib/utils');
+const { permissions } = require('../../lib/middleware');
 
 module.exports = () => {
   const app = Router();
@@ -28,13 +29,12 @@ module.exports = () => {
     next();
   });
 
-  app.use('/:id/edit', require('./update')());
-  app.use('/:id/delete', require('./delete')());
-  app.use('/:id', require('./read')());
+  app.use('/:id/edit', permissions('place.update'), require('./update')());
+  app.use('/:id/delete', permissions('place.delete'), require('./delete')());
+  app.use('/:id', permissions('place.read'), require('./read')());
+  app.use('/create', permissions('place.create'), require('./create')());
 
-  app.use('/create', require('./create')());
-
-  app.get('/', require('./list')());
+  app.get('/', permissions('place.read'), require('./list')());
 
   return app;
 };

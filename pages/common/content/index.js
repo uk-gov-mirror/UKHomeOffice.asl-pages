@@ -8,7 +8,7 @@ module.exports = {
     },
     establishment: {
       list: 'Establishments',
-      details: 'Establishment details'
+      read: 'Establishment details'
     },
     profile: {
       list: 'People',

@@ -22,7 +22,7 @@ const Index = ({
     <Fragment>
       <header>
         <h2>{ name }</h2>
-        <h1><Snippet>pages.establishment.details</Snippet></h1>
+        <h1><Snippet>pages.establishment.read</Snippet></h1>
       </header>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
