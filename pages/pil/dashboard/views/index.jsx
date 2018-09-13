@@ -9,7 +9,6 @@ const links = [
   'pil.exemptions',
   'pil.procedures'
 ];
-// const dLink = 'pil.details';
 
 const Index = ({
   establishment: {
@@ -33,13 +32,9 @@ const Index = ({
       <div className="column-two-thirds">
         <ul className="dashboard">
 
-          {/* <li key={{dLink}}>
-            <Link page={dLink + `/${profileId}`} label={<Snippet>{`${dLink}.title`}</Snippet>} />
-          </li> */}
-
           {links.map(link => (
             <li key={link}>
-              <Link page={link} establishment={ estId } pilid={ pilId } label={<Snippet>{`${link}.title`}</Snippet>} />
+              <Link page={link} establishment={ estId } pilid={ pilId } profile={profileId} label={<Snippet>{`${link}.title`}</Snippet>} />
             </li>
           ))}
         </ul>

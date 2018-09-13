@@ -76,7 +76,7 @@ const Index = ({
           <div>
             <p><Snippet>warning</Snippet></p>
             <p>
-              <LinkButton type="button" href={`/e/${estId}/pil`}><Snippet>buttons.applyNow</Snippet></LinkButton>
+              <LinkButton type="button" href={`/e/${estId}/people/${id}/pil`}><Snippet>buttons.applyNow</Snippet></LinkButton>
             </p>
           </div>
           <Accordion>

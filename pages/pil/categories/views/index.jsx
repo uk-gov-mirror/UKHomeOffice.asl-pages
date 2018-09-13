@@ -12,6 +12,9 @@ const Index = ({
   },
   pilApplication: {
     id: pilId
+  },
+  profile: {
+    id: profId
   }
 }) => (
   <Fragment>
@@ -32,7 +35,7 @@ const Index = ({
               </p>
               <p>
                 <p>
-                  <LinkButton type="button" href={`/e/${estId}/pil/${pilId}`} className="button">
+                  <LinkButton type="button" href={`/e/${estId}/people/${profId}/pil/${pilId}`} className="button">
                     <Snippet>pil.buttons.applyNow</Snippet>
                   </LinkButton>
                 </p>
@@ -45,6 +48,6 @@ const Index = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, pilApplication } }) => ({ establishment, pilApplication });
+const mapStateToProps = ({ static: { establishment, pilApplication, profile } }) => ({ establishment, pilApplication, profile });
 
 export default connect(mapStateToProps)(Index);
