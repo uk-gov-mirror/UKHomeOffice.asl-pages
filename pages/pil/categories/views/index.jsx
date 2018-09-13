@@ -8,7 +8,10 @@ const links = ['pil.catAF', 'pil.catE'];
 
 const Index = ({
   establishment: {
-    id
+    id: estId
+  },
+  pilApplication: {
+    id: pilId
   }
 }) => (
   <Fragment>
@@ -29,7 +32,7 @@ const Index = ({
               </p>
               <p>
                 <p>
-                  <LinkButton type="button" href={`/e/${id}/pil/apply`} className="button">
+                  <LinkButton type="button" href={`/e/${estId}/pil/${pilId}`} className="button">
                     <Snippet>pil.buttons.applyNow</Snippet>
                   </LinkButton>
                 </p>
@@ -42,6 +45,6 @@ const Index = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, pilApplication } }) => ({ establishment, pilApplication });
 
 export default connect(mapStateToProps)(Index);

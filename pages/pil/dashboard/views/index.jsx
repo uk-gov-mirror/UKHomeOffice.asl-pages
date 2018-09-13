@@ -9,7 +9,6 @@ const links = [
   'pil.exemptions',
   'pil.procedures'
 ];
-
 // const dLink = 'pil.details';
 
 const Index = ({
@@ -18,6 +17,9 @@ const Index = ({
   },
   profile: {
     id: profileId
+  },
+  pilApplication: {
+    id: pilId
   }
 }) => (
   <Fragment>
@@ -37,7 +39,7 @@ const Index = ({
 
           {links.map(link => (
             <li key={link}>
-              <Link page={link.replace(':establishment', estId)} label={<Snippet>{`${link}.title`}</Snippet>} />
+              <Link page={link} establishment={ estId } pilid={ pilId } label={<Snippet>{`${link}.title`}</Snippet>} />
             </li>
           ))}
         </ul>
@@ -46,6 +48,6 @@ const Index = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, profile } }) => ({ establishment, profile });
+const mapStateToProps = ({ static: { establishment, profile, pilApplication } }) => ({ establishment, profile, pilApplication });
 
 export default connect(mapStateToProps)(Index);
