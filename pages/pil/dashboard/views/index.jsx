@@ -9,6 +9,10 @@ const links = [
   'pil.exemptions',
   'pil.procedures'
 ];
+<<<<<<< HEAD
+=======
+// const dLink = 'pil.details';
+>>>>>>> e76f919... Use combined data model and reset on submit
 
 const Index = ({
   establishment: {
@@ -34,7 +38,11 @@ const Index = ({
 
           {links.map(link => (
             <li key={link}>
+<<<<<<< HEAD
               <Link page={link} establishment={ estId } pilid={ pilId } profile={profileId} label={<Snippet>{`${link}.title`}</Snippet>} />
+=======
+              <Link page={link} establishment={ estId } pilid={ pilId } label={<Snippet>{`${link}.title`}</Snippet>} />
+>>>>>>> e76f919... Use combined data model and reset on submit
             </li>
           ))}
         </ul>
