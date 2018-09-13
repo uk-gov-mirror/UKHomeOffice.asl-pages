@@ -20,22 +20,18 @@ class Search extends React.Component {
       >
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-two-thirds">
-            <div className="form-group search-box">
-              <label className="form-label" htmlFor="filter">
-                <span className="form-label-bold">{this.props.label || 'Search'}</span>
-                { this.props.hint && <span className="form-hint">{this.props.hint}</span> }
-              </label>
-              <p>
-                <input
-                  className="form-control"
-                  id="filter"
-                  name="filter"
-                  type="text"
-                  value={ this.state ? this.state.value : this.props.filter }
-                  onChange={e => this.setState({ value: e.target.value })}
-                />
-                <button type="submit"></button>
-              </p>
+            <div className="govuk-form-group search-box">
+              <label className="govuk-label" htmlFor="filter">{this.props.label || 'Search'}</label>
+              { this.props.hint && <span className="govuk-hint">{this.props.hint}</span> }
+              <input
+                className="govuk-input"
+                id="filter"
+                name="filter"
+                type="text"
+                value={ this.state ? this.state.value : this.props.filter }
+                onChange={e => this.setState({ value: e.target.value })}
+              />
+              <button type="submit" className="govuk-button"></button>
             </div>
           </div>
         </div>

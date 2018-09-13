@@ -9,8 +9,8 @@ const Errors = ({
     return null;
   }
   return (
-    <div className="error-summary" role="alert" aria-labelledby="error-summary-heading" tabIndex="-1">
-      <h2 className="govuk-heading-m error-summary-heading" id="error-summary-heading">
+    <div className="govuk-error-summary" role="alert" aria-labelledby="error-summary-title" tabIndex="-1">
+      <h2 className="govuk-error-summary__title" id="error-summary-title">
         <Snippet>
           {
             size(errors) > 1
@@ -19,13 +19,15 @@ const Errors = ({
           }
         </Snippet>
       </h2>
-      <ul className="error-summary-list">
-        {
-          Object.keys(errors).map(key =>
-            <li key={key}><a href={`#${key}`}><Snippet>{`errors.${key}.${errors[key]}`}</Snippet></a></li>
-          )
-        }
-      </ul>
+      <div className="govuk-error-summary__body">
+        <ul className="govuk-list govuk-error-summary__list">
+          {
+            Object.keys(errors).map(key =>
+              <li key={key}><a href={`#${key}`}><Snippet>{`errors.${key}.${errors[key]}`}</Snippet></a></li>
+            )
+          }
+        </ul>
+      </div>
     </div>
   );
 };

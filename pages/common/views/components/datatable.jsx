@@ -47,7 +47,7 @@ class Table extends Component {
     } = this.props;
 
     return (
-      <table className={classnames('govuk-react-datatable', isFetching && 'loading')}>
+      <table className={classnames('govuk-table', 'govuk-react-datatable', isFetching && 'loading')}>
         <thead>
           <tr>
             {
