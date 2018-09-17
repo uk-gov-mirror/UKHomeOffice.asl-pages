@@ -36,18 +36,22 @@ module.exports = settings => {
   // });
 
   app.post('/', (req, res, next) => {
-    const id = req.model.id;
-    const values = req.session.form[id].values;
-    console.log('MODEL ID ', id);
-    console.log('TRAINING MODULES FORM VALUES ', values);
-    // set(req.session, 'notifications', [{
-    //   type: 'success',
-    //   props: {
-    //     email: req.session.form[id].values.email
-    //   }
-    // }]);
-    delete req.session.form[id];
-    return res.redirect(req.originalUrl.replace(/\/modules/, ''));
+    const values = req.session.form[req.model.id].values;
+    console.log('TRAINING MODULES FORM VALUES ', JSON.stringify(values));
+
+    const opts = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+
+    delete req.session.form[req.model.id];
+
+    return req.api(`/pil/training`, opts)
+      .then(() => next())
+      .catch(next);
+
+    // return res.redirect(req.originalUrl.replace(/\/modules/, ''));
   });
 
   return app;

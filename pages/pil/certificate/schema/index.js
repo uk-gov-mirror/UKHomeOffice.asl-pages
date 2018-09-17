@@ -1,20 +1,20 @@
-const { accreditationBodies } = require('../../../../constants');
+const { accreditingBodies } = require('../../../../constants');
 // const DATE_REGEX = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
 module.exports = {
-  certificateNumber: {
+  certificate_number: {
     inputType: 'inputText',
     validate: [
       'required'
     ]
   },
-  accreditationBody: {
+  accrediting_body: {
     inputType: 'select',
-    options: accreditationBodies,
+    options: accreditingBodies,
     accessor: 'id',
     validate: ['required',
       {
-        definedValues: accreditationBodies
+        definedValues: accreditingBodies
       }
     ]
   },
