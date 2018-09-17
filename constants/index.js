@@ -17,7 +17,7 @@ module.exports = {
     'NHP'
   ],
   readableDateFormat: 'DD MMMM YYYY',
-  accreditationBodies: [
+  accreditingBodies: [
     'Society of Biology',
     'Universities Group',
     'Scottish Accreditation Board',
