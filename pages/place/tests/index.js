@@ -28,6 +28,7 @@ const fields = {
 };
 
 const submitForm = browser => {
+  browser.scroll('button[type="submit"]');
   browser.$('button[type="submit"]').click();
 };
 
@@ -119,7 +120,7 @@ describe('Place', () => {
 
     it('throws multiple validation errors if sumitted empty', () => {
       browser.url('/pages/place/create');
-      browser.$('button[type="submit"]').click();
+      submitForm(browser);
       const errors = browser.$('.error-summary');
       assert(errors.isExisting());
       const fields = ['site', 'name', 'suitability', 'holding', 'nacwo'];
@@ -226,7 +227,7 @@ describe('Place', () => {
 
     it('displays an error if the form is submitted with no changes', () => {
       browser.url('/pages/place/an-id/edit')
-      browser.$('button[type="submit"]').click();
+      submitForm(browser);
       const errors = browser.$('.error-summary');
       assert(errors.getText().includes('No changes have been made'));
     });
