@@ -28,7 +28,7 @@ const fields = {
 };
 
 const submitForm = browser => {
-  browser.submitForm('form');
+  browser.$('button[type="submit"]').click();
 };
 
 const fillForm = browser => {
@@ -47,14 +47,6 @@ const fillForm = browser => {
 };
 
 describe('Place', () => {
-  // beforeEach(() => {
-  //   // disable clicks on the phase banner to prevent it intercepting clicks intended for other page elements
-  //   browser.execute(function() {
-  //     const phaseBanner = document.querySelector('.govuk-phase-banner');
-  //     phaseBanner.style.pointerEvents = 'none';
-  //   });
-  // });
-
   describe('List', () => {
     it('can load', () => {
       browser.url('/pages/place');
