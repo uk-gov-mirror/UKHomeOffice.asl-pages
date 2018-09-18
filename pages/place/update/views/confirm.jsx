@@ -5,7 +5,7 @@ import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
 import ErrorSummary from '../../../common/views/containers/error-summary';
 import Field from '../../../common/views/components/field';
-import { RadioGroup } from '@ukhomeoffice/react-components';
+import { CheckboxGroup } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
 
@@ -84,9 +84,8 @@ const Confirm = ({
           <form method="POST">
             {
               declaration && (
-                <RadioGroup
+                <CheckboxGroup
                   id="declaration"
-                  type="checkbox"
                   name="declaration"
                   error={
                     errors.declaration && <Snippet>{`errors.declaration.${errors.declaration}`}</Snippet>
@@ -102,7 +101,7 @@ const Confirm = ({
               )
             }
             <input type="hidden" name="_csrf" value={csrfToken} />
-            <button type="submit" className="button"><Snippet>buttons.submit</Snippet></button>
+            <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
           </form>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
           <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
