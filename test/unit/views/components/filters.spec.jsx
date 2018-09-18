@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Filters from 'views/components/filters';
-import { OptionSelect, CheckedOption } from 'govuk-react-components';
+import { OptionSelect, CheckedOption } from '@ukhomeoffice/react-components';
 
 describe('<Filters />', () => {
   describe('render', () => {

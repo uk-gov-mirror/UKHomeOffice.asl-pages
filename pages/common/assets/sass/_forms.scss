@@ -1,36 +1,36 @@
-textarea.form-control {
-  width: 100%;
-}
+// textarea.form-control {
+//   width: 100%;
+// }
 
-.control-bar .multiple-choice {
-  background-color: govuk-colour("grey-3");
-  padding: $govuk-gutter-half $govuk-gutter-half $govuk-gutter-half $govuk-gutter * 2.5;
+// .control-bar .multiple-choice {
+//   background-color: govuk-colour("grey-3");
+//   padding: $govuk-gutter-half $govuk-gutter-half $govuk-gutter-half $govuk-gutter * 2.5;
 
-  label {
-    &:before, &:after {
-      top: 50%;
-      margin-left: $govuk-gutter;
-    }
+//   label {
+//     &:before, &:after {
+//       top: 50%;
+//       margin-left: $govuk-gutter;
+//     }
 
-    &:before {
-      // half height + parent padding (14px + 7px)
-      margin-top: -21px;
-    }
+//     &:before {
+//       // half height + parent padding (14px + 7px)
+//       margin-top: -21px;
+//     }
 
-    &:after {
-      // half height + parent padding (4px + 7px)
-      margin-top: -11px;
-    }
-  }
-}
+//     &:after {
+//       // half height + parent padding (4px + 7px)
+//       margin-top: -11px;
+//     }
+//   }
+// }
 
-.conditional-reveal {
-  margin-bottom: $govuk-gutter;
-}
+// .conditional-reveal {
+//   margin-bottom: $govuk-gutter;
+// }
 
-.form-group, .field {
-  ul {
-    list-style-type: disc;
-    list-style-position: inside;
-  }
-}
+// .form-group, .field {
+//   ul {
+//     list-style-type: disc;
+//     list-style-position: inside;
+//   }
+// }

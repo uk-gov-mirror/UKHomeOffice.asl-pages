@@ -5,7 +5,7 @@ import ModelSummary from '../../../common/views/containers/model-summary';
 import Snippet from '../../../common/views/containers/snippet';
 import ErrorSummary from '../../../common/views/containers/error-summary';
 import Field from '../../../common/views/components/field';
-import { RadioGroup } from 'govuk-react-components';
+import { RadioGroup } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
 

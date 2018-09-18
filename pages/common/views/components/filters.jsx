@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { OptionSelect, CheckedOption } from 'govuk-react-components';
+import { OptionSelect, CheckedOption } from '@ukhomeoffice/react-components';
 import classnames from 'classnames';
 import { map, some } from 'lodash';
 import ApplyChanges from '../containers/apply-changes';
@@ -114,7 +114,7 @@ class Filters extends Component {
               }
             </div>
             <p className="control-bar">
-              <button type="submit" className="button"><Snippet>filters.applyLabel</Snippet></button>
+              <button type="submit" className="govuk-button"><Snippet>filters.applyLabel</Snippet></button>
               <ApplyChanges
                 query={{
                   filters: {}

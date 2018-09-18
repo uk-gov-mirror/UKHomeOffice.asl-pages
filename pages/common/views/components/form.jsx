@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { map, get } from 'lodash';
 import ReactMarkdown from 'react-markdown';
-import { TextArea, Input, RadioGroup, Select } from 'govuk-react-components';
+import { TextArea, Input, RadioGroup, Select } from '@ukhomeoffice/react-components';
 import Snippet from '../containers/snippet';
 import ConditionalReveal from './conditional-reveal';
 
@@ -15,7 +15,7 @@ const fields = {
   checkboxGroup: props => <RadioGroup type="checkbox" { ...props } />,
   select: props => <Select { ...props } />,
   text: props => props.value &&
-    <div className={classnames('form-group', props.name)}>
+    <div className={classnames('govuk-form-group', props.name)}>
       <h3>{ props.label }</h3>
       <ReactMarkdown>{ props.value }</ReactMarkdown>
     </div>
@@ -63,7 +63,7 @@ const Form = ({
 
     }
     <input type="hidden" name="_csrf" value={csrfToken} />
-    <button type="submit" className="button"><Snippet>buttons.submit</Snippet></button>
+    <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
   </form>
 );
 

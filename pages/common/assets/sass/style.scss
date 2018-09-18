@@ -11,6 +11,31 @@
 @import "forms";
 @import "filters";
 
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+}
+
+footer {
+  background-color: $white;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .data {
   padding: $govuk-gutter;
   background: govuk-colour("blue");
@@ -77,6 +102,8 @@ th {
 }
 
 .main {
+   // leave space for footer as it is outside of the flow
+  padding-bottom: 100px;
 
   .notification-summary {
     @extend .govuk-error-summary;
@@ -105,10 +132,6 @@ th {
     }
   }
 
-  footer {
-    background-color: $background;
-  }
-
   ul.dashboard {
     list-style: none;
     padding-left: 0;
@@ -120,11 +143,21 @@ th {
       a {
         display: block;
         padding: $govuk-gutter-half $govuk-gutter;
+
+        &:focus {
+          background-color: $highlight-colour;
+          outline: none;
+        }
       }
+
       p {
         padding: 0 $govuk-gutter $govuk-gutter/2;
         margin: 0;
         @extend .govuk-body-s;
+      }
+
+      &:focus-within {
+        outline: 3px solid $ho-focus;
       }
     }
   }
@@ -174,6 +207,8 @@ dl.inline {
 }
 
 .link-filter {
+  margin-bottom: 20px;
+
   ul {
     display: inline-block;
   }
