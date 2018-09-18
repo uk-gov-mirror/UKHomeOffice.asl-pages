@@ -70,6 +70,8 @@ module.exports = {
       //
       browserName: 'chrome',
 
+      elementScrollBehavior: 0,
+
       chromeOptions: { args: ['headless', 'disable-gpu'] }
     }],
     //
@@ -105,6 +107,9 @@ module.exports = {
     //
     // Default request retries count
     connectionRetryCount: 3,
+    //
+    // Path to save screenshots when tests fail.
+    screenshotPath: './screenshots',
     //
     // Initialize the browser instance with a WebdriverIO plugin. The object should have the
     // plugin name as key and the desired plugin options as properties. Make sure you have

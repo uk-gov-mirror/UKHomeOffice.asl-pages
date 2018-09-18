@@ -28,8 +28,7 @@ const fields = {
 };
 
 const submitForm = browser => {
-  browser.scroll('button[type="submit"]');
-  browser.$('button[type="submit"]').click();
+  browser.submitForm('form');
 };
 
 const fillForm = browser => {
@@ -48,6 +47,14 @@ const fillForm = browser => {
 };
 
 describe('Place', () => {
+  // beforeEach(() => {
+  //   // disable clicks on the phase banner to prevent it intercepting clicks intended for other page elements
+  //   browser.execute(function() {
+  //     const phaseBanner = document.querySelector('.govuk-phase-banner');
+  //     phaseBanner.style.pointerEvents = 'none';
+  //   });
+  // });
+
   describe('List', () => {
     it('can load', () => {
       browser.url('/pages/place');
@@ -121,7 +128,7 @@ describe('Place', () => {
     it('throws multiple validation errors if sumitted empty', () => {
       browser.url('/pages/place/create');
       submitForm(browser);
-      const errors = browser.$('.error-summary');
+      const errors = browser.$('.govuk-error-summary');
       assert(errors.isExisting());
       const fields = ['site', 'name', 'suitability', 'holding', 'nacwo'];
       fields.forEach(field => {
@@ -160,7 +167,7 @@ describe('Place', () => {
       fillForm(browser);
       submitForm(browser);
       submitForm(browser);
-      const errors = browser.$('.error-summary');
+      const errors = browser.$('.govuk-error-summary');
       assert(errors.$('[href="#declaration"]').isExisting());
     });
 
@@ -228,7 +235,7 @@ describe('Place', () => {
     it('displays an error if the form is submitted with no changes', () => {
       browser.url('/pages/place/an-id/edit')
       submitForm(browser);
-      const errors = browser.$('.error-summary');
+      const errors = browser.$('.govuk-error-summary');
       assert(errors.getText().includes('No changes have been made'));
     });
 
@@ -252,7 +259,7 @@ describe('Place', () => {
       const trueRadio = browser.$('[name="conditional-reveal-restrictions"][value="true"]');
       trueRadio.click();
       submitForm(browser);
-      assert(browser.$('.error-summary').isVisible());
+      assert(browser.$('.govuk-error-summary').isVisible());
       assert(trueRadio.isSelected());
     });
 
@@ -261,7 +268,7 @@ describe('Place', () => {
       const trueRadio = browser.$('[name="conditional-reveal-restrictions"][value="true"]');
       trueRadio.click();
       submitForm(browser);
-      assert(browser.$('.error-summary').$('#restrictions').isExisting())
+      assert(browser.$('.govuk-error-summary').$('#restrictions').isExisting())
     });
 
     it('redirects you to the confirm page if changes have been made', () => {
@@ -287,7 +294,7 @@ describe('Place', () => {
       browser.$('[name="name"]').setValue('New Name');
       submitForm(browser);
       submitForm(browser);
-      const errors = browser.$('.error-summary');
+      const errors = browser.$('.govuk-error-summary');
       assert(errors.$('[href="#declaration"]').isExisting());
     });
 
@@ -317,7 +324,7 @@ describe('Place', () => {
       browser.switchTab('tab-1');
       fillForm(browser);
       submitForm(browser);
-      const error = browser.getText('.error-summary');
+      const error = browser.getText('.govuk-error-summary');
       assert(error.includes('This form data has been changed somewhere else.'));
     });
 
@@ -367,7 +374,7 @@ describe('Place', () => {
       browser.url('/pages/place/an-id/delete');
       submitForm(browser);
       submitForm(browser);
-      assert(browser.$('.error-summary').$('[href="#declaration"]').isExisting())
+      assert(browser.$('.govuk-error-summary').$('[href="#declaration"]').isExisting())
     });
 
     it('redirects to the success page if submission successful', () => {
