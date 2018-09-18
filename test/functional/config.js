@@ -70,8 +70,6 @@ module.exports = {
       //
       browserName: 'chrome',
 
-      elementScrollBehavior: 0,
-
       chromeOptions: { args: ['headless', 'disable-gpu'] }
     }],
     //
