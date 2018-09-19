@@ -1,5 +1,5 @@
 const { castArray } = require('lodash');
-const { procedureOptions } = require('../../../../constants');
+const { procedureCodes } = require('../../../../constants');
 
 const toArray = val => {
   if (!val) {
@@ -11,13 +11,13 @@ const toArray = val => {
 module.exports = {
   procedures: {
     inputType: 'checkboxGroup',
-    options: procedureOptions,
+    options: procedureCodes,
     format: toArray,
     nullValue: [],
     validate: [
       'required',
       {
-        definedValues: procedureOptions
+        definedValues: procedureCodes
       }
     ]
   }

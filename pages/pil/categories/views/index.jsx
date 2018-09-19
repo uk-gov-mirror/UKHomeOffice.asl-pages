@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
-import { LinkButton } from 'govuk-react-components';
+import { LinkButton } from '@ukhomeoffice/react-components';
 import { connect } from 'react-redux';
 
 const links = ['pil.catAF', 'pil.catE'];

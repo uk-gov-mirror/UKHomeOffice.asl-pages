@@ -8,7 +8,7 @@ import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import { readableDateFormat } from '../../../../constants';
-import { LinkButton } from 'govuk-react-components';
+import { LinkButton } from '@ukhomeoffice/react-components';
 
 const getPremises = roles => {
   if (!roles) {
