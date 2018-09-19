@@ -21,5 +21,9 @@ module.exports = {
     professionalAddress: 'Professional Address',
     telephone: 'Telephone',
     email: 'Email Address'
-  }
+  },
+  buttons: {
+    applyNow: 'Apply Now'
+  },
+  warning: 'You don\'t hold a personal (PIL) licence.'
 };

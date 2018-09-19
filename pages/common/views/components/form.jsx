@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { map, get } from 'lodash';
 import ReactMarkdown from 'react-markdown';
-import { TextArea, Input, CheckboxGroup, RadioGroup, Select } from '@ukhomeoffice/react-components';
+import { TextArea, Input, CheckboxGroup, RadioGroup, Select, DateInput } from '@ukhomeoffice/react-components';
 import Snippet from '../containers/snippet';
 import ConditionalReveal from './conditional-reveal';
 
@@ -18,7 +18,8 @@ const fields = {
     <div className={classnames('govuk-form-group', props.name)}>
       <h3>{ props.label }</h3>
       <ReactMarkdown>{ props.value }</ReactMarkdown>
-    </div>
+    </div>,
+  dateInput: props => <DateInput { ...props } />
 };
 
 const Form = ({

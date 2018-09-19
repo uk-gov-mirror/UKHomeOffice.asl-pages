@@ -8,6 +8,7 @@ import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import { readableDateFormat } from '../../../../constants';
+import { LinkButton } from '@ukhomeoffice/react-components';
 
 const getPremises = roles => {
   if (!roles) {
@@ -38,10 +39,12 @@ const Index = ({
     email,
     roles,
     projects,
-    trainingModules
+    trainingModules,
+    id
   },
   establishment: {
-    name: establishmentName
+    name: establishmentName,
+    id: estId
   },
   ...props
 }) => {
@@ -69,6 +72,13 @@ const Index = ({
               )
             }
           </dl>
+
+          <div>
+            <p><Snippet>warning</Snippet></p>
+            <p>
+              <LinkButton type="button" href={`/e/${estId}/people/${id}/pil`}><Snippet>buttons.applyNow</Snippet></LinkButton>
+            </p>
+          </div>
           <Accordion>
             {
               (!isEmpty(roles) || !isEmpty(premises)) && (
