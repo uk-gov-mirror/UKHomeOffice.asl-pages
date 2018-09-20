@@ -6,42 +6,35 @@ import { connect } from 'react-redux';
 
 const links = ['pil.catAF', 'pil.catE'];
 
-const Index = ({
-  establishment: {
-    id: estId
-  },
-  pilApplication: {
-    id: pilId
-  },
-  profile: {
-    id: profId
-  }
-}) => (
+const Index = ({ establishment, pilApplication, profile }) => (
   <Fragment>
     <header>
-      <h2>&nbsp;</h2>
-      <h1>
-        <Snippet>pages.pil.categories</Snippet>
-      </h1>
+      <h2>{establishment.name}</h2>
+      <h1><Snippet>pages.pil.categories</Snippet></h1>
     </header>
-    <div className="grid-row">
-      <div className="column-two-thirds">
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
         <ul className="dashboard">
-          {links.map(link => (
-            <li key={link}>
-              <Link page="pil.dashboard" label={<Snippet>{`${link}.title`}</Snippet>} />
-              <p>
-                <Snippet>{`${link}.subtitle`}</Snippet>
-              </p>
-              <p>
+          {
+            links.map(link => (
+              <li key={link}>
+                <h2>
+                  <Link
+                    page="pil.dashboard"
+                    profile={profile.id}
+                    pilid={pilApplication.id}
+                    label={<Snippet>{`${link}.title`}</Snippet>}
+                  />
+                </h2>
                 <p>
-                  <LinkButton type="button" href={`/e/${estId}/people/${profId}/pil/${pilId}`} className="button">
-                    <Snippet>pil.buttons.applyNow</Snippet>
-                  </LinkButton>
+                  <Snippet>{`${link}.subtitle`}</Snippet>
                 </p>
-              </p>
-            </li>
-          ))}
+                <LinkButton type="button" href={`/e/${establishment.id}/people/${profile.id}/pil/${pilApplication.id}`}>
+                  <Snippet>pil.buttons.applyNow</Snippet>
+                </LinkButton>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>

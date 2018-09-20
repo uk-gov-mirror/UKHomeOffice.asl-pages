@@ -135,15 +135,14 @@ th {
   ul.dashboard {
     list-style: none;
     padding-left: 0;
+
     li {
       background: $highlight-colour;
       @extend .govuk-heading-m;
-      margin-top: 0;
+      border: 1px solid govuk-colour('grey-1');
+      padding: $govuk-gutter;
 
       a {
-        display: block;
-        padding: $govuk-gutter-half $govuk-gutter;
-
         &:focus {
           background-color: $highlight-colour;
           outline: none;
@@ -151,13 +150,15 @@ th {
       }
 
       p {
-        padding: 0 $govuk-gutter $govuk-gutter/2;
-        margin: 0;
         @extend .govuk-body-s;
       }
 
       &:focus-within {
         outline: 3px solid $ho-focus;
+      }
+
+      .govuk-button:last-child {
+        margin-bottom: 0;
       }
     }
   }
