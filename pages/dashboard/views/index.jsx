@@ -21,8 +21,9 @@ const Index = ({
             establishments.map(est =>
               <li key={est}>
                 <Link page="establishment.dashboard" establishment={ est.id } label={ est.name } />
-                <br />
-                <Link page="profile.invite" establishment={ est.id } label={<Snippet>pages.dashboard.invite</Snippet>}/>
+                <p>
+                  <Link page="profile.invite" establishment={ est.id } label={<Snippet>pages.dashboard.invite</Snippet>}/>
+                </p>
               </li>
             )
           }
