@@ -42,7 +42,7 @@ const Index = ({ establishment, profile, pilApplication }) => (
                         className="section-link"
                         page={section.name}
                         establishment={ establishment.id }
-                        pilId={ pilApplication.id }
+                        pil={ pilApplication.id }
                         profile={profile.id}
                         label={<Snippet>{`${section.name}.title`}</Snippet>}
                       />
