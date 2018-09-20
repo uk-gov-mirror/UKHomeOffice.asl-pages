@@ -18,12 +18,14 @@ const Index = ({ establishment, pilApplication, profile }) => (
           {
             links.map(link => (
               <li key={link}>
-                <Link
-                  page="pil.dashboard"
-                  profile={profile.id}
-                  pilid={pilApplication.id}
-                  label={<h2><Snippet>{`${link}.title`}</Snippet></h2>}
-                />
+                <h2>
+                  <Link
+                    page="pil.dashboard"
+                    profile={profile.id}
+                    pilid={pilApplication.id}
+                    label={<Snippet>{`${link}.title`}</Snippet>}
+                  />
+                </h2>
                 <p>
                   <Snippet>{`${link}.subtitle`}</Snippet>
                 </p>
