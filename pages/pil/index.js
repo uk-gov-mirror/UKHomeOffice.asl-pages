@@ -6,8 +6,8 @@ const modSchema = require('./modules/schema');
 module.exports = () => {
   const app = Router();
 
-  app.param('pilid', (req, res, next, pilid) => {
-    if (pilid === 'create') {
+  app.param('pilId', (req, res, next, pilId) => {
+    if (pilId === 'create') {
       req.model = Object.assign(reduce(
         certSchema,
         (all, { nullValue }, key) => {
@@ -33,7 +33,7 @@ module.exports = () => {
     //   .catch(next);
   });
 
-  app.use('/:pilid', require('./dashboard')());
+  app.use('/:pilId', require('./dashboard')());
 
   app.get('/', require('./categories')());
 

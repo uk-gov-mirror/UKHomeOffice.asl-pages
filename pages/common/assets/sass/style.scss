@@ -8,7 +8,6 @@
 @import "accordion";
 @import "search";
 @import "icons";
-@import "forms";
 @import "filters";
 
 
@@ -163,6 +162,23 @@ th {
     }
   }
 
+  ul.pil-sections {
+    list-style: none;
+
+    li {
+      padding: $govuk-gutter-half 0;
+      border-top: 1px solid govuk-colour('grey-1');
+
+      &:last-child {
+        border-bottom: 1px solid govuk-colour('grey-1');
+      }
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+
   .sidebar, .profile {
     aside {
       border-top: 3px solid $ho-brand;
@@ -173,7 +189,7 @@ th {
 
   .profile {
     .profile-section {
-      border-top: 1px solid govuk-colour("grey-2");
+      border-top: 1px solid govuk-colour('grey-2');
       margin-top: $govuk-gutter-half;
 
       h3 {
@@ -224,4 +240,17 @@ dl.inline {
   margin-right: 1px;
   background-color: #fff2d3;
   padding: 2px 0px 0px;
+}
+
+.status-label {
+  display: inline-block;
+  float: right;
+  padding: 0 6px;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  &.completed {
+    background-color: $blue;
+    color: $white;
+  }
 }

@@ -3,40 +3,58 @@ import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import { connect } from 'react-redux';
 
-const links = [
-  'pil.details',
-  'pil.training',
-  'pil.exemptions',
-  'pil.procedures'
+const sections = [
+  {
+    name: 'pil.details',
+    completed: 1
+  },
+  {
+    name: 'pil.training',
+    completed: 0
+  },
+  {
+    name: 'pil.exemptions',
+    completed: 0
+  },
+  {
+    name: 'pil.procedures',
+    completed: 0
+  }
 ];
 
-const Index = ({
-  establishment: {
-    id: estId
-  },
-  profile: {
-    id: profileId
-  },
-  pilApplication: {
-    id: pilId
-  }
-}) => (
+const Index = ({ establishment, profile, pilApplication }) => (
   <Fragment>
     <header>
-      <h2>&nbsp;</h2>
-      <h1>
-        <Snippet>pil.title</Snippet>
-      </h1>
+      <h2>{establishment.name}</h2>
+      <h1><Snippet>pil.title</Snippet></h1>
+      <p><Snippet>pil.summary</Snippet></p>
     </header>
-    <div className="grid-row">
-      <div className="column-two-thirds">
-        <ul className="dashboard">
-
-          {links.map(link => (
-            <li key={link}>
-              <Link page={link} establishment={ estId } pilid={ pilId } profile={profileId} label={<Snippet>{`${link}.title`}</Snippet>} />
-            </li>
-          ))}
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        <ul className="pil-sections">
+          {
+            sections.map(section => (
+              <li key={section.name}>
+                <div className="govuk-grid-row">
+                  <div className="govuk-grid-column-two-thirds">
+                    <h3>
+                      <Link
+                        className="section-link"
+                        page={section.name}
+                        establishment={ establishment.id }
+                        pilId={ pilApplication.id }
+                        profile={profile.id}
+                        label={<Snippet>{`${section.name}.title`}</Snippet>}
+                      />
+                    </h3>
+                  </div>
+                  <div className="govuk-grid-column-one-third">
+                    { section.completed > 0 && <label className="status-label completed">Completed</label> }
+                  </div>
+                </div>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
