@@ -1,5 +1,4 @@
-const { accreditingBodies } = require('../../../../constants');
-// const DATE_REGEX = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+const { accreditingBodies } = require('@asl/constants');
 
 module.exports = {
   certificate_number: {
@@ -12,20 +11,15 @@ module.exports = {
     inputType: 'select',
     options: accreditingBodies,
     accessor: 'id',
-    validate: ['required',
+    validate: [
+      'required',
       {
         definedValues: accreditingBodies
       }
     ]
   },
   dateAwarded: {
-    inputType: 'dateInput'
-    // ,
-    // validate: [
-    //   'required',
-    //   {
-    //     match: DATE_REGEX
-    //   }
-    // ]
+    inputType: 'dateInput',
+    hint: 'For example, 20.08.1980'
   }
 };

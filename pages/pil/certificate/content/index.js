@@ -1,14 +1,17 @@
 module.exports = {
   fields: {
     certificate_number: {
-      label: 'Certificate Number'
+      label: 'Certificate number'
     },
     accrediting_body: {
-      label: 'Accreditation Body'
+      label: 'Accreditation body'
     },
     dateAwarded: {
-      label: 'Date Awarded'
+      label: 'Date awarded'
     }
+  },
+  buttons: {
+    submit: 'Continue'
   },
   errors: {
     certificate_number: {
