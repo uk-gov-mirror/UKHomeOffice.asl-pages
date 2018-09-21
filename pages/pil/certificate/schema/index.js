@@ -20,9 +20,6 @@ module.exports = {
   },
   dateAwarded: {
     inputType: 'dateInput',
-    hint: 'For example, 20.08.1980',
-    validate: [
-      'required'
-    ]
+    hint: 'For example, 20.08.1980'
   }
 };
