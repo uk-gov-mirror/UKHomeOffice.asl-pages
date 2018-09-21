@@ -4,5 +4,6 @@ module.exports = {
   place: require('./place'),
   profile: require('./profile'),
   project: require('./project'),
-  pil: require('./pil')
+  pil: require('./pil'),
+  user: require('./user')
 };

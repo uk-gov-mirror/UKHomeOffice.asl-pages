@@ -36,7 +36,7 @@ const fillForm = browser => {
     const field = fields[key];
     switch (field.type) {
       case 'checkbox':
-        return browser.$(`[value="${field.value}"]`).click();
+        return browser.$(`[name="${key}"][value="${field.value}"]`).click();
       case 'select':
         return browser.$(`[name="${key}"]`)
           .selectByVisibleText(field.value);

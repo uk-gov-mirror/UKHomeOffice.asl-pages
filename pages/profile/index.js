@@ -4,6 +4,10 @@ const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
 const { permissions } = require('../../lib/middleware');
 
+const list = require('./list');
+const read = require('./read');
+const invite = require('./invite');
+
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
@@ -25,10 +29,10 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use('/:profile', permissions('profile.read.basic'), require('./read')());
-  app.use('/invite', permissions('profile.invite'), require('./invite')());
+  app.use('/:profile', permissions('profile.read.basic'), read());
+  app.use('/invite', permissions('profile.invite'), invite());
 
-  app.get('/', require('./list')());
+  app.get('/', list());
 
   return app;
 };

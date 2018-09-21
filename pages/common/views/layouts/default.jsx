@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import HomeOffice from '@asl/service/ui/components/home-office';
 import Breadcrumbs from '../components/breadcrumbs';
 import StatusBar from '../components/status-bar';
+import Notifications from '../containers/notifications';
 
 const Wrapped = ({ store, children }) => <Provider store={store}>{ children }</Provider>;
 
@@ -43,7 +44,7 @@ const Layout = ({
       propositionHeader={siteTitle}
       stylesheets={['/public/css/app.css']}
       scripts={scripts}
-      headerContent={<StatusBar user={wrap ? user : {}} />}
+      headerContent={<StatusBar user={user} />}
       nonce={nonce}
       phaseBanner={{
         phase: 'beta',
@@ -55,6 +56,7 @@ const Layout = ({
         <main className="main govuk-main-wrapper" id="content">
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-full">
+              { wrap && <Notifications /> }
               <div id="page-component">
                 { children }
               </div>
