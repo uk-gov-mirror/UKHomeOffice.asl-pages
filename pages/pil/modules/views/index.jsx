@@ -1,14 +1,22 @@
 import React from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import FormLayout from '../../../common/views/layouts/form';
+import { connect } from 'react-redux';
 
-const Page = () => (
+const Page = ({ exempt }) => (
   <FormLayout>
-    <header>
-      <h1><Snippet>pil.modules.title</Snippet></h1>
-      <span className="govuk-hint"><Snippet>pil.modules.hint</Snippet></span>
+    <header><h1>
+      { exempt
+        ? (
+          <Snippet>pil.exemptions.title</Snippet>
+        )
+        : <Snippet>pil.modules.title</Snippet>
+      }
+    </h1>
     </header>
   </FormLayout>
 );
 
-export default Page;
+const mapStateToProps = ({ static: { exempt } }) => ({ exempt });
+
+export default connect(mapStateToProps)(Page);

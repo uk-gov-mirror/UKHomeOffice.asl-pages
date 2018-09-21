@@ -16,6 +16,9 @@ module.exports = {
     modules: {
       title: 'Which modules did this certificate cover?',
       hint: 'Select all that apply.'
+    },
+    exemptions: {
+      title: 'Which training modules do you think you should be exempt from ?'
     }
   }
 };

@@ -45,7 +45,7 @@ module.exports = settings => {
     // }]);
     // delete req.session.form[id];
     if (req.body.exempt === 'Yes') {
-      return res.redirect(req.originalUrl.replace(/\/invite/, ''));
+      return res.redirect(req.originalUrl.replace(/exemptions/, 'modules/?exempt=true'));
     } else {
       return res.redirect(req.originalUrl.replace(/\/exemptions/, ''));
     }
