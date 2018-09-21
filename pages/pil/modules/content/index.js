@@ -1,7 +1,7 @@
 module.exports = {
   fields: {
     modules: {
-      label: 'Select all that apply'
+      label: ''
     }
   },
   buttons: {
@@ -14,7 +14,8 @@ module.exports = {
   },
   pil: {
     modules: {
-      title: 'Which modules did this certificate cover ?'
+      title: 'Which modules did this certificate cover?',
+      hint: 'Select all that apply.'
     }
   }
 };

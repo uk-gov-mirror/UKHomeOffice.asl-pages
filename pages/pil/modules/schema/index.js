@@ -1,5 +1,5 @@
 const { castArray } = require('lodash');
-const { moduleCodes } = require('../../../../constants');
+const { moduleCodes } = require('@asl/constants');
 
 const toArray = val => {
   if (!val) {

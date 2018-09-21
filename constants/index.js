@@ -17,18 +17,6 @@ module.exports = {
     'NHP'
   ],
   readableDateFormat: 'DD MMMM YYYY',
-  moduleCodes: [
-    'L',
-    'E1',
-    'PILA(theory)',
-    'PILA(skills)',
-    'PILB',
-    'PILC',
-    'K(theory)',
-    'K(skills)',
-    'E2',
-    'PPL'
-  ],
   // procedureOptions: [
   //   'A. Minor/minimally invasive procedures not requiring sedation, analgesia or general anaesthesia',
   //   'B. Minor/minimally invasive procedures involving sedation...',

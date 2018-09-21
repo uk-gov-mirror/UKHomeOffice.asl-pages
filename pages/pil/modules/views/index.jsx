@@ -6,6 +6,7 @@ const Page = () => (
   <FormLayout>
     <header>
       <h1><Snippet>pil.modules.title</Snippet></h1>
+      <span className="govuk-hint"><Snippet>pil.modules.hint</Snippet></span>
     </header>
   </FormLayout>
 );
