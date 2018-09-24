@@ -12,7 +12,6 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
-    console.log('TRAINING MODULES FORM VALUES ', JSON.stringify(values));
 
     const opts = {
       method: 'POST',
