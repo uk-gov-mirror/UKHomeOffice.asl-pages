@@ -1,8 +1,6 @@
-// const { set } = require('lodash');
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-// const { crumbs } = require('@asl/service/ui/middleware');
 
 module.exports = settings => {
   const app = page({
@@ -12,32 +10,8 @@ module.exports = settings => {
 
   app.use('/', form({ schema }));
 
-  // app.use(crumbs([
-  //   { href: '{{{static.urls.profile.list}}}', label: '{{static.content.pages.profile.list}}' },
-  //   '{{static.content.pages.profile.invite}}'
-  // ]));
-
-  // app.use('/', (req, res, next) => {
-  //   // const establishment = req.user.profile.establishments.find(e => e.id === req.establishment);
-  //   // res.locals.static.establishment = establishment;
-  //   next();
-  // });
-
-  // app.post('/', (req, res, next) => {
-  //   const values = req.session.form[req.model.id].values;
-  //   const opts = {
-  //     method: 'POST',
-  //     headers: { 'Content-type': 'application/json' },
-  //     body: JSON.stringify(values)
-  //   };
-  //   return req.api(`/establishment/${req.establishment}/invite-user`, opts)
-  //     .then(() => next())
-  //     .catch(next);
-  // });
-
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
-    console.log('TRAINING MODULES FORM VALUES ', JSON.stringify(values));
 
     const opts = {
       method: 'POST',
@@ -50,8 +24,10 @@ module.exports = settings => {
     return req.api(`/pil/training`, opts)
       .then(() => next())
       .catch(next);
+  });
 
-    // return res.redirect(req.originalUrl.replace(/\/modules/, ''));
+  app.post('/', (req, res, next) => {
+    return res.redirect(req.originalUrl.replace(/\/modules/, ''));
   });
 
   return app;
