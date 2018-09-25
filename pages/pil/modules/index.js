@@ -12,6 +12,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
+    values.profileId = req.profile;
 
     const opts = {
       method: 'POST',
