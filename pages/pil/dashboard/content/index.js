@@ -14,5 +14,17 @@ module.exports = {
     procedures: {
       title: 'Procedure categories'
     }
+  },
+  certificate: {
+    number: 'Certificate number',
+    accreditation: 'Accreditation body',
+    awarded: 'Date awarded',
+    expiry: 'Expiry date',
+    modules: 'Modules completed'
+  },
+  links: {
+    add: 'Add',
+    edit: 'Edit',
+    remove: 'Remove'
   }
 };
