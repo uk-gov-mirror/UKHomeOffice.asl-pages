@@ -14,8 +14,6 @@ module.exports = settings => {
     const profile = res.locals.model;
     profile.certificates = modulesToCertificates(profile.trainingModules);
 
-    console.log(profile.trainingModules);
-
     res.locals.static.profile = profile;
     res.locals.static.pilApplication = {
       id: 'create'
