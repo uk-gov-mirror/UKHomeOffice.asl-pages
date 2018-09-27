@@ -19,18 +19,35 @@ class ConditionalReveal extends Component {
     const { fieldName, label, yesLabel, noLabel, children } = this.props;
 
     return (
-      <fieldset className="conditional-reveal">
-        <legend className="form-label-bold">{label}</legend>
-        <div className="multiple-choice">
-          <input
-            type="radio"
-            name={`conditional-reveal-${fieldName}`}
-            value={true}
-            id={`conditional-reveal-${fieldName}-yes`}
-            checked={!this.state || this.state.visible}
-            onChange={this.toggle}
-          />
-          <label htmlFor={`conditional-reveal-${fieldName}-yes`}>{yesLabel}</label>
+      <fieldset className="conditional-reveal govuk-fieldset">
+        <legend className="govuk-fieldset__legend">
+          <h2 className="govuk-fieldset__heading govuk-heading-l">{label}</h2>
+        </legend>
+        <div className="govuk-radios govuk-radios--inline">
+          <div className="govuk-radios__item">
+            <input
+              type="radio"
+              name={`conditional-reveal-${fieldName}`}
+              value={true}
+              id={`conditional-reveal-${fieldName}-yes`}
+              checked={this.state ? this.state.visible : false}
+              onChange={this.toggle}
+              className="govuk-radios__input"
+            />
+            <label htmlFor={`conditional-reveal-${fieldName}-yes`} className="govuk-label govuk-radios__label">{yesLabel}</label>
+          </div>
+          <div className="govuk-radios__item">
+            <input
+              type="radio"
+              name={`conditional-reveal-${fieldName}`}
+              value={false}
+              id={`conditional-reveal-${fieldName}-no`}
+              checked={this.state ? !this.state.visible : false}
+              onChange={this.toggle}
+              className="govuk-radios__input"
+            />
+            <label htmlFor={`conditional-reveal-${fieldName}-no`} className="govuk-label govuk-radios__label">{noLabel}</label>
+          </div>
         </div>
         <Inset
           className={classnames({
@@ -40,17 +57,6 @@ class ConditionalReveal extends Component {
         >
           { children }
         </Inset>
-        <div className="multiple-choice">
-          <input
-            type="radio"
-            name={`conditional-reveal-${fieldName}`}
-            value={false}
-            id={`conditional-reveal-${fieldName}-no`}
-            checked={this.state && !this.state.visible}
-            onChange={this.toggle}
-          />
-          <label htmlFor={`conditional-reveal-${fieldName}-no`}>{noLabel}</label>
-        </div>
       </fieldset>
     );
   }
