@@ -1,4 +1,5 @@
 const page = require('../../../lib/page');
+const modulesToCertificates = require('../../../lib/utils/modules-to-certificates');
 
 module.exports = settings => {
   const app = page({
@@ -9,7 +10,11 @@ module.exports = settings => {
   app.use('/', (req, res, next) => {
     const establishment = req.user.profile.establishments.find(e => e.id === req.establishment);
     res.locals.static.establishment = establishment;
-    res.locals.static.profile = req.user.profile;
+
+    const profile = res.locals.model;
+    profile.certificates = modulesToCertificates(profile.trainingModules);
+
+    res.locals.static.profile = profile;
     res.locals.static.pilApplication = {
       id: 'create'
     };

@@ -1,7 +1,7 @@
 const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
-const certSchema = require('./certificate/schema');
-const modSchema = require('./modules/schema');
+const certificateSchema = require('./certificate/schema');
+const moduleSchema = require('./modules/schema');
 
 module.exports = () => {
   const app = Router();
@@ -9,13 +9,13 @@ module.exports = () => {
   app.param('pil', (req, res, next, pil) => {
     if (pil === 'create') {
       req.model = Object.assign(reduce(
-        certSchema,
+        certificateSchema,
         (all, { nullValue }, key) => {
           return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
         },
         {}
       ), reduce(
-        modSchema,
+        moduleSchema,
         (all, { nullValue }, key) => {
           return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
         },
@@ -24,13 +24,6 @@ module.exports = () => {
       req.model.id = 'new-training';
       return next();
     }
-
-    // return req.api(`/establishment/${req.establishment}/place/${id}`)
-    //   .then(({ json: { data } }) => {
-    //     req.model = cleanModel(data);
-    //   })
-    //   .then(() => next())
-    //   .catch(next);
   });
 
   app.use('/:pil', require('./dashboard')());

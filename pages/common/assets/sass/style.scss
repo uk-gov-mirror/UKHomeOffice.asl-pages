@@ -10,7 +10,6 @@
 @import "icons";
 @import "filters";
 
-
 html {
   height: 100%;
   box-sizing: border-box;
@@ -165,7 +164,7 @@ th {
   ul.pil-sections {
     list-style: none;
 
-    li {
+    li.section {
       padding: $govuk-gutter-half 0;
       border-top: 1px solid govuk-colour('grey-1');
 
@@ -175,6 +174,50 @@ th {
 
       h3 {
         margin: 0;
+      }
+    }
+
+    ul.actions {
+      width: 100%;
+      text-align: right;
+
+      li {
+        display: inline;
+
+        &:not(:first-child)::before {
+          content: ' | ';
+        }
+      }
+    }
+  }
+
+  .section-data {
+    border-left: 8px solid govuk-colour('grey-2');
+    margin: $govuk-gutter-half 0;
+
+    &>.govuk-grid-column-one-third {
+      padding-right: 0;
+    }
+
+    dl {
+      @extend .govuk-body-s;
+
+      dt {
+        display: block;
+        width: 160px;
+        clear: left;
+        float: left;
+        font-weight: normal;
+      }
+
+      dd {
+        float: left;
+        font-weight: bold;
+        margin: 0 0 8px $govuk-gutter;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }
