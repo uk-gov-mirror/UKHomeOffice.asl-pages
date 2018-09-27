@@ -8,9 +8,10 @@ module.exports = settings => {
     root: __dirname
   });
 
-  const profileOwnsModules = (profile, modules) => modules.every(
-    moduleId => !!profile.trainingModules.find(module => module.id === moduleId)
-  );
+  const profileOwnsModules = (profile, modules) => {
+    const profileModuleIds = profile.trainingModules.map(module => module.id);
+    return modules.every(id => profileModuleIds.includes(id));
+  };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
     if (req.body.action === 'delete' && req.body.modules.length) {
