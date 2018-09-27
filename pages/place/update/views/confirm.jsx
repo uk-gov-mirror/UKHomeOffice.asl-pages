@@ -43,6 +43,7 @@ const Confirm = ({
           <dt><Snippet>licenceHolder</Snippet></dt>
           <dd>{ pelhName }</dd>
         </dl>
+        <h2><Snippet optional site={model.site}>subtitle</Snippet></h2>
         {
           action === 'create' || action === 'delete'
             ? (
