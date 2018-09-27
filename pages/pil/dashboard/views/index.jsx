@@ -32,7 +32,7 @@ const Index = ({ establishment, profile, pilApplication }) => {
         <p><Snippet>pil.summary</Snippet></p>
       </header>
       <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
+        <div className="govuk-grid-column-three-quarters">
           <ul className="pil-sections">
             {
               sections.map(section => (
