@@ -5,7 +5,7 @@ const Inset = ({
   children,
   className
 }) => (
-  <div className={classnames('panel', 'panel-wide', className)}>
+  <div className={classnames('govuk-inset-text', className)}>
     {children}
   </div>
 );
