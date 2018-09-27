@@ -8,12 +8,23 @@ module.exports = settings => {
     root: __dirname
   });
 
+  const profileOwnsModules = (profile, modules) => modules.every(
+    moduleId => !!profile.trainingModules.find(module => module.id === moduleId)
+  );
+
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
     if (req.body.action === 'delete' && req.body.modules.length) {
+      const profile = res.locals.model;
+      const modules = req.body.modules;
+
+      if (!profileOwnsModules(profile, modules)) {
+        throw new Error('cannot delete training modules the profile does not own');
+      }
+
       const opts = {
         method: 'DELETE',
         headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ modules: req.body.modules })
+        body: JSON.stringify({ modules })
       };
 
       return req.api(`/pil/training`, opts)
