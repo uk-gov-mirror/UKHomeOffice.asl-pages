@@ -22,7 +22,7 @@ module.exports = {
     expiry: 'Expiry date',
     modules: 'Modules completed'
   },
-  links: {
+  actions: {
     add: 'Add',
     edit: 'Edit',
     remove: 'Remove'
