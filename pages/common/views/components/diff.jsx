@@ -14,7 +14,7 @@ const Diff = ({
   currentLabel = 'Current',
   proposedLabel = 'Proposed'
 }) => (
-  <table>
+  <table className="govuk-table">
     <thead>
       <tr>
         <th></th>
