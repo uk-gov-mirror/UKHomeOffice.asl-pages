@@ -6,7 +6,7 @@ module.exports = {
     accrediting_body: {
       label: 'Accreditation body'
     },
-    dateAwarded: {
+    pass_date: {
       label: 'Date awarded'
     }
   },
@@ -20,8 +20,9 @@ module.exports = {
     accrediting_body: {
       required: 'You need to chose an accreditation body.'
     },
-    dateAwarded: {
-      required: 'You need to enter the date when the certificate was awarded.'
+    pass_date: {
+      required: 'You need to enter the date when the certificate was awarded.',
+      dateIsBefore: 'Date awarded must be in the past'
     }
   },
   pil: {

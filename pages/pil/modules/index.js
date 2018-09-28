@@ -1,6 +1,7 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
+const { omit } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -12,18 +13,25 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
-    values.profileId = req.profile;
+    values.profile_id = req.profile;
 
-    const opts = {
-      method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
-    };
+    const requests = values.modules.map(module => {
+      const data = { ...omit(values, 'modules'), module };
 
-    delete req.session.form[req.model.id];
+      const opts = {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(data)
+      };
 
-    return req.api(`/pil/training`, opts)
-      .then(() => next())
+      return req.api(`/pil/training`, opts);
+    });
+
+    Promise.all(requests)
+      .then(() => {
+        delete req.session.form[req.model.id];
+        return next();
+      })
       .catch(next);
   });
 
