@@ -14,20 +14,15 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
     values.profile_id = req.profile;
+    values.modules = values.modules.map(module => ({ module, species: [] }));
 
-    const requests = values.modules.map(module => {
-      const data = { ...omit(values, 'modules'), module };
+    const opts = {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
+      body: JSON.stringify(values)
+    };
 
-      const opts = {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(data)
-      };
-
-      return req.api(`/pil/training`, opts);
-    });
-
-    Promise.all(requests)
+    return req.api(`/pil/training`, opts)
       .then(() => {
         delete req.session.form[req.model.id];
         return next();
