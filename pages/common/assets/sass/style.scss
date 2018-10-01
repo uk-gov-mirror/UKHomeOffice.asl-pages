@@ -134,7 +134,7 @@ th {
       border: 1px solid govuk-colour('grey-1');
       padding: $govuk-gutter;
 
-      a {
+      a:not(.govuk-button) {
         &:focus {
           background-color: $highlight-colour;
           outline: none;
@@ -303,7 +303,7 @@ dl.inline {
 }
 
 .status-label {
-  display: inline-block;
+  display: block;
   float: right;
   padding: 0 6px;
   text-transform: uppercase;
