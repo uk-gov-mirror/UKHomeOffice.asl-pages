@@ -1,7 +1,6 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { omit } = require('lodash');
 
 module.exports = settings => {
   const app = page({
