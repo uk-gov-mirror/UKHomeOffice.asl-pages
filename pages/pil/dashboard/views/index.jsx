@@ -12,7 +12,7 @@ const Index = ({ establishment, profile, pilApplication }) => {
     },
     {
       name: 'training',
-      completed: profile.certificates.length > 0
+      completed: profile.trainingModules.length > 0
     },
     {
       name: 'exemptions',

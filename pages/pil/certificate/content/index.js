@@ -22,6 +22,7 @@ module.exports = {
     },
     pass_date: {
       required: 'You need to enter the date when the certificate was awarded.',
+      validDate: 'Date awarded must be a valid date',
       dateIsBefore: 'Date awarded must be in the past'
     }
   },

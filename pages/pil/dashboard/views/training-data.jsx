@@ -11,10 +11,10 @@ class TrainingData extends Component {
     return (
       <Fragment>
         {
-          profile.certificates && profile.certificates.map(certificate => (
+          profile.trainingModules && profile.trainingModules.map(certificate => (
             <div key={certificate.hash} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-two-thirds">
-                <dl>
+                <dl className="certificate">
                   <dt><Snippet>certificate.number</Snippet>:</dt>
                   <dd>{certificate.certificate_number || nbsp}</dd>
 
@@ -26,10 +26,13 @@ class TrainingData extends Component {
 
                   <dt><Snippet>certificate.modules</Snippet>:</dt>
                   <dd>
-                    <ul>
+                    <ul className="modules">
                       {
-                        certificate.modules.map(module => (
-                          <li key={module.id}>{module.name}</li>
+                        certificate.modules.map((module, key) => (
+                          <li key={key}>
+                            {module.module}
+                            {module.species.length > 0 && <span className="species"> ({module.species.join(', ')})</span>}
+                          </li>
                         ))
                       }
                     </ul>
@@ -40,11 +43,7 @@ class TrainingData extends Component {
                 <ul className="actions">
                   <li>
                     <form method="POST" noValidate>
-                      {
-                        certificate.modules && certificate.modules.map(module => (
-                          <input key={module.id} type="hidden" name="modules[]" value={module.id} />
-                        ))
-                      }
+                      <input type="hidden" name="trainingModuleId" value={certificate.id} />
                       <input type="hidden" name="action" value="delete" />
                       <button type="submit" className="link"><span><Snippet>actions.remove</Snippet></span></button>
                     </form>
@@ -55,7 +54,7 @@ class TrainingData extends Component {
           ))
         }
         {
-          profile.certificates.length > 0 &&
+          profile.trainingModules.length > 0 &&
           <Link
             page="pil.training"
             establishment={ establishment.id }
