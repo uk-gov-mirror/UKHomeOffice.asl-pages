@@ -1,5 +1,5 @@
 const { castArray, merge } = require('lodash');
-const { suitabilityCodes, holdingCodes } = require('../../../constants');
+const { suitabilityCodes, holdingCodes } = require('@asl/constants');
 const { getNacwos } = require('../../common/helpers');
 
 const toArray = val => {
