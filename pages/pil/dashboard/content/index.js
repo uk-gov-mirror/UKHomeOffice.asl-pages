@@ -22,6 +22,9 @@ module.exports = {
     expiry: 'Expiry date',
     modules: 'Modules completed'
   },
+  procedure: {
+    categories: 'Procedure categories'
+  },
   actions: {
     add: 'Add',
     edit: 'Edit',

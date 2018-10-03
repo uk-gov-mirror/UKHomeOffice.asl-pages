@@ -1,7 +1,8 @@
 module.exports = {
   fields: {
     procedures: {
-      label: 'Select each category that you want your license to cover'
+      label: '',
+      hint: 'Select each category that you want your license to cover.'
     }
   },
   errors: {
@@ -11,7 +12,7 @@ module.exports = {
   },
   pil: {
     procedures: {
-      title: 'Which procedures do you want to be licensed to carry out ?'
+      title: 'Which procedures do you want to be licensed to carry out?'
     }
   }
 };

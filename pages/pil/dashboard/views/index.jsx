@@ -2,9 +2,11 @@ import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import TrainingData from './training-data';
+import ProcedureData from './procedure-data';
 import { connect } from 'react-redux';
 
-const Index = ({ establishment, profile, pilApplication }) => {
+const Index = ({ establishment, profile, pil }) => {
+
   const sections = [
     {
       name: 'details',
@@ -20,7 +22,7 @@ const Index = ({ establishment, profile, pilApplication }) => {
     },
     {
       name: 'procedures',
-      completed: false
+      completed: pil.procedures.length > 0
     }
   ];
 
@@ -44,7 +46,7 @@ const Index = ({ establishment, profile, pilApplication }) => {
                           className="section-link"
                           page={`pil.${section.name}`}
                           establishment={ establishment.id }
-                          pil={ pilApplication.id }
+                          pil={ pil.id }
                           profile={profile.id}
                           label={<Snippet>{`pil.${section.name}.title`}</Snippet>}
                         />
@@ -55,7 +57,10 @@ const Index = ({ establishment, profile, pilApplication }) => {
                     </div>
                   </div>
                   { section.name === 'training' &&
-                    <TrainingData establishment={ establishment.id } pil={ pilApplication.id } profile={profile} />
+                    <TrainingData establishment={ establishment } pil={ pil } profile={profile} />
+                  }
+                  { section.name === 'procedures' &&
+                    <ProcedureData establishment={ establishment } pil={ pil } profile={profile} />
                   }
                 </li>
               ))
@@ -67,6 +72,6 @@ const Index = ({ establishment, profile, pilApplication }) => {
   );
 };
 
-const mapStateToProps = ({ static: { establishment, profile, pilApplication } }) => ({ establishment, profile, pilApplication });
+const mapStateToProps = ({ static: { establishment, profile, pil } }) => ({ establishment, profile, pil });
 
 export default connect(mapStateToProps)(Index);
