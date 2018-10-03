@@ -12,7 +12,6 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
-    values.profile_id = req.profile;
     values.modules = values.modules.map(module => ({ module, species: [] }));
 
     const opts = {
@@ -21,7 +20,7 @@ module.exports = settings => {
       body: JSON.stringify(values)
     };
 
-    return req.api(`/pil/training`, opts)
+    return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training`, opts)
       .then(() => {
         delete req.session.form[req.model.id];
         return next();
