@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import TrainingData from './training-data';
+import ExemptionData from './exemption-data';
+
 import { connect } from 'react-redux';
 
 const Index = ({ establishment, profile, pilApplication }) => {
@@ -16,7 +18,7 @@ const Index = ({ establishment, profile, pilApplication }) => {
     },
     {
       name: 'exemptions',
-      completed: false
+      completed: profile.exemptions.length > 0
     },
     {
       name: 'procedures',
@@ -56,6 +58,9 @@ const Index = ({ establishment, profile, pilApplication }) => {
                   </div>
                   { section.name === 'training' &&
                     <TrainingData establishment={ establishment.id } pil={ pilApplication.id } profile={profile} />
+                  }
+                  { section.name === 'exemptions' &&
+                    <ExemptionData establishment={ establishment.id } pil={ pilApplication.id } profile={profile} />
                   }
                 </li>
               ))

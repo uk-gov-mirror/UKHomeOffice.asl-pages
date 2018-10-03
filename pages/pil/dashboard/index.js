@@ -8,7 +8,8 @@ module.exports = settings => {
   });
 
   const profileOwnsModule = (profile, moduleId) => {
-    return !!profile.trainingModules.find(module => module.id === moduleId);
+    return !!profile.trainingModules.find(module => module.id === moduleId) ||
+    !!profile.exemptions.find(module => module.id === moduleId);
   };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
@@ -44,6 +45,8 @@ module.exports = settings => {
   });
 
   app.use('/procedures', require('../procedures')());
+
+  app.use('/exemptions/modules', require('../modules_exempt')());
 
   app.use('/exemptions', require('../exemptions')());
 

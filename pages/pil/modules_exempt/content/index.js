@@ -13,8 +13,8 @@ module.exports = {
     }
   },
   pil: {
-    modules: {
-      title: 'Which modules did this certificate cover?',
+    exemptions: {
+      title: 'Which training modules do you think you should be exempt from?',
       hint: 'Select all that apply.'
     }
   }

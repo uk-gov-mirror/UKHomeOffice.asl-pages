@@ -15,6 +15,7 @@ module.exports = settings => {
     const values = omit(req.session.form[req.model.id].values, 'exempt');
     values.profile_id = req.profile;
     values.modules = values.modules.map(module => ({ module, species: [] }));
+    values.exemption = true;
 
     const opts = {
       method: 'POST',
@@ -31,7 +32,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.originalUrl.replace(/\/modules/, ''));
+    return res.redirect(req.originalUrl.replace(/\/exemptions\/modules/, ''));
   });
 
   return app;
