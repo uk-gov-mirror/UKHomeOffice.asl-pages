@@ -20,5 +20,7 @@ module.exports = settings => {
 
   });
 
+  app.use('/modules', require('../modules-exempt')());
+
   return app;
 };

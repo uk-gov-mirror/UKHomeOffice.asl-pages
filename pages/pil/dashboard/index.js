@@ -1,5 +1,6 @@
 const page = require('../../../lib/page');
 const bodyParser = require('body-parser');
+const { some } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -7,9 +8,9 @@ module.exports = settings => {
     root: __dirname
   });
 
-  const profileOwnsModule = (profile, moduleId) => {
-    return !!profile.trainingModules.find(module => module.id === moduleId) ||
-    !!profile.exemptions.find(module => module.id === moduleId);
+  const profileOwnsModule = ({ trainingModules, exemptions }, moduleId) => {
+    let result = some(trainingModules.concat(exemptions), ['id', moduleId]);
+    return result;
   };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
@@ -45,8 +46,6 @@ module.exports = settings => {
   });
 
   app.use('/procedures', require('../procedures')());
-
-  app.use('/exemptions/modules', require('../modules_exempt')());
 
   app.use('/exemptions', require('../exemptions')());
 

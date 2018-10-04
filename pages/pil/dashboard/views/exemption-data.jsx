@@ -6,20 +6,18 @@ class ExemptionData extends Component {
 
   render() {
     const { establishment, pil, profile } = this.props;
-    // const nbsp = '\xa0';
-
     return (
       <Fragment>
         {
-          profile.exemptions && profile.exemptions.map(certificate => (
-            <div key={certificate.hash} className="govuk-grid-row section-data">
+          profile.exemptions && profile.exemptions.map(exemption => (
+            <div key={exemption.hash} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-two-thirds">
-                <dl className="certificate">
+                <dl className="exemption">
                   <dt><Snippet>certificate.exemption</Snippet>:</dt>
                   <dd>
                     <ul className="modules">
                       {
-                        certificate.modules.map((module, key) => (
+                        exemption.modules.map((module, key) => (
                           <li key={key}>
                             {module.module}
                             {module.exemption_description}
@@ -34,7 +32,7 @@ class ExemptionData extends Component {
                 <ul className="actions">
                   <li>
                     <form method="POST" noValidate>
-                      <input type="hidden" name="trainingModuleId" value={certificate.id} />
+                      <input type="hidden" name="trainingModuleId" value={exemption.id} />
                       <input type="hidden" name="action" value="delete" />
                       <button type="submit" className="link"><span><Snippet>actions.remove</Snippet></span></button>
                     </form>

@@ -1,4 +1,4 @@
-const { reduce, isUndefined, filter } = require('lodash');
+const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
@@ -22,9 +22,8 @@ module.exports = () => {
     return req.api(`/establishment/${req.establishment}/profile/${profile}`)
       .then(({ json: { data, meta } }) => {
         const model = cleanModel(data);
-        const modules = model.trainingModules;
-        model.exemptions = filter(modules, (m) => { return m.exemption; });
-        model.trainingModules = filter(modules, (m) => { return !m.exemption; });
+        model.exemptions = model.trainingModules.filter(m => { return m.exemption; });
+        model.trainingModules = model.trainingModules.filter(m => { return !m.exemption; });
         req.model = model;
         res.locals.static.establishment = meta.establishment;
         res.locals.model = req.model;

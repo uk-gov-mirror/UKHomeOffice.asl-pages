@@ -1,12 +1,5 @@
-const { castArray } = require('lodash');
-const { procedureCodes } = require('@asl/constants');
-
-const toArray = val => {
-  if (!val) {
-    return [];
-  }
-  return castArray(val);
-};
+const { procedureCodes } = require('../../../../constants');
+const { toArray } = require('../../../../lib/utils');
 
 module.exports = {
   procedures: {

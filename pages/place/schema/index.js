@@ -1,13 +1,7 @@
-const { castArray, merge } = require('lodash');
-const { suitabilityCodes, holdingCodes } = require('@asl/constants');
+const { merge } = require('lodash');
+const { suitabilityCodes, holdingCodes } = require('../../../constants');
 const { getNacwos } = require('../../common/helpers');
-
-const toArray = val => {
-  if (!val) {
-    return [];
-  }
-  return castArray(val);
-};
+const { toArray } = require('../../../lib/utils');
 
 const baseSchema = {
   site: {

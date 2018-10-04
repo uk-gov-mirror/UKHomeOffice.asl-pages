@@ -23,7 +23,7 @@ module.exports = settings => {
       body: JSON.stringify(values)
     };
 
-    return req.api(`/pil/training`, opts)
+    return req.api(`/me/training`, opts)
       .then(() => {
         delete req.session.form[req.model.id];
         return next();

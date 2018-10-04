@@ -22,7 +22,7 @@ module.exports = {
     expiry: 'Expiry date',
     modules: 'Modules completed',
     exemption: 'Exempt from module',
-    exemptionReason: 'Reason for exemption'
+    reason: 'Reason for exemption'
   },
   actions: {
     add: 'Add',
