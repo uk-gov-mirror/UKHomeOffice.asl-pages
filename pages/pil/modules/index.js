@@ -1,7 +1,7 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { omit } = require('lodash');
+const { omit, pick } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -12,7 +12,10 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.post('/', (req, res, next) => {
-    const values = omit(req.session.form[req.model.id].values, 'exempt');
+    
+    const fields = ['certificate_number', 'accrediting_body', 'pass_date', 'modules'];
+    let values = omit(req.session.form[req.model.id].values, 'exempt');
+    values = pick(req.session.form[req.model.id].values, fields);
     values.profile_id = req.profile;
 
     values.modules = values.modules.map(module => ({ module, species: [] }));

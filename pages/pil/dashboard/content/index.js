@@ -24,6 +24,9 @@ module.exports = {
     exemption: 'Exempt from module',
     reason: 'Reason for exemption'
   },
+  procedure: {
+    categories: 'Procedure categories'
+  },
   actions: {
     add: 'Add',
     edit: 'Edit',

@@ -58,7 +58,7 @@ class TrainingData extends Component {
           <Link
             page="pil.training"
             establishment={ establishment.id }
-            pil={ pil }
+            pil={ pil.id }
             profile={profile.id}
             label={<Snippet>actions.add</Snippet>}
           />
