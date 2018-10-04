@@ -30,7 +30,7 @@
   "dependencies": {
     "@asl/constants": "^0.3.0",
     "@asl/dictionary": "^1.1.1",
-    "@asl/service": "^6.0.2",
+    "@asl/service": "^6.1.1",
     "@ukhomeoffice/frontend-toolkit": "^2.1.4",
     "@ukhomeoffice/react-components": "^0.2.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
