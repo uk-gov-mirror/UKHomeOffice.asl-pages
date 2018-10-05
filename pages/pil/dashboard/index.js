@@ -9,8 +9,7 @@ module.exports = settings => {
   });
 
   const profileOwnsModule = ({ trainingModules, exemptions }, moduleId) => {
-    let result = some(trainingModules.concat(exemptions), ['id', moduleId]);
-    return result;
+    return some(trainingModules.concat(exemptions), ['id', moduleId]);
   };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {

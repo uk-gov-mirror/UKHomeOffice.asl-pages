@@ -1,5 +1,5 @@
 const { merge } = require('lodash');
-const { suitabilityCodes, holdingCodes } = require('../../../constants');
+const { suitabilityCodes, holdingCodes } = require('@asl/constants');
 const { getNacwos } = require('../../common/helpers');
 const { toArray } = require('../../../lib/utils');
 
