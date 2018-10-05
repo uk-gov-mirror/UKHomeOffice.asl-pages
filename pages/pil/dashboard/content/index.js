@@ -20,7 +20,9 @@ module.exports = {
     accreditation: 'Accreditation body',
     awarded: 'Date awarded',
     expiry: 'Expiry date',
-    modules: 'Modules completed'
+    modules: 'Modules completed',
+    exemption: 'Exempt from module',
+    reason: 'Reason for exemption'
   },
   procedure: {
     categories: 'Procedure categories'

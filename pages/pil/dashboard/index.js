@@ -8,8 +8,8 @@ module.exports = settings => {
     root: __dirname
   });
 
-  const profileOwnsModule = (profile, moduleId) => {
-    return !!profile.trainingModules.find(module => module.id === moduleId);
+  const profileOwnsModule = ({ trainingModules, exemptions }, moduleId) => {
+    return [ ...trainingModules, ...exemptions ].some(m => m.id === moduleId);
   };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {

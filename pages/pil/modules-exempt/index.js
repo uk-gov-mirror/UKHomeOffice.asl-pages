@@ -1,7 +1,7 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { omit, pick } = require('lodash');
+const { omit } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -12,13 +12,10 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.post('/', (req, res, next) => {
-
-    const fields = ['certificate_number', 'accrediting_body', 'pass_date', 'modules'];
-    let values = omit(req.session.form[req.model.id].values, 'exempt');
-    values = pick(req.session.form[req.model.id].values, fields);
+    const values = omit(req.session.form[req.model.id].values, 'exempt');
     values.profile_id = req.profile;
-
     values.modules = values.modules.map(module => ({ module, species: [] }));
+    values.exemption = true;
 
     const opts = {
       method: 'POST',
@@ -26,7 +23,7 @@ module.exports = settings => {
       body: JSON.stringify(values)
     };
 
-    return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training`, opts)
+    return req.api(`/me/training`, opts)
       .then(() => {
         delete req.session.form[req.model.id];
         return next();
@@ -35,7 +32,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.originalUrl.replace(/\/modules/, ''));
+    return res.redirect(req.originalUrl.replace(/\/exemptions\/modules/, ''));
   });
 
   return app;

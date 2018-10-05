@@ -6,10 +6,10 @@ const Page = () => (
   <FormLayout>
     <header>
       <h1>
-        <Snippet>pil.modules.title</Snippet>
+        <Snippet>pil.exemptions.title</Snippet>
       </h1>
       <span className="govuk-hint">
-        <Snippet>pil.modules.hint</Snippet>
+        <Snippet>pil.exemptions.hint</Snippet>
       </span>
     </header>
   </FormLayout>

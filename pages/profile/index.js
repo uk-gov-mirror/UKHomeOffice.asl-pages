@@ -21,7 +21,10 @@ module.exports = () => {
     }
     return req.api(`/establishment/${req.establishment}/profile/${profile}`)
       .then(({ json: { data, meta } }) => {
-        req.model = cleanModel(data);
+        const model = cleanModel(data);
+        model.exemptions = model.trainingModules.filter(m => { return m.exemption; });
+        model.trainingModules = model.trainingModules.filter(m => { return !m.exemption; });
+        req.model = model;
         res.locals.static.establishment = meta.establishment;
         res.locals.model = req.model;
       })
