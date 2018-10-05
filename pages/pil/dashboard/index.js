@@ -1,6 +1,6 @@
 const page = require('../../../lib/page');
 const bodyParser = require('body-parser');
-const { some, has } = require('lodash');
+const { has } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -9,7 +9,7 @@ module.exports = settings => {
   });
 
   const profileOwnsModule = ({ trainingModules, exemptions }, moduleId) => {
-    return some(trainingModules.concat(exemptions), ['id', moduleId]);
+    return [ ...trainingModules, ...exemptions ].some(m => m.id === moduleId);
   };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
