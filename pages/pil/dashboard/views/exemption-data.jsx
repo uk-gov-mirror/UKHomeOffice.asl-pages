@@ -20,7 +20,7 @@ class ExemptionData extends Component {
                         exemption.modules.map((module, key) => (
                           <li key={key}>
                             {module.module}
-                            {module.exemption_description}
+                            {module.exemptionDescription}
                           </li>
                         ))
                       }

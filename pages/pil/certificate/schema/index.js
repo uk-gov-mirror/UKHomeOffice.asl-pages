@@ -2,13 +2,13 @@ const { accreditingBodies } = require('@asl/constants');
 const moment = require('moment');
 
 module.exports = {
-  certificate_number: {
+  certificateNumber: {
     inputType: 'inputText',
     validate: [
       'required'
     ]
   },
-  accrediting_body: {
+  accreditingBody: {
     inputType: 'select',
     options: accreditingBodies,
     accessor: 'id',
@@ -19,7 +19,7 @@ module.exports = {
       }
     ]
   },
-  pass_date: {
+  passDate: {
     inputType: 'dateInput',
     hint: 'For example, 20.08.1980',
     validate: [

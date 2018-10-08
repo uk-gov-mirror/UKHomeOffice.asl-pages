@@ -13,7 +13,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = omit(req.session.form[req.model.id].values, 'exempt');
-    values.profile_id = req.profile;
+    values.profileId = req.profile;
     values.modules = values.modules.map(module => ({ module, species: [] }));
     values.exemption = true;
 

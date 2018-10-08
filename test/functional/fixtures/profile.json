@@ -1,7 +1,7 @@
 {
   "name": "Leonard Martin",
   "id": "8a85de80-5f33-11e8-91cd-c7ceba8eb031",
-  "migrated_id": "elh_8201",
+  "migratedId": "elh_8201",
   "title": "Dr",
   "firstName": "Leonard",
   "lastName": "Martin",
@@ -35,7 +35,7 @@
   "trainingModules": [
     {
       "id": "2a96ed09-7281-4f14-b364-a7992683f32c",
-      "migrated_id": null,
+      "migratedId": null,
       "modules": [{
         "module": "L",
         "species": []
@@ -43,18 +43,18 @@
         "module": "E1",
         "species": []
     }],
-    "pass_date": null,
-    "not_applicable": false,
-    "accrediting_body": null,
-    "other_accrediting_body": null,
-    "certificate_number": null,
+    "passDate": null,
+    "notApplicable": false,
+    "accreditingBody": null,
+    "otherAccreditingBody": null,
+    "certificateNumber": null,
     "exemption": true,
-    "exemption_description": null,
-    "profile_id": "8a85de80-5f33-11e8-91cd-c7ceba8eb031"
+    "exemptionDescription": null,
+    "profileId": "8a85de80-5f33-11e8-91cd-c7ceba8eb031"
     },
     {
       "id": "10b1919e-1444-4aa4-9734-dcf4f4c83b3d",
-      "migrated_id": null,
+      "migratedId": null,
       "modules": [{
         "module": "L",
         "species": []
@@ -62,14 +62,14 @@
         "module": "E1",
         "species": []
     }],
-    "pass_date": null,
-    "not_applicable": false,
-    "accrediting_body": null,
-    "other_accrediting_body": null,
-    "certificate_number": null,
+    "passDate": null,
+    "notApplicable": false,
+    "accreditingBody": null,
+    "otherAccreditingBody": null,
+    "certificateNumber": null,
     "exemption": false,
-    "exemption_description": null,
-    "profile_id": "8a85de80-5f33-11e8-91cd-c7ceba8eb031"
+    "exemptionDescription": null,
+    "profileId": "8a85de80-5f33-11e8-91cd-c7ceba8eb031"
     }
   ]
 

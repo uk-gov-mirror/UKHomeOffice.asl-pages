@@ -192,7 +192,7 @@ const Index = ({
                                         <Fragment>{module.species}<br /></Fragment>
                                       )
                                     }
-                                    <Snippet date={formatDate(module.pass_date)}>training.dateCompleted</Snippet>
+                                    <Snippet date={formatDate(module.passDate)}>training.dateCompleted</Snippet>
                                   </dd>
                                 </Fragment>
                               )

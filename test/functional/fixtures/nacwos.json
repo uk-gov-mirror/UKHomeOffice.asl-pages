@@ -1,7 +1,7 @@
 [
    {
       "id": "e67d1e30-7089-11e8-b004-ed424b0c6bd8",
-      "migrated_id": "2404930",
+      "migratedId": "2404930",
       "type": "nacwo",
       "createdAt": "2018-06-15T10:50:21.459Z",
       "updatedAt": "2018-06-15T10:50:21.459Z",
@@ -10,7 +10,7 @@
       "profile": {
          "name": "Benjamin Patton",
          "id": "e67cd010-7089-11e8-b004-ed424b0c6bd8",
-         "migrated_id": "8201-Benjamin-Patton-null",
+         "migratedId": "8201-Benjamin-Patton-null",
          "title": "Mr",
          "firstName": "Benjamin",
          "lastName": "Patton",
@@ -31,7 +31,7 @@
    },
    {
       "id": "e67dba70-7089-11e8-b004-ed424b0c6bd8",
-      "migrated_id": "2404929",
+      "migratedId": "2404929",
       "type": "nacwo",
       "createdAt": "2018-06-15T10:50:21.463Z",
       "updatedAt": "2018-06-15T10:50:21.463Z",
@@ -40,7 +40,7 @@
       "profile": {
          "name": "Brian Proudfoot",
          "id": "e67d6c50-7089-11e8-b004-ed424b0c6bd8",
-         "migrated_id": "8201-Brian-Proudfoot-null",
+         "migratedId": "8201-Brian-Proudfoot-null",
          "title": "Mr",
          "firstName": "Brian",
          "lastName": "Proudfoot",
@@ -61,7 +61,7 @@
    },
    {
       "id": "e6800460-7089-11e8-b004-ed424b0c6bd8",
-      "migrated_id": "17841",
+      "migratedId": "17841",
       "type": "nacwo",
       "createdAt": "2018-06-15T10:50:21.478Z",
       "updatedAt": "2018-06-15T10:50:21.478Z",
@@ -70,7 +70,7 @@
       "profile": {
          "name": "John Sharp",
          "id": "e67fdd50-7089-11e8-b004-ed424b0c6bd8",
-         "migrated_id": "8201-John-Sharp-null",
+         "migratedId": "8201-John-Sharp-null",
          "title": "Mr",
          "firstName": "John",
          "lastName": "Sharp",
@@ -91,7 +91,7 @@
    },
    {
       "id": "e67c81f0-7089-11e8-b004-ed424b0c6bd8",
-      "migrated_id": "2404931",
+      "migratedId": "2404931",
       "type": "nacwo",
       "createdAt": "2018-06-15T10:50:21.455Z",
       "updatedAt": "2018-06-15T10:50:21.455Z",
@@ -100,7 +100,7 @@
       "profile": {
          "name": "Gareth Tindall",
          "id": "e67c33d0-7089-11e8-b004-ed424b0c6bd8",
-         "migrated_id": "8201-Gareth-Tindall-null",
+         "migratedId": "8201-Gareth-Tindall-null",
          "title": "Mr",
          "firstName": "Gareth",
          "lastName": "Tindall",
@@ -121,7 +121,7 @@
    },
    {
       "id": "e67f6820-7089-11e8-b004-ed424b0c6bd8",
-      "migrated_id": "17861",
+      "migratedId": "17861",
       "type": "nacwo",
       "createdAt": "2018-06-15T10:50:21.474Z",
       "updatedAt": "2018-06-15T10:50:21.474Z",
@@ -130,7 +130,7 @@
       "profile": {
          "name": "Megan Alberts",
          "id": "e67f1a00-7089-11e8-b004-ed424b0c6bd8",
-         "migrated_id": "8201-Megan-Alberts-null",
+         "migratedId": "8201-Megan-Alberts-null",
          "title": "Ms",
          "firstName": "Megan",
          "lastName": "Alberts",
@@ -151,7 +151,7 @@
    },
    {
       "id": "e67ecbe0-7089-11e8-b004-ed424b0c6bd8",
-      "migrated_id": "17871",
+      "migratedId": "17871",
       "type": "nacwo",
       "createdAt": "2018-06-15T10:50:21.470Z",
       "updatedAt": "2018-06-15T10:50:21.470Z",
@@ -160,7 +160,7 @@
       "profile": {
          "name": "Ian Ayers",
          "id": "e67ea4d0-7089-11e8-b004-ed424b0c6bd8",
-         "migrated_id": "8201-Ian-Ayers-null",
+         "migratedId": "8201-Ian-Ayers-null",
          "title": "Mr",
          "firstName": "Ian",
          "lastName": "Ayers",

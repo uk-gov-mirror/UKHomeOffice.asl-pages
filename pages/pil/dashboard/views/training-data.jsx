@@ -16,13 +16,13 @@ class TrainingData extends Component {
               <div className="govuk-grid-column-two-thirds">
                 <dl className="certificate">
                   <dt><Snippet>certificate.number</Snippet>:</dt>
-                  <dd>{certificate.certificate_number || nbsp}</dd>
+                  <dd>{certificate.certificateNumber || nbsp}</dd>
 
                   <dt><Snippet>certificate.accreditation</Snippet>:</dt>
-                  <dd>{certificate.accrediting_body || nbsp}</dd>
+                  <dd>{certificate.accreditingBody || nbsp}</dd>
 
                   <dt><Snippet>certificate.awarded</Snippet>:</dt>
-                  <dd>{certificate.pass_date || nbsp}</dd>
+                  <dd>{certificate.passDate || nbsp}</dd>
 
                   <dt><Snippet>certificate.modules</Snippet>:</dt>
                   <dd>

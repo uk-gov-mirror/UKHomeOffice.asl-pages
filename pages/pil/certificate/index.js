@@ -16,17 +16,17 @@ module.exports = settings => {
   app.use('/', form({
     schema,
     process: (req, res, next) => {
-      const day = req.body['pass_date-day'];
-      const month = req.body['pass_date-month'];
-      const year = req.body['pass_date-year'];
+      const day = req.body['passDate-day'];
+      const month = req.body['passDate-month'];
+      const year = req.body['passDate-year'];
 
       Object.assign(req.form.values, {
-        pass_date: `${year}-${month}-${day}`
+        passDate: `${year}-${month}-${day}`
       });
       next();
     },
     saveValues: (req, res, next) => {
-      req.session.form[req.model.id].values.pass_date = moment(req.form.values.pass_date, 'YYYY-MM-DD').format('YYYY-MM-DD');
+      req.session.form[req.model.id].values.passDate = moment(req.form.values.passDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
       next();
     }
   }));

@@ -1,6 +1,6 @@
 {
   "id": "e5bf4c70-7089-11e8-b004-ed424b0c6bd8",
-  "migrated_id": "2319874",
+  "migratedId": "2319874",
   "site": "2 Marsham Street",
   "area": null,
   "name": "1st Floor 20.15",
@@ -13,7 +13,7 @@
   "nacwoId": "e67d1e30-7089-11e8-b004-ed424b0c6bd8",
   "nacwo": {
      "id": "e67d1e30-7089-11e8-b004-ed424b0c6bd8",
-     "migrated_id": "2404930",
+     "migratedId": "2404930",
      "type": "nacwo",
      "createdAt": "2018-06-15T10:50:21.459Z",
      "updatedAt": "2018-06-15T10:50:21.459Z",
@@ -22,7 +22,7 @@
      "profile": {
         "name": "Benjamin Patton",
         "id": "e67cd010-7089-11e8-b004-ed424b0c6bd8",
-        "migrated_id": "8201-Benjamin-Patton-null",
+        "migratedId": "8201-Benjamin-Patton-null",
         "title": "Mr",
         "firstName": "Benjamin",
         "lastName": "Patton",

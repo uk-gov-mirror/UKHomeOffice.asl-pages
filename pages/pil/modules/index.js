@@ -13,10 +13,10 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
 
-    const fields = ['certificate_number', 'accrediting_body', 'pass_date', 'modules'];
+    const fields = ['certificateNumber', 'accreditingBody', 'passDate', 'modules'];
     let values = omit(req.session.form[req.model.id].values, 'exempt');
     values = pick(req.session.form[req.model.id].values, fields);
-    values.profile_id = req.profile;
+    values.profileId = req.profile;
 
     values.modules = values.modules.map(module => ({ module, species: [] }));
 

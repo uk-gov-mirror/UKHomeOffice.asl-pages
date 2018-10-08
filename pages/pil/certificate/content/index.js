@@ -1,12 +1,12 @@
 module.exports = {
   fields: {
-    certificate_number: {
+    certificateNumber: {
       label: 'Certificate number'
     },
-    accrediting_body: {
+    accreditingBody: {
       label: 'Accreditation body'
     },
-    pass_date: {
+    passDate: {
       label: 'Date awarded'
     }
   },
@@ -14,13 +14,13 @@ module.exports = {
     submit: 'Continue'
   },
   errors: {
-    certificate_number: {
+    certificateNumber: {
       required: 'You need to enter a certificate number'
     },
-    accrediting_body: {
+    accreditingBody: {
       required: 'You need to chose an accreditation body.'
     },
-    pass_date: {
+    passDate: {
       required: 'You need to enter the date when the certificate was awarded.',
       validDate: 'Date awarded must be a valid date',
       dateIsBefore: 'Date awarded must be in the past'
