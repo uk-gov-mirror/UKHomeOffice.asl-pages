@@ -2,7 +2,7 @@ module.exports = {
   fields: {
     procedures: {
       label: '',
-      hint: 'Select each category that you want your license to cover.'
+      hint: 'Select each category that you want your licence to cover.'
     }
   },
   errors: {

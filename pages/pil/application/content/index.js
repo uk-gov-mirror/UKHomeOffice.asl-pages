@@ -1,6 +1,6 @@
 module.exports = {
   pil: {
-    title: 'Apply for personal license - Categories A, B, C, D and F',
+    title: 'Apply for personal licence - Categories A, B, C, D and F',
     summary: 'Please complete all of the following sections.',
     details: {
       title: 'Your details'

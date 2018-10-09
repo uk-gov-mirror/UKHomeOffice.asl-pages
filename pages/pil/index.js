@@ -15,7 +15,7 @@ module.exports = () => {
     }
   });
 
-  app.use('/:pil', require('./dashboard')());
+  app.use('/:pil', require('./application')());
 
   app.get('/', require('./categories')());
 

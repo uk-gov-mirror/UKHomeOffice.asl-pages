@@ -3,7 +3,7 @@ const EXEMPT_OPTIONS = ['Yes', 'No'];
 module.exports = {
   fields: {
     modules: {
-      label: '[An example or examples of a module exemption]'
+      label: 'Exemptions from training modules will only be considered if your previous experience demonstrates that you have sufficient existing knowledge and the required level of competence.'
     },
     exempt: {
       label: ''
