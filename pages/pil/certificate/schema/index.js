@@ -11,7 +11,6 @@ module.exports = {
   accreditingBody: {
     inputType: 'select',
     options: accreditingBodies,
-    accessor: 'id',
     validate: [
       'required',
       {
