@@ -22,12 +22,10 @@ module.exports = settings => {
       }
 
       const opts = {
-        method: 'DELETE',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify({ id: trainingModuleId })
+        method: 'DELETE'
       };
 
-      return req.api(`/pil/training`, opts)
+      return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training/${trainingModuleId}`, opts)
         .then(() => res.redirect(req.originalUrl))
         .catch(next);
     }
