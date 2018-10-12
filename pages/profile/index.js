@@ -25,6 +25,10 @@ module.exports = () => {
         model.exemptions = model.trainingModules.filter(m => { return m.exemption; });
         model.trainingModules = model.trainingModules.filter(m => { return !m.exemption; });
         req.model = model;
+
+        // todo: save profile object to req.profile and replace uses of req.profile with req.profile.id
+        req.profileData = model;
+
         res.locals.static.establishment = meta.establishment;
         res.locals.model = req.model;
       })

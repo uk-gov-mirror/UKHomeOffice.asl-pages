@@ -1,6 +1,5 @@
 const page = require('../../../lib/page');
 const bodyParser = require('body-parser');
-const { has } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -33,18 +32,9 @@ module.exports = settings => {
   });
 
   app.use('/', (req, res, next) => {
-    const establishment = req.user.profile.establishments.find(e => e.id === req.establishment);
-    res.locals.static.establishment = establishment;
-    res.locals.static.profile = res.locals.model;
-
-    res.locals.static.pil = {
-      id: 'create',
-      // this will change once we have a data model for the procedures
-      procedures: has(req, `session.form.${req.model.id}.values.procedures`)
-        ? req.session.form[req.model.id].values.procedures
-        : []
-    };
-
+    req.model.procedures = req.model.procedures || [];
+    res.locals.model = req.model;
+    res.locals.static.pil = req.model;
     next();
   });
 
