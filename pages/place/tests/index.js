@@ -233,10 +233,10 @@ describe('Place', () => {
 
     it('toggles textarea for editing restrictions using conditional reveal', () => {
       browser.url('/pages/place/an-id/edit');
-      const restrictions = browser.$('[name="restrictions"]');
+      const restrictions = browser.$('[name="changesToRestrictions"]');
       assert(restrictions.isExisting());
       assert(!restrictions.isVisible());
-      browser.$('[name="conditional-reveal-restrictions"][value="true"]').click();
+      browser.$('[name="conditional-reveal-changesToRestrictions"][value="true"]').click();
       assert(restrictions.isVisible());
     });
 
@@ -248,7 +248,7 @@ describe('Place', () => {
     it('persists conditional reveal state if a validation error is thrown', () => {
       browser.url('/pages/place/an-id/edit');
       browser.$('[name="suitability"][value="SA"]').click();
-      const trueRadio = browser.$('[name="conditional-reveal-restrictions"][value="true"]');
+      const trueRadio = browser.$('[name="conditional-reveal-changesToRestrictions"][value="true"]');
       trueRadio.click();
       submitForm(browser);
       assert(browser.$('.govuk-error-summary').isVisible());
@@ -257,10 +257,10 @@ describe('Place', () => {
 
     it('throws a validation error if user chooses to amend restrictions but doesn\'t add any content', () => {
       browser.url('/pages/place/an-id/edit');
-      const trueRadio = browser.$('[name="conditional-reveal-restrictions"][value="true"]');
+      const trueRadio = browser.$('[name="conditional-reveal-changesToRestrictions"][value="true"]');
       trueRadio.click();
       submitForm(browser);
-      assert(browser.$('.govuk-error-summary').$('#restrictions').isExisting())
+      assert(browser.$('.govuk-error-summary').$('#changesToRestrictions').isExisting())
     });
 
     it('redirects you to the confirm page if changes have been made', () => {
