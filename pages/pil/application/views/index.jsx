@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
+import ApplicationConfirm from '../../../common/views/components/application-confirm';
 import TrainingData from './training-data';
 import ExemptionData from './exemption-data';
 import ProcedureData from './procedure-data';
@@ -27,6 +28,8 @@ const Index = ({ establishment, profile, pil }) => {
     }
   ];
 
+  const applicationComplete = sections.every(section => section.completed);
+
   return (
     <Fragment>
       <header>
@@ -35,13 +38,13 @@ const Index = ({ establishment, profile, pil }) => {
         <p><Snippet>pil.summary</Snippet></p>
       </header>
       <div className="govuk-grid-row">
-        <div className="govuk-grid-column-three-quarters">
+        <div className="govuk-grid-column-two-thirds">
           <ul className="pil-sections">
             {
               sections.map(section => (
                 <li key={section.name} className="section">
                   <div className="govuk-grid-row">
-                    <div className="govuk-grid-column-two-thirds">
+                    <div className="govuk-grid-column-three-quarters">
                       <h3>
                         <Link
                           className="section-link"
@@ -53,7 +56,7 @@ const Index = ({ establishment, profile, pil }) => {
                         />
                       </h3>
                     </div>
-                    <div className="govuk-grid-column-one-third">
+                    <div className="govuk-grid-column-one-quarter">
                       { section.completed && <label className="status-label completed">Completed</label> }
                     </div>
                   </div>
@@ -70,6 +73,9 @@ const Index = ({ establishment, profile, pil }) => {
               ))
             }
           </ul>
+          {
+            applicationComplete && <ApplicationConfirm />
+          }
         </div>
       </div>
     </Fragment>

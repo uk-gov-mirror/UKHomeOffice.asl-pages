@@ -14,13 +14,13 @@ class ProcedureData extends Component {
         {
           hasProcedures(pil) &&
           <div className="govuk-grid-row section-data">
-            <div className="govuk-grid-column-two-thirds">
+            <div className="govuk-grid-column-three-quarters">
               <dl className="procedure">
                 <dt><Snippet>procedure.categories</Snippet>:</dt>
                 <dd>{ pil.procedures.join(', ') }</dd>
               </dl>
             </div>
-            <div className="govuk-grid-column-one-third">
+            <div className="govuk-grid-column-one-quarter">
               <ul className="actions">
                 <li>
                   <Link

@@ -157,6 +157,7 @@ th {
 
   ul.pil-sections {
     list-style: none;
+    margin-bottom: $govuk-gutter;
 
     li.section {
       padding: $govuk-gutter-half 0;
@@ -212,7 +213,7 @@ th {
     border-left: 8px solid govuk-colour('grey-2');
     margin: $govuk-gutter-half 0;
 
-    &>.govuk-grid-column-one-third {
+    &>.govuk-grid-column-one-quarter {
       padding-right: 0;
     }
 
@@ -261,6 +262,21 @@ th {
 
     .accordion {
       margin-top: $govuk-gutter;
+    }
+  }
+
+  .application-confirm {
+    border: 3px solid govuk-colour('grey-2');
+    background-color: $white;
+    padding: $govuk-gutter;
+
+    .govuk-form-group:last-child,
+    .govuk-button:last-child {
+      margin-bottom: 0;
+    }
+
+    .govuk-label.govuk-checkboxes__label {
+      font-weight: normal;
     }
   }
 }

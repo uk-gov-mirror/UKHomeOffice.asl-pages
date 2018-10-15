@@ -13,6 +13,12 @@ module.exports = {
     },
     procedures: {
       title: 'Procedure categories'
+    },
+    confirm: {
+      title: 'Please confirm that you understand',
+      summary: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
+        1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
+        provide information which you know to be false or misleading.`
     }
   },
   certificate: {
@@ -30,6 +36,7 @@ module.exports = {
   actions: {
     add: 'Add',
     edit: 'Edit',
-    remove: 'Remove'
+    remove: 'Remove',
+    submit: 'Submit to NTCO'
   }
 };

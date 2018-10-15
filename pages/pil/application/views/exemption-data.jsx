@@ -11,7 +11,7 @@ class ExemptionData extends Component {
         {
           profile.exemptions && profile.exemptions.map(exemption => (
             <div key={exemption.hash} className="govuk-grid-row section-data">
-              <div className="govuk-grid-column-two-thirds">
+              <div className="govuk-grid-column-three-quarters">
                 <dl className="exemption">
                   <dt><Snippet>certificate.exemption</Snippet>:</dt>
                   <dd>
@@ -28,7 +28,7 @@ class ExemptionData extends Component {
                   </dd>
                 </dl>
               </div>
-              <div className="govuk-grid-column-one-third">
+              <div className="govuk-grid-column-one-quarter">
                 <ul className="actions">
                   <li>
                     <form method="POST" noValidate>

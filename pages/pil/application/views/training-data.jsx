@@ -13,7 +13,7 @@ class TrainingData extends Component {
         {
           profile.trainingModules && profile.trainingModules.map(certificate => (
             <div key={certificate.hash} className="govuk-grid-row section-data">
-              <div className="govuk-grid-column-two-thirds">
+              <div className="govuk-grid-column-three-quarters">
                 <dl className="certificate">
                   <dt><Snippet>certificate.number</Snippet>:</dt>
                   <dd>{certificate.certificateNumber || nbsp}</dd>
@@ -39,7 +39,7 @@ class TrainingData extends Component {
                   </dd>
                 </dl>
               </div>
-              <div className="govuk-grid-column-one-third">
+              <div className="govuk-grid-column-one-quarter">
                 <ul className="actions">
                   <li>
                     <form method="POST" noValidate>
