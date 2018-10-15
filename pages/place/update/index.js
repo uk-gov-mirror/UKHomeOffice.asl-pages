@@ -19,7 +19,7 @@ module.exports = settings => {
         inputType: 'text',
         editable: false
       },
-      restrictions: {
+      changesToRestrictions: {
         inputType: 'textarea',
         conditionalReveal: true,
         validate: ['required']
@@ -37,11 +37,23 @@ module.exports = settings => {
   app.use('/confirm', confirm());
 
   app.post('/confirm', (req, res, next) => {
-    const values = omit(req.session.form[req.model.id].values, 'declaration');
+    const values = omit(req.session.form[req.model.id].values, ['declaration', 'conditional-reveal-changesToRestrictions']);
+    const {
+      changesToRestrictions,
+      comments
+    } = values;
+    const params = {
+      data: omit(values, ['changesToRestrictions', 'comments']),
+      meta: {
+        changesToRestrictions,
+        comments
+      }
+    };
+
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
+      body: JSON.stringify(params)
     };
     return req.api(`/establishment/${req.establishment}/place/${req.model.id}`, opts)
       .then(() => next())

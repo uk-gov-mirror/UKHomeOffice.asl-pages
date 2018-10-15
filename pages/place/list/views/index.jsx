@@ -40,7 +40,7 @@ const ExpandableRow = ({ row, schema }) => (
     {
       row.notes && (
         <div className="govuk-grid-column-two-thirds">
-          <h3>{<Snippet>fields.restrictions.label</Snippet>}</h3>
+          <h3>{<Snippet>fields.changesToRestrictions.label</Snippet>}</h3>
           <ReactMarkdown>{row.notes}</ReactMarkdown>
         </div>
       )
