@@ -12,9 +12,8 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.post('/', (req, res, next) => {
-
     const fields = ['certificateNumber', 'accreditingBody', 'passDate', 'modules'];
-    let values = omit(req.session.form[req.model.id].values, 'exempt');
+    let values = omit(req.form.values, 'exempt');
     values = pick(req.session.form[req.model.id].values, fields);
     values.profileId = req.profile;
 
@@ -35,7 +34,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.originalUrl.replace(/\/modules/, ''));
+    return res.redirect(req.originalUrl.replace(/\/training\/modules/, ''));
   });
 
   return app;
