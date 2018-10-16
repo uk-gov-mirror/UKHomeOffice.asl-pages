@@ -5,7 +5,10 @@ const { toArray } = require('../../../../lib/utils');
 const procedureOptions = procedureCodes.map(code => (
   {
     label: code + '. ' + procedureDefinitions[code],
-    value: code
+    value: code,
+    reveal: code === 'D' || code === 'F'
+      ? { notes: { inputType: 'textarea' } }
+      : null
   }
 ));
 

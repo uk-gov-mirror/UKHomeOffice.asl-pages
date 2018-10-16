@@ -1,3 +1,4 @@
+const { pick } = require('lodash');
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -8,15 +9,24 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use('/', form({ schema }));
+  app.use('/', form({
+    schema: {
+      ...schema,
+      notesCatD: {},
+      notesCatF: {}
+    },
+    locals: (req, res, next) => {
+      res.locals.static.schema = schema;
+      next();
+    }
+  }));
 
   app.post('/', (req, res, next) => {
-    const procedures = req.session.form[req.model.id].values.procedures;
 
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify({ procedures })
+      body: JSON.stringify(pick(req.form.values, 'procedures', 'notesCatD', 'notesCatF'))
     };
 
     return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/pil/${req.model.id}`, opts)
