@@ -62,6 +62,7 @@ class Fieldset extends Component {
         {
           map(schema, ({ inputType, label, conditionalReveal, showIf, accessor, format, ...props }, key) => {
             const value = accessor ? get(values[key], accessor) : (values[key] || '');
+            console.log(inputType);
             const field = fields[inputType]({
               key,
               value: format ? format(value) : value,

@@ -12,52 +12,57 @@ class ProcedureData extends Component {
     return (
       <Fragment>
         {
-          hasProcedures(pil) &&
-          <div className="govuk-grid-row section-data">
-            <div className="govuk-grid-column-three-quarters">
-              <dl className="procedure">
-                <dt><Snippet>procedure.categories</Snippet>:</dt>
-                <dd>{ pil.procedures.join(', ') }</dd>
-              </dl>
-            </div>
-            <div className="govuk-grid-column-one-quarter">
-              <ul className="actions">
-                <li>
-                  <Link
-                    page="pil.procedures"
-                    establishment={ establishment.id }
-                    pil={ pil.id }
-                    profile={profile.id}
-                    label={<Snippet>actions.edit</Snippet>}
-                  />
-                </li>
-                <li>
-                  <Link
+          hasProcedures(pil) && pil.procedures.map(procedure => (
+              <div className="govuk-grid-row section-data">
+                <div className="govuk-grid-column-three-quarters">
+                  <dl className="procedure">
+                    <dt><Snippet>procedure.category</Snippet>:</dt>
+                    <dd>{ procedure }</dd>
+
+                    {
+                      procedure === 'D' && (
+                        <Fragment>
+                          <dt><Snippet>procedure.catDLabel</Snippet></dt>
+                          <dd>{pil.notesCatD}</dd>
+                        </Fragment>
+                      )
+                    }
+                    {
+                      procedure === 'F' && (
+                        <Fragment>
+                          <dt><Snippet>procedure.catFLabel</Snippet></dt>
+                          <dd>{pil.notesCatF}</dd>
+                        </Fragment>
+                      )
+                    }
+                  </dl>
+                </div>
+                <div className="govuk-grid-column-one-quarter">
+                <Link
                     page="pil.procedures"
                     establishment={ establishment.id }
                     pil={ pil.id }
                     profile={profile.id}
                     label={<Snippet>actions.remove</Snippet>}
                   />
-                </li>
-              </ul>
-            </div>
-          </div>
+                </div>
+              </div>
+            )
+          )
         }
         {
           hasProcedures(pil) &&
-          <Link
-            page="pil.procedures"
-            establishment={ establishment.id }
-            pil={ pil.id }
-            profile={profile.id}
-            label={<Snippet>actions.add</Snippet>}
-          />
+            <Link
+              page="pil.procedures"
+              establishment={ establishment.id }
+              pil={ pil.id }
+              profile={profile.id}
+              label={<Snippet>actions.edit</Snippet>}
+            />
         }
       </Fragment>
-    );
+    )
   }
-
 }
 
 export default ProcedureData;

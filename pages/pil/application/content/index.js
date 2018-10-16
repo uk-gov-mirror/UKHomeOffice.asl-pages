@@ -31,7 +31,9 @@ module.exports = {
     reason: 'Reason for exemption'
   },
   procedure: {
-    categories: 'Procedure categories'
+    category: 'Procedure category',
+    catDLabel: 'Evidence of competency',
+    catFLabel: 'Type of regulated procedure'
   },
   actions: {
     add: 'Add',
