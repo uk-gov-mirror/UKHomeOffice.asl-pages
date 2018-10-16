@@ -14,18 +14,10 @@ class ExemptionData extends Component {
               <div className="govuk-grid-column-three-quarters">
                 <dl className="exemption">
                   <dt><Snippet>certificate.exemption</Snippet>:</dt>
-                  <dd>
-                    <ul className="modules">
-                      {
-                        exemption.modules.map((module, key) => (
-                          <li key={key}>
-                            {module.module}
-                            {module.exemptionDescription}
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </dd>
+                  <dd>{ exemption.modules[0].module }</dd>
+
+                  <dt><Snippet>certificate.reason</Snippet></dt>
+                  <dd>{ exemption.exemptionDescription }</dd>
                 </dl>
               </div>
               <div className="govuk-grid-column-one-quarter">
@@ -49,7 +41,7 @@ class ExemptionData extends Component {
             establishment={ establishment.id }
             pil={ pil }
             profile={profile.id}
-            label={<Snippet>actions.add</Snippet>}
+            label={<Snippet>{profile.exemptions.length ? 'actions.edit' : 'actions.add'}</Snippet>}
           />
         }
       </Fragment>
