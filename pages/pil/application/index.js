@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 module.exports = settings => {
   const app = page({
     ...settings,
-    root: __dirname
+    root: __dirname,
+    paths: ['/success']
   });
 
   const profileOwnsModule = ({ trainingModules, exemptions }, moduleId) => {
@@ -12,6 +13,10 @@ module.exports = settings => {
   };
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
+    if (req.body.action === 'submit-pil-application') {
+      return res.redirect(req.originalUrl + '/success');
+    }
+
     if (req.body.action === 'delete' && req.body.trainingModuleId) {
       const profile = res.locals.model;
       const trainingModuleId = req.body.trainingModuleId;

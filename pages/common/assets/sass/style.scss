@@ -279,6 +279,55 @@ th {
       font-weight: normal;
     }
   }
+
+  .govuk-panel {
+    padding: 2*$govuk-gutter $govuk-gutter;
+    color: $white;
+    text-align: center;
+
+    .govuk-panel__title {
+      @extend .govuk-heading-l;
+      color: $white;
+    }
+
+    .govuk-panel__body{
+      color: $white;
+      margin: 2*$govuk-gutter 0;
+    }
+
+    &.govuk-panel--confirmation {
+      background-color: $green;
+    }
+
+    .pil-progress {
+      list-style: none;
+      overflow: auto;
+
+      li {
+        display: block;
+        float: left;
+        width: 29%;
+        margin: 0 10px;
+        padding: 6px 0;
+        border-bottom: 3px solid $white;
+        opacity: 0.5;
+        text-align: left;
+        font-weight: bold;
+
+        &.complete {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .what-next {
+    margin: $govuk-gutter 0;
+
+    p {
+      font-weight: bold;
+    }
+  }
 }
 
 dl.inline {

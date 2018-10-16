@@ -37,6 +37,7 @@ class ApplicationConfirm extends Component {
             this.state.checked &&
               <div className="govuk-form-group">
                 <button type="submit" className="govuk-button"><Snippet>actions.submit</Snippet></button>
+                <input type="hidden" name="action" value="submit-pil-application" />
               </div>
           }
         </form>
