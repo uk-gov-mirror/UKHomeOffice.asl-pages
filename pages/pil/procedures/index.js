@@ -10,8 +10,8 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    next()
-  })
+    next();
+  });
 
   app.use('/', form({
     schema: {
