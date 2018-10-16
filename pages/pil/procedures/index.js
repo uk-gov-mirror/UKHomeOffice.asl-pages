@@ -9,10 +9,6 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use((req, res, next) => {
-    next();
-  });
-
   app.use('/', form({
     schema: {
       ...schema,
