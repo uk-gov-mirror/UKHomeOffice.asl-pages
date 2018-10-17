@@ -1,50 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Form from '../containers/form';
 import Snippet from '../containers/snippet';
 
-class ApplicationConfirm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { checked: false };
-    this.confirm = this.confirm.bind(this);
+const formatters = {
+  declaration: {
+    mapOptions: option => {
+      return {
+        ...option,
+        reveal: (
+          <button type="submit" className="govuk-button"><Snippet>actions.submit</Snippet></button>
+        )
+      };
+    }
   }
+};
 
-  confirm(e) {
-    this.setState({checked: !this.state.checked});
-  }
-
-  render() {
-    return (
-      <div className="application-confirm">
-        <h2><Snippet>pil.confirm.title</Snippet></h2>
-        <form method="POST" noValidate>
-          <div className="govuk-form-group">
-            <div className="govuk-checkboxes">
-              <div className="govuk-checkboxes__item">
-                <input
-                  type="checkbox"
-                  className="govuk-checkboxes__input"
-                  id="pil-application-confirm"
-                  onChange={this.confirm}
-                  checked={this.state.checked}
-                />
-                <label htmlFor="pil-application-confirm" className="govuk-label govuk-checkboxes__label">
-                  <Snippet>pil.confirm.summary</Snippet>
-                </label>
-              </div>
-            </div>
-          </div>
-          {
-            this.state.checked &&
-              <div className="govuk-form-group">
-                <button type="submit" className="govuk-button"><Snippet>actions.submit</Snippet></button>
-                <input type="hidden" name="action" value="submit-pil-application" />
-              </div>
-          }
-        </form>
-      </div>
-    );
-  }
-
-}
-
-export default ApplicationConfirm;
+export default () => (
+  <Form
+    formatters={formatters}
+    className="application-confirm"
+    model={{
+      declaration: []
+    }}
+    submit={false}
+  >
+    <input type="hidden" name="action" value="submit-pil-application" />
+  </Form>
+);

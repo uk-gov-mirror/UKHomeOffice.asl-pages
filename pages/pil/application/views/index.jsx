@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
 import ApplicationConfirm from '../../../common/views/components/application-confirm';
+import ErrorSummary from '../../../common/views/containers/error-summary';
 import TrainingData from './training-data';
 import ExemptionData from './exemption-data';
 import ProcedureData from './procedure-data';
-import { connect } from 'react-redux';
 
 const Index = ({ establishment, profile, pil, skipExemptions }) => {
 
@@ -32,6 +33,11 @@ const Index = ({ establishment, profile, pil, skipExemptions }) => {
 
   return (
     <Fragment>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <ErrorSummary />
+        </div>
+      </div>
       <header>
         <h2>{establishment.name}</h2>
         <h1><Snippet>pil.title</Snippet></h1>

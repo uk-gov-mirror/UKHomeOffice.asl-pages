@@ -13,9 +13,9 @@ const extendSchema = (field, formatter) => {
   };
 };
 
-const mapStateToProps = ({ static: { schema, errors, csrfToken }, model }, { formatters = {} }) => {
+const mapStateToProps = ({ static: { schema, errors, csrfToken }, model }, { formatters = {}, model: ownModel }) => {
   return {
-    model,
+    model: ownModel || model,
     errors,
     csrfToken,
     schema: mapValues(schema, (field, key) => extendSchema(field, formatters[key]))

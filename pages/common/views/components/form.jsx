@@ -4,12 +4,18 @@ import Fieldset from './fieldset';
 
 const Form = ({
   csrfToken,
+  className,
+  submit = true,
+  children,
   ...props
 }) => {
-  return <form method="POST" noValidate>
+  return <form method="POST" noValidate className={className}>
     <Fieldset { ...props } />
     <input type="hidden" name="_csrf" value={csrfToken} />
-    <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
+    { children }
+    {
+      submit && <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
+    }
   </form>;
 };
 

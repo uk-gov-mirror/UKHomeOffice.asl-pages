@@ -1,6 +1,8 @@
-const page = require('../../../lib/page');
 const bodyParser = require('body-parser');
 const { get } = require('lodash');
+const page = require('../../../lib/page');
+const form = require('../../common/routers/form');
+const schema = require('./schema');
 
 module.exports = settings => {
   const app = page({
@@ -8,6 +10,16 @@ module.exports = settings => {
     root: __dirname,
     paths: ['/success']
   });
+
+  app.use(form({
+    schema,
+    validate: (req, res, next) => {
+      if (!req.model.procedures.length) {
+        return next({ validation: { form: 'incomplete' } });
+      }
+      next();
+    }
+  }));
 
   const profileOwnsModule = ({ trainingModules, exemptions }, moduleId) => {
     return [ ...trainingModules, ...exemptions ].some(m => m.id === moduleId);
