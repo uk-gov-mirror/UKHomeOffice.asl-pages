@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { cleanModel } = require('../../lib/utils');
+const { routeBuilder } = require('../../lib/middleware');
 
 const createNewPilApplication = (req, res, next) => {
   const opts = {
@@ -19,6 +20,8 @@ const profileHasPil = profile => !!profile.pil;
 module.exports = () => {
   const app = Router();
 
+  app.use(routeBuilder());
+
   app.use('/', (req, res, next) => {
     res.locals.static.establishment = req.user.profile.establishments.find(e => e.id === req.establishmentId);
     res.locals.static.profile = req.model;
@@ -27,8 +30,8 @@ module.exports = () => {
 
   app.param('pil', (req, res, next, pilId) => {
     if (pilId === 'create') {
-      return profileHasPil(req.profile)
-        ? res.redirect(req.originalUrl.replace('create', req.profile.pil.id))
+      return profileHasPil(req.profileData)
+        ? res.redirect(req.buildRoute('pil.dashboard', {pil: req.profileData.pil.id}))
         : createNewPilApplication(req, res, next);
     }
 
