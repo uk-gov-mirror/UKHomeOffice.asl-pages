@@ -31,7 +31,7 @@
     "@asl/constants": "^0.3.0",
     "@asl/dictionary": "^1.1.1",
     "@asl/service": "^6.1.5",
-    "@ukhomeoffice/frontend-toolkit": "^2.2.1",
+    "@ukhomeoffice/frontend-toolkit": "^2.2.2",
     "@ukhomeoffice/react-components": "^0.3.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
