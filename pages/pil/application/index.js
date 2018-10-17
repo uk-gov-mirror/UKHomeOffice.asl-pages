@@ -43,6 +43,7 @@ module.exports = settings => {
     req.model.procedures = req.model.procedures || [];
     res.locals.model = req.model;
     res.locals.static.pil = req.model;
+    res.locals.static.skipExemptions = req.session.skipExemptions;
 
     // for now, if we've already submitted a pil for this profile, just show the success page
     if (req.model.submittedAt && !req.originalUrl.includes('success')) {

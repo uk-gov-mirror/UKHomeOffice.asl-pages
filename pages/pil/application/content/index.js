@@ -30,6 +30,9 @@ module.exports = {
     exemption: 'Exempt from module',
     reason: 'Reason for exemption'
   },
+  exemption: {
+    skipped: 'No exemptions provided.'
+  },
   procedure: {
     category: 'Procedure category',
     catDLabel: 'Evidence of competency',

@@ -13,8 +13,10 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
 
     if (req.body.exempt === 'Yes') {
+      req.session.skipExemptions = false;
       return res.redirect(req.originalUrl.concat('/modules'));
     } else {
+      req.session.skipExemptions = true;
       return res.redirect(req.originalUrl.replace(/\/exemptions/, ''));
     }
 

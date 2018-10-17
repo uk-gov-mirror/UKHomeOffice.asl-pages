@@ -7,7 +7,7 @@ import ExemptionData from './exemption-data';
 import ProcedureData from './procedure-data';
 import { connect } from 'react-redux';
 
-const Index = ({ establishment, profile, pil }) => {
+const Index = ({ establishment, profile, pil, skipExemptions }) => {
 
   const sections = [
     {
@@ -20,7 +20,7 @@ const Index = ({ establishment, profile, pil }) => {
     },
     {
       name: 'exemptions',
-      completed: profile.exemptions.length > 0
+      completed: profile.exemptions.length > 0 || skipExemptions
     },
     {
       name: 'procedures',
@@ -64,7 +64,7 @@ const Index = ({ establishment, profile, pil }) => {
                     <TrainingData establishment={establishment} profile={profile} pil={pil} />
                   }
                   { section.name === 'exemptions' &&
-                    <ExemptionData establishment={establishment.id} profile={profile} pil={pil.id} />
+                    <ExemptionData establishment={establishment.id} profile={profile} pil={pil.id} skipExemptions={skipExemptions} />
                   }
                   { section.name === 'procedures' &&
                     <ProcedureData establishment={establishment} profile={profile} pil={pil} />
@@ -82,6 +82,8 @@ const Index = ({ establishment, profile, pil }) => {
   );
 };
 
-const mapStateToProps = ({ static: { establishment, profile, pil } }) => ({ establishment, profile, pil });
+const mapStateToProps = ({ static: { establishment, profile, pil, skipExemptions } }) => (
+  { establishment, profile, pil, skipExemptions }
+);
 
 export default connect(mapStateToProps)(Index);
