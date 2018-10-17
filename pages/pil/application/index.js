@@ -1,5 +1,6 @@
 const page = require('../../../lib/page');
 const bodyParser = require('body-parser');
+const { get } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -43,6 +44,7 @@ module.exports = settings => {
     req.model.procedures = req.model.procedures || [];
     res.locals.model = req.model;
     res.locals.static.pil = req.model;
+    res.locals.static.skipExemptions = get(req.session, `${req.profile}.skipExemptions`, false);
 
     // for now, if we've already submitted a pil for this profile, just show the success page
     if (req.model.submittedAt && !req.originalUrl.includes('success')) {
