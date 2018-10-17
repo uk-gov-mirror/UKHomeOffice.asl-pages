@@ -14,7 +14,12 @@ module.exports = settings => {
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
     if (req.body.action === 'submit-pil-application') {
-      return res.redirect(req.originalUrl + '/success');
+      const pilId = req.profileData.pil.id;
+      const opts = { method: 'PUT', json: { submittedAt: new Date() } };
+
+      return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/pil/${pilId}`, opts)
+        .then(() => res.redirect(req.originalUrl + '/success'))
+        .catch(next);
     }
 
     if (req.body.action === 'delete' && req.body.trainingModuleId) {
@@ -25,9 +30,7 @@ module.exports = settings => {
         throw new Error('cannot delete training modules the profile does not own');
       }
 
-      const opts = {
-        method: 'DELETE'
-      };
+      const opts = { method: 'DELETE' };
 
       return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training/${trainingModuleId}`, opts)
         .then(() => res.redirect(req.originalUrl))
@@ -40,6 +43,12 @@ module.exports = settings => {
     req.model.procedures = req.model.procedures || [];
     res.locals.model = req.model;
     res.locals.static.pil = req.model;
+
+    // for now, if we've already submitted a pil for this profile, just show the success page
+    if (req.model.submittedAt && !req.originalUrl.includes('success')) {
+      return res.redirect(req.originalUrl + '/success');
+    }
+
     next();
   });
 

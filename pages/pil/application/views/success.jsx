@@ -33,7 +33,7 @@ const Success = ({ profile }) => (
 
         <Snippet>pil.submitted.body</Snippet>
 
-        <Link href="/" label={<Snippet>pil.submitted.homepage</Snippet>} />
+        <Link page="profile.view" profile={profile.id} label={<Snippet>pil.submitted.homepage</Snippet>} />
 
       </div>
     </div>

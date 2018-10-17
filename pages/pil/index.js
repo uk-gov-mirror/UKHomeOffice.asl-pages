@@ -3,8 +3,7 @@ const { cleanModel } = require('../../lib/utils');
 
 const createNewPilApplication = (req, res, next) => {
   const opts = {
-    method: 'POST',
-    headers: { 'Content-type': 'application/json' }
+    method: 'POST'
     // no body (we just want a blank pil returned with a new id)
   };
 
@@ -23,7 +22,7 @@ module.exports = () => {
   app.use('/', (req, res, next) => {
     res.locals.static.establishment = req.user.profile.establishments.find(e => e.id === req.establishment);
     res.locals.static.profile = req.model;
-    return next();
+    next();
   });
 
   app.param('pil', (req, res, next, pilId) => {

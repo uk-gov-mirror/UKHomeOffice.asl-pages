@@ -38,13 +38,17 @@ class ProcedureData extends Component {
                 </dl>
               </div>
               <div className="govuk-grid-column-one-quarter">
-                <Link
-                  page="pil.procedures"
-                  establishment={ establishment.id }
-                  pil={ pil.id }
-                  profile={profile.id}
-                  label={<Snippet>actions.remove</Snippet>}
-                />
+                <ul className="actions">
+                  <li>
+                    <Link
+                      page="pil.procedures"
+                      establishment={ establishment.id }
+                      pil={ pil.id }
+                      profile={profile.id}
+                      label={<Snippet>actions.remove</Snippet>}
+                    />
+                  </li>
+                </ul>
               </div>
             </div>
           )

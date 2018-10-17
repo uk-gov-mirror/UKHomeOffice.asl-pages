@@ -61,13 +61,13 @@ const Index = ({ establishment, profile, pil }) => {
                     </div>
                   </div>
                   { section.name === 'training' &&
-                    <TrainingData establishment={ establishment } pil={ pil } profile={profile} />
-                  }
-                  { section.name === 'procedures' &&
-                    <ProcedureData establishment={ establishment } pil={ pil } profile={profile} />
+                    <TrainingData establishment={establishment} profile={profile} pil={pil} />
                   }
                   { section.name === 'exemptions' &&
-                    <ExemptionData establishment={ establishment.id } pil={ pil.id } profile={profile} />
+                    <ExemptionData establishment={establishment.id} profile={profile} pil={pil.id} />
+                  }
+                  { section.name === 'procedures' &&
+                    <ProcedureData establishment={establishment} profile={profile} pil={pil} />
                   }
                 </li>
               ))
