@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 class StatusBar extends Component {
   render() {
@@ -7,13 +7,14 @@ class StatusBar extends Component {
       logoutLink = '/logout',
       logoutLabel = 'Sign Out'
     } = this.props;
-    const profile = user.profile || {
-      name: 'Unknown user'
-    };
     return (
       <div className="status-bar">
-        <span><a href="/profile">{profile.name}</a></span>
-        |
+        { user.profile && (
+          <Fragment>
+            <span><a href="/profile">{user.profile.name}</a></span>
+            |
+          </Fragment>
+        )}
         <span><a href={logoutLink}>{logoutLabel}</a></span>
       </div>
     );
