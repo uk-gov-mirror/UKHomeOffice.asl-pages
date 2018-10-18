@@ -81,6 +81,7 @@ class Fieldset extends Component {
             if (conditionalReveal) {
               return (
                 <ConditionalReveal
+                  key={key}
                   fieldName={key}
                   value={values[`conditional-reveal-${key}`]}
                   label={<Snippet>{`fields.${key}.conditionalReveal.label`}</Snippet>}
