@@ -15,16 +15,16 @@ class TrainingData extends Component {
             <div key={index} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-three-quarters">
                 <dl className="certificate">
-                  <dt><Snippet>certificate.number</Snippet></dt>
+                  <dt><Snippet>certificate.number</Snippet><span>:</span></dt>
                   <dd>{certificate.certificateNumber || nbsp}</dd>
 
-                  <dt><Snippet>certificate.accreditation</Snippet></dt>
+                  <dt><Snippet>certificate.accreditation</Snippet><span>:</span></dt>
                   <dd>{certificate.accreditingBody || nbsp}</dd>
 
-                  <dt><Snippet>certificate.awarded</Snippet></dt>
+                  <dt><Snippet>certificate.awarded</Snippet><span>:</span></dt>
                   <dd>{certificate.passDate || nbsp}</dd>
 
-                  <dt><Snippet>certificate.modules</Snippet></dt>
+                  <dt><Snippet>certificate.modules</Snippet><span>:</span></dt>
                   <dd>
                     <ul className="modules">
                       {

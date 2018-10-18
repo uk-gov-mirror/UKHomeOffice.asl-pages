@@ -16,13 +16,13 @@ class ProcedureData extends Component {
             <div key={procedure} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-three-quarters">
                 <dl className="procedure">
-                  <dt><Snippet>procedure.category</Snippet></dt>
+                  <dt><Snippet>procedure.category</Snippet><span>:</span></dt>
                   <dd>{ procedure }</dd>
 
                   {
                     procedure === 'D' && (
                       <Fragment>
-                        <dt><Snippet>procedure.catDLabel</Snippet></dt>
+                        <dt><Snippet>procedure.catDLabel</Snippet><span>:</span></dt>
                         <dd>{pil.notesCatD}</dd>
                       </Fragment>
                     )
@@ -30,7 +30,7 @@ class ProcedureData extends Component {
                   {
                     procedure === 'F' && (
                       <Fragment>
-                        <dt><Snippet>procedure.catFLabel</Snippet></dt>
+                        <dt><Snippet>procedure.catFLabel</Snippet><span>:</span></dt>
                         <dd>{pil.notesCatF}</dd>
                       </Fragment>
                     )
