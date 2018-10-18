@@ -20,7 +20,7 @@ const Index = ({ establishment, pilApplication, profile }) => (
               <li key={link}>
                 <h2>
                   <Link
-                    page="pil.dashboard"
+                    page="pil.application"
                     profile={profile.id}
                     pil={pilApplication.id}
                     label={<Snippet>{`${link}.title`}</Snippet>}

@@ -9,7 +9,7 @@ module.exports = settings => {
   app.use('/', (req, res, next) => {
     const establishment = req.user.profile.establishments.find(e => e.id === req.establishmentId);
     res.locals.static.establishment = establishment;
-    res.locals.static.profile = req.user.profile;
+    res.locals.static.profile = req.profile;
     res.locals.static.pilApplication = {
       id: 'create'
     };
