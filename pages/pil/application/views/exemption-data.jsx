@@ -9,11 +9,11 @@ class ExemptionData extends Component {
     return (
       <Fragment>
         {
-          profile.exemptions && profile.exemptions.map(exemption => (
-            <div key={exemption.hash} className="govuk-grid-row section-data">
+          profile.exemptions && profile.exemptions.map((exemption, index) => (
+            <div key={index} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-three-quarters">
                 <dl className="exemption">
-                  <dt><Snippet>certificate.exemption</Snippet>:</dt>
+                  <dt><Snippet>certificate.exemption</Snippet></dt>
                   <dd>{ exemption.modules[0].module }</dd>
 
                   <dt><Snippet>certificate.reason</Snippet></dt>

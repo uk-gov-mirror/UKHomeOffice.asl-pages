@@ -16,21 +16,21 @@ module.exports = {
     }
   },
   certificate: {
-    number: 'Certificate number',
-    accreditation: 'Accreditation body',
-    awarded: 'Date awarded',
-    expiry: 'Expiry date',
-    modules: 'Modules completed',
-    exemption: 'Exempt from module',
-    reason: 'Reason for exemption'
+    number: 'Certificate number:',
+    accreditation: 'Accreditation body:',
+    awarded: 'Date awarded:',
+    expiry: 'Expiry date:',
+    modules: 'Modules completed:',
+    exemption: 'Exempt from module:',
+    reason: 'Reason for exemption:'
   },
   exemption: {
     skipped: 'No exemptions provided.'
   },
   procedure: {
-    category: 'Procedure category',
-    catDLabel: 'Evidence of competency',
-    catFLabel: 'Type of regulated procedure'
+    category: 'Procedure category:',
+    catDLabel: 'Evidence of competency:',
+    catFLabel: 'Type of regulated procedure:'
   },
   actions: {
     add: 'Add',

@@ -16,7 +16,7 @@ class ProcedureData extends Component {
             <div key={procedure} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-three-quarters">
                 <dl className="procedure">
-                  <dt><Snippet>procedure.category</Snippet>:</dt>
+                  <dt><Snippet>procedure.category</Snippet></dt>
                   <dd>{ procedure }</dd>
 
                   {

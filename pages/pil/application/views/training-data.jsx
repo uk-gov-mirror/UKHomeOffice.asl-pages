@@ -11,20 +11,20 @@ class TrainingData extends Component {
     return (
       <Fragment>
         {
-          profile.trainingModules && profile.trainingModules.map(certificate => (
-            <div key={certificate.hash} className="govuk-grid-row section-data">
+          profile.trainingModules && profile.trainingModules.map((certificate, index) => (
+            <div key={index} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-three-quarters">
                 <dl className="certificate">
-                  <dt><Snippet>certificate.number</Snippet>:</dt>
+                  <dt><Snippet>certificate.number</Snippet></dt>
                   <dd>{certificate.certificateNumber || nbsp}</dd>
 
-                  <dt><Snippet>certificate.accreditation</Snippet>:</dt>
+                  <dt><Snippet>certificate.accreditation</Snippet></dt>
                   <dd>{certificate.accreditingBody || nbsp}</dd>
 
-                  <dt><Snippet>certificate.awarded</Snippet>:</dt>
+                  <dt><Snippet>certificate.awarded</Snippet></dt>
                   <dd>{certificate.passDate || nbsp}</dd>
 
-                  <dt><Snippet>certificate.modules</Snippet>:</dt>
+                  <dt><Snippet>certificate.modules</Snippet></dt>
                   <dd>
                     <ul className="modules">
                       {
