@@ -126,7 +126,7 @@ app.use(datatable({
   // middleware for adding any custom locals
   locals: (req, res, next) => next()
 })({
-  apiPath: `/establishment/${req.establishment}/places`
+  apiPath: `/establishment/${req.establishmentId}/places`
   schema: require('./schema')
 }));
 

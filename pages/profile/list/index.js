@@ -10,7 +10,7 @@ module.exports = settings => {
 
   app.use(datatable({
     getApiPath: (req, res, next) => {
-      req.datatable.apiPath = `/establishment/${req.establishment}/profiles`;
+      req.datatable.apiPath = `/establishment/${req.establishmentId}/profiles`;
       return next();
     },
     getValues: (req, res, next) => {

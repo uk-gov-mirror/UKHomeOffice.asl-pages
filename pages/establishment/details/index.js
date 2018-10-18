@@ -10,9 +10,10 @@ module.exports = settings => {
   app.get('/',
     permissions('establishment.read'),
     (req, res, next) => {
-      req.api(`/establishment/${req.establishment}`)
-        .then(({ json: { data } }) => {
-          res.locals.static.establishment = data;
+      req.api(`/establishment/${req.establishmentId}`)
+        .then(response => {
+          req.establishment = response.json.data;
+          res.locals.static.establishment = response.json.data;
         })
         .then(() => next())
         .catch(next);

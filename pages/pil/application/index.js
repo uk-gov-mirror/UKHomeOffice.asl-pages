@@ -27,10 +27,10 @@ module.exports = settings => {
 
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
     if (req.body.action === 'submit-pil-application') {
-      const pilId = req.profileData.pil.id;
+      const pilId = req.profile.pil.id;
       const opts = { method: 'PUT', json: { submittedAt: new Date() } };
 
-      return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/pil/${pilId}`, opts)
+      return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${pilId}`, opts)
         .then(() => res.redirect(req.originalUrl + '/success'))
         .catch(next);
     }
@@ -45,7 +45,7 @@ module.exports = settings => {
 
       const opts = { method: 'DELETE' };
 
-      return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training/${trainingModuleId}`, opts)
+      return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/training/${trainingModuleId}`, opts)
         .then(() => res.redirect(req.originalUrl))
         .catch(next);
     }
@@ -56,7 +56,7 @@ module.exports = settings => {
     req.model.procedures = req.model.procedures || [];
     res.locals.model = req.model;
     res.locals.static.pil = req.model;
-    res.locals.static.skipExemptions = get(req.session, `${req.profile}.skipExemptions`, false);
+    res.locals.static.skipExemptions = get(req.session, `${req.profileId}.skipExemptions`, false);
 
     // for now, if we've already submitted a pil for this profile, just show the success page
     if (req.model.submittedAt && !req.originalUrl.includes('success')) {

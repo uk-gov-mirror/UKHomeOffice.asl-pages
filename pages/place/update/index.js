@@ -55,7 +55,7 @@ module.exports = settings => {
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(params)
     };
-    return req.api(`/establishment/${req.establishment}/place/${req.model.id}`, opts)
+    return req.api(`/establishment/${req.establishmentId}/place/${req.model.id}`, opts)
       .then(() => next())
       .catch(next);
   });

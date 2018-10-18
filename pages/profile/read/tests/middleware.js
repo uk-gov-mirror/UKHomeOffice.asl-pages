@@ -1,4 +1,4 @@
 module.exports = (req, res, next) => {
-  req.profile = 'abc-123';
+  req.profileId = 'abc-123';
   next();
 };

@@ -12,7 +12,7 @@ module.exports = settings => {
   app.use(datatable({
     filters: Object.keys(pickBy(schema, s => s.filter)),
     getApiPath: (req, res, next) => {
-      req.datatable.apiPath = `/establishment/${req.establishment}/places`;
+      req.datatable.apiPath = `/establishment/${req.establishmentId}/places`;
       next();
     }
   })({ schema }));

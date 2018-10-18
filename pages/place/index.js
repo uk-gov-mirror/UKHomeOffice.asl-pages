@@ -15,7 +15,7 @@ module.exports = () => {
       req.model.id = 'new-place';
       return next('route');
     }
-    return req.api(`/establishment/${req.establishment}/place/${id}`)
+    return req.api(`/establishment/${req.establishmentId}/place/${id}`)
       .then(({ json: { data } }) => {
         req.model = cleanModel(data);
       })

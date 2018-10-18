@@ -1,4 +1,4 @@
 module.exports = (req, res, next) => {
-  req.establishment = 'establishment-abc';
+  req.establishmentId = 'establishment-abc';
   next();
 };

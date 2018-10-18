@@ -1,10 +1,10 @@
 const getEstablishment = req =>
-  req.api(`/establishment/${req.establishment}`)
+  req.api(`/establishment/${req.establishmentId}`)
     .then(({ json: { data } }) => Promise.resolve(data))
     .catch(err => Promise.reject(err));
 
 const getNacwos = req =>
-  req.api(`/establishments/${req.establishment}/roles`, { query: { type: 'nacwo' } })
+  req.api(`/establishments/${req.establishmentId}/roles`, { query: { type: 'nacwo' } })
     .then(({ json: { data } }) => Promise.resolve(data))
     .catch(err => Promise.reject(err));
 

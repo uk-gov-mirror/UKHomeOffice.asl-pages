@@ -18,7 +18,7 @@ module.exports = settings => {
   ]));
 
   app.use('/', (req, res, next) => {
-    const establishment = req.user.profile.establishments.find(e => e.id === req.establishment);
+    const establishment = req.user.profile.establishments.find(e => e.id === req.establishmentId);
     res.locals.static.establishment = establishment;
     next();
   });
@@ -30,7 +30,7 @@ module.exports = settings => {
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(values)
     };
-    return req.api(`/establishment/${req.establishment}/invite-user`, opts)
+    return req.api(`/establishment/${req.establishmentId}/invite-user`, opts)
       .then(() => next())
       .catch(next);
   });

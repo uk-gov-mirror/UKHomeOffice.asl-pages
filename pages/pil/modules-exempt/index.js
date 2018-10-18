@@ -10,7 +10,7 @@ module.exports = settings => {
   });
 
   app.use('/', (req, res, next) => {
-    const exemptions = req.profileData.exemptions;
+    const exemptions = req.profile.exemptions;
 
     req.model = {
       modules: []
@@ -58,13 +58,13 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    const ids = req.profileData.exemptions.map(exemption => exemption.id);
+    const ids = req.profile.exemptions.map(exemption => exemption.id);
     return Promise.all(
       ids.map(id => {
         const opts = {
           method: 'DELETE'
         };
-        return req.api(`/establishment/${req.establishment}/profile/${req.profile}/training/${id}`, opts);
+        return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/training/${id}`, opts);
       })
     )
       .then(() => {
@@ -73,7 +73,7 @@ module.exports = settings => {
             modules: [{ module, species: [] }],
             exemption: true,
             exemptionDescription: req.form.values[`module-${module}-reason`],
-            profileId: req.profile
+            profileId: req.profileId
           };
         });
 
@@ -83,7 +83,7 @@ module.exports = settings => {
           body: JSON.stringify(values)
         };
 
-        return req.api(`/establishment/${req.establishment}/profile/${req.profile}/training`, opts);
+        return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/training`, opts);
       })
       .then(() => {
         delete req.session.form[req.model.id];

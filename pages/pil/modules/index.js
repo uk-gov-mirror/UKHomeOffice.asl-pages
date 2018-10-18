@@ -15,7 +15,7 @@ module.exports = settings => {
     const fields = ['certificateNumber', 'accreditingBody', 'passDate', 'modules'];
     let values = omit(req.form.values, 'exempt');
     values = pick(req.session.form[req.model.id].values, fields);
-    values.profileId = req.profile;
+    values.profileId = req.profileId;
 
     values.modules = values.modules.map(module => ({ module, species: [] }));
 
@@ -25,7 +25,7 @@ module.exports = settings => {
       body: JSON.stringify(values)
     };
 
-    return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training`, opts)
+    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/training`, opts)
       .then(() => {
         delete req.session.form[req.model.id];
         return next();

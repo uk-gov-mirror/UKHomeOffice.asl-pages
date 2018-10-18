@@ -29,7 +29,7 @@ module.exports = settings => {
       body: JSON.stringify(pick(req.form.values, 'procedures', 'notesCatD', 'notesCatF'))
     };
 
-    return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/pil/${req.model.id}`, opts)
+    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.model.id}`, opts)
       .then(() => {
         delete req.session.form[req.model.id];
         return next();

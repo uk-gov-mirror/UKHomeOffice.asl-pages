@@ -21,7 +21,7 @@ module.exports = settings => {
           $gte: today
         }
       };
-      req.datatable.apiPath = [`/establishment/${req.establishment}/projects`, { query }];
+      req.datatable.apiPath = [`/establishment/${req.establishmentId}/projects`, { query }];
       next();
     }
   })({ schema }));
