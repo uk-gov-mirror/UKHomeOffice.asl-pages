@@ -34,6 +34,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
+    console.log('8', req.originalUrl.replace(/\/training\/modules/, ''));
     return res.redirect(req.originalUrl.replace(/\/training\/modules/, ''));
   });
 

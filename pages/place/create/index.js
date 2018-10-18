@@ -6,6 +6,7 @@ const confirm = require('../routers/confirm');
 const success = require('../../common/routers/success');
 const { schema } = require('../schema');
 const { getNacwoById } = require('../../common/helpers');
+const { routeBuilder } = require('../../../lib/middleware');
 
 module.exports = settings => {
   const app = page({
@@ -13,6 +14,8 @@ module.exports = settings => {
     paths: ['/confirm', '/success'],
     ...settings
   });
+
+  app.use(routeBuilder());
 
   app.use('/', amend({
     schema: Object.assign({}, schema, {
@@ -23,7 +26,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.baseUrl}/confirm`);
+    return res.redirect(req.buildRoute('place.confirm'));
   });
 
   app.use('/confirm', confirm());
@@ -61,7 +64,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
+    return res.redirect(req.buildRoute('place.success'));
   });
 
   app.use('/success', success({ model: 'place' }));

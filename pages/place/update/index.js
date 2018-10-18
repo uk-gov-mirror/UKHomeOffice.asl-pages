@@ -31,6 +31,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
+    console.log('15', `${req.baseUrl}/confirm`);
     return res.redirect(`${req.baseUrl}/confirm`);
   });
 
@@ -61,6 +62,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
+    console.log('16', req.originalUrl.replace(/\/confirm/, '/success'));
     return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
   });
 

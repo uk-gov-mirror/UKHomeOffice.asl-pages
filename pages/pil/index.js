@@ -10,6 +10,7 @@ const createNewPilApplication = (req, res, next) => {
 
   req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil`, opts)
     .then(({ json: { data } }) => {
+      console.log('6', req.originalUrl.replace('create', data.id));
       return res.redirect(req.originalUrl.replace('create', data.id));
     })
     .catch(next);

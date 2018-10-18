@@ -38,6 +38,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
+    console.log('9', req.originalUrl.replace(/\/procedures/, ''));
     return res.redirect(req.originalUrl.replace(/\/procedures/, ''));
   });
 

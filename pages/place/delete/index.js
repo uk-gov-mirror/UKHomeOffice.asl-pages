@@ -4,6 +4,7 @@ const { schema } = require('../schema');
 const confirm = require('../routers/confirm');
 const form = require('../../common/routers/form');
 const successRouter = require('../../common/routers/success');
+const { routeBuilder } = require('../../../lib/middleware');
 
 module.exports = settings => {
   const app = page({
@@ -11,6 +12,8 @@ module.exports = settings => {
     paths: ['/confirm', '/success'],
     ...settings
   });
+
+  app.use(routeBuilder());
 
   app.use(form({
     model: 'place',
@@ -31,6 +34,9 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
+    console.log('12', `${req.baseUrl}/confirm`);
+    // return res.redirect(req.buildRoute('place.confirm'));
+    // 12 /e/8201/places/b2ea7324-9fd5-4ba5-9ff7-f3290d9fdd0d/delete/confirm
     return res.redirect(`${req.baseUrl}/confirm`);
   });
 
@@ -52,6 +58,8 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
+    console.log('13', req.originalUrl.replace(/\/confirm/, '/success'));
+    // 13 /e/8201/places/b2ea7324-9fd5-4ba5-9ff7-f3290d9fdd0d/delete/success
     return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
   });
 
