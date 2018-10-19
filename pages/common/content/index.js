@@ -6,7 +6,7 @@ module.exports = {
       title: 'Your account'
     },
     dashboard: {
-      greeting: 'Hello',
+      greeting: 'Hello {{name}}',
       invite: 'Invite'
     },
     establishment: {

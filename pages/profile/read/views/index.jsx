@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { isEmpty, map, chain } from 'lodash';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
-import dictionary from '@asl/dictionary';
+import { defineValue } from '../../../common/formatters';
 import Accordion from '../../../common/views/components/accordion';
 import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
@@ -92,7 +92,7 @@ const Index = ({
                             <ul>
                               {
                                 roles.map(({ type, id }) =>
-                                  <li key={id}>{dictionary[type] || dictionary[type.toUpperCase()]} ({type.toUpperCase()})</li>
+                                  <li key={id}>{defineValue(type.toUpperCase())}</li>
                                 )
                               }
                             </ul>

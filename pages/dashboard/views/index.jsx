@@ -12,14 +12,14 @@ const Index = ({
   <Fragment>
     <header>
       <h2>&nbsp;</h2>
-      <h1><Snippet>pages.dashboard.greeting</Snippet> {firstName}</h1>
+      <h1><Snippet name={firstName}>pages.dashboard.greeting</Snippet></h1>
     </header>
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <ul className="dashboard">
           {
             establishments.map(est =>
-              <li key={est}>
+              <li key={est.id}>
                 <p>
                   <Link page="establishment.dashboard" establishment={ est.id } label={ est.name } />
                 </p>
