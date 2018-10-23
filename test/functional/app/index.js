@@ -33,9 +33,18 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     set(res.locals, 'static.urls', { ...urls,
-      place: { create: '/create-place',
-        confirm: '/pages/place/create/confirm',
-        success: '/pages/place/create/success'} });
+      place: {
+        create: {
+          create: '/create-place',
+          confirm: '/pages/place/create/confirm',
+          success: '/pages/place/create/success'
+        },
+        update: {
+          confirm: '/pages/place/an-id/edit/confirm',
+          success: '/pages/place/an-id/edit/success'
+        }
+      }
+    });
     next();
   });
 

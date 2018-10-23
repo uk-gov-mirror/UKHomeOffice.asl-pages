@@ -30,10 +30,10 @@ module.exports = settings => form(Object.assign({
     if (req.session.form && req.session.form[req.model.id]) {
       return next();
     }
-    console.log('14', req.originalUrl.replace(/\/confirm/, ''));
+    console.log('14a', req.originalUrl.replace(/\/confirm/, ''));
     return res.redirect(req.originalUrl.replace(/\/confirm/, ''));
   },
   cancelEdit: (req, res, next) => {
-    return res.redirect(req.listPath);
+    return res.redirect(req.buildRoute('place.list'));
   }
 }, settings));

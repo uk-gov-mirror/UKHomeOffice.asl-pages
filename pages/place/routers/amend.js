@@ -23,6 +23,6 @@ module.exports = settings => form(Object.assign({
       .catch(next);
   },
   cancelEdit: (req, res, next) => {
-    return res.redirect(req.listPath);
+    return res.redirect(req.buildRoute('place.list'));
   }
 }, settings));

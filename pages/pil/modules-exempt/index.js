@@ -93,8 +93,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    console.log('7', req.originalUrl.replace(/\/exemptions\/modules/, ''));
-    return res.redirect(req.originalUrl.replace(/\/exemptions\/modules/, ''));
+    return res.redirect(req.buildRoute('pil.dashboard', {pil: req.profileData.pil.id}));
   });
 
   return app;

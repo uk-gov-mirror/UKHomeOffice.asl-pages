@@ -14,10 +14,10 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     if (req.body.exempt === 'Yes') {
       set(req.session, `${req.profileId}.skipExemptions`, false);
-      return res.redirect(req.originalUrl.concat('/modules'));
+      return res.redirect(req.buildRoute('pil.exemptionModules', {pil: req.profileData.pil.id}));
     } else {
       set(req.session, `${req.profileId}.skipExemptions`, true);
-      return res.redirect(req.originalUrl.replace(/\/exemptions/, ''));
+      return res.redirect(req.buildRoute('pil.dashboard', {pil: req.profileData.pil.id}));
     }
   });
 

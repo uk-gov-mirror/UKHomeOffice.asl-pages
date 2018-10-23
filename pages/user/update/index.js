@@ -49,7 +49,8 @@ module.exports = settings => {
     }]);
     delete req.session.form[id];
     delete req.session.profile;
-    return res.redirect(req.originalUrl);
+
+    return res.redirect(req.buildRoute('account.edit'));
   });
 
   return app;
