@@ -35,7 +35,7 @@ module.exports = () => {
     set(res.locals, 'static.urls', { ...urls,
       place: {
         create: {
-          create: '/create-place',
+          new: '/create-place',
           confirm: '/pages/place/create/confirm',
           success: '/pages/place/create/success'
         },
