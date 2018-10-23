@@ -30,7 +30,6 @@ module.exports = settings => form(Object.assign({
     if (req.session.form && req.session.form[req.model.id]) {
       return next();
     }
-    console.log('14a', req.originalUrl.replace(/\/confirm/, ''));
     return res.redirect(req.originalUrl.replace(/\/confirm/, ''));
   },
   cancelEdit: (req, res, next) => {

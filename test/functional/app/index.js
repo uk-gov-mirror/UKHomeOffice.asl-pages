@@ -42,6 +42,10 @@ module.exports = () => {
         update: {
           confirm: '/pages/place/an-id/edit/confirm',
           success: '/pages/place/an-id/edit/success'
+        },
+        delete: {
+          confirm: '/pages/place/an-id/delete/confirm',
+          success: '/pages/place/an-id/delete/success'
         }
       }
     });
