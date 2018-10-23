@@ -26,12 +26,13 @@ module.exports = settings => {
       return next();
     },
     cancelEdit: (req, res, next) => {
-      return res.redirect(req.listPath);
+      return res.redirect(req.buildRoute('place.list'));
     }
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.baseUrl}/confirm`);
+    const { id } = req.model;
+    return res.redirect(req.buildRoute('place.delete.confirm', {establishment: req.establishmentId, id}));
   });
 
   app.use('/confirm', confirm());
@@ -52,7 +53,8 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    return res.redirect(req.originalUrl.replace(/\/confirm/, '/success'));
+    const {id} = req.model;
+    return res.redirect(req.buildRoute('place.delete.success', {establishment: req.establishmentId, id}));
   });
 
   app.use('/success', successRouter({ model: 'place' }));

@@ -61,7 +61,7 @@ const Places = ({
     <FilterTable
       formatters={Object.assign({}, formatters, pageFormatters)}
       ExpandableRow={ExpandableRow}
-      createPath={allowedActions.includes('place.create') && 'place.create'}
+      createPath={allowedActions.includes('place.create') && 'place.create.new'}
     />
   </Fragment>
 );

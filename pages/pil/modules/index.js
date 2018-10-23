@@ -34,7 +34,12 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.originalUrl.replace(/\/training\/modules/, ''));
+    const {
+      establishmentId,
+      profileId,
+      id
+    } = req.profile.pil;
+    return res.redirect(req.buildRoute('pil.application', {establishment: establishmentId, profile: profileId, pil: id}));
   });
 
   return app;

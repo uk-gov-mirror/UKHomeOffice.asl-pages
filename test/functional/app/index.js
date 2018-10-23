@@ -32,7 +32,23 @@ module.exports = () => {
   app.use('/public', assets);
 
   app.use((req, res, next) => {
-    set(res.locals, 'static.urls', { ...urls, place: { create: '/create-place' } });
+    set(res.locals, 'static.urls', { ...urls,
+      place: {
+        create: {
+          new: '/create-place',
+          confirm: '/pages/place/create/confirm',
+          success: '/pages/place/create/success'
+        },
+        update: {
+          confirm: '/pages/place/an-id/edit/confirm',
+          success: '/pages/place/an-id/edit/success'
+        },
+        delete: {
+          confirm: '/pages/place/an-id/delete/confirm',
+          success: '/pages/place/an-id/delete/success'
+        }
+      }
+    });
     next();
   });
 

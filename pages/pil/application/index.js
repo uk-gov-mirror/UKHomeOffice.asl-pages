@@ -31,8 +31,9 @@ module.exports = settings => {
       const opts = { method: 'PUT', json: { submittedAt: new Date() } };
 
       return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${pilId}`, opts)
-        .then(() => res.redirect(req.originalUrl + '/success'))
+        .then(() => res.redirect(req.buildRoute('pil.success', {pil: req.profile.pil.id})))
         .catch(next);
+
     }
 
     if (req.body.action === 'delete' && req.body.trainingModuleId) {
@@ -45,11 +46,11 @@ module.exports = settings => {
 
       const opts = { method: 'DELETE' };
 
-      return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/training/${trainingModuleId}`, opts)
-        .then(() => res.redirect(req.originalUrl))
+      return req.api(`/establishment/${req.establishment}/profiles/${req.profile}/training/${trainingModuleId}`, opts)
+        .then(() => res.redirect(req.buildRoute('pil.application', {pil: req.profile.pil.id})))
         .catch(next);
     }
-    return res.redirect(req.originalUrl);
+    return res.redirect(req.buildRoute('pil.application', {pil: req.profile.pil.id}));
   });
 
   app.use('/', (req, res, next) => {

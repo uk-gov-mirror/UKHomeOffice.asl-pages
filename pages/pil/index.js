@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { cleanModel } = require('../../lib/utils');
+const { routeBuilder } = require('../../lib/middleware');
 
 const createNewPilApplication = (req, res, next) => {
   const opts = {
@@ -9,7 +10,7 @@ const createNewPilApplication = (req, res, next) => {
 
   req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil`, opts)
     .then(({ json: { data } }) => {
-      return res.redirect(req.originalUrl.replace('create', data.id));
+      return res.redirect(req.buildRoute('pil.application', {pil: data.id}));
     })
     .catch(next);
 };
@@ -18,6 +19,8 @@ const profileHasPil = profile => !!profile.pil;
 
 module.exports = () => {
   const app = Router();
+
+  app.use(routeBuilder());
 
   app.use('/', (req, res, next) => {
     res.locals.static.establishment = req.user.profile.establishments.find(e => e.id === req.establishmentId);
@@ -28,7 +31,10 @@ module.exports = () => {
   app.param('pil', (req, res, next, pilId) => {
     if (pilId === 'create') {
       return profileHasPil(req.profile)
-        ? res.redirect(req.originalUrl.replace('create', req.profile.pil.id))
+        ? res.redirect(req.buildRoute('pil.application', {
+          establishment: req.profile.pil.establishmentId,
+          profile: req.profile.pil.profileId,
+          pil: req.profile.pil.id}))
         : createNewPilApplication(req, res, next);
     }
 

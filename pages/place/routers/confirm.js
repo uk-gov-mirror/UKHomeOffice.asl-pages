@@ -33,6 +33,6 @@ module.exports = settings => form(Object.assign({
     return res.redirect(req.originalUrl.replace(/\/confirm/, ''));
   },
   cancelEdit: (req, res, next) => {
-    return res.redirect(req.listPath);
+    return res.redirect(req.buildRoute('place.list'));
   }
 }, settings));
