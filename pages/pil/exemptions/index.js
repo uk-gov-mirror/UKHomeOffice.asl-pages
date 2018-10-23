@@ -12,12 +12,17 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.post('/', (req, res, next) => {
+    const {
+      establishmentId,
+      profileId,
+      id
+    } = req.profile.pil;
     if (req.body.exempt === 'Yes') {
       set(req.session, `${req.profileId}.skipExemptions`, false);
-      return res.redirect(req.buildRoute('pil.exemptionModules', {pil: req.profileData.pil.id}));
+      return res.redirect(req.buildRoute('pil.exemptionModules', {establishment: establishmentId, profile: profileId, pil: id}));
     } else {
       set(req.session, `${req.profileId}.skipExemptions`, true);
-      return res.redirect(req.buildRoute('pil.dashboard', {pil: req.profileData.pil.id}));
+      return res.redirect(req.buildRoute('pil.application', {establishment: establishmentId, profile: profileId, pil: id}));
     }
   });
 

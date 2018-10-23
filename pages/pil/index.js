@@ -10,7 +10,7 @@ const createNewPilApplication = (req, res, next) => {
 
   req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil`, opts)
     .then(({ json: { data } }) => {
-      return res.redirect(req.buildRoute('pil.dashboard', {pil: data.id}));
+      return res.redirect(req.buildRoute('pil.application', {pil: data.id}));
     })
     .catch(next);
 };
@@ -30,8 +30,11 @@ module.exports = () => {
 
   app.param('pil', (req, res, next, pilId) => {
     if (pilId === 'create') {
-      return profileHasPil(req.profileData)
-        ? res.redirect(req.buildRoute('pil.dashboard', {pil: req.profileData.pil.id}))
+      return profileHasPil(req.profile)
+        ? res.redirect(req.buildRoute('pil.application', {
+          establishment: req.profile.pil.establishmentId,
+          profile: req.profile.pil.profileId,
+          pil: req.profile.pil.id}))
         : createNewPilApplication(req, res, next);
     }
 

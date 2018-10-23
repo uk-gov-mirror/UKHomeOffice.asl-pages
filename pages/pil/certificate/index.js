@@ -36,7 +36,13 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('pil.trainingModules', {pil: req.profileData.pil.id}));
+    const {
+      establishmentId,
+      profileId,
+      id
+    } = req.profile.pil;
+
+    return res.redirect(req.buildRoute('pil.trainingModules', {establishment: establishmentId, profile: profileId, pil: id}));
   });
 
   app.use('/modules', require('../modules')());
