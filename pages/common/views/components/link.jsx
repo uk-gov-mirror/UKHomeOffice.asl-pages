@@ -16,7 +16,7 @@ const Link = ({
 }) => {
   if (page) {
     const href = get(urls, page);
-    if (!href) {
+    if (typeof href !== 'string') {
       throw new Error(`Unknown link target: ${page}`);
     }
     const replacer = replace(props);
