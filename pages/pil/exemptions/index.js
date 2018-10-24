@@ -1,5 +1,4 @@
 const page = require('../../../lib/page');
-const { buildModel } = require('../../../lib/utils');
 const { modules, exempt } = require('./routers');
 
 module.exports = settings => {

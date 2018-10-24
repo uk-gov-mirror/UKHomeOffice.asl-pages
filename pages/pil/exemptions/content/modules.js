@@ -20,4 +20,4 @@ module.exports = merge({}, content, {
       customValidate: 'Please give a reason you are exempt from module {{meta}}'
     }
   }
-})
+});

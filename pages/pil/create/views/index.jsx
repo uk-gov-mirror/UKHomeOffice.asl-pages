@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
 import { LinkButton } from '@ukhomeoffice/react-components';
 import { connect } from 'react-redux';
 
 const links = ['catAF', 'catE'];
 
-const Index = ({ establishment, pilApplication, profile, url }) => (
+const Index = ({ establishment, profile, url }) => (
   <Fragment>
     <header>
       <h2>{establishment.name}</h2>
@@ -34,6 +33,6 @@ const Index = ({ establishment, pilApplication, profile, url }) => (
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, pilApplication, profile, url } }) => ({ establishment, pilApplication, profile, url });
+const mapStateToProps = ({ static: { establishment, profile, url } }) => ({ establishment, profile, url });
 
 export default connect(mapStateToProps)(Index);

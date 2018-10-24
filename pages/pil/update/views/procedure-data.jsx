@@ -7,7 +7,7 @@ const hasProcedures = pil => pil.procedures && pil.procedures.length > 0;
 class ProcedureData extends Component {
 
   render() {
-    const { establishment, profile, pil } = this.props;
+    const { pil } = this.props;
 
     return (
       <Fragment>

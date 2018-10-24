@@ -10,15 +10,8 @@ module.exports = settings => {
     res.locals.model = req.pil;
     res.locals.static.schema = { status: {} };
     res.locals.static.profile = req.profile;
-    next()
+    next();
   });
 
-  // app.get('/', (req, res, next) => {
-  //   if (req.pil.status !== 'active') {
-  //     return res.redirect(`${req.originalUrl}/edit`);
-  //   }
-  //   next()
-  // })
-
   return app;
-}
+};

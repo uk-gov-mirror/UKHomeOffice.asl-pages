@@ -1,4 +1,3 @@
-const { get } = require('lodash');
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -33,6 +32,11 @@ module.exports = settings => {
     return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}`, { method: 'PUT' })
       .then(() => res.redirect(req.originalUrl + '/success'))
       .catch(next);
+  });
+
+  app.use('/success', (req, res, next) => {
+    res.locals.static.profile = req.profile;
+    next();
   });
 
   app.use('/procedures', require('../procedures')());

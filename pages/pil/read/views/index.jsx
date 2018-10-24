@@ -7,7 +7,7 @@ const formatters = url => ({
   status: {
     format: status => {
       if (status !== 'active') {
-        return <Snippet url={`${url}/edit`}>status.inactive</Snippet>
+        return <Snippet url={`${url}/edit`}>status.inactive</Snippet>;
       }
     }
   }

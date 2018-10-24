@@ -9,8 +9,8 @@ module.exports = () => {
     };
     req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/pil/${req.pilId}`, opts)
       .then(() => next())
-      .catch(next)
+      .catch(next);
   });
 
   return app;
-}
+};

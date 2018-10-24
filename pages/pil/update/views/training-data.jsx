@@ -5,7 +5,7 @@ import Snippet from '../../../common/views/containers/snippet';
 class TrainingData extends Component {
 
   render() {
-    const { establishment, pil, profile, url } = this.props;
+    const { profile, url } = this.props;
     const nbsp = '\xa0';
 
     return (

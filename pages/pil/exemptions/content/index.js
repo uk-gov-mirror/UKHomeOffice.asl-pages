@@ -1,5 +1,3 @@
-const EXEMPT_OPTIONS = ['Yes', 'No'];
-
 module.exports = {
   title: 'Are there any training modules that you should be exempt from?',
   moreText: 'More guidance on exemptions',

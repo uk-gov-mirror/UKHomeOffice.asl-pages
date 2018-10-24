@@ -10,7 +10,7 @@ module.exports = () => {
   app.use((req, res, next) => {
     req.model = buildModel(schema);
     req.model.id = `${req.profileId}-skipExemptions`;
-    next()
+    next();
   });
 
   app.use('/', form({ schema }));

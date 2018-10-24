@@ -14,4 +14,4 @@ module.exports = merge({}, content, {
       required: 'You need to select at least one module.'
     }
   }
-})
+});

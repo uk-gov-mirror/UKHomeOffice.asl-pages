@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const form = require('../../../common/routers/form');
 const { modules: schema } = require('../schema');
-const { omit, pick } = require('lodash');
+const { pick } = require('lodash');
 const { buildModel } = require('../../../../lib/utils');
 
 module.exports = settings => {
@@ -18,8 +18,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const fields = ['certificateNumber', 'accreditingBody', 'passDate', 'modules'];
-    values = pick(req.session.form[req.model.id].values, fields);
-    console.log(values)
+    const values = pick(req.session.form[req.model.id].values, fields);
     values.profileId = req.profileId;
 
     values.modules = values.modules.map(module => ({ module, species: [] }));

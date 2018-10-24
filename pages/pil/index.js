@@ -1,6 +1,4 @@
 const { Router } = require('express');
-const { cleanModel } = require('../../lib/utils');
-const { routeBuilder } = require('../../lib/middleware');
 
 module.exports = () => {
   const app = Router();
@@ -17,7 +15,6 @@ module.exports = () => {
       .then(() => next())
       .catch(next);
   });
-
 
   app.use('/:pil/edit', require('./update')());
   app.use('/:pil/delete', require('./delete')());
