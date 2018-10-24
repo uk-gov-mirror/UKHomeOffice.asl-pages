@@ -1,4 +1,4 @@
 module.exports = {
-  exempt: require('./exempt'),
+  certificate: require('./certificate'),
   modules: require('./modules')
 };

@@ -1,32 +1,17 @@
 const page = require('../../../lib/page');
-const form = require('../../common/routers/form');
-const schema = require('./schema');
-const { set } = require('lodash');
+const { buildModel } = require('../../../lib/utils');
+const { modules, exempt } = require('./routers');
 
 module.exports = settings => {
   const app = page({
     root: __dirname,
+    paths: ['/modules'],
     ...settings
   });
 
-  app.use('/', form({ schema }));
+  app.use('/', exempt());
 
-  app.post('/', (req, res, next) => {
-    const {
-      establishmentId,
-      profileId,
-      id
-    } = req.profile.pil;
-    if (req.body.exempt === 'Yes') {
-      set(req.session, `${req.profileId}.skipExemptions`, false);
-      return res.redirect(req.buildRoute('pil.exemptionModules', {establishment: establishmentId, profile: profileId, pil: id}));
-    } else {
-      set(req.session, `${req.profileId}.skipExemptions`, true);
-      return res.redirect(req.buildRoute('pil.application', {establishment: establishmentId, profile: profileId, pil: id}));
-    }
-  });
-
-  app.use('/modules', require('../modules-exempt')());
+  app.use('/modules', modules());
 
   return app;
 };
