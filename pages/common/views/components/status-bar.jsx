@@ -9,7 +9,7 @@ class StatusBar extends Component {
     } = this.props;
     return (
       <div className="status-bar">
-        { user.profile && (
+        { user && user.profile && (
           <Fragment>
             <span><a href="/profile">{user.profile.name}</a></span>
             |
