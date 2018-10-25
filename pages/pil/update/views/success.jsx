@@ -16,6 +16,9 @@ const Success = ({ profile }) => (
             <p>
               <Snippet>pil.submitted.summary</Snippet>
               <br />
+              {
+                // TODO: this should display the NTCO's email, or be removed.
+              }
               {profile.email}
             </p>
           </div>

@@ -6,7 +6,7 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.use((req, res, next) => {
+  app.post('/', (req, res, next) => {
     const { action } = req.query;
 
     if (action === 'catAF') {

@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import Snippet from '../../../common/views/containers/snippet';
-import { LinkButton } from '@ukhomeoffice/react-components';
+import ApplyChanges from '../../../common/views/components/apply-changes';
 import { connect } from 'react-redux';
 
-const links = ['catAF', 'catE'];
+const types = ['catAF', 'catE'];
 
-const Index = ({ establishment, profile, url }) => (
+const Index = ({ establishment }) => (
   <Fragment>
     <header>
       <h2>{establishment.name}</h2>
@@ -15,15 +15,22 @@ const Index = ({ establishment, profile, url }) => (
       <div className="govuk-grid-column-two-thirds">
         <ul className="dashboard">
           {
-            links.map(link => (
-              <li key={link}>
-                <h2><Snippet>{`${link}.title`}</Snippet></h2>
+            types.map(type => (
+              <li key={type}>
+                <h2><Snippet>{`${type}.title`}</Snippet></h2>
                 <p>
-                  <Snippet>{`${link}.subtitle`}</Snippet>
+                  <Snippet>{`${type}.subtitle`}</Snippet>
                 </p>
-                <LinkButton type="button" href={`${url}?action=${link}`}>
-                  <Snippet>buttons.apply</Snippet>
-                </LinkButton>
+                <ApplyChanges
+                  type="form"
+                  method="POST"
+                  action={`?action=${type}`}
+                >
+                  <button className="govuk-button">
+                    <Snippet>buttons.apply</Snippet>
+                  </button>
+                </ApplyChanges>
+
               </li>
             ))
           }
@@ -33,6 +40,6 @@ const Index = ({ establishment, profile, url }) => (
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, profile, url } }) => ({ establishment, profile, url });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(Index);

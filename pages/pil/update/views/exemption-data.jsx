@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import Link from '../../../common/views/containers/link';
+import ApplyChanges from '../../../common/views/components/apply-changes';
 import Snippet from '../../../common/views/containers/snippet';
 
 class ExemptionData extends Component {
 
   render() {
-    const { establishment, pil, profile, skipExemptions } = this.props;
+    const { establishment, pil, profile, skipExemptions, url } = this.props;
     return (
       <Fragment>
         {
@@ -23,11 +24,15 @@ class ExemptionData extends Component {
               <div className="govuk-grid-column-one-quarter">
                 <ul className="actions">
                   <li>
-                    <form method="POST" noValidate>
-                      <input type="hidden" name="trainingModuleId" value={exemption.id} />
-                      <input type="hidden" name="action" value="delete" />
-                      <button type="submit" className="link"><span><Snippet>actions.remove</Snippet></span></button>
-                    </form>
+                    <ApplyChanges
+                      type="form"
+                      action={`${url}/exemptions/${exemption.id}?action=delete&referrer=${url}`}
+                      method='POST'
+                    >
+                      <button type="submit" className="link">
+                        <span><Snippet>actions.remove</Snippet></span>
+                      </button>
+                    </ApplyChanges>
                   </li>
                 </ul>
               </div>

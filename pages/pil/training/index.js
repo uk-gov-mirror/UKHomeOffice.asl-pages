@@ -1,5 +1,5 @@
 const page = require('../../../lib/page');
-const { certificate, modules, deleteTrainingModule } = require('./routers');
+const { certificate, modules } = require('./routers');
 
 module.exports = settings => {
   const app = page({
@@ -16,7 +16,15 @@ module.exports = settings => {
     next();
   });
 
-  app.use('/:training/delete', deleteTrainingModule());
+  app.post('/:training', (req, res, next) => {
+    const { action, referrer } = req.query;
+    if (action !== 'delete') {
+      return next();
+    }
+    req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/training/${req.trainingModuleId}`, { method: 'DELETE' })
+      .then(() => res.redirect(referrer))
+      .catch(next);
+  });
 
   app.use('/modules', modules());
   app.use('/', certificate());

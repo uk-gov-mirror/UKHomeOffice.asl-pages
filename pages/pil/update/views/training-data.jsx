@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Link from '../../../common/views/containers/link';
 import Snippet from '../../../common/views/containers/snippet';
+import ApplyChanges from '../../../common/views/components/apply-changes';
 
 class TrainingData extends Component {
 
@@ -42,7 +43,15 @@ class TrainingData extends Component {
               <div className="govuk-grid-column-one-quarter">
                 <ul className="actions">
                   <li>
-                    <a href={`${url}/training/${certificate.id}/delete?referrer=${url}`}><Snippet>actions.remove</Snippet></a>
+                    <ApplyChanges
+                      type="form"
+                      method="POST"
+                      action={`${url}/training/${certificate.id}?action=delete&referrer=${url}`}
+                    >
+                      <button className="link">
+                        <span><Snippet>actions.remove</Snippet></span>
+                      </button>
+                    </ApplyChanges>
                   </li>
                 </ul>
               </div>

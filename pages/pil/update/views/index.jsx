@@ -69,7 +69,7 @@ const Index = ({ establishment, profile, model, skipExemptions, url }) => {
                     <TrainingData url={url} profile={profile} />
                   }
                   { section.name === 'exemptions' &&
-                    <ExemptionData establishment={establishment.id} profile={profile} pil={model.id} skipExemptions={skipExemptions} />
+                    <ExemptionData url={url} establishment={establishment.id} profile={profile} pil={model.id} skipExemptions={skipExemptions} />
                   }
                   { section.name === 'procedures' &&
                     <ProcedureData pil={model} />
