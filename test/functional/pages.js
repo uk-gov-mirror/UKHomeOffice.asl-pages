@@ -1,4 +1,7 @@
 module.exports = {
+  pil: {
+    create: '/pages/pil/create'
+  },
   establishment: {
     dashboard: '/pages/establishment/dashboard',
     details: '/pages/establishment/details',
