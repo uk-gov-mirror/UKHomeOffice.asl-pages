@@ -15,13 +15,20 @@ module.exports = () => {
 
   app.use('/', form({ schema }));
 
+  app.get('/', (req, res, next) => {
+    if (req.profile.exemptions.length) {
+      return res.redirect(req.buildRoute('pil.exemptions.modules'));
+    }
+    next();
+  });
+
   app.post('/', (req, res, next) => {
     if (req.form.values.exempt === 'Yes') {
       set(req.session, `${req.profileId}.skipExemptions`, false);
-      return res.redirect(req.originalUrl.concat('/modules'));
+      return res.redirect(req.buildRoute('pil.exemptions.modules'));
     } else {
       set(req.session, `${req.profileId}.skipExemptions`, true);
-      return res.redirect(req.originalUrl.replace(/\/exemptions/, ''));
+      return res.redirect(req.buildRoute('pil.update'));
     }
   });
 

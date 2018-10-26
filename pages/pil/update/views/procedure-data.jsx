@@ -41,7 +41,7 @@ class ProcedureData extends Component {
                 <ul className="actions">
                   <li>
                     <Link
-                      path="procedures"
+                      page="pil.procedures"
                       label={<Snippet>actions.remove</Snippet>}
                     />
                   </li>
@@ -54,7 +54,7 @@ class ProcedureData extends Component {
         {
           hasProcedures(pil) &&
             <Link
-              path="procedures"
+              page="pil.procedures"
               label={<Snippet>actions.edit</Snippet>}
             />
         }

@@ -1,8 +1,12 @@
-const { Router } = require('express');
+const page = require('../../../lib/page');
 const { modules, exempt } = require('./routers');
 
 module.exports = settings => {
-  const app = Router();
+  const app = page({
+    ...settings,
+    root: __dirname,
+    paths: ['/modules']
+  });
 
   app.post('/:exemption', (req, res, next) => {
     if (req.query.action !== 'delete') {

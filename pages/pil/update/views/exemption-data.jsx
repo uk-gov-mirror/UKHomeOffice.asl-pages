@@ -6,7 +6,7 @@ import Snippet from '../../../common/views/containers/snippet';
 class ExemptionData extends Component {
 
   render() {
-    const { establishment, pil, profile, skipExemptions, url } = this.props;
+    const { profile, skipExemptions, url } = this.props;
     return (
       <Fragment>
         {
@@ -48,13 +48,7 @@ class ExemptionData extends Component {
             <div className="govuk-grid-column-one-quarter">
               <ul className="actions">
                 <li>
-                  <Link
-                    path="exemptions"
-                    establishment={ establishment.id }
-                    pil={ pil }
-                    profile={profile.id}
-                    label={<Snippet>actions.edit</Snippet>}
-                  />
+                  <Link page="pil.exemptions.exempt" label={<Snippet>actions.edit</Snippet>} />
                 </li>
               </ul>
             </div>
@@ -62,13 +56,7 @@ class ExemptionData extends Component {
         }
         {
           profile.exemptions.length > 0 &&
-          <Link
-            path="exemptions/modules"
-            establishment={ establishment.id }
-            pil={ pil }
-            profile={profile.id}
-            label={<Snippet>{profile.exemptions.length ? 'actions.edit' : 'actions.add'}</Snippet>}
-          />
+          <Link page="pil.exemptions.modules" label={<Snippet>{profile.exemptions.length ? 'actions.edit' : 'actions.add'}</Snippet>} />
         }
       </Fragment>
     );

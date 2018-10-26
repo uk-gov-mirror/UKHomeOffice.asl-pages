@@ -61,7 +61,7 @@ class TrainingData extends Component {
         {
           profile.trainingModules.length > 0 &&
           <Link
-            path="training"
+            page="pil.training.certificate"
             label={<Snippet>actions.add</Snippet>}
           />
         }

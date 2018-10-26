@@ -55,7 +55,6 @@ const Index = ({ establishment, profile, model, skipExemptions, url }) => {
                       <h3>
                         <Link
                           page={section.page}
-                          profile={profile.id}
                           label={<Snippet>{`pil.${section.name}.title`}</Snippet>}
                           path={section.name}
                         />
@@ -69,7 +68,7 @@ const Index = ({ establishment, profile, model, skipExemptions, url }) => {
                     <TrainingData url={url} profile={profile} />
                   }
                   { section.name === 'exemptions' &&
-                    <ExemptionData url={url} establishment={establishment.id} profile={profile} pil={model.id} skipExemptions={skipExemptions} />
+                    <ExemptionData url={url} skipExemptions={skipExemptions} profile={profile} />
                   }
                   { section.name === 'procedures' &&
                     <ProcedureData pil={model} />
