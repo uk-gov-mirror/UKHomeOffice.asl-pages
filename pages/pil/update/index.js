@@ -1,6 +1,7 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
+const { get } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -24,7 +25,9 @@ module.exports = settings => {
     },
     locals: (req, res, next) => {
       res.locals.static.profile = req.profile;
-      res.locals.static.skipExemptions = req.session[req.profileId].skipExemptions;
+      res.locals.static.skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
+
+      console.log(res.locals.static.skipExemptions);
       next();
     }
   }));
