@@ -16,7 +16,7 @@ module.exports = settings => {
         // lookup created PIL
         .then(() => req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}`))
         .then(({ json: { data } }) => {
-          return res.redirect(req.baseUrl.replace('create', `${data.pil.id}/edit`));
+          return res.redirect(req.buildRoute('pil.update', { pilId: data.pil.id }));
         })
         .catch(next);
     }
