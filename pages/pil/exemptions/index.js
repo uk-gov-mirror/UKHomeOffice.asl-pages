@@ -1,32 +1,27 @@
 const page = require('../../../lib/page');
-const form = require('../../common/routers/form');
-const schema = require('./schema');
-const { set } = require('lodash');
+const { modules, exempt } = require('./routers');
 
 module.exports = settings => {
   const app = page({
+    ...settings,
     root: __dirname,
-    ...settings
+    paths: ['/modules']
   });
 
-  app.use('/', form({ schema }));
-
-  app.post('/', (req, res, next) => {
-    const {
-      establishmentId,
-      profileId,
-      id
-    } = req.profile.pil;
-    if (req.body.exempt === 'Yes') {
-      set(req.session, `${req.profileId}.skipExemptions`, false);
-      return res.redirect(req.buildRoute('pil.exemptionModules', {establishment: establishmentId, profile: profileId, pil: id}));
-    } else {
-      set(req.session, `${req.profileId}.skipExemptions`, true);
-      return res.redirect(req.buildRoute('pil.application', {establishment: establishmentId, profile: profileId, pil: id}));
+  app.post('/:exemption', (req, res, next) => {
+    if (req.query.action !== 'delete') {
+      return next();
     }
+    req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/training/${req.params.exemption}`, { method: 'DELETE' })
+      .then(() => {
+        res.redirect(req.query.referrer);
+      })
+      .catch(next);
   });
 
-  app.use('/modules', require('../modules-exempt')());
+  app.use('/', exempt());
+
+  app.use('/modules', modules());
 
   return app;
 };

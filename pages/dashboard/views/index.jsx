@@ -21,10 +21,10 @@ const Index = ({
             establishments.map(est =>
               <li key={est.id}>
                 <p>
-                  <Link page="establishment.dashboard" establishment={ est.id } label={ est.name } />
+                  <Link page="establishment.dashboard" establishmentId={ est.id } label={ est.name } />
                 </p>
                 <p>
-                  <Link page="profile.invite" establishment={ est.id } label={<Snippet>pages.dashboard.invite</Snippet>}/>
+                  <Link page="profile.invite" establishmentId={ est.id } label={<Snippet>pages.dashboard.invite</Snippet>}/>
                 </p>
               </li>
             )

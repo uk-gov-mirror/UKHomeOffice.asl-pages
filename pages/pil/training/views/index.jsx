@@ -1,16 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
 import FormLayout from '../../../common/views/layouts/form';
-import Link from '../../../common/views/containers/link';
 
 const Page = () => (
   <FormLayout>
     <header>
       <h1><Snippet>title</Snippet></h1>
-      <br />
-      <Link label={<Snippet>moreText</Snippet>}/>
     </header>
   </FormLayout>
 );
 
-export default Page;
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+
+export default connect(mapStateToProps)(Page);

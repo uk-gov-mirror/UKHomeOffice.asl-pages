@@ -6,7 +6,7 @@ const { permissions } = require('../../lib/middleware');
 const { routeBuilder } = require('../../lib/middleware');
 
 module.exports = () => {
-  const app = Router();
+  const app = Router({ mergeParams: true });
 
   app.use(routeBuilder());
 

@@ -44,7 +44,6 @@ module.exports = settings => {
       }
     }]);
     delete req.session.form[id];
-    console.log('17', req.originalUrl.replace(/\/invite/, ''));
     return res.redirect(req.originalUrl.replace(/\/invite/, ''));
   });
 

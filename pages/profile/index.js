@@ -11,7 +11,7 @@ const invite = require('./invite');
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
-  app.param('profile', (req, res, next, profileId) => {
+  app.param('profileId', (req, res, next, profileId) => {
     if (profileId === 'invite') {
       req.model = reduce(schema, (all, { nullValue }, key) => {
         return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
@@ -26,6 +26,7 @@ module.exports = () => {
         model.trainingModules = model.trainingModules.filter(m => { return !m.exemption; });
         req.model = model;
         req.profile = model;
+        req.profileId = profileId;
 
         res.locals.static.establishment = meta.establishment;
         res.locals.model = req.model;
@@ -34,7 +35,7 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use('/:profile', permissions('profile.read.basic'), read());
+  app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
 
   app.get('/', list());
