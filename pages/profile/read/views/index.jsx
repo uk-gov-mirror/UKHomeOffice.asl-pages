@@ -7,6 +7,7 @@ import Accordion from '../../../common/views/components/accordion';
 import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
+import PilApply from './pil-apply';
 import { readableDateFormat } from '../../../../constants';
 
 const getPremises = roles => {
@@ -72,35 +73,7 @@ const Index = ({
               )
             }
           </dl>
-          {
-            pil && pil.status !== 'active' && (
-              <div>
-                <p><Snippet>{`pil.${isUser ? 'user' : 'other'}.inactive`}</Snippet></p>
-                <p>
-                  <Link
-                    page='pil.create'
-                    className="govuk-button"
-                    label={<Snippet>buttons.continue</Snippet>}
-                  />
-                </p>
-              </div>
-            )
-          }
-          {
-            !pil && (
-              <div>
-                <p><Snippet>{`pil.${isUser ? 'user' : 'other'}.notStarted`}</Snippet></p>
-                <p>
-                  <Link
-                    page='pil.create'
-                    className="govuk-button"
-                    label={<Snippet>buttons.applyNow</Snippet>}
-                  />
-                </p>
-              </div>
-            )
-          }
-
+          <PilApply pil={pil} />
           <Accordion>
             {
               (!isEmpty(roles) || !isEmpty(premises)) && (

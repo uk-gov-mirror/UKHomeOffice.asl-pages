@@ -28,11 +28,11 @@ module.exports = {
   },
   pil: {
     user: {
-      inactive: 'You have an incomplete PIL application.',
+      incomplete: 'You have an incomplete PIL application.',
       notStarted: 'You don\'t hold a personal (PIL) licence.'
     },
     other: {
-      inactive: 'Incomplete PIL application.',
+      incomplete: 'Incomplete PIL application.',
       notStarted: 'No personal (PIL) licence held.'
     }
   }
