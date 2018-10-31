@@ -28,6 +28,7 @@ const getPremises = roles => {
 };
 
 const Index = ({
+  isUser,
   model: {
     name,
     pil,
@@ -71,17 +72,35 @@ const Index = ({
               )
             }
           </dl>
+          {
+            pil && pil.status !== 'active' && (
+              <div>
+                <p><Snippet>{`pil.${isUser ? 'user' : 'other'}.inactive`}</Snippet></p>
+                <p>
+                  <Link
+                    page='pil.create'
+                    className="govuk-button"
+                    label={<Snippet>buttons.continue</Snippet>}
+                  />
+                </p>
+              </div>
+            )
+          }
+          {
+            !pil && (
+              <div>
+                <p><Snippet>{`pil.${isUser ? 'user' : 'other'}.notStarted`}</Snippet></p>
+                <p>
+                  <Link
+                    page='pil.create'
+                    className="govuk-button"
+                    label={<Snippet>buttons.applyNow</Snippet>}
+                  />
+                </p>
+              </div>
+            )
+          }
 
-          <div>
-            <p><Snippet>warning</Snippet></p>
-            <p>
-              <Link
-                page='pil.create'
-                className="govuk-button"
-                label={<Snippet>buttons.applyNow</Snippet>}
-              />
-            </p>
-          </div>
           <Accordion>
             {
               (!isEmpty(roles) || !isEmpty(premises)) && (
@@ -247,6 +266,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment }, model }) => ({ establishment, model });
+const mapStateToProps = ({ static: { establishment, isUser }, model }) => ({ establishment, model, isUser });
 
 module.exports = connect(mapStateToProps)(Index);

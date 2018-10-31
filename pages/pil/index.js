@@ -5,7 +5,7 @@ module.exports = () => {
 
   app.param('pilId', (req, res, next, pilId) => {
     if (pilId === 'create') {
-      return next();
+      return next('route');
     }
     req.pilId = pilId;
     return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${pilId}`)

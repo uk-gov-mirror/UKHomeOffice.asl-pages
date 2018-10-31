@@ -23,7 +23,17 @@ module.exports = {
     email: 'Email Address'
   },
   buttons: {
-    applyNow: 'Apply Now'
+    applyNow: 'Apply Now',
+    continue: 'Continue'
   },
-  warning: 'You don\'t hold a personal (PIL) licence.'
+  pil: {
+    user: {
+      inactive: 'You have an incomplete PIL application.',
+      notStarted: 'You don\'t hold a personal (PIL) licence.'
+    },
+    other: {
+      inactive: 'Incomplete PIL application.',
+      notStarted: 'No personal (PIL) licence held.'
+    }
+  }
 };
