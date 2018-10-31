@@ -8,20 +8,20 @@ module.exports = settings => {
     ...settings
   });
 
-  app.param('training', (req, res, next, trainingModuleId) => {
-    if (trainingModuleId === 'modules') {
+  app.param('certificateId', (req, res, next, certificateId) => {
+    if (certificateId === 'modules') {
       return next('route');
     }
-    req.trainingModuleId = trainingModuleId;
+    req.certificateId = certificateId;
     next();
   });
 
-  app.post('/:training', (req, res, next) => {
+  app.post('/:certificateId', (req, res, next) => {
     const { action, referrer } = req.query;
     if (action !== 'delete') {
       return next();
     }
-    req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/training/${req.trainingModuleId}`, { method: 'DELETE' })
+    req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/certificate/${req.certificateId}`, { method: 'DELETE' })
       .then(() => res.redirect(referrer))
       .catch(next);
   });

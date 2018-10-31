@@ -15,10 +15,10 @@ class ExemptionData extends Component {
               <div className="govuk-grid-column-three-quarters">
                 <dl className="exemption">
                   <dt><Snippet>certificate.exemption</Snippet><span>:</span></dt>
-                  <dd>{ exemption.modules[0].module }</dd>
+                  <dd>{ exemption.module }</dd>
 
-                  <dt><Snippet>certificate.reason</Snippet></dt>
-                  <dd>{ exemption.exemptionDescription }<span>:</span></dd>
+                  <dt><Snippet>certificate.reason</Snippet><span>:</span></dt>
+                  <dd>{ exemption.description }</dd>
                 </dl>
               </div>
               <div className="govuk-grid-column-one-quarter">

@@ -22,8 +22,6 @@ module.exports = () => {
     return req.api(`/establishment/${req.establishmentId}/profile/${profileId}`)
       .then(({ json: { data, meta } }) => {
         const model = cleanModel(data);
-        model.exemptions = model.trainingModules.filter(m => { return m.exemption; });
-        model.trainingModules = model.trainingModules.filter(m => { return !m.exemption; });
         req.model = model;
         req.profile = model;
         req.profileId = profileId;

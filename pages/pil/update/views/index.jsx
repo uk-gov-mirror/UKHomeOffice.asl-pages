@@ -18,7 +18,7 @@ const Index = ({ establishment, profile, model, skipExemptions, url }) => {
     },
     {
       name: 'training',
-      completed: profile.trainingModules.length > 0
+      completed: profile.certificates.length > 0
     },
     {
       name: 'exemptions',

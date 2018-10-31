@@ -12,7 +12,7 @@ module.exports = settings => {
     if (req.query.action !== 'delete') {
       return next();
     }
-    req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/training/${req.params.exemption}`, { method: 'DELETE' })
+    req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/exemption/${req.params.exemption}`, { method: 'DELETE' })
       .then(() => {
         res.redirect(req.query.referrer);
       })

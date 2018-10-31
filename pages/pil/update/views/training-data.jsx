@@ -12,7 +12,7 @@ class TrainingData extends Component {
     return (
       <Fragment>
         {
-          profile.trainingModules && profile.trainingModules.map((certificate, index) => (
+          profile.certificates && profile.certificates.map((certificate, index) => (
             <div key={index} className="govuk-grid-row section-data">
               <div className="govuk-grid-column-three-quarters">
                 <dl className="certificate">
@@ -59,7 +59,7 @@ class TrainingData extends Component {
           ))
         }
         {
-          profile.trainingModules.length > 0 &&
+          profile.certificates.length > 0 &&
           <Link
             page="pil.training.certificate"
             label={<Snippet>actions.add</Snippet>}
