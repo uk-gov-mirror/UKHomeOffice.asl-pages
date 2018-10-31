@@ -8,7 +8,7 @@ import TrainingData from './training-data';
 import ExemptionData from './exemption-data';
 import ProcedureData from './procedure-data';
 
-const Index = ({ establishment, profile, model, skipExemptions, url }) => {
+const Index = ({ establishment, profile, model, skipExemptions, skipTraining, url }) => {
 
   const sections = [
     {
@@ -18,7 +18,8 @@ const Index = ({ establishment, profile, model, skipExemptions, url }) => {
     },
     {
       name: 'training',
-      completed: profile.certificates.length > 0
+      page: 'pil.training.exempt',
+      completed: profile.certificates.length > 0 || skipTraining
     },
     {
       name: 'exemptions',
@@ -92,8 +93,9 @@ const mapStateToProps = ({
     establishment,
     profile,
     skipExemptions,
+    skipTraining,
     url
   }
-}) => ({ establishment, profile, model, skipExemptions, url });
+}) => ({ establishment, profile, model, skipExemptions, skipTraining, url });
 
 export default connect(mapStateToProps)(Index);
