@@ -25,9 +25,7 @@ const formatters = {
       const ConnectedComponent = connectComponent(option.value);
       return {
         ...option,
-        reveal: (
-          <Inset><ConnectedComponent /></Inset>
-        )
+        reveal: option.reveal ? <Inset><ConnectedComponent /></Inset> : null
       };
     }
   }
