@@ -37,16 +37,6 @@ class ProcedureData extends Component {
                   }
                 </dl>
               </div>
-              <div className="govuk-grid-column-one-quarter">
-                <ul className="actions">
-                  <li>
-                    <Link
-                      page="pil.procedures"
-                      label={<Snippet>actions.remove</Snippet>}
-                    />
-                  </li>
-                </ul>
-              </div>
             </div>
           )
           )
