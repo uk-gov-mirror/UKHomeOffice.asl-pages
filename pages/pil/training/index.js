@@ -1,10 +1,10 @@
 const page = require('../../../lib/page');
-const { certificate, modules } = require('./routers');
+const { certificate, modules, exempt } = require('./routers');
 
 module.exports = settings => {
   const app = page({
     root: __dirname,
-    paths: ['/modules'],
+    paths: ['/modules', '/exempt'],
     ...settings
   });
 
@@ -27,6 +27,7 @@ module.exports = settings => {
   });
 
   app.use('/modules', modules());
+  app.use('/exempt', exempt());
   app.use('/', certificate());
 
   return app;

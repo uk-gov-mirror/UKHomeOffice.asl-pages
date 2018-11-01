@@ -26,6 +26,7 @@ module.exports = settings => {
     locals: (req, res, next) => {
       res.locals.static.profile = req.profile;
       res.locals.static.skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
+      res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
       next();
     }
   }));
