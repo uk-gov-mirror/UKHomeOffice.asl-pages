@@ -7,6 +7,7 @@ import Accordion from '../../../common/views/components/accordion';
 import ExpandingPanel from '../../../common/views/components/expanding-panel';
 import Snippet from '../../../common/views/containers/snippet';
 import Link from '../../../common/views/containers/link';
+import PilApply from './pil-apply';
 import { readableDateFormat } from '../../../../constants';
 
 const getPremises = roles => {
@@ -28,6 +29,7 @@ const getPremises = roles => {
 };
 
 const Index = ({
+  isUser,
   model: {
     name,
     pil,
@@ -71,17 +73,7 @@ const Index = ({
               )
             }
           </dl>
-
-          <div>
-            <p><Snippet>warning</Snippet></p>
-            <p>
-              <Link
-                page='pil.create'
-                className="govuk-button"
-                label={<Snippet>buttons.applyNow</Snippet>}
-              />
-            </p>
-          </div>
+          <PilApply pil={pil} />
           <Accordion>
             {
               (!isEmpty(roles) || !isEmpty(premises)) && (
@@ -247,6 +239,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment }, model }) => ({ establishment, model });
+const mapStateToProps = ({ static: { establishment, isUser }, model }) => ({ establishment, model, isUser });
 
 module.exports = connect(mapStateToProps)(Index);
