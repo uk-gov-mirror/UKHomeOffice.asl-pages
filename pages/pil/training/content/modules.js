@@ -7,6 +7,10 @@ module.exports = merge({}, content, {
     modules: {
       label: '',
       hint: 'Select all that apply.'
+    },
+    species: {
+      label: 'Please specify a species. For example, Rats or Mice',
+      add: 'Add another species'
     }
   },
   errors: {
