@@ -29,7 +29,7 @@ class Tasklist extends Component {
                   tasks.map((task, index) => (
                     <tr key={index}>
                       <td>{task.receivedAt}</td>
-                      <td>{task.establishment.name}</td>
+                      <td>{task.establishment && task.establishment.name}</td>
                       <td>{task.licence}</td>
                       <td>
                         <a href={task.action.url}>{task.action.label}</a>
