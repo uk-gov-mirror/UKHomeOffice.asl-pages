@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const form = require('../../../common/routers/form');
 const { modules: schema } = require('../schema');
-const { pick } = require('lodash');
+const { pick, castArray } = require('lodash');
 const { buildModel } = require('../../../../lib/utils');
 
 module.exports = settings => {
@@ -38,11 +38,9 @@ module.exports = settings => {
     values.modules = values.modules.map(module => {
       const species = req.form.values[`module-${module}-species`];
       return { module,
-        species:
-         Array.isArray(species) ? species.filter(s => s !== '') : (species !== '' ? [species] : [])
+        species: castArray(species).filter(s => s !== '')
       };
-    }
-    );
+    });
 
     const opts = {
       method: 'POST',

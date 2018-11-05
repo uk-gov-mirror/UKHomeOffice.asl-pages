@@ -4,7 +4,8 @@ import FormLayout from '../../../common/views/layouts/form';
 import Inset from '../../../common/views/components/inset';
 import AddAnother from '../../../common/views/components/add-another';
 import { Select } from '@ukhomeoffice/react-components';
-const { species } = require('@asl/constants');
+import { species } from '@asl/constants';
+
 const SPECIES_REVEAL_TOTAL_COUNT = 10;
 const SPECIES_REVEAL_VISIBLE_COUNT = 1;
 
