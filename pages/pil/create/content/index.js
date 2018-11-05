@@ -10,6 +10,6 @@ module.exports = {
       'These personal licenses are issued for short-term educational and training purposes. They will only authorise you to work on a specific project.'
   },
   buttons: {
-    apply: 'Apply Now'
+    apply: 'Apply now'
   }
 };

@@ -170,18 +170,10 @@ th {
       h3 {
         margin: 0;
       }
-    }
 
-    ul.actions {
-      width: 100%;
-      text-align: right;
-
-      li {
-        display: inline;
-
-        &:not(:first-child)::before {
-          content: ' | ';
-        }
+      .actions {
+        margin-top: $govuk-gutter-half;
+        text-align: right;
       }
     }
   }
@@ -210,32 +202,24 @@ th {
   }
 
   .section-data {
+    @extend .govuk-body-s;
+
     border-left: 8px solid govuk-colour('grey-2');
     margin: $govuk-gutter-half 0;
 
-    &>.govuk-grid-column-one-quarter {
-      padding-right: 0;
+    dt {
+      @extend .govuk-grid-column-one-half;
+      font-weight: normal;
+      clear: left;
     }
 
-    dl {
-      @extend .govuk-body-s;
+    dd {
+      @extend .govuk-grid-column-one-half;
+      font-weight: bold;
+      margin-bottom: $govuk-gutter-half / 2;
 
-      dt {
-        display: block;
-        width: 160px;
-        clear: left;
-        float: left;
-        font-weight: normal;
-      }
-
-      dd {
-        float: left;
-        font-weight: bold;
-        margin: 0 0 8px $govuk-gutter;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
@@ -331,16 +315,17 @@ th {
 }
 
 dl.inline {
-  @include govuk-grid-row;
+  @extend .govuk-grid-row;
 
   > dt {
-    @include govuk-grid-column(one-third);
+    @extend .govuk-grid-column-one-third;
   }
 
   > dd {
-    @include govuk-grid-column(two-thirds)
+    @extend .govuk-grid-column-two-thirds;
   }
 }
+
 
 .expanding-panel {
   header, .content {

@@ -1,0 +1,9 @@
+{
+  "id": "PIL ID",
+  "procedures": [
+    "D",
+    "F"
+  ],
+  "notesCatD": "Some notes",
+  "notesCatF": "Some category F notes"
+}

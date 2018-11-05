@@ -74,7 +74,7 @@
     "mkdirp": "^0.5.1",
     "npm-sass": "^2.2.3",
     "reqres": "^2.1.0",
-    "sinon": "^6.3.4",
+    "sinon": "^6.3.5",
     "supertest": "^3.3.0",
     "wdio-mocha-framework": "^0.5.13",
     "webdriverio": "^4.13.2",

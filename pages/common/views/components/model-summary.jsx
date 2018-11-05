@@ -1,5 +1,6 @@
+import classnames from 'classnames';
 import React, { Fragment } from 'react';
-import { map } from 'lodash';
+import { map, pick } from 'lodash';
 import Snippet from '../containers/snippet';
 
 const getValue = (value, format) => {
@@ -9,9 +10,12 @@ const getValue = (value, format) => {
   return format ? format(value) : value;
 };
 
-const ModelSummary = ({ model, formatters }) => {
+const ModelSummary = ({ model, schema, formatters = {}, className }) => {
+  if (schema) {
+    model = pick(model, Object.keys(schema));
+  }
   return (
-    <dl className="inline">
+    <dl className={classnames('inline', className)}>
       {
         map(model, (item, key) =>
           <Fragment key={key}>
