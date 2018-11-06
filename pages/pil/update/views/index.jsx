@@ -52,7 +52,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
       name: 'procedures',
       page: 'pil.procedures',
       removeLink: false,
-      models: model.procedures.map(procedure => {
+      models: (model.procedures || []).map(procedure => {
         const rtn = { procedures: procedure };
         if (procedure === 'D') {
           rtn.notesCatD = model.notesCatD;
