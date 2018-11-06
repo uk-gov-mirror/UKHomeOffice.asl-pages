@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import classnames from 'classnames';
 import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
 import ApplicationConfirm from '../../../common/views/components/application-confirm';
@@ -88,7 +89,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
           <ul className="pil-sections">
             {
               sections.map(section =>
-                <li key={section.name} className="section"><SectionDetails {...section} /></li>
+                <li key={section.name} className={classnames('section', section.name)}><SectionDetails {...section} /></li>
               )
             }
           </ul>
