@@ -20,13 +20,6 @@ module.exports = () => {
   app.use('/:pilId/delete', require('./delete')());
   app.use('/:pilId', require('./read')());
 
-  app.use('/create', (req, res, next) => {
-    if (!req.profile.pil) {
-      return next();
-    }
-    res.redirect(req.buildRoute('pil.read', { pilId: req.profile.pil.id }));
-  });
-
   app.use('/create', require('./create')());
 
   app.get('/', (req, res, next) => {

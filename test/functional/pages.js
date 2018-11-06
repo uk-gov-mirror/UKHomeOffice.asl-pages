@@ -1,6 +1,7 @@
 module.exports = {
   pil: {
-    create: '/pages/pil/create'
+    create: '/pages/pil/create',
+    update: '/pages/pil/update'
   },
   establishment: {
     dashboard: '/pages/establishment/dashboard',

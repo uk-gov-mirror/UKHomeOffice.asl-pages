@@ -6,6 +6,13 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.use((req, res, next) => {
+    if (!req.profile.pil) {
+      return next();
+    }
+    res.redirect(req.buildRoute('pil.read', { pilId: req.profile.pil.id }));
+  });
+
   app.post('/', (req, res, next) => {
     const { action } = req.query;
 

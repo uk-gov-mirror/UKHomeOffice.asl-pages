@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
 import ApplicationConfirm from '../../../common/views/components/application-confirm';
 import ErrorSummary from '../../../common/views/containers/error-summary';
-import TrainingData from './training-data';
-import ExemptionData from './exemption-data';
-import ProcedureData from './procedure-data';
+import { certificate as certificatesSchema, modules as modulesSchema } from '../../training/schema';
+import SectionDetails from './section-details';
 
-const Index = ({ establishment, profile, model, skipExemptions, skipTraining, url }) => {
+const Index = ({ establishment, certificates, exemptions, model, skipExemptions, skipTraining, url }) => {
 
   const sections = [
     {
@@ -19,14 +17,52 @@ const Index = ({ establishment, profile, model, skipExemptions, skipTraining, ur
     {
       name: 'training',
       page: 'pil.training.exempt',
-      completed: profile.certificates.length > 0 || skipTraining
+      models: certificates,
+      schema: { ...certificatesSchema, ...modulesSchema },
+      formatters: {
+        modules: {
+          format: modules => (
+            <ul>
+              {
+                modules.map(({ module, species }, index) =>
+                  <li key={index}>
+                    { module }
+                    { species.length > 0 && <span className="species"> ({module.species.join(', ')})</span> }
+                  </li>
+                )
+              }
+            </ul>
+          )
+        }
+      },
+      completed: certificates.length > 0 || skipTraining
     },
     {
       name: 'exemptions',
-      completed: profile.exemptions.length > 0 || skipExemptions
+      page: 'pil.exemptions.exempt',
+      models: exemptions,
+      schema: {
+        module: {},
+        description: {}
+      },
+      addOrEdit: 'edit',
+      completed: exemptions.length > 0 || skipExemptions
     },
     {
       name: 'procedures',
+      page: 'pil.procedures',
+      removeLink: false,
+      models: (model.procedures || []).map(procedure => {
+        const rtn = { procedures: procedure };
+        if (procedure === 'D') {
+          rtn.notesCatD = model.notesCatD;
+        }
+        if (procedure === 'F') {
+          rtn.notesCatF = model.notesCatF;
+        }
+        return rtn;
+      }),
+      addOrEdit: 'edit',
       completed: model.procedures && model.procedures.length > 0
     }
   ];
@@ -40,42 +76,20 @@ const Index = ({ establishment, profile, model, skipExemptions, skipTraining, ur
           <ErrorSummary />
         </div>
       </div>
+
       <header>
         <h2>{establishment.name}</h2>
         <h1><Snippet>pil.title</Snippet></h1>
-        <p><Snippet>pil.summary</Snippet></p>
       </header>
+
+      <p><Snippet>pil.summary</Snippet></p>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <ul className="pil-sections">
             {
-              sections.map(section => (
-                <li key={section.name} className="section">
-                  <div className="govuk-grid-row">
-                    <div className="govuk-grid-column-three-quarters">
-                      <h3>
-                        <Link
-                          page={section.page}
-                          label={<Snippet>{`pil.${section.name}.title`}</Snippet>}
-                          path={section.name}
-                        />
-                      </h3>
-                    </div>
-                    <div className="govuk-grid-column-one-quarter">
-                      { section.completed && <label className="status-label completed">Completed</label> }
-                    </div>
-                  </div>
-                  { section.name === 'training' &&
-                    <TrainingData url={url} profile={profile} />
-                  }
-                  { section.name === 'exemptions' &&
-                    <ExemptionData url={url} skipExemptions={skipExemptions} profile={profile} />
-                  }
-                  { section.name === 'procedures' &&
-                    <ProcedureData pil={model} />
-                  }
-                </li>
-              ))
+              sections.map(section =>
+                <li key={section.name} className="section"><SectionDetails {...section} /></li>
+              )
             }
           </ul>
           {
@@ -91,11 +105,13 @@ const mapStateToProps = ({
   model,
   static: {
     establishment,
-    profile,
+    profile: {
+      exemptions,
+      certificates
+    },
     skipExemptions,
-    skipTraining,
-    url
+    skipTraining
   }
-}) => ({ establishment, profile, model, skipExemptions, skipTraining, url });
+}) => ({ establishment, exemptions, certificates, model, skipExemptions, skipTraining });
 
 export default connect(mapStateToProps)(Index);

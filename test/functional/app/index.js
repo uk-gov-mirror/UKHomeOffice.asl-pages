@@ -1,4 +1,3 @@
-const { set } = require('lodash');
 const ui = require('@asl/service/ui');
 const withuser = require('./withuser');
 const session = require('express-session');
@@ -6,7 +5,10 @@ const fixtures = require('../fixtures');
 
 const getPages = require('../helpers/pages');
 
-const urls = require('../pages');
+const urls = {
+  ...require('../pages'),
+  ...require('../urls')
+};
 
 const { views, content, assets } = require('../../../');
 
@@ -14,7 +16,8 @@ module.exports = () => {
   const app = ui({
     auth: false,
     log: { level: 'silent' },
-    views
+    views,
+    urls
   });
 
   app.use(session({
@@ -30,27 +33,6 @@ module.exports = () => {
 
   app.use(content);
   app.use('/public', assets);
-
-  app.use((req, res, next) => {
-    set(res.locals, 'static.urls', { ...urls,
-      place: {
-        create: {
-          new: '/create-place',
-          confirm: '/pages/place/create/confirm',
-          success: '/pages/place/create/success'
-        },
-        update: {
-          confirm: '/pages/place/an-id/edit/confirm',
-          success: '/pages/place/an-id/edit/success'
-        },
-        delete: {
-          confirm: '/pages/place/an-id/delete/confirm',
-          success: '/pages/place/an-id/delete/success'
-        }
-      }
-    });
-    next();
-  });
 
   const pages = getPages();
 

@@ -32,45 +32,28 @@
       "title": "Hypoxy and angiogenesis in cancer therapy"
     }
   ],
-  "trainingModules": [
+  "certificates": [
     {
-      "id": "2a96ed09-7281-4f14-b364-a7992683f32c",
-      "migratedId": null,
       "modules": [{
         "module": "L",
         "species": []
-    },{
+      },{
         "module": "E1",
         "species": []
-    }],
-    "passDate": null,
-    "notApplicable": false,
-    "accreditingBody": null,
-    "otherAccreditingBody": null,
-    "certificateNumber": null,
-    "exemption": true,
-    "exemptionDescription": null,
-    "profileId": "8a85de80-5f33-11e8-91cd-c7ceba8eb031"
+      }],
+      "passDate": "2012-10-15",
+      "accreditingBody": "An accrediting body",
+      "certificateNumber": "ABC123"
+    }
+  ],
+  "exemptions": [
+    {
+      "module": "L",
+      "description": "I am exempt from module L because..."
     },
     {
-      "id": "10b1919e-1444-4aa4-9734-dcf4f4c83b3d",
-      "migratedId": null,
-      "modules": [{
-        "module": "L",
-        "species": []
-    },{
-        "module": "E1",
-        "species": []
-    }],
-    "passDate": null,
-    "notApplicable": false,
-    "accreditingBody": null,
-    "otherAccreditingBody": null,
-    "certificateNumber": null,
-    "exemption": false,
-    "exemptionDescription": null,
-    "profileId": "8a85de80-5f33-11e8-91cd-c7ceba8eb031"
+      "module": "E1",
+      "description": "I am exempt from module E1 because..."
     }
   ]
-
 }

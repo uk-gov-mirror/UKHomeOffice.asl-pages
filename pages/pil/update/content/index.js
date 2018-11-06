@@ -1,3 +1,8 @@
+const { merge } = require('lodash');
+const trainingFields = require('../../training/content').fields;
+const modulesFields = require('../../training/content/modules').fields;
+const proceduresFields = require('../../procedures/content').fields;
+
 module.exports = {
   pil: {
     title: 'Apply for personal licence - Categories A, B, C, D and F',
@@ -15,22 +20,8 @@ module.exports = {
       title: 'Procedure categories'
     }
   },
-  certificate: {
-    number: 'Certificate number',
-    accreditation: 'Accreditation body',
-    awarded: 'Date awarded',
-    expiry: 'Expiry date',
-    modules: 'Modules completed',
-    exemption: 'Exempt from module',
-    reason: 'Reason for exemption'
-  },
   exemption: {
     skipped: 'No exemptions provided.'
-  },
-  procedure: {
-    category: 'Procedure category',
-    catDLabel: 'Evidence of competency',
-    catFLabel: 'Type of regulated procedure'
   },
   actions: {
     add: 'Add',
@@ -38,16 +29,33 @@ module.exports = {
     remove: 'Remove',
     submit: 'Submit to NTCO'
   },
-  fields: {
-    declaration: {
-      yes: {
-        label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
-          1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
-          provide information which you know to be false or misleading.`
+  fields: merge({},
+    trainingFields,
+    modulesFields,
+    proceduresFields,
+    {
+      modules: {
+        label: 'Modules completed'
       },
-      label: 'Please confirm that you understand'
+      module: {
+        label: 'Exempt from module'
+      },
+      description: {
+        label: 'Reason for exemption'
+      },
+      procedures: {
+        label: 'Procedure category'
+      },
+      declaration: {
+        yes: {
+          label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
+            1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
+            provide information which you know to be false or misleading.`
+        },
+        label: 'Please confirm that you understand'
+      }
     }
-  },
+  ),
   errors: {
     declaration: {
       required: 'Please confirm that you understand'
