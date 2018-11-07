@@ -7,7 +7,8 @@ module.exports = {
     },
     dashboard: {
       greeting: 'Hello {{name}}',
-      invite: 'Invite'
+      invite: 'Invite',
+      tasks: 'Tasks'
     },
     establishment: {
       list: 'Establishments',

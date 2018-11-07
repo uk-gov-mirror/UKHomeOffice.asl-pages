@@ -1,6 +1,8 @@
 const page = require('../../lib/page');
 const moment = require('moment');
 const { readableDateFormat } = require('../../constants');
+const datatable = require('../common/routers/datatable');
+const schema = require('./schema');
 
 module.exports = settings => {
   const app = page({
@@ -28,7 +30,8 @@ module.exports = settings => {
 
     return {
       receivedAt: moment(taskCase.updated_at).format(readableDateFormat),
-      establishment: taskCase.data.establishment,
+      establishments: [ taskCase.data.establishment ],
+      establishment: taskCase.data.establishment.id,
       licence: licence.toUpperCase(),
       action
     };
@@ -36,15 +39,21 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     res.locals.static.profile = req.user.profile;
-
-    return req.api(`/me/tasks`)
-      .then(({ json: { data } }) => {
-        const cases = data.json.data || [];
-        res.locals.static.tasks = cases.map(taskCase => buildTask(taskCase, req));
-      })
-      .then(() => next())
-      .catch(next);
+    next();
   });
+
+  app.use(datatable({
+    getApiPath: (req, res, next) => {
+      req.datatable.apiPath = `/me/tasks`;
+      next();
+    },
+    getValues: (req, res, next) => {
+      req.datatable.data.rows = req.datatable.data.rows.map(taskCase => {
+        return buildTask(taskCase, req);
+      });
+      next();
+    }
+  })({ schema }));
 
   return app;
 };

@@ -11,5 +11,19 @@ module.exports = {
       licence: 'Licence',
       type: 'Type'
     }
+  },
+  fields: {
+    received: {
+      label: 'Received'
+    },
+    establishment: {
+      label: 'Establishment'
+    },
+    licence: {
+      label: 'Licence'
+    },
+    type: {
+      label: 'Type'
+    }
   }
 };
