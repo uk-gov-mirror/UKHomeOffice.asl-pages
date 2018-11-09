@@ -18,6 +18,7 @@ module.exports = () => {
 
   app.use('/:pilId/edit', require('./update')());
   app.use('/:pilId/delete', require('./delete')());
+  app.use('/:pilId/review', require('./review')());
   app.use('/:pilId', require('./read')());
 
   app.use('/create', require('./create')());
