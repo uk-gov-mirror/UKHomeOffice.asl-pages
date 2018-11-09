@@ -14,7 +14,7 @@ import {
   Link
 } from '@asl/components';
 import PilApply from './pil-apply';
-import { readableDateFormat } from '../../../../constants';
+import { dateFormat } from '../../../../constants';
 
 const getPremises = roles => {
   if (!roles) {
@@ -59,7 +59,7 @@ const Index = ({
   },
   ...props
 }) => {
-  const formatDate = date => format(date, readableDateFormat);
+  const formatDate = date => format(date, dateFormat.medium);
   const premises = getPremises(roles);
   const hasNacwoCertifications = roles.length > 0 && roles.find(role => role.type === 'nacwo') && certifications;
   return (
@@ -159,7 +159,7 @@ const Index = ({
                                 <span><Snippet licenceNumber={project.licenceNumber}>projects.licenceNumber</Snippet></span>
                               </dd>
                               <dd>
-                                <span><Snippet expiryDate={format(project.expiryDate, readableDateFormat)}>projects.expiryDate</Snippet></span>
+                                <span><Snippet expiryDate={format(project.expiryDate, dateFormat.medium)}>projects.expiryDate</Snippet></span>
                               </dd>
                             </Fragment>
                           )
