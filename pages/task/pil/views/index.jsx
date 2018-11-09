@@ -4,7 +4,7 @@ import Link from '../../../common/views/containers/link';
 import Snippet from '../../../common/views/containers/snippet';
 import ErrorSummary from '../../../common/views/containers/error-summary';
 import Pil from '../../../common/views/containers/pil';
-import moment from 'moment';
+import moment from 'moment'; // todo: switch for date-fns
 import { dateFormat } from '../../../../constants';
 
 const Index = ({ establishment, profile, pil, task }) => {
