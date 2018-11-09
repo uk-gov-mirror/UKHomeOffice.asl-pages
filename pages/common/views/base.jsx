@@ -1,11 +1,13 @@
 import React from 'react';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import HomeOffice from '@asl/service/ui/components/home-office';
-import Breadcrumbs from '../components/breadcrumbs';
-import StatusBar from '../components/status-bar';
-import Notifications from '../containers/notifications';
+import {
+  Breadcrumbs,
+  StatusBar,
+  Notifications
+} from '@asl/components';
 
 const Wrapped = ({ store, children }) => <Provider store={store}>{ children }</Provider>;
 

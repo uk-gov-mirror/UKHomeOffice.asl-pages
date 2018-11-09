@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
-import Sidebar from '../../../common/views/components/sidebar';
+import {
+  Snippet,
+  Link,
+  Sidebar
+} from '@asl/components';
 
 const links = [
   { path: 'establishment.read', permissions: 'establishment.read' },

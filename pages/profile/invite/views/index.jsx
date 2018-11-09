@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Snippet from '../../../common/views/containers/snippet';
-import FormLayout from '../../../common/views/layouts/form';
+import {
+  Snippet,
+  FormLayout
+} from '@asl/components';
 
 const formatters = {
   role: {

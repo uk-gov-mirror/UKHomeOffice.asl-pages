@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from './layouts/default';
+import Layout from './base';
 
 const Index = ({
   Component,

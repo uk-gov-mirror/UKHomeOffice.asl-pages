@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
-import Snippet from '../../../common/views/containers/snippet';
-import ApplyChanges from '../../../common/views/components/apply-changes';
 import { connect } from 'react-redux';
+import {
+  Snippet,
+  ApplyChanges
+} from '@asl/components';
 
 const types = ['catAF', 'catE'];
 

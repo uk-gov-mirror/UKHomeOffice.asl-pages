@@ -1,6 +1,8 @@
 import React from 'react';
-import Snippet from '../../../common/views/containers/snippet';
-import FormLayout from '../../../common/views/layouts/form';
+import {
+  Snippet,
+  FormLayout
+} from '@asl/components';
 
 export default () => (
   <FormLayout>

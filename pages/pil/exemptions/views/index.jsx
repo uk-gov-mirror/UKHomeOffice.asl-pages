@@ -1,7 +1,9 @@
 import React from 'react';
-import Snippet from '../../../common/views/containers/snippet';
-import FormLayout from '../../../common/views/layouts/form';
-import Link from '../../../common/views/containers/link';
+import {
+  Snippet,
+  FormLayout,
+  Link
+} from '@asl/components';
 
 const Page = () => (
   <FormLayout>

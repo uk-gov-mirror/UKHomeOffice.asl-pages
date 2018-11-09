@@ -1,8 +1,10 @@
 import React from 'react';
-import Snippet from '../../../common/views/containers/snippet';
-import FormLayout from '../../../common/views/layouts/form';
-import Inset from '../../../common/views/components/inset';
-import AddAnother from '../../../common/views/components/add-another';
+import {
+  Snippet,
+  FormLayout,
+  Inset,
+  AddAnother
+} from '@asl/components';
 import { Select } from '@ukhomeoffice/react-components';
 import { species } from '@asl/constants';
 

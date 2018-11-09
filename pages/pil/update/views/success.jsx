@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
+import {
+  Snippet,
+  Link
+} from '@asl/components';
 
 const Success = ({ profile }) => (
   <Fragment>

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Snippet from '../../../common/views/containers/snippet';
+import { Snippet } from '@asl/components';
 
 const Success = ({
   ...props

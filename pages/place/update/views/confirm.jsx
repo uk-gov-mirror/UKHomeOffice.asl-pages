@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Diff from '../../../common/views/containers/diff';
-import ModelSummary from '../../../common/views/containers/model-summary';
-import Snippet from '../../../common/views/containers/snippet';
-import ErrorSummary from '../../../common/views/containers/error-summary';
-import Field from '../../../common/views/components/field';
+import {
+  Diff,
+  ModelSummary,
+  Snippet,
+  ErrorSummary,
+  Field
+} from '@asl/components';
 import { CheckboxGroup } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';

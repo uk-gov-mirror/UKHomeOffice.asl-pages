@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Accordion from '../../../common/views/components/accordion';
-import ExpandingPanel from '../../../common/views/components/expanding-panel';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
+import {
+  Accordion,
+  ExpandingPanel,
+  Snippet,
+  Link
+} from '@asl/components';
 
 const Index = ({
   establishment: {

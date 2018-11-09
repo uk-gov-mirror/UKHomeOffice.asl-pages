@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Snippet from '../../../common/views/containers/snippet';
-import ModelSummary from '../../../common/views/containers/model-summary';
-import { TextArea } from '@ukhomeoffice/react-components';
-import FormControls from '../../../common/views/components/form-controls';
+import {
+  Snippet,
+  ModelSummary,
+  TextArea,
+  FormControls
+} from '@asl/components';
 import formatters from '../../formatters';
 
 const DeletePage = ({

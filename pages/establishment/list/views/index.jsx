@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
-import DataTable from '../../../common/views/containers/datatable';
-import SearchBar from '../../../common/views/containers/search';
-import ExportLink from '../../../common/views/containers/export-link';
-import FilterSummary from '../../../common/views/containers/filter-summary';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
+import {
+  Datatable,
+  Search,
+  ExportLink,
+  FilterSummary,
+  Snippet,
+  Link
+} from '@asl/components';
 
 const formatters = {
   name: {
@@ -20,9 +22,9 @@ const Index = () => (
       <h2>&nbsp;</h2>
       <h1><Snippet>pages.establishment.list</Snippet></h1>
     </header>
-    <SearchBar label={<Snippet>searchText</Snippet>} />
+    <Search label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
-    <DataTable formatters={formatters} />
+    <Datatable formatters={formatters} />
     <ExportLink />
   </Fragment>
 );
