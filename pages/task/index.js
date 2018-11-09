@@ -4,6 +4,8 @@ module.exports = () => {
   const app = Router({ mergeParams: true });
 
   app.param('taskId', (req, res, next, taskId) => {
+    console.log('taskId found: ', taskId);
+
     return req.api(`/tasks/${taskId}`)
       .then(response => {
         console.log(response.json.data);
@@ -13,7 +15,7 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.get('/tasks/:taskId', (req, res, next) => {
+  app.get('/', (req, res, next) => {
     console.log('here');
     console.log(req.task);
     next();
