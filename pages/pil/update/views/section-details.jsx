@@ -26,7 +26,6 @@ const SectionDetails = ({
   >
     {
       models.map((model, index) => {
-        console.log(model);
         return (<div className="govuk-grid-row" key={index}>
           <div className="govuk-grid-column-three-quarters">
             <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
