@@ -29,7 +29,7 @@
   "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
     "@asl/components": "^1.0.0",
-    "@asl/constants": "^0.3.0",
+    "@asl/constants": "^0.3.1",
     "@asl/dictionary": "^1.1.1",
     "@asl/service": "^6.4.0",
     "@ukhomeoffice/frontend-toolkit": "^2.2.2",
