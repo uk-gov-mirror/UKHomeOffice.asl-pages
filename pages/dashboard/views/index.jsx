@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Tasklist from '../../common/views/containers/tasklist';
-import Link from '../../common/views/containers/link';
-import Snippet from '../../common/views/containers/snippet';
+import {
+  Tasklist,
+  Link,
+  Snippet
+} from '@asl/components';
 
 const Index = ({
   profile: {

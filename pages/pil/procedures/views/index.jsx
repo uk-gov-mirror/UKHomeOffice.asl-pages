@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { mapKeys } from 'lodash';
-import Snippet from '../../../common/views/containers/snippet';
-import FormLayout from '../../../common/views/layouts/form';
-import Fieldset from '../../../common/views/components/fieldset';
-import Inset from '../../../common/views/components/inset';
+import mapKeys from 'lodash/mapKeys';
+import {
+  Snippet,
+  FormLayout,
+  Fieldset,
+  Inset
+} from '@asl/components';
 
 const connectComponent = key => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {

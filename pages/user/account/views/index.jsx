@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
-import Link from '../../../common/views/containers/link';
-import Snippet from '../../../common/views/containers/snippet';
+import {
+  Link,
+  Snippet
+} from '@asl/components';
 
 const Index = () => {
   return <Fragment>

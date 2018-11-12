@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Snippet from '../../../common/views/containers/snippet';
-import ApplyChanges from '../../../common/views/containers/apply-changes';
-import ModelSummary from '../../../common/views/components/model-summary';
-import Completable from '../../../common/views/components/completable';
-import Link from '../../../common/views/containers/link';
+import {
+  Snippet,
+  ApplyChanges,
+  ModelSummary,
+  Completable,
+  Link
+} from '@asl/components';
 
 const SectionDetails = ({
   models = [],
@@ -23,8 +25,8 @@ const SectionDetails = ({
     completed={completed}
   >
     {
-      models.map((model, index) =>
-        <div className="govuk-grid-row" key={index}>
+      models.map((model, index) => {
+        return (<div className="govuk-grid-row" key={index}>
           <div className="govuk-grid-column-three-quarters">
             <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
           </div>
@@ -43,8 +45,8 @@ const SectionDetails = ({
               )
             }
           </div>
-        </div>
-      )
+        </div>);
+      })
     }
     {
       !!models.length && <Link

@@ -1,5 +1,5 @@
 import React from 'react';
-import FormLayout from '../../../common/views/layouts/form';
+import { FormLayout } from '@asl/components';
 
 const Page = () => (
   <FormLayout>

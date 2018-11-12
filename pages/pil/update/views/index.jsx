@@ -1,10 +1,17 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import Snippet from '../../../common/views/containers/snippet';
-import ApplicationConfirm from '../../../common/views/components/application-confirm';
-import ErrorSummary from '../../../common/views/containers/error-summary';
-import { certificate as certificatesSchema, modules as modulesSchema } from '../../training/schema';
+import {
+  Snippet,
+  ApplicationConfirm,
+  ErrorSummary
+} from '@asl/components';
+
+import {
+  certificate as certificatesSchema,
+  modules as modulesSchema
+} from '../../training/schema';
+
 import SectionDetails from './section-details';
 
 const Index = ({ establishment, certificates, exemptions, model, skipExemptions, skipTraining, url }) => {
@@ -53,6 +60,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
       name: 'procedures',
       page: 'pil.procedures',
       removeLink: false,
+      schema: {},
       models: (model.procedures || []).map(procedure => {
         const rtn = { procedures: procedure };
         if (procedure === 'D') {

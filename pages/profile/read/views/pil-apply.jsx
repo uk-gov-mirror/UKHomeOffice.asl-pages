@@ -1,7 +1,9 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import Link from '../../../common/views/containers/link';
-import Snippet from '../../../common/views/containers/snippet';
+import {
+  Link,
+  Snippet
+} from '@asl/components';
 
 const PilApply = ({
   isUser,

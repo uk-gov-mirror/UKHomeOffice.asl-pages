@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import SearchBar from '../../../common/views/containers/search';
-import FilterSummary from '../../../common/views/containers/filter-summary';
-import LinkFilter from '../../../common/views/containers/link-filter';
-import DataTable from '../../../common/views/containers/datatable';
-import Acronym from '../../../common/views/components/acronym';
-import Join from '../../../common/views/components/join';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
+import {
+  Search,
+  Datatable,
+  FilterSummary,
+  LinkFilter,
+  Acronym,
+  Snippet,
+  Join,
+  Link
+} from '@asl/components';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -39,7 +41,7 @@ const People = ({
       <h2>{name}</h2>
       <h1><Snippet>pages.profile.list</Snippet></h1>
     </header>
-    <SearchBar label={<Snippet>searchText</Snippet>} />
+    <Search label={<Snippet>searchText</Snippet>} />
     <LinkFilter
       prop="roles"
       formatter={filter => <Acronym>{filter.toUpperCase()}</Acronym>}
@@ -53,7 +55,7 @@ const People = ({
         )
       }
     </div>
-    <DataTable formatters={formatters} />
+    <Datatable formatters={formatters} />
   </Fragment>
 );
 

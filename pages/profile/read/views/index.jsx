@@ -1,12 +1,18 @@
 import React, { Fragment } from 'react';
-import { isEmpty, map, chain } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
+import map from 'lodash/map';
+import flow from 'lodash/fp/flow';
+import groupBy from 'lodash/fp/groupBy';
+import mapValues from 'lodash/fp/mapValues';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
 import { defineValue } from '../../../common/formatters';
-import Accordion from '../../../common/views/components/accordion';
-import ExpandingPanel from '../../../common/views/components/expanding-panel';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
+import {
+  Accordion,
+  ExpandingPanel,
+  Snippet,
+  Link
+} from '@asl/components';
 import PilApply from './pil-apply';
 import { readableDateFormat } from '../../../../constants';
 
@@ -18,14 +24,18 @@ const getPremises = roles => {
   if (!nacwo) {
     return null;
   }
-  return chain(nacwo.places)
-    .groupBy('site')
-    .mapValues(v => chain(v)
-      .groupBy('area')
-      .mapValues(p => p.map(place => place.name))
-      .value()
-    )
-    .value();
+
+  const mapAreas = val => {
+    return flow(
+      groupBy('area'),
+      mapValues(p => p.map(place => place.name))
+    )(val);
+  };
+
+  return flow(
+    groupBy('site'),
+    mapValues(mapAreas)
+  )(nacwo.places);
 };
 
 const Index = ({
@@ -49,7 +59,7 @@ const Index = ({
   },
   ...props
 }) => {
-  const formatDate = date => format(date, 'DD MMMM YYYY');
+  const formatDate = date => format(date, readableDateFormat);
   const premises = getPremises(roles);
   const hasNacwoCertifications = roles.length > 0 && roles.find(role => role.type === 'nacwo') && certifications;
   return (

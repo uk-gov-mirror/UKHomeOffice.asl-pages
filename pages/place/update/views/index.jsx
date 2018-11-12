@@ -1,7 +1,9 @@
 import React from 'react';
-import Snippet from '../../../common/views/containers/snippet';
-import Inset from '../../../common/views/components/inset';
-import FormLayout from '../../../common/views/layouts/form';
+import {
+  Snippet,
+  Inset,
+  FormLayout
+} from '@asl/components';
 import formatters from '../../formatters';
 
 const pageFormatters = {

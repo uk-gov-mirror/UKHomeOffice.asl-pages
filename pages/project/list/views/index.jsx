@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import SearchBar from '../../../common/views/containers/search';
-import FilterSummary from '../../../common/views/containers/filter-summary';
-import DataTable from '../../../common/views/containers/datatable';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
-import ExpiryDate from '../../../common/views/components/expiry-date';
+import {
+  Search,
+  FilterSummary,
+  Datatable,
+  Snippet,
+  Link,
+  ExpiryDate
+} from '@asl/components';
 
 export const formatters = {
   licenceHolder: {
@@ -25,9 +27,9 @@ const Projects = ({
       <h2>{name}</h2>
       <h1><Snippet>pages.project.list</Snippet></h1>
     </header>
-    <SearchBar label={<Snippet>searchText</Snippet>} />
+    <Search label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
-    <DataTable formatters={formatters} />
+    <Datatable formatters={formatters} />
   </Fragment>
 );
 
