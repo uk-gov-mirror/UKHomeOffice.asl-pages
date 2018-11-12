@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import {
   Snippet,
   ModelSummary,
-  TextArea,
   FormControls
 } from '@asl/components';
+import { TextArea } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
 
 const DeletePage = ({

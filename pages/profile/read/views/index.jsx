@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
-import chain from 'lodash/chain';
+import flow from 'lodash/fp/flow';
+import groupBy from 'lodash/fp/groupBy';
+import mapValues from 'lodash/fp/mapValues';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
 import { defineValue } from '../../../common/formatters';
@@ -22,14 +24,18 @@ const getPremises = roles => {
   if (!nacwo) {
     return null;
   }
-  return chain(nacwo.places)
-    .groupBy('site')
-    .mapValues(v => chain(v)
-      .groupBy('area')
-      .mapValues(p => p.map(place => place.name))
-      .value()
-    )
-    .value();
+
+  const mapAreas = val => {
+    return flow(
+      groupBy('area'),
+      mapValues(p => p.map(place => place.name))
+    )(val);
+  };
+
+  return flow(
+    groupBy('site'),
+    mapValues(mapAreas)
+  )(nacwo.places);
 };
 
 const Index = ({
