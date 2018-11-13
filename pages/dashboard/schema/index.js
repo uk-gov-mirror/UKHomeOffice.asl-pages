@@ -1,16 +1,18 @@
 module.exports = {
-  received: {
-    show: true,
-    accessor: 'receivedAt'
+  updated_at: {
+    show: true
   },
   establishment: {
-    show: true
+    show: true,
+    sortable: false
   },
   licence: {
-    show: true
+    show: true,
+    sortable: false
   },
   type: {
     show: true,
+    sortable: false,
     accessor: 'action.label'
   }
 };
