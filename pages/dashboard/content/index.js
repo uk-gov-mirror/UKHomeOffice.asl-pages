@@ -4,12 +4,20 @@ module.exports = {
     outstanding: {
       none: 'You have no outstanding tasks',
       some: 'You have {{count}} outstanding tasks'
+    }
+  },
+  fields: {
+    updated_at: {
+      label: 'Received'
     },
-    headings: {
-      received: 'Received',
-      establishment: 'Establishment',
-      licence: 'Licence',
-      type: 'Type'
+    establishment: {
+      label: 'Establishment'
+    },
+    licence: {
+      label: 'Licence'
+    },
+    type: {
+      label: 'Type'
     }
   }
 };
