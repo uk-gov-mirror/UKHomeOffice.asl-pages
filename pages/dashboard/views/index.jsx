@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  DataTable,
+  Datatable,
   Link,
   Snippet
 } from '@asl/components';
@@ -34,7 +34,7 @@ const Index = ({
       <div className="govuk-grid-column-full">
         <h2><Snippet>pages.dashboard.tasks</Snippet></h2>
 
-        <DataTable formatters={formatters} />
+        <Datatable formatters={formatters} />
 
         <ul className="dashboard">
           {
