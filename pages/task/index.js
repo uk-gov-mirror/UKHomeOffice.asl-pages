@@ -1,25 +1,19 @@
 const { Router } = require('express');
+const read = require('./read');
 
-module.exports = () => {
-  const app = Router({ mergeParams: true });
+module.exports = settings => {
+  const app = Router();
 
   app.param('taskId', (req, res, next, taskId) => {
-    console.log('taskId found: ', taskId);
-
     return req.api(`/tasks/${taskId}`)
       .then(response => {
-        console.log(response.json.data);
         req.task = response.json.data;
       })
       .then(() => next())
       .catch(next);
   });
 
-  app.get('/', (req, res, next) => {
-    console.log('here');
-    console.log(req.task);
-    next();
-  });
+  app.use('/:taskId', read(settings));
 
   return app;
 };

@@ -20,10 +20,10 @@ module.exports = settings => {
           label: 'PIL application',
           url: req.buildRoute('pil.update', {
             establishmentId: taskCase.data.establishment.id,
-            profileId: taskCase.data.profile.id,
+            profileId: taskCase.data.subject.id,
             pilId: taskCase.data.id
           }),
-          details: taskCase.data.profile.name
+          details: taskCase.data.subject.name
         };
         break;
     }
