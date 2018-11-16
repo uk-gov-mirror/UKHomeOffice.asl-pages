@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import Link from '../../../common/views/containers/link';
-import Snippet from '../../../common/views/containers/snippet';
-import ErrorSummary from '../../../common/views/containers/error-summary';
-import Form from '../../../common/views/containers/form';
 import moment from 'moment'; // todo: switch for date-fns
+import {
+  ErrorSummary,
+  Fieldset,
+  Form,
+  Inset,
+  Link,
+  Snippet
+} from '@asl/components';
 import { dateFormat } from '../../../../constants';
-import Fieldset from '../../../common/views/components/fieldset';
-import Inset from '../../../common/views/components/inset';
 
 const connectComponent = schema => {
   const mapStateToProps = ({ model, static: { errors } }) => {

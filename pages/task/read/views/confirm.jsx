@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import FormLayout from '../../../common/views/layouts/form';
-import Snippet from '../../../common/views/containers/snippet';
-import Link from '../../../common/views/containers/link';
+import { FormLayout, Link, Snippet } from '@asl/components';
 
 const Confirm = ({ task }) => {
   return (
