@@ -35,7 +35,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
                 modules.map(({ module, species }, index) =>
                   <li key={index}>
                     { module }
-                    { species.length > 0 && <span className="species"> ({module.species.join(', ')})</span> }
+                    { species.length > 0 && <span className="species"> ({species.join(', ')})</span> }
                   </li>
                 )
               }
