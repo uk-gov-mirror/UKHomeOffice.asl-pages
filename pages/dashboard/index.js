@@ -18,11 +18,7 @@ module.exports = settings => {
       case 'pil':
         action = {
           label: 'PIL application',
-          url: req.buildRoute('pil.update', {
-            establishmentId: taskCase.data.establishment.id,
-            profileId: taskCase.data.subject.id,
-            pilId: taskCase.data.id
-          }),
+          url: req.buildRoute('task.read', { taskId: taskCase.id }),
           details: taskCase.data.subject.name
         };
         break;
