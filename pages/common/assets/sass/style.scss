@@ -283,7 +283,7 @@ th {
       background-color: $green;
     }
 
-    .pil-progress {
+    .application-progress {
       list-style: none;
       overflow: auto;
 
@@ -300,6 +300,11 @@ th {
 
         &.complete {
           opacity: 1;
+        }
+
+        &.active {
+          opacity: 1;
+          border-bottom: 5px solid $white;
         }
       }
     }
@@ -363,4 +368,17 @@ dl.inline {
     background-color: $blue;
     color: $white;
   }
+}
+
+.task-decision {
+  border-bottom: 1px solid govuk-colour('grey-2');
+  margin-bottom: $govuk-gutter;
+
+  .action {
+    float: right;
+  }
+}
+
+.task-declaration {
+  margin-bottom: $govuk-gutter;
 }

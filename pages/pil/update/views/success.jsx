@@ -24,8 +24,8 @@ const Success = ({ profile }) => (
               {profile.email}
             </p>
           </div>
-          <ul className="pil-progress">
-            <li className="complete">Submitted</li>
+          <ul className="application-progress">
+            <li className="active">Submitted</li>
             <li>Endorsed</li>
             <li>Licence granted</li>
           </ul>
