@@ -54,23 +54,25 @@ const Task = ({ task }) => {
       <header>
         <h1><Snippet>task.title</Snippet></h1>
 
-        <div className="govuk-inset-text">
+        <div className="govuk-inset-text submitted-by">
           <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
           <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
           <Snippet date={moment(task.updated_at).format(dateFormat.medium)}>task.submittedOn</Snippet>
         </div>
 
-        <h2><Snippet>task.applicantName</Snippet></h2>
-        <p>{subject.name}</p>
+        <div className="applicant">
+          <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
+          <p className="govuk-body">{subject.name}</p>
+        </div>
       </header>
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
-          <ul className="section-navigation">
-            <li>Some</li>
-            <li>Navigation</li>
-            <li>Here</li>
-          </ul>
+          <ol className="section-navigation">
+            <li className="active"><a href="#">Some</a></li>
+            <li><a href="#">Navigation</a></li>
+            <li><a href="#">Here</a></li>
+          </ol>
         </div>
 
         <div className="govuk-grid-column-two-thirds">

@@ -317,6 +317,55 @@ th {
       font-weight: bold;
     }
   }
+
+  .applicant {
+    border-bottom: 1px solid govuk-colour('grey-1');
+    padding-bottom: $govuk-gutter-half;
+    margin-bottom: $govuk-gutter;
+
+    h2 {
+      font-weight: bold;
+    }
+  }
+
+  .task-decision {
+    border-bottom: 1px solid govuk-colour('grey-2');
+    margin-bottom: $govuk-gutter;
+
+    .action {
+      float: right;
+    }
+  }
+
+  .task-declaration {
+    margin-bottom: $govuk-gutter;
+  }
+
+  .section-navigation {
+    list-style-type: decimal;
+
+    li {
+      margin-bottom: $govuk-gutter-half;
+      padding: 10px 15px;
+      color: $blue;
+
+      a {
+        display: inline-block;
+        text-decoration: none;
+        color: $blue;
+      }
+
+      &.active {
+        background-color: $blue;
+        color: $white;
+        font-weight: bold;
+
+        a {
+          color: $white;
+        }
+      }
+    }
+  }
 }
 
 dl.inline {
@@ -368,17 +417,4 @@ dl.inline {
     background-color: $blue;
     color: $white;
   }
-}
-
-.task-decision {
-  border-bottom: 1px solid govuk-colour('grey-2');
-  margin-bottom: $govuk-gutter;
-
-  .action {
-    float: right;
-  }
-}
-
-.task-declaration {
-  margin-bottom: $govuk-gutter;
 }
