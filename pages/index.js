@@ -5,5 +5,6 @@ module.exports = {
   profile: require('./profile'),
   project: require('./project'),
   pil: require('./pil'),
-  user: require('./user')
+  user: require('./user'),
+  feedback: require('./feedback')
 };

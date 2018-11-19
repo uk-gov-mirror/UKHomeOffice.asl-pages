@@ -50,7 +50,7 @@ const Layout = ({
       nonce={nonce}
       phaseBanner={{
         phase: 'beta',
-        feedbackUrl: '/'
+        feedbackUrl: '/feedback'
       }}
     >
       <div className="govuk-width-container">
