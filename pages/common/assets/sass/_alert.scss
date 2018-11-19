@@ -1,0 +1,47 @@
+.alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background: $green;
+  color: white;
+  font-weight: bold;
+  z-index: 100;
+  text-align: center;
+  cursor: pointer;
+
+  &.alert-error {
+    background: $govuk-error-colour;
+  }
+
+  .govuk-width-container  {
+    position: relative;
+
+    >:first-child:after {
+      content: "✕";
+      position: absolute;
+      right: 0;
+      color: white;
+      height: 1em;
+      width: 1em;
+    }
+  }
+}
+
+.alert-enter {
+  opacity: 0.01;
+}
+
+.alert-enter.alert-enter-active {
+  opacity: 1;
+  transition: opacity 100ms ease-in;
+}
+
+.alert-leave {
+  opacity: 1;
+}
+
+.alert-leave.alert-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-out;
+}
