@@ -31,8 +31,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    const { id } = req.model;
-    return res.redirect(req.buildRoute('place.delete.confirm', {establishment: req.establishmentId, id}));
+    return res.redirect(req.buildRoute('place.delete.confirm', { placeId: req.model.id }));
   });
 
   app.use('/confirm', confirm());
@@ -53,8 +52,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    const {id} = req.model;
-    return res.redirect(req.buildRoute('place.delete.success', {establishment: req.establishmentId, id}));
+    return res.redirect(req.buildRoute('place.delete.success', { placeId: req.model.id }));
   });
 
   app.use('/success', successRouter({ model: 'place' }));

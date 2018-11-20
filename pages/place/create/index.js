@@ -23,7 +23,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('place.create.confirm', {establishment: req.establishmentId}));
+    return res.redirect(req.buildRoute('place.create.confirm'));
   });
 
   app.use('/confirm', confirm());
@@ -61,7 +61,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    return res.redirect(req.buildRoute('place.create.success', {establishment: req.establishmentId}));
+    return res.redirect(req.buildRoute('place.create.success'));
   });
 
   app.use('/success', success({ model: 'place' }));

@@ -31,8 +31,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    const { id } = req.model;
-    return res.redirect(req.buildRoute('place.update.confirm', {id}));
+    return res.redirect(req.buildRoute('place.update.confirm', { placeId: req.model.id }));
   });
 
   app.use('/confirm', confirm());
@@ -62,8 +61,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    const { id } = req.model;
-    return res.redirect(req.buildRoute('place.update.success', {id}));
+    return res.redirect(req.buildRoute('place.update.success', { placeId: req.model.id }));
   });
 
   app.use('/success', success({ model: 'place' }));
