@@ -20,7 +20,7 @@ const pageFormatters = {
             val
           }
           {
-            row.notes && <i className="icon icon-information" />
+            row.restrictions && <i className="icon icon-information" />
           }
         </Fragment>
       );
@@ -34,16 +34,16 @@ const pageFormatters = {
 const ExpandableRow = ({ row, schema }) => (
   <div className="govuk-grid-row">
     <div className={classnames({
-      'govuk-grid-column-one-quarter': row.notes,
-      'govuk-grid-column-full': !row.notes
+      'govuk-grid-column-one-quarter': row.restrictions,
+      'govuk-grid-column-full': !row.restrictions
     })}>
       <Controls item={row.id} />
     </div>
     {
-      row.notes && (
+      row.restrictions && (
         <div className="govuk-grid-column-two-thirds">
           <h3>{<Snippet>fields.changesToRestrictions.label</Snippet>}</h3>
-          <ReactMarkdown>{row.notes}</ReactMarkdown>
+          <ReactMarkdown>{row.restrictions}</ReactMarkdown>
         </div>
       )
     }

@@ -30,7 +30,7 @@ module.exports = {
   declaration: {
     label: 'Declaration'
   },
-  notes: {
+  restrictions: {
     label: 'Current restrictions'
   },
   comments: {

@@ -7,7 +7,7 @@ import {
 import formatters from '../../formatters';
 
 const pageFormatters = {
-  restrictions: { showIf: model => model.notes }
+  restrictions: { showIf: model => model.restrictions }
 };
 
 const Page = () => (
