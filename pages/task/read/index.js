@@ -1,7 +1,9 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
-const schema = require('../schema');
+const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
+
+let schema = {};
 
 module.exports = settings => {
   const app = page({
@@ -11,14 +13,17 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.model = { id: `${req.task.id}-approve` };
+    req.model = { id: `${req.task.id}-decision` };
+    schema = schemaGenerator(req.task);
+
+    console.log(schema.decision.options);
     next();
   });
 
   app.use('/', form({
     schema: {
       ...schema,
-      ...schema.approve.options[1].reveal
+      ...schema.decision.options[1].reveal
     },
     locals: (req, res, next) => {
       res.locals.static.task = req.task;

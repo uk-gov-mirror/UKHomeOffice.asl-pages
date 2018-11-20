@@ -8,7 +8,7 @@ module.exports = {
   },
   pil: require('./pil'),
   fields: {
-    approve: {
+    decision: {
       label: 'Do you concur?'
     },
     notes: {
