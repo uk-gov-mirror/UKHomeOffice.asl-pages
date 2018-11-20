@@ -3,8 +3,6 @@ const form = require('../../common/routers/form');
 const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
 
-let schema = {};
-
 module.exports = settings => {
   const app = page({
     ...settings,
@@ -14,23 +12,21 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     req.model = { id: `${req.task.id}-decision` };
-    schema = schemaGenerator(req.task);
-
-    console.log(schema.decision.options);
     next();
   });
 
-  app.use('/', form({
-    schema: {
-      ...schema,
-      ...schema.decision.options[1].reveal
+  app.use('/', form(Object.assign({
+    configure: (req, res, next) => {
+      const schema = schemaGenerator(req.task);
+      req.form.schema = schema;
+      res.locals.static.schema = schema;
+      next();
     },
     locals: (req, res, next) => {
       res.locals.static.task = req.task;
-      res.locals.static.schema = schema;
       next();
     }
-  }));
+  })));
 
   app.post('/', (req, res, next) => {
     return res.redirect(req.buildRoute('task.confirm', { taskId: req.task.id }));
