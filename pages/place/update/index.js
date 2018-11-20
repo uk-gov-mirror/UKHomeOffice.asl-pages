@@ -15,7 +15,7 @@ module.exports = settings => {
 
   app.use('/', amend({
     schema: Object.assign({}, schema, {
-      notes: {
+      restrictions: {
         inputType: 'text',
         editable: false
       },

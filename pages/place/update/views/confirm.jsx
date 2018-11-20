@@ -57,10 +57,10 @@ const Confirm = ({
             : <Diff formatters={formatters} comparator={hasChanged} />
         }
         {
-          model && model.notes && (
+          model && model.restrictions && (
             <Field
-              title={<Snippet>fields.notes.label</Snippet>}
-              content={model.notes}
+              title={<Snippet>fields.restrictions.label</Snippet>}
+              content={model.restrictions}
             />
           )
         }

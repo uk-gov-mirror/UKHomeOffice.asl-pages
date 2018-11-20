@@ -242,7 +242,7 @@ describe('Place', () => {
 
     it('renders markdown in restrictions', () => {
       browser.url('/pages/place/an-id/edit');
-      assert.equal(browser.$('.notes').$$('li').length, 2);
+      assert.equal(browser.$('.restrictions').$$('li').length, 2);
     });
 
     it('persists conditional reveal state if a validation error is thrown', () => {
