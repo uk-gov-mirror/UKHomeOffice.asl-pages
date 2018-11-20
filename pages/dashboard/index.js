@@ -29,7 +29,7 @@ module.exports = settings => {
     }
 
     return {
-      updated_at: moment(taskCase.updated_at).format(readableDateFormat),
+      updatedAt: moment(taskCase.updatedAt).format(readableDateFormat),
       establishments: [ taskCase.data.establishment ],
       establishment: taskCase.data.establishment.name,
       licence: licence.toUpperCase(),

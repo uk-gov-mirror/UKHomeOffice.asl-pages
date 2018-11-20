@@ -1,5 +1,5 @@
 module.exports = {
-  updated_at: {
+  updatedAt: {
     show: true
   },
   establishment: {

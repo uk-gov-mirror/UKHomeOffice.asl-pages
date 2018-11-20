@@ -7,7 +7,7 @@ module.exports = {
     }
   },
   fields: {
-    updated_at: {
+    updatedAt: {
       label: 'Received'
     },
     establishment: {
