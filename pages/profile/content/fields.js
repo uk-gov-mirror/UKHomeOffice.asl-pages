@@ -28,7 +28,8 @@ module.exports = {
     options: {
       basic: {
         label: 'Basic',
-        hint: `* View and request amendments to the licences they hold.
+        hint: `* View details of all named people at the establishment.
+               * View and request amendments to the licences they hold.
                * View details of projects they're working on.`
       },
       read: {
