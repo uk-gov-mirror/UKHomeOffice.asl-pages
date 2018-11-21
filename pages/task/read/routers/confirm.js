@@ -37,7 +37,7 @@ module.exports = () => {
       body: JSON.stringify(params)
     };
 
-    return req.api(`/tasks/${req.task.id}`, opts)
+    return req.api(`/tasks/${req.task.id}/status`, opts)
       .then(() => next())
       .catch(next);
   });
