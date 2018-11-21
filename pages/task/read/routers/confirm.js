@@ -17,15 +17,15 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    const applicationCanProceed = stepId => {
-      return req.task.nextSteps.find(nextStep => nextStep.id === stepId).proceed;
+    const reasonRequired = stepId => {
+      return req.task.nextSteps.find(nextStep => nextStep.id === stepId).reasonRequired;
     };
 
     const formValues = req.session.form[`${req.task.id}-decision`].values;
     const stepId = formValues.decision;
     const params = { status: stepId };
 
-    if (!applicationCanProceed(stepId)) {
+    if (reasonRequired(stepId)) {
       params.reason = formValues[`${stepId}-reason`];
     }
 
