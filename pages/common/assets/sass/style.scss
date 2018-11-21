@@ -423,4 +423,19 @@ dl.inline {
 =======
 @import "@ukhomeoffice/react-components";
 @import "@asl/components";
+<<<<<<< HEAD
 >>>>>>> Components have moved to asl-components, moved styles. Also abstracted some components to avoid repetition
+=======
+
+// TODO: move this to asl-components
+.task-decision {
+  border-bottom: 1px solid govuk-colour('grey-2');
+  margin-bottom: $govuk-gutter;
+   .action {
+    float: right;
+  }
+}
+ .task-declaration {
+  margin-bottom: $govuk-gutter;
+}
+>>>>>>> fix lint

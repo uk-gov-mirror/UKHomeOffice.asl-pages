@@ -47,7 +47,7 @@ const Index = ({
         <h2><Snippet>pages.dashboard.tasks</Snippet></h2>
         <Datatable formatters={formatters} />
 
-        <PanelList panels={establishments.map(establishment => <EstablishmentPanel { ...establishment } />)}/>
+        <PanelList panels={establishments.map(establishment => <EstablishmentPanel key={establishment.id} { ...establishment } />)}/>
       </div>
     </div>
   </Fragment>

@@ -35,7 +35,7 @@ const Index = ({
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <PanelList
-          panels={links.filter(link => allowedActions.includes(link.permissions)).map(link => <DashboardLink { ...link } />)}
+          panels={links.filter(link => allowedActions.includes(link.permissions)).map(link => <DashboardLink key={link.path} { ...link } />)}
         />
       </div>
       <Sidebar>

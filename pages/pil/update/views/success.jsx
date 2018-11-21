@@ -7,7 +7,11 @@ import {
   ApplicationProgress
 } from '@asl/components';
 
-const STATES = ['submitted', 'endorsed', 'granted'];
+const STATES = [
+  { state: 'submitted', active: true },
+  { state: 'endorsed' },
+  { state: 'granted' }
+];
 
 const Success = ({ profile }) => (
   <Fragment>
