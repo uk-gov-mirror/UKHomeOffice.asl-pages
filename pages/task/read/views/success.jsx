@@ -28,7 +28,7 @@ const Success = () => (
           <p><Snippet>task.success.whatNext.summary</Snippet></p>
         </div>
 
-        <Snippet>task.success.body</Snippet>
+        <p><Snippet>task.success.body</Snippet></p>
 
         <Link page="dashboard" label={<Snippet>task.success.tasklist</Snippet>} />
       </div>

@@ -11,7 +11,7 @@ module.exports = {
     decision: {
       label: 'Do you concur?'
     },
-    notes: {
+    reason: {
       label: 'Reason for rejection'
     }
   },
@@ -20,7 +20,7 @@ module.exports = {
       required: 'Please approve or reject this task',
       definedOptions: 'Please select an option from the list'
     },
-    notes: {
+    reason: {
       customValidate: 'Please provide a reason'
     }
   }

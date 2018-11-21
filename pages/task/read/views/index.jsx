@@ -24,14 +24,16 @@ const connectComponent = schema => {
 };
 
 const formatters = {
-  approve: {
+  decision: {
     mapOptions: option => {
       if (!option.reveal) {
         return option;
       }
       const ConnectedComponent = connectComponent(option.reveal);
+
       return {
         ...option,
+        prefix: option.value,
         reveal: <Inset><ConnectedComponent /></Inset>
       };
 
