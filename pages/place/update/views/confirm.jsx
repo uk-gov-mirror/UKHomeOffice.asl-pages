@@ -5,7 +5,9 @@ import {
   ModelSummary,
   Snippet,
   ErrorSummary,
-  Field
+  Field,
+  Header,
+  ControlBar
 } from '@asl/components';
 import { CheckboxGroup } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
@@ -31,10 +33,7 @@ const Confirm = ({
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <ErrorSummary />
-        <header>
-          <h2>&nbsp;</h2>
-          <h1><Snippet>pages.place.confirm</Snippet></h1>
-        </header>
+        <Header title={<Snippet>pages.place.confirm</Snippet>} />
         <dl className="inline">
           <dt><Snippet>establishment</Snippet></dt>
           <dd>{ name }</dd>
@@ -81,7 +80,7 @@ const Confirm = ({
           )
         }
 
-        <div className="control-bar block">
+        <ControlBar block={true}>
           <form method="POST">
             {
               declaration && (
@@ -106,7 +105,7 @@ const Confirm = ({
           </form>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
           <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
-        </div>
+        </ControlBar>
       </div>
     </div>
   </Fragment>

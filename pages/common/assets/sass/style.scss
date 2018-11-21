@@ -1,4 +1,5 @@
 @import "ho-frontend-toolkit";
+<<<<<<< HEAD
 @import "@asl/components";
 
 @import "images";
@@ -419,3 +420,7 @@ dl.inline {
     color: $white;
   }
 }
+=======
+@import "@ukhomeoffice/react-components";
+@import "@asl/components";
+>>>>>>> Components have moved to asl-components, moved styles. Also abstracted some components to avoid repetition

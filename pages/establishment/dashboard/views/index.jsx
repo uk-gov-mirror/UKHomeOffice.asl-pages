@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {
   Snippet,
   Link,
-  Sidebar
+  Sidebar,
+  Header,
+  PanelList
 } from '@asl/components';
 
 const links = [
@@ -12,6 +14,13 @@ const links = [
   { path: 'profile.list', permissions: 'profile.read.basic' },
   { path: 'project.list', permissions: 'project.read.basic' }
 ];
+
+const DashboardLink = ({ path }) => (
+  <Fragment>
+    <Link page={path} label={<Snippet>{`pages.${path}`}</Snippet>} />
+    <p><Snippet>{`dashboard.${path}.subtitle`}</Snippet></p>
+  </Fragment>
+);
 
 const Index = ({
   establishment: {
@@ -22,22 +31,12 @@ const Index = ({
   allowedActions
 }) => (
   <Fragment>
-    <header>
-      <h2>&nbsp;</h2>
-      <h1>{ name }</h1>
-    </header>
+    <Header title={name} />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <ul className="dashboard">
-          {
-            links.filter(link => allowedActions.includes(link.permissions)).map(link =>
-              <li key={link.path}>
-                <Link page={link.path} label={<Snippet>{`pages.${link.path}`}</Snippet>} />
-                <p><Snippet>{`dashboard.${link.path}.subtitle`}</Snippet></p>
-              </li>
-            )
-          }
-        </ul>
+        <PanelList
+          panels={links.filter(link => allowedActions.includes(link.permissions)).map(link => <DashboardLink { ...link } />)}
+        />
       </div>
       <Sidebar>
         <dl>

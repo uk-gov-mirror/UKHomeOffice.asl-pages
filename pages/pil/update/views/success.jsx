@@ -2,34 +2,27 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
-  Link
+  Link,
+  Panel,
+  ApplicationProgress
 } from '@asl/components';
+
+const STATES = ['submitted', 'endorsed', 'granted'];
 
 const Success = ({ profile }) => (
   <Fragment>
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-
-        <div className="govuk-panel govuk-panel--confirmation">
-          <h1 className="govuk-panel__title">
-            <Snippet>pil.submitted.title</Snippet>
-          </h1>
-          <div className="govuk-panel__body">
-            <p>
-              <Snippet>pil.submitted.summary</Snippet>
-              <br />
-              {
-                // TODO: this should display the NTCO's email, or be removed.
-              }
-              {profile.email}
-            </p>
-          </div>
-          <ul className="application-progress">
-            <li className="active">Submitted</li>
-            <li>Endorsed</li>
-            <li>Licence granted</li>
-          </ul>
-        </div>
+        <Panel
+          title={<Snippet>pil.submitted.title</Snippet>}
+          className="green-bg"
+        >
+          {
+            // TODO: this should display the NTCO's email, or be removed.
+          }
+          <Snippet email={profile.email}>pil.submitted.summary</Snippet>
+          <ApplicationProgress states={STATES} />
+        </Panel>
 
         <div className="what-next">
           <h2><Snippet>pil.submitted.whatNext.title</Snippet></h2>

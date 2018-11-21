@@ -11,7 +11,8 @@ import {
   Accordion,
   ExpandingPanel,
   Snippet,
-  Link
+  Link,
+  Header
 } from '@asl/components';
 import PilApply from './pil-apply';
 import { dateFormat } from '../../../../constants';
@@ -66,11 +67,7 @@ const Index = ({
     <Fragment>
       <article className='profile govuk-grid-row'>
         <div className='govuk-grid-column-two-thirds'>
-          <header>
-            <h2>&nbsp;</h2>
-            <h1>{ name }</h1>
-          </header>
-
+          <Header title={name} />
           <dl className="inline">
             <dt><Snippet>establishment</Snippet></dt>
             <dd>{establishmentName}</dd>

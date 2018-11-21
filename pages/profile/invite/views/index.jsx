@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
-  FormLayout
+  FormLayout,
+  Header
 } from '@asl/components';
 
 const formatters = {
@@ -17,16 +18,12 @@ const formatters = {
   }
 };
 
-const Page = ({
-  establishment: {
-    name
-  }
-}) => (
+const Page = ({ establishment }) => (
   <FormLayout formatters={formatters}>
-    <header>
-      <h2>{name}</h2>
-      <h1><Snippet>pages.profile.invite</Snippet></h1>
-    </header>
+    <Header
+      title={<Snippet>pages.profile.invite</Snippet>}
+      subtitle={establishment.name}
+    />
   </FormLayout>
 );
 

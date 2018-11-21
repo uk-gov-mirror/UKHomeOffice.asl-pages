@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   Snippet,
-  FormLayout
+  FormLayout,
+  Header
 } from '@asl/components';
 
 export default () => (
   <FormLayout>
-    <header>
-      <h1><Snippet>title</Snippet></h1>
-    </header>
+    <Header title={<Snippet>title</Snippet>} />
   </FormLayout>
 );

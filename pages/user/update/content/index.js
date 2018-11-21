@@ -2,6 +2,7 @@ const { merge } = require('lodash');
 const baseContent = require('../../../profile/content');
 
 module.exports = merge({}, baseContent, {
+  title: 'Edit profile',
   fields: {
     comments: {
       label: 'Tell us why you are making this change',

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import {
   Datatable,
   Link,
-  Snippet
+  Snippet,
+  Header,
+  PanelList
 } from '@asl/components';
 
 export const formatters = {
@@ -18,6 +20,17 @@ export const formatters = {
   }
 };
 
+const EstablishmentPanel = ({ id, name }) => (
+  <Fragment>
+    <p>
+      <Link page="establishment.dashboard" establishmentId={id} label={name} />
+    </p>
+    <p>
+      <Link page="profile.invite" establishmentId={id} label={<Snippet>pages.dashboard.invite</Snippet>}/>
+    </p>
+  </Fragment>
+);
+
 const Index = ({
   profile: {
     firstName,
@@ -26,30 +39,15 @@ const Index = ({
   tasks
 }) => (
   <Fragment>
-    <header>
-      <h2>&nbsp;</h2>
-      <h1><Snippet name={firstName}>pages.dashboard.greeting</Snippet></h1>
-    </header>
+    <Header
+      title={<Snippet name={firstName}>pages.dashboard.greeting</Snippet>}
+    />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-full">
         <h2><Snippet>pages.dashboard.tasks</Snippet></h2>
-
         <Datatable formatters={formatters} />
 
-        <ul className="dashboard">
-          {
-            establishments.map(est =>
-              <li key={est.id}>
-                <p>
-                  <Link page="establishment.dashboard" establishmentId={ est.id } label={ est.name } />
-                </p>
-                <p>
-                  <Link page="profile.invite" establishmentId={ est.id } label={<Snippet>pages.dashboard.invite</Snippet>}/>
-                </p>
-              </li>
-            )
-          }
-        </ul>
+        <PanelList panels={establishments.map(establishment => <EstablishmentPanel { ...establishment } />)}/>
       </div>
     </div>
   </Fragment>

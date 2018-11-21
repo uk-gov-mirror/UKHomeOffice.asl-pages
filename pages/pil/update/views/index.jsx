@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import {
   Snippet,
   ApplicationConfirm,
-  ErrorSummary
+  ErrorSummary,
+  Header,
+  SectionList
 } from '@asl/components';
 
 import {
@@ -86,21 +88,14 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
         </div>
       </div>
 
-      <header>
-        <h2>{establishment.name}</h2>
-        <h1><Snippet>pil.title</Snippet></h1>
-      </header>
-
+      <Header
+        title={<Snippet>pil.title</Snippet>}
+        subtitle={establishment.name}
+      />
       <p><Snippet>pil.summary</Snippet></p>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <ul className="pil-sections">
-            {
-              sections.map(section =>
-                <li key={section.name} className={classnames('section', section.name)}><SectionDetails {...section} /></li>
-              )
-            }
-          </ul>
+          <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
           {
             applicationComplete && <ApplicationConfirm />
           }

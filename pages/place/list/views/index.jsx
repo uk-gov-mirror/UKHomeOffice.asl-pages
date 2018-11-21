@@ -7,7 +7,8 @@ import {
   FilterTable,
   Snippet,
   Controls,
-  Link
+  Link,
+  Header
 } from '@asl/components';
 import formatters from '../../formatters';
 
@@ -56,10 +57,10 @@ const Places = ({
   ...props
 }) => (
   <Fragment>
-    <header>
-      <h2>{name}</h2>
-      <h1><Snippet>pages.place.list</Snippet></h1>
-    </header>
+    <Header
+      title={<Snippet>pages.place.list</Snippet>}
+      subtitle={name}
+    />
     <FilterTable
       formatters={Object.assign({}, formatters, pageFormatters)}
       ExpandableRow={ExpandableRow}

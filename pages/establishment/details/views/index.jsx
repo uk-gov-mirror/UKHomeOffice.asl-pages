@@ -4,7 +4,8 @@ import {
   Accordion,
   ExpandingPanel,
   Snippet,
-  Link
+  Link,
+  Header
 } from '@asl/components';
 
 const Index = ({
@@ -22,10 +23,10 @@ const Index = ({
 }) => {
   return (
     <Fragment>
-      <header>
-        <h2>{ name }</h2>
-        <h1><Snippet>pages.establishment.read</Snippet></h1>
-      </header>
+      <Header
+        title={<Snippet>pages.establishment.read</Snippet>}
+        subtitle={name}
+      />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <dl>

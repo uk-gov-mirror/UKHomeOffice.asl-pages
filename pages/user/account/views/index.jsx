@@ -1,15 +1,13 @@
 import React, { Fragment } from 'react';
 import {
   Link,
-  Snippet
+  Snippet,
+  Header
 } from '@asl/components';
 
 const Index = () => {
   return <Fragment>
-    <header>
-      <h2>&nbsp;</h2>
-      <h1><Snippet>pages.account.title</Snippet></h1>
-    </header>
+    <Header title={<Snippet>pages.account.title</Snippet>} />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <ul className="dashboard">
