@@ -1,8 +1,8 @@
 const page = require('../../lib/page');
 const moment = require('moment');
-const { readableDateFormat } = require('../../constants');
 const datatable = require('../common/routers/datatable');
 const schema = require('./schema');
+const { dateFormat } = require('../../constants');
 
 module.exports = settings => {
   const app = page({
@@ -18,18 +18,14 @@ module.exports = settings => {
       case 'pil':
         action = {
           label: 'PIL application',
-          url: req.buildRoute('pil.update', {
-            establishmentId: taskCase.data.establishment.id,
-            profileId: taskCase.data.profile.id,
-            pilId: taskCase.data.id
-          }),
-          details: taskCase.data.profile.name
+          url: req.buildRoute('task.read', { taskId: taskCase.id }),
+          details: taskCase.data.subject.name
         };
         break;
     }
 
     return {
-      updatedAt: moment(taskCase.updatedAt).format(readableDateFormat),
+      updatedAt: moment(taskCase.updatedAt).format(dateFormat.medium),
       establishments: [ taskCase.data.establishment ],
       establishment: taskCase.data.establishment.name,
       licence: licence.toUpperCase(),
