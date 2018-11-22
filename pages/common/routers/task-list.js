@@ -1,4 +1,5 @@
 const moment = require('moment');
+const { get } = require('lodash');
 
 const datatable = require('./datatable');
 const { dateFormat } = require('../../../constants');
@@ -25,7 +26,7 @@ module.exports = () => {
   };
 
   const buildTask = (taskCase, req) => {
-    const licence = taskCase.data.model;
+    const licence = get(taskCase, 'data.model', '');
     let action = {};
 
     switch (licence) {
@@ -33,14 +34,14 @@ module.exports = () => {
         action = {
           label: 'PIL application',
           url: req.buildRoute('task.read', { taskId: taskCase.id }),
-          details: taskCase.data.subject.name
+          details: get(taskCase, 'data.subject.name')
         };
         break;
     }
 
     return {
       updatedAt: moment(taskCase.updatedAt).format(dateFormat.medium),
-      establishment: taskCase.data.establishment.name,
+      establishment: get(taskCase, 'data.establishment.name'),
       licence: licence.toUpperCase(),
       action
     };
