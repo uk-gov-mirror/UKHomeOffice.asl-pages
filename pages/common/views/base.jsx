@@ -14,10 +14,10 @@ const Wrapped = ({ store, children }) => <Provider store={store}>{ children }</P
 
 const renderChildren = (children, wrap) => {
   if (wrap) {
-    return <Wrapper>{ children }</Wrapper>
+    return <Wrapper>{ children }</Wrapper>;
   }
-  return children
-}
+  return children;
+};
 
 const Layout = ({
   error,
