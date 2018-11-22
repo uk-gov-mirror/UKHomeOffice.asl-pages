@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import {
   Search,
@@ -32,11 +32,7 @@ export const formatters = {
   }
 };
 
-const People = ({
-  establishment: { name },
-  allowedActions,
-  ...props
-}) => (
+const PeopleList = () => (
   <Fragment>
     <Header
       title={<Snippet>pages.profile.list</Snippet>}
@@ -50,13 +46,68 @@ const People = ({
     />
     <div className="table-heading">
       <FilterSummary />
-      {
-        allowedActions.includes('profile.invite') && (
-          <Link page="profile.invite" label={<Snippet>invite</Snippet>} />
-        )
-      }
     </div>
     <Datatable formatters={formatters} />
+  </Fragment>
+);
+
+class Tabs extends Component {
+  componentDidMount() {
+    this.tabClicked = this.tabClicked.bind(this);
+  }
+
+  tabClicked(tab) {
+
+  }
+
+  tabHidden(tab) {
+    // return this.state ? this.state.tab !== tab :
+  }
+
+  render() {
+    const { tabs } = this.props;
+    return (
+      <section className="govuk-tabs">
+        <nav>
+          <ul>
+            {
+              Object.keys(tabs).map(tab => (
+                <li>
+                  <a href="#" onClick={(e) => {
+                    e.preventDefaut();
+                    this.tabClicked(tab);
+                  }}>{tab}</a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        {
+          Object.keys(tabs).map(tab => (
+            <div className={classnames('tab', { hidden: this.tabHidden(tab) })}></div>
+          ))
+        }
+      </section>
+    )
+  }
+}
+
+const People = ({
+  establishment: { name },
+  allowedActions,
+  ...props
+}) => (
+  <Fragment>
+    <header>
+      <h2>{name}</h2>
+      <h1><Snippet>pages.profile.list</Snippet></h1>
+    </header>
+    {
+      allowedActions.includes('profile.invite') && (
+        <Link page="profile.invite" label={<Snippet>invite</Snippet>} />
+      )
+    }
+    <Tabs tabs={{active: {}, invited: {}}} />
   </Fragment>
 );
 
