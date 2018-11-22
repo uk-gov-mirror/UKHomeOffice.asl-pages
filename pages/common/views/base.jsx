@@ -6,10 +6,18 @@ import HomeOffice from '@asl/service/ui/components/home-office';
 import {
   Breadcrumbs,
   StatusBar,
-  Notifications
+  Notifications,
+  Wrapper
 } from '@asl/components';
 
 const Wrapped = ({ store, children }) => <Provider store={store}>{ children }</Provider>;
+
+const renderChildren = (children, wrap) => {
+  if (wrap) {
+    return <Wrapper>{ children }</Wrapper>
+  }
+  return children
+}
 
 const Layout = ({
   error,
@@ -60,7 +68,7 @@ const Layout = ({
             <div className="govuk-grid-column-full">
               { wrap && <Notifications /> }
               <div id="page-component">
-                { children }
+                { renderChildren(children, wrap) }
               </div>
             </div>
           </div>
