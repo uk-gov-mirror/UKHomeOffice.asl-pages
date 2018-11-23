@@ -5,7 +5,8 @@ import {
   ExportLink,
   FilterSummary,
   Snippet,
-  Link
+  Link,
+  Header
 } from '@asl/components';
 
 const formatters = {
@@ -18,10 +19,7 @@ const formatters = {
 
 const Index = () => (
   <Fragment>
-    <header>
-      <h2>&nbsp;</h2>
-      <h1><Snippet>pages.establishment.list</Snippet></h1>
-    </header>
+    <Header title={<Snippet>pages.establishment.list</Snippet>} />
     <Search label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
     <Datatable formatters={formatters} />

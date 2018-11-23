@@ -5,7 +5,8 @@ import {
   Snippet,
   FormLayout,
   Fieldset,
-  Inset
+  Inset,
+  Header
 } from '@asl/components';
 
 const connectComponent = key => {
@@ -35,9 +36,7 @@ const formatters = {
 
 const Page = () => (
   <FormLayout formatters={formatters}>
-    <header>
-      <h1><Snippet>pil.procedures.title</Snippet></h1>
-    </header>
+    <Header title={<Snippet>pil.procedures.title</Snippet>} />
   </FormLayout>
 );
 

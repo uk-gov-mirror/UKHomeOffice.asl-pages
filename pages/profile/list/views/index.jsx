@@ -8,7 +8,8 @@ import {
   Acronym,
   Snippet,
   Join,
-  Link
+  Link,
+  Header
 } from '@asl/components';
 
 const joinAcronyms = data => {
@@ -37,10 +38,10 @@ const People = ({
   ...props
 }) => (
   <Fragment>
-    <header>
-      <h2>{name}</h2>
-      <h1><Snippet>pages.profile.list</Snippet></h1>
-    </header>
+    <Header
+      title={<Snippet>pages.profile.list</Snippet>}
+      subtitle={name}
+    />
     <Search label={<Snippet>searchText</Snippet>} />
     <LinkFilter
       prop="roles"

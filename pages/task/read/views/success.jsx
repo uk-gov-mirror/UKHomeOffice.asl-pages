@@ -7,6 +7,9 @@ const Success = () => (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
 
+        {
+          // TODO: use a panel. Consider binning the __govuk__title stuff as we aren't tied to their classes
+        }
         <div className="govuk-panel govuk-panel--confirmation">
           <h1 className="govuk-panel__title">
             <Snippet>task.success.title</Snippet>
@@ -16,6 +19,10 @@ const Success = () => (
               <Snippet>task.success.summary</Snippet>
             </p>
           </div>
+
+          {
+            // TODO: use an ApplicationProgress component, remove magic strings
+          }
           <ul className="application-progress">
             <li className="complete">Submitted</li>
             <li className="active">Endorsed</li>

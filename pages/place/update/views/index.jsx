@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Snippet,
   Inset,
-  FormLayout
+  FormLayout,
+  Header
 } from '@asl/components';
 import formatters from '../../formatters';
 
@@ -12,10 +13,7 @@ const pageFormatters = {
 
 const Page = () => (
   <FormLayout formatters={Object.assign({}, formatters, pageFormatters)}>
-    <header>
-      <h2>&nbsp;</h2>
-      <h1><Snippet>pages.place.edit</Snippet></h1>
-    </header>
+    <Header title={<Snippet>pages.place.edit</Snippet>} />
     <Inset>
       <p>
         <Snippet>inset</Snippet>

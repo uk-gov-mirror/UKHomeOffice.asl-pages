@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
-  ModelSummary
+  ModelSummary,
+  Header
 } from '@asl/components';
 
 const formatters = url => ({
@@ -17,22 +18,11 @@ const formatters = url => ({
 
 const PIL = ({ model, profile, url }) => (
   <Fragment>
-    <div className="govuk-grid-row">
-      <div className="govuk-grid-column-two-thirds">
-        <header>
-          <h2>{profile.name}</h2>
-          <h1><Snippet>title</Snippet></h1>
-        </header>
-        <ModelSummary formatters={formatters(url)} />
-      </div>
-
-      <div className="govuk-grid-column-one-third sidebar">
-        <aside>
-
-        </aside>
-      </div>
-    </div>
-
+    <Header
+      title={<Snippet>title</Snippet>}
+      subtitle={profile.name}
+    />
+    <ModelSummary formatters={formatters(url)} />
   </Fragment>
 );
 

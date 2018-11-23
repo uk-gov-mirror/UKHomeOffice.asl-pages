@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   Snippet,
   ModelSummary,
-  FormControls
+  FormControls,
+  Header
 } from '@asl/components';
 import { TextArea } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
@@ -15,10 +16,7 @@ const DeletePage = ({
   <Fragment>
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <header>
-          <h2>&nbsp;</h2>
-          <h1><Snippet>pages.place.delete</Snippet></h1>
-        </header>
+        <Header title={<h1><Snippet>pages.place.delete</Snippet></h1>} />
         <ModelSummary formatters={formatters} />
         <hr />
         <form method="post">

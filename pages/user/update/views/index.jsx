@@ -1,12 +1,13 @@
 import React from 'react';
-import { FormLayout } from '@asl/components';
+import {
+  FormLayout,
+  Header,
+  Snippet
+} from '@asl/components';
 
 const Page = () => (
   <FormLayout>
-    <header>
-      <h2>&nbsp;</h2>
-      <h1>Edit profile</h1>
-    </header>
+    <Header title={<Snippet>title</Snippet>} />
   </FormLayout>
 );
 

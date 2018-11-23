@@ -6,7 +6,8 @@ import {
   Datatable,
   Snippet,
   Link,
-  ExpiryDate
+  ExpiryDate,
+  Header
 } from '@asl/components';
 
 export const formatters = {
@@ -23,10 +24,10 @@ const Projects = ({
   ...props
 }) => (
   <Fragment>
-    <header>
-      <h2>{name}</h2>
-      <h1><Snippet>pages.project.list</Snippet></h1>
-    </header>
+    <Header
+      title={<Snippet>pages.project.list</Snippet>}
+      subtitle={name}
+    />
     <Search label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
     <Datatable formatters={formatters} />

@@ -26,26 +26,28 @@ const SectionDetails = ({
   >
     {
       models.map((model, index) => {
-        return (<div className="govuk-grid-row" key={index}>
-          <div className="govuk-grid-column-three-quarters">
-            <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
+        return (
+          <div className="govuk-grid-row" key={index}>
+            <div className="govuk-grid-column-three-quarters">
+              <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
+            </div>
+            <div className="actions govuk-grid-column-one-quarter">
+              {
+                removeLink && (
+                  <ApplyChanges
+                    type="form"
+                    method="POST"
+                    action={`${url}/${name}/${model.id}?action=delete&referrer=${url}`}
+                  >
+                    <button className="link">
+                      <span><Snippet>actions.remove</Snippet></span>
+                    </button>
+                  </ApplyChanges>
+                )
+              }
+            </div>
           </div>
-          <div className="actions govuk-grid-column-one-quarter">
-            {
-              removeLink && (
-                <ApplyChanges
-                  type="form"
-                  method="POST"
-                  action={`${url}/${name}/${model.id}?action=delete&referrer=${url}`}
-                >
-                  <button className="link">
-                    <span><Snippet>actions.remove</Snippet></span>
-                  </button>
-                </ApplyChanges>
-              )
-            }
-          </div>
-        </div>);
+        );
       })
     }
     {

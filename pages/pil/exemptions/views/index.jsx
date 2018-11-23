@@ -2,16 +2,14 @@ import React from 'react';
 import {
   Snippet,
   FormLayout,
-  Link
+  Link,
+  Header
 } from '@asl/components';
 
 const Page = () => (
   <FormLayout>
-    <header>
-      <h1><Snippet>title</Snippet></h1>
-      <br />
-      <Link label={<Snippet>moreText</Snippet>}/>
-    </header>
+    <Header title={<Snippet>title</Snippet>} />
+    <Link label={<Snippet>moreText</Snippet>} />
   </FormLayout>
 );
 
