@@ -17,16 +17,16 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    const reasonRequired = stepId => {
-      return req.task.nextSteps.find(nextStep => nextStep.id === stepId).reasonRequired;
+    const commentRequired = stepId => {
+      return req.task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
     };
 
     const formValues = req.session.form[`${req.task.id}-decision`].values;
     const stepId = formValues.decision;
     const params = { status: stepId };
 
-    if (reasonRequired(stepId)) {
-      params.reason = formValues[`${stepId}-reason`];
+    if (commentRequired(stepId)) {
+      params.comment = formValues[`${stepId}-reason`];
     }
 
     console.log(params);

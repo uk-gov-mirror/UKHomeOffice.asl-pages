@@ -1,7 +1,7 @@
 
 module.exports = (task) => {
-  const reasonRequired = stepId => {
-    return task.nextSteps.find(nextStep => nextStep.id === stepId).reasonRequired;
+  const commentRequired = stepId => {
+    return task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
   };
 
   const reasonField = stepId => {
@@ -10,7 +10,7 @@ module.exports = (task) => {
         inputType: 'textarea',
         validate: [{
           customValidate: (field, model) => {
-            return (model.decision && reasonRequired(model.decision)) ? !!field : true;
+            return (model.decision && commentRequired(model.decision)) ? !!field : true;
           }
         }]
       }
@@ -21,7 +21,7 @@ module.exports = (task) => {
     return {
       value: nextStep.id,
       label: nextStep.id,
-      reveal: nextStep.reasonRequired ? reasonField(nextStep.id) : null
+      reveal: nextStep.commentRequired ? reasonField(nextStep.id) : null
     };
   });
 
