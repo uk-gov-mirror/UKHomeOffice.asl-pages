@@ -11,7 +11,7 @@ import {
 const formatters = {
   name: {
     format: (name, est) => {
-      return <Link page="establishment.dashboard" establishment={ est.id } label={name} />;
+      return <Link page="establishment.dashboard" establishmentId={ est.id } label={name} />;
     }
   }
 };
