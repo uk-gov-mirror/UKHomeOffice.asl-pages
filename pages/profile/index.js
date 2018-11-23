@@ -7,11 +7,15 @@ const { permissions } = require('../../lib/middleware');
 const list = require('./list');
 const read = require('./read');
 const invite = require('./invite');
+const invitations = require('./invitations');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
   app.param('profileId', (req, res, next, profileId) => {
+    if (profileId === 'invitations') {
+      return next('route');
+    }
     if (profileId === 'invite') {
       req.model = reduce(schema, (all, { nullValue }, key) => {
         return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
@@ -35,6 +39,8 @@ module.exports = () => {
 
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
+
+  app.use('/invitations', invitations());
 
   app.get('/', list());
 

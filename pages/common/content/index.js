@@ -16,7 +16,8 @@ module.exports = {
     },
     profile: {
       list: 'People',
-      invite: 'Invite user'
+      invite: 'Invite user',
+      invitations: 'Invitations'
     },
     project: {
       list: 'Projects'

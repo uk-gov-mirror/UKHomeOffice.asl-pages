@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Search,
@@ -9,7 +9,8 @@ import {
   Snippet,
   Join,
   Link,
-  Header
+  Header,
+  Tabs
 } from '@asl/components';
 
 const joinAcronyms = data => {
@@ -32,7 +33,7 @@ export const formatters = {
   }
 };
 
-const PeopleList = () => (
+const Filters = () => (
   <Fragment>
     <Header
       title={<Snippet>pages.profile.list</Snippet>}
@@ -47,54 +48,24 @@ const PeopleList = () => (
     <div className="table-heading">
       <FilterSummary />
     </div>
-    <Datatable formatters={formatters} />
   </Fragment>
 );
 
-class Tabs extends Component {
-  componentDidMount() {
-    this.tabClicked = this.tabClicked.bind(this);
-  }
-
-  tabClicked(tab) {
-
-  }
-
-  tabHidden(tab) {
-    // return this.state ? this.state.tab !== tab :
-  }
-
-  render() {
-    const { tabs } = this.props;
-    return (
-      <section className="govuk-tabs">
-        <nav>
-          <ul>
-            {
-              Object.keys(tabs).map(tab => (
-                <li>
-                  <a href="#" onClick={(e) => {
-                    e.preventDefaut();
-                    this.tabClicked(tab);
-                  }}>{tab}</a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
-        {
-          Object.keys(tabs).map(tab => (
-            <div className={classnames('tab', { hidden: this.tabHidden(tab) })}></div>
-          ))
-        }
-      </section>
-    )
-  }
-}
+const Invite = ({ activeTab }) => (
+  <Fragment>
+    <Link className="float-right" page="profile.invite" label={<Snippet>invite</Snippet>} />
+    <Tabs active={activeTab}>
+      <Link page="profile.list" label={<Snippet>tabs.active</Snippet>} />
+      <Link page="profile.invitations" label={<Snippet>tabs.invited</Snippet>} />
+    </Tabs>
+  </Fragment>
+);
 
 const People = ({
   establishment: { name },
   allowedActions,
+  showFilters = true,
+  activeTab = 0,
   ...props
 }) => (
   <Fragment>
@@ -103,11 +74,12 @@ const People = ({
       <h1><Snippet>pages.profile.list</Snippet></h1>
     </header>
     {
-      allowedActions.includes('profile.invite') && (
-        <Link page="profile.invite" label={<Snippet>invite</Snippet>} />
-      )
+      allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />
     }
-    <Tabs tabs={{active: {}, invited: {}}} />
+    {
+      showFilters && <Filters />
+    }
+    <Datatable formatters={formatters} />
   </Fragment>
 );
 
