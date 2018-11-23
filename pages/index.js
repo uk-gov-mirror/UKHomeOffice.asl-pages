@@ -1,5 +1,4 @@
 module.exports = {
-  dashboard: require('./dashboard'),
   feedback: require('./feedback'),
   establishment: require('./establishment'),
   place: require('./place'),
