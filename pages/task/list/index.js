@@ -10,4 +10,4 @@ module.exports = settings => {
   app.use(router());
 
   return app;
-}
+};
