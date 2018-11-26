@@ -20,7 +20,7 @@ const joinAcronyms = data => {
   return <Acronym>{data}</Acronym>;
 };
 
-export const formatters = {
+export const peopleFormatters = {
   name: {
     format: (name, person) => <Link page="profile.view" profileId={person.id} label={ name } />
   },
@@ -64,6 +64,7 @@ const Invite = ({ activeTab }) => (
 const People = ({
   establishment: { name },
   allowedActions,
+  formatters = peopleFormatters,
   showFilters = true,
   activeTab = 0,
   ...props

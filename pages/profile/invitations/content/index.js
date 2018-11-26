@@ -12,5 +12,10 @@ module.exports = merge({}, baseContent, {
     role: {
       label: 'Permission level'
     }
+  },
+  diff: {
+    singular: 'Less than 1 day left',
+    plural: 'Less than {{diff}} days left',
+    standard: '{{diff}} days left'
   }
 });
