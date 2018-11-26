@@ -3,6 +3,10 @@ const form = require('../../common/routers/form');
 const schema = require('./schema');
 const { get } = require('lodash');
 
+const procedures = require('../procedures');
+const exemptions = require('../exemptions');
+const training = require('../training');
+
 module.exports = settings => {
   const app = page({
     ...settings,
@@ -45,11 +49,11 @@ module.exports = settings => {
     next();
   });
 
-  app.use('/procedures', require('../procedures')());
+  app.use('/procedures', procedures());
 
-  app.use('/exemptions', require('../exemptions')());
+  app.use('/exemptions', exemptions());
 
-  app.use('/training', require('../training')());
+  app.use('/training', training());
 
   return app;
 };

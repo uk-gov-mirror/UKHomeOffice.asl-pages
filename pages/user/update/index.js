@@ -27,6 +27,11 @@ module.exports = settings => {
     }
   }));
 
+  app.get('/', (req, res, next) => {
+    req.breadcrumb('account.edit');
+    next();
+  });
+
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
     const opts = {

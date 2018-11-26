@@ -10,7 +10,7 @@ const Index = () => {
     <Header title={<Snippet>pages.account.title</Snippet>} />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <ul className="dashboard">
+        <ul className="panel-list">
           <li>
             <Link page="account.edit" label={ <Snippet>pages.account.edit</Snippet> } />
           </li>

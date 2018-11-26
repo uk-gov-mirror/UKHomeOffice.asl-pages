@@ -9,6 +9,11 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('project.list');
+    next();
+  });
+
   app.use(datatable({
     configure: (req, res, next) => {
       req.datatable.sort = { column: 'expiryDate', ascending: true };
