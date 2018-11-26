@@ -35,10 +35,6 @@ export const peopleFormatters = {
 
 const Filters = () => (
   <Fragment>
-    <Header
-      title={<Snippet>pages.profile.list</Snippet>}
-      subtitle={name}
-    />
     <Search label={<Snippet>searchText</Snippet>} />
     <LinkFilter
       prop="roles"
@@ -70,10 +66,10 @@ const People = ({
   ...props
 }) => (
   <Fragment>
-    <header>
-      <h2>{name}</h2>
-      <h1><Snippet>pages.profile.list</Snippet></h1>
-    </header>
+    <Header
+      title={<Snippet>pages.profile.list</Snippet>}
+      subtitle={name}
+    />
     {
       allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />
     }
