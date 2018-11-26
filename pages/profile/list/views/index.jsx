@@ -9,7 +9,8 @@ import {
   Snippet,
   Join,
   Link,
-  Header
+  Header,
+  Tabs
 } from '@asl/components';
 
 const joinAcronyms = data => {
@@ -19,7 +20,7 @@ const joinAcronyms = data => {
   return <Acronym>{data}</Acronym>;
 };
 
-export const formatters = {
+export const peopleFormatters = {
   name: {
     format: (name, person) => <Link page="profile.view" profileId={person.id} label={ name } />
   },
@@ -32,16 +33,8 @@ export const formatters = {
   }
 };
 
-const People = ({
-  establishment: { name },
-  allowedActions,
-  ...props
-}) => (
+const Filters = () => (
   <Fragment>
-    <Header
-      title={<Snippet>pages.profile.list</Snippet>}
-      subtitle={name}
-    />
     <Search label={<Snippet>searchText</Snippet>} />
     <LinkFilter
       prop="roles"
@@ -50,12 +43,39 @@ const People = ({
     />
     <div className="table-heading">
       <FilterSummary />
-      {
-        allowedActions.includes('profile.invite') && (
-          <Link page="profile.invite" label={<Snippet>invite</Snippet>} />
-        )
-      }
     </div>
+  </Fragment>
+);
+
+const Invite = ({ activeTab }) => (
+  <Fragment>
+    <Link className="float-right" page="profile.invite" label={<Snippet>invite</Snippet>} />
+    <Tabs active={activeTab}>
+      <Link page="profile.list" label={<Snippet>tabs.active</Snippet>} />
+      <Link page="profile.invitations" label={<Snippet>tabs.invited</Snippet>} />
+    </Tabs>
+  </Fragment>
+);
+
+const People = ({
+  establishment: { name },
+  allowedActions,
+  formatters = peopleFormatters,
+  showFilters = true,
+  activeTab = 0,
+  ...props
+}) => (
+  <Fragment>
+    <Header
+      title={<Snippet>pages.profile.list</Snippet>}
+      subtitle={name}
+    />
+    {
+      allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />
+    }
+    {
+      showFilters && <Filters />
+    }
     <Datatable formatters={formatters} />
   </Fragment>
 );

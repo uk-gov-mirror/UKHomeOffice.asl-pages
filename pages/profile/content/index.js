@@ -24,5 +24,9 @@ module.exports = {
   },
   notifications: {
     success: 'Invitation sent to {{email}}.'
+  },
+  tabs: {
+    active: 'Active',
+    invited: 'Invited'
   }
 };
