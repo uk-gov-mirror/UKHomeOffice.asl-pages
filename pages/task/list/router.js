@@ -4,9 +4,9 @@ const datatable = require('../../common/routers/datatable');
 
 module.exports = ({ apiPath = '/me/tasks', schema = defaultSchema } = {}) => datatable({
   locals: (req, res, next) => {
-    res.locals.static.profileName = get(req, 'user.profile.name');
-    console.log(get(req, 'user.profile.name'));
-    console.log(req.user.profile)
+    const firstName = get(req, 'user.profile.firstName');
+    const lastName = get(req, 'user.profile.lastName');
+    res.locals.static.profileName = `${firstName} ${lastName}`;
     next();
   }
 })({ schema, apiPath });
