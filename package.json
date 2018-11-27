@@ -1,6 +1,6 @@
 {
   "name": "@asl/pages",
-  "version": "14.4.0",
+  "version": "14.5.0",
   "description": "",
   "main": "index.js",
   "style": "pages/common/assets/sass/style.scss",
