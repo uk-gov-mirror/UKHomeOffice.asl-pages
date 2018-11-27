@@ -16,6 +16,11 @@ module.exports = () => {
     next();
   });
 
+  router.use((req, res, next) => {
+    req.breadcrumb('account.menu');
+    next();
+  });
+
   router.use('/', account());
   router.use('/edit', update());
 

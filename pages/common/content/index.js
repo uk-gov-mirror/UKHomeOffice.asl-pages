@@ -1,6 +1,32 @@
 module.exports = {
   siteTitle: 'Research and testing with animals',
   beta: 'This is a new service - your [feedback](mailto:animalscience@digital.homeoffice.gov.uk) will help us to improve it.',
+  breadcrumbs: {
+    dashboard: 'Home',
+    invitation: 'Accept invitation',
+    establishment: {
+      dashboard: '{{establishment.name}}',
+      read: 'Details'
+    },
+    pil: {
+      base: 'Personal licence'
+    },
+    place: {
+      list: 'Licensed premises'
+    },
+    profile: {
+      list: 'People',
+      view: '{{model.firstName}} {{model.lastName}}'
+    },
+    project: {
+      list: 'Projects'
+    },
+    account: {
+      menu: 'Account',
+      edit: 'Edit'
+    },
+    feedback: 'Feedback'
+  },
   pages: {
     account: {
       title: 'Your account'

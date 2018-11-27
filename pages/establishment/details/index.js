@@ -7,6 +7,11 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.get('/', (req, res, next) => {
+    req.breadcrumb('establishment.read');
+    next();
+  });
+
   app.get('/',
     permissions('establishment.read'),
     (req, res, next) => {

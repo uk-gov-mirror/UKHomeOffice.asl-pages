@@ -37,6 +37,11 @@ module.exports = () => {
       .catch(next);
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('profile.list');
+    next();
+  });
+
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
 

@@ -19,7 +19,8 @@ module.exports = () => {
       return next('route');
     }
     return req.api(`/establishment/${req.establishmentId}/place/${id}`)
-      .then(({ json: { data } }) => {
+      .then(({ json: { data, meta } }) => {
+        res.locals.static.establishment = meta.establishment;
         req.model = cleanModel(data);
       })
       .then(() => next())
@@ -28,6 +29,11 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     res.locals.static.schema = schema;
+    next();
+  });
+
+  app.use((req, res, next) => {
+    req.breadcrumb('place.list');
     next();
   });
 
