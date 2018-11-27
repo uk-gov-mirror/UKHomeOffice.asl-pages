@@ -5,6 +5,7 @@ module.exports = {
     dashboard: 'Home',
     invitation: 'Accept invitation',
     establishment: {
+      list: 'Establishments',
       dashboard: '{{establishment.name}}',
       read: 'Details'
     },
