@@ -35,5 +35,8 @@ module.exports = {
       incomplete: 'Incomplete PIL application.',
       notStarted: 'No personal (PIL) licence held.'
     }
+  },
+  permission: {
+    edit: 'Edit'
   }
 };

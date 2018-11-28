@@ -56,7 +56,8 @@ const Index = ({
   },
   establishment: {
     name: establishmentName,
-    id: estId
+    id: estId,
+    role: estRole
   },
   ...props
 }) => {
@@ -240,6 +241,13 @@ const Index = ({
               )
             }
           </Accordion>
+          <Fragment>
+            <dl className="inline">
+              <dt>Permission level</dt>
+              <dd>{estRole}</dd>
+              <dd><Link page="profile.permission" establishmentId={estId} label={<Snippet>pages.profile.permission.change</Snippet>} /></dd>
+            </dl>
+          </Fragment>
         </div>
       </article>
     </Fragment>

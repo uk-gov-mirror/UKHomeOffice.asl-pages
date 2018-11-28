@@ -8,6 +8,7 @@ const list = require('./list');
 const read = require('./read');
 const invite = require('./invite');
 const invitations = require('./invitations');
+const role = require('./permission');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
@@ -31,6 +32,7 @@ module.exports = () => {
         req.profileId = profileId;
 
         res.locals.static.establishment = meta.establishment;
+        res.locals.static.establishment.role = model.establishments.find(est => est.id === meta.establishment.id).role;
         res.locals.model = req.model;
       })
       .then(() => next())
@@ -42,6 +44,7 @@ module.exports = () => {
     next();
   });
 
+  app.use('/:profileId/permission', role());
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
 
