@@ -32,7 +32,6 @@ module.exports = () => {
         req.profileId = profileId;
 
         res.locals.static.establishment = meta.establishment;
-        res.locals.static.establishment.role = model.establishments.find(est => est.id === meta.establishment.id).role;
         res.locals.model = req.model;
       })
       .then(() => next())

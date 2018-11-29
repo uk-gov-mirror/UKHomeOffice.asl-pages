@@ -41,6 +41,8 @@ const getPremises = roles => {
 
 const Index = ({
   isUser,
+  isAdmin,
+  profileRole,
   model: {
     name,
     pil,
@@ -56,8 +58,7 @@ const Index = ({
   },
   establishment: {
     name: establishmentName,
-    id: estId,
-    role: estRole
+    id: estId
   },
   ...props
 }) => {
@@ -244,8 +245,12 @@ const Index = ({
           <Fragment>
             <dl className="inline">
               <dt>Permission level</dt>
-              <dd>{estRole}</dd>
-              <dd><Link page="profile.permission" establishmentId={estId} label={<Snippet>pages.profile.permission.change</Snippet>} /></dd>
+              <dd>{profileRole}</dd>
+              {
+                !isUser && isAdmin && (
+                  <dd><Link page="profile.permission" label={<Snippet>pages.profile.permission.change</Snippet>} /></dd>
+                )
+              }
             </dl>
           </Fragment>
         </div>
@@ -254,6 +259,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, isUser }, model }) => ({ establishment, model, isUser });
+const mapStateToProps = ({ static: { establishment, isUser, isAdmin, profileRole }, model }) => ({ establishment, model, isUser, isAdmin, profileRole });
 
 module.exports = connect(mapStateToProps)(Index);

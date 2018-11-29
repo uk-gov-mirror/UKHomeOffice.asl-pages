@@ -46,7 +46,6 @@ module.exports = {
       invite: 'Invite user',
       invitations: 'Invitations',
       permission: {
-        edit: 'Edit',
         change: 'Change / remove'
       },
       links: {
