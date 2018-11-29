@@ -43,7 +43,7 @@ module.exports = () => {
     next();
   });
 
-  app.use('/:profileId/permission', role());
+  app.use('/:profileId/permission', permissions('profile.permissions'), role());
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
 
