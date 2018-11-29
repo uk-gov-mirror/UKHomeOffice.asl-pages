@@ -3,6 +3,7 @@ import omit from 'lodash/omit';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import HomeOffice from '@asl/service/ui/components/home-office';
+import rootReducer from '@asl/service/ui/reducers';
 import {
   Breadcrumbs,
   StatusBar,
@@ -22,7 +23,6 @@ const renderChildren = (children, wrap) => {
 const Layout = ({
   error,
   children,
-  rootReducer,
   scripts = [],
   user,
   crumbs,
