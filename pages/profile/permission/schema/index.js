@@ -1,4 +1,4 @@
-const PERMISSION_LEVELS = ['admin', 'read', 'basic'];
+const { externalPermissions } = require('@asl/constants');
 
 module.exports = {
   permission: {
@@ -6,9 +6,9 @@ module.exports = {
     validate: [
       'required',
       {
-        definedValues: PERMISSION_LEVELS
+        definedValues: externalPermissions
       }
     ],
-    options: PERMISSION_LEVELS
+    options: externalPermissions
   }
 };
