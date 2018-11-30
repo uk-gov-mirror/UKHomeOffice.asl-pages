@@ -32,6 +32,7 @@ module.exports = settings => {
   app.post('/remove', (req, res, next) => {
 
     const values = {
+      establishmentId: req.establishmentId,
       profileId: req.profileId
     };
 
