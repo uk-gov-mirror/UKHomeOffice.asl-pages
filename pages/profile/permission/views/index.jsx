@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, Snippet, FormLayout, ApplyChanges } from '@asl/components';
+import { Link, Snippet, FormLayout } from '@asl/components';
 
 const formatters = {
   permission: {
