@@ -28,7 +28,7 @@ const pageFormatters = {
     }
   },
   nacwo: {
-    format: val => val && <Link page="profile.view" profile={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />
+    format: val => val && <Link page="profile.view" profileId={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />
   }
 };
 
