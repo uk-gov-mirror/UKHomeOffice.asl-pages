@@ -8,6 +8,16 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.use((req, res, next) => {
+    req.datatable = {
+      sort: {
+        column: 'createdAt',
+        ascending: false
+      }
+    };
+    next();
+  });
+
   app.use(datatable({
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/invitations`;
