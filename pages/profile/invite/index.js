@@ -38,7 +38,7 @@ module.exports = settings => {
       }
     }]);
     delete req.session.form[id];
-    return res.redirect(req.originalUrl.replace(/\/invite/, ''));
+    return res.redirect(`${req.buildRoute('profile.list')}/invitations`);
   });
 
   return app;
