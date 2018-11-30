@@ -16,7 +16,7 @@ module.exports = settings => {
     getValues: (req, res, next) => {
       req.datatable.data.rows = req.datatable.data.rows.map(profile => {
         const roles = profile.roles;
-        if (profile.pil) {
+        if (profile.pil && profile.pil.status === 'active') {
           roles.push({ type: 'pilh' });
         }
         if (profile.projects && profile.projects.length) {
