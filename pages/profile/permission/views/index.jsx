@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link, Snippet, FormLayout, ApplyChanges, Header } from '@asl/components';
 
 const formatters = {
-  permission: {
+  role: {
     mapOptions: opt => {
       return {
         value: opt,
-        label: <Snippet>{`fields.permission.options.${opt}.label`}</Snippet>,
+        label: <Snippet>{`fields.role.options.${opt}.label`}</Snippet>,
         hint: (
-          <Snippet optional>{`fields.permission.options.${opt}.hint`}</Snippet>
+          <Snippet optional>{`fields.role.options.${opt}.hint`}</Snippet>
         )
       };
     }

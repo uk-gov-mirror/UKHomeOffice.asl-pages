@@ -13,7 +13,7 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
 
     const values = {
-      role: req.session.form[req.model.id].values.permission,
+      role: req.session.form[req.model.id].values.role,
       establishmentId: req.establishmentId,
       profileId: req.profileId
     };

@@ -1,7 +1,7 @@
 const { externalPermissions } = require('@asl/constants');
 
 module.exports = {
-  permission: {
+  role: {
     inputType: 'radioGroup',
     validate: [
       'required',
