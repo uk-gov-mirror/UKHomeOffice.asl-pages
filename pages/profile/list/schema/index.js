@@ -12,6 +12,7 @@ module.exports = {
   roles: {
     show: true,
     exact: true,
+    sortable: false,
     accessor: 'roles.type',
     f: 'type'
   },
