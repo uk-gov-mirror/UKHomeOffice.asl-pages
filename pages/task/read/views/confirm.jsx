@@ -1,14 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { FormLayout, Link, Snippet } from '@asl/components';
+import { FormLayout, Link, Snippet, Header } from '@asl/components';
 
 const Confirm = ({ task }) => {
   return (
     <Fragment>
       <FormLayout>
-        <header>
-          <h1><Snippet>task.confirm.title</Snippet></h1>
-        </header>
+        <Header title={<Snippet>task.confirm.title</Snippet>} />
 
         <div className="task-decision">
           <h2><Snippet>task.confirm.decision.title</Snippet></h2>

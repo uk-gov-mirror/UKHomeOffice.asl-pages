@@ -7,7 +7,8 @@ import {
   Form,
   Inset,
   Link,
-  Snippet
+  Snippet,
+  Header
 } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 
@@ -53,20 +54,18 @@ const Task = ({ task }) => {
         </div>
       </div>
 
-      <header>
-        <h1><Snippet>task.title</Snippet></h1>
+      <Header title={<Snippet>task.title</Snippet>} />
 
-        <div className="govuk-inset-text submitted-by">
-          <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
-          <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
-          <Snippet date={moment(task.updated_at).format(dateFormat.medium)}>task.submittedOn</Snippet>
-        </div>
+      <div className="govuk-inset-text submitted-by">
+        <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
+        <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
+        <Snippet date={moment(task.updated_at).format(dateFormat.medium)}>task.submittedOn</Snippet>
+      </div>
 
-        <div className="applicant">
-          <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
-          <p className="govuk-body">{subject.name}</p>
-        </div>
-      </header>
+      <div className="applicant">
+        <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
+        <p className="govuk-body">{subject.name}</p>
+      </div>
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
