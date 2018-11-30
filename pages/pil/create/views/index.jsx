@@ -3,10 +3,27 @@ import { connect } from 'react-redux';
 import {
   Snippet,
   ApplyChanges,
-  Header
+  Header,
+  PanelList
 } from '@asl/components';
 
 const types = ['catAF', 'catE'];
+
+const Category = ({ type }) => {
+  return <Fragment>
+    <h2><Snippet>{`${type}.title`}</Snippet></h2>
+    <p><Snippet>{`${type}.subtitle`}</Snippet></p>
+    <ApplyChanges
+      type="form"
+      method="POST"
+      action={`?action=${type}`}
+    >
+      <button className="govuk-button">
+        <Snippet>buttons.apply</Snippet>
+      </button>
+    </ApplyChanges>
+  </Fragment>;
+};
 
 const Index = ({ establishment }) => (
   <Fragment>
@@ -16,28 +33,7 @@ const Index = ({ establishment }) => (
     />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <ul className="dashboard">
-          {
-            types.map(type => (
-              <li key={type}>
-                <h2><Snippet>{`${type}.title`}</Snippet></h2>
-                <p>
-                  <Snippet>{`${type}.subtitle`}</Snippet>
-                </p>
-                <ApplyChanges
-                  type="form"
-                  method="POST"
-                  action={`?action=${type}`}
-                >
-                  <button className="govuk-button">
-                    <Snippet>buttons.apply</Snippet>
-                  </button>
-                </ApplyChanges>
-
-              </li>
-            ))
-          }
-        </ul>
+        <PanelList panels={ types.map(type => <Category type={type} key={type} />) } />
       </div>
     </div>
   </Fragment>
