@@ -33,11 +33,11 @@ const Page = ({ url }) => {
         <p>
           <Snippet>copy</Snippet>
         </p>
-        <ApplyChanges type="form" method="POST" action={`${url}/remove`}>
-          <button className="govuk-button">
-            <Snippet>buttons.remove</Snippet>
-          </button>
-        </ApplyChanges>
+        {/* <ApplyChanges type="form" method="POST" action={`${url}/remove`}> */}
+        <button className="govuk-button">
+          <Snippet>buttons.remove</Snippet>
+        </button>
+        {/* </ApplyChanges> */}
         <p>
           <Link
             page="profile.view"
