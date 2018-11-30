@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, Snippet, FormLayout, ApplyChanges } from '@asl/components';
+import { Link, Snippet, FormLayout, ApplyChanges, Header } from '@asl/components';
 
 const formatters = {
   permission: {
@@ -20,11 +20,7 @@ const Page = ({ url }) => {
   return (
     <Fragment>
       <FormLayout formatters={formatters}>
-        <header>
-          <h1>
-            <Snippet>title</Snippet>
-          </h1>
-        </header>
+        <Header title={<Snippet>title</Snippet>}/>
       </FormLayout>
       <Fragment>
         <h2>
