@@ -44,4 +44,4 @@ const formatters = {
   }
 };
 
-export default () => <Datatable formatters={formatters} />;
+export default () => <Datatable formatters={formatters} className="tasklist" />;
