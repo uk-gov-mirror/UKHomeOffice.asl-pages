@@ -81,6 +81,7 @@ module.exports = {
   diff: {
     singular: 'Less than 1 month left',
     plural: 'Less than {{diff}} months left',
-    standard: '{{diff}} months left'
+    standard: '{{diff}} months left',
+    expired: 'Expired'
   }
 };
