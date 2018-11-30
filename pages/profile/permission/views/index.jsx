@@ -45,6 +45,6 @@ const Page = ({ url }) => {
   );
 };
 
-const mapStateToProps = ({ static: { url } }) => ({ url });
+const mapStateToProps = ({ static: { url, allowedActions } }) => ({ url });
 
 export default connect(mapStateToProps)(Page);

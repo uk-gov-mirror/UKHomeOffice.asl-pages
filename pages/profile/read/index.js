@@ -13,7 +13,6 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     res.locals.static.isUser = req.user.profile.id === req.profileId;
-    res.locals.static.isAdmin = req.user.profile.establishments.find(est => est.id === req.establishmentId).role === 'admin';
     res.locals.static.profileRole = req.profile.establishments.find(est => est.id === req.establishmentId).role;
     next();
   });
