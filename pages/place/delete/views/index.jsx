@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
   Snippet,
   ModelSummary,
-  FormControls,
-  Header
+  Header,
+  ControlBar
 } from '@asl/components';
 import { TextArea } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
@@ -26,8 +26,11 @@ const DeletePage = ({
             value={model.comments}
             name="comments"
           />
-          <input type="hidden" name="_csrf" value={csrfToken} />
-          <FormControls />
+          <ControlBar block={true}>
+            <input type="hidden" name="_csrf" value={csrfToken} />
+            <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
+            <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
+          </ControlBar>
         </form>
       </div>
     </div>
