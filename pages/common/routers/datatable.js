@@ -24,7 +24,7 @@ const buildQuery = (req, schema) => {
     if (schema[sort.column].sort) {
       sort.column = schema[sort.column].sort;
     }
-    if (schema[sort.column].accessor) {
+    else if (schema[sort.column].accessor) {
       sort.column = schema[sort.column].accessor;
     }
   }

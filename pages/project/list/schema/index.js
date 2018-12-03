@@ -5,6 +5,7 @@ module.exports = {
   },
   licenceHolder: {
     show: true,
+    sort: 'licenceHolder.lastName',
     accessor: 'licenceHolder.name',
     title: 'Licence holder'
   },
