@@ -5,16 +5,12 @@ module.exports = {
   },
   licenceHolder: {
     show: true,
-    sort: 'licenceHolder.lastName',
-    accessor: 'licenceHolder.name',
-    title: 'Licence holder'
+    sort: 'licenceHolder.lastName'
   },
   licenceNumber: {
-    show: true,
-    title: 'Licence number'
+    show: true
   },
   expiryDate: {
-    show: true,
-    title: 'Expiry date'
+    show: true
   }
 };
