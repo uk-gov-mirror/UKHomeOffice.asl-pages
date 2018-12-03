@@ -8,9 +8,6 @@ import {
 } from '@asl/components';
 
 const ExpandableRow = ({ row, schema, allowedActions }) => {
-  if (!allowedActions.includes('place.update') && !row.restrictions) {
-    return null;
-  }
   return <div className="govuk-grid-row">
     <div className={classnames({
       'govuk-grid-column-one-quarter': row.restrictions,
