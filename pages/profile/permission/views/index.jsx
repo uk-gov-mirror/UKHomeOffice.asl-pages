@@ -16,7 +16,7 @@ const formatters = {
   }
 };
 
-const Page = ({ url }) => {
+const Page = ({ url, isNamed }) => {
   return (
     <Fragment>
       <FormLayout formatters={formatters}>
@@ -27,10 +27,11 @@ const Page = ({ url }) => {
           <Snippet>remove</Snippet>
         </h2>
         <p>
-          <Snippet>copy</Snippet>
+          {isNamed && (<Snippet>copy</Snippet>)}
+          {!isNamed && (<Snippet>warning</Snippet>)}
         </p>
         <ApplyChanges type="form" method="POST" action={`${url}/remove`}>
-          <button className="govuk-button">
+          <button className="govuk-button" disabled={isNamed}>
             <Snippet>buttons.remove</Snippet>
           </button>
         </ApplyChanges>
@@ -45,6 +46,6 @@ const Page = ({ url }) => {
   );
 };
 
-const mapStateToProps = ({ static: { url, allowedActions } }) => ({ url });
+const mapStateToProps = ({ static: { url, isNamed } }) => ({ url, isNamed });
 
 export default connect(mapStateToProps)(Page);

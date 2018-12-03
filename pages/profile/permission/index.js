@@ -10,6 +10,11 @@ module.exports = settings => {
 
   app.use('/', form({ schema }));
 
+  app.use('/', (req, res, next) => {
+    res.locals.static.isNamed = !!((req.profile.roles && req.profile.roles.length) || req.profile.pil || (req.profile.projects && req.profile.projects.length));
+    next();
+  });
+
   app.post('/', (req, res, next) => {
 
     const values = {
