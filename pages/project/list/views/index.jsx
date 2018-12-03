@@ -12,7 +12,7 @@ import {
 
 export const formatters = {
   licenceHolder: {
-    format: (name, project) => <Link page="profile.view" profile={project.licenceHolder.id} label={ name } />
+    format: ({ id, firstName, lastName }) => <Link page="profile.view" profile={id} label={`${firstName} ${lastName}`} />
   },
   expiryDate: {
     format: date => <ExpiryDate date={date}/>
