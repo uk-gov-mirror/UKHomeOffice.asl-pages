@@ -1,4 +1,4 @@
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const { permissions } = require('../../../lib/middleware');
 
 module.exports = settings => {

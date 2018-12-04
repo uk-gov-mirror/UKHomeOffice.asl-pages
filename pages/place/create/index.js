@@ -1,6 +1,6 @@
 const { omit } = require('lodash');
 
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const amend = require('../routers/amend');
 const confirm = require('../routers/confirm');
 const success = require('../../common/routers/success');

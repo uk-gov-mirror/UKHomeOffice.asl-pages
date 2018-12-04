@@ -1,4 +1,4 @@
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const format = require('date-fns/format');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');

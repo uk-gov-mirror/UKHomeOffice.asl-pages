@@ -1,5 +1,5 @@
 const { pickBy } = require('lodash');
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
 

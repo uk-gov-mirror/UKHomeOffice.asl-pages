@@ -3,12 +3,9 @@ const { Router } = require('express');
 const { schema } = require('./schema');
 const { cleanModel } = require('../../lib/utils');
 const { permissions } = require('../../lib/middleware');
-const { routeBuilder } = require('../../lib/middleware');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
-
-  app.use(routeBuilder());
 
   app.param('id', (req, res, next, id) => {
     if (id === 'create') {

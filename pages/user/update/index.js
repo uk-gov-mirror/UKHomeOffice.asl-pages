@@ -1,6 +1,6 @@
 const moment = require('moment');
 const { set } = require('lodash');
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
 
