@@ -27,7 +27,7 @@ const Page = ({ url, isNamed }) => {
           <Snippet>remove</Snippet>
         </h2>
         <p>
-          {isNamed && (<Snippet>copy</Snippet>)}
+          {isNamed && (<Snippet>nonRemovable</Snippet>)}
           {!isNamed && (<Snippet>warning</Snippet>)}
         </p>
         <ApplyChanges type="form" method="POST" action={`${url}/remove`}>
