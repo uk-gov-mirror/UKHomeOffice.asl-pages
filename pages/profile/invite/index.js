@@ -31,12 +31,10 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const id = req.model.id;
-    set(req.session, 'notifications', [{
-      type: 'success',
-      props: {
-        email: req.session.form[id].values.email
-      }
-    }]);
+    set(req.session, 'notification', {
+      message: 'success',
+      email: req.session.form[id].values.email
+    });
     delete req.session.form[id];
     return res.redirect(`${req.buildRoute('profile.list')}/invitations`);
   });
