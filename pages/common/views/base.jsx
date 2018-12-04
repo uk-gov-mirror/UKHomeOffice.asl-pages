@@ -7,7 +7,6 @@ import rootReducer from '@asl/service/ui/reducers';
 import {
   Breadcrumbs,
   StatusBar,
-  Notifications,
   Wrapper
 } from '@asl/components';
 
@@ -66,7 +65,6 @@ const Layout = ({
         <main className="main govuk-main-wrapper" id="content">
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-full">
-              { wrap && <Notifications /> }
               <div id="page-component">
                 { renderChildren(children, wrap) }
               </div>
