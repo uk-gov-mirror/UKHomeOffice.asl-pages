@@ -48,7 +48,7 @@ module.exports = () => {
       Promise.resolve().then(() => {
         if (req.user.profile.id === req.profileId) {
           const err = new Error('Unauthorised');
-          err.status = 401;
+          err.status = 403;
           next(err);
         }
       });
