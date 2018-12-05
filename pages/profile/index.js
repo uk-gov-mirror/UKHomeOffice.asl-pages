@@ -3,6 +3,7 @@ const { Router } = require('express');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
 const { permissions } = require('../../lib/middleware');
+const { allowed } = require('../../lib/middleware/allowed');
 
 const list = require('./list');
 const read = require('./read');
@@ -43,18 +44,7 @@ module.exports = () => {
     next();
   });
 
-  app.use('/:profileId/permission', permissions('profile.permissions'),
-    (req, res, next) => {
-      Promise.resolve().then(() => {
-        if (req.user.profile.id === req.profileId) {
-          const err = new Error('Unauthorised');
-          err.status = 403;
-          next(err);
-        }
-      });
-      next();
-    },
-    role());
+  app.use('/:profileId/permission', allowed(), permissions('profile.permissions'), role());
 
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
