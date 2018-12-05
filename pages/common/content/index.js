@@ -1,5 +1,5 @@
 module.exports = {
-  siteTitle: 'Research and testing with animals',
+  siteTitle: 'Research and testing using animals',
   beta: 'This is a new service - your [feedback](mailto:animalscience@digital.homeoffice.gov.uk) will help us to improve it.',
   breadcrumbs: {
     dashboard: 'Home',
