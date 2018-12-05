@@ -11,10 +11,11 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.use('/', (req, res, next) => {
-    res.locals.static.isNamed =
-      !!((req.profile.roles && req.profile.roles.length) ||
-         (req.profile.pil && req.profile.pil.status === 'active') ||
-         (req.profile.projects && req.profile.projects.length));
+
+    const hasRoles = !!(req.profile.roles && req.profile.roles.length);
+    const hasPil = !!(req.profile.pil && req.profile.pil.status === 'active');
+    const hasProjects = !!(req.profile.projects && req.profile.projects.length);
+    res.locals.static.isNamed = hasRoles || hasPil || hasProjects;
     next();
   });
 
@@ -28,8 +29,7 @@ module.exports = settings => {
 
     const opts = {
       method: 'PUT',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
+      json: values
     };
 
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/permission`, opts)
