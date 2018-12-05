@@ -43,7 +43,19 @@ module.exports = () => {
     next();
   });
 
-  app.use('/:profileId/permission', permissions('profile.permissions'), role());
+  app.use('/:profileId/permission', permissions('profile.permissions'),
+    (req, res, next) => {
+      Promise.resolve().then(() => {
+        if (req.user.profile.id === req.profileId) {
+          const err = new Error('Unauthorised');
+          err.status = 401;
+          next(err);
+        }
+      });
+      next();
+    },
+    role());
+
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());
 
