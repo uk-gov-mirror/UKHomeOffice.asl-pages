@@ -1,6 +1,7 @@
 const page = require('../../../lib/page');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
+const { some } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -14,7 +15,7 @@ module.exports = settings => {
 
     const hasRoles = !!(req.profile.roles && req.profile.roles.length);
     const hasPil = !!(req.profile.pil && req.profile.pil.status === 'active');
-    const hasProjects = !!(req.profile.projects && req.profile.projects.length);
+    const hasProjects = !!(req.profile.projects && req.profile.projects.length && some(req.profile.projects, project => project.status === 'active'));
     res.locals.static.isNamed = hasRoles || hasPil || hasProjects;
     next();
   });
