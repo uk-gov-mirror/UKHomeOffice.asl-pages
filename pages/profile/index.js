@@ -3,11 +3,13 @@ const { Router } = require('express');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
 const { permissions } = require('../../lib/middleware');
+const { allowed } = require('../../lib/middleware/allowed');
 
 const list = require('./list');
 const read = require('./read');
 const invite = require('./invite');
 const invitations = require('./invitations');
+const role = require('./permission');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
@@ -41,6 +43,8 @@ module.exports = () => {
     req.breadcrumb('profile.list');
     next();
   });
+
+  app.use('/:profileId/permission', allowed(), permissions('profile.permissions'), role());
 
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());

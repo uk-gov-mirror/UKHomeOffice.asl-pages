@@ -44,7 +44,13 @@ module.exports = {
     profile: {
       list: 'People',
       invite: 'Invite user',
-      invitations: 'Invitations'
+      invitations: 'Invitations',
+      permission: {
+        change: 'Change / remove'
+      },
+      links: {
+        back: 'Back to profile'
+      }
     },
     project: {
       list: 'Projects'
