@@ -1,4 +1,3 @@
-const { set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -31,8 +30,8 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const id = req.model.id;
-    set(req.session, 'notification', {
-      message: 'success',
+    req.notification({
+      key: 'success',
       email: req.session.form[id].values.email
     });
     delete req.session.form[id];
