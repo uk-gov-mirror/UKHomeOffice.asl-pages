@@ -1,3 +1,7 @@
 module.exports = {
-  moduleDirectories: ['pages/common', 'node_modules', 'lib']
+  testURL: 'http://localhost/',
+  moduleDirectories: ['pages/common', 'node_modules', 'lib'],
+  transformIgnorePatterns: [
+    'node_modules/(?!@asl/service)'
+  ]
 };

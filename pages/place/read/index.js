@@ -1,4 +1,4 @@
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const { schema } = require('../schema');
 
 module.exports = settings => {

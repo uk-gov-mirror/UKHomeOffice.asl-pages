@@ -1,4 +1,4 @@
-const page = require('../../../lib/page');
+const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
