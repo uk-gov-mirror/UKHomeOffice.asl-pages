@@ -31,7 +31,7 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     const id = req.model.id;
     req.notification({
-      key: 'success',
+      key: 'invitation-sent',
       email: req.session.form[id].values.email
     });
     delete req.session.form[id];
