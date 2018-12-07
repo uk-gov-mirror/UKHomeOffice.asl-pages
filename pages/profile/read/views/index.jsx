@@ -241,8 +241,6 @@ const Index = ({
                 </ExpandingPanel>
               )
             }
-          </Accordion>
-          <Fragment>
             <ExpandingPanel title={<Snippet role={profileRole}>permissionLevel.title</Snippet>}>
               <dl className="inline">
                 {
@@ -255,7 +253,7 @@ const Index = ({
                 }
               </dl>
             </ExpandingPanel>
-          </Fragment>
+          </Accordion>
         </div>
       </article>
     </Fragment>
