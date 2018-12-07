@@ -23,7 +23,7 @@ module.exports = {
     }
   },
   notifications: {
-    'invitaion-sent': 'Invitation sent to {{email}}.'
+    'invitation-sent': 'Invitation sent to {{email}}.'
   },
   tabs: {
     active: 'Active',
