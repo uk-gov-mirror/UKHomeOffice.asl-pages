@@ -22,13 +22,13 @@ const Page = ({ url, isNamed }) => {
       <FormLayout formatters={formatters}>
         <Header title={<Snippet>title</Snippet>}/>
       </FormLayout>
+
       <Fragment>
-        <h2>
-          <Snippet>remove</Snippet>
-        </h2>
+        <hr />
+        <h2><Snippet>remove.title</Snippet></h2>
         <p>
-          {isNamed && (<Snippet>nonRemovable</Snippet>)}
-          {!isNamed && (<Snippet>warning</Snippet>)}
+          {isNamed && (<Snippet>remove.nonRemovable</Snippet>)}
+          {!isNamed && (<Snippet>remove.warning</Snippet>)}
         </p>
         <ApplyChanges type="form" method="POST" action={`${url}/remove`}>
           <button className="govuk-button" disabled={isNamed}>
@@ -42,6 +42,7 @@ const Page = ({ url, isNamed }) => {
           />
         </p>
       </Fragment>
+
     </Fragment>
   );
 };
