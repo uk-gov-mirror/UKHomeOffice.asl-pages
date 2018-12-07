@@ -22,6 +22,9 @@ module.exports = {
     telephone: 'Telephone',
     email: 'Email Address'
   },
+  permissionLevel: {
+    title: 'Permission level'
+  },
   buttons: {
     applyNow: 'Apply Now',
     continue: 'Continue'

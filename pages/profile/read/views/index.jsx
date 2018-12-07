@@ -243,15 +243,18 @@ const Index = ({
             }
           </Accordion>
           <Fragment>
-            <dl className="inline">
-              <dt>Permission level</dt>
-              <dd>{profileRole}</dd>
-              {
-                !isUser && allowedActions.includes('profile.permissions') && (
-                  <dd><Link page="profile.permission" label={<Snippet>pages.profile.permission.change</Snippet>} /></dd>
-                )
-              }
-            </dl>
+            <ExpandingPanel title={<Snippet role={profileRole}>permissionLevel.title</Snippet>}>
+              <dl className="inline">
+                {
+                  !isUser && allowedActions.includes('profile.permissions') && (
+                    <Fragment>
+                      <dt>{profileRole}</dt>
+                      <dd><Link page="profile.permission" label={<Snippet>pages.profile.permission.change</Snippet>} /></dd>
+                    </Fragment>
+                  )
+                }
+              </dl>
+            </ExpandingPanel>
           </Fragment>
         </div>
       </article>
