@@ -2,6 +2,7 @@ const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
+const { cleanModel } = require('../../../lib/utils');
 
 module.exports = settings => {
   const app = page({
@@ -13,6 +14,17 @@ module.exports = settings => {
   app.use((req, res, next) => {
     req.model = { id: `${req.task.id}-decision` };
     next();
+  });
+
+  app.use('/', (req, res, next) => {
+    if (req.task.data.data.profileId && req.task.data.data.establishmentId) {
+      return req.api(`/establishment/${req.task.data.data.establishmentId}/profile/${req.task.data.data.profileId}`)
+        .then(({ json: { data } }) => {
+          req.profile = cleanModel(data);
+        })
+        .then(() => next())
+        .catch(next);
+    }
   });
 
   app.use('/', form(Object.assign({
@@ -69,6 +81,7 @@ module.exports = settings => {
     locals: (req, res, next) => {
       res.locals.static.schema = req.schema;
       res.locals.static.task = req.task;
+      res.locals.static.profile = req.profile;
       next();
     }
   })));

@@ -1,6 +1,6 @@
 module.exports = {
   task: {
-    title: 'New task',
+    title: 'Review PIL Application',
     submittedBy: 'Submitted by',
     submittedOn: 'on {{date}}.',
     applicantName: 'Applicant name',
@@ -9,7 +9,7 @@ module.exports = {
   pil: require('./pil'),
   fields: {
     decision: {
-      label: 'Do you concur?'
+      label: 'Do you endorse this application?'
     },
     reason: {
       label: 'Reason for rejection'

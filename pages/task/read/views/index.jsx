@@ -10,6 +10,7 @@ import {
   Snippet,
   Header
 } from '@asl/components';
+import Pil from '../../pil-component';
 import { dateFormat } from '../../../../constants';
 
 const connectComponent = schema => {
@@ -42,7 +43,7 @@ const formatters = {
   }
 };
 
-const Task = ({ task }) => {
+const Task = ({ task, profile }) => {
   const subject = task.data.subject;
   const changedBy = task.data.changedBy;
 
@@ -70,11 +71,14 @@ const Task = ({ task }) => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
           <ol className="section-navigation">
-            <li className="active"><a href="#">Some</a></li>
-            <li><a href="#">Navigation</a></li>
-            <li><a href="#">Here</a></li>
+            <li className="active"><a href="#">Training and exemptions</a></li>
+            <li><a href="#">Procedure Categories</a></li>
+            <li><a href="#">Endorse Application</a></li>
           </ol>
         </div>
+
+        {/* include pil component here */}
+        <Pil />
 
         <div className="govuk-grid-column-two-thirds">
           <Form formatters={formatters} />
@@ -85,8 +89,6 @@ const Task = ({ task }) => {
   );
 };
 
-const mapStateToProps = ({
-  static: { task }
-}) => ({ task });
+const mapStateToProps = ({ static: { task, profile } }) => ({ task, profile });
 
 export default connect(mapStateToProps)(Task);
