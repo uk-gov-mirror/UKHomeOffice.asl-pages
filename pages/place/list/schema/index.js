@@ -23,7 +23,8 @@ module.exports = {
     exact: true
   },
   nacwo: {
-    show: true
+    show: true,
+    sort: 'nacwo.lastName'
   },
   updatedAt: {}
 };

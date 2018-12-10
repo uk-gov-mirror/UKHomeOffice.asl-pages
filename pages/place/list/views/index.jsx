@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import get from 'lodash/get';
 import { connect } from 'react-redux';
 import {
   FilterTable,
@@ -27,7 +26,7 @@ const pageFormatters = {
     }
   },
   nacwo: {
-    format: val => val && <Link page="profile.view" profileId={ get(val, 'profile.id') } label={ get(val, 'profile.name') } />
+    format: nacwo => nacwo && <Link page="profile.view" profileId={nacwo.id} label={`${nacwo.firstName} ${nacwo.lastName}`} />
   }
 };
 
