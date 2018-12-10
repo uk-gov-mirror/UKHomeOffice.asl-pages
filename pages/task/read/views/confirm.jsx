@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { FormLayout, Link, Snippet, Header } from '@asl/components';
 
-const Confirm = ({ task }) => {
+const Confirm = ({ task, decision, reason }) => {
   return (
     <Fragment>
       <FormLayout>
@@ -13,13 +13,16 @@ const Confirm = ({ task }) => {
           <span className="action">
             <Link page="task.read" taskId={task.id} label={<Snippet>task.confirm.decision.change</Snippet>} />
           </span>
-          <p>Endorsed</p>
+          <p><Snippet>{`task.${decision}.decision`}</Snippet></p>
+          { reason && <p>{reason}</p> }
         </div>
 
-        <div className="task-declaration">
-          <h2><Snippet>task.confirm.declaration.title</Snippet></h2>
-          <Snippet>task.confirm.declaration.text</Snippet>
-        </div>
+        { decision === 'ntco-endorsed' &&
+          <div className="task-declaration">
+            <h2><Snippet>task.confirm.declaration.title</Snippet></h2>
+            <Snippet>{`task.${decision}.declaration`}</Snippet>
+          </div>
+        }
       </FormLayout>
 
       <p><Link page="dashboard" label={<Snippet>task.confirm.link.exit</Snippet>} /></p>
@@ -28,7 +31,7 @@ const Confirm = ({ task }) => {
 };
 
 const mapStateToProps = ({
-  static: { task }
-}) => ({ task });
+  static: { task, decision, reason }
+}) => ({ task, decision, reason });
 
 export default connect(mapStateToProps)(Confirm);

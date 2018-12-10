@@ -11,7 +11,12 @@ module.exports = () => {
 
   app.use(form({
     locals: (req, res, next) => {
+      const formValues = req.session.form[`${req.task.id}-decision`].values;
+      const decision = formValues.decision;
+
       res.locals.static.task = req.task;
+      res.locals.static.decision = decision;
+      res.locals.static.reason = formValues[`${decision}-reason`];
       next();
     }
   }));
@@ -28,6 +33,8 @@ module.exports = () => {
     if (commentRequired(stepId)) {
       params.comment = formValues[`${stepId}-reason`];
     }
+
+    console.log(params);
 
     const opts = {
       method: 'PUT',
