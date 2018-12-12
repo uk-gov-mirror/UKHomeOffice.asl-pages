@@ -10,7 +10,7 @@ import {
   Snippet,
   Header
 } from '@asl/components';
-import Pil from '../../pil-component';
+import Pil from './pil';
 import { dateFormat } from '../../../../constants';
 
 const connectComponent = schema => {
@@ -77,15 +77,11 @@ const Task = ({ task, profile }) => {
           </ol>
         </div>
 
-        {/* include pil component here */}
-        <Pil />
         <div className="govuk-grid-column-two-thirds">
           <Pil />
-        </div>
-
-        <div className="govuk-grid-column-two-thirds">
           <Form formatters={formatters} />
         </div>
+
       </div>
 
     </Fragment>

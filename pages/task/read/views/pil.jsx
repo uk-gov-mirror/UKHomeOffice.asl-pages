@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import moment from 'moment';
 import { Snippet } from '@asl/components';
-import { dateFormat, procedureDefinitions } from '../../constants';
+import { dateFormat, procedureDefinitions } from '../../../../constants';
 import { connect } from 'react-redux';
 
 const Pil = ({ profile }) => {
@@ -18,13 +18,11 @@ const Pil = ({ profile }) => {
           <div className="certificate" key={index}>
             <Fragment>
               <h3><Snippet>pil.training.certificate.details</Snippet></h3>
-              <ul>
-                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.number</Snippet><span>:</span>{certificate.certificateNumber}</li>
-                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.awarded</Snippet><span>:</span>{moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}</li>
-                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.expiry</Snippet><span>:</span>{moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}</li>
-                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.body</Snippet><span>:</span>{certificate.accreditingBody}</li>
-                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.file</Snippet><span>:</span></li>
-              </ul>
+              <Snippet>pil.training.certificate.number</Snippet><span>:</span>&nbsp;{certificate.certificateNumber}<br/>
+              <Snippet>pil.training.certificate.awarded</Snippet><span>:</span>&nbsp;{moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}<br/>
+              <Snippet>pil.training.certificate.expiry</Snippet><span>:</span>&nbsp;{moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}<br/>
+              <Snippet>pil.training.certificate.body</Snippet><span>:</span>&nbsp;{certificate.accreditingBody}<br/>
+              <Snippet>pil.training.certificate.file</Snippet><span>:</span>&nbsp;<br/>
             </Fragment>
             <Fragment>
               <h3><Snippet>pil.training.modules</Snippet></h3>
@@ -37,8 +35,8 @@ const Pil = ({ profile }) => {
           </div>
 
         )) }
-        {/* </section> */}
       </div>
+      {/* </section> */}
 
       {/* <section id="exemptions"> */}
       <div className="govuk-grid-column-three-quarters">
@@ -55,8 +53,8 @@ const Pil = ({ profile }) => {
             </dl>
           </div>
         ))}
-        {/* </section> */}
       </div>
+      {/* </section> */}
 
       {/* <section id="procedures"> */}
       <div className="govuk-grid-column-three-quarters">
@@ -70,8 +68,8 @@ const Pil = ({ profile }) => {
             ))}
           </ul>
         ) }
-        {/* </section> */}
       </div>
+      {/* </section> */}
 
     </div>
   );
