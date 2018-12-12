@@ -1,48 +1,43 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, Link } from '@asl/components';
+import { ApplicationProgress, Link, Panel, Snippet } from '@asl/components';
+import { licenceCanProgress } from '../../../../lib/utils';
 
-const Success = () => (
+const STATES = [
+  { state: 'submitted' },
+  { state: 'endorsed', active: true },
+  { state: 'granted' }
+];
+
+const Success = ({ decision }) => (
   <Fragment>
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
+        <Panel title={<Snippet>{`task.${decision}.title`}</Snippet>} className="green-bg">
+          <Snippet>{`task.${decision}.summary`}</Snippet>
 
-        {
-          // TODO: use a panel. Consider binning the __govuk__title stuff as we aren't tied to their classes
-        }
-        <div className="govuk-panel govuk-panel--confirmation">
-          <h1 className="govuk-panel__title">
-            <Snippet>task.success.title</Snippet>
-          </h1>
-          <div className="govuk-panel__body">
-            <p>
-              <Snippet>task.success.summary</Snippet>
-            </p>
-          </div>
-
-          {
-            // TODO: use an ApplicationProgress component, remove magic strings
+          { licenceCanProgress(decision) &&
+            <ApplicationProgress states={STATES} />
           }
-          <ul className="application-progress">
-            <li className="complete">Submitted</li>
-            <li className="active">Endorsed</li>
-            <li>Licence granted</li>
-          </ul>
-        </div>
+        </Panel>
 
-        <div className="what-next">
-          <h2><Snippet>task.success.whatNext.title</Snippet></h2>
-          <p><Snippet>task.success.whatNext.summary</Snippet></p>
-        </div>
+        { licenceCanProgress(decision) &&
+          <Fragment>
+            <div className="what-next">
+              <h2><Snippet>{`task.${decision}.whatNext.title`}</Snippet></h2>
+              <p><Snippet>{`task.${decision}.whatNext.summary`}</Snippet></p>
+            </div>
 
-        <p><Snippet>task.success.body</Snippet></p>
+            <p><Snippet>{`task.${decision}.body`}</Snippet></p>
+          </Fragment>
+        }
 
-        <Link page="dashboard" label={<Snippet>task.success.tasklist</Snippet>} />
+        <Link page="dashboard" label={<Snippet>task.links.tasklist</Snippet>} />
       </div>
     </div>
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { task } }) => ({ task });
+const mapStateToProps = ({ static: { task, decision } }) => ({ task, decision });
 
 export default connect(mapStateToProps)(Success);

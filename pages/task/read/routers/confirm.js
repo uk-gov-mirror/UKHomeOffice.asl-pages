@@ -34,8 +34,6 @@ module.exports = () => {
       params.comment = formValues[`${stepId}-reason`];
     }
 
-    console.log(params);
-
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
