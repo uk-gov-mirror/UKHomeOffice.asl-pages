@@ -26,7 +26,13 @@ module.exports = {
       menu: 'Account',
       edit: 'Edit'
     },
-    feedback: 'Feedback'
+    feedback: 'Feedback',
+    task: {
+      base: 'Tasklist',
+      read: 'View task',
+      confirm: 'Confirm',
+      success: 'Success'
+    }
   },
   pages: {
     account: {

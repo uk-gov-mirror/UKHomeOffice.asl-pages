@@ -1,9 +1,11 @@
 const { Router } = require('express');
+const successRouter = require('../../../common/routers/success');
 
 module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
+    req.breadcrumb('task.success');
     req.model = { id: `${req.task.id}-success` };
     next();
   });
@@ -16,12 +18,10 @@ module.exports = () => {
 
     res.locals.static.task = req.task;
     res.locals.static.decision = decision;
-
-    if (req.session.form && req.session.form[id]) {
-      delete req.session.form[id];
-    }
     next();
   });
+
+  app.use(successRouter());
 
   return app;
 };

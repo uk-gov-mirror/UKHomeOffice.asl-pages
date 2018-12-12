@@ -12,6 +12,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+    req.breadcrumb('task.base');
     req.model = { id: `${req.task.id}-decision` };
     next();
   });

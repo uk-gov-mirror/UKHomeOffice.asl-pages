@@ -5,6 +5,7 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
+    req.breadcrumb('task.confirm');
     req.model = { id: `${req.task.id}-confirm` };
     next();
   });
