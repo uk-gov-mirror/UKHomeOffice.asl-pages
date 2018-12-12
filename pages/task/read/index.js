@@ -3,6 +3,7 @@ const form = require('../../common/routers/form');
 const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
 const { cleanModel } = require('../../../lib/utils');
+const { merge } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -76,6 +77,7 @@ module.exports = settings => {
         }, {})
       };
 
+      req.form.schema.decision.options = merge(req.form.schema.decision.options, res.locals.static.content.fields.options);
       next();
     },
     locals: (req, res, next) => {

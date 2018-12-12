@@ -79,6 +79,9 @@ const Task = ({ task, profile }) => {
 
         {/* include pil component here */}
         <Pil />
+        <div className="govuk-grid-column-two-thirds">
+          <Pil />
+        </div>
 
         <div className="govuk-grid-column-two-thirds">
           <Form formatters={formatters} />

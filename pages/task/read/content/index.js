@@ -13,7 +13,17 @@ module.exports = {
     },
     reason: {
       label: 'Reason for rejection'
-    }
+    },
+    options: [
+      {
+        label: 'Yes',
+        hint: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this applciation',
+        value: 'ntco-endorsed'
+      },
+      {
+        label: 'No',
+        value: 'returned-to-applicant'
+      }]
   },
   errors: {
     approve: {

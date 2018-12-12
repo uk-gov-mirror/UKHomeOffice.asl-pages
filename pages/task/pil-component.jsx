@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import moment from 'moment';
 import { Snippet } from '@asl/components';
 import { dateFormat, procedureDefinitions } from '../../constants';
@@ -7,44 +7,41 @@ import { connect } from 'react-redux';
 const Pil = ({ profile }) => {
   const pil = profile.pil;
   return (
-    <div className="pil">
+    <div className="govuk-grid-row">
 
-      <section id="training">
+      {/* <section id="training"> */}
+      <div className="govuk-grid-column-three-quarters">
         <h2><Snippet>pil.training.title</Snippet></h2>
 
         { profile.certificates.length && profile.certificates.map((certificate, index) => (
 
           <div className="certificate" key={index}>
-            <h3><Snippet>pil.training.certificate.details</Snippet></h3>
-            <dl>
-              <dt><Snippet>pil.training.certificate.number</Snippet><span>:</span></dt>
-              <dd>{certificate.certificateNumber}</dd>
-
-              <dt><Snippet>pil.training.certificate.awarded</Snippet><span>:</span></dt>
-              <dd>{moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}</dd>
-
-              <dt><Snippet>pil.training.certificate.expiry</Snippet><span>:</span></dt>
-              <dd>{moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}</dd>
-
-              <dt><Snippet>pil.training.certificate.body</Snippet><span>:</span></dt>
-              <dd>{certificate.accreditingBody}</dd>
-
-              <dt><Snippet>pil.training.certificate.file</Snippet><span>:</span></dt>
-              <dd></dd>
-            </dl>
-
-            <h3><Snippet>pil.training.modules</Snippet></h3>
-            <ul>
-              { certificate.modules.map((module, index) => (
-                <li key={index}>{module.module}</li>
-              )) }
-            </ul>
+            <Fragment>
+              <h3><Snippet>pil.training.certificate.details</Snippet></h3>
+              <ul>
+                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.number</Snippet><span>:</span>{certificate.certificateNumber}</li>
+                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.awarded</Snippet><span>:</span>{moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}</li>
+                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.expiry</Snippet><span>:</span>{moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}</li>
+                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.body</Snippet><span>:</span>{certificate.accreditingBody}</li>
+                <li style={{listStyleType: 'none'}}><Snippet>pil.training.certificate.file</Snippet><span>:</span></li>
+              </ul>
+            </Fragment>
+            <Fragment>
+              <h3><Snippet>pil.training.modules</Snippet></h3>
+              <ul>
+                { certificate.modules.map((module, index) => (
+                  <li key={index}>{module.module}</li>
+                )) }
+              </ul>
+            </Fragment>
           </div>
 
         )) }
-      </section>
+        {/* </section> */}
+      </div>
 
-      <section id="exemptions">
+      {/* <section id="exemptions"> */}
+      <div className="govuk-grid-column-three-quarters">
         <h2><Snippet>pil.exemptions.title</Snippet></h2>
 
         { profile.exemptions.length && profile.exemptions.map((exemption, index) => (
@@ -58,9 +55,11 @@ const Pil = ({ profile }) => {
             </dl>
           </div>
         ))}
-      </section>
+        {/* </section> */}
+      </div>
 
-      <section id="procedures">
+      {/* <section id="procedures"> */}
+      <div className="govuk-grid-column-three-quarters">
         <h2><Snippet>pil.procedures.title</Snippet></h2>
 
         <h3><Snippet>pil.procedures.categories</Snippet></h3>
@@ -71,7 +70,8 @@ const Pil = ({ profile }) => {
             ))}
           </ul>
         ) }
-      </section>
+        {/* </section> */}
+      </div>
 
     </div>
   );
