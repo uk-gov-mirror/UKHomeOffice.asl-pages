@@ -71,15 +71,17 @@ const Task = ({ task, profile }) => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
           <ol className="section-navigation">
-            <li className="active"><a href="#">Training and exemptions</a></li>
-            <li><a href="#">Procedure Categories</a></li>
-            <li><a href="#">Endorse Application</a></li>
+            <li className="active"><a href="#training">Training and exemptions</a></li>
+            <li><a href="#procedures">Procedure Categories</a></li>
+            <li><a href="#endorse">Endorse Application</a></li>
           </ol>
         </div>
 
         <div className="govuk-grid-column-two-thirds">
           <Pil />
-          <Form formatters={formatters} />
+          <div className="govuk-grid-column-two-thirds" id="endorse">
+            <Form formatters={formatters} />
+          </div>
         </div>
 
       </div>

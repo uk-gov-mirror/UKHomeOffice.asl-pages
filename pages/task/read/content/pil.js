@@ -20,7 +20,7 @@ module.exports = {
     reason: 'Reasons for exemption'
   },
   procedures: {
-    title: 'Procedures',
+    title: 'Procedure categories',
     categories: 'Categories'
   }
 };

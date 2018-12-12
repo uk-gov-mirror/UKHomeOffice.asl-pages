@@ -8,13 +8,9 @@ const Pil = ({ profile }) => {
   const pil = profile.pil;
   return (
     <div className="govuk-grid-row">
-
-      {/* <section id="training"> */}
-      <div className="govuk-grid-column-three-quarters">
+      <div className="govuk-grid-column-three-quarters" id="training">
         <h2><Snippet>pil.training.title</Snippet></h2>
-
         { profile.certificates.length && profile.certificates.map((certificate, index) => (
-
           <div className="certificate" key={index}>
             <Fragment>
               <h3><Snippet>pil.training.certificate.details</Snippet></h3>
@@ -24,6 +20,7 @@ const Pil = ({ profile }) => {
               <Snippet>pil.training.certificate.body</Snippet><span>:</span>&nbsp;{certificate.accreditingBody}<br/>
               <Snippet>pil.training.certificate.file</Snippet><span>:</span>&nbsp;<br/>
             </Fragment>
+            <br />
             <Fragment>
               <h3><Snippet>pil.training.modules</Snippet></h3>
               <ul>
@@ -32,14 +29,13 @@ const Pil = ({ profile }) => {
                 )) }
               </ul>
             </Fragment>
+            <br />
           </div>
-
         )) }
+        <hr /><br />
       </div>
-      {/* </section> */}
 
-      {/* <section id="exemptions"> */}
-      <div className="govuk-grid-column-three-quarters">
+      <div className="govuk-grid-column-three-quarters" id="exemptions">
         <h2><Snippet>pil.exemptions.title</Snippet></h2>
 
         { profile.exemptions.length && profile.exemptions.map((exemption, index) => (
@@ -53,24 +49,21 @@ const Pil = ({ profile }) => {
             </dl>
           </div>
         ))}
+        <hr /><br />
       </div>
-      {/* </section> */}
 
-      {/* <section id="procedures"> */}
-      <div className="govuk-grid-column-three-quarters">
+      <div className="govuk-grid-column-three-quarters" id="procedures">
         <h2><Snippet>pil.procedures.title</Snippet></h2>
-
         <h3><Snippet>pil.procedures.categories</Snippet></h3>
         { pil.procedures.length && (
-          <ul>
+          <Fragment>
             { pil.procedures.map((procedure, index) => (
-              <li key={index}>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</li>
+              <Fragment key={index}>{procedure.toUpperCase()}.&nbsp;{procedureDefinitions[procedure]}<br /></Fragment>
             ))}
-          </ul>
-        ) }
+          </Fragment>
+        ) }<br />
+        <hr /><br />
       </div>
-      {/* </section> */}
-
     </div>
   );
 };
