@@ -11,7 +11,7 @@ module.exports = {
         title: 'Declaration'
       },
       link: {
-        exit: 'Save and exit'
+        exit: 'Exit'
       }
     },
     'ntco-endorsed': {
