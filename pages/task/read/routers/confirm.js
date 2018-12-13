@@ -5,13 +5,19 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
+    req.breadcrumb('task.confirm');
     req.model = { id: `${req.task.id}-confirm` };
     next();
   });
 
   app.use(form({
     locals: (req, res, next) => {
+      const formValues = req.session.form[`${req.task.id}-decision`].values;
+      const decision = formValues.decision;
+
       res.locals.static.task = req.task;
+      res.locals.static.decision = decision;
+      res.locals.static.reason = formValues[`${decision}-reason`];
       next();
     }
   }));

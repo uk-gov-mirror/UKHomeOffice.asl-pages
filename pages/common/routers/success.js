@@ -1,6 +1,6 @@
 const { Router } = require('express');
 
-module.exports = ({ model = 'model' }) => {
+module.exports = ({ model = 'model' } = {}) => {
   const app = Router();
 
   app.get('/', (req, res, next) => {
