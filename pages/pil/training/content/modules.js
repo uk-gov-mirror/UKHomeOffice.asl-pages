@@ -9,7 +9,7 @@ module.exports = merge({}, content, {
       hint: 'Select all that apply.'
     },
     species: {
-      label: 'Please specify a species.',
+      label: 'Please specify a type of animal.',
       add: 'Add another species'
     }
   },
