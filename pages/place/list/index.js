@@ -9,15 +9,13 @@ module.exports = settings => {
     root: __dirname
   });
 
-  const defaultRowCount = 50;
-
   app.use(datatable({
     filters: Object.keys(pickBy(schema, s => s.filter)),
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/places`;
       next();
     }
-  })({ schema, defaultRowCount }));
+  })({ schema, defaultRowCount: 50 }));
 
   return app;
 };
