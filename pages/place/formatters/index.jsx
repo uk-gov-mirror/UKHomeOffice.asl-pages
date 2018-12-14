@@ -1,4 +1,3 @@
-import { get } from 'lodash';
 import { defineValue, joinAcronyms, labelFromCode } from '../../common/formatters';
 
 export default {
@@ -13,7 +12,7 @@ export default {
     mapOptions: labelFromCode
   },
   nacwo: {
-    format: val => get(val, 'profile.name'),
+    format: val => `${val.firstName} ${val.lastName}`,
     accessor: 'id'
   }
 };

@@ -54,7 +54,7 @@ const baseSchema = {
 };
 
 const mapSchema = (nacwos, schema) => {
-  const options = nacwos.map(({ id, profile: { name } }) => ({
+  const options = nacwos.map(({ profile: { name, id } }) => ({
     label: name,
     value: id
   }));

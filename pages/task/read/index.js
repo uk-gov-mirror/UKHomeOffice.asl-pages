@@ -4,6 +4,7 @@ const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
 const { cleanModel } = require('../../../lib/utils');
 const { merge } = require('lodash');
+const success = require('./routers/success');
 
 module.exports = settings => {
   const app = page({
@@ -13,6 +14,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+    req.breadcrumb('task.base');
     req.model = { id: `${req.task.id}-decision` };
     next();
   });
@@ -93,6 +95,7 @@ module.exports = settings => {
   });
 
   app.use('/confirm', confirm());
+  app.use('/success', success());
 
   return app;
 };
