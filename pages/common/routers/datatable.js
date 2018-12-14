@@ -39,7 +39,8 @@ module.exports = ({
   locals = defaultMiddleware
 } = {}) => ({
   apiPath,
-  schema
+  schema,
+  defaultRowCount = 10
 }) => {
   const app = Router();
 
@@ -78,7 +79,7 @@ module.exports = ({
         };
       }
     }
-    let { rows, page } = req.query;
+    let { rows = defaultRowCount, page } = req.query;
     page = parseInt(page, 10) - 1 || 0;
     const limit = getLimit(rows);
     req.datatable.pagination = {
