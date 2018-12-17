@@ -11,15 +11,5 @@ module.exports = {
         prolonged general anaesthesia.`,
     D: `Use of neromuscular blocking agents`,
     F: 'Other'
-  },
-  pilEndorsmentStatuses: {
-    'ntco-endorsed': {
-      label: 'Yes',
-      hint: `I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this applciation`
-    },
-    'returned-to-applicant': {
-      label: 'No',
-      hint: ''
-    }
   }
 };

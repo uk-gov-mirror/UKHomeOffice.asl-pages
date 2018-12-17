@@ -1,6 +1,23 @@
 module.exports = {
-  review: {
-    title: 'Review PIL application'
+  title: 'Review PIL Application',
+  fields: {
+    decision: {
+      label: 'Do you endorse this application?'
+    },
+    reason: {
+      label: 'Reason for rejection'
+    },
+    options: [
+      {
+        label: 'Yes',
+        hint: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application',
+        value: 'ntco-endorsed'
+      },
+      {
+        label: 'No',
+        value: 'returned-to-applicant'
+      }
+    ]
   },
   training: {
     title: 'Training',

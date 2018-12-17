@@ -43,7 +43,7 @@ const formatters = {
   }
 };
 
-const Task = ({ task, profile }) => {
+const Task = ({ task }) => {
   const subject = task.data.subject;
   const changedBy = task.data.changedBy;
 
@@ -55,7 +55,7 @@ const Task = ({ task, profile }) => {
         </div>
       </div>
 
-      <Header title={<Snippet>task.title</Snippet>} />
+      <Header title={<Snippet>title</Snippet>} />
 
       <div className="govuk-inset-text submitted-by">
         <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
@@ -79,17 +79,16 @@ const Task = ({ task, profile }) => {
 
         <div className="govuk-grid-column-two-thirds">
           <Pil />
-          <div className="govuk-grid-column-two-thirds" id="endorse">
+          <div id="endorse">
             <Form formatters={formatters} />
           </div>
         </div>
-
       </div>
 
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ static: { task, profile } }) => ({ task, profile });
+const mapStateToProps = ({ static: { task } }) => ({ task });
 
 export default connect(mapStateToProps)(Task);

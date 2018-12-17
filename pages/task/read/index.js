@@ -3,7 +3,6 @@ const form = require('../../common/routers/form');
 const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
 const { cleanModel } = require('../../../lib/utils');
-const { merge } = require('lodash');
 const success = require('./routers/success');
 
 module.exports = settings => {
@@ -28,11 +27,16 @@ module.exports = settings => {
         .then(() => next())
         .catch(next);
     }
+    next();
   });
 
   app.use('/', form(Object.assign({
     configure: (req, res, next) => {
       req.schema = schemaGenerator(req.task);
+
+      const key = req.task.data.model;
+      // move the content[key] properties one up
+      Object.assign(res.locals.static.content, res.locals.static.content[key]);
 
       // create error messages for the dynamic textareas
       Object.assign(
@@ -48,7 +52,6 @@ module.exports = settings => {
           }, {})
         }
       );
-
       // create field labels for the dynamic textareas
       Object.assign(
         res.locals.static.content.fields,
@@ -79,7 +82,6 @@ module.exports = settings => {
         }, {})
       };
 
-      req.form.schema.decision.options = merge(req.form.schema.decision.options, res.locals.static.content.fields.options);
       next();
     },
     locals: (req, res, next) => {
