@@ -20,8 +20,9 @@ module.exports = settings => {
     const values = req.session.form[req.model.id].values;
     const opts = {
       method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
+      json: {
+        data: values
+      }
     };
     return req.api(`/establishment/${req.establishmentId}/invite-user`, opts)
       .then(() => next())

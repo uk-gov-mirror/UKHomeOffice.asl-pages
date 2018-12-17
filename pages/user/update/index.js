@@ -1,3 +1,4 @@
+const { omit } = require('lodash');
 const moment = require('moment');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
@@ -35,8 +36,12 @@ module.exports = settings => {
     const values = req.session.form[req.model.id].values;
     const opts = {
       method: 'PUT',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
+      json: {
+        data: omit(values, 'comments'),
+        meta: {
+          comments: values.comments
+        }
+      }
     };
     return req.api(`/me`, opts)
       .then(() => next())

@@ -44,8 +44,9 @@ module.exports = settings => {
 
     const opts = {
       method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
+      json: {
+        data: values
+      }
     };
 
     return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/certificate`, opts)

@@ -52,8 +52,7 @@ module.exports = settings => {
     };
     const opts = {
       method: 'POST',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(params)
+      json: params
     };
     return req.api(`/establishment/${req.establishmentId}/place`, opts)
       .then(() => next())
