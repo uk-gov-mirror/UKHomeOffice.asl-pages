@@ -55,8 +55,7 @@ const Pil = ({ profile }) => {
         { pil.procedures.length && (
           <Fragment>
             { pil.procedures.map((procedure, index) => (
-              <Fragment key={index}>{procedure.toUpperCase()}.&nbsp;{procedureDefinitions[procedure]}<br />
-                <br /></Fragment>
+              <p key={index}>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
             ))}
           </Fragment>
         ) }<br />
