@@ -13,11 +13,11 @@ const Pil = ({ profile }) => {
         <div className="certificate" key={index}>
           <Fragment>
             <h3><Snippet>pil.training.certificate.details</Snippet></h3>
-            <Snippet>pil.training.certificate.number</Snippet><span>:</span>&nbsp;{certificate.certificateNumber}<br/>
-            <Snippet>pil.training.certificate.awarded</Snippet><span>:</span>&nbsp;{moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}<br/>
-            <Snippet>pil.training.certificate.expiry</Snippet><span>:</span>&nbsp;{moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}<br/>
-            <Snippet>pil.training.certificate.body</Snippet><span>:</span>&nbsp;{certificate.accreditingBody}<br/>
-            <Snippet>pil.training.certificate.file</Snippet><span>:</span>&nbsp;<br/>
+            <Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}<br/>
+            <Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}<br/>
+            <Snippet>pil.training.certificate.expiry</Snippet><span>:</span> {moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}<br/>
+            <Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody}<br/>
+            <Snippet>pil.training.certificate.file</Snippet><span>:</span> <br/>
           </Fragment>
           <br />
           <Fragment>
