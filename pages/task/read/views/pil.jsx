@@ -1,11 +1,14 @@
 import React, { Fragment } from 'react';
-import moment from 'moment';
+// import moment from 'moment';
 import { Snippet } from '@asl/components';
 import { dateFormat, procedureDefinitions } from '../../../../constants';
 import { connect } from 'react-redux';
+import format from 'date-fns/format';
+import addYears from 'date-fns/add_years';
 
 const Pil = ({ profile }) => {
   const pil = profile.pil;
+  const formatDate = date => format(date, dateFormat.ddMMyyyy);
   return (
     <Fragment>
       <h2><Snippet>pil.training.title</Snippet></h2>
@@ -14,8 +17,8 @@ const Pil = ({ profile }) => {
           <Fragment>
             <h3><Snippet>pil.training.certificate.details</Snippet></h3>
             <Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}<br/>
-            <Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {moment(certificate.passDate, 'YYYY-MM-DD').format(dateFormat.short)}<br/>
-            <Snippet>pil.training.certificate.expiry</Snippet><span>:</span> {moment(certificate.passDate, 'YYYY-MM-DD').add(5, 'years').format(dateFormat.short)}<br/>
+            <Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate)}<br/>
+            <Snippet>pil.training.certificate.expiry</Snippet><span>:</span> {formatDate(addYears(certificate.passDate, 5))}<br/>
             <Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody}<br/>
             <Snippet>pil.training.certificate.file</Snippet><span>:</span> <br/>
           </Fragment>

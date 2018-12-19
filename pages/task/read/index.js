@@ -35,7 +35,10 @@ module.exports = settings => {
       req.schema = schemaGenerator(req.task);
 
       const key = req.task.data.model;
-      // move the content[key] properties one up
+      // Copy the _content[key]_ properties one up as they are currently in **pil{}** and we want them
+      // in **content{}**, as they will be looked up at content level in _asl-components(fieldset)_. The
+      // idea is when we have a task of another type - not just pil application - we can just drop in a file
+      // with the task's content - e.g. _content/ppl.js_ and require it in _content/index.js_ .
       Object.assign(res.locals.static.content, res.locals.static.content[key]);
 
       // create error messages for the dynamic textareas
