@@ -71,11 +71,12 @@ module.exports = () => {
           req.form.values.modules.map(module => {
             const opts = {
               method: 'POST',
-              headers: { 'Content-type': 'application/json' },
-              body: JSON.stringify({
-                module,
-                description: req.form.values[`module-${module}-reason`]
-              })
+              json: {
+                data: {
+                  module,
+                  description: req.form.values[`module-${module}-reason`]
+                }
+              }
             };
             return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/exemption`, opts);
           })

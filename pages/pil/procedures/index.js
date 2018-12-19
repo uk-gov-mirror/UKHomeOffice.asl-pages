@@ -35,8 +35,9 @@ module.exports = settings => {
 
     const opts = {
       method: 'PUT',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(pick(req.form.values, 'procedures', 'notesCatD', 'notesCatF'))
+      json: {
+        data: pick(req.form.values, 'procedures', 'notesCatD', 'notesCatF')
+      }
     };
 
     return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}`, opts)

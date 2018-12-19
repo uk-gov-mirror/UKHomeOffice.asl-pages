@@ -23,14 +23,12 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
 
     const values = {
-      role: req.session.form[req.model.id].values.role,
-      establishmentId: req.establishmentId,
-      profileId: req.profileId
+      role: req.session.form[req.model.id].values.role
     };
 
     const opts = {
       method: 'PUT',
-      json: values
+      json: { data: values }
     };
 
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/permission`, opts)
@@ -40,15 +38,8 @@ module.exports = settings => {
 
   app.post('/remove', (req, res, next) => {
 
-    const values = {
-      establishmentId: req.establishmentId,
-      profileId: req.profileId
-    };
-
     const opts = {
-      method: 'DELETE',
-      headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(values)
+      method: 'DELETE'
     };
 
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/permission`, opts)
