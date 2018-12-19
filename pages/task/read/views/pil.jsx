@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-// import moment from 'moment';
 import { Snippet } from '@asl/components';
 import { dateFormat, procedureDefinitions } from '../../../../constants';
 import { connect } from 'react-redux';
@@ -13,7 +12,7 @@ const Pil = ({ profile }) => {
     <Fragment>
       <h2><Snippet>pil.training.title</Snippet></h2>
       { profile.certificates.length && profile.certificates.map((certificate, index) => (
-        <div className="certificate" key={index}>
+        <div key={index}>
           <Fragment>
             <h3><Snippet>pil.training.certificate.details</Snippet></h3>
             <Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}<br/>
@@ -39,7 +38,7 @@ const Pil = ({ profile }) => {
       <div id="exemptions">
         <h2><Snippet>pil.exemptions.title</Snippet></h2>
         { profile.exemptions.length && profile.exemptions.map((exemption, index) => (
-          <div className="exemption" key={index}>
+          <div key={index}>
             <dl>
               <dt><Snippet>pil.exemptions.module</Snippet><span>:</span></dt>
               <dd>{exemption.module}</dd>
