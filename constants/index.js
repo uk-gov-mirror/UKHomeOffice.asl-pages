@@ -1,8 +1,7 @@
 module.exports = {
   dateFormat: {
-    short: 'D/M/Y',
-    medium: 'DD MMMM YYYY',
-    ddMMyyyy: 'DD/MM/YYYY'
+    short: 'DD/MM/YYYY',
+    medium: 'DD MMMM YYYY'
   },
   procedureDefinitions: {
     A: `Minor / minimally invasive procedures not requiring sedation, analgesia or general anaesthesia.`,

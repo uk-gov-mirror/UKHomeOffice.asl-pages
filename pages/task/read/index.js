@@ -34,7 +34,7 @@ module.exports = settings => {
 
   app.use('/', form(Object.assign({
     configure: (req, res, next) => {
-      res.locals.static.content = merge({}, getContent(req.task), res.locals.static.content);
+      merge(res.locals.static.content, getContent(req.task));
       req.schema = schemaGenerator(req.task);
 
       // create error messages for the dynamic textareas
