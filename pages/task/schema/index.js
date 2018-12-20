@@ -1,5 +1,3 @@
-const content = require('../read/content');
-
 module.exports = (task) => {
 
   const commentRequired = stepId => {
@@ -19,14 +17,11 @@ module.exports = (task) => {
     };
   };
 
-  const key = task.data.model;
-
   const options = task.nextSteps.map(nextStep => {
-    const option = content[key].fields.options.find(opt => opt.value === nextStep.id);
     return {
-      value: option.value,
-      label: option.label,
-      hint: option.hint,
+      value: nextStep.id,
+      label: nextStep.id,
+      hint: nextStep.id,
       reveal: nextStep.commentRequired ? reasonField(nextStep.id) : null
     };
   });

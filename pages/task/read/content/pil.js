@@ -19,25 +19,27 @@ module.exports = {
       }
     ]
   },
-  training: {
-    title: 'Training',
-    certificate: {
-      details: 'Certificate details',
-      number: 'Certificate number',
-      awarded: 'Date awarded',
-      expiry: 'Expiry date',
-      body: 'Accreditation body',
-      file: 'Certificate image'
+  pil: {
+    training: {
+      title: 'Training',
+      certificate: {
+        details: 'Certificate details',
+        number: 'Certificate number',
+        awarded: 'Date awarded',
+        expiry: 'Expiry date',
+        body: 'Accreditation body',
+        file: 'Certificate image'
+      },
+      modules: 'Modules completed'
     },
-    modules: 'Modules completed'
-  },
-  exemptions: {
-    title: 'Exemptions',
-    module: 'Module',
-    reason: 'Reasons for exemption'
-  },
-  procedures: {
-    title: 'Procedure categories',
-    categories: 'Categories'
+    exemptions: {
+      title: 'Exemptions',
+      module: 'Module',
+      reason: 'Reasons for exemption'
+    },
+    procedures: {
+      title: 'Procedure categories',
+      categories: 'Categories'
+    }
   }
 };
