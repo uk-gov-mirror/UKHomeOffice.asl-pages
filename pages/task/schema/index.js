@@ -1,4 +1,8 @@
+const getContent = require('../read/content');
+
 module.exports = (task) => {
+
+  const content = getContent(task);
 
   const commentRequired = stepId => {
     return task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
@@ -17,19 +21,17 @@ module.exports = (task) => {
     };
   };
 
-  const options = task.nextSteps.map(nextStep => {
+  const options = content.fields.options.map(option => {
     return {
-      value: nextStep.id,
-      label: nextStep.id,
-      hint: nextStep.id,
-      reveal: nextStep.commentRequired ? reasonField(nextStep.id) : null
+      ...option,
+      reveal: task.nextSteps.find(step => step.id === option.value).commentRequired ? reasonField(option.value) : null
     };
   });
 
   const schema = {
     decision: {
       inputType: 'radioGroup',
-      options,
+      options: options,
       nullValue: [],
       validate: [
         'required',
