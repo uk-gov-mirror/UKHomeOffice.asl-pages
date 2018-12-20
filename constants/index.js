@@ -1,6 +1,6 @@
 module.exports = {
   dateFormat: {
-    short: 'D/M/Y',
+    short: 'DD/MM/YYYY',
     medium: 'DD MMMM YYYY'
   },
   procedureDefinitions: {

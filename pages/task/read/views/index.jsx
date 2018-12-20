@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment'; // todo: switch for date-fns
 import {
   ErrorSummary,
   Fieldset,
@@ -10,7 +9,10 @@ import {
   Snippet,
   Header
 } from '@asl/components';
+import Pil from './pil';
 import { dateFormat } from '../../../../constants';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
 
 const connectComponent = schema => {
   const mapStateToProps = ({ model, static: { errors } }) => {
@@ -45,6 +47,7 @@ const formatters = {
 const Task = ({ task }) => {
   const subject = task.data.subject;
   const changedBy = task.data.changedBy;
+  const formatDate = date => format(date, dateFormat.medium);
 
   return (
     <Fragment>
@@ -54,12 +57,12 @@ const Task = ({ task }) => {
         </div>
       </div>
 
-      <Header title={<Snippet>task.title</Snippet>} />
+      <Header title={<Snippet>title</Snippet>} />
 
       <div className="govuk-inset-text submitted-by">
         <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
         <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
-        <Snippet date={moment(task.updated_at).format(dateFormat.medium)}>task.submittedOn</Snippet>
+        <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
 
       <div className="applicant">
@@ -70,14 +73,17 @@ const Task = ({ task }) => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
           <ol className="section-navigation">
-            <li className="active"><a href="#">Some</a></li>
-            <li><a href="#">Navigation</a></li>
-            <li><a href="#">Here</a></li>
+            <li className="active"><a href="#training">Training and exemptions</a></li>
+            <li><a href="#procedures">Procedure Categories</a></li>
+            <li><a href="#endorse">Endorse Application</a></li>
           </ol>
         </div>
 
         <div className="govuk-grid-column-two-thirds">
-          <Form formatters={formatters} />
+          <Pil />
+          <div id="endorse">
+            <Form formatters={formatters} />
+          </div>
         </div>
       </div>
 
@@ -85,8 +91,6 @@ const Task = ({ task }) => {
   );
 };
 
-const mapStateToProps = ({
-  static: { task }
-}) => ({ task });
+const mapStateToProps = ({ static: { task } }) => ({ task });
 
 export default connect(mapStateToProps)(Task);

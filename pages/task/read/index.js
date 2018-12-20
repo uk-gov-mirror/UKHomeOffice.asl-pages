@@ -2,7 +2,10 @@ const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schemaGenerator = require('../schema');
 const confirm = require('./routers/confirm');
+const { cleanModel } = require('../../../lib/utils');
 const success = require('./routers/success');
+const getContent = require('./content');
+const { merge } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -17,8 +20,21 @@ module.exports = settings => {
     next();
   });
 
+  app.use('/', (req, res, next) => {
+    if (req.task.data.data.profileId && req.task.data.data.establishmentId) {
+      return req.api(`/establishment/${req.task.data.data.establishmentId}/profile/${req.task.data.data.profileId}`)
+        .then(({ json: { data } }) => {
+          req.profile = cleanModel(data);
+        })
+        .then(() => next())
+        .catch(next);
+    }
+    next();
+  });
+
   app.use('/', form(Object.assign({
     configure: (req, res, next) => {
+      merge(res.locals.static.content, getContent(req.task));
       req.schema = schemaGenerator(req.task);
 
       // create error messages for the dynamic textareas
@@ -35,7 +51,6 @@ module.exports = settings => {
           }, {})
         }
       );
-
       // create field labels for the dynamic textareas
       Object.assign(
         res.locals.static.content.fields,
@@ -71,6 +86,7 @@ module.exports = settings => {
     locals: (req, res, next) => {
       res.locals.static.schema = req.schema;
       res.locals.static.task = req.task;
+      res.locals.static.profile = req.profile;
       next();
     }
   })));
