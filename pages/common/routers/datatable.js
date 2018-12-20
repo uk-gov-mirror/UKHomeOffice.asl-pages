@@ -94,6 +94,10 @@ module.exports = ({
   };
 
   const _getValues = (req, res, next) => {
+    if (req.datatable.disable) {
+      return next();
+    }
+
     const query = buildQuery(req, req.datatable.schema);
     const apiPath = castArray(req.datatable.apiPath);
 
