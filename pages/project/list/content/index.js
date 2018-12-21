@@ -5,10 +5,10 @@ module.exports = {
       label: 'Project title'
     },
     licenceHolder: {
-      label: 'Licence holder'
+      label: 'PPL holder'
     },
     licenceNumber: {
-      label: 'Licence number'
+      label: 'PPL number'
     },
     expiryDate: {
       label: 'Expiry date'
