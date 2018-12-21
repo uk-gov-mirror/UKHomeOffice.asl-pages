@@ -7,7 +7,7 @@ module.exports = {
     },
     profile: {
       list: {
-        subtitle: 'Named people, licence holders, and the Home Office Liason Contact.'
+        subtitle: 'Named people, licence holders, and the Home Office Liaison Contact.'
       }
     },
     place: {
