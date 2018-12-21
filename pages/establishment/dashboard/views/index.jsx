@@ -40,10 +40,10 @@ const Index = ({
       </div>
       <Sidebar>
         <dl>
-          <dt><Snippet>licenceNumber</Snippet></dt>
+          <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
           <dd>{ licenceNumber }</dd>
 
-          <dt><Snippet>licenceHolder</Snippet></dt>
+          <dt><Snippet>establishmentLicenceHolder</Snippet></dt>
           <dd><Link page="profile.view" profileId={ pelh.id } label={pelh.name} /></dd>
         </dl>
       </Sidebar>

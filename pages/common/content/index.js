@@ -74,7 +74,11 @@ module.exports = {
     }
   },
   licenceNumber: 'Licence number',
+  establishmentLicenceNumber: 'Establishment licence number',
+  personalLicenceNumber: 'Personal licence number',
   licenceHolder: 'Licence holder',
+  establishmentLicenceHolder: 'Establishment licence holder',
+  personalLicenceHolder: 'Personal licence holder',
   establishment: 'Establishment',
   buttons: {
     submit: 'Submit',
