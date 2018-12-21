@@ -30,13 +30,13 @@ const Index = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <dl>
-            <dt><Snippet>licenceNumber</Snippet></dt>
+            <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
             <dd>{ licenceNumber }</dd>
 
             <dt><Snippet>address</Snippet></dt>
             <dd>{ address }</dd>
 
-            <dt><Snippet>licenceHolder</Snippet></dt>
+            <dt><Snippet>establishmentLicenceHolder</Snippet></dt>
             <dd><Link page="profile.view" profileId={ pelh.id } label={ pelh.name } /></dd>
 
             <dt><Snippet>licenced.title</Snippet></dt>
