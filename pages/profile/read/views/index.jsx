@@ -76,7 +76,7 @@ const Index = ({
             {
               pil && pil.licenceNumber && (
                 <Fragment>
-                  <dt><Snippet>licenceNumber</Snippet></dt>
+                  <dt><Snippet>personalLicenceNumber</Snippet></dt>
                   <dd>{pil.licenceNumber}</dd>
                 </Fragment>
               )
