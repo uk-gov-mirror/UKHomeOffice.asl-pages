@@ -41,16 +41,19 @@ module.exports = ({
   apiPath,
   schema,
   defaultRowCount = 10
-}) => {
+} = {}) => {
   const app = Router();
 
   const _configure = (req, res, next) => {
     req.datatable = req.datatable || {};
+    req.datatable.schema = schema;
     return configure(req, res, next);
   };
 
   const _getApiPath = (req, res, next) => {
-    req.datatable.apiPath = apiPath;
+    if (apiPath) {
+      req.datatable.apiPath = apiPath;
+    }
     return getApiPath(req, res, next);
   };
 
@@ -91,7 +94,11 @@ module.exports = ({
   };
 
   const _getValues = (req, res, next) => {
-    const query = buildQuery(req, schema);
+    if (req.datatable.disable) {
+      return next();
+    }
+
+    const query = buildQuery(req, req.datatable.schema);
     const apiPath = castArray(req.datatable.apiPath);
 
     req.api.apply(null, apiPath.concat(
@@ -118,7 +125,7 @@ module.exports = ({
 
   const _locals = (req, res, next) => {
     Object.assign(res.locals, { datatable: pick(req.datatable, ['data', 'pagination', 'sort', 'filters']) });
-    Object.assign(res.locals.static, { schema });
+    Object.assign(res.locals.static, { schema: req.datatable.schema });
     if (res.establishment) {
       Object.assign(res.locals.static, { establishment: res.establishment });
     }
