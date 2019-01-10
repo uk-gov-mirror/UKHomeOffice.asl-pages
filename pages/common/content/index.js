@@ -17,7 +17,12 @@ module.exports = {
     },
     profile: {
       list: 'People',
-      view: '{{model.firstName}} {{model.lastName}}'
+      view: '{{model.firstName}} {{model.lastName}}',
+      role: {
+        apply: 'Apply for named role',
+        confirm: 'Confirm',
+        success: 'Success'
+      }
     },
     project: {
       list: 'Projects'

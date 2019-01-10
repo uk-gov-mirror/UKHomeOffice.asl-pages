@@ -9,7 +9,8 @@ const list = require('./list');
 const read = require('./read');
 const invite = require('./invite');
 const invitations = require('./invitations');
-const role = require('./permission');
+const permissionRouter = require('./permission');
+const roles = require('./roles');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
@@ -44,7 +45,8 @@ module.exports = () => {
     next();
   });
 
-  app.use('/:profileId/permission', allowed(), permissions('profile.permissions'), role());
+  app.use('/:profileId/permission', allowed(), permissions('profile.permissions'), permissionRouter());
+  app.use('/:profileId/role', permissions('profile.roles'), roles());
 
   app.use('/:profileId', permissions('profile.read.basic'), read());
   app.use('/invite', permissions('profile.invite'), invite());

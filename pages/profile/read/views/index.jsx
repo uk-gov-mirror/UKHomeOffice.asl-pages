@@ -15,6 +15,7 @@ import {
   Header
 } from '@asl/components';
 import PilApply from './pil-apply';
+import RoleApply from './role-apply';
 import { dateFormat } from '../../../../constants';
 
 const getPremises = roles => {
@@ -63,8 +64,13 @@ const Index = ({
   ...props
 }) => {
   const formatDate = date => format(date, dateFormat.medium);
+
   const premises = getPremises(roles);
-  const hasNacwoCertifications = roles.length > 0 && roles.find(role => role.type === 'nacwo') && certifications;
+
+  const hasNacwoCertifications = roles.length > 0 &&
+    roles.find(role => role.type === 'nacwo') &&
+    certifications;
+
   return (
     <Fragment>
       <article className='profile govuk-grid-row'>
@@ -85,61 +91,62 @@ const Index = ({
           <PilApply pil={pil} />
           <Accordion>
             {
-              (!isEmpty(roles) || !isEmpty(premises)) && (
-                <ExpandingPanel title="Responsibilities">
-                  <dl className="inline">
-                    {
-                      !isEmpty(roles) && (
-                        <Fragment>
-                          <dt><Snippet>roles</Snippet></dt>
-                          <dd>
-                            <ul>
-                              {
-                                roles.map(({ type, id }) =>
-                                  <li key={id}>{defineValue(type.toUpperCase())}</li>
-                                )
-                              }
-                            </ul>
-
-                          </dd>
-                        </Fragment>
-                      )
-                    }
-                    {
-                      !isEmpty(premises) && (
-                        <Fragment>
-                          <dt><Snippet>premises</Snippet></dt>
-                          <dd>
-                            <ul>
-                              {
-                                map(premises, (p, site) =>
-                                  <li key={site}>
-                                    {site}
-                                    {
-                                      map(p, (names, area) =>
-                                        <Fragment key={area}>
-                                          {
-                                            area !== 'null'
-                                              ? <Fragment>, {area} - <br /></Fragment>
-                                              : <Fragment> - <br /></Fragment>
-                                          }
-                                          {
-                                            names.join(', ')
-                                          }
-                                        </Fragment>
-                                      )
-                                    }
-                                  </li>
-                                )
-                              }
-                            </ul>
-                          </dd>
-                        </Fragment>
-                      )
-                    }
-                  </dl>
-                </ExpandingPanel>
-              )
+              <ExpandingPanel title={<Snippet>responsibilities.title</Snippet>}>
+                <dl className="inline">
+                  {
+                    <Fragment>
+                      <dt><Snippet>responsibilities.roles</Snippet></dt>
+                      <dd>
+                        { !isEmpty(roles) &&
+                          <ul>
+                            {
+                              roles.map(({ type, id }) =>
+                                <li key={id}>{defineValue(type.toUpperCase())}</li>
+                              )
+                            }
+                          </ul>
+                        }
+                        { isEmpty(roles) &&
+                          <Snippet>responsibilities.noRoles</Snippet>
+                        }
+                        <RoleApply />
+                      </dd>
+                    </Fragment>
+                  }
+                  {
+                    !isEmpty(premises) && (
+                      <Fragment>
+                        <dt><Snippet>premises</Snippet></dt>
+                        <dd>
+                          <ul>
+                            {
+                              map(premises, (p, site) =>
+                                <li key={site}>
+                                  {site}
+                                  {
+                                    map(p, (names, area) =>
+                                      <Fragment key={area}>
+                                        {
+                                          area !== 'null'
+                                            ? <Fragment>, {area} - <br /></Fragment>
+                                            : <Fragment> - <br /></Fragment>
+                                        }
+                                        {
+                                          names.join(', ')
+                                        }
+                                      </Fragment>
+                                    )
+                                  }
+                                </li>
+                              )
+                            }
+                          </ul>
+                        </dd>
+                      </Fragment>
+                    )
+                  }
+                </dl>
+              </ExpandingPanel>
             }
             {
               projects && projects.length > 0 && (
