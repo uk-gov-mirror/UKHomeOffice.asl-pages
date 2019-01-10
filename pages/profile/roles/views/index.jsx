@@ -6,7 +6,6 @@ const connectComponent = key => {
   const mapStateToProps = ({ model, static: { schema } }) => {
     schema = schema.role.options.find(role => role.value === key).reveal;
 
-    console.log(model);
     return {
       model,
       schema

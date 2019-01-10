@@ -6,8 +6,6 @@ import {
 } from '@asl/components';
 
 const RoleApply = ({ allowedActions }) => {
-  console.log(allowedActions);
-
   if (!allowedActions.includes('profile.roles')) {
     return null;
   }

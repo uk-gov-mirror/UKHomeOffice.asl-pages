@@ -7,8 +7,6 @@ module.exports = () => {
   app.get('/', (req, res, next) => {
     req.breadcrumb('profile.role.success');
     res.locals.static.profile = req.profile;
-
-    console.log(req.profile);
     next();
   });
 
