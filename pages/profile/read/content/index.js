@@ -1,6 +1,11 @@
 module.exports = {
   profile: 'Profile',
-  roles: 'Roles',
+  responsibilities: {
+    title: 'Responsibilities',
+    roles: 'Roles',
+    noRoles: 'This person has no named roles',
+    roleApply: 'Apply for named role'
+  },
   qualifications: 'Qualifications',
   training: {
     title: 'Training',
