@@ -1,7 +1,7 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
 
-module.exports = merge(baseContent, {
+module.exports = merge({}, baseContent, {
   panel: {
     title: 'Application submitted to ASRU',
     summary: 'A confirmation email has been sent to'

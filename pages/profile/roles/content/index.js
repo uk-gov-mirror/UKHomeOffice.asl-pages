@@ -1,7 +1,7 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
 
-module.exports = merge(baseContent, {
+module.exports = merge({}, baseContent, {
   title: 'Which role do you want to apply for?',
   fields: {
     role: {
