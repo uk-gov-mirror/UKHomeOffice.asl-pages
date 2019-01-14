@@ -56,8 +56,8 @@ module.exports = {
     }
   ),
   errors: {
-    declaration: {
-      required: 'Please confirm that you understand'
+    declarations: {
+      customValidate: 'Please confirm that you understand'
     },
     form: {
       incomplete: 'You need to add at least one procedure'
