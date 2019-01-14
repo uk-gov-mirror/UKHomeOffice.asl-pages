@@ -15,7 +15,7 @@ module.exports = merge({}, baseContent, {
     submit: 'Submit to ASRU'
   },
   errors: {
-    declaration: {
+    declarations: {
       required: 'Please confirm that you understand'
     }
   }
