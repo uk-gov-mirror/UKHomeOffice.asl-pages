@@ -10,8 +10,7 @@ module.exports = settings => form(Object.assign({
       profile: req.profile,
       values: {
         ...req.session.form[req.model.id].values
-      },
-      declarations: schema.declarations.options
+      }
     });
     next();
   },

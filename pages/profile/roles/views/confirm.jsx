@@ -49,7 +49,7 @@ const Confirm = ({
 
         <form method="POST">
           <input type="hidden" name="_csrf" value={csrfToken} />
-          <ApplicationConfirm declarations={declarations} />
+          <ApplicationConfirm />
         </form>
 
       </div>
