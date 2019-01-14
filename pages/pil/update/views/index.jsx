@@ -15,7 +15,7 @@ import {
 
 import SectionDetails from './section-details';
 
-const Index = ({ establishment, certificates, exemptions, model, skipExemptions, skipTraining, url }) => {
+const Index = ({ establishment, certificates, exemptions, model, skipExemptions, skipTraining, csrfToken }) => {
 
   const sections = [
     {
@@ -96,7 +96,11 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
         <div className="govuk-grid-column-two-thirds">
           <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
           {
-            applicationComplete && <ApplicationConfirm />
+            applicationComplete &&
+            <form method="POST">
+              <input type="hidden" name="_csrf" value={csrfToken} />
+              <ApplicationConfirm />
+            </form>
           }
         </div>
       </div>
@@ -113,8 +117,9 @@ const mapStateToProps = ({
       certificates
     },
     skipExemptions,
-    skipTraining
+    skipTraining,
+    csrfToken
   }
-}) => ({ establishment, exemptions, certificates, model, skipExemptions, skipTraining });
+}) => ({ establishment, exemptions, certificates, model, skipExemptions, skipTraining, csrfToken });
 
 export default connect(mapStateToProps)(Index);

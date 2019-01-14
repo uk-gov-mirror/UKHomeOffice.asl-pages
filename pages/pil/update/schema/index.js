@@ -1,7 +1,7 @@
 const content = require('../content');
 
 module.exports = {
-  declaration: {
+  declarations: {
     inputType: 'checkboxGroup',
     validate: ['required'],
     options: [

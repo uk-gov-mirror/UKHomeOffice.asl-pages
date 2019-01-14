@@ -51,8 +51,7 @@ module.exports = {
           label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
             1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
             provide information which you know to be false or misleading.`
-        },
-        label: 'Please confirm that you understand'
+        }
       }
     }
   ),
@@ -63,5 +62,8 @@ module.exports = {
     form: {
       incomplete: 'You need to add at least one procedure'
     }
+  },
+  declarations: {
+    title: 'Please confirm that you understand'
   }
 };
