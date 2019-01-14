@@ -16,7 +16,7 @@ module.exports = merge({}, baseContent, {
   },
   errors: {
     declarations: {
-      required: 'Please confirm that you understand'
+      customValidate: 'Please confirm that you understand'
     }
   }
 });
