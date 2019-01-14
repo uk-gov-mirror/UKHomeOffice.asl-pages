@@ -1,19 +1,17 @@
 const form = require('../../../common/routers/form');
-const { schema } = require('../schema');
+const schema = require('../schema/declarations');
 
 module.exports = settings => form(Object.assign({
-  model: 'role',
-  schema: {
-    declaration: { validate: ['required'] }
-  },
+  model: 'role-confirm',
+  schema,
   locals: (req, res, next) => {
     Object.assign(res.locals, { model: req.model });
     Object.assign(res.locals.static, {
       profile: req.profile,
-      schema,
       values: {
         ...req.session.form[req.model.id].values
-      }
+      },
+      declarations: schema.declarations.options
     });
     next();
   },

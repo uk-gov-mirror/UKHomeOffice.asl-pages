@@ -1,11 +1,17 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ErrorSummary, Snippet, ControlBar, Header, Link } from '@asl/components';
-import { CheckboxGroup } from '@ukhomeoffice/react-components';
+import {
+  ApplicationConfirm,
+  ControlBar,
+  ErrorSummary,
+  Header,
+  Link,
+  Snippet
+} from '@asl/components';
 import namedRoles from '../content/named-roles';
 
 const Confirm = ({
-  declaration = true,
+  declarations,
   establishment,
   profile,
   model,
@@ -36,34 +42,16 @@ const Confirm = ({
         <h2><Snippet>explanation</Snippet></h2>
         <p>{values.comment}</p>
 
-        <hr />
-
-        <ControlBar block={true}>
-          <form method="POST" >
-            {
-              declaration && (
-                <CheckboxGroup
-                  id="declaration"
-                  name="declaration"
-                  error={
-                    errors.declaration && <Snippet>{`errors.declaration.${errors.declaration}`}</Snippet>
-                  }
-                  label=""
-                  options={[
-                    {
-                      value: 'true',
-                      label: <Snippet>declaration</Snippet>
-                    }
-                  ]}
-                />
-              )
-            }
-            <input type="hidden" name="_csrf" value={csrfToken} />
-            <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
-          </form>
+        <ControlBar>
           <Link page="profile.role.apply" label={<Snippet>buttons.edit</Snippet>} />
           <Link page="profile.view" label={<Snippet>buttons.cancel</Snippet>} />
         </ControlBar>
+
+        <form method="POST">
+          <input type="hidden" name="_csrf" value={csrfToken} />
+          <ApplicationConfirm declarations={declarations} />
+        </form>
+
       </div>
     </div>
   </Fragment>
@@ -71,11 +59,12 @@ const Confirm = ({
 
 const mapStateToProps = ({
   model,
-  static: { establishment, profile, errors, values, csrfToken }
+  static: { establishment, profile, declarations, errors, values, csrfToken }
 }) => ({
   establishment,
   profile,
   model,
+  declarations,
   errors,
   csrfToken,
   values
