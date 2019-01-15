@@ -1,12 +1,11 @@
 const form = require('../../common/routers/form');
 const { getEstablishment, getNacwoById } = require('../../common/helpers');
 const { schema } = require('../schema');
+const declarationsSchema = require('../schema/declarations');
 
 module.exports = settings => form(Object.assign({
   model: 'place',
-  schema: {
-    declaration: { validate: ['required'] }
-  },
+  schema: declarationsSchema,
   locals: (req, res, next) => {
     Object.assign(res.locals, { model: req.model });
     Promise.all([
@@ -16,7 +15,7 @@ module.exports = settings => form(Object.assign({
       .then(([establishment, nacwo]) => {
         Object.assign(res.locals.static, {
           establishment,
-          schema,
+          schema: Object.assign({}, schema, declarationsSchema),
           values: {
             ...req.session.form[req.model.id].values,
             nacwo

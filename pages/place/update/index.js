@@ -37,7 +37,10 @@ module.exports = settings => {
   app.use('/confirm', confirm());
 
   app.post('/confirm', (req, res, next) => {
-    const values = omit(req.session.form[req.model.id].values, ['declaration', 'conditional-reveal-changesToRestrictions']);
+    const values = omit(
+      req.session.form[req.model.id].values,
+      ['declarations', 'conditional-reveal-changesToRestrictions']
+    );
     const {
       changesToRestrictions,
       comments

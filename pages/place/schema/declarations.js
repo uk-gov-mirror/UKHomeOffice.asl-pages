@@ -1,11 +1,11 @@
 const { isEqual } = require('lodash');
-const { toArray } = require('../../../../lib/utils');
-const content = require('../content');
+const { toArray } = require('../../../lib/utils');
+const content = require('../update/content/confirm');
 
 const options = [
   {
-    label: content.fields.declaration.yes.label,
-    value: 'yes'
+    label: content.declarations.declaration1,
+    value: 'declaration-1'
   }
 ];
 

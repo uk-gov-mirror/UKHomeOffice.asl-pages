@@ -7,14 +7,13 @@ import {
   ErrorSummary,
   Field,
   Header,
-  ControlBar
+  ControlBar,
+  ApplicationConfirm
 } from '@asl/components';
-import { CheckboxGroup } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
 
 const Confirm = ({
-  declaration = true,
   errors = {},
   action = 'update',
   values,
@@ -80,32 +79,16 @@ const Confirm = ({
           )
         }
 
-        <ControlBar block={true}>
-          <form method="POST">
-            {
-              declaration && (
-                <CheckboxGroup
-                  id="declaration"
-                  name="declaration"
-                  error={
-                    errors.declaration && <Snippet>{`errors.declaration.${errors.declaration}`}</Snippet>
-                  }
-                  label=""
-                  options={[
-                    {
-                      value: 'true',
-                      label: <Snippet>declaration</Snippet>
-                    }
-                  ]}
-                />
-              )
-            }
-            <input type="hidden" name="_csrf" value={csrfToken} />
-            <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
-          </form>
+        <ControlBar>
           <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
           <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
         </ControlBar>
+
+        <form method="POST">
+          <input type="hidden" name="_csrf" value={csrfToken} />
+          <ApplicationConfirm />
+        </form>
+
       </div>
     </div>
   </Fragment>
