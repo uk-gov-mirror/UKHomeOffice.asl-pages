@@ -5,7 +5,7 @@ const declarationsSchema = require('../schema/declarations');
 
 module.exports = settings => form(Object.assign({
   model: 'place',
-  declarationsSchema,
+  schema: declarationsSchema,
   locals: (req, res, next) => {
     Object.assign(res.locals, { model: req.model });
     Promise.all([

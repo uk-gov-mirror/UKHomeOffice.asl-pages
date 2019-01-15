@@ -19,8 +19,6 @@ module.exports = {
     format: toArray,
     validate: [{
       customValidate: (field, model) => {
-        console.log(optionValues, model.declarations); // << doesn't get called
-
         return isEqual(optionValues, model.declarations);
       }
     }]

@@ -14,7 +14,6 @@ import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
 
 const Confirm = ({
-  declaration = true,
   errors = {},
   action = 'update',
   values,
