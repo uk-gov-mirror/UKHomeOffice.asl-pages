@@ -41,5 +41,9 @@ module.exports = {
       title: 'Procedure categories',
       categories: 'Categories'
     }
+  },
+  errors: {
+    permissions: `You do not currently have permission to view all profiles at this establishment. Please contact your
+      establishment admin to increase your permissions level.`
   }
 };

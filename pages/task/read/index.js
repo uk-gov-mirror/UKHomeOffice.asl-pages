@@ -6,6 +6,7 @@ const { cleanModel } = require('../../../lib/utils');
 const success = require('./routers/success');
 const getContent = require('./content');
 const { merge } = require('lodash');
+const UnauthorisedError = require('@asl/service/errors/unauthorised');
 
 module.exports = settings => {
   const app = page({
@@ -21,6 +22,15 @@ module.exports = settings => {
   });
 
   app.use('/', (req, res, next) => {
+    Promise.resolve()
+      .then(() => req.user.can('profile.read.all', { establishment: req.task.data.data.establishmentId }))
+      .then(canReadAllProfiles => {
+        if (!canReadAllProfiles) {
+          const content = getContent(req.task);
+          next(new UnauthorisedError(content.errors.permissions));
+        }
+      });
+
     if (req.task.data.data.profileId && req.task.data.data.establishmentId) {
       return req.api(`/establishment/${req.task.data.data.establishmentId}/profile/${req.task.data.data.profileId}`)
         .then(({ json: { data } }) => {
