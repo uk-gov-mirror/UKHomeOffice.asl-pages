@@ -6,6 +6,7 @@ const { cleanModel } = require('../../../lib/utils');
 const success = require('./routers/success');
 const getContent = require('./content');
 const { merge } = require('lodash');
+const UnauthorisedError = require('@asl/service/errors/unauthorised');
 
 module.exports = settings => {
   const app = page({
@@ -27,7 +28,18 @@ module.exports = settings => {
           req.profile = cleanModel(data);
         })
         .then(() => next())
-        .catch(next);
+        .catch(error => {
+          return Promise.resolve()
+            .then(() => req.user.can('profile.read.all', { establishment: req.task.data.data.establishmentId }))
+            .then(canReadAllProfiles => {
+              if (!canReadAllProfiles) {
+                const content = getContent(req.task);
+                next(new UnauthorisedError(content.errors.permissions));
+              } else {
+                next(error);
+              }
+            });
+        });
     }
     next();
   });
