@@ -13,7 +13,18 @@ const formatters = {
     format: date => format(date, dateFormat.medium)
   },
   licence: {
-    format: licence => licence ? licence.toUpperCase() : null
+    format: licence => {
+      if (licence === 'pil') {
+        return 'PIL';
+      }
+      if (licence === 'project') {
+        return 'PPL';
+      }
+      if (licence === 'place' || licence === 'role' || licence === 'establishment') {
+        return 'PEL';
+      }
+      return null;
+    }
   },
   type: {
     format: (type, model) => {
