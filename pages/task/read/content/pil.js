@@ -43,7 +43,7 @@ module.exports = {
     }
   },
   errors: {
-    permissions: `You do not currently have permission to view all profiles at this establishment. Please contact your
-      establishment admin to increase your permissions level.`
+    permissions: `You do not currently have permission to view all people at this establishment. Please contact an
+    establishment administrator to increase your permissions level.`
   }
 };
