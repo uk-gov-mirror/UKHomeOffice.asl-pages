@@ -21,6 +21,7 @@ module.exports = {
       customValidate: (field, model) => {
         return isEqual(optionValues, model.declarations);
       }
-    }]
+    }],
+    showDiff: false
   }
 };
