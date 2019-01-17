@@ -26,8 +26,7 @@ module.exports = {
   actions: {
     add: 'Add',
     edit: 'Edit',
-    remove: 'Remove',
-    submit: 'Submit to NTCO'
+    remove: 'Remove'
   },
   fields: merge({},
     trainingFields,
@@ -65,5 +64,8 @@ module.exports = {
   },
   declarations: {
     title: 'Please confirm that you understand'
+  },
+  buttons: {
+    submit: 'Submit to NTCO'
   }
 };
