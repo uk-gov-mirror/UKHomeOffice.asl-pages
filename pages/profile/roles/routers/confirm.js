@@ -38,7 +38,7 @@ module.exports = action => {
     const { role, rcvsNumber, comment } = req.session.form[req.model.id].values;
 
     const opts = {
-      method: 'PUT',
+      method: action === 'remove' ? 'DELETE' : 'PUT',
       json: {
         data: { role, rcvsNumber },
         meta: { comment }
