@@ -4,7 +4,8 @@ module.exports = {
     title: 'Responsibilities',
     roles: 'Roles',
     noRoles: 'This person has no named roles',
-    roleApply: 'Apply for named role'
+    roleApply: 'Apply for named role',
+    roleRemove: 'Remove a named role'
   },
   qualifications: 'Qualifications',
   training: {

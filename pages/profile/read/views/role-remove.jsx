@@ -5,7 +5,7 @@ import {
   Snippet
 } from '@asl/components';
 
-const RoleApply = ({ allowedActions }) => {
+const RoleRemove = ({ allowedActions }) => {
   if (!allowedActions.includes('profile.roles')) {
     return null;
   }
@@ -14,9 +14,8 @@ const RoleApply = ({ allowedActions }) => {
     <div>
       <p>
         <Link
-          page='profile.role.apply.base'
-          className="govuk-button"
-          label={<Snippet>responsibilities.roleApply</Snippet>}
+          page='profile.role.remove.base'
+          label={<Snippet>responsibilities.roleRemove</Snippet>}
         />
       </p>
     </div>
@@ -25,4 +24,4 @@ const RoleApply = ({ allowedActions }) => {
 
 const mapStateToProps = ({ static: { allowedActions } }) => ({ allowedActions });
 
-export default connect(mapStateToProps)(RoleApply);
+export default connect(mapStateToProps)(RoleRemove);

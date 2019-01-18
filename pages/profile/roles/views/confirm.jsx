@@ -19,43 +19,47 @@ const Confirm = ({
   csrfToken,
   values,
   ...props
-}) => (
-  <Fragment>
-    <div className="govuk-grid-row">
-      <div className="govuk-grid-column-two-thirds">
-        <ErrorSummary />
-        <Header title={<Snippet>reviewRoleApplication</Snippet>}/>
+}) => {
+  const editPage = props.action === 'remove' ? 'profile.role.remove.base' : 'profile.role.apply.base';
 
-        <h2><Snippet>applyingFor</Snippet></h2>
-        <p>{namedRoles[values.role]}</p>
+  return (
+    <Fragment>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <ErrorSummary />
+          <Header title={<Snippet>reviewRoleApplication</Snippet>}/>
 
-        <h2><Snippet>onBehalfOf</Snippet></h2>
-        <p>{profile.name}</p>
+          <h2><Snippet>applyingFor</Snippet></h2>
+          <p>{namedRoles[values.role]}</p>
 
-        { values.rcvsNumber &&
-          <Fragment>
-            <h2><Snippet>rcvsNumber</Snippet></h2>
-            <p>{values.rcvsNumber}</p>
-          </Fragment>
-        }
+          <h2><Snippet>onBehalfOf</Snippet></h2>
+          <p>{profile.name}</p>
 
-        <h2><Snippet>explanation</Snippet></h2>
-        <p>{values.comment}</p>
+          { values.rcvsNumber &&
+            <Fragment>
+              <h2><Snippet>rcvsNumber</Snippet></h2>
+              <p>{values.rcvsNumber}</p>
+            </Fragment>
+          }
 
-        <ControlBar>
-          <Link page="profile.role.apply" label={<Snippet>buttons.edit</Snippet>} />
-          <Link page="profile.view" label={<Snippet>buttons.cancel</Snippet>} />
-        </ControlBar>
+          <h2><Snippet>explanation</Snippet></h2>
+          <p>{values.comment}</p>
 
-        <form method="POST">
-          <input type="hidden" name="_csrf" value={csrfToken} />
-          <ApplicationConfirm />
-        </form>
+          <ControlBar>
+            <Link page={editPage} label={<Snippet>buttons.edit</Snippet>} />
+            <Link page="profile.view" label={<Snippet>buttons.cancel</Snippet>} />
+          </ControlBar>
 
+          <form method="POST">
+            <input type="hidden" name="_csrf" value={csrfToken} />
+            <ApplicationConfirm />
+          </form>
+
+        </div>
       </div>
-    </div>
-  </Fragment>
-);
+    </Fragment>
+  );
+};
 
 const mapStateToProps = ({
   model,

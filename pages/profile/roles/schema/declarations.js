@@ -1,6 +1,6 @@
 const { isEqual } = require('lodash');
 const { toArray } = require('../../../../lib/utils');
-const content = require('../content/confirm');
+const content = require('../apply/content/confirm');
 
 const options = [
   {
