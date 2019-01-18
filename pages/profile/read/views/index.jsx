@@ -16,6 +16,7 @@ import {
 } from '@asl/components';
 import PilApply from './pil-apply';
 import RoleApply from './role-apply';
+import RoleRemove from './role-remove';
 import { dateFormat } from '../../../../constants';
 
 const getPremises = roles => {
@@ -98,13 +99,16 @@ const Index = ({
                       <dt><Snippet>responsibilities.roles</Snippet></dt>
                       <dd>
                         { !isEmpty(roles) &&
-                          <ul>
-                            {
-                              roles.map(({ type, id }) =>
-                                <li key={id}>{defineValue(type.toUpperCase())}</li>
-                              )
-                            }
-                          </ul>
+                          <Fragment>
+                            <ul>
+                              {
+                                roles.map(({ type, id }) =>
+                                  <li key={id}>{defineValue(type.toUpperCase())}</li>
+                                )
+                              }
+                            </ul>
+                            <RoleRemove />
+                          </Fragment>
                         }
                         { isEmpty(roles) &&
                           <Snippet>responsibilities.noRoles</Snippet>

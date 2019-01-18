@@ -1,5 +1,5 @@
 const { merge } = require('lodash');
-const baseContent = require('../../content');
+const baseContent = require('../../../content');
 
 module.exports = merge({}, baseContent, {
   reviewRoleApplication: 'Please review your application for a named role',

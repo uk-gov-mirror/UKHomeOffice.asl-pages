@@ -20,6 +20,7 @@ module.exports = {
       view: '{{model.firstName}} {{model.lastName}}',
       role: {
         apply: 'Apply for named role',
+        remove: 'Remove named role',
         confirm: 'Confirm',
         success: 'Success'
       }
