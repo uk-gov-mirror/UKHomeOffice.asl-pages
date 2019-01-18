@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { FormLayout, Link, Snippet, Header } from '@asl/components';
-import { licenceCanProgress } from '../../../../lib/utils';
+import { requiresDeclaration } from '../../../../lib/utils';
 
 const Confirm = ({ task, decision, reason }) => {
   return (
@@ -18,7 +18,7 @@ const Confirm = ({ task, decision, reason }) => {
           { reason && <p>{reason}</p> }
         </div>
 
-        { licenceCanProgress(decision) &&
+        { requiresDeclaration(decision) &&
           <div className="task-declaration">
             <h2><Snippet>task.confirm.declaration.title</Snippet></h2>
             <Snippet>{`task.${decision}.declaration`}</Snippet>

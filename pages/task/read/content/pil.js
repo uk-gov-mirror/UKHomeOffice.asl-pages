@@ -7,17 +7,15 @@ module.exports = {
     reason: {
       label: 'Reason for rejection'
     },
-    options: [
-      {
+    options: {
+      'ntco-endorsed': {
         label: 'Yes',
-        hint: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application',
-        value: 'ntco-endorsed'
+        hint: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application'
       },
-      {
-        label: 'No',
-        value: 'returned-to-applicant'
+      'returned-to-applicant': {
+        label: 'No'
       }
-    ]
+    }
   },
   pil: {
     training: {

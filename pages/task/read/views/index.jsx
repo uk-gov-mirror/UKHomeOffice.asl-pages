@@ -9,7 +9,7 @@ import {
   Snippet,
   Header
 } from '@asl/components';
-import Pil from './pil';
+import Playback from './playback';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -64,26 +64,22 @@ const Task = ({ task }) => {
         <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
+      {
+        subject && <div className="applicant">
+          <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
+          <p className="govuk-body">{subject.name}</p>
+        </div>
+      }
 
-      <div className="applicant">
-        <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
-        <p className="govuk-body">{subject.name}</p>
-      </div>
+      <Playback task={task} />
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
-          <ol className="section-navigation">
-            <li className="active"><a href="#training">Training and exemptions</a></li>
-            <li><a href="#procedures">Procedure Categories</a></li>
-            <li><a href="#endorse">Endorse Application</a></li>
-          </ol>
+          &nbsp;
         </div>
 
         <div className="govuk-grid-column-two-thirds">
-          <Pil />
-          <div id="endorse">
-            <Form formatters={formatters} />
-          </div>
+          <Form formatters={formatters} />
         </div>
       </div>
 

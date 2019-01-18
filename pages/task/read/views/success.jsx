@@ -14,7 +14,7 @@ const Success = ({ decision }) => (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <Panel title={<Snippet>{`task.${decision}.title`}</Snippet>} className="green-bg">
-          <Snippet>{`task.${decision}.summary`}</Snippet>
+          <Snippet optional>{`task.${decision}.summary`}</Snippet>
 
           { licenceCanProgress(decision) &&
             <ApplicationProgress states={STATES} />
@@ -24,11 +24,11 @@ const Success = ({ decision }) => (
         { licenceCanProgress(decision) &&
           <Fragment>
             <div className="what-next">
-              <h2><Snippet>{`task.${decision}.whatNext.title`}</Snippet></h2>
-              <p><Snippet>{`task.${decision}.whatNext.summary`}</Snippet></p>
+              <h2><Snippet optional>{`task.${decision}.whatNext.title`}</Snippet></h2>
+              <p><Snippet optional>{`task.${decision}.whatNext.summary`}</Snippet></p>
             </div>
 
-            <p><Snippet>{`task.${decision}.body`}</Snippet></p>
+            <p><Snippet optional>{`task.${decision}.body`}</Snippet></p>
           </Fragment>
         }
 

@@ -15,8 +15,29 @@ module.exports = {
         they need more information.`
     },
     'returned-to-applicant': {
-      title: 'Application not endorsed',
+      title: 'Returned to applicant',
       summary: 'The applicant has been notified about your decision'
+    },
+    'resubmitted': {
+      title: 'Resubmitted'
+    },
+    'withdrawn-by-applicant': {
+      title: 'Withdrawn'
+    },
+    'referred-to-inspector': {
+      title: 'Referred to inspector'
+    },
+    'inspector-recommended': {
+      title: 'Recommended'
+    },
+    'inspector-rejected': {
+      title: 'Recommended for rejection'
+    },
+    'resolved': {
+      title: 'Licence updated'
+    },
+    'rejected': {
+      title: 'Rejected'
     }
   },
   states: {

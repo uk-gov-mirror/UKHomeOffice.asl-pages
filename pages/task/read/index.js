@@ -48,50 +48,7 @@ module.exports = settings => {
     configure: (req, res, next) => {
       merge(res.locals.static.content, getContent(req.task));
       req.schema = schemaGenerator(req.task);
-
-      // create error messages for the dynamic textareas
-      Object.assign(
-        res.locals.static.content.errors,
-        {
-          ...req.task.nextSteps.reduce((obj, step) => {
-            return {
-              ...obj,
-              [`${step.id}-reason`]: {
-                customValidate: res.locals.static.content.errors.reason.customValidate
-              }
-            };
-          }, {})
-        }
-      );
-      // create field labels for the dynamic textareas
-      Object.assign(
-        res.locals.static.content.fields,
-        {
-          ...req.task.nextSteps.reduce((obj, step) => {
-            return {
-              ...obj,
-              [`${step.id}-reason`]: {
-                label: res.locals.static.content.fields.reason.label
-              }
-            };
-          }, {})
-        }
-      );
-
-      // copy the reason fields to the top level for validation / saving
-      req.form.schema = {
-        ...req.schema,
-        ...req.schema.decision.options.reduce((obj, option) => {
-          if (!option.reveal || !option.reveal[`${option.value}-reason`]) {
-            return obj;
-          }
-
-          return {
-            ...obj,
-            [`${option.value}-reason`]: option.reveal[`${option.value}-reason`]
-          };
-        }, {})
-      };
+      req.form.schema = req.schema;
 
       next();
     },
