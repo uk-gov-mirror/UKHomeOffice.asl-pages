@@ -4,7 +4,7 @@ const baseContent = require('../../../content');
 module.exports = merge({}, baseContent, {
   reviewRoleApplication: 'Please review your application to remove named people',
   applyingFor: 'You are removing the role:',
-  onBehalfOf: 'On behalf of:',
+  onBehalfOf: 'From the user:',
   rcvsNumber: 'RCVS number:',
   explanation: 'Explain why you want to remove this person from the role:',
   declarations: {

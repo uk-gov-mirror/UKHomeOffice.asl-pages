@@ -19,10 +19,16 @@ module.exports = {
       list: 'People',
       view: '{{model.firstName}} {{model.lastName}}',
       role: {
-        apply: 'Apply for named role',
-        remove: 'Remove named role',
-        confirm: 'Confirm',
-        success: 'Success'
+        apply: {
+          base: 'Apply for named role',
+          confirm: 'Confirm',
+          success: 'Success'
+        },
+        remove: {
+          base: 'Remove named role',
+          confirm: 'Confirm',
+          success: 'Success'
+        }
       }
     },
     project: {

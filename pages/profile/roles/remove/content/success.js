@@ -3,7 +3,7 @@ const baseContent = require('../../../content');
 
 module.exports = merge({}, baseContent, {
   panel: {
-    title: 'Application submitted to ASRU',
+    title: 'Removal submitted to ASRU',
     summary: 'A confirmation email has been sent to'
   },
   whatNext: {

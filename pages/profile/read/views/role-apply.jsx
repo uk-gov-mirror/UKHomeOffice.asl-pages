@@ -14,7 +14,7 @@ const RoleApply = ({ allowedActions }) => {
     <div>
       <p>
         <Link
-          page='profile.role.apply'
+          page='profile.role.apply.base'
           className="govuk-button"
           label={<Snippet>responsibilities.roleApply</Snippet>}
         />

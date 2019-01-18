@@ -1,12 +1,18 @@
-const { Router } = require('express');
+const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
 const schema = require('../schema');
+const confirm = require('../routers/confirm');
+const success = require('../routers/success');
 
-module.exports = () => {
-  const app = Router({ mergeParams: true });
+module.exports = settings => {
+  const app = page({
+    root: __dirname,
+    ...settings,
+    paths: ['/confirm', '/success']
+  });
 
   app.use('/', (req, res, next) => {
-    req.breadcrumb('profile.role.remove');
+    req.breadcrumb('profile.role.remove.base');
     next();
   });
 
@@ -25,8 +31,11 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('profile.role.confirm'));
+    return res.redirect(req.buildRoute('profile.role.remove.confirm'));
   });
+
+  app.use('/confirm', confirm('remove'));
+  app.use('/success', success('remove'));
 
   return app;
 };

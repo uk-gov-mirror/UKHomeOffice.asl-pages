@@ -2,11 +2,11 @@ const { Router } = require('express');
 const form = require('../../../common/routers/form');
 const schema = require('../schema/declarations');
 
-module.exports = () => {
+module.exports = action => {
   const app = Router({ mergeParams: true });
 
   app.use('/', (req, res, next) => {
-    req.breadcrumb('profile.role.confirm');
+    req.breadcrumb(`profile.role.${action}.confirm`);
     next();
   });
 
@@ -27,7 +27,7 @@ module.exports = () => {
       if (req.session.form && req.session.form[req.model.id]) {
         return next();
       }
-      return res.redirect(req.buildRoute('profile.role.apply'));
+      return res.redirect(req.buildRoute(`profile.role.${action}.base`));
     },
     cancelEdit: (req, res, next) => {
       return res.redirect(req.buildRoute('profile.view'));
@@ -46,7 +46,7 @@ module.exports = () => {
     };
 
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/role`, opts)
-      .then(() => res.redirect(req.buildRoute('profile.role.success')))
+      .then(() => res.redirect(req.buildRoute(`profile.role.${action}.success`)))
       .catch(next);
   });
 
