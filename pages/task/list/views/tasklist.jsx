@@ -3,6 +3,7 @@ import get from 'lodash/get';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../constants';
 import {
+  Tabs,
   Datatable,
   Snippet,
   Link
@@ -55,4 +56,22 @@ const formatters = {
   }
 };
 
-export default () => <Datatable formatters={formatters} className="tasklist" />;
+class Tasklist extends React.Component {
+
+  render() {
+    const tabs = this.props.tabs || [];
+    const progress = this.props.progress || tabs[0];
+    const selected = tabs.indexOf(progress);
+    return <Fragment>
+      {
+        !!tabs.length && <Tabs active={selected}>
+          { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
+        </Tabs>
+      }
+      <Datatable formatters={formatters} className="tasklist" />
+    </Fragment>;
+  }
+
+}
+
+export default Tasklist;
