@@ -5,7 +5,7 @@ module.exports = {
       label: 'What is your decision?'
     },
     reason: {
-      label: 'Reason for decision'
+      label: 'Comment'
     },
     options: {
       'ntco-endorsed': {

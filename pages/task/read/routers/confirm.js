@@ -13,11 +13,12 @@ module.exports = () => {
   app.use(form({
     locals: (req, res, next) => {
       const formValues = req.session.form[`${req.task.id}-decision`].values;
+      console.log(formValues);
       const decision = formValues.decision;
 
       res.locals.static.task = req.task;
       res.locals.static.decision = decision;
-      res.locals.static.reason = formValues[`${decision}-reason`];
+      res.locals.static.reason = formValues.reason;
       next();
     }
   }));
@@ -32,7 +33,7 @@ module.exports = () => {
     const params = { status: stepId };
 
     if (commentRequired(stepId)) {
-      params.comment = formValues[`${stepId}-reason`];
+      params.comment = formValues.reason;
     }
 
     const opts = {
