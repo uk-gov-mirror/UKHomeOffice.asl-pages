@@ -5,7 +5,7 @@ const confirm = require('./routers/confirm');
 const { cleanModel } = require('../../../lib/utils');
 const success = require('./routers/success');
 const getContent = require('./content');
-const { merge } = require('lodash');
+const { merge, get } = require('lodash');
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 
 module.exports = settings => {
@@ -46,32 +46,38 @@ module.exports = settings => {
 
   app.use('/', form(Object.assign({
     configure: (req, res, next) => {
-      merge(res.locals.static.content, getContent(req.task));
+      const content = merge(res.locals.static.content, getContent(req.task));
       req.schema = schemaGenerator(req.task);
 
       // create error messages for the dynamic textareas
-      Object.assign(
+      Object.assign({},
         res.locals.static.content.errors,
         {
           ...req.task.nextSteps.reduce((obj, step) => {
+            if (!step.commentRequired) {
+              return obj;
+            }
             return {
               ...obj,
               [`${step.id}-reason`]: {
-                customValidate: res.locals.static.content.errors.reason.customValidate
+                customValidate: get(content, 'errors.reason.customValidate')
               }
             };
           }, {})
         }
       );
       // create field labels for the dynamic textareas
-      Object.assign(
+      Object.assign({},
         res.locals.static.content.fields,
         {
           ...req.task.nextSteps.reduce((obj, step) => {
+            if (!step.commentRequired) {
+              return obj;
+            }
             return {
               ...obj,
               [`${step.id}-reason`]: {
-                label: res.locals.static.content.fields.reason.label
+                label: get(content, 'fields.reason.label')
               }
             };
           }, {})

@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const getContent = require('../read/content');
 
 module.exports = (task) => {
@@ -8,23 +9,11 @@ module.exports = (task) => {
     return task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
   };
 
-  const reasonField = stepId => {
+  const options = task.nextSteps.map(option => {
     return {
-      [`${stepId}-reason`]: {
-        inputType: 'textarea',
-        validate: [{
-          customValidate: (field, model) => {
-            return (model.decision && commentRequired(model.decision)) ? !!field : true;
-          }
-        }]
-      }
-    };
-  };
-
-  const options = content.fields.options.map(option => {
-    return {
-      ...option,
-      reveal: task.nextSteps.find(step => step.id === option.value).commentRequired ? reasonField(option.value) : null
+      value: option.id,
+      label: get(content, `fields.options.${option.id}.label`),
+      hint: get(content, `fields.options.${option.id}.hint`)
     };
   });
 
@@ -39,6 +28,15 @@ module.exports = (task) => {
           definedValues: options.map(option => option.value)
         }
       ]
+    },
+    reason: {
+      inputType: 'textarea',
+      validate: [{
+        customValidate: (field, model) => {
+          return (model.decision && commentRequired(model.decision)) ? !!field : true;
+        }
+      }]
+
     }
   };
 
