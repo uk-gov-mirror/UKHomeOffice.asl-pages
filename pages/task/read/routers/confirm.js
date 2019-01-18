@@ -13,28 +13,21 @@ module.exports = () => {
   app.use(form({
     locals: (req, res, next) => {
       const formValues = req.session.form[`${req.task.id}-decision`].values;
-      console.log(formValues);
-      const decision = formValues.decision;
 
       res.locals.static.task = req.task;
-      res.locals.static.decision = decision;
+      res.locals.static.decision = formValues.decision;
       res.locals.static.reason = formValues.reason;
       next();
     }
   }));
 
   app.post('/', (req, res, next) => {
-    const commentRequired = stepId => {
-      return req.task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
-    };
-
     const formValues = req.session.form[`${req.task.id}-decision`].values;
-    const stepId = formValues.decision;
-    const params = { status: stepId };
 
-    if (commentRequired(stepId)) {
-      params.comment = formValues.reason;
-    }
+    const params = {
+      status: formValues.decision,
+      comment: formValues.reason
+    };
 
     const opts = {
       method: 'PUT',
