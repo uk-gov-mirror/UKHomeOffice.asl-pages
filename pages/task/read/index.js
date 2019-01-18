@@ -5,7 +5,7 @@ const confirm = require('./routers/confirm');
 const { cleanModel } = require('../../../lib/utils');
 const success = require('./routers/success');
 const getContent = require('./content');
-const { merge, get } = require('lodash');
+const { merge } = require('lodash');
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 
 module.exports = settings => {
@@ -46,7 +46,7 @@ module.exports = settings => {
 
   app.use('/', form(Object.assign({
     configure: (req, res, next) => {
-      const content = merge(res.locals.static.content, getContent(req.task));
+      merge(res.locals.static.content, getContent(req.task));
       req.schema = schemaGenerator(req.task);
       req.form.schema = req.schema;
 
