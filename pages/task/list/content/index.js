@@ -3,6 +3,11 @@ const fields = require('./fields');
 module.exports = {
   fields,
   title: 'Task List',
+  tabs: {
+    outstanding: 'Outstanding',
+    inProgress: 'In progress',
+    completed: 'Completed'
+  },
   task: {
     role: {
       create: 'Add named person',
