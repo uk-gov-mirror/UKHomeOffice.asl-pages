@@ -11,13 +11,20 @@ import { species } from '@asl/constants';
 const SPECIES_REVEAL_TOTAL_COUNT = 10;
 const SPECIES_REVEAL_VISIBLE_COUNT = 1;
 
+const REQUIRES_SPECIES = [
+  'PILA (theory)',
+  'PILA (skills)',
+  'K (theory)',
+  'K (skills)'
+];
+
 const formatters = {
   modules: {
     mapOptions: (op, b) => {
       return {
         ...op,
         prefix: op.value,
-        reveal: (
+        reveal: REQUIRES_SPECIES.includes(op.value) ? (
           <Inset>
             <AddAnother label={<Snippet>fields.species.add</Snippet>}
               totalCount={SPECIES_REVEAL_TOTAL_COUNT}
@@ -29,7 +36,7 @@ const formatters = {
               />
             </AddAnother>
           </Inset>
-        )
+        ) : null
       };
     }
   }
