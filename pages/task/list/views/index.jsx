@@ -6,16 +6,16 @@ import {
   Snippet
 } from '@asl/components';
 
-const TaskListPage = ({ name }) => (
+const TaskListPage = ({ name, progress, tabs }) => (
   <Fragment>
     <Header
       title={<Snippet>title</Snippet>}
       subtitle={name}
     />
-    <TaskList />
+    <TaskList tabs={ tabs } progress={ progress } />
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { profileName: name } }) => ({ name });
+const mapStateToProps = ({ static: { profileName: name, progress, tabs } }) => ({ name, progress, tabs });
 
 export default connect(mapStateToProps)(TaskListPage);
