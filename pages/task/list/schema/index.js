@@ -16,5 +16,9 @@ module.exports = {
     show: true,
     sortable: false,
     accessor: 'data.action'
+  },
+  status: {
+    show: true,
+    sortable: false
   }
 };

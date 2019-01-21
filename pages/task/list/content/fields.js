@@ -10,5 +10,8 @@ module.exports = {
   },
   type: {
     label: 'Type'
+  },
+  status: {
+    label: 'Status'
   }
 };

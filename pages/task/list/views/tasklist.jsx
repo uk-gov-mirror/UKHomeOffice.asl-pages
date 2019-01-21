@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import classnames from 'classnames';
 import get from 'lodash/get';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../constants';
@@ -8,6 +9,9 @@ import {
   Snippet,
   Link
 } from '@asl/components';
+
+const good = ['resolved'];
+const bad = ['rejected', 'withdrawn'];
 
 const formatters = {
   updatedAt: {
@@ -25,6 +29,12 @@ const formatters = {
         return 'PEL';
       }
       return null;
+    }
+  },
+  status: {
+    format: status => {
+      const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
+      return <span className={ className }><Snippet>{ `status.${status}` }</Snippet></span>;
     }
   },
   type: {
