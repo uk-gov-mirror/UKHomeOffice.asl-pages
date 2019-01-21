@@ -14,7 +14,7 @@ module.exports = (existingRoles, action) => {
     return {
       value: role,
       label: namedRoles[role],
-      reveal: role === 'nvs'
+      reveal: role === 'nvs' && action === 'apply'
         ? { rcvsNumber: { inputType: 'inputText' } }
         : null
     };
