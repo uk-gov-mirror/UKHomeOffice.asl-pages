@@ -49,3 +49,19 @@
     }
   }
 }
+
+
+.badge {
+  padding: 3px 6px;
+  background: #999;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  &.complete {
+    background: $blue;
+  }
+  &.rejected {
+    background: $govuk-error-colour;
+  }
+}
