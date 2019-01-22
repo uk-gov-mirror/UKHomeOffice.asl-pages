@@ -26,7 +26,7 @@ module.exports = {
     'returned-to-applicant': 'Returned to applicant',
     'withdrawn-by-applicant': 'Withdrawn',
     'with-ntco': 'Awaiting endorsement',
-    'with-licensing': 'Awaiting triage',
+    'with-licensing': 'Awaiting review',
     'referred-to-inspector': 'Awaiting inspection',
     'inspector-recommended': 'Recommended',
     'inspector-rejected': 'Not recommended',
