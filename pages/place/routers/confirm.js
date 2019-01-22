@@ -6,6 +6,10 @@ const declarationsSchema = require('../schema/declarations');
 module.exports = settings => form(Object.assign({
   model: 'place',
   schema: declarationsSchema,
+  saveValues: (req, res, next) => {
+    delete req.session.form[req.model.id].values.declarations;
+    next();
+  },
   locals: (req, res, next) => {
     Object.assign(res.locals, { model: req.model });
     Promise.all([

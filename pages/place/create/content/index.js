@@ -12,5 +12,5 @@ module.exports = merge({}, commonContent, {
       label: 'Why are you making this addition?'
     }
   },
-  inset: 'Any addition to your licensed premises will need to be assesed'
+  inset: 'Any addition to your licensed premises will need to be assessed'
 });
