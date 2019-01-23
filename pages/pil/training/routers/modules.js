@@ -4,6 +4,13 @@ const { modules: schema } = require('../schema');
 const { pick, castArray } = require('lodash');
 const { buildModel } = require('../../../../lib/utils');
 
+const modulesThatRequireSpecies = [
+  'PILA (theory)',
+  'PILA (skills)',
+  'K (theory)',
+  'K (skills)'
+];
+
 module.exports = settings => {
   const app = Router();
 
@@ -27,6 +34,7 @@ module.exports = settings => {
     },
     locals: (req, res, next) => {
       res.locals.static.schema = schema;
+      res.locals.static.modulesThatRequireSpecies = modulesThatRequireSpecies;
       next();
     }
   }));
@@ -36,10 +44,15 @@ module.exports = settings => {
     const values = pick(req.session.form[req.model.id].values, fields);
 
     values.modules = values.modules.map(module => {
-      const species = req.form.values[`module-${module}-species`];
-      return { module,
-        species: castArray(species).filter(s => s !== '')
-      };
+      if (modulesThatRequireSpecies.includes(module)) {
+        const species = req.form.values[`module-${module}-species`];
+        return {
+          module,
+          species: castArray(species).filter(s => s !== '')
+        };
+      } else {
+        return { module };
+      }
     });
 
     const opts = {
