@@ -44,15 +44,17 @@ module.exports = settings => {
     const values = pick(req.session.form[req.model.id].values, fields);
 
     values.modules = values.modules.map(module => {
-      if (modulesThatRequireSpecies.includes(module)) {
-        const species = req.form.values[`module-${module}-species`];
-        return {
-          module,
-          species: castArray(species).filter(s => s !== '')
-        };
-      } else {
+      if (!modulesThatRequireSpecies.includes(module)) {
         return { module };
       }
+
+      const species = req.form.values[`module-${module}-species`];
+
+      if (!species) {
+        throw new Error(`Please select at least one type of animal for module ${module}`);
+      }
+
+      return { module, species: castArray(species).filter(s => s !== '') };
     });
 
     const opts = {
