@@ -31,7 +31,7 @@
     "@asl/components": "^3.5.1",
     "@asl/constants": "^0.3.1",
     "@asl/dictionary": "^1.1.1",
-    "@asl/service": "^6.17.0",
+    "@asl/service": "^6.17.2",
     "@ukhomeoffice/frontend-toolkit": "^2.5.0",
     "@ukhomeoffice/react-components": "^0.5.1",
     "babel-core": "^6.26.3",
