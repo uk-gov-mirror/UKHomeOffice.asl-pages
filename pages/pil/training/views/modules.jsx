@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+  Header,
   Snippet,
   FormLayout,
   Inset,
@@ -43,11 +44,7 @@ const formatters = modulesThatRequireSpecies => {
 
 const Page = ({ modulesThatRequireSpecies }) => (
   <FormLayout formatters={formatters(modulesThatRequireSpecies)}>
-    <header>
-      <h1>
-        <Snippet>title</Snippet>
-      </h1>
-    </header>
+    <Header title={<Snippet>title</Snippet>} />
   </FormLayout>
 );
 
