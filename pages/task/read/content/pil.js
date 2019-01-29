@@ -5,7 +5,7 @@ module.exports = {
       label: 'Do you endorse this application?'
     },
     reason: {
-      label: 'Reason for rejection'
+      label: 'Comments'
     },
     options: {
       'ntco-endorsed': {
