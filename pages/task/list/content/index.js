@@ -23,6 +23,7 @@ module.exports = {
     }
   },
   status: {
+    new: 'Incomplete',
     'returned-to-applicant': 'Returned to applicant',
     'withdrawn-by-applicant': 'Withdrawn',
     'with-ntco': 'Awaiting endorsement',

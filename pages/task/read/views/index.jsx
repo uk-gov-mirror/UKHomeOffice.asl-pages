@@ -73,15 +73,17 @@ const Task = ({ task }) => {
 
       <Playback task={task} />
 
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-one-third">
-          &nbsp;
-        </div>
+      { task.nextSteps &&
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-one-third">
+            &nbsp;
+          </div>
 
-        <div className="govuk-grid-column-two-thirds">
-          <Form formatters={formatters} />
+          <div className="govuk-grid-column-two-thirds">
+            <Form formatters={formatters} />
+          </div>
         </div>
-      </div>
+      }
 
     </Fragment>
   );
