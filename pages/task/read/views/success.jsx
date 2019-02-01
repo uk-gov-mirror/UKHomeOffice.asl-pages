@@ -9,26 +9,26 @@ const STATES = [
   { state: 'granted' }
 ];
 
-const Success = ({ decision }) => (
+const Success = ({ status }) => (
   <Fragment>
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <Panel title={<Snippet>{`task.${decision}.title`}</Snippet>} className="green-bg">
-          <Snippet optional>{`task.${decision}.summary`}</Snippet>
+        <Panel title={<Snippet>{`task.${status}.title`}</Snippet>} className="green-bg">
+          <Snippet optional>{`task.${status}.summary`}</Snippet>
 
-          { licenceCanProgress(decision) &&
+          { licenceCanProgress(status) &&
             <ApplicationProgress states={STATES} />
           }
         </Panel>
 
-        { licenceCanProgress(decision) &&
+        { licenceCanProgress(status) &&
           <Fragment>
             <div className="what-next">
-              <h2><Snippet optional>{`task.${decision}.whatNext.title`}</Snippet></h2>
-              <p><Snippet optional>{`task.${decision}.whatNext.summary`}</Snippet></p>
+              <h2><Snippet optional>{`task.${status}.whatNext.title`}</Snippet></h2>
+              <p><Snippet optional>{`task.${status}.whatNext.summary`}</Snippet></p>
             </div>
 
-            <p><Snippet optional>{`task.${decision}.body`}</Snippet></p>
+            <p><Snippet optional>{`task.${status}.body`}</Snippet></p>
           </Fragment>
         }
 
@@ -38,6 +38,6 @@ const Success = ({ decision }) => (
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { task, decision } }) => ({ task, decision });
+const mapStateToProps = ({ static: { task, status } }) => ({ task, status });
 
 export default connect(mapStateToProps)(Success);

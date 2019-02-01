@@ -2,14 +2,8 @@
 @import "@ukhomeoffice/react-components";
 @import "@asl/components";
 
-// TODO: move this to asl-components
 .applicant {
-  border-bottom: 1px solid govuk-colour('grey-1');
-  padding-bottom: $govuk-gutter-half;
-  margin-bottom: $govuk-gutter;
-   h2 {
-    font-weight: bold;
-  }
+  margin-bottom: $govuk-gutter * 2;
 }
 
 .task-decision {

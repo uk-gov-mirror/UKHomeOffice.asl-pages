@@ -18,7 +18,7 @@ module.exports = (task) => {
   });
 
   const schema = {
-    decision: {
+    status: {
       inputType: 'radioGroup',
       options: options,
       nullValue: [],
@@ -29,11 +29,11 @@ module.exports = (task) => {
         }
       ]
     },
-    reason: {
+    comment: {
       inputType: 'textarea',
       validate: [{
         customValidate: (field, model) => {
-          return (model.decision && commentRequired(model.decision)) ? !!field : true;
+          return (model.status && commentRequired(model.status)) ? !!field : true;
         }
       }]
 

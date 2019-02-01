@@ -14,10 +14,10 @@ module.exports = () => {
     const id = `${req.task.id}-decision`;
 
     const formValues = req.session.form[id].values;
-    const decision = formValues.decision;
+    const status = formValues.status;
 
     res.locals.static.task = req.task;
-    res.locals.static.decision = decision;
+    res.locals.static.status = status;
     next();
   });
 

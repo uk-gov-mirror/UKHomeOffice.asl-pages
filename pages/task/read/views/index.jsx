@@ -2,49 +2,45 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   ErrorSummary,
-  Fieldset,
   Form,
-  Inset,
   Link,
   Snippet,
   Header
 } from '@asl/components';
-import Playback from './playback';
+import Pil from './pil';
+import Place from './place';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 
-const connectComponent = schema => {
-  const mapStateToProps = ({ model, static: { errors } }) => {
-    return {
-      model,
-      errors,
-      schema
-    };
-  };
-
-  return connect(mapStateToProps)(Fieldset);
-};
-
-const formatters = {
-  decision: {
-    mapOptions: option => {
-      if (!option.reveal) {
-        return option;
-      }
-      const ConnectedComponent = connectComponent(option.reveal);
-
-      return {
-        ...option,
-        prefix: option.value,
-        reveal: <Inset><ConnectedComponent /></Inset>
-      };
-
-    }
+const getTaskPlayback = task => {
+  if (task.data.model === 'pil') {
+    return <Pil task={task} />;
+  }
+  if (task.data.model === 'place') {
+    return <Place task={task} />;
   }
 };
 
-const Task = ({ task }) => {
+const getTitle = action => {
+  let key = 'title';
+  if (action === 'create') {
+    key = 'createTitle';
+  }
+  if (action === 'delete') {
+    key = 'deleteTitle';
+  }
+  if (action === 'update') {
+    key = 'updateTitle';
+  }
+  try {
+    return <Snippet>{key}</Snippet>;
+  } catch (e) {
+    return <Snippet>title</Snippet>;
+  }
+};
+
+const Task = ({ task, profile }) => {
   const subject = task.data.subject;
   const changedBy = task.data.changedBy;
   const formatDate = date => format(date, dateFormat.medium);
@@ -57,7 +53,7 @@ const Task = ({ task }) => {
         </div>
       </div>
 
-      <Header title={<Snippet>title</Snippet>} />
+      <Header title={getTitle(task.data.action)} />
 
       <div className="govuk-inset-text submitted-by">
         <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
@@ -65,26 +61,17 @@ const Task = ({ task }) => {
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
       {
-        subject && <div className="applicant">
+        subject && task.data.model !== 'place' && <div className="applicant">
           <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
           <p className="govuk-body">{subject.name}</p>
         </div>
       }
 
-      <Playback task={task} />
-
-      { task.nextSteps &&
-        <div className="govuk-grid-row">
-          <div className="govuk-grid-column-one-third">
-            &nbsp;
-          </div>
-
-          <div className="govuk-grid-column-two-thirds">
-            <Form formatters={formatters} />
-          </div>
-        </div>
-      }
-
+      <Form detachFields>
+        {
+          getTaskPlayback(task)
+        }
+      </Form>
     </Fragment>
   );
 };
