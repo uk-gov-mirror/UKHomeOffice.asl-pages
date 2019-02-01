@@ -1,10 +1,10 @@
 module.exports = {
   title: 'Review PIL Application',
   fields: {
-    decision: {
+    status: {
       label: 'Do you endorse this application?'
     },
-    reason: {
+    comment: {
       label: 'Comments'
     },
     options: {
@@ -14,8 +14,17 @@ module.exports = {
       },
       'returned-to-applicant': {
         label: 'No'
+      },
+      resolved: {
+        label: 'Grant licence'
       }
     }
+  },
+  'sticky-nav': {
+    training: 'Training',
+    exemptions: 'Exemptions',
+    procedures: 'Procedure Categories',
+    status: 'Endorse application'
   },
   pil: {
     training: {
@@ -28,16 +37,19 @@ module.exports = {
         body: 'Accreditation body',
         file: 'Certificate image'
       },
-      modules: 'Modules completed'
+      modules: 'Modules completed',
+      none: 'No training added'
     },
     exemptions: {
       title: 'Exemptions',
       module: 'Module',
-      reason: 'Reasons for exemption'
+      reason: 'Reasons for exemption',
+      none: 'No exemptions added'
     },
     procedures: {
       title: 'Procedure categories',
-      categories: 'Categories'
+      categories: 'Categories',
+      none: 'No procedures selected'
     }
   },
   errors: {

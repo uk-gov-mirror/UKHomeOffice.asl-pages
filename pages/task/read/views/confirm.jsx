@@ -1,38 +1,32 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { FormLayout, Link, Snippet, Header } from '@asl/components';
+import { FormLayout, Snippet, Header, ModelSummary } from '@asl/components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
-const Confirm = ({ task, decision, reason }) => {
+const formatters = {
+  status: {
+    format: val => <Snippet>{`fields.options.${val}.label`}</Snippet>
+  }
+};
+
+const Confirm = ({ task, values, schema }) => {
   return (
     <Fragment>
       <FormLayout>
-        <Header title={<Snippet>task.confirm.title</Snippet>} />
+        <Header title={<Snippet>title</Snippet>} />
+        <ModelSummary formatters={formatters} model={values} schema={schema} />
 
-        <div className="task-decision">
-          <h2><Snippet>task.confirm.decision.title</Snippet></h2>
-          <span className="action">
-            <Link page="task.read" taskId={task.id} label={<Snippet>task.confirm.decision.change</Snippet>} />
-          </span>
-          <p><Snippet>{`task.${decision}.decision`}</Snippet></p>
-          { reason && <p>{reason}</p> }
-        </div>
-
-        { requiresDeclaration(decision) &&
+        { requiresDeclaration(values.status) &&
           <div className="task-declaration">
-            <h2><Snippet>task.confirm.declaration.title</Snippet></h2>
-            <Snippet>{`task.${decision}.declaration`}</Snippet>
+            <h2><Snippet>declaration.title</Snippet></h2>
+            <Snippet>{`declaration.${values.status}`}</Snippet>
           </div>
         }
       </FormLayout>
-
-      <p><Link page="dashboard" label={<Snippet>task.confirm.link.exit</Snippet>} /></p>
     </Fragment>
   );
 };
 
-const mapStateToProps = ({
-  static: { task, decision, reason }
-}) => ({ task, decision, reason });
+const mapStateToProps = ({ static: { task, values, modelSchema } }) => ({ task, values, schema: modelSchema });
 
 export default connect(mapStateToProps)(Confirm);

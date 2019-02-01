@@ -1,11 +1,11 @@
 module.exports = {
   title: 'Review Application',
   fields: {
-    decision: {
+    status: {
       label: 'What is your decision?'
     },
-    reason: {
-      label: 'Comment'
+    comment: {
+      label: 'Comments'
     },
     options: {
       'ntco-endorsed': {
@@ -30,25 +30,27 @@ module.exports = {
         label: 'Recommend for rejection'
       },
       'resolved': {
-        label: 'Grant licence'
+        label: 'Update licence'
       },
       'rejected': {
         label: 'Reject'
       }
     }
   },
+  'sticky-nav': {
+    comments: 'Comments'
+  },
   task: {
     submittedBy: 'Submitted by',
     submittedOn: 'on {{date}}.',
-    applicantName: 'Applicant name',
-    confirm: require('./confirm')
+    applicantName: 'Applicant name'
   },
   errors: {
-    decision: {
+    status: {
       required: 'Please approve or reject this task',
       definedOptions: 'Please select an option from the list'
     },
-    reason: {
+    comment: {
       customValidate: 'Please provide a reason'
     }
   }

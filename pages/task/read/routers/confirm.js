@@ -1,5 +1,7 @@
 const form = require('../../../common/routers/form');
 const { Router } = require('express');
+const { set, get, pick } = require('lodash');
+const schemaGenerator = require('../../schema');
 
 module.exports = () => {
   const app = Router();
@@ -12,22 +14,29 @@ module.exports = () => {
 
   app.use(form({
     locals: (req, res, next) => {
-      const formValues = req.session.form[`${req.task.id}-decision`].values;
+      const values = get(req, `session.form[${req.task.id}-decision].values`);
 
-      res.locals.static.task = req.task;
-      res.locals.static.decision = formValues.decision;
-      res.locals.static.reason = formValues.reason;
+      const schema = schemaGenerator(req.task);
+
+      if (req.task.data.model === 'place') {
+        schema.restrictions = {};
+      }
+
+      set(res, 'locals.static', {
+        ...res.locals.static,
+        modelSchema: schema,
+        task: req.task,
+        values
+      });
+
       next();
     }
   }));
 
   app.post('/', (req, res, next) => {
-    const formValues = req.session.form[`${req.task.id}-decision`].values;
+    const values = req.session.form[`${req.task.id}-decision`].values;
 
-    const params = {
-      status: formValues.decision,
-      comment: formValues.reason
-    };
+    const params = pick(values, ['status', 'comment', 'restrictions']);
 
     const opts = {
       method: 'PUT',
