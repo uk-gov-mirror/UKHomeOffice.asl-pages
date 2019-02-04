@@ -1,6 +1,7 @@
 const form = require('../../common/routers/form');
 const { getSchemaWithNacwos, schema } = require('../schema');
 const { getNacwoById } = require('../../common/helpers');
+const { omit } = require('lodash');
 
 module.exports = settings => form(Object.assign({
   model: 'place',
@@ -14,8 +15,7 @@ module.exports = settings => form(Object.assign({
           req.model.changesToRestrictions = req.model.restrictions;
         } else {
           // only show changes field if we already have restrictions
-          delete mappedSchema.restrictions;
-          delete mappedSchema.changesToRestrictions;
+          mappedSchema = omit(mappedSchema, ['restrictions', 'changesToRestrictions']);
         }
 
         req.form.schema = mappedSchema;
