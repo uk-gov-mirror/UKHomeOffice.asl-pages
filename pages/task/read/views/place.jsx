@@ -12,7 +12,7 @@ import { schema } from '../../../place/schema';
 import formatters from '../../../place/formatters';
 import { hasChanged } from '../../../../lib/utils';
 
-const Playback = ({ task, values = {}, model, establishment, formFields }) => (
+const Playback = ({ task, values = {}, model, establishment, formFields, isAsru }) => (
   <StickyNavPage>
     <StickyNavAnchor id="details">
       <h2><Snippet>sticky-nav.details</Snippet></h2>
@@ -47,7 +47,7 @@ const Playback = ({ task, values = {}, model, establishment, formFields }) => (
       values.restrictions && (
         <StickyNavAnchor id="restrictions">
           <Field
-            editable
+            editable={isAsru && !!task.nextSteps.length && !task.data.data.restrictions}
             name="restrictions"
             title={<Snippet>sticky-nav.restrictions</Snippet>}
             content={values.restrictions}
@@ -66,6 +66,18 @@ const Playback = ({ task, values = {}, model, establishment, formFields }) => (
       )
     }
     {
+      task.data.data.restrictions && (
+        <StickyNavAnchor id="new-restrictions">
+          <Field
+            editable={isAsru && !!task.nextSteps.length}
+            name="restrictions"
+            title={<Snippet>sticky-nav.new-restrictions</Snippet>}
+            content={task.data.data.restrictions}
+          />
+        </StickyNavAnchor>
+      )
+    }
+    {
       (task.data.meta && task.data.meta.comments) && (
         <StickyNavAnchor id="comments">
           <Field
@@ -75,15 +87,19 @@ const Playback = ({ task, values = {}, model, establishment, formFields }) => (
         </StickyNavAnchor>
       )
     }
-    <StickyNavAnchor id="status">
-      <h2><Snippet>sticky-nav.status</Snippet></h2>
-      {
-        formFields
-      }
-    </StickyNavAnchor>
+    {
+      !!task.nextSteps.length && (
+        <StickyNavAnchor id="status">
+          <h2><Snippet>sticky-nav.status</Snippet></h2>
+          {
+            formFields
+          }
+        </StickyNavAnchor>
+      )
+    }
   </StickyNavPage>
 );
 
-const mapStateToProps = ({ model, static: { values, establishment } }) => ({ model, values, establishment });
+const mapStateToProps = ({ model, static: { values, establishment, isAsru } }) => ({ model, values, establishment, isAsru });
 
 export default connect(mapStateToProps)(Playback);

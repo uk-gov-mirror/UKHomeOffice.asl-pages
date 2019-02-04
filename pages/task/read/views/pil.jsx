@@ -75,12 +75,16 @@ const Pil = ({ profile, formFields }) => {
         }
       </StickyNavAnchor>
 
-      <StickyNavAnchor id="status">
-        <h2><Snippet>sticky-nav.status</Snippet></h2>
-        {
-          formFields
-        }
-      </StickyNavAnchor>
+      {
+        !!task.nextSteps.length && (
+          <StickyNavAnchor id="status">
+            <h2><Snippet>sticky-nav.status</Snippet></h2>
+            {
+              formFields
+            }
+          </StickyNavAnchor>
+        )
+      }
     </StickyNavPage>
   );
 };

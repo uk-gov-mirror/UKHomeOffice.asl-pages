@@ -12,6 +12,7 @@ module.exports = merge({}, place, {
     diff: 'Changes requested',
     restrictions: 'Current restrictions',
     'changes-to-restrictions': 'Requested changes to restrictions',
+    'new-restrictions': 'New restrictions',
     status: 'Make decision'
   },
   fields: {

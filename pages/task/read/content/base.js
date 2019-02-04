@@ -1,5 +1,16 @@
 module.exports = {
   title: 'Review Application',
+  status: {
+    title: 'Current status',
+    'with-licensing': 'With licensing',
+    'referred-to-inspector': 'Referred to inspector',
+    'returned-to-applicant': 'Returned to applicant',
+    'withdrawn-by-applicant': 'Withdrawn by applicant',
+    'with-ntco': 'With NTCO',
+    'ntco-endorsed': 'NTCO endorsed',
+    'inspector-recommended': 'Inspector recommended for approval',
+    'inspector-rejected': 'Inspector recommended for rejected'
+  },
   fields: {
     status: {
       label: 'What is your decision?'
