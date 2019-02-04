@@ -1,23 +1,23 @@
 module.exports = {
   title: 'Review PIL Application',
+  status: {
+    'ntco-endorsed': {
+      action: 'Yes',
+      declaration: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application'
+    },
+    'returned-to-applicant': {
+      action: 'No'
+    },
+    resolved: {
+      action: 'Grant licence'
+    }
+  },
   fields: {
     status: {
       label: 'Do you endorse this application?'
     },
     comment: {
       label: 'Comments'
-    },
-    options: {
-      'ntco-endorsed': {
-        label: 'Yes',
-        hint: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application'
-      },
-      'returned-to-applicant': {
-        label: 'No'
-      },
-      resolved: {
-        label: 'Grant licence'
-      }
     }
   },
   'sticky-nav': {

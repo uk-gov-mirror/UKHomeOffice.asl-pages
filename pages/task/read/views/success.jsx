@@ -13,8 +13,8 @@ const Success = ({ status }) => (
   <Fragment>
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <Panel title={<Snippet>{`task.${status}.title`}</Snippet>} className="green-bg">
-          <Snippet optional>{`task.${status}.summary`}</Snippet>
+        <Panel title={<Snippet>{`status.${status}.state`}</Snippet>} className="green-bg">
+          <Snippet optional>{`status.${status}.summary`}</Snippet>
 
           { licenceCanProgress(status) &&
             <ApplicationProgress states={STATES} />
@@ -24,11 +24,11 @@ const Success = ({ status }) => (
         { licenceCanProgress(status) &&
           <Fragment>
             <div className="what-next">
-              <h2><Snippet optional>{`task.${status}.whatNext.title`}</Snippet></h2>
-              <p><Snippet optional>{`task.${status}.whatNext.summary`}</Snippet></p>
+              <h2><Snippet optional>{`status.${status}.whatNext.title`}</Snippet></h2>
+              <p><Snippet optional>{`status.${status}.whatNext.summary`}</Snippet></p>
             </div>
 
-            <p><Snippet optional>{`task.${status}.body`}</Snippet></p>
+            <p><Snippet optional>{`status.${status}.body`}</Snippet></p>
           </Fragment>
         }
 

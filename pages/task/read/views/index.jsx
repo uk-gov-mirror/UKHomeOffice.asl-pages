@@ -60,6 +60,10 @@ const Task = ({ task, profile }) => {
         <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
+      <dl>
+        <dt><Snippet>currentStatus</Snippet></dt>
+        <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
+      </dl>
       {
         subject && task.data.model !== 'place' && <div className="applicant">
           <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
@@ -67,11 +71,11 @@ const Task = ({ task, profile }) => {
         </div>
       }
 
-      <Form detachFields>
-        {
-          getTaskPlayback(task)
-        }
-      </Form>
+      {
+        task.nextSteps.length > 0
+          ? <Form detachFields>{getTaskPlayback(task)}</Form>
+          : getTaskPlayback(task)
+      }
     </Fragment>
   );
 };

@@ -36,7 +36,10 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     const values = req.session.form[`${req.task.id}-decision`].values;
 
-    const params = pick(values, ['status', 'comment', 'restrictions']);
+    const params = {
+      ...pick(values, 'status'),
+      meta: pick(values, 'comment', 'restrictions')
+    };
 
     const opts = {
       method: 'PUT',

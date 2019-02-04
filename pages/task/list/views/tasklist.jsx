@@ -34,7 +34,7 @@ const formatters = {
   status: {
     format: status => {
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
-      return <span className={ className }><Snippet>{ `status.${status}` }</Snippet></span>;
+      return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
     }
   },
   type: {
