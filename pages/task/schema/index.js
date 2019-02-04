@@ -12,8 +12,8 @@ module.exports = (task) => {
   const options = task.nextSteps.map(option => {
     return {
       value: option.id,
-      label: get(content, `fields.options.${option.id}.label`),
-      hint: get(content, `fields.options.${option.id}.hint`)
+      label: get(content, `status.${option.id}.action`),
+      hint: get(content, `status.${option.id}.declaration`)
     };
   });
 

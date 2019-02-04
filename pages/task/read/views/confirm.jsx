@@ -5,7 +5,7 @@ import { requiresDeclaration } from '../../../../lib/utils';
 
 const formatters = {
   status: {
-    format: val => <Snippet>{`fields.options.${val}.label`}</Snippet>
+    format: val => <Snippet>{`status.${val}.action`}</Snippet>
   }
 };
 

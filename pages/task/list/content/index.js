@@ -1,6 +1,8 @@
 const fields = require('./fields');
+const status = require('../../content/status');
 
 module.exports = {
+  status,
   fields,
   title: 'Task List',
   tabs: {
@@ -21,18 +23,5 @@ module.exports = {
     pil: {
       grant: 'PIL Application'
     }
-  },
-  status: {
-    new: 'Incomplete',
-    'returned-to-applicant': 'Returned to applicant',
-    'withdrawn-by-applicant': 'Withdrawn',
-    'with-ntco': 'Awaiting endorsement',
-    'ntco-endorsed': 'Awaiting review',
-    'with-licensing': 'Awaiting review',
-    'referred-to-inspector': 'Awaiting inspection',
-    'inspector-recommended': 'Recommended',
-    'inspector-rejected': 'Not recommended',
-    resolved: 'Resolved',
-    rejected: 'Rejected'
   }
 };

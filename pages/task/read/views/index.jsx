@@ -61,8 +61,8 @@ const Task = ({ task, profile }) => {
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
       <dl>
-        <dt><Snippet>status.title</Snippet></dt>
-        <dd><Snippet>{`status.${task.status}`}</Snippet></dd>
+        <dt><Snippet>currentStatus</Snippet></dt>
+        <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
       </dl>
       {
         subject && task.data.model !== 'place' && <div className="applicant">

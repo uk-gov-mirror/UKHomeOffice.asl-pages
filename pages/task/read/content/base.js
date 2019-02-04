@@ -1,51 +1,15 @@
+const status = require('../../content/status');
+
 module.exports = {
   title: 'Review Application',
-  status: {
-    title: 'Current status',
-    'with-licensing': 'With licensing',
-    'referred-to-inspector': 'Referred to inspector',
-    'returned-to-applicant': 'Returned to applicant',
-    'withdrawn-by-applicant': 'Withdrawn by applicant',
-    'with-ntco': 'With NTCO',
-    'ntco-endorsed': 'NTCO endorsed',
-    'inspector-recommended': 'Inspector recommended for approval',
-    'inspector-rejected': 'Inspector recommended for rejected'
-  },
+  status,
+  currentStatus: 'Current status',
   fields: {
     status: {
       label: 'What is your decision?'
     },
     comment: {
       label: 'Comments'
-    },
-    options: {
-      'ntco-endorsed': {
-        label: 'Endorse application'
-      },
-      'resubmitted': {
-        label: 'Resubmit'
-      },
-      'returned-to-applicant': {
-        label: 'Return to applicant'
-      },
-      'withdrawn-by-applicant': {
-        label: 'Withdraw'
-      },
-      'referred-to-inspector': {
-        label: 'Refer to inspector'
-      },
-      'inspector-recommended': {
-        label: 'Recommend'
-      },
-      'inspector-rejected': {
-        label: 'Recommend for rejection'
-      },
-      'resolved': {
-        label: 'Update licence'
-      },
-      'rejected': {
-        label: 'Reject'
-      }
     }
   },
   'sticky-nav': {
