@@ -9,10 +9,16 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use('/', form({ schema }));
+  app.use('/', form({
+    schema,
+    getValues: (req, res, next) => {
+      const role = req.profile.establishments.find(est => est.id === req.establishmentId).role;
+      req.session.form[req.model.id].values.role = role;
+      next();
+    }
+  }));
 
   app.use('/', (req, res, next) => {
-
     const hasRoles = !!(req.profile.roles && req.profile.roles.length);
     const hasPil = !!(req.profile.pil && req.profile.pil.status === 'active');
     const hasProjects = !!(req.profile.projects && req.profile.projects.length && some(req.profile.projects, project => project.status === 'active'));
@@ -21,7 +27,6 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-
     const values = {
       role: req.session.form[req.model.id].values.role
     };
@@ -37,7 +42,6 @@ module.exports = settings => {
   });
 
   app.post('/remove', (req, res, next) => {
-
     const opts = {
       method: 'DELETE'
     };
