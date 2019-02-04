@@ -14,6 +14,9 @@ module.exports = merge({}, baseContent, {
       label: 'Restrictions'
     }
   },
+  actions: {
+    change: 'Change'
+  },
   declaration: {
     title: 'Declaration',
     'ntco-endorsed':

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { FormLayout, Snippet, Header, ModelSummary } from '@asl/components';
+import { FormLayout, Snippet, Header, ModelSummary, Link } from '@asl/components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
 const formatters = {
@@ -15,6 +15,9 @@ const Confirm = ({ task, values, schema }) => {
       <FormLayout>
         <Header title={<Snippet>title</Snippet>} />
         <ModelSummary formatters={formatters} model={values} schema={schema} />
+        <span className="action">
+          <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
+        </span>
 
         { requiresDeclaration(values.status) &&
           <div className="task-declaration">
