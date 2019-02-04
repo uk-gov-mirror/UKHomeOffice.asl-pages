@@ -2,6 +2,7 @@ const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
 const { some } = require('lodash');
+const content = require('./content');
 
 module.exports = settings => {
   const app = page({
@@ -9,9 +10,14 @@ module.exports = settings => {
     ...settings
   });
 
+  app.use('/', (req, res, next) => {
+    req.breadcrumb('profile.permission');
+    next();
+  });
+
   app.use('/', form({
     schema,
-    getValues: (req, res, next) => {
+    configure: (req, res, next) => {
       const role = req.profile.establishments.find(est => est.id === req.establishmentId).role;
       req.session.form[req.model.id].values.role = role;
       next();
@@ -37,6 +43,7 @@ module.exports = settings => {
     };
 
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/permission`, opts)
+      .then(() => req.notification({ key: 'changed' }))
       .then(() => res.redirect(req.buildRoute('profile.view')))
       .catch(next);
   });
@@ -46,7 +53,10 @@ module.exports = settings => {
       method: 'DELETE'
     };
 
+    res.locals.static.content = content;
+
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/permission`, opts)
+      .then(() => req.notification({ key: 'removed' }))
       .then(() => res.redirect(req.buildRoute('profile.list')))
       .catch(next);
   });
