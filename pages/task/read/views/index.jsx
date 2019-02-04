@@ -72,7 +72,7 @@ const Task = ({ task, profile }) => {
       }
 
       {
-        !!task.nextSteps.length
+        task.nextSteps.length > 0
           ? <Form detachFields>{getTaskPlayback(task)}</Form>
           : getTaskPlayback(task)
       }

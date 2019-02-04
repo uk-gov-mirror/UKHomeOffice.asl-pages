@@ -39,7 +39,7 @@ module.exports = () => {
     const params = {
       ...pick(values, 'status'),
       meta: pick(values, 'comment', 'restrictions')
-    }
+    };
 
     const opts = {
       method: 'PUT',

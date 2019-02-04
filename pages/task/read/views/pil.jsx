@@ -5,7 +5,7 @@ import { dateFormat, procedureDefinitions } from '../../../../constants';
 import format from 'date-fns/format';
 import addYears from 'date-fns/add_years';
 
-const Pil = ({ profile, formFields }) => {
+const Pil = ({ profile, formFields, task }) => {
   const pil = profile.pil;
   const formatDate = date => format(date, dateFormat.short);
   return (
