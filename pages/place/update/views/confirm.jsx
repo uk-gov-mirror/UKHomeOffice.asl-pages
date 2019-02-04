@@ -63,10 +63,10 @@ const Confirm = ({
           )
         }
         {
-          values && values.restrictions && (
+          values && values.changesToRestrictions && (
             <Field
               title={<Snippet>fields.changesToRestrictions.label</Snippet>}
-              content={values.restrictions}
+              content={values.changesToRestrictions}
             />
           )
         }
