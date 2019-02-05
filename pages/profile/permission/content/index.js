@@ -19,5 +19,9 @@ module.exports = merge({}, baseContent, {
     nonRemovable: `This user can not be removed because they hold current active licences or a position of responsibility
       in this establishment. If you wish to remove this user from your establishment, you need to revoke their licences or
       reassign their areas of responsibility.`
+  },
+  notifications: {
+    changed: 'Permission level changed',
+    removed: 'Permissions removed'
   }
 });

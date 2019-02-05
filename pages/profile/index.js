@@ -26,6 +26,9 @@ module.exports = () => {
       req.model.id = 'new-profile';
       return next('route');
     }
+
+    req.breadcrumb('profile.view');
+
     return req.api(`/establishment/${req.establishmentId}/profile/${profileId}`)
       .then(({ json: { data, meta } }) => {
         const model = cleanModel(data);
