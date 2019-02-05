@@ -6,7 +6,7 @@ module.exports = {
       declaration: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application'
     },
     'returned-to-applicant': {
-      action: 'No'
+      'with-ntco': 'No'
     },
     resolved: {
       action: 'Grant licence'
@@ -14,7 +14,7 @@ module.exports = {
   },
   fields: {
     status: {
-      label: 'Do you endorse this application?'
+      'with-ntco': 'Do you endorse this application?'
     },
     comment: {
       label: 'Comments'
@@ -25,7 +25,8 @@ module.exports = {
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedure categories',
-    status: 'Endorse application'
+    status: 'Endorse application',
+    'status-ntco': 'Endorse application'
   },
   pil: {
     training: {
