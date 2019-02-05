@@ -9,6 +9,7 @@ import {
 } from '@asl/components';
 import Pil from './pil';
 import Place from './place';
+import Profile from './profile';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -19,6 +20,9 @@ const getTaskPlayback = task => {
   }
   if (task.data.model === 'place') {
     return <Place task={task} />;
+  }
+  if (task.data.model === 'profile') {
+    return <Profile task={task} />;
   }
 };
 
