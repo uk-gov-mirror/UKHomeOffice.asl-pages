@@ -41,7 +41,6 @@ const getTitle = action => {
 };
 
 const Task = ({ task, profile }) => {
-  const subject = task.data.subject;
   const changedBy = task.data.changedBy;
   const formatDate = date => format(date, dateFormat.medium);
 
@@ -64,13 +63,6 @@ const Task = ({ task, profile }) => {
         <dt><Snippet>currentStatus</Snippet></dt>
         <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
       </dl>
-      {
-        subject && task.data.model !== 'place' && <div className="applicant">
-          <h2 className="govuk-heading-m"><Snippet>task.applicantName</Snippet></h2>
-          <p className="govuk-body">{subject.name}</p>
-        </div>
-      }
-
       {
         task.nextSteps.length > 0
           ? <Form detachFields>{getTaskPlayback(task)}</Form>
