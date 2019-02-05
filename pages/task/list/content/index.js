@@ -4,7 +4,7 @@ const status = require('../../content/status');
 module.exports = {
   status,
   fields,
-  title: 'Task List',
+  title: 'Task list',
   tabs: {
     outstanding: 'Outstanding',
     inProgress: 'In progress',
@@ -21,7 +21,10 @@ module.exports = {
       delete: 'Remove licensed premises'
     },
     pil: {
-      grant: 'PIL Application'
+      grant: 'PIL application'
+    },
+    profile: {
+      update: 'Update profile'
     }
   }
 };

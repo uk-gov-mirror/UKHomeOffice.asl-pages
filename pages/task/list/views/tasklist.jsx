@@ -17,6 +17,9 @@ const formatters = {
   updatedAt: {
     format: date => format(date, dateFormat.medium)
   },
+  establishment: {
+    format: establishment => establishment || '-'
+  },
   licence: {
     format: licence => {
       if (licence === 'pil') {
@@ -28,7 +31,7 @@ const formatters = {
       if (licence === 'place' || licence === 'role' || licence === 'establishment') {
         return 'PEL';
       }
-      return null;
+      return '-';
     }
   },
   status: {

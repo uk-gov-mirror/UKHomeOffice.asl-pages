@@ -71,11 +71,19 @@ module.exports = () => {
   app.use((req, res, next) => {
     if (req.task.data.action === 'update' || req.task.data.action === 'delete') {
       const model = req.task.data.model;
-      const establishment = req.task.data.data.establishmentId;
-      const id = req.task.data.id;
-      const url = `/establishment/${establishment}/${model}/${id}`;
+      if (model === 'profile' && req.user.profile.id === req.task.data.id) {
+        res.locals.static.values = req.user.profile;
+        return next();
+      }
 
-      return req.api(url)
+      let est = '';
+      if (model !== 'profile') {
+        est = `/establishment/${req.task.data.data.establishmentId}`;
+      }
+      const id = req.task.data.id;
+      const url = `/${model}/${id}`;
+
+      return req.api(`${est}${url}`)
         .then(({ json: { data } }) => {
           res.locals.static.values = data;
         })
