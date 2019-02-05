@@ -13,7 +13,8 @@ module.exports = {
     }
   },
   'sticky-nav': {
-    comments: 'Comments'
+    comments: 'Comments',
+    status: 'Make decision'
   },
   task: {
     submittedBy: 'Submitted by',
