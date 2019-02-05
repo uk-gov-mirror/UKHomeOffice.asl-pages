@@ -29,7 +29,8 @@ module.exports = {
           confirm: 'Confirm',
           success: 'Success'
         }
-      }
+      },
+      permission: 'Change / remove permissions'
     },
     project: {
       list: 'Projects'

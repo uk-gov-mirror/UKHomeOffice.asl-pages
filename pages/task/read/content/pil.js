@@ -21,15 +21,15 @@ module.exports = {
     }
   },
   'sticky-nav': {
+    applicant: 'Applicant',
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedure categories',
-    status: 'Endorse application decision',
+    status: 'Endorse application',
     'status-ntco': 'Endorse application'
   },
   pil: {
     training: {
-      title: 'Training',
       certificate: {
         details: 'Certificate details',
         number: 'Certificate number',
@@ -42,13 +42,11 @@ module.exports = {
       none: 'No training added'
     },
     exemptions: {
-      title: 'Exemptions',
       module: 'Module',
       reason: 'Reasons for exemption',
       none: 'No exemptions added'
     },
     procedures: {
-      title: 'Procedure categories',
       categories: 'Categories',
       none: 'No procedures selected'
     }
