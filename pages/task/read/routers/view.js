@@ -71,6 +71,11 @@ module.exports = () => {
   app.use((req, res, next) => {
     if (req.task.data.action === 'update' || req.task.data.action === 'delete') {
       const model = req.task.data.model;
+      if (model === 'profile' && req.user.profile.id === req.task.data.id) {
+        res.locals.static.values = req.user.profile;
+        return next();
+      }
+
       let est = '';
       if (model !== 'profile') {
         est = `/establishment/${req.task.data.data.establishmentId}`;
