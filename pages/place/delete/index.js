@@ -1,4 +1,4 @@
-const { pick } = require('lodash');
+const { pick, get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { schema } = require('../schema');
 const confirm = require('../routers/confirm');
@@ -43,8 +43,10 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
+    const comments = get(req.session, 'form[req.model.id].values.comments');
     const opts = {
-      method: 'DELETE'
+      method: 'DELETE',
+      json: { meta: { comments } }
     };
     return req.api(`/establishment/${req.establishmentId}/place/${req.model.id}`, opts)
       .then(() => next())
