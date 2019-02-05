@@ -25,7 +25,6 @@ module.exports = {
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedure categories',
-    status: 'Endorse application',
     'status-ntco': 'Endorse application'
   },
   pil: {
