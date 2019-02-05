@@ -5,6 +5,8 @@ import { dateFormat, procedureDefinitions } from '../../../../constants';
 import format from 'date-fns/format';
 import addYears from 'date-fns/add_years';
 
+const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
+
 const Pil = ({ profile, formFields, task }) => {
   const pil = profile.pil;
   const formatDate = date => format(date, dateFormat.short);
@@ -77,8 +79,8 @@ const Pil = ({ profile, formFields, task }) => {
 
       {
         !!task.nextSteps.length && (
-          <StickyNavAnchor id="status">
-            <h2><Snippet>sticky-nav.status</Snippet></h2>
+          <StickyNavAnchor id={getNtcoStatus(task.status)}>
+            <h2><Snippet>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
             {
               formFields
             }

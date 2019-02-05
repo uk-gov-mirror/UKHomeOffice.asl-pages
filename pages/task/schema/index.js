@@ -10,9 +10,10 @@ module.exports = (task) => {
   };
 
   const options = task.nextSteps.map(option => {
+    const defaultLabel = get(content, `status.${option.id}.action`);
     return {
       value: option.id,
-      label: get(content, `status.${option.id}.action`),
+      label: get(content, `status.${option.id}.${task.status}`, defaultLabel),
       hint: get(content, `status.${option.id}.declaration`)
     };
   });
@@ -22,6 +23,7 @@ module.exports = (task) => {
       inputType: 'radioGroup',
       options: options,
       nullValue: [],
+      label: get(content, `fields.status.${task.status}`, get(content, 'fields.status.label')),
       validate: [
         'required',
         {
