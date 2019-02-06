@@ -45,7 +45,7 @@ module.exports = settings => {
     };
     return req.api(`/me`, opts)
       .then(response => {
-        const status = get(response, 'json.data.json.data.status');
+        const status = get(response, 'json.data.status');
         req.notification({ key: status === 'autoresolved' ? 'success' : 'pending' });
         next();
       })
