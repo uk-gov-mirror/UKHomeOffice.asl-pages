@@ -1,27 +1,27 @@
-const namedRoles = require('../content/named-roles');
-const { difference } = require('lodash');
+const namedRoles = require('../../content/named-roles');
 
-module.exports = (existingRoles, action) => {
-  let roles = [];
+const NAMED_ROLES = [
+  'nacwo',
+  'nio',
+  'ntco',
+  'nvs'
+];
 
-  if (action === 'apply') {
-    roles = difference(Object.keys(namedRoles), existingRoles);
-  } else {
-    roles = existingRoles;
-  }
+module.exports = roles => {
+  roles = NAMED_ROLES.filter(r => !roles.includes(r));
 
   const options = roles.map(role => {
     return {
       value: role,
       label: namedRoles[role],
-      reveal: role === 'nvs' && action === 'apply'
+      reveal: role === 'nvs'
         ? { rcvsNumber: { inputType: 'inputText' } }
         : null
     };
   });
 
   return {
-    role: {
+    type: {
       inputType: 'radioGroup',
       validate: [
         'required',

@@ -34,21 +34,5 @@ module.exports = action => {
     }
   }));
 
-  app.post('/', (req, res, next) => {
-    const { role, rcvsNumber, comment } = req.session.form[req.model.id].values;
-
-    const opts = {
-      method: action === 'remove' ? 'DELETE' : 'PUT',
-      json: {
-        data: { role, rcvsNumber },
-        meta: { comment }
-      }
-    };
-
-    return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/role`, opts)
-      .then(() => res.redirect(req.buildRoute(`profile.role.${action}.success`)))
-      .catch(next);
-  });
-
   return app;
 };
