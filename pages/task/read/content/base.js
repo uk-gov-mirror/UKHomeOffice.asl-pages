@@ -1,7 +1,7 @@
 const status = require('../../content/status');
 
 module.exports = {
-  title: 'Review Application',
+  title: 'Review application',
   status,
   currentStatus: 'Current status',
   fields: {

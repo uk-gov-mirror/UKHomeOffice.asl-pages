@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Review PIL Application',
+  title: 'Review PIL application',
   status: {
     'ntco-endorsed': {
       action: 'Yes',
