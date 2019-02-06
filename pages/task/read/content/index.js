@@ -19,4 +19,4 @@ const getContent = model => {
   return {};
 };
 
-module.exports = task => merge({}, getContent(task.data.model), base);
+module.exports = task => merge({}, base, getContent(task.data.model));
