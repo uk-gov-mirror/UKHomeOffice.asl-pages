@@ -10,7 +10,8 @@ module.exports = merge({}, content, {
     },
     species: {
       label: 'Please specify a type of animal.',
-      add: 'Add another species'
+      add: 'Add another',
+      remove: 'Remove'
     }
   },
   errors: {

@@ -24,7 +24,9 @@ const formatters = modulesThatRequireSpecies => {
           prefix: op.value,
           reveal: modulesThatRequireSpecies.includes(op.value) ? (
             <Inset>
-              <AddAnother label={<Snippet>fields.species.add</Snippet>}
+              <AddAnother
+                labelAdd={<Snippet>fields.species.add</Snippet>}
+                labelRemove={<Snippet>fields.species.remove</Snippet>}
                 totalCount={SPECIES_REVEAL_TOTAL_COUNT}
                 visibleCount= {SPECIES_REVEAL_VISIBLE_COUNT}>
                 <Select
