@@ -1,4 +1,4 @@
-const { omit } = require('lodash');
+const { omit, get } = require('lodash');
 const moment = require('moment');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
@@ -44,13 +44,16 @@ module.exports = settings => {
       }
     };
     return req.api(`/me`, opts)
-      .then(() => next())
+      .then(response => {
+        const status = get(response, 'json.data.status');
+        req.notification({ key: status === 'autoresolved' ? 'success' : 'pending' });
+        next();
+      })
       .catch(next);
   });
 
   app.post('/', (req, res, next) => {
     const id = req.model.id;
-    req.notification({ key: 'success' });
 
     delete req.session.form[id];
     delete req.session.profile;

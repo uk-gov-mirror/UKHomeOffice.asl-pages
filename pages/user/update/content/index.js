@@ -19,6 +19,7 @@ module.exports = merge({}, baseContent, {
     submit: 'Submit'
   },
   notifications: {
-    success: 'Profile edited'
+    success: 'Profile edited',
+    pending: 'Your requested changes have been submitted to ASRU for review.'
   }
 });
