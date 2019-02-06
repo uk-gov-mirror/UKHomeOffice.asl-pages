@@ -2,17 +2,21 @@ const base = require('./base');
 const pil = require('./pil');
 const place = require('./place');
 const profile = require('./profile');
+const role = require('./role');
 const { merge } = require('lodash');
 
-module.exports = (task) => {
-  switch (task.data.model) {
+const getContent = model => {
+  switch (model) {
     case 'pil':
-      return merge({}, base, pil);
+      return pil;
     case 'place':
-      return merge({}, base, place);
+      return place;
     case 'profile':
-      return merge({}, base, profile);
-    default:
-      return base;
+      return profile;
+    case 'role':
+      return role;
   }
+  return {};
 };
+
+module.exports = task => merge({}, getContent(task.data.model), base);

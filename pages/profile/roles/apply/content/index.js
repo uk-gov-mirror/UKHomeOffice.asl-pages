@@ -4,7 +4,7 @@ const baseContent = require('../../../content');
 module.exports = merge({}, baseContent, {
   title: 'Which role do you want to apply for?',
   fields: {
-    role: {
+    type: {
       label: ''
     },
     rcvsNumber: {

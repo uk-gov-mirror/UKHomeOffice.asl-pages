@@ -1,7 +1,7 @@
 const { omit } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
-const schema = require('../schema');
+const getSchema = require('./schema');
 const confirm = require('../routers/confirm');
 const success = require('../routers/success');
 
@@ -19,9 +19,9 @@ module.exports = settings => {
 
   app.use('/', form({
     configure: (req, res, next) => {
-      const existingRoles = req.profile.roles.map(role => role.type);
+      const roles = req.profile.roles.map(role => role.type);
       req.form.schema = {
-        ...schema(existingRoles, 'apply'),
+        ...getSchema(roles),
         rcvsNumber: {}
       };
       next();
@@ -37,6 +37,23 @@ module.exports = settings => {
   });
 
   app.use('/confirm', confirm('apply'));
+
+  app.post('/confirm', (req, res, next) => {
+    const { type, rcvsNumber, comment } = req.session.form[req.model.id].values;
+
+    const opts = {
+      method: 'POST',
+      json: {
+        data: { type, rcvsNumber, profileId: req.profileId },
+        meta: { comment }
+      }
+    };
+
+    return req.api(`/establishment/${req.establishmentId}/role`, opts)
+      .then(() => res.redirect(req.buildRoute(`profile.role.apply.success`)))
+      .catch(next);
+  });
+
   app.use('/success', success('apply'));
 
   return app;
