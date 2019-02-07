@@ -112,7 +112,10 @@ module.exports = ({
         Object.keys(req.model).includes(key) &&
         hasChanged(req.form.values[key], req.model[key], field);
     });
-    if (size(changedFields)) {
+    const extraFields = pickBy(req.form.schema, (field, key) => {
+      return field.detectChange && req.form.values[key];
+    });
+    if (size({ ...changedFields, ...extraFields })) {
       return next();
     }
     return next({ validation: { form: 'unchanged' } });
