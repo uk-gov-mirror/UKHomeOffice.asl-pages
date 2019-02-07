@@ -22,6 +22,7 @@ module.exports = settings => {
       changesToRestrictions: {
         inputType: 'textarea',
         conditionalReveal: true,
+        detectChange: true,
         validate: ['required']
       },
       comments: {
