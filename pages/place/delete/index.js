@@ -43,7 +43,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    const comments = get(req.session, 'form[req.model.id].values.comments');
+    const comments = get(req.session, `form[${req.model.id}].values.comments`);
     const opts = {
       method: 'DELETE',
       json: { meta: { comments } }
