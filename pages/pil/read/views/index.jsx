@@ -27,12 +27,12 @@ const PIL = ({ model, profile }) => {
       />
       { model.status === 'active'
         ? <ModelSummary model={model} formatters={formatters} />
-        : <div><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></div>
+        : <p><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></p>
       }
 
-      <div>
+      <p>
         <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />
-      </div>
+      </p>
     </Fragment>
   );
 };
