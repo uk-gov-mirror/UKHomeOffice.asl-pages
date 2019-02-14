@@ -9,14 +9,14 @@ import {
   Header
 } from '@asl/components';
 
-const formatters = pil => ({
+const formatters = {
   issueDate: {
     format: issueDate => dateFormatter(issueDate, dateFormat.medium)
   },
   revocationDate: {
     format: revocationDate => dateFormatter(revocationDate, dateFormat.medium)
   }
-});
+};
 
 const PIL = ({ model, profile }) => {
   return (
@@ -26,7 +26,7 @@ const PIL = ({ model, profile }) => {
         subtitle={profile.name}
       />
       { model.status === 'active'
-        ? <ModelSummary model={model} formatters={formatters(model)} />
+        ? <ModelSummary model={model} formatters={formatters} />
         : <div><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></div>
       }
 
