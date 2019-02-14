@@ -84,7 +84,7 @@ const Index = ({
               pil && pil.licenceNumber && (
                 <Fragment>
                   <dt><Snippet>personalLicenceNumber</Snippet></dt>
-                  <dd>{pil.licenceNumber}</dd>
+                  <dd><Link page="pil.read" pilId={pil.id} label={pil.licenceNumber} /></dd>
                 </Fragment>
               )
             }
