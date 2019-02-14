@@ -2,7 +2,17 @@ const { merge } = require('lodash');
 const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
-  status: {
-    inactive: 'You do not currently hold a Personal Licence, [click here]({{url}}) to apply for one'
+  title: 'Personal Licence',
+  fields: {
+    licenceNumber: { label: 'Licence number' },
+    status: { label: 'Status' },
+    issueDate: { label: 'Issue date' },
+    revocationDate: { label: 'Revocation date' },
+    conditions: { label: 'Conditions' },
+    procedures: { label: 'Procedures' }
+  },
+  action: {
+    applyNow: 'Apply now',
+    backToProfile: 'Back to profile'
   }
 });
