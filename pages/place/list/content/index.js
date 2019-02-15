@@ -5,8 +5,8 @@ module.exports = merge({}, commonContent, {
   addNew: 'Create approved area',
   filters: {
     filterBy: 'Filter by',
-    applyLabel: 'Apply changes',
-    clearLabel: 'Clear changes'
+    applyLabel: 'Apply filters',
+    clearLabel: 'Clear filters'
   },
   buttons: {
     edit: 'Amend'
