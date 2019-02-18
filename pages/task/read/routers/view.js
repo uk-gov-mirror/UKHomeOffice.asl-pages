@@ -6,8 +6,19 @@ const form = require('../../../common/routers/form');
 const schemaGenerator = require('../../schema');
 const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
-
 const { getNacwoById } = require('../../../common/helpers');
+
+const getRelevantActivity = activityLog => activityLog.filter(log => {
+  if (!log.eventName.includes('status:')) {
+    return false;
+  }
+
+  if (log.eventName.includes('status:with-ntco')) {
+    return false;
+  }
+
+  return true;
+});
 
 module.exports = () => {
   const app = Router();
@@ -15,6 +26,11 @@ module.exports = () => {
   app.use((req, res, next) => {
     req.breadcrumb('task.base');
     req.model = { id: `${req.task.id}-decision` };
+
+    if (req.task.activityLog) {
+      req.task.activityLog = getRelevantActivity(req.task.activityLog);
+    }
+
     next();
   });
 
