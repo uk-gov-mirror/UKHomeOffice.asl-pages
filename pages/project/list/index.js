@@ -1,7 +1,8 @@
+const { set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const format = require('date-fns/format');
 const datatable = require('../../common/routers/datatable');
-const schema = require('./schema');
+const schema = require('../schema');
 
 module.exports = settings => {
   const app = page({
@@ -16,7 +17,15 @@ module.exports = settings => {
 
   app.use(datatable({
     configure: (req, res, next) => {
-      req.datatable.sort = { column: 'expiryDate', ascending: true };
+      const status = req.query.status || 'active';
+      req.datatable.sort = req.query.status === 'inactive'
+        ? { column: 'updatedAt', ascending: false }
+        : { column: 'expiryDate', ascending: true };
+      req.datatable.schema = schema(status);
+      next();
+    },
+    locals: (req, res, next) => {
+      set(res.locals, 'static.status', req.query.status || 'active');
       next();
     },
     getApiPath: (req, res, next) => {
@@ -24,7 +33,8 @@ module.exports = settings => {
       const query = {
         expiryDate: {
           $gte: today
-        }
+        },
+        status: req.query.status || 'active'
       };
       req.datatable.apiPath = [`/establishment/${req.establishmentId}/projects`, { query }];
       next();

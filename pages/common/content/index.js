@@ -33,7 +33,8 @@ module.exports = {
       permission: 'Change / remove permissions'
     },
     project: {
-      list: 'Projects'
+      list: 'Projects',
+      read: '{{project.title}}'
     },
     account: {
       menu: 'Account',
@@ -72,7 +73,8 @@ module.exports = {
       }
     },
     project: {
-      list: 'Projects'
+      list: 'Projects',
+      read: 'Project'
     },
     place: {
       list: 'Licensed premises',
