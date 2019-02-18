@@ -6,15 +6,20 @@ import format from 'date-fns/format';
 
 const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
 
-const Pil = ({ profile, formFields, task }) => {
+const Pil = ({ profile, formFields, task, children }) => {
   const pil = profile.pil;
   const formatDate = date => format(date, dateFormat.short);
+
   return (
     <StickyNavPage>
+
+      { children }
+
       <StickyNavAnchor id="applicant">
         <h2><Snippet>sticky-nav.applicant</Snippet></h2>
         <p><Link page="profile.view" establishmentId={task.data.establishmentId} profileId={profile.id} label={profile.name} /></p>
       </StickyNavAnchor>
+
       <StickyNavAnchor id="training">
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {

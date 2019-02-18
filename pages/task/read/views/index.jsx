@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import {
   ErrorSummary,
   Form,
   Link,
   Snippet,
+  StickyNavAnchor,
   Header
 } from '@asl/components';
+import ActivityLog from './activity-log';
 import Pil from './pil';
 import Place from './place';
 import Profile from './profile';
@@ -18,16 +19,40 @@ import parse from 'date-fns/parse';
 
 const getTaskPlayback = task => {
   if (task.data.model === 'pil') {
-    return <Pil task={task} />;
+    return (
+      <Pil task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Pil>
+    );
   }
   if (task.data.model === 'place') {
-    return <Place task={task} />;
+    return (
+      <Place task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Place>
+    );
   }
   if (task.data.model === 'profile') {
-    return <Profile task={task} />;
+    return (
+      <Profile task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Profile>
+    );
   }
   if (task.data.model === 'role') {
-    return <Role task={task} />;
+    return (
+      <Role task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Role>
+    );
   }
 };
 
@@ -49,17 +74,6 @@ const getTitle = action => {
   }
 };
 
-const getName = profile => `${profile.firstName} ${profile.lastName}`;
-
-const getStatusBadge = eventName => {
-  const good = ['resolved'];
-  const bad = ['rejected', 'withdrawn'];
-  const status = eventName.substring(eventName.lastIndexOf(':') + 1);
-  const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
-
-  return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
-};
-
 const Task = ({ task, profile }) => {
   const changedBy = task.data.changedBy;
   const formatDate = date => format(date, dateFormat.medium);
@@ -79,25 +93,11 @@ const Task = ({ task, profile }) => {
         <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
-      <dl>
+
+      <dl className="current-status">
         <dt><Snippet>currentStatus</Snippet></dt>
         <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
       </dl>
-
-      { task.activityLog &&
-        <div className="task-activity">
-          <h3>Activity</h3>
-          <ul>
-            { task.activityLog.map(log => (
-              <li key={log.id}>
-                {getStatusBadge(log.eventName)}
-                <p>{log.eventName.match(/status:new/) ? 'New application' : log.comment}</p>
-                <p>{`by ${getName(log.changedBy)} on ${format(log.createdAt, dateFormat.shortWithTime)}`}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      }
 
       {
         task.nextSteps.length > 0

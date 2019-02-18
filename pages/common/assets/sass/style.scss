@@ -45,8 +45,21 @@
 }
 
 .task-activity {
-  .badge {
-    float: right;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    &:not(:last-child) {
+      border-bottom: 1px solid govuk-colour('grey-2');
+    }
+
+    .comment {
+      font-weight: bold;
+    }
+
+    .badge {
+      float: right;
+    }
   }
 }
 
