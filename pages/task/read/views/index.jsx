@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
 import {
   ErrorSummary,
   Form,
@@ -48,6 +49,17 @@ const getTitle = action => {
   }
 };
 
+const getName = profile => `${profile.firstName} ${profile.lastName}`;
+
+const getStatusBadge = eventName => {
+  const good = ['resolved'];
+  const bad = ['rejected', 'withdrawn'];
+  const status = eventName.substring(eventName.lastIndexOf(':') + 1);
+  const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
+
+  return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
+};
+
 const Task = ({ task, profile }) => {
   const changedBy = task.data.changedBy;
   const formatDate = date => format(date, dateFormat.medium);
@@ -71,6 +83,22 @@ const Task = ({ task, profile }) => {
         <dt><Snippet>currentStatus</Snippet></dt>
         <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
       </dl>
+
+      { task.activityLog &&
+        <div className="task-activity">
+          <h3>Activity</h3>
+          <ul>
+            { task.activityLog.map(log => (
+              <li key={log.id}>
+                {getStatusBadge(log.eventName)}
+                <p>{log.eventName.match(/status:new/) ? 'New application' : log.comment}</p>
+                <p>{`by ${getName(log.changedBy)} on ${format(log.createdAt, dateFormat.shortWithTime)}`}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      }
+
       {
         task.nextSteps.length > 0
           ? <Form detachFields>{getTaskPlayback(task)}</Form>
