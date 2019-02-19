@@ -2,8 +2,11 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { StickyNavPage, StickyNavAnchor, Snippet, Link, Field } from '@asl/components';
 
-const Role = ({ establishment, profile, task, values, formFields }) => (
+const Role = ({ establishment, profile, task, values, formFields, children }) => (
   <StickyNavPage>
+
+    { children }
+
     <StickyNavAnchor id="establishment">
       <h2><Snippet>sticky-nav.establishment</Snippet></h2>
       <dl className="inline">

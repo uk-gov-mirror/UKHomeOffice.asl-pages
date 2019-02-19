@@ -12,8 +12,11 @@ const formatters = {
   }
 };
 
-const Profile = ({ task, model, values, formFields }) => (
+const Profile = ({ task, model, values, formFields, children }) => (
   <StickyNavPage>
+
+    { children }
+
     <StickyNavAnchor id="changes">
       <h2><Snippet>sticky-nav.changes</Snippet></h2>
       <Diff values={task.data.data} model={values} schema={omit(schema, 'comments')} formatters={formatters} />
