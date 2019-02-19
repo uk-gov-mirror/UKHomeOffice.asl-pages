@@ -29,7 +29,7 @@ const ActivityLog = ({ task }) => {
             {getStatusBadge(log.eventName)}
             <p><Link page="profile.view" profileId={log.changedBy.id} label={getName(log.changedBy)} /></p>
             <p className="comment">{log.comment}</p>
-            <p>{format(log.createdAt, dateFormat.shortWithTime)}</p>
+            <p>{format(log.createdAt, dateFormat.datetime)}</p>
           </li>
         ))}
       </ul>
