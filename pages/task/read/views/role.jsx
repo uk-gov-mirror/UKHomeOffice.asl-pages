@@ -79,4 +79,4 @@ const Role = ({ establishment, profile, task, values, formFields, children }) =>
 
 const mapStateToProps = ({ static: { establishment, profile, values } }) => ({ establishment, profile, values });
 
-module.exports = connect(mapStateToProps)(Role);
+export default connect(mapStateToProps)(Role);
