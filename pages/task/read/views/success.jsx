@@ -1,13 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ApplicationProgress, Link, Panel, Snippet } from '@asl/components';
+import { Link, Panel, Snippet } from '@asl/components';
 import { licenceCanProgress } from '../../../../lib/utils';
-
-const STATES = [
-  { state: 'submitted' },
-  { state: 'endorsed', active: true },
-  { state: 'granted' }
-];
 
 const Success = ({ status }) => (
   <Fragment>
@@ -15,10 +9,6 @@ const Success = ({ status }) => (
       <div className="govuk-grid-column-two-thirds">
         <Panel title={<Snippet>{`status.${status}.state`}</Snippet>} className="green-bg">
           <Snippet optional>{`status.${status}.summary`}</Snippet>
-
-          { licenceCanProgress(status) &&
-            <ApplicationProgress states={STATES} />
-          }
         </Panel>
 
         { licenceCanProgress(status) &&
