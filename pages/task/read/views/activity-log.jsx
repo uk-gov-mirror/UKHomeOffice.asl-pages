@@ -27,7 +27,7 @@ const ActivityLog = ({ task }) => {
         { task.activityLog.map(log => (
           <li key={log.id}>
             {getStatusBadge(log.eventName)}
-            <p><Link page="profile.view" profileId={log.changedBy.id} label={getName(log.changedBy)} /></p>
+            <p><Link page="profile.view" profileId={log.changedBy.id} establishmentId={task.data.establishmentId} label={getName(log.changedBy)} /></p>
             <p className="comment">{log.comment}</p>
             <p>{format(log.createdAt, dateFormat.datetime)}</p>
           </li>
