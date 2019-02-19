@@ -273,4 +273,4 @@ const Index = ({
 
 const mapStateToProps = ({ static: { establishment, isUser, profileRole, allowedActions }, model }) => ({ establishment, model, isUser, profileRole, allowedActions });
 
-module.exports = connect(mapStateToProps)(Index);
+export default connect(mapStateToProps)(Index);

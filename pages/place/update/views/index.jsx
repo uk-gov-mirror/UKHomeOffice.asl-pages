@@ -22,4 +22,4 @@ const Page = () => (
   </FormLayout>
 );
 
-module.exports = Page;
+export default Page;
