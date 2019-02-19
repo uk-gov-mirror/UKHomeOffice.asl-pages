@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { merge, set, unset } = require('lodash');
+const { merge, set, unset, get } = require('lodash');
 
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const form = require('../../../common/routers/form');
@@ -19,8 +19,9 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    if (req.task.data.data.establishmentId) {
-      return req.api(`/establishment/${req.task.data.data.establishmentId}`)
+    const establishmentId = get(req.task, 'data.data.establishmentId');
+    if (establishmentId) {
+      return req.api(`/establishment/${establishmentId}`)
         .then(({ json: { data } }) => {
           req.establishmentId = data.id;
           req.establishment = data;
@@ -45,15 +46,17 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    if (req.task.data.data.profileId && req.task.data.data.establishmentId) {
-      return req.api(`/establishment/${req.task.data.data.establishmentId}/profile/${req.task.data.data.profileId}`)
+    const profileId = get(req.task, 'data.data.profileId');
+    const establishmentId = get(req.task, 'data.data.establishmentId');
+    if (profileId && establishmentId) {
+      return req.api(`/establishment/${establishmentId}/profile/${profileId}`)
         .then(({ json: { data } }) => {
           req.profile = cleanModel(data);
         })
         .then(() => next())
         .catch(error => {
           return Promise.resolve()
-            .then(() => req.user.can('profile.read.all', { establishment: req.task.data.data.establishmentId }))
+            .then(() => req.user.can('profile.read.all', { establishment: establishmentId }))
             .then(canReadAllProfiles => {
               if (!canReadAllProfiles) {
                 const content = getContent(req.task);
