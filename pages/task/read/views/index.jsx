@@ -5,8 +5,10 @@ import {
   Form,
   Link,
   Snippet,
+  StickyNavAnchor,
   Header
 } from '@asl/components';
+import ActivityLog from './activity-log';
 import Pil from './pil';
 import Place from './place';
 import Profile from './profile';
@@ -17,16 +19,40 @@ import parse from 'date-fns/parse';
 
 const getTaskPlayback = task => {
   if (task.data.model === 'pil') {
-    return <Pil task={task} />;
+    return (
+      <Pil task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Pil>
+    );
   }
   if (task.data.model === 'place') {
-    return <Place task={task} />;
+    return (
+      <Place task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Place>
+    );
   }
   if (task.data.model === 'profile') {
-    return <Profile task={task} />;
+    return (
+      <Profile task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Profile>
+    );
   }
   if (task.data.model === 'role') {
-    return <Role task={task} />;
+    return (
+      <Role task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Role>
+    );
   }
 };
 
@@ -67,10 +93,12 @@ const Task = ({ task, profile }) => {
         <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
-      <dl>
+
+      <dl className="current-status">
         <dt><Snippet>currentStatus</Snippet></dt>
         <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
       </dl>
+
       {
         task.nextSteps.length > 0
           ? <Form detachFields>{getTaskPlayback(task)}</Form>

@@ -12,8 +12,11 @@ import { schema } from '../../../place/schema';
 import formatters from '../../../place/formatters';
 import { hasChanged } from '../../../../lib/utils';
 
-const Playback = ({ task, values = {}, model, establishment, formFields, isAsru }) => (
+const Playback = ({ task, values = {}, model, establishment, formFields, isAsru, children }) => (
   <StickyNavPage>
+
+    { children }
+
     <StickyNavAnchor id="details">
       <h2><Snippet>sticky-nav.details</Snippet></h2>
       <dl className="inline">
