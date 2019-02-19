@@ -14,8 +14,9 @@ module.exports = () => {
     }
     req.pilId = pilId;
     return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${pilId}`)
-      .then(({ json: { data } }) => {
+      .then(({ json: { data, meta } }) => {
         req.pil = data;
+        req.pil.tasks = meta.openTasks || [];
       })
       .then(() => next())
       .catch(next);
