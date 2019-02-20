@@ -28,6 +28,10 @@ module.exports = {
     'status-ntco': 'Endorse application'
   },
   pil: {
+    applicant: {
+      dob: 'Date of birth',
+      missingDob: 'unknown'
+    },
     training: {
       certificate: {
         details: 'Certificate details',

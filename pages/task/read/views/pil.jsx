@@ -18,6 +18,10 @@ const Pil = ({ profile, formFields, task, children }) => {
       <StickyNavAnchor id="applicant">
         <h2><Snippet>sticky-nav.applicant</Snippet></h2>
         <p><Link page="profile.view" establishmentId={task.data.establishmentId} profileId={profile.id} label={profile.name} /></p>
+        <dl>
+          <dt><Snippet>pil.applicant.dob</Snippet><span>:</span></dt>
+          <dd>{profile.dob ? format(profile.dob, dateFormat.short) : <Snippet>pil.applicant.missingDob</Snippet>}</dd>
+        </dl>
       </StickyNavAnchor>
 
       <StickyNavAnchor id="training">
