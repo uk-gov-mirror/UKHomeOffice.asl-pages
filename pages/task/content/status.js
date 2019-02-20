@@ -5,6 +5,11 @@ module.exports = {
   'with-licensing': {
     state: 'Awaiting review'
   },
+  'with-inspectorate': {
+    state: 'With inspectorate',
+    action: 'Refer to inspector'
+  },
+  // left for backwards compatibility
   'referred-to-inspector': {
     state: 'Awaiting inspection',
     action: 'Refer to inspector'
