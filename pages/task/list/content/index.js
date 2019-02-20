@@ -25,6 +25,9 @@ module.exports = {
     },
     profile: {
       update: 'Update profile'
+    },
+    project: {
+      grant: 'PPL application'
     }
   }
 };

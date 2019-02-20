@@ -13,6 +13,7 @@ import Pil from './pil';
 import Place from './place';
 import Profile from './profile';
 import Role from './role';
+import Project from './project';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -52,6 +53,11 @@ const getTaskPlayback = task => {
           <ActivityLog task={task} />
         </StickyNavAnchor>
       </Role>
+    );
+  }
+  if (task.data.model === 'project') {
+    return (
+      <Project task={task} />
     );
   }
 };
