@@ -13,6 +13,7 @@ module.exports = () => {
     return req.api(`/establishment/${req.establishmentId}/projects/${projectId}`)
       .then(({ json: { data, meta } }) => {
         req.project = data;
+        req.openTasks = meta.openTasks;
         req.establishment = meta.establishment;
       })
       .then(() => next())

@@ -18,10 +18,19 @@ const schema = {
   expiryDate: {
     show: true
   },
+  submittedAt: {
+    show: true
+  },
   updatedAt: {
     show: true
   },
-  version: {
+  granted: {
+    show: true
+  },
+  draft: {
+    show: true
+  },
+  submitted: {
     show: true
   }
 };
