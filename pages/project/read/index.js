@@ -8,7 +8,6 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     req.breadcrumb('project.read');
-    console.log('HI FROM PROJ');
     next();
   });
 

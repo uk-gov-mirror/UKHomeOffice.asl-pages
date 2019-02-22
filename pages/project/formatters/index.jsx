@@ -36,7 +36,6 @@ const formatters = {
   },
   granted: {
     format: (granted, model) => {
-      console.log(granted, model);
       const key = hasExpired(model) ? 'expired' : 'view';
       return <Link page="project.version" versionId={granted.id} label={<Snippet>{`fields.granted.${key}`}</Snippet>} />;
     }

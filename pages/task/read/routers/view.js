@@ -32,9 +32,9 @@ module.exports = () => {
       return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`)
         .then(({ json: { data } }) => {
           req.versionId = data.draft.id;
-          res.redirect(req.buildRoute('project.version'))
+          res.redirect(req.buildRoute('project.version'));
         })
-        .catch(next)
+        .catch(next);
     }
     next();
   });
