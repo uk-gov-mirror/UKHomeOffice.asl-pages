@@ -15,11 +15,29 @@ module.exports = {
     expiryDate: {
       label: 'Expiry date'
     },
+    submittedAt: {
+      label: 'Submitted to ASRU'
+    },
     updatedAt: {
       label: 'Last updated'
     },
-    version: {
-      label: 'Current version'
+    granted: {
+      label: 'Licence details',
+      expired: 'View expired licence details',
+      view: 'View granted licence details'
+    },
+    draft: {
+      label: 'Current draft',
+      view: 'Update project draft'
+    },
+    submitted: {
+      label: 'Submitted',
+      view: 'View submitted draft'
     }
+  },
+  status: {
+    active: 'Active',
+    expired: 'Expired',
+    inactive: 'Drafts'
   }
 };
