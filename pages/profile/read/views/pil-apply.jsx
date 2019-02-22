@@ -24,7 +24,7 @@ const PilApply = ({
         <Link
           page='pil.create'
           className="govuk-button"
-          label={<Snippet>{`buttons.${incomplete ? 'continue' : 'applyNow'}`}</Snippet>}
+          label={<Snippet>{`buttons.${incomplete ? 'continue' : 'pilApply'}`}</Snippet>}
         />
       </p>
     </div>
