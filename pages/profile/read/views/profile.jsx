@@ -3,9 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import format from 'date-fns/format';
 import { defineValue } from '../../../common/formatters';
 import { Snippet, Link } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
 import PilApply from './pil-apply';
 import RoleApply from './role-apply';
-import PplApply from './ppl-apply';
 import { dateFormat } from '../../../../constants';
 
 class Profile extends React.Component {
@@ -93,7 +93,18 @@ class Profile extends React.Component {
             </dl>
           </Fragment>
         )}
-        <PplApply allowedActions={allowedActions} estId={estId} />
+
+        {
+          (allowedActions.includes('project.apply') && <Fragment>
+            <p>
+              <form method='POST' action={`/e/${estId}/projects/create`}>
+                <Button className='govuk-button add-margin'>
+                  <Snippet>buttons.pplApply</Snippet>
+                </Button>
+              </form>
+            </p>
+          </Fragment>)
+        }
 
         <hr />
 
