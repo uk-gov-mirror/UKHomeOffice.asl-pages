@@ -38,188 +38,186 @@ class Profile extends React.Component {
 
     return (
       <Fragment>
-        <div className='content'>
-          {title && <h2>{title}</h2>}
-          <p>
-            <Link
-              page='establishment.dashboard'
-              establishmentId={estId}
-              label='About this establishment'
-            />
-          </p>
-
-          <hr />
-
-          {activeProjects && (
-            <Fragment>
-              <dl>
-                <dt>
-                  <Snippet>projects.title</Snippet>
-                </dt>
-                <dd>
-                  {!isEmpty(activeProjects) &&
-                    activeProjects.map(
-                      project =>
-                        project.status && (
-                          <Fragment key={project.id}>
-                            <p>
-                              <Link page='project.list' label={project.title} />
-                            </p>
-                            <p>
-                              <span>
-                                <Snippet licenceNumber={project.licenceNumber}>
-                                  projects.licenceNumber
-                                </Snippet>
-                              </span>
-                            </p>
-                            <p>
-                              <span>
-                                <Snippet
-                                  expiryDate={format(
-                                    project.expiryDate,
-                                    dateFormat.medium
-                                  )}
-                                >
-                                  projects.expiryDate
-                                </Snippet>
-                              </span>
-                            </p>
-                          </Fragment>
-                        )
-                    )}
-                  {isEmpty(activeProjects) && (
-                    <Snippet>projects.noProjects</Snippet>
-                  )}
-                </dd>
-              </dl>
-            </Fragment>
-          )}
-          <PplApply allowedActions={allowedActions} estId={estId} />
-
-          <hr />
-
-          {
-            <Fragment>
-              <dl>
-                <dt>
-                  <Snippet>responsibilities.title</Snippet>
-                </dt>
-
-                {!isEmpty(estRoles) && (
-                  <Fragment>
-                    {estRoles.map(({ type, id }) => (
-                      <dd key={id}>{defineValue(type.toUpperCase())}</dd>
-                    ))}
-                  </Fragment>
-                )}
-                {isEmpty(estRoles) && (
-                  <dd>
-                    <Snippet>responsibilities.noRoles</Snippet>
-                  </dd>
-                )}
-              </dl>
-            </Fragment>
-          }
-
-          <RoleApply
-            allowedActions={allowedActions}
-            estId={estId}
-            profileId={id}
+        {title && <h2>{title}</h2>}
+        <p>
+          <Link
+            page='establishment.dashboard'
+            establishmentId={estId}
+            label='About this establishment'
           />
+        </p>
 
-          <hr />
+        <hr />
 
-          {
+        {activeProjects && (
+          <Fragment>
             <dl>
               <dt>
-                <Snippet>pil.title</Snippet>
+                <Snippet>projects.title</Snippet>
               </dt>
-              {pil && pil.licenceNumber && (
+              <dd>
+                {!isEmpty(activeProjects) &&
+                  activeProjects.map(
+                    project =>
+                      project.status && (
+                        <Fragment key={project.id}>
+                          <p>
+                            <Link page='project.list' label={project.title} />
+                          </p>
+                          <p>
+                            <span>
+                              <Snippet licenceNumber={project.licenceNumber}>
+                                projects.licenceNumber
+                              </Snippet>
+                            </span>
+                          </p>
+                          <p>
+                            <span>
+                              <Snippet
+                                expiryDate={format(
+                                  project.expiryDate,
+                                  dateFormat.medium
+                                )}
+                              >
+                                projects.expiryDate
+                              </Snippet>
+                            </span>
+                          </p>
+                        </Fragment>
+                      )
+                  )}
+                {isEmpty(activeProjects) && (
+                  <Snippet>projects.noProjects</Snippet>
+                )}
+              </dd>
+            </dl>
+          </Fragment>
+        )}
+        <PplApply allowedActions={allowedActions} estId={estId} />
+
+        <hr />
+
+        {
+          <Fragment>
+            <dl>
+              <dt>
+                <Snippet>responsibilities.title</Snippet>
+              </dt>
+
+              {!isEmpty(estRoles) && (
                 <Fragment>
-                  <dd>
-                    <Link
-                      page='pil.read'
-                      pilId={pil.id}
-                      label={pil.licenceNumber}
-                    />
-                  </dd>
+                  {estRoles.map(({ type, id }) => (
+                    <dd key={id}>{defineValue(type.toUpperCase())}</dd>
+                  ))}
                 </Fragment>
               )}
-              {!pil && (
+              {isEmpty(estRoles) && (
                 <dd>
-                  <Snippet>pil.noPil</Snippet>
+                  <Snippet>responsibilities.noRoles</Snippet>
                 </dd>
               )}
             </dl>
-          }
-          <PilApply
-            pil={pil}
-            allowedActions={allowedActions}
-            estId={estId}
-            profileId={id}
-          />
+          </Fragment>
+        }
 
-          <hr />
+        <RoleApply
+          allowedActions={allowedActions}
+          estId={estId}
+          profileId={id}
+        />
 
-          {(address || telephone || email) && (
-            <Fragment>
-              <dl>
-                <dt>
-                  <Snippet>contactDetails.title</Snippet>
-                </dt>
-                {email && (
-                  <Fragment>
-                    <dd>
-                      <Snippet>contactDetails.email</Snippet>:{' '}
-                      <a href={`mailto:${email}`}>{email}</a>
-                    </dd>
-                  </Fragment>
-                )}
-                {address && (
-                  <Fragment>
-                    <dd>
-                      <Snippet>contactDetails.professionalAddress</Snippet>
-                      <p>
-                        {address}
-                        <br />
-                        {postcode}
-                      </p>
-                    </dd>
-                  </Fragment>
-                )}
-                {telephone && (
-                  <Fragment>
-                    <dd>
-                      <Snippet>contactDetails.telephone</Snippet>
-                      <p>{telephone}</p>
-                    </dd>
-                  </Fragment>
-                )}
-              </dl>
-            </Fragment>
-          )}
+        <hr />
 
-          <hr />
-
+        {
           <dl>
-            {allowedActions.includes('profile.permissions') && (
+            <dt>
+              <Snippet>pil.title</Snippet>
+            </dt>
+            {pil && pil.licenceNumber && (
               <Fragment>
-                <dt>
-                  <Snippet role={profileRole}>permissionLevel.title</Snippet>
-                </dt>
-                <dt>{profileRole}</dt>
                 <dd>
                   <Link
-                    page='profile.permission'
-                    establishmentId={estId}
-                    profileId={id}
-                    label={<Snippet>pages.profile.permission.change</Snippet>}
+                    page='pil.read'
+                    pilId={pil.id}
+                    label={pil.licenceNumber}
                   />
                 </dd>
               </Fragment>
             )}
+            {!pil && (
+              <dd>
+                <Snippet>pil.noPil</Snippet>
+              </dd>
+            )}
           </dl>
-        </div>
+        }
+        <PilApply
+          pil={pil}
+          allowedActions={allowedActions}
+          estId={estId}
+          profileId={id}
+        />
+
+        <hr />
+
+        {(address || telephone || email) && (
+          <Fragment>
+            <dl>
+              <dt>
+                <Snippet>contactDetails.title</Snippet>
+              </dt>
+              {email && (
+                <Fragment>
+                  <dd>
+                    <Snippet>contactDetails.email</Snippet>:{' '}
+                    <a href={`mailto:${email}`}>{email}</a>
+                  </dd>
+                </Fragment>
+              )}
+              {address && (
+                <Fragment>
+                  <dd>
+                    <Snippet>contactDetails.professionalAddress</Snippet>
+                    <p>
+                      {address}
+                      <br />
+                      {postcode}
+                    </p>
+                  </dd>
+                </Fragment>
+              )}
+              {telephone && (
+                <Fragment>
+                  <dd>
+                    <Snippet>contactDetails.telephone</Snippet>
+                    <p>{telephone}</p>
+                  </dd>
+                </Fragment>
+              )}
+            </dl>
+          </Fragment>
+        )}
+
+        <hr />
+
+        <dl>
+          {allowedActions.includes('profile.permissions') && (
+            <Fragment>
+              <dt>
+                <Snippet role={profileRole}>permissionLevel.title</Snippet>
+              </dt>
+              <dt>{profileRole}</dt>
+              <dd>
+                <Link
+                  page='profile.permission'
+                  establishmentId={estId}
+                  profileId={id}
+                  label={<Snippet>pages.profile.permission.change</Snippet>}
+                />
+              </dd>
+            </Fragment>
+          )}
+        </dl>
       </Fragment>
     );
   }
