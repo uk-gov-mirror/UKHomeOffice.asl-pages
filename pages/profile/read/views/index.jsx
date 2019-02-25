@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import Profile from './profile';
 
 const Index = ({
-  isUser,
-  profileRole,
   allowedActions,
   model,
   establishment
@@ -15,6 +13,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, isUser, profileRole, allowedActions }, model }) => ({ establishment, model, isUser, profileRole, allowedActions });
+const mapStateToProps = ({ static: { establishment, profileRole, allowedActions }, model }) => ({ establishment, model, profileRole, allowedActions });
 
 export default connect(mapStateToProps)(Index);

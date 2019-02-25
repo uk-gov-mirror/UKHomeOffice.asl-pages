@@ -77,3 +77,16 @@
     background: $govuk-error-colour;
   }
 }
+
+.panel-list li {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+dl dt {
+  margin-top: $govuk-gutter-half;
+}
+dl dd {
+  margin-top: $govuk-gutter-half;
+}
