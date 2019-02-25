@@ -11,7 +11,7 @@ const Index = ({
 }) => {
 
   return (
-    <Profile establishment={establishment} profile={model} allowedActions={allowedActions} />
+    <Profile establishment={establishment} profile={model} allowedActions={allowedActions} title={establishment.name}/>
   );
 };
 
