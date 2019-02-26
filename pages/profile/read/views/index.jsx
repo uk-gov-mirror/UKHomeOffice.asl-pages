@@ -13,6 +13,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, profileRole, allowedActions }, model }) => ({ establishment, model, profileRole, allowedActions });
+const mapStateToProps = ({ static: { establishment, allowedActions }, model }) => ({ establishment, model, allowedActions });
 
 export default connect(mapStateToProps)(Index);
