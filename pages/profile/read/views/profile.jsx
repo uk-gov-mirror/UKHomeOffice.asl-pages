@@ -174,7 +174,7 @@ class Profile extends React.Component {
               page='pil.create'
               establishmentId={estId}
               profileId={id}
-              className="govuk-button"
+              className='govuk-button'
               label={<Snippet>{`buttons.${pilIncomplete ? 'continue' : 'pilApply'}`}</Snippet>}
             />
           </p>
