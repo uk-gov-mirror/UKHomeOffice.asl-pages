@@ -2,7 +2,7 @@ module.exports = {
   profile: 'Profile',
   responsibilities: {
     title: 'Roles',
-    noRoles: "You don't have any named roles",
+    noRoles: 'You don\'t have any named roles',
     roleApply: 'Apply for named role'
   },
   projects: {
@@ -31,7 +31,7 @@ module.exports = {
     noPil: "You don't have a personal licence (PIL)",
     user: {
       incomplete: 'You have an incomplete PIL application.',
-      notStarted: "You don't hold a personal (PIL) licence."
+      notStarted: 'You don\'t hold a personal (PIL) licence.'
     },
     other: {
       incomplete: 'Incomplete PIL application.',

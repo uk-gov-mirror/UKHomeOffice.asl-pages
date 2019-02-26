@@ -4,8 +4,6 @@ import format from 'date-fns/format';
 import { defineValue } from '../../../common/formatters';
 import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import PilApply from './pil-apply';
-import RoleApply from './role-apply';
 import { dateFormat } from '../../../../constants';
 
 class Profile extends React.Component {
@@ -35,6 +33,7 @@ class Profile extends React.Component {
     );
 
     const profileRole = establishments.find(est => est.id === estId).role;
+    const pilIncomplete = pil && pil.status !== 'active';
 
     return (
       <Fragment>
@@ -131,43 +130,55 @@ class Profile extends React.Component {
           </Fragment>
         }
 
-        <RoleApply
-          allowedActions={allowedActions}
-          estId={estId}
-          profileId={id}
-        />
+        {
+          allowedActions.includes('profile.roles') &&
+          <p>
+            <Link
+              page='profile.role.apply.base'
+              establishmentId={estId}
+              profileId={id}
+              className='govuk-button'
+              label={<Snippet>responsibilities.roleApply</Snippet>}
+            />
+          </p>
+        }
 
         <hr />
 
-        {
-          <dl>
-            <dt>
-              <Snippet>pil.title</Snippet>
-            </dt>
-            {pil && pil.licenceNumber && (
-              <Fragment>
-                <dd>
-                  <Link
-                    page='pil.read'
-                    pilId={pil.id}
-                    label={pil.licenceNumber}
-                  />
-                </dd>
-              </Fragment>
-            )}
-            {!pil && (
+        <dl>
+          <dt>
+            <Snippet>pil.title</Snippet>
+          </dt>
+          {pil && pil.licenceNumber && (
+            <Fragment>
               <dd>
-                <Snippet>pil.noPil</Snippet>
+                <Link
+                  page='pil.read'
+                  pilId={pil.id}
+                  label={pil.licenceNumber}
+                />
               </dd>
-            )}
-          </dl>
+            </Fragment>
+          )}
+          {!pil && (
+            <dd>
+              <Snippet>pil.noPil</Snippet>
+            </dd>
+          )}
+        </dl>
+
+        {
+          allowedActions.includes('pil.create') && !(pil && pil.status === 'active') &&
+          <p>
+            <Link
+              page='pil.create'
+              establishmentId={estId}
+              profileId={id}
+              className="govuk-button"
+              label={<Snippet>{`buttons.${pilIncomplete ? 'continue' : 'pilApply'}`}</Snippet>}
+            />
+          </p>
         }
-        <PilApply
-          pil={pil}
-          allowedActions={allowedActions}
-          estId={estId}
-          profileId={id}
-        />
 
         <hr />
 
