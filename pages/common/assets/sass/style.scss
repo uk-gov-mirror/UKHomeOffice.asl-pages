@@ -1,6 +1,6 @@
-@import "ho-frontend-toolkit";
-@import "@ukhomeoffice/react-components";
-@import "@asl/components";
+@import 'ho-frontend-toolkit';
+@import '@ukhomeoffice/react-components';
+@import '@asl/components';
 
 .applicant {
   margin-bottom: $govuk-gutter * 2;
@@ -9,7 +9,7 @@
 .task-decision {
   border-bottom: 1px solid govuk-colour('grey-2');
   margin-bottom: $govuk-gutter;
-   .action {
+  .action {
     float: right;
   }
 }
@@ -76,4 +76,10 @@
   &.rejected {
     background: $govuk-error-colour;
   }
+}
+
+.panel-list li {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
 }

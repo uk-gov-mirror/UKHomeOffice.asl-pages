@@ -1,27 +1,16 @@
 module.exports = {
   profile: 'Profile',
   responsibilities: {
-    title: 'Responsibilities',
-    roles: 'Roles',
-    noRoles: 'This person has no named roles',
-    roleApply: 'Apply for named role',
-    roleRemove: 'Remove a named role'
-  },
-  qualifications: 'Qualifications',
-  training: {
-    title: 'Training',
-    nacwo: 'NACWO training',
-    modulesTitle: 'Accredited training modules',
-    module: 'Module {{module}}',
-    dateCompleted: 'Date completed: {{date}}'
+    title: 'Roles',
+    noRoles: 'You don\'t have any named roles',
+    roleApply: 'Apply for named role'
   },
   projects: {
-    title: 'Projects',
-    projectTitles: 'Project titles',
+    title: 'Active Projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',
-    expiryDate: 'Expiry date: {{expiryDate}}'
+    expiryDate: 'Expiry date: {{expiryDate}}',
+    noProjects: 'You don\'t have any active projects'
   },
-  premises: 'Premises',
   contactDetails: {
     title: 'Contact Details',
     professionalAddress: 'Professional Address',
@@ -32,10 +21,14 @@ module.exports = {
     title: 'Permission level'
   },
   buttons: {
-    applyNow: 'Apply Now',
-    continue: 'Continue'
+    continue: 'Continue',
+    pplApply: 'Apply for project licence',
+    pilApply: 'Apply for personal licence',
+    roleApply: 'Apply for named role'
   },
   pil: {
+    title: 'Personal Licence',
+    noPil: 'You don\'t have a personal licence (PIL)',
     user: {
       incomplete: 'You have an incomplete PIL application.',
       notStarted: 'You don\'t hold a personal (PIL) licence.'
