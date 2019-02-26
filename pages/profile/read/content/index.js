@@ -9,7 +9,7 @@ module.exports = {
     title: 'Active Projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',
     expiryDate: 'Expiry date: {{expiryDate}}',
-    noProjects: "You don't have any active projects"
+    noProjects: 'You don\'t have any active projects'
   },
   contactDetails: {
     title: 'Contact Details',
@@ -28,7 +28,7 @@ module.exports = {
   },
   pil: {
     title: 'Personal Licence',
-    noPil: "You don't have a personal licence (PIL)",
+    noPil: 'You don\'t have a personal licence (PIL)',
     user: {
       incomplete: 'You have an incomplete PIL application.',
       notStarted: 'You don\'t hold a personal (PIL) licence.'
