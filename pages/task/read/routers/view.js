@@ -40,17 +40,6 @@ module.exports = () => {
     next();
   });
 
-  // redirect to project page if ?redirect=true
-  app.get('/', (req, res, next) => {
-    const model = get(req.task, 'data.model');
-    const status = get(req.task, 'status');
-    if (model === 'project' && req.query.redirect === 'true') {
-      req.versionId = status === 'resolved' ? req.project.granted.id : req.project.draft.id;
-      return res.redirect(req.buildRoute('project.version'));
-    }
-    next();
-  });
-
   app.use((req, res, next) => {
     req.breadcrumb('task.base');
     req.model = { id: `${req.task.id}-decision` };
