@@ -199,18 +199,6 @@ class Profile extends React.Component {
                   </dd>
                 </Fragment>
               )}
-              {address && (
-                <Fragment>
-                  <dd>
-                    <Snippet>contactDetails.professionalAddress</Snippet>
-                    <p>
-                      {address}
-                      <br />
-                      {postcode}
-                    </p>
-                  </dd>
-                </Fragment>
-              )}
               {telephone && (
                 <Fragment>
                   <dd>
