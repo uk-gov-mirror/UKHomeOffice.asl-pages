@@ -9,7 +9,7 @@ const Index = ({
 }) => {
 
   return (
-    <Profile establishment={establishment} profile={model} allowedActions={allowedActions} title={establishment.name}/>
+    <Profile title={model.name} profile={model} establishment={establishment} estName={establishment.name} allowedActions={allowedActions} />
   );
 };
 

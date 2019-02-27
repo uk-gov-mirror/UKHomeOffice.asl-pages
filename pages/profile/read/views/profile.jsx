@@ -24,6 +24,7 @@ class Profile extends React.Component {
 
     const allowedActions = this.props.allowedActions;
     const title = this.props.title;
+    const estName = this.props.estName;
     const activeProjects = projects.filter(
       ({ establishmentId, status }) =>
         status === 'active' && establishmentId === estId
@@ -37,7 +38,9 @@ class Profile extends React.Component {
 
     return (
       <Fragment>
-        {title && <h2>{title}</h2>}
+        {title && <p><h1>{title}</h1></p>}
+
+        {estName && <h3>{estName}</h3>}
         <p>
           <Link
             page='establishment.dashboard'
