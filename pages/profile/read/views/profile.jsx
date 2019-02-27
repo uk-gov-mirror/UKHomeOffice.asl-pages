@@ -12,8 +12,6 @@ class Profile extends React.Component {
 
     const {
       pil,
-      address,
-      postcode,
       telephone,
       email,
       roles,
@@ -23,7 +21,7 @@ class Profile extends React.Component {
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions;
-    const title = this.props.title;
+    const estName = this.props.estName;
     const activeProjects = projects.filter(
       ({ establishmentId, status }) =>
         status === 'active' && establishmentId === estId
@@ -37,7 +35,7 @@ class Profile extends React.Component {
 
     return (
       <Fragment>
-        {title && <h2>{title}</h2>}
+        {estName && <h3>{estName}</h3>}
         <p>
           <Link
             page='establishment.dashboard'
@@ -182,7 +180,7 @@ class Profile extends React.Component {
 
         <hr />
 
-        {(address || telephone || email) && (
+        {(telephone || email) && (
           <Fragment>
             <dl>
               <dt>
@@ -193,18 +191,6 @@ class Profile extends React.Component {
                   <dd>
                     <Snippet>contactDetails.email</Snippet>:{' '}
                     <a href={`mailto:${email}`}>{email}</a>
-                  </dd>
-                </Fragment>
-              )}
-              {address && (
-                <Fragment>
-                  <dd>
-                    <Snippet>contactDetails.professionalAddress</Snippet>
-                    <p>
-                      {address}
-                      <br />
-                      {postcode}
-                    </p>
                   </dd>
                 </Fragment>
               )}
