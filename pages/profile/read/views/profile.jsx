@@ -93,13 +93,13 @@ class Profile extends React.Component {
 
         {
           (allowedActions.includes('project.apply') && <Fragment>
-            <p>
-              <form method='POST' action={`/e/${estId}/projects/create`}>
+            <form method='POST' action={`/e/${estId}/projects/create`}>
+              <p>
                 <Button className='govuk-button add-margin'>
                   <Snippet>buttons.pplApply</Snippet>
                 </Button>
-              </form>
-            </p>
+              </p>
+            </form>
           </Fragment>)
         }
 
