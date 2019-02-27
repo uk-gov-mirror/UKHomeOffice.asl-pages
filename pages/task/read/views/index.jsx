@@ -28,7 +28,7 @@ const ExtraProjectMeta = ({ item, task }) => {
   if (!versionId) {
     return null;
   }
-  return <Link page="project.version" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View submitted version"/>;
+  return <Link page="project.version" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/>;
 };
 
 const getTaskPlayback = task => {
