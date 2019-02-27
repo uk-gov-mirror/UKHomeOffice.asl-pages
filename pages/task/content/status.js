@@ -2,6 +2,12 @@ module.exports = {
   'new': {
     state: 'Incomplete'
   },
+  create: {
+    state: 'Case opened'
+  },
+  update: {
+    state: 'Case updated'
+  },
   'with-licensing': {
     state: 'Awaiting review'
   },
@@ -9,7 +15,6 @@ module.exports = {
     state: 'With inspectorate',
     action: 'Refer to inspector'
   },
-  // left for backwards compatibility
   'referred-to-inspector': {
     state: 'Awaiting inspection',
     action: 'Refer to inspector'

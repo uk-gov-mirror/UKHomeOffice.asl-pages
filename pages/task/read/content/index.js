@@ -3,6 +3,7 @@ const pil = require('./pil');
 const place = require('./place');
 const profile = require('./profile');
 const role = require('./role');
+const project = require('./project');
 const { merge } = require('lodash');
 
 const getContent = model => {
@@ -15,6 +16,8 @@ const getContent = model => {
       return profile;
     case 'role':
       return role;
+    case 'project':
+      return project;
   }
   return {};
 };

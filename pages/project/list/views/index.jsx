@@ -18,14 +18,6 @@ const tabs = [
   'inactive'
 ];
 
-const ActionsColumn = ({ model }) => (
-  <Fragment>
-    <form method="POST" action={`projects/${model.id}/delete`}>
-      <Button className="button-secondary"><Snippet>buttons.delete</Snippet></Button>
-    </form>
-  </Fragment>
-);
-
 const Projects = ({
   establishment: { name },
   status,
@@ -52,7 +44,7 @@ const Projects = ({
     </Tabs>
     <Search label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
-    <Datatable formatters={formatters} Actions={ActionsColumn} />
+    <Datatable formatters={formatters} />
   </Fragment>
 );
 
