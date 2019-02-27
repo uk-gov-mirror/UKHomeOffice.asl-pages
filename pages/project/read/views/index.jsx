@@ -8,17 +8,16 @@ import { dateFormat } from '../../../../constants';
 import formatters from '../../formatters';
 import { schema } from '../../schema';
 
-const getVersions = (versions = []) => {
-  const granted = versions.find(v => v.status === 'granted');
-  if (granted) {
-    versions = versions.filter(v => v.createdAt >= granted.createdAt);
+const getVersions = model => {
+  const versions = {};
+  if (model.draft) {
+    versions.draft = model.draft;
   }
-  const version = versions[0];
-  return {
-    granted,
-    submitted: (version && version.status === 'submitted') ? version : null,
-    draft: (version && version.status === 'draft') ? version : null
-  };
+  const version = model.versions[0];
+  if (version && version.status === 'submitted') {
+    versions.submitted = version;
+  }
+  return versions;
 };
 
 const App = ({ model, establishment, openTasks = [] }) => {
@@ -33,7 +32,7 @@ const App = ({ model, establishment, openTasks = [] }) => {
       <ModelSummary
         model={{
           ...model,
-          ...getVersions(model.versions)
+          ...getVersions(model)
         }}
         schema={omit(schema, 'id')}
         formatters={{
