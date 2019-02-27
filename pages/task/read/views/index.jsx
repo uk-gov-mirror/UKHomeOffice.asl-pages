@@ -8,7 +8,7 @@ import {
   StickyNavAnchor,
   Header
 } from '@asl/components';
-import ActivityLog from './activity-log';
+import ActivityLog, { getStatus } from './activity-log';
 import Pil from './pil';
 import Place from './place';
 import Profile from './profile';
@@ -17,6 +17,14 @@ import Project from './project';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
+
+const ExtraProjectMeta = ({ item, task }) => {
+  const status = getStatus(item.eventName);
+  if (status !== 'with-inspectorate') {
+    return null;
+  }
+  return <Link page="project.version" versionId={item.event.meta.payload.version} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View submitted version"/>;
+};
 
 const getTaskPlayback = task => {
   if (task.data.model === 'pil') {
@@ -57,7 +65,11 @@ const getTaskPlayback = task => {
   }
   if (task.data.model === 'project') {
     return (
-      <Project task={task} />
+      <Project task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} ExtraMeta={ExtraProjectMeta} />
+        </StickyNavAnchor>
+      </Project>
     );
   }
 };

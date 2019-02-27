@@ -23,18 +23,30 @@ const getRelevantActivity = activityLog => activityLog.filter(log => {
 module.exports = () => {
   const app = Router();
 
-  // if task is a project redirect to the project interface
+  // get relevant versionId if task is for a project.
   app.use((req, res, next) => {
     const model = get(req.task, 'data.model');
+
     if (model === 'project') {
       req.projectId = get(req.task, 'data.id');
       req.establishmentId = get(req.task, 'data.data.establishmentId');
       return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`)
         .then(({ json: { data } }) => {
-          req.versionId = data.draft.id;
-          res.redirect(req.buildRoute('project.version'));
+          req.project = data;
         })
+        .then(() => next())
         .catch(next);
+    }
+    next();
+  });
+
+  // redirect to project page if ?redirect=true
+  app.get('/', (req, res, next) => {
+    const model = get(req.task, 'data.model');
+    const status = get(req.task, 'status');
+    if (model === 'project' && req.query.redirect === 'true') {
+      req.versionId = status === 'resolved' ? req.project.granted.id : req.project.draft.id;
+      return res.redirect(req.buildRoute('project.version'));
     }
     next();
   });
@@ -149,6 +161,7 @@ module.exports = () => {
       res.locals.static.profile = req.profile;
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.establishment = req.establishment;
+      res.locals.static.project = req.project;
       next();
     },
     process: (req, res, next) => {
@@ -158,6 +171,20 @@ module.exports = () => {
       next();
     }
   })));
+
+  app.post('/', (req, res, next) => {
+    const model = get(req.task, 'data.model');
+    const status = get(req.form, 'values.status');
+    if (model === 'project' && status === 'resubmitted') {
+      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
+        .then(({ json: { data } }) => {
+          req.versionId = data.data.id;
+          res.redirect(req.buildRoute('project.version'));
+        })
+        .catch(next);
+    }
+    next();
+  });
 
   app.post('/', (req, res, next) => {
     return res.redirect(req.buildRoute('task.confirm', { taskId: req.task.id }));

@@ -6,16 +6,18 @@ import format from 'date-fns/format';
 
 const getName = profile => `${profile.firstName} ${profile.lastName}`;
 
+export const getStatus = eventName => eventName.substring(eventName.lastIndexOf(':') + 1);
+
 const getStatusBadge = eventName => {
   const good = ['resolved'];
   const bad = ['rejected', 'withdrawn'];
-  const status = eventName.substring(eventName.lastIndexOf(':') + 1);
+  const status = getStatus(eventName);
   const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
 
   return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
 };
 
-const ActivityLog = ({ task }) => {
+const ActivityLog = ({ task, ExtraMeta }) => {
   if (!task.activityLog) {
     return null;
   }
@@ -29,6 +31,9 @@ const ActivityLog = ({ task }) => {
             {getStatusBadge(log.eventName)}
             <p><Link page="profile.view" profileId={log.changedBy.id} establishmentId={task.data.establishmentId} label={getName(log.changedBy)} /></p>
             <p className="comment">{log.comment}</p>
+            {
+              ExtraMeta && <p><ExtraMeta item={log} task={task} /></p>
+            }
             <p>{format(log.createdAt, dateFormat.datetime)}</p>
           </li>
         ))}
