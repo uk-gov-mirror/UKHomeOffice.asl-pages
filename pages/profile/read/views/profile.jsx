@@ -12,8 +12,6 @@ class Profile extends React.Component {
 
     const {
       pil,
-      address,
-      postcode,
       telephone,
       email,
       roles,
@@ -185,7 +183,7 @@ class Profile extends React.Component {
 
         <hr />
 
-        {(address || telephone || email) && (
+        {(telephone || email) && (
           <Fragment>
             <dl>
               <dt>
