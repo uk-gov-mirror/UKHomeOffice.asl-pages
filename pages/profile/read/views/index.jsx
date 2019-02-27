@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Profile from './profile';
 
@@ -9,7 +9,10 @@ const Index = ({
 }) => {
 
   return (
-    <Profile title={model.name} profile={model} establishment={establishment} estName={establishment.name} allowedActions={allowedActions} />
+    <Fragment>
+      {model.name && <p><h1>{model.name}</h1></p>}
+      <Profile profile={model} establishment={establishment} estName={establishment.name} allowedActions={allowedActions} />
+    </Fragment>
   );
 };
 
