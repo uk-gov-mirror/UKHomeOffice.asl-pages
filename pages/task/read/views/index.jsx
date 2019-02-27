@@ -14,6 +14,7 @@ import Place from './place';
 import Profile from './profile';
 import Role from './role';
 import Project from './project';
+import get from 'lodash/get';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
@@ -23,7 +24,11 @@ const ExtraProjectMeta = ({ item, task }) => {
   if (status !== 'with-inspectorate') {
     return null;
   }
-  return <Link page="project.version" versionId={item.event.meta.payload.version} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View submitted version"/>;
+  const versionId = get(item, 'event.meta.payload.meta.version');
+  if (!versionId) {
+    return null;
+  }
+  return <Link page="project.version" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View submitted version"/>;
 };
 
 const getTaskPlayback = task => {
