@@ -83,3 +83,18 @@
   font-weight: inherit;
   line-height: inherit;
 }
+
+p.control-panel {
+  margin-top: 2*$govuk-gutter;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .govuk-button {
+    margin-bottom: 0;
+  }
+
+  > * {
+    margin-right: 1em;
+  }
+}
