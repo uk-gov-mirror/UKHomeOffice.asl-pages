@@ -24,11 +24,13 @@ module.exports = {
     continue: 'Continue',
     pplApply: 'Apply for project licence',
     pilApply: 'Apply for personal licence',
-    roleApply: 'Apply for named role'
+    roleApply: 'Apply for named role',
+    view: 'View'
   },
   pil: {
     title: 'Personal Licence',
     noPil: 'You don\'t have a personal licence (PIL)',
+    incompletePil: 'You currently have a PIL application in progress.',
     user: {
       incomplete: 'You have an incomplete PIL application.',
       notStarted: 'You don\'t hold a personal (PIL) licence.'

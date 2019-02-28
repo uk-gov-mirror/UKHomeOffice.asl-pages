@@ -163,8 +163,12 @@ class Profile extends React.Component {
               <Snippet>pil.noPil</Snippet>
             </dd>
           )}
+          {
+            pil && pilIncomplete && (<dd>
+              <Snippet>pil.incompletePil</Snippet>
+            </dd>)
+          }
         </dl>
-
         {
           allowedActions.includes('pil.create') && !(pil && pil.status === 'active') &&
           <p>
@@ -173,7 +177,7 @@ class Profile extends React.Component {
               establishmentId={estId}
               profileId={id}
               className='govuk-button'
-              label={<Snippet>{`buttons.${pilIncomplete ? 'continue' : 'pilApply'}`}</Snippet>}
+              label={<Snippet>{`buttons.${pilIncomplete ? 'view' : 'pilApply'}`}</Snippet>}
             />
           </p>
         }
