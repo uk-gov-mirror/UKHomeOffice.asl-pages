@@ -10,7 +10,7 @@ const Index = ({
 
   return (
     <Fragment>
-      {model.name && <p><h1>{model.name}</h1></p>}
+      {model.name && <h1>{model.name}</h1>}
       <Profile profile={model} establishment={establishment} title={establishment.name} allowedActions={allowedActions} />
     </Fragment>
   );
