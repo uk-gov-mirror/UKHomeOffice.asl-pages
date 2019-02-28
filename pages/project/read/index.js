@@ -14,7 +14,6 @@ module.exports = settings => {
   app.use((req, res, next) => {
     res.locals.model = req.project;
     res.locals.static.establishment = req.establishment;
-    res.locals.static.openTasks = req.openTasks;
     next();
   });
 

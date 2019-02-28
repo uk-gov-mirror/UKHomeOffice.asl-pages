@@ -20,8 +20,8 @@ const getVersions = model => {
   return versions;
 };
 
-const App = ({ model, establishment, openTasks = [] }) => {
-  const openTask = openTasks.find(task => task.status !== 'returned-to-applicant');
+const App = ({ model, establishment }) => {
+  const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
 
   return (
     <Fragment>
@@ -56,6 +56,6 @@ const App = ({ model, establishment, openTasks = [] }) => {
   );
 };
 
-const mapStateToProps = ({ model, static: { establishment, openTasks } }) => ({ model, establishment, openTasks });
+const mapStateToProps = ({ model, static: { establishment } }) => ({ model, establishment });
 
 export default connect(mapStateToProps)(App);
