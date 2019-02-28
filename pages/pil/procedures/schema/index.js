@@ -1,5 +1,5 @@
 const { procedureCodes } = require('@asl/constants');
-const { procedureDefinitions } = require('../../../../constants');
+const { procedureDefinitions } = require('../../content');
 const { toArray } = require('../../../../lib/utils');
 
 const procedureOptions = procedureCodes.map(code => (
