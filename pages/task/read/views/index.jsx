@@ -24,7 +24,7 @@ const ExtraProjectMeta = ({ item, task }) => {
   if (status !== 'with-inspectorate') {
     return null;
   }
-  const versionId = get(item, 'event.meta.payload.meta.version');
+  const versionId = get(item, 'event.data.data.version');
   if (!versionId) {
     return null;
   }
