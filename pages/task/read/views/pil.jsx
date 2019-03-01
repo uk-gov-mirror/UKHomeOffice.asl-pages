@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Snippet, StickyNavPage, StickyNavAnchor, Link } from '@asl/components';
-import { dateFormat, procedureDefinitions } from '../../../../constants';
+import { dateFormat } from '../../../../constants';
+import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
 
 const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
