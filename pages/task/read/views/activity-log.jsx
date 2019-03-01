@@ -17,6 +17,13 @@ const getStatusBadge = eventName => {
   return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
 };
 
+const getProfile = (profile, establishmentId) => {
+  const name = getName(profile);
+  return profile.asruUser
+    ? name
+    : <Link page="profile.view" profileId={profile.id} establishmentId={establishmentId} label={name} />;
+};
+
 const ActivityLog = ({ task, ExtraMeta }) => {
   if (!task.activityLog) {
     return null;
@@ -29,7 +36,7 @@ const ActivityLog = ({ task, ExtraMeta }) => {
         { task.activityLog.map(log => (
           <li key={log.id}>
             {getStatusBadge(log.eventName)}
-            <p><Link page="profile.view" profileId={log.changedBy.id} establishmentId={task.data.establishmentId} label={getName(log.changedBy)} /></p>
+            <p>{getProfile(log.changedBy, task.data.establishmentId)}</p>
             <p className="comment">{log.comment}</p>
             {
               ExtraMeta && <p><ExtraMeta item={log} task={task} /></p>
