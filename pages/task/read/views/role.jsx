@@ -55,11 +55,11 @@ const Role = ({ establishment, profile, task, values, formFields, children }) =>
       )
     }
     {
-      (task.data.meta && task.data.meta.comments) && (
+      (task.data.meta && task.data.meta.comment) && (
         <StickyNavAnchor id="comments">
           <Field
             title={<Snippet>sticky-nav.comments</Snippet>}
-            content={task.data.meta.comments}
+            content={task.data.meta.comment}
           />
         </StickyNavAnchor>
       )
