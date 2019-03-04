@@ -9,6 +9,7 @@ import { dateFormat } from '../../../../constants';
 class Profile extends React.Component {
   render() {
     const { id: estId } = this.props.establishment;
+    const isOwnProfile = this.props.isOwnProfile || false;
 
     const {
       pil,
@@ -32,6 +33,7 @@ class Profile extends React.Component {
 
     const profileRole = establishments.find(est => est.id === estId).role;
     const pilIncomplete = pil && pil.status !== 'active';
+    const pilActive = pil && pil.status === 'active';
 
     return (
       <Fragment>
@@ -170,7 +172,7 @@ class Profile extends React.Component {
           }
         </dl>
         {
-          allowedActions.includes('pil.create') && !(pil && pil.status === 'active') &&
+          (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive &&
           <p>
             <Link
               page='pil.create'
