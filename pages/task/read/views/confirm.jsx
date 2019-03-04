@@ -24,7 +24,7 @@ const Confirm = ({ task, values, schema }) => {
           </div>
         }
         <p className="control-panel">
-          <Button><Snippet>buttons.submit</Snippet></Button>
+          <Button type="submit"><Snippet>buttons.submit</Snippet></Button>
           <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
         </p>
       </FormLayout>
