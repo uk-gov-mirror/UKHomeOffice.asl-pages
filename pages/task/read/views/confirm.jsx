@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { FormLayout, Snippet, Header, ModelSummary, Link } from '@asl/components';
+import { Form, Snippet, Header, ModelSummary, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
@@ -12,23 +12,25 @@ const formatters = {
 
 const Confirm = ({ task, values, schema }) => {
   return (
-    <Fragment>
-      <FormLayout submit={false}>
-        <Header title={<Snippet>title</Snippet>} />
-        <ModelSummary formatters={formatters} model={values} schema={schema} />
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        <Form submit={false}>
+          <Header title={<Snippet>title</Snippet>} />
+          <ModelSummary formatters={formatters} model={values} schema={schema} />
 
-        { requiresDeclaration(values.status) &&
-          <div className="task-declaration">
-            <h2><Snippet>declaration.title</Snippet></h2>
-            <Snippet>{`declaration.${values.status}`}</Snippet>
-          </div>
-        }
-        <p className="control-panel">
-          <Button type="submit"><Snippet>buttons.submit</Snippet></Button>
-          <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
-        </p>
-      </FormLayout>
-    </Fragment>
+          { requiresDeclaration(values.status) &&
+            <div className="task-declaration">
+              <h2><Snippet>declaration.title</Snippet></h2>
+              <Snippet>{`declaration.${values.status}`}</Snippet>
+            </div>
+          }
+          <p className="control-panel">
+            <Button type="submit"><Snippet>buttons.submit</Snippet></Button>
+            <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
+          </p>
+        </Form>
+      </div>
+    </div>
   );
 };
 
