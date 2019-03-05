@@ -6,5 +6,10 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.get('/', (req, res, next) => {
+    res.locals.static.isOwnProfile = req.user.profile.id === req.profileId;
+    next();
+  });
+
   return app;
 };
