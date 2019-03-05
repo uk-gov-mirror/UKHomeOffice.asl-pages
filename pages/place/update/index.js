@@ -1,5 +1,4 @@
 const { omit } = require('lodash');
-
 const { page } = require('@asl/service/ui');
 const confirm = require('../routers/confirm');
 const amend = require('../routers/amend');

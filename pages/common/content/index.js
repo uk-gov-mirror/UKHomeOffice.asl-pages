@@ -113,5 +113,10 @@ module.exports = {
     plural: 'Less than {{diff}} months left',
     standard: '{{diff}} months left',
     expired: 'Expired'
+  },
+  success: {
+    whatNext: {
+      title: 'What happens next?'
+    }
   }
 };

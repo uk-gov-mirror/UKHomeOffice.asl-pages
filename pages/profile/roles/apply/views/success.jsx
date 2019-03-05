@@ -1,3 +1,3 @@
-import View from '../../views/success';
+import Success from '../../../../common/views/success';
 
-export default View;
+export default Success;
