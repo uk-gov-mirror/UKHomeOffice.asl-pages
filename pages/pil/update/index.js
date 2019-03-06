@@ -3,6 +3,7 @@ const form = require('../../common/routers/form');
 const schema = require('./schema');
 const { get } = require('lodash');
 
+const success = require('../../common/routers/success');
 const procedures = require('../procedures');
 const exemptions = require('../exemptions');
 const training = require('../training');
@@ -44,10 +45,10 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/success', (req, res, next) => {
-    res.locals.static.profile = req.profile;
-    next();
-  });
+  app.use('/success', success({
+    licence: 'pil',
+    status: 'resubmitted'
+  }));
 
   app.use('/procedures', procedures());
 

@@ -1,5 +1,4 @@
 const { omit } = require('lodash');
-
 const { page } = require('@asl/service/ui');
 const confirm = require('../routers/confirm');
 const amend = require('../routers/amend');
@@ -67,7 +66,12 @@ module.exports = settings => {
     return res.redirect(req.buildRoute('place.update.success', { placeId: req.model.id }));
   });
 
-  app.use('/success', success({ model: 'place' }));
+  app.use('/success', success({
+    model: 'place',
+    licence: 'pel',
+    type: 'amendment',
+    status: 'resubmitted'
+  }));
 
   return app;
 };
