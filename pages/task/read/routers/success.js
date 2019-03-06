@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const { merge, get } = require('lodash');
-const successRouter = require('../../../common/routers/success');
 const successContent = require('../../../common/content/success-messages');
 
 const getType = (model, req) => {
@@ -21,12 +20,8 @@ module.exports = () => {
     next();
   });
 
-  app.use(successRouter());
-
   app.use((req, res, next) => {
-    const id = `${req.task.id}-decision`;
-
-    const formValues = req.session.form[id].values;
+    const formValues = req.session.form[req.model.id].values;
     req.status = formValues.status;
 
     res.locals.static.profile = req.task.data.changedBy;
@@ -42,6 +37,13 @@ module.exports = () => {
       })
       .then(() => next())
       .catch(next);
+  });
+
+  app.get('/', (req, res, next) => {
+    if (req.session.form && req.session.form[req.model.id]) {
+      delete req.session.form[req.model.id];
+    }
+    next();
   });
 
   return app;

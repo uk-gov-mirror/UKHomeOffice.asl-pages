@@ -45,7 +45,10 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/success', success({ licence: 'pil' }));
+  app.use('/success', success({
+    licence: 'pil',
+    status: 'resubmitted'
+  }));
 
   app.use('/procedures', procedures());
 

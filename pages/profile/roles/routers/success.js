@@ -9,7 +9,11 @@ module.exports = action => {
     next();
   });
 
-  app.use(success());
+  app.use(success({
+    licence: 'pel',
+    type: 'amendment',
+    status: 'resubmitted'
+  }));
 
   return app;
 };

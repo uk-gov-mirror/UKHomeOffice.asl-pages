@@ -66,7 +66,12 @@ module.exports = settings => {
     return res.redirect(req.buildRoute('place.update.success', { placeId: req.model.id }));
   });
 
-  app.use('/success', success({ model: 'place' }));
+  app.use('/success', success({
+    model: 'place',
+    licence: 'pel',
+    type: 'amendment',
+    status: 'resubmitted'
+  }));
 
   return app;
 };
