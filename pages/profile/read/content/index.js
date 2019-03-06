@@ -3,7 +3,8 @@ module.exports = {
   responsibilities: {
     title: 'Roles',
     noRoles: 'You don\'t have any named roles',
-    roleApply: 'Apply for named role'
+    roleApply: 'Apply for named role',
+    roleRemove: 'Remove a named role'
   },
   projects: {
     title: 'Active Projects',
