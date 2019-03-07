@@ -37,6 +37,7 @@ module.exports = settings => {
 
   app.post('/confirm', (req, res, next) => {
     const { role, comment } = req.session.form[req.model.id].values;
+    const roleId = req.profile.roles.find(r => r.type === role).id;
 
     const opts = {
       method: 'DELETE',
@@ -46,7 +47,7 @@ module.exports = settings => {
       }
     };
 
-    return req.api(`/establishment/${req.establishmentId}/role/${role}`, opts)
+    return req.api(`/establishment/${req.establishmentId}/role/${roleId}`, opts)
       .then(() => res.redirect(req.buildRoute(`profile.role.remove.success`)))
       .catch(next);
   });
