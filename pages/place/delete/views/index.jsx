@@ -15,7 +15,7 @@ const DeletePage = ({
   csrfToken
 }) => {
   if (model.tasks && model.tasks.length) {
-    return <InProgressWarning task={model.tasks[0]} />
+    return <InProgressWarning task={model.tasks[0]} />;
   }
   return (
     <Fragment>
@@ -30,7 +30,7 @@ const DeletePage = ({
               label={<Snippet>fields.comments.label</Snippet>}
               value={model.comments}
               name="comments"
-              />
+            />
             <ControlBar block={true}>
               <input type="hidden" name="_csrf" value={csrfToken} />
               <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>

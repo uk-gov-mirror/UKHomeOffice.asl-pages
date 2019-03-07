@@ -82,7 +82,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
   const applicationComplete = sections.every(section => section.completed);
 
   if (model.tasks && model.tasks.length) {
-    return <InProgressWarning task={model.tasks[0]} />
+    return <InProgressWarning task={model.tasks[0]} />;
   }
 
   return (

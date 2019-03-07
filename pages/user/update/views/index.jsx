@@ -9,7 +9,7 @@ import InProgressWarning from '../../../common/components/in-progress-warning';
 
 const Page = ({ model }) => {
   if (model.tasks && model.tasks.length) {
-    return <InProgressWarning task={model.tasks[0]} />
+    return <InProgressWarning task={model.tasks[0]} />;
   }
   return (
     <FormLayout>
