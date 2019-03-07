@@ -20,7 +20,7 @@ module.exports = settings => {
       }
     },
     locals: (req, res, next) => {
-      res.locals.model = pick(req.model, Object.keys(schema));
+      res.locals.model = pick(req.model, Object.keys(schema), 'tasks');
       res.locals.static = res.locals.static || {};
       res.locals.static.schema = schema;
       return next();
