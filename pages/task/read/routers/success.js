@@ -21,8 +21,8 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    const formValues = req.session.form[req.model.id].values;
-    req.status = formValues.status;
+    const status = get(req.session, `form.${req.model.id}.values.status`);
+    req.status = status;
 
     res.locals.static.profile = req.task.data.changedBy;
     next();
