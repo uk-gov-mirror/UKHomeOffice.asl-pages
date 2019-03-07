@@ -19,6 +19,7 @@ module.exports = () => {
       .then(({ json: { data, meta } }) => {
         res.locals.static.establishment = meta.establishment;
         req.model = cleanModel(data);
+        req.model.tasks = meta.openTasks || [];
       })
       .then(() => next())
       .catch(next);

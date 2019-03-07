@@ -8,6 +8,8 @@ import {
   SectionList
 } from '@asl/components';
 
+import InProgressWarning from '../../../common/components/in-progress-warning';
+
 import {
   certificate as certificatesSchema,
   modules as modulesSchema
@@ -78,6 +80,10 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
   ];
 
   const applicationComplete = sections.every(section => section.completed);
+
+  if (model.tasks && model.tasks.length) {
+    return <InProgressWarning task={model.tasks[0]} />;
+  }
 
   return (
     <Fragment>

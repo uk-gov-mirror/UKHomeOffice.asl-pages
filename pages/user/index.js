@@ -8,9 +8,14 @@ module.exports = () => {
   const router = Router();
 
   router.use((req, res, next) => {
-    req.model = req.user.profile;
-    res.locals.model = req.model;
-    next();
+    req.api('/me')
+      .then(({ json: { data, meta } }) => {
+        req.model = data;
+        req.model.tasks = meta.openTasks || [];
+        res.locals.model = req.model;
+      })
+      .then(() => next())
+      .catch(next);
   });
 
   router.use((req, res, next) => {
