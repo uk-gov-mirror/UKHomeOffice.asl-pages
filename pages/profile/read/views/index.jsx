@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Header } from '@asl/components';
 import Profile from './profile';
 
 const Index = ({
@@ -11,8 +12,12 @@ const Index = ({
 
   return (
     <Fragment>
-      {model.name && <h1>{model.name}</h1>}
-      <Profile profile={model} establishment={establishment} title={establishment.name} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />
+      <Header
+        title={model.name}
+        subtitle={establishment.name}
+      />
+      <hr />
+      <Profile profile={model} establishment={establishment} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />
     </Fragment>
   );
 };

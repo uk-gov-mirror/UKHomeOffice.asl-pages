@@ -22,7 +22,6 @@ class Profile extends React.Component {
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions;
-    const title = this.props.title;
     const activeProjects = projects.filter(
       ({ establishmentId, status }) =>
         status === 'active' && establishmentId === estId
@@ -37,16 +36,6 @@ class Profile extends React.Component {
 
     return (
       <Fragment>
-        {title && <h3>{title}</h3>}
-        <p>
-          <Link
-            page='establishment.dashboard'
-            establishmentId={estId}
-            label='About this establishment'
-          />
-        </p>
-
-        <hr />
 
         {activeProjects && (
           <Fragment>
@@ -96,7 +85,7 @@ class Profile extends React.Component {
         {
           (allowedActions.includes('project.apply') && <Fragment>
             <form method='POST' action={`/e/${estId}/projects/create`}>
-              <p>
+              <p className="control-panel">
                 <Button className='govuk-button add-margin'>
                   <Snippet>buttons.pplApply</Snippet>
                 </Button>
@@ -114,25 +103,23 @@ class Profile extends React.Component {
                 <Snippet>responsibilities.title</Snippet>
               </dt>
 
-              {!isEmpty(estRoles) && (
-                <Fragment>
-                  {estRoles.map(({ type, id }) => (
-                    <dd key={id}>{defineValue(type.toUpperCase())}</dd>
-                  ))}
-                </Fragment>
-              )}
-              {isEmpty(estRoles) && (
-                <dd>
-                  <Snippet>responsibilities.noRoles</Snippet>
-                </dd>
-              )}
+              {
+                !isEmpty(estRoles) && estRoles.map(({ type, id }) => (
+                  <dd key={id}>{defineValue(type.toUpperCase())}</dd>
+                ))
+              }
+              {
+                isEmpty(estRoles) && (
+                  <dd><Snippet>responsibilities.noRoles</Snippet></dd>
+                )
+              }
             </dl>
           </Fragment>
         }
 
         {
           allowedActions.includes('profile.roles') &&
-          <p>
+          <p className="control-panel">
             <Link
               page='profile.role.apply.base'
               establishmentId={estId}
@@ -140,6 +127,20 @@ class Profile extends React.Component {
               className='govuk-button'
               label={<Snippet>responsibilities.roleApply</Snippet>}
             />
+            {
+              !isEmpty(estRoles) && (
+                <Fragment>
+                  &nbsp;
+                  <Link
+                    page='profile.role.remove.base'
+                    establishmentId={estId}
+                    profileId={id}
+                    className='govuk-button'
+                    label={<Snippet>responsibilities.roleRemove</Snippet>}
+                  />
+                </Fragment>
+              )
+            }
           </p>
         }
 
@@ -173,7 +174,7 @@ class Profile extends React.Component {
         </dl>
         {
           (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive &&
-          <p>
+          <p className="control-panel">
             <Link
               page='pil.create'
               establishmentId={estId}
@@ -214,24 +215,25 @@ class Profile extends React.Component {
 
         <hr />
 
-        <dl>
-          {allowedActions.includes('profile.permissions') && (
-            <Fragment>
+        {allowedActions.includes('profile.permissions') && (
+          <Fragment>
+            <dl>
               <dt>
                 <Snippet role={profileRole}>permissionLevel.title</Snippet>
               </dt>
               <dt>{profileRole}</dt>
-              <dd>
-                <Link
-                  page='profile.permission'
-                  establishmentId={estId}
-                  profileId={id}
-                  label={<Snippet>pages.profile.permission.change</Snippet>}
-                />
-              </dd>
-            </Fragment>
-          )}
-        </dl>
+            </dl>
+            <p className="control-panel">
+              <Link
+                page='profile.permission'
+                establishmentId={estId}
+                profileId={id}
+                className='govuk-button'
+                label={<Snippet>pages.profile.permission.change</Snippet>}
+              />
+            </p>
+          </Fragment>
+        )}
       </Fragment>
     );
   }
