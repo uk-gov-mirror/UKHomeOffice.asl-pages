@@ -11,8 +11,6 @@ class Profile extends React.Component {
     const { id: estId } = this.props.establishment;
     const isOwnProfile = this.props.isOwnProfile || false;
 
-    console.log(this.props.allowedActions);
-
     const {
       pil,
       telephone,
@@ -46,7 +44,10 @@ class Profile extends React.Component {
                 activeProjects.map(project => (
                   <Fragment key={project.id}>
                     <p>
-                      <Link page='project.list' label={project.title} />
+                      <Link page='project.read'
+                        label={project.title}
+                        projectId={project.id}
+                      />
                     </p>
                     <p>
                       <span>
@@ -129,7 +130,7 @@ class Profile extends React.Component {
           }
         </section>
         {
-          (isOwnProfile || allowedActions.includes('pil.read.all')) && (
+          (isOwnProfile || allowedActions.includes('pil.read')) && (
             <section className="profile-section">
               <h3>
                 <Snippet>pil.title</Snippet>
