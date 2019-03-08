@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Header } from '@asl/components';
 import Profile from './profile';
@@ -11,14 +11,15 @@ const Index = ({
 }) => {
 
   return (
-    <Fragment>
-      <Header
-        title={model.name}
-        subtitle={establishment.name}
-      />
-      <hr />
-      <Profile profile={model} establishment={establishment} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />
-    </Fragment>
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        <Header
+          title={model.name}
+          subtitle={establishment.name}
+        />
+        <Profile profile={model} establishment={establishment} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />
+      </div>
+    </div>
   );
 };
 
