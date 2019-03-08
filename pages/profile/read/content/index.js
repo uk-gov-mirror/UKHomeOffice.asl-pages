@@ -15,8 +15,8 @@ module.exports = {
   contactDetails: {
     title: 'Contact Details',
     professionalAddress: 'Professional Address',
-    telephone: 'Telephone',
-    email: 'Email Address'
+    telephone: 'Telephone:',
+    email: 'Email Address:'
   },
   permissionLevel: {
     title: 'Permission level'

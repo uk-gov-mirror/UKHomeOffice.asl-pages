@@ -11,24 +11,23 @@ class Profile extends React.Component {
     const { id: estId } = this.props.establishment;
     const isOwnProfile = this.props.isOwnProfile || false;
 
+    console.log(this.props.allowedActions);
+
     const {
       pil,
       telephone,
       email,
       roles,
-      projects,
+      projects = [],
       establishments,
       id
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions;
-    const activeProjects = projects.filter(
-      ({ establishmentId, status }) =>
-        status === 'active' && establishmentId === estId
-    );
-    const estRoles = roles.filter(
-      ({ establishmentId }) => establishmentId === estId
-    );
+    const activeProjects = projects.filter(({ establishmentId, status }) => status === 'active' && establishmentId === estId);
+    const estRoles = roles.filter(({ establishmentId }) => establishmentId === estId);
+
+    const canSeeProjects = activeProjects && (isOwnProfile || allowedActions.includes('project.read.all'));
 
     const profileRole = establishments.find(est => est.id === estId).role;
     const pilIncomplete = pil && pil.status !== 'active';
@@ -36,204 +35,190 @@ class Profile extends React.Component {
 
     return (
       <Fragment>
-
-        {activeProjects && (
-          <Fragment>
-            <dl>
-              <dt>
+        {
+          canSeeProjects && (
+            <section className="profile-section">
+              <h3>
                 <Snippet>projects.title</Snippet>
-              </dt>
-              <dd>
-                {!isEmpty(activeProjects) &&
-                  activeProjects.map(
-                    project =>
-                      project.status && (
-                        <Fragment key={project.id}>
-                          <p>
-                            <Link page='project.list' label={project.title} />
-                          </p>
-                          <p>
-                            <span>
-                              <Snippet licenceNumber={project.licenceNumber}>
-                                projects.licenceNumber
-                              </Snippet>
-                            </span>
-                          </p>
-                          <p>
-                            <span>
-                              <Snippet
-                                expiryDate={format(
-                                  project.expiryDate,
-                                  dateFormat.medium
-                                )}
-                              >
-                                projects.expiryDate
-                              </Snippet>
-                            </span>
-                          </p>
-                        </Fragment>
-                      )
-                  )}
-                {isEmpty(activeProjects) && (
-                  <Snippet>projects.noProjects</Snippet>
-                )}
-              </dd>
-            </dl>
-          </Fragment>
-        )}
-
-        {
-          (allowedActions.includes('project.apply') && <Fragment>
-            <form method='POST' action={`/e/${estId}/projects/create`}>
-              <p className="control-panel">
-                <Button className='govuk-button add-margin'>
-                  <Snippet>buttons.pplApply</Snippet>
-                </Button>
-              </p>
-            </form>
-          </Fragment>)
-        }
-
-        <hr />
-
-        {
-          <Fragment>
-            <dl>
-              <dt>
-                <Snippet>responsibilities.title</Snippet>
-              </dt>
+              </h3>
 
               {
-                !isEmpty(estRoles) && estRoles.map(({ type, id }) => (
-                  <dd key={id}>{defineValue(type.toUpperCase())}</dd>
+                activeProjects.map(project => (
+                  <Fragment key={project.id}>
+                    <p>
+                      <Link page='project.list' label={project.title} />
+                    </p>
+                    <p>
+                      <span>
+                        <Snippet licenceNumber={project.licenceNumber}>
+                          projects.licenceNumber
+                        </Snippet>
+                      </span>
+                    </p>
+                    <p>
+                      <span>
+                        <Snippet
+                          expiryDate={format(
+                            project.expiryDate,
+                            dateFormat.medium
+                          )}
+                        >
+                          projects.expiryDate
+                        </Snippet>
+                      </span>
+                    </p>
+                  </Fragment>
                 ))
               }
               {
-                isEmpty(estRoles) && (
-                  <dd><Snippet>responsibilities.noRoles</Snippet></dd>
+                isEmpty(activeProjects) && (
+                  <p><Snippet>projects.noProjects</Snippet></p>
                 )
               }
-            </dl>
-          </Fragment>
+              {
+                isOwnProfile && (
+                  <form method='POST' action={`/e/${estId}/projects/create`}>
+                    <p className="control-panel">
+                      <Button className='govuk-button add-margin'>
+                        <Snippet>buttons.pplApply</Snippet>
+                      </Button>
+                    </p>
+                  </form>
+                )
+              }
+            </section>
+          )
         }
-
-        {
-          allowedActions.includes('profile.roles') &&
-          <p className="control-panel">
-            <Link
-              page='profile.role.apply.base'
-              establishmentId={estId}
-              profileId={id}
-              className='govuk-button'
-              label={<Snippet>responsibilities.roleApply</Snippet>}
-            />
-            {
-              !isEmpty(estRoles) && (
-                <Fragment>
-                  &nbsp;
-                  <Link
-                    page='profile.role.remove.base'
-                    establishmentId={estId}
-                    profileId={id}
-                    className='govuk-button'
-                    label={<Snippet>responsibilities.roleRemove</Snippet>}
-                  />
-                </Fragment>
-              )
-            }
-          </p>
-        }
-
-        <hr />
-
-        <dl>
-          <dt>
-            <Snippet>pil.title</Snippet>
-          </dt>
-          {pil && pil.licenceNumber && (
-            <Fragment>
-              <dd>
-                <Link
-                  page='pil.read'
-                  pilId={pil.id}
-                  label={pil.licenceNumber}
-                />
-              </dd>
-            </Fragment>
-          )}
-          {!pil && (
-            <dd>
-              <Snippet>pil.noPil</Snippet>
-            </dd>
-          )}
+        <section className="profile-section">
+          <h3>
+            <Snippet>responsibilities.title</Snippet>
+          </h3>
           {
-            pil && pilIncomplete && (<dd>
-              <Snippet>pil.incompletePil</Snippet>
-            </dd>)
+            !isEmpty(estRoles) && estRoles.map(({ type, id }) => (
+              <p key={id}>{defineValue(type.toUpperCase())}</p>
+            ))
           }
-        </dl>
+          {
+            isEmpty(estRoles) && (
+              <p><Snippet>responsibilities.noRoles</Snippet></p>
+            )
+          }
+          {
+            allowedActions.includes('profile.roles') && (
+              <p className="control-panel">
+                <Link
+                  page='profile.role.apply.base'
+                  establishmentId={estId}
+                  profileId={id}
+                  className='govuk-button'
+                  label={<Snippet>responsibilities.roleApply</Snippet>}
+                />
+                {
+                  !isEmpty(estRoles) && (
+                    <Link
+                      page='profile.role.remove.base'
+                      establishmentId={estId}
+                      profileId={id}
+                      className='govuk-button'
+                      label={<Snippet>responsibilities.roleRemove</Snippet>}
+                    />
+                  )
+                }
+              </p>
+            )
+          }
+        </section>
         {
-          (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive &&
-          <p className="control-panel">
-            <Link
-              page='pil.create'
-              establishmentId={estId}
-              profileId={id}
-              className='govuk-button'
-              label={<Snippet>{`buttons.${pilIncomplete ? 'view' : 'pilApply'}`}</Snippet>}
-            />
-          </p>
+          (isOwnProfile || allowedActions.includes('pil.read.all')) && (
+            <section className="profile-section">
+              <h3>
+                <Snippet>pil.title</Snippet>
+              </h3>
+              {
+                pil && pil.licenceNumber && (
+                  <p>
+                    <Link
+                      page='pil.read'
+                      pilId={pil.id}
+                      label={pil.licenceNumber}
+                    />
+                  </p>
+                )
+              }
+              {
+                !pil && (
+                  <p>
+                    <Snippet>pil.noPil</Snippet>
+                  </p>
+                )
+              }
+              {
+                pil && pilIncomplete && (
+                  <p>
+                    <Snippet>pil.incompletePil</Snippet>
+                  </p>
+                )
+              }
+              {
+                (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive && (
+                  <p className="control-panel">
+                    <Link
+                      page='pil.create'
+                      establishmentId={estId}
+                      profileId={id}
+                      className='govuk-button'
+                      label={<Snippet>{`buttons.${pilIncomplete ? 'view' : 'pilApply'}`}</Snippet>}
+                    />
+                  </p>
+                )
+              }
+            </section>
+          )
         }
-
-        <hr />
-
-        {(telephone || email) && (
-          <Fragment>
-            <dl>
-              <dt>
+        {
+          (telephone || email) && (
+            <section className="profile-section">
+              <h3>
                 <Snippet>contactDetails.title</Snippet>
-              </dt>
-              {email && (
-                <Fragment>
-                  <dd>
-                    <Snippet>contactDetails.email</Snippet>:{' '}
+              </h3>
+              {
+                email && (
+                  <p>
+                    <Snippet>contactDetails.email</Snippet><br />
                     <a href={`mailto:${email}`}>{email}</a>
-                  </dd>
-                </Fragment>
-              )}
-              {telephone && (
-                <Fragment>
-                  <dd>
-                    <Snippet>contactDetails.telephone</Snippet>
-                    <p>{telephone}</p>
-                  </dd>
-                </Fragment>
-              )}
-            </dl>
-          </Fragment>
-        )}
-
-        <hr />
-
-        {allowedActions.includes('profile.permissions') && (
-          <Fragment>
-            <dl>
-              <dt>
+                  </p>
+                )
+              }
+              {
+                telephone && (
+                  <p>
+                    <Snippet>contactDetails.telephone</Snippet><br />
+                    {telephone}
+                  </p>
+                )
+              }
+            </section>
+          )
+        }
+        {
+          allowedActions.includes('profile.permissions') && (
+            <section className="profile-section">
+              <h3>
                 <Snippet role={profileRole}>permissionLevel.title</Snippet>
-              </dt>
-              <dt>{profileRole}</dt>
-            </dl>
-            <p className="control-panel">
-              <Link
-                page='profile.permission'
-                establishmentId={estId}
-                profileId={id}
-                className='govuk-button'
-                label={<Snippet>pages.profile.permission.change</Snippet>}
-              />
-            </p>
-          </Fragment>
-        )}
+              </h3>
+              <p>{profileRole}</p>
+              <p className="control-panel">
+                <Link
+                  page='profile.permission'
+                  establishmentId={estId}
+                  profileId={id}
+                  className='govuk-button'
+                  label={<Snippet>pages.profile.permission.change</Snippet>}
+                />
+              </p>
+            </section>
+          )
+        }
       </Fragment>
     );
   }

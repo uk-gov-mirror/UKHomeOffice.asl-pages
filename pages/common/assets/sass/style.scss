@@ -2,6 +2,16 @@
 @import '@ukhomeoffice/react-components';
 @import '@asl/components';
 
+.profile-section {
+  border-top: 1px solid #333;
+  padding-top: $govuk-gutter;
+  padding-bottom: $govuk-gutter;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
 .applicant {
   margin-bottom: $govuk-gutter * 2;
 }
