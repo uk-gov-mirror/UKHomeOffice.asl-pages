@@ -25,6 +25,22 @@ const Pil = ({ profile, formFields, task, children }) => {
         </dl>
       </StickyNavAnchor>
 
+      <StickyNavAnchor id="procedures">
+        <h2><Snippet>sticky-nav.procedures</Snippet></h2>
+        {
+          pil.procedures.length > 0
+            ? (
+              <Fragment>
+                <h3><Snippet>pil.procedures.categories</Snippet></h3>
+                { pil.procedures.map((procedure, index) => (
+                  <p key={index}>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
+                ))}
+              </Fragment>
+            )
+            : <p><em><Snippet>pil.procedures.none</Snippet></em></p>
+        }
+      </StickyNavAnchor>
+
       <StickyNavAnchor id="training">
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {
@@ -77,22 +93,6 @@ const Pil = ({ profile, formFields, task, children }) => {
               </div>
             ))
             : <p><em><Snippet>pil.exemptions.none</Snippet></em></p>
-        }
-      </StickyNavAnchor>
-
-      <StickyNavAnchor id="procedures">
-        <h2><Snippet>sticky-nav.procedures</Snippet></h2>
-        {
-          pil.procedures.length > 0
-            ? (
-              <Fragment>
-                <h3><Snippet>pil.procedures.categories</Snippet></h3>
-                { pil.procedures.map((procedure, index) => (
-                  <p key={index}>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
-                ))}
-              </Fragment>
-            )
-            : <p><em><Snippet>pil.procedures.none</Snippet></em></p>
         }
       </StickyNavAnchor>
 
