@@ -3,7 +3,7 @@ module.exports = {
   status: {
     'ntco-endorsed': {
       action: 'Yes',
-      declaration: 'I confirm that the applicant holds the neccessary training or experience to carry out the categories of procedures listed in this application'
+      declaration: 'I confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application'
     },
     'returned-to-applicant': {
       'with-ntco': 'No'
