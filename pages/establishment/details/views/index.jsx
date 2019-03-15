@@ -71,36 +71,40 @@ const Index = ({
             {
               (!!killing.length || !!rehomes.length) && <ExpandingPanel title={<Snippet>authorisations.title</Snippet>}>
                 {
-                  !!killing.length && <h2><Snippet>authorisations.killing.title</Snippet></h2>
-                  <dl>
-                    {
-                      killing.map(({ method, description }, index) =>
-                        <div key={index}>
-                          <dt><Snippet>authorisations.killing.method</Snippet></dt>
-                          <dd>{ method }</dd>
+                  !!killing.length && <Fragment>
+                    <h2><Snippet>authorisations.killing.title</Snippet></h2>
+                    <dl>
+                      {
+                        killing.map(({ method, description }, index) =>
+                          <div key={index}>
+                            <dt><Snippet>authorisations.killing.method</Snippet></dt>
+                            <dd>{ method }</dd>
 
-                          <dt><Snippet>authorisations.killing.applicableAnimals</Snippet></dt>
-                          <dd>{ description }</dd>
-                        </div>
-                      )
-                    }
-                  </dl>
+                            <dt><Snippet>authorisations.killing.applicableAnimals</Snippet></dt>
+                            <dd>{ description }</dd>
+                          </div>
+                        )
+                      }
+                    </dl>
+                  </Fragment>
                 }
                 {
-                  !!rehomes.length && <h2><Snippet>authorisations.rehoming.title</Snippet></h2>
-                  <dl>
-                    {
-                      rehomes.map(({ method, description }, index) =>
-                        <Fragment key={index}>
-                          <dt><Snippet>authorisations.rehoming.circumstances</Snippet></dt>
-                          <dd>{ method }</dd>
+                  !!rehomes.length && <Fragment>
+                    <h2><Snippet>authorisations.rehoming.title</Snippet></h2>
+                    <dl>
+                      {
+                        rehomes.map(({ method, description }, index) =>
+                          <Fragment key={index}>
+                            <dt><Snippet>authorisations.rehoming.circumstances</Snippet></dt>
+                            <dd>{ method }</dd>
 
-                          <dt><Snippet>authorisations.rehoming.applicableAnimals</Snippet></dt>
-                          <dd>{ description }</dd>
-                        </Fragment>
-                      )
-                    }
-                  </dl>
+                            <dt><Snippet>authorisations.rehoming.applicableAnimals</Snippet></dt>
+                            <dd>{ description }</dd>
+                          </Fragment>
+                        )
+                      }
+                    </dl>
+                  </Fragment>
                 }
               </ExpandingPanel>
             }
