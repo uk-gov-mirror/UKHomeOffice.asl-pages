@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
+
 import {
   Accordion,
   ExpandingPanel,
@@ -56,7 +58,7 @@ const Index = ({
                 ? (
                   <Fragment>
                     <p><Snippet>conditions.hasConditions</Snippet></p>
-                    <p>{ conditions }</p>
+                    <ReactMarkdown>{ conditions }</ReactMarkdown>
                   </Fragment>
                 )
                 : <p><Snippet>conditions.noConditions</Snippet></p>
