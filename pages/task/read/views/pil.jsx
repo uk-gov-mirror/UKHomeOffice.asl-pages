@@ -80,7 +80,7 @@ const Pil = ({ profile, formFields, task, children }) => {
       <StickyNavAnchor id="exemptions">
         <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
         {
-          profile.exemptions.length > 0
+          (profile.exemptions && !!profile.exemptions.length)
             ? profile.exemptions.map((exemption, index) => (
               <div key={index}>
                 <dl>
