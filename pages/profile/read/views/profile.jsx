@@ -25,7 +25,7 @@ class Profile extends React.Component {
     const activeProjects = projects.filter(({ establishmentId, status }) => status === 'active' && establishmentId === estId);
     const estRoles = roles.filter(({ establishmentId }) => establishmentId === estId);
 
-    const canSeeProjects = activeProjects.length && (isOwnProfile || allowedActions.includes('project.read.all'));
+    const canSeeProjects = !!activeProjects.length && (isOwnProfile || allowedActions.includes('project.read.all'));
 
     const profileRole = establishments.find(est => est.id === estId).role;
     const pilIncomplete = pil && pil.status !== 'active';
