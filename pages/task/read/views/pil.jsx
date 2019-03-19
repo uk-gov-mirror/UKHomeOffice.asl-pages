@@ -44,7 +44,7 @@ const Pil = ({ profile, formFields, task, children }) => {
       <StickyNavAnchor id="training">
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {
-          profile.certificates.length > 0
+          (profile.certificates && !!profile.certificates.length)
             ? profile.certificates.map((certificate, index) => (
               <div key={index}>
                 <h3><Snippet>pil.training.certificate.details</Snippet></h3>
