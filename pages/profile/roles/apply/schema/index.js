@@ -1,14 +1,7 @@
 const namedRoles = require('../../content/named-roles');
 
-const NAMED_ROLES = [
-  'nacwo',
-  'nio',
-  'ntco',
-  'nvs'
-];
-
 module.exports = roles => {
-  roles = NAMED_ROLES.filter(r => !roles.includes(r));
+  roles = Object.keys(namedRoles).filter(r => !roles.includes(r));
 
   const options = roles.map(role => {
     return {

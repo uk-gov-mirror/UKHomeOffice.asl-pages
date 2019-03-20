@@ -1,6 +1,18 @@
-module.exports = {
-  nacwo: 'Named Animal Care and Welfare Officer (NACWO)',
-  nio: 'Named Information Officer (NIO)',
-  ntco: 'Named Training and Competency Officer (NTCO)',
-  nvs: 'Named Veterinary Surgeon (NVS)'
-};
+const dictionary = require('@asl/dictionary');
+
+const roles = [
+  'nacwo',
+  'nio',
+  'nvs',
+  'ntco',
+  'nprc'
+];
+
+module.exports = roles.reduce((map, role) => {
+  return {
+    ...map,
+    [role]: `${dictionary[role.toUpperCase()]} (${role.toUpperCase()})`
+  };
+}, {
+  pelh: 'Establishment Licence Holder'
+});
