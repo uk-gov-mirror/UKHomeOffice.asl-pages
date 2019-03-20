@@ -14,6 +14,8 @@ module.exports = settings => {
         .then(response => {
           req.establishment = response.json.data;
           res.locals.static.establishment = response.json.data;
+          res.locals.static.pelh = req.establishment.roles.find(r => r.type === 'pelh');
+          res.locals.static.nprc = req.establishment.roles.find(r => r.type === 'nprc');
         })
         .then(() => next())
         .catch(next);

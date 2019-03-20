@@ -17,10 +17,11 @@ const Index = ({
     address,
     authorisations,
     conditions,
-    pelh,
     ...rest
   },
   url,
+  pelh,
+  nprc,
   ...props
 }) => {
 
@@ -42,8 +43,10 @@ const Index = ({
             <dt><Snippet>address</Snippet></dt>
             <dd>{ address }</dd>
 
-            <dt><Snippet>establishmentLicenceHolder</Snippet></dt>
-            <dd><Link page="profile.view" profileId={ pelh.id } label={ pelh.name } /></dd>
+            {pelh && <Fragment><dt><Snippet>establishmentLicenceHolder</Snippet></dt>
+              <dd><Link page="profile.view" profileId={pelh.id} label={pelh.name} /></dd></Fragment>}
+            {nprc && <Fragment><dt><Snippet>namedPersonResponsibleForCompliance</Snippet></dt>
+              <dd><Link page="profile.view" profileId={nprc.id} label={nprc.name} /></dd></Fragment>}
 
             <dt><Snippet>licenced.title</Snippet></dt>
             <dd>
@@ -115,6 +118,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, pelh, nprc } }) => ({ establishment, pelh, nprc });
 
 export default connect(mapStateToProps)(Index);

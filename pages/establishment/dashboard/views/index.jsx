@@ -25,10 +25,11 @@ const DashboardLink = ({ path }) => (
 const Index = ({
   establishment: {
     name,
-    licenceNumber,
-    pelh
+    licenceNumber
   },
-  allowedActions
+  allowedActions,
+  pelh,
+  nprc
 }) => (
   <Fragment>
     <Header title={name} />
@@ -43,14 +44,16 @@ const Index = ({
           <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
           <dd>{ licenceNumber }</dd>
 
-          <dt><Snippet>establishmentLicenceHolder</Snippet></dt>
-          <dd><Link page="profile.view" profileId={ pelh.id } label={pelh.name} /></dd>
+          {pelh && <Fragment><dt><Snippet>establishmentLicenceHolder</Snippet></dt>
+            <dd><Link page="profile.view" profileId={pelh.id} label={pelh.name} /></dd></Fragment>}
+          {nprc && <Fragment><dt><Snippet>namedPersonResponsibleForCompliance</Snippet></dt>
+            <dd><Link page="profile.view" profileId={nprc.id} label={nprc.name} /></dd></Fragment>}
         </dl>
       </Sidebar>
     </div>
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
+const mapStateToProps = ({ static: { establishment, allowedActions, pelh, nprc } }) => ({ establishment, allowedActions, pelh, nprc });
 
 export default connect(mapStateToProps)(Index);
