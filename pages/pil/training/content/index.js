@@ -19,11 +19,11 @@ module.exports = {
       required: 'You need to enter a certificate number'
     },
     accreditingBody: {
-      required: 'You need to chose an accreditation body.'
+      required: 'You need to choose an accreditation body.'
     },
     passDate: {
       required: 'You need to enter the date when the certificate was awarded.',
-      validDate: 'Date awarded must be a valid date',
+      validDate: 'Date awarded must be a valid date.',
       dateIsBefore: 'Date awarded must be in the past'
     }
   }
