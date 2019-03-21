@@ -113,7 +113,12 @@ const Task = ({ task, profile }) => {
 
       <div className="govuk-inset-text submitted-by">
         <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
-        <Link page="profile.view" profileId={changedBy.id} label={changedBy.name} /><span>&nbsp;</span>
+        <Link
+          page="profile.view"
+          profileId={changedBy.id}
+          establishmentId={task.data.establishmentId}
+          label={changedBy.name}
+        /><span>&nbsp;</span>
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
 
