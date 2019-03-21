@@ -45,9 +45,9 @@ const Index = ({
           <dd>{ licenceNumber }</dd>
 
           {pelh && <Fragment><dt><Snippet>establishmentLicenceHolder</Snippet></dt>
-            <dd><Link page="profile.view" profileId={pelh.id} label={pelh.name} /></dd></Fragment>}
+            <dd><Link page="profile.view" profileId={pelh.profile.id} label={pelh.profile.name} /></dd></Fragment>}
           {nprc && <Fragment><dt><Snippet>namedPersonResponsibleForCompliance</Snippet></dt>
-            <dd><Link page="profile.view" profileId={nprc.id} label={nprc.name} /></dd></Fragment>}
+            <dd><Link page="profile.view" profileId={nprc.profile.id} label={nprc.profile.name} /></dd></Fragment>}
         </dl>
       </Sidebar>
     </div>
