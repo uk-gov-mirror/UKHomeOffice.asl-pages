@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Diff,
@@ -26,8 +26,12 @@ const Playback = ({ task, values = {}, model, establishment, formFields, isAsru,
         <dt><Snippet>licenceNumber</Snippet></dt>
         <dd>{ establishment.licenceNumber }</dd>
 
-        <dt><Snippet>licenceHolder</Snippet></dt>
-        <dd>{ establishment.pelh.name }</dd>
+        {
+          establishment.pelh && <Fragment>
+            <dt><Snippet>licenceHolder</Snippet></dt>
+            <dd>{ establishment.pelh.name }</dd>
+          </Fragment>
+        }
       </dl>
     </StickyNavAnchor>
     {

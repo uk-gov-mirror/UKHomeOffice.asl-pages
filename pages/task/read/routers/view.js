@@ -6,7 +6,7 @@ const form = require('../../../common/routers/form');
 const schemaGenerator = require('../../schema');
 const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
-const { getNacwoById } = require('../../../common/helpers');
+const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 
 const getRelevantActivity = activityLog => activityLog.filter(log => {
   if (!log.eventName.includes('status:')) {
@@ -54,10 +54,10 @@ module.exports = () => {
   app.use((req, res, next) => {
     const establishmentId = get(req.task, 'data.data.establishmentId');
     if (establishmentId) {
-      return req.api(`/establishment/${establishmentId}`)
-        .then(({ json: { data } }) => {
-          req.establishmentId = data.id;
-          req.establishment = data;
+      return getEstablishment(establishmentId)
+        .then(establishment => {
+          req.establishmentId = establishment.id;
+          req.establishment = establishment;
         })
         .then(() => next())
         .catch(next);

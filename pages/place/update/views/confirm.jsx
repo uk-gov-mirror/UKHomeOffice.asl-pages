@@ -22,9 +22,7 @@ const Confirm = ({
   establishment: {
     name,
     licenceNumber,
-    pelh: {
-      name: pelhName
-    }
+    pelh
   },
   ...props
 }) => (
@@ -39,9 +37,12 @@ const Confirm = ({
 
           <dt><Snippet>licenceNumber</Snippet></dt>
           <dd>{ licenceNumber }</dd>
-
-          <dt><Snippet>licenceHolder</Snippet></dt>
-          <dd>{ pelhName }</dd>
+          {
+            pelh && <Fragment>
+              <dt><Snippet>licenceHolder</Snippet></dt>
+              <dd>{ pelh.name }</dd>
+            </Fragment>
+          }
         </dl>
         <h2><Snippet optional site={model.site}>subtitle</Snippet></h2>
         {
