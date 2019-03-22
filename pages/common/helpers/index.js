@@ -1,7 +1,7 @@
 const { get } = require('lodash');
 
-const getEstablishment = req =>
-  req.api(`/establishment/${req.establishmentId}`)
+const getEstablishment = (req, establishmentId) =>
+  req.api(`/establishment/${establishmentId || req.establishmentId}`)
     .then(({ json: { data } }) => {
       const pelhs = data.roles.filter(r => r.type === 'pelh');
       const nprcs = data.roles.filter(r => r.type === 'nprc');
