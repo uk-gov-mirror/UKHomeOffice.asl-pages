@@ -54,7 +54,7 @@ module.exports = () => {
   app.use((req, res, next) => {
     const establishmentId = get(req.task, 'data.data.establishmentId');
     if (establishmentId) {
-      return getEstablishment(establishmentId)
+      return getEstablishment(req, establishmentId)
         .then(establishment => {
           req.establishmentId = establishment.id;
           req.establishment = establishment;
