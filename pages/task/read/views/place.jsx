@@ -12,6 +12,13 @@ import { schema } from '../../../place/schema';
 import formatters from '../../../place/formatters';
 import { hasChanged } from '../../../../lib/utils';
 
+const LicenceHolder = ({ type, profile }) => (
+  <Fragment>
+    <dt><Snippet>{type}</Snippet></dt>
+    <dd>{`${profile.firstName} ${profile.lastName}`}</dd>
+  </Fragment>
+);
+
 const Playback = ({ task, values = {}, model, establishment, formFields, isAsru, children }) => (
   <StickyNavPage>
 
@@ -25,12 +32,11 @@ const Playback = ({ task, values = {}, model, establishment, formFields, isAsru,
 
         <dt><Snippet>licenceNumber</Snippet></dt>
         <dd>{ establishment.licenceNumber }</dd>
-
         {
-          establishment.pelh && <Fragment>
-            <dt><Snippet>licenceHolder</Snippet></dt>
-            <dd>{ establishment.pelh.name }</dd>
-          </Fragment>
+          establishment.pelh && <LicenceHolder type="pelh" profile={establishment.pelh} />
+        }
+        {
+          establishment.nprc && <LicenceHolder type="nprc" profile={establishment.nprc} />
         }
       </dl>
     </StickyNavAnchor>

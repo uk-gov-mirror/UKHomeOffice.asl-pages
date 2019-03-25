@@ -12,6 +12,7 @@ import {
 } from '@asl/components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
+import LicenceHolder from '../../../common/components/licence-holder';
 
 const Confirm = ({
   errors = {},
@@ -22,7 +23,8 @@ const Confirm = ({
   establishment: {
     name,
     licenceNumber,
-    pelh
+    pelh,
+    nprc
   },
   ...props
 }) => (
@@ -38,10 +40,10 @@ const Confirm = ({
           <dt><Snippet>licenceNumber</Snippet></dt>
           <dd>{ licenceNumber }</dd>
           {
-            pelh && <Fragment>
-              <dt><Snippet>licenceHolder</Snippet></dt>
-              <dd>{ pelh.name }</dd>
-            </Fragment>
+            pelh && <LicenceHolder type="pelh" profile={pelh} />
+          }
+          {
+            nprc && <LicenceHolder type="nprc" profile={nprc} />
           }
         </dl>
         <h2><Snippet optional site={model.site}>subtitle</Snippet></h2>

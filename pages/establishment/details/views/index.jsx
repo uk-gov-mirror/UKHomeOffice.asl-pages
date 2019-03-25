@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
+import { ProfileLink } from '../../components';
 
 import {
   Accordion,
   ExpandingPanel,
   Snippet,
-  Link,
   Header
 } from '@asl/components';
 
@@ -17,11 +17,11 @@ const Index = ({
     address,
     authorisations,
     conditions,
+    pelh,
+    nprc,
     ...rest
   },
   url,
-  pelh,
-  nprc,
   ...props
 }) => {
 
@@ -43,11 +43,12 @@ const Index = ({
             <dt><Snippet>address</Snippet></dt>
             <dd>{ address }</dd>
 
-            {pelh && <Fragment><dt><Snippet>establishmentLicenceHolder</Snippet></dt>
-              <dd><Link page="profile.view" profileId={pelh.profile.id} label={pelh.profile.name} /></dd></Fragment>}
-            {nprc && <Fragment><dt><Snippet>namedPersonResponsibleForCompliance</Snippet></dt>
-              <dd><Link page="profile.view" profileId={nprc.profile.id} label={nprc.profile.name} /></dd></Fragment>}
-
+            {
+              pelh && <ProfileLink type="pelh" profile={pelh} />
+            }
+            {
+              nprc && <ProfileLink type="nprc" profile={nprc} />
+            }
             <dt><Snippet>licenced.title</Snippet></dt>
             <dd>
               <ul>
@@ -118,6 +119,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, pelh, nprc } }) => ({ establishment, pelh, nprc });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(Index);

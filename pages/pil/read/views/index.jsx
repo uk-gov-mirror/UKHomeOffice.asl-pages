@@ -23,7 +23,7 @@ const PIL = ({ model, profile }) => {
     <Fragment>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={profile.name}
+        subtitle={`${profile.firstName} ${profile.lastName}`}
       />
       { model.status === 'active'
         ? <ModelSummary model={model} formatters={formatters} />

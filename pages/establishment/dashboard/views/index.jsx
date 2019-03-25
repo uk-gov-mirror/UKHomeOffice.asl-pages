@@ -7,6 +7,7 @@ import {
   Header,
   PanelList
 } from '@asl/components';
+import { ProfileLink } from '../../components';
 
 const links = [
   { path: 'establishment.read', permissions: 'establishment.read' },
@@ -25,11 +26,11 @@ const DashboardLink = ({ path }) => (
 const Index = ({
   establishment: {
     name,
-    licenceNumber
+    licenceNumber,
+    pelh,
+    nprc
   },
-  allowedActions,
-  pelh,
-  nprc
+  allowedActions
 }) => (
   <Fragment>
     <Header title={name} />
@@ -44,16 +45,18 @@ const Index = ({
           <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
           <dd>{ licenceNumber }</dd>
 
-          {pelh && <Fragment><dt><Snippet>establishmentLicenceHolder</Snippet></dt>
-            <dd><Link page="profile.view" profileId={pelh.profile.id} label={pelh.profile.name} /></dd></Fragment>}
-          {nprc && <Fragment><dt><Snippet>namedPersonResponsibleForCompliance</Snippet></dt>
-            <dd><Link page="profile.view" profileId={nprc.profile.id} label={nprc.profile.name} /></dd></Fragment>}
+          {
+            pelh && <ProfileLink type="pelh" profile={pelh} />
+          }
+          {
+            nprc && <ProfileLink type="nprc" profile={nprc} />
+          }
         </dl>
       </Sidebar>
     </div>
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, allowedActions, pelh, nprc } }) => ({ establishment, allowedActions, pelh, nprc });
+const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
 
 export default connect(mapStateToProps)(Index);

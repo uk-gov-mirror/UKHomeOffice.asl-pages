@@ -117,7 +117,7 @@ const Task = ({ task, profile }) => {
           page="profile.view"
           profileId={changedBy.id}
           establishmentId={task.data.establishmentId}
-          label={changedBy.name}
+          label={`${changedBy.firstName} ${changedBy.lastName}`}
         /><span>&nbsp;</span>
         <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
       </div>
