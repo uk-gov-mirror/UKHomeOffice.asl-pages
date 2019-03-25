@@ -17,6 +17,20 @@ module.exports = settings => {
     next();
   });
 
+  app.use((req, res, next) => {
+    const params = {
+      id: req.projectId,
+      licenceHolderId: req.project.licenceHolderId,
+      establishment: req.establishment.id
+    };
+    req.user.can('project.update', params)
+      .then(canUpdate => {
+        res.locals.static.canUpdate = canUpdate;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
       .then(({ json: { data } }) => {

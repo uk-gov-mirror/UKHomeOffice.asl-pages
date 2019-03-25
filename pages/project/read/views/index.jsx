@@ -20,8 +20,10 @@ const getVersions = model => {
   return versions;
 };
 
-const App = ({ model, establishment }) => {
+const App = ({ model, establishment, canUpdate }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
+
+  const canAmend = canUpdate && model.status === 'active' && !openTask;
 
   return (
     <Fragment>
@@ -43,7 +45,7 @@ const App = ({ model, establishment }) => {
         }}
       />
       {
-        model.status === 'active' && !openTask && (
+        canAmend && (
           <form method="post">
             <Button>Amend licence</Button>
           </form>
@@ -56,6 +58,6 @@ const App = ({ model, establishment }) => {
   );
 };
 
-const mapStateToProps = ({ model, static: { establishment } }) => ({ model, establishment });
+const mapStateToProps = ({ model, static: { establishment, canUpdate } }) => ({ model, establishment, canUpdate });
 
 export default connect(mapStateToProps)(App);
