@@ -92,8 +92,8 @@ module.exports = {
   establishmentLicenceNumber: 'Establishment licence number',
   personalLicenceNumber: 'Personal licence number',
   licenceHolder: 'Licence holder',
-  establishmentLicenceHolder: 'Establishment licence holder',
-  namedPersonResponsibleForCompliance: 'Named person responsible for compliance',
+  pelh: 'Establishment licence holder',
+  nprc: 'Named person responsible for compliance',
   establishment: 'Establishment',
   buttons: {
     submit: 'Submit',

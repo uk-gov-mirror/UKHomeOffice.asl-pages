@@ -22,7 +22,7 @@ const joinAcronyms = data => {
 
 export const peopleFormatters = {
   name: {
-    format: (name, person) => <Link page="profile.view" profileId={person.id} label={ name } />
+    format: (name, person) => <Link page="profile.view" profileId={person.id} label={`${person.firstName} ${person.lastName}`} />
   },
   roles: {
     accessor: row => row.roles && row.roles.map(v => v.type),

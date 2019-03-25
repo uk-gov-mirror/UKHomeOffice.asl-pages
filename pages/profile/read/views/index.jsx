@@ -14,7 +14,7 @@ const Index = ({
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <Header
-          title={model.name}
+          title={`${model.firstName} ${model.lastName}`}
           subtitle={establishment.name}
         />
         <Profile profile={model} establishment={establishment} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />

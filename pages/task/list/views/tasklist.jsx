@@ -44,7 +44,7 @@ const formatters = {
     format: (type, model) => {
       const id = get(model, 'id');
       const licence = get(model, 'data.model');
-      const subject = get(model, 'data.subject.name');
+      const subject = get(model, 'data.subject');
 
       return (
         <Fragment>
@@ -59,7 +59,7 @@ const formatters = {
             subject && (
               <Fragment>
                 <br />
-                <span>{ subject }</span>
+                <span>{`${subject.firstName} ${subject.lastName}`}</span>
               </Fragment>
             )
           }

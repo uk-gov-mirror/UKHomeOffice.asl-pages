@@ -54,8 +54,8 @@ const baseSchema = {
 };
 
 const mapSchema = (nacwos, schema) => {
-  const options = nacwos.map(({ profile: { name, id } }) => ({
-    label: name,
+  const options = nacwos.map(({ profile: { firstName, lastName, id } }) => ({
+    label: `${firstName} ${lastName}`,
     value: id
   }));
   return merge({}, schema, {

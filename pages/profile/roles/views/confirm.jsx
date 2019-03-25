@@ -33,7 +33,7 @@ const Confirm = ({
           <p>{namedRoles[values.role]}</p>
 
           <h2><Snippet>onBehalfOf</Snippet></h2>
-          <p>{profile.name}</p>
+          <p>{`${profile.firstName} ${profile.lastName}`}</p>
 
           { values.rcvsNumber &&
             <Fragment>

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { StickyNavPage, StickyNavAnchor, Snippet, Link, Field } from '@asl/components';
+import LicenceHolder from '../../../common/components/licence-holder';
 
 const Role = ({ establishment, profile, task, values, formFields, children }) => (
   <StickyNavPage>
@@ -15,18 +16,17 @@ const Role = ({ establishment, profile, task, values, formFields, children }) =>
 
         <dt><Snippet>licenceNumber</Snippet></dt>
         <dd>{ establishment.licenceNumber }</dd>
-
         {
-          establishment.pelh && <Fragment>
-            <dt><Snippet>licenceHolder</Snippet></dt>
-            <dd>{ establishment.pelh.name }</dd>
-          </Fragment>
+          establishment.pelh && <LicenceHolder type="pelh" profile={establishment.pelh} />
+        }
+        {
+          establishment.nprc && <LicenceHolder type="nprc" profile={establishment.nprc} />
         }
       </dl>
     </StickyNavAnchor>
     <StickyNavAnchor id="applicant">
       <h2><Snippet>sticky-nav.applicant</Snippet></h2>
-      <Link page="profile.view" establishmentId={establishment.id} label={profile.name} />
+      <Link page="profile.view" establishmentId={establishment.id} label={`${profile.firstName} ${profile.lastName}`} />
     </StickyNavAnchor>
     {
       task.data.action === 'create' && (
