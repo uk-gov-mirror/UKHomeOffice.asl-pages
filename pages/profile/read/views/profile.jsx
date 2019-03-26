@@ -28,7 +28,7 @@ class Profile extends React.Component {
     const canSeeProjects = isOwnProfile || allowedActions.includes('project.read.all');
 
     const profileRole = establishments.find(est => est.id === estId).role;
-    const pilIncomplete = pil && pil.status !== 'active';
+    const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
     const pilActive = pil && pil.status === 'active';
 
     return (
