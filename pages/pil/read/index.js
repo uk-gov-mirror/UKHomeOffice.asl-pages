@@ -16,13 +16,20 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     res.locals.model = req.pil;
+
     res.locals.static.schema = {
       licenceNumber: {},
       status: {},
       issueDate: {},
       revocationDate: {},
       conditions: {},
-      procedures: {}
+      procedures: {},
+      notesCatD: {
+        show: false
+      },
+      notesCatF: {
+        show: false
+      }
     };
 
     if (!req.pil.revocationDate) {

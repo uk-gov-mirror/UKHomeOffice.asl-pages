@@ -15,6 +15,20 @@ const formatters = {
   },
   revocationDate: {
     format: revocationDate => dateFormatter(revocationDate, dateFormat.medium)
+  },
+  procedures: {
+    format: (procedures, pil) => (procedures || []).map(procedure => {
+      return <Fragment>
+        <p>
+          <strong>{procedure}</strong>: <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
+            {
+              procedure === 'F' && (
+                <em>: {pil.notesCatF}</em>
+              )
+            }
+        </p>
+      </Fragment>
+    })
   }
 };
 
