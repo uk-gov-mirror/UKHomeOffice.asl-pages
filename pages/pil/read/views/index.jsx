@@ -18,7 +18,7 @@ const formatters = {
   },
   procedures: {
     format: (procedures, pil) => (procedures || []).map(procedure => {
-      return <Fragment>
+      return (
         <p>
           <strong>{procedure}</strong>: <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
             {
@@ -27,7 +27,7 @@ const formatters = {
               )
             }
         </p>
-      </Fragment>
+      )
     })
   }
 };
