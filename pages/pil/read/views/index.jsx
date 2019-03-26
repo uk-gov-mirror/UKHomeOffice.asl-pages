@@ -19,15 +19,15 @@ const formatters = {
   procedures: {
     format: (procedures, pil) => (procedures || []).map(procedure => {
       return (
-        <p>
+        <p key={procedure}>
           <strong>{procedure}</strong>: <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
-            {
-              procedure === 'F' && (
-                <em>: {pil.notesCatF}</em>
-              )
-            }
+          {
+            procedure === 'F' && (
+              <em>: {pil.notesCatF}</em>
+            )
+          }
         </p>
-      )
+      );
     })
   }
 };
