@@ -162,7 +162,7 @@ module.exports = {
     application: {
       resubmitted: {
         title: 'Application sent',
-        subtitle: 'Confirmation has been send to {{email}}.',
+        subtitle: 'Confirmation has been sent to {{email}}.',
         body: `An inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
