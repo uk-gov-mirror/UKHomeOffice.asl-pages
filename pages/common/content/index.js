@@ -86,7 +86,8 @@ module.exports = {
       dashboard: 'Apply for categories A, B, C, D and F PIL',
       categoryAToF: 'Categories A,B,C,D and F',
       categoryE: 'Category E'
-    }
+    },
+    edit: 'Edit'
   },
   licenceNumber: 'Licence number',
   establishmentLicenceNumber: 'Establishment licence number',
@@ -94,6 +95,8 @@ module.exports = {
   licenceHolder: 'Licence holder',
   pelh: 'Establishment licence holder',
   nprc: 'Named person responsible for compliance',
+  inspectors: 'Inspectors',
+  poc: 'Point of Contact (PoC)',
   establishment: 'Establishment',
   buttons: {
     submit: 'Submit',
