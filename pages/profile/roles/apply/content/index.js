@@ -2,10 +2,10 @@ const { merge } = require('lodash');
 const baseContent = require('../../../content');
 
 module.exports = merge({}, baseContent, {
-  title: 'Profile amendment',
+  title: 'Amend profile',
   fields: {
     type: {
-      label: ''
+      label: 'Please select the role you want to apply for.'
     },
     rcvsNumber: {
       label: 'RCVS number'
