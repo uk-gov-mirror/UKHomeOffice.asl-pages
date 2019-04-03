@@ -2,7 +2,7 @@ const { merge } = require('lodash');
 const baseContent = require('../../../content');
 
 module.exports = merge({}, baseContent, {
-  title: 'Which role do you want to apply for?',
+  title: 'Profile amendment',
   fields: {
     type: {
       label: ''
@@ -11,8 +11,8 @@ module.exports = merge({}, baseContent, {
       label: 'RCVS number'
     },
     comment: {
-      label: 'Please explain why this person is suitable for the role.',
-      hint: 'For example, please include any relevant training or explain why training is not necessary.'
+      label: 'Why is this person suitable for this named role?',
+      hint: 'Include any relevant training in your answer, or explain why this training is not necessary.'
     }
   },
   buttons: {
