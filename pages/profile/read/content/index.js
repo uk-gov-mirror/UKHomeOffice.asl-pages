@@ -1,22 +1,22 @@
 module.exports = {
   profile: 'Profile',
   responsibilities: {
-    title: 'Roles',
-    noRoles: 'You don\'t have any named roles',
+    title: 'Named roles',
+    noRoles: 'None',
     roleApply: 'Apply for named role',
-    roleRemove: 'Remove a named role'
+    roleRemove: 'Remove role'
   },
   projects: {
-    title: 'Active Projects',
+    title: 'Active projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',
     expiryDate: 'Expiry date: {{expiryDate}}',
-    noProjects: 'You don\'t have any active projects'
+    noProjects: 'None'
   },
   contactDetails: {
-    title: 'Contact Details',
-    professionalAddress: 'Professional Address',
-    telephone: 'Telephone:',
-    email: 'Email Address:'
+    title: 'Contact details',
+    professionalAddress: 'Professional address',
+    telephone: 'Phone:',
+    email: 'Email address:'
   },
   permissionLevel: {
     title: 'Permission level'
@@ -29,16 +29,16 @@ module.exports = {
     view: 'View'
   },
   pil: {
-    title: 'Personal Licence',
-    noPil: 'You don\'t have a personal licence (PIL)',
-    incompletePil: 'You currently have a PIL application in progress.',
+    title: 'Personal licence',
+    noPil: 'None',
+    incompletePil: 'Application currently in progress.',
     user: {
-      incomplete: 'You have an incomplete PIL application.',
-      notStarted: 'You don\'t hold a personal (PIL) licence.'
+      incomplete: 'Application currently in progress.',
+      notStarted: 'None'
     },
     other: {
-      incomplete: 'Incomplete PIL application.',
-      notStarted: 'No personal (PIL) licence held.'
+      incomplete: 'Application currently in progress.',
+      notStarted: 'None'
     }
   }
 };
