@@ -5,7 +5,7 @@ module.exports = merge({}, baseContent, {
   title: 'Amend profile',
   fields: {
     role: {
-      label: ''
+      label: 'Please select the role you want to remove.'
     },
     comment: {
       label: 'Why are you removing this named role from this person?'
