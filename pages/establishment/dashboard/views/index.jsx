@@ -60,16 +60,11 @@ const Index = ({
         </Sidebar>
         <Sidebar>
           <dl>
-            {/* list the inspectors here - in the beginning I do not have any */}
             <dt><Snippet>inspectors</Snippet></dt>
-            {/* edit link is only shown if asruAdmin*/}
-            { asruAdmin && <dd><Link page="establishment.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            { asruAdmin && <dd><Link page="establishment.asru.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
 
-            {/* list the pocs here - in the beginning I do not have any */}
-            {/* <Fragment> */}
-            <dt><Snippet>poc</Snippet></dt>
-            {/* <dd><Link page="pocs.edit" label={ <Snippet>pages.edit</Snippet> } /></dd></Fragment> */}
-            { asruAdmin && <dd><Link page="establishment.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            <dt><Snippet>spoc</Snippet></dt>
+            { asruAdmin && <dd><Link page="establishment.asru.spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
           </dl>
         </Sidebar>
       </div>

@@ -26,16 +26,8 @@ const getNacwoById = (req, id) =>
     .then(nacwo => nacwo && nacwo.profile)
     .catch(err => Promise.reject(err));
 
-const getInspectors = req =>
-  req.api(`/establishment/${req.establishmentId}/profiles`)
-    .then(({ json: { data } }) => {
-      return data.filter(p => p.asruInspector);
-    })
-    .catch(err => Promise.reject(err));
-
 module.exports = {
   getNacwos,
   getNacwoById,
-  getEstablishment,
-  getInspectors
+  getEstablishment
 };

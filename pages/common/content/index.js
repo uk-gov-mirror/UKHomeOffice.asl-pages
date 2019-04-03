@@ -96,7 +96,7 @@ module.exports = {
   pelh: 'Establishment licence holder',
   nprc: 'Named person responsible for compliance',
   inspectors: 'Inspectors',
-  poc: 'Point of Contact (PoC)',
+  spoc: 'Single Point of Contact (SPoC)',
   establishment: 'Establishment',
   buttons: {
     submit: 'Submit',
