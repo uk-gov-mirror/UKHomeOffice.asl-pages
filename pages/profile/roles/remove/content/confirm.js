@@ -2,11 +2,11 @@ const { merge } = require('lodash');
 const baseContent = require('../../../content');
 
 module.exports = merge({}, baseContent, {
-  reviewRoleApplication: 'Please review your application to remove named people',
-  applyingFor: 'You are removing the role:',
+  reviewRoleApplication: 'Amend profile',
+  applyingFor: 'You are removing:',
   onBehalfOf: 'From the user:',
   rcvsNumber: 'RCVS number:',
-  explanation: 'Explain why you want to remove this person from the role:',
+  explanation: 'Why are you removing this named role from this person?',
   declarations: {
     title: 'Please confirm that you understand',
     declaration1: `Applicant authority, conflict of interests and PELh authority declaration text to go here`
