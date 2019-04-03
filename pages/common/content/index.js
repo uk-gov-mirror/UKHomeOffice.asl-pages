@@ -13,7 +13,7 @@ module.exports = {
       base: 'Personal licence'
     },
     place: {
-      list: 'Licensed premises'
+      list: 'Approved areas'
     },
     profile: {
       list: 'People',
@@ -77,8 +77,8 @@ module.exports = {
       read: 'Project'
     },
     place: {
-      list: 'Licensed premises',
-      edit: 'Change licensed premises',
+      list: 'Approved areas',
+      edit: 'Amend approved area',
       confirm: 'Confirm changes'
     },
     pil: {
