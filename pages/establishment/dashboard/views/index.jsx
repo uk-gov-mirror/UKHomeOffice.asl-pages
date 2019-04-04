@@ -28,7 +28,8 @@ const Index = ({
     name,
     licenceNumber,
     pelh,
-    nprc
+    nprc,
+    asru
   },
   allowedActions,
   profile: {
@@ -61,9 +62,29 @@ const Index = ({
         <Sidebar>
           <dl>
             <dt><Snippet>inspectors</Snippet></dt>
+            {
+              !asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
+                <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
+              ))
+            }
+            {
+              asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
+                <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+              ))
+            }
             { asruAdmin && <dd><Link page="establishment.asru.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
 
             <dt><Snippet>spoc</Snippet></dt>
+            {
+              !asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+                <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
+              ))
+            }
+            {
+              !asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+                <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+              ))
+            }
             { asruAdmin && <dd><Link page="establishment.asru.spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
           </dl>
         </Sidebar>
