@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import format from 'date-fns/format';
+import formatDate from 'date-fns/format';
 import { defineValue } from '../../../common/formatters';
 import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
@@ -13,15 +13,13 @@ class Profile extends React.Component {
 
     const {
       pil,
-      telephone,
-      email,
       roles,
       projects = [],
       establishments,
       id
     } = this.props.profile;
 
-    const allowedActions = this.props.allowedActions;
+    const allowedActions = this.props.allowedActions || [];
     const activeProjects = projects.filter(({ establishmentId, status }) => status === 'active' && establishmentId === estId);
     const estRoles = roles.filter(({ establishmentId }) => establishmentId === estId);
 
@@ -59,7 +57,7 @@ class Profile extends React.Component {
                     <p>
                       <span>
                         <Snippet
-                          expiryDate={format(
+                          expiryDate={formatDate(
                             project.expiryDate,
                             dateFormat.medium
                           )}
@@ -170,31 +168,6 @@ class Profile extends React.Component {
                       className='govuk-button'
                       label={<Snippet>{`buttons.${pilIncomplete ? 'view' : 'pilApply'}`}</Snippet>}
                     />
-                  </p>
-                )
-              }
-            </section>
-          )
-        }
-        {
-          (telephone || email) && (
-            <section className="profile-section">
-              <h3>
-                <Snippet>contactDetails.title</Snippet>
-              </h3>
-              {
-                email && (
-                  <p>
-                    <Snippet>contactDetails.email</Snippet><br />
-                    <a href={`mailto:${email}`}>{email}</a>
-                  </p>
-                )
-              }
-              {
-                telephone && (
-                  <p>
-                    <Snippet>contactDetails.telephone</Snippet><br />
-                    {telephone}
                   </p>
                 )
               }
