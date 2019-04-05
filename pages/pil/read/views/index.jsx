@@ -16,6 +16,19 @@ const formatters = {
   revocationDate: {
     format: revocationDate => dateFormatter(revocationDate, dateFormat.medium)
   },
+  species: {
+    format: pilSpecies => {
+      if (!Array.isArray(pilSpecies)) {
+        return;
+      }
+
+      return (
+        <ul className="species-list">
+          { pilSpecies.map(species => <li key={species}>{species}</li>) }
+        </ul>
+      );
+    }
+  },
   procedures: {
     format: (procedures, pil) => (procedures || []).map(procedure => {
       return (

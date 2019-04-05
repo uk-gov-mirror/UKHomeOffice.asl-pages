@@ -22,14 +22,15 @@ module.exports = settings => {
       status: {},
       issueDate: {},
       revocationDate: {},
-      conditions: {},
+      species: {},
       procedures: {},
       notesCatD: {
         show: false
       },
       notesCatF: {
         show: false
-      }
+      },
+      conditions: {}
     };
 
     if (!req.pil.revocationDate) {
