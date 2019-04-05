@@ -22,6 +22,7 @@ module.exports = {
         return isEqual(optionValues, model.declarations);
       }
     }],
+    show: false,
     showDiff: false
   }
 };
