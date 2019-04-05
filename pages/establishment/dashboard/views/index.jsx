@@ -72,7 +72,7 @@ const Index = ({
                 <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
               ))
             }
-            { asruAdmin && <dd><Link page="establishment.asru.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            { asruAdmin && <dd><Link page="establishment.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
 
             <dt><Snippet>spoc</Snippet></dt>
             {
@@ -81,11 +81,11 @@ const Index = ({
               ))
             }
             {
-              !asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+              asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
                 <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
               ))
             }
-            { asruAdmin && <dd><Link page="establishment.asru.spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            { asruAdmin && <dd><Link page="establishment.spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
           </dl>
         </Sidebar>
       </div>
