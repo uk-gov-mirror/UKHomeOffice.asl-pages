@@ -88,6 +88,6 @@ const Index = ({
   ;
 };
 
-const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruAdmin });
+const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruUser && profile.asruAdmin });
 
 export default connect(mapStateToProps)(Index);
