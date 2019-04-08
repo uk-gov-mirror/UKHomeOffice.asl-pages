@@ -41,6 +41,21 @@ const Pil = ({ profile, formFields, task, children }) => {
         }
       </StickyNavAnchor>
 
+      <StickyNavAnchor id="species">
+        <h2><Snippet>sticky-nav.species</Snippet></h2>
+        {
+          pil.species && pil.species.length > 0
+            ? (
+              <Fragment>
+                { pil.species.map((s, index) => (
+                  <p key={index}>{s}</p>
+                ))}
+              </Fragment>
+            )
+            : <p><em><Snippet>pil.species.none</Snippet></em></p>
+        }
+      </StickyNavAnchor>
+
       <StickyNavAnchor id="training">
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {
