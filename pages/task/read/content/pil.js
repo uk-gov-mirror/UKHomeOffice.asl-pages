@@ -25,6 +25,7 @@ module.exports = {
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedure categories',
+    species: 'Animal types',
     'status-ntco': 'Endorse application'
   },
   pil: {
@@ -52,6 +53,9 @@ module.exports = {
     procedures: {
       categories: 'Categories',
       none: 'No procedures selected'
+    },
+    species: {
+      none: 'No animal types selected'
     }
   },
   errors: {
