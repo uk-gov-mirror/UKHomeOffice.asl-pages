@@ -28,35 +28,66 @@ const Index = ({
     name,
     licenceNumber,
     pelh,
-    nprc
+    nprc,
+    asru
   },
-  allowedActions
-}) => (
-  <Fragment>
-    <Header title={name} />
-    <div className="govuk-grid-row">
-      <div className="govuk-grid-column-two-thirds">
-        <PanelList
-          panels={links.filter(link => allowedActions.includes(link.permissions)).map(link => <DashboardLink key={link.path} { ...link } />)}
-        />
+  allowedActions,
+  asruAdmin
+}) => {
+
+  return (
+    <Fragment>
+      <Header title={name} />
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <PanelList
+            panels={links.filter(link => allowedActions.includes(link.permissions)).map(link => <DashboardLink key={link.path} { ...link } />)}
+          />
+        </div>
+        <Sidebar>
+          <dl>
+            <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
+            <dd>{ licenceNumber }</dd>
+
+            {
+              pelh && <ProfileLink type="pelh" profile={pelh} />
+            }
+            {
+              nprc && <ProfileLink type="nprc" profile={nprc} />
+            }
+            <dt><Snippet>inspectors</Snippet></dt>
+            {
+              !asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
+                <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
+              ))
+            }
+            {
+              asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
+                <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+              ))
+            }
+            { asruAdmin && <dd><Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+
+            <dt><Snippet>spoc</Snippet></dt>
+            {
+              !asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+                <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
+              ))
+            }
+            {
+              asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+                <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+              ))
+            }
+            { asruAdmin && <dd><Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+          </dl>
+        </Sidebar>
       </div>
-      <Sidebar>
-        <dl>
-          <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-          <dd>{ licenceNumber }</dd>
+    </Fragment>
+  )
+  ;
+};
 
-          {
-            pelh && <ProfileLink type="pelh" profile={pelh} />
-          }
-          {
-            nprc && <ProfileLink type="nprc" profile={nprc} />
-          }
-        </dl>
-      </Sidebar>
-    </div>
-  </Fragment>
-);
-
-const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
+const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruUser && profile.asruAdmin });
 
 export default connect(mapStateToProps)(Index);
