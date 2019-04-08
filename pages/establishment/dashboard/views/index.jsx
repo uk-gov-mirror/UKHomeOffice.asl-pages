@@ -32,9 +32,7 @@ const Index = ({
     asru
   },
   allowedActions,
-  profile: {
-    asruAdmin
-  }
+  asruAdmin
 }) => {
 
   return (
@@ -57,10 +55,6 @@ const Index = ({
             {
               nprc && <ProfileLink type="nprc" profile={nprc} />
             }
-          </dl>
-        </Sidebar>
-        <Sidebar>
-          <dl>
             <dt><Snippet>inspectors</Snippet></dt>
             {
               !asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
@@ -72,7 +66,7 @@ const Index = ({
                 <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
               ))
             }
-            { asruAdmin && <dd><Link page="establishment.inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            { asruAdmin && <dd><Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
 
             <dt><Snippet>spoc</Snippet></dt>
             {
@@ -85,7 +79,7 @@ const Index = ({
                 <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
               ))
             }
-            { asruAdmin && <dd><Link page="establishment.spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            { asruAdmin && <dd><Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
           </dl>
         </Sidebar>
       </div>
@@ -94,6 +88,6 @@ const Index = ({
   ;
 };
 
-const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, profile });
+const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruAdmin });
 
 export default connect(mapStateToProps)(Index);
