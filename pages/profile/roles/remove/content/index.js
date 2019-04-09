@@ -4,7 +4,7 @@ const baseContent = require('../../../content');
 module.exports = merge({}, baseContent, {
   title: 'Amend profile',
   fields: {
-    role: {
+    type: {
       label: 'Please select the role you want to remove.'
     },
     comment: {

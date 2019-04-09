@@ -36,8 +36,8 @@ module.exports = settings => {
   app.use('/confirm', confirm('remove'));
 
   app.post('/confirm', (req, res, next) => {
-    const { role, comment } = req.session.form[req.model.id].values;
-    const roleId = req.profile.roles.find(r => r.type === role).id;
+    const { type, comment } = req.session.form[req.model.id].values;
+    const roleId = req.profile.roles.find(r => r.type === type).id;
 
     const opts = {
       method: 'DELETE',
