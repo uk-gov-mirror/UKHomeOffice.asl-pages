@@ -32,7 +32,7 @@ module.exports = {
     },
     submitted: {
       label: 'Submitted',
-      view: 'View submitted draft'
+      view: 'View submitted application'
     }
   },
   status: {
