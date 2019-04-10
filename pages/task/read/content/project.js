@@ -1,8 +1,8 @@
 module.exports = {
   title: 'Review PPL application',
   'sticky-nav': {
-    'submitted-version': 'Latest submitted draft',
-    status: 'Next steps'
+    'submitted-version': 'Submitted application',
+    status: 'Make decision'
   },
   fields: {
     status: {
@@ -15,8 +15,16 @@ module.exports = {
     }
   },
   versions: {
-    granted: 'View granted version',
-    submitted: 'View submitted draft'
+    granted: {
+      label: 'View granted version'
+    },
+    submitted: {
+      label: 'View submitted application',
+      hint: 'This is the application that has been submitted for approval.'
+    }
+  },
+  'make-decision': {
+    hint: 'View the submitted application above before making a decision.'
   },
   declarations: {
     'pel-holder': 'Does this application have the endorsement of your primary establishment\'s PEL holder?',
