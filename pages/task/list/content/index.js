@@ -8,7 +8,8 @@ module.exports = {
   tabs: {
     outstanding: 'Outstanding',
     inProgress: 'In progress',
-    completed: 'Completed'
+    completed: 'Completed',
+    myTasks: 'My Tasks'
   },
   task: {
     role: {

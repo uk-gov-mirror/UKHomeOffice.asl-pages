@@ -5,7 +5,7 @@ const datatable = require('../../common/routers/datatable');
 module.exports = ({
   apiPath = '/tasks',
   schema = defaultSchema,
-  tabs = ['outstanding', 'inProgress', 'completed']
+  tabs = ['myTasks', 'outstanding', 'inProgress', 'completed']
 } = {}) => datatable({
   getApiPath: (req, res, next) => {
     req.datatable.apiPath = [req.datatable.apiPath, { query: req.query }];
@@ -17,7 +17,9 @@ module.exports = ({
     res.locals.static.profileName = `${firstName} ${lastName}`;
     res.locals.static.progress = req.query.progress;
     res.locals.datatable.progress = req.query.progress;
-    res.locals.static.tabs = tabs;
+
+    const isAsru = req.user.profile.asru && req.user.profile.asru.length > 0;
+    res.locals.static.tabs = isAsru ? tabs : tabs.filter(tab => { return tab !== 'myTasks'; });
     next();
   }
 })({ schema, apiPath });
