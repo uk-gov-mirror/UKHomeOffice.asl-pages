@@ -18,7 +18,7 @@ module.exports = ({
     res.locals.static.progress = req.query.progress;
     res.locals.datatable.progress = req.query.progress;
 
-    const isAsru = req.user.profile.asru && req.user.profile.asru.length > 0;
+    const isAsru = req.user.profile.asruUser && req.user.profile.asru && req.user.profile.asru.length > 0;
     res.locals.static.tabs = isAsru ? tabs : tabs.filter(tab => { return tab !== 'myTasks'; });
     next();
   }
