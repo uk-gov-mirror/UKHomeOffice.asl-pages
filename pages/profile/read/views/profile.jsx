@@ -21,6 +21,8 @@ class Profile extends React.Component {
 
     const allowedActions = this.props.allowedActions || [];
     const activeProjects = projects.filter(({ establishmentId, status }) => status === 'active' && establishmentId === estId);
+    const draftProjects = projects.filter(({ establishmentId, status }) => status === 'inactive' && establishmentId === estId);
+
     const estRoles = roles.filter(({ establishmentId }) => establishmentId === estId);
 
     const canSeeProjects = isOwnProfile || allowedActions.includes('project.read.all');
@@ -71,6 +73,27 @@ class Profile extends React.Component {
               }
               {
                 isEmpty(activeProjects) && (
+                  <p><Snippet>projects.noProjects</Snippet></p>
+                )
+              }
+              <h3>
+                <Snippet>projects.drafts</Snippet>
+              </h3>
+              {
+                draftProjects.map(project => (
+                  <Fragment key={project.id}>
+                    <p>
+                      <Link page='project.read'
+                        label={project.title ? project.title : 'Untitled project'}
+                        projectId={project.id}
+                        establishmentId={project.establishmentId}
+                      />
+                    </p>
+                  </Fragment>
+                ))
+              }
+              {
+                isEmpty(draftProjects) && (
                   <p><Snippet>projects.noProjects</Snippet></p>
                 )
               }

@@ -10,7 +10,8 @@ module.exports = {
     title: 'Active projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',
     expiryDate: 'Expiry date: {{expiryDate}}',
-    noProjects: 'None'
+    noProjects: 'None',
+    drafts: 'Draft projects'
   },
   contactDetails: {
     title: 'Contact details',
