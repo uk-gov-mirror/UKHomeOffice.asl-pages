@@ -27,6 +27,10 @@ dl dd {
   text-indent: 5px;
 }
 
+.section {
+  page-break-after: always;
+}
+
 .summary-table {
   padding: 15px;
   page-break-after: always;

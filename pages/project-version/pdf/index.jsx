@@ -12,7 +12,7 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     const initialState = {
-      project: req.version,
+      project: req.version.data,
       application: {
         schemaVersion: req.version.project.schemaVersion,
         readonly: true
@@ -47,8 +47,11 @@ module.exports = settings => {
         if (response.status < 300) {
           res.attachment(`${req.project.title}.pdf`);
           response.body.pipe(res);
+        } else {
+          throw new Error('Error generating PDF');
         }
-      });
+      })
+      .catch(next);
   });
 
   return app;
