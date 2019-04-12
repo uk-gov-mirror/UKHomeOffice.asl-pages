@@ -41,7 +41,7 @@ module.exports = settings => {
       }
     };
 
-    fetch(settings.pdfService, params)
+    fetch(`${settings.pdfService}/convert`, params)
       .response
       .then(response => {
         if (response.status < 300) {
