@@ -15,6 +15,7 @@
     "build": "npm run build:css && npm run build:css:pdf",
     "prebuild:css": "mkdir -p ./pages/common/dist/css",
     "build:css": "npm-sass ./pages/common/assets/sass/style.scss > ./pages/common/dist/css/app.css",
+    "prebuild:css:pdf": "mkdir -p ./pages/project-version/pdf/css",
     "build:css:pdf": "node-sass ./pages/project-version/pdf/sass -o ./pages/project-version/pdf/css",
     "prepublish": "npm run build"
   },
