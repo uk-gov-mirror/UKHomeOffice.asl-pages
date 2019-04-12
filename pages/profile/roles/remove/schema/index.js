@@ -9,7 +9,7 @@ module.exports = roles => {
   });
 
   return {
-    role: {
+    type: {
       inputType: 'radioGroup',
       validate: [
         'required',

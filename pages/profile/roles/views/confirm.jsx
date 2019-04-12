@@ -30,7 +30,7 @@ const Confirm = ({
           <Header title={<Snippet>reviewRoleApplication</Snippet>}/>
 
           <h2><Snippet>applyingFor</Snippet></h2>
-          <p>{namedRoles[values.role]}</p>
+          <p>{namedRoles[values.type]}</p>
 
           <h2><Snippet>onBehalfOf</Snippet></h2>
           <p>{`${profile.firstName} ${profile.lastName}`}</p>
