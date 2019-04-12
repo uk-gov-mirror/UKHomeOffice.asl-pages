@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const read = require('./read');
 const list = require('./list');
+// const projectVersion = require('./version');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
@@ -30,6 +31,8 @@ module.exports = () => {
   });
 
   app.use('/:projectId', read());
+
+  // app.use('/:projectId/version(s)?', projectVersion());
 
   app.use('/', list());
 

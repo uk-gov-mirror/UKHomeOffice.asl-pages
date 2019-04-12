@@ -1,0 +1,133 @@
+@import 'base';
+
+h1 {
+  border-left: 5px solid $purple;
+  padding-left: 10px;
+  line-height: 45px;
+  text-transform: uppercase
+}
+
+h2.subtitle {
+  font-weight: normal;
+  margin-left: 15px;
+}
+
+dl dt {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+dt {
+  clear: left;
+}
+
+dl dd {
+  font-weight: bold;
+  text-indent: 5px;
+}
+
+.summary-table {
+  padding: 15px;
+  page-break-after: always;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      display: table-header-group;
+
+      th {
+        background-color: $mid-grey;
+        text-align: left;
+        vertical-align: top;
+      }
+    }
+
+
+    th, td {
+      padding: 20px 15px;
+      border: 2px solid $mid-grey;
+    }
+  }
+}
+
+.protocol {
+  padding: 15px;
+  page-break-after: always;
+
+  .field {
+    page-break-during: avoid;
+  }
+
+  .protocol-number {
+    background-color: #777;
+    display: inline-block;
+    color: white;
+    padding: 10px 15px;
+    margin: 0;
+  }
+
+  .protocol-panel {
+    background-color: $light-grey;
+    padding: 5px;
+    border: 1px solid $dark-grey;
+
+    h2 {
+      font-weight: normal;
+      margin: 10px 0 0 10px;
+    }
+
+    > p {
+      margin-left: 10px;
+      margin-top: 0;
+    }
+
+    table {
+      background-color: white;
+      width: 100%;
+      border:none;
+      border-collapse: collapse;
+
+      td, th {
+        border-left: 3px solid $light-grey;
+        border-right: 3px solid $light-grey;
+        padding: 5px 10px;
+
+
+        &:first-child {
+          border-left: none;
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      th {
+        text-align: left;
+        padding-top: 20px;
+      }
+
+      tr:last-child td {
+        padding-bottom: 20px;
+      }
+    }
+  }
+
+  .protocol-content {
+    margin: 15px;
+
+    h2 {
+      font-size: 24px;
+      margin-top: 40px;
+      margin-bottom: 0px;
+    }
+  }
+
+  p.end {
+    text-align: center;
+    font-weight: bold;
+  }
+}

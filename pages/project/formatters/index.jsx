@@ -37,14 +37,14 @@ const formatters = {
   granted: {
     format: (granted, model) => {
       const key = hasExpired(model) ? 'expired' : 'view';
-      return <Link page="project.version" versionId={granted.id} label={<Snippet>{`fields.granted.${key}`}</Snippet>} />;
+      return <Link page="project.version.read" versionId={granted.id} label={<Snippet>{`fields.granted.${key}`}</Snippet>} />;
     }
   },
   draft: {
-    format: draft => <Link page="project.version" versionId={draft.id} label={<Snippet>fields.draft.view</Snippet>} />
+    format: draft => <Link page="project.version.update" versionId={draft.id} label={<Snippet>fields.draft.view</Snippet>} />
   },
   submitted: {
-    format: submitted => <Link page="project.version" versionId={submitted.id} label={<Snippet>fields.submitted.view</Snippet>} />
+    format: submitted => <Link page="project.version.read" versionId={submitted.id} label={<Snippet>fields.submitted.view</Snippet>} />
   }
 };
 

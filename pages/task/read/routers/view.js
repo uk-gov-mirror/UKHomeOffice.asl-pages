@@ -168,7 +168,7 @@ module.exports = () => {
       return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
         .then(({ json: { data } }) => {
           req.versionId = data.data.id;
-          res.redirect(req.buildRoute('project.version'));
+          res.redirect(req.buildRoute('project.version.update'));
         })
         .catch(next);
     }

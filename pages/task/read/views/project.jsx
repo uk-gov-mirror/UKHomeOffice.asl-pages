@@ -25,7 +25,7 @@ const Project = ({ task, formFields, project, establishment, children }) => {
 
         <p>
           <Link
-            page="project.version"
+            page="project.version.read"
             className="govuk-button button-secondary"
             versionId={submitted.id}
             establishmentId={establishment.id}
