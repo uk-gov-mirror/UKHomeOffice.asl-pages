@@ -57,6 +57,9 @@ const Index = ({
             }
             <dt><Snippet>inspectors</Snippet></dt>
             {
+              !asru.filter(p => p.asruInspector).length && <p>None</p>
+            }
+            {
               !asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
                 <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
               ))
@@ -69,6 +72,9 @@ const Index = ({
             { asruAdmin && <dd><Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
 
             <dt><Snippet>spoc</Snippet></dt>
+            {
+              !asru.filter(p => p.asruLicensing).length && <p>None</p>
+            }
             {
               !asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
                 <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
