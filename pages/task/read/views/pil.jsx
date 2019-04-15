@@ -1,13 +1,14 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, StickyNavPage, StickyNavAnchor, Link } from '@asl/components';
+import { Snippet, StickyNavPage, StickyNavAnchor, Link, Form } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
+import WithdrawApplication from './withdraw-application';
 
 const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
 
-const Pil = ({ profile, formFields, task, children }) => {
+const Pil = ({ profile, task, children, schema }) => {
   const pil = profile.pil;
   const formatDate = date => format(date, dateFormat.short);
 
@@ -112,19 +113,26 @@ const Pil = ({ profile, formFields, task, children }) => {
       </StickyNavAnchor>
 
       {
-        !!task.nextSteps.length && (
+        schema.status.options.length > 0 &&
           <StickyNavAnchor id={getNtcoStatus(task.status)}>
             <h2><Snippet>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
-            {
-              formFields
-            }
+            <Form />
+            { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
           </StickyNavAnchor>
-        )
       }
+
+      {
+        schema.status.options.length === 0 && task.canBeWithdrawn &&
+          <StickyNavAnchor id="withdraw">
+            <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
+            { task.canBeWithdrawn && <WithdrawApplication /> }
+          </StickyNavAnchor>
+      }
+
     </StickyNavPage>
   );
 };
 
-const mapStateToProps = ({ static: { profile } }) => ({ profile });
+const mapStateToProps = ({ static: { profile, schema } }) => ({ profile, schema });
 
 export default connect(mapStateToProps)(Pil);

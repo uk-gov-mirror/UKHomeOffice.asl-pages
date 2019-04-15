@@ -4,6 +4,7 @@ import {
   Diff,
   Snippet,
   Field,
+  Form,
   StickyNavPage,
   StickyNavAnchor,
   ModelSummary
@@ -11,6 +12,7 @@ import {
 import { schema } from '../../../place/schema';
 import formatters from '../../../place/formatters';
 import { hasChanged } from '../../../../lib/utils';
+import WithdrawApplication from './withdraw-application';
 
 const LicenceHolder = ({ type, profile }) => (
   <Fragment>
@@ -19,7 +21,7 @@ const LicenceHolder = ({ type, profile }) => (
   </Fragment>
 );
 
-const Playback = ({ task, values = {}, model, establishment, formFields, isAsru, children }) => (
+const Playback = ({ task, values = {}, establishment, isAsru, children, decisionSchema }) => (
   <StickyNavPage>
 
     { children }
@@ -100,19 +102,36 @@ const Playback = ({ task, values = {}, model, establishment, formFields, isAsru,
         </StickyNavAnchor>
       )
     }
+
     {
-      !!task.nextSteps.length && (
+      decisionSchema.status.options.length > 0 &&
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
-          {
-            formFields
-          }
+          <p><Snippet>make-decision.hint</Snippet></p>
+          <Form />
+          { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
         </StickyNavAnchor>
-      )
+    }
+
+    {
+      decisionSchema.status.options.length === 0 && task.canBeWithdrawn &&
+        <StickyNavAnchor id="withdraw">
+          <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
+          { task.canBeWithdrawn && <WithdrawApplication /> }
+        </StickyNavAnchor>
     }
   </StickyNavPage>
 );
 
-const mapStateToProps = ({ model, static: { values, establishment, isAsru } }) => ({ model, values, establishment, isAsru });
+const mapStateToProps = ({
+  model,
+  static: { values, establishment, isAsru, schema: decisionSchema }
+}) => ({
+  model,
+  values,
+  establishment,
+  isAsru,
+  decisionSchema
+});
 
 export default connect(mapStateToProps)(Playback);

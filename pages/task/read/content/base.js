@@ -15,17 +15,24 @@ module.exports = {
   'sticky-nav': {
     activity: 'Activity',
     comments: 'Comments',
-    status: 'Make decision'
+    status: 'Next steps',
+    withdraw: 'Withdraw application'
+  },
+  'make-decision': {
+    hint: ''
   },
   task: {
     submittedBy: 'Submitted by',
     submittedOn: 'on {{date}}.',
-    applicantName: 'Applicant name'
+    applicantName: 'Applicant name',
+    withdrawTitle: 'Withdraw application',
+    withdrawHint: 'You will need to create a new application if you want to apply for this type of licence in future.',
+    withdrawAction: 'Withdraw application'
   },
   errors: {
     status: {
       required: 'Please approve or reject this task',
-      definedOptions: 'Please select an option from the list'
+      definedValues: 'Please select an option from the list'
     },
     comment: {
       customValidate: 'Please provide a reason'
