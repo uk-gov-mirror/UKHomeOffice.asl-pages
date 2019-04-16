@@ -122,5 +122,8 @@ module.exports = {
     whatNext: {
       title: 'What happens next?'
     }
+  },
+  notifications: {
+    success: 'Changes saved!'
   }
 };
