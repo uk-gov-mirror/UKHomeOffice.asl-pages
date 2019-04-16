@@ -10,9 +10,9 @@ class Profile extends React.Component {
   render() {
     const { id: estId } = this.props.establishment;
     const isOwnProfile = this.props.isOwnProfile || false;
+    const pil = this.props.profile.pil && this.props.profile.pil.establishmentId === estId ? this.props.profile.pil : null;
 
     const {
-      pil,
       roles,
       projects = [],
       establishments,
