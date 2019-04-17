@@ -8,9 +8,6 @@ module.exports = (task, chosenStatus) => {
       inputType: 'textarea',
       validate: [{
         customValidate: comment => {
-          console.log('chosen status: ', chosenStatus);
-          console.log('comment: ', comment);
-
           return commentRequired(chosenStatus) ? !!comment : true;
         }
       }]
