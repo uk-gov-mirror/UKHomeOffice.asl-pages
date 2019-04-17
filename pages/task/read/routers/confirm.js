@@ -1,7 +1,7 @@
 const form = require('../../../common/routers/form');
 const { Router } = require('express');
-const { set, get, pick } = require('lodash');
-const schemaGenerator = require('../../schema');
+const { set, get, pick, merge } = require('lodash');
+const getSchema = require('../../schema/confirm');
 
 module.exports = () => {
   const app = Router();
@@ -13,18 +13,21 @@ module.exports = () => {
   });
 
   app.use(form({
+    configure: (req, res, next) => {
+      const chosenStatus = get(req, `session.form[${req.task.id}-decision].values.status`);
+      req.schema = getSchema(req.task, chosenStatus);
+      req.form.schema = req.schema;
+      next();
+    },
     locals: (req, res, next) => {
       const values = get(req, `session.form[${req.task.id}-decision].values`);
 
-      const schema = schemaGenerator(req.task);
-
       if (req.task.data.model === 'place') {
-        schema.restrictions = {};
+        req.schema.restrictions = {};
       }
 
       set(res, 'locals.static', {
         ...res.locals.static,
-        modelSchema: schema,
         task: req.task,
         values
       });
@@ -34,7 +37,10 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    const values = req.session.form[`${req.task.id}-decision`].values;
+    const values = merge(
+      req.session.form[`${req.task.id}-decision`].values,
+      req.session.form[`${req.task.id}-confirm`].values
+    );
 
     const params = {
       ...pick(values, 'status'),
