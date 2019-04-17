@@ -84,7 +84,7 @@ const Role = ({ establishment, profile, task, values, children, schema }) => (
       schema.status.options.length === 0 && task.canBeWithdrawn &&
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
-          { task.canBeWithdrawn && <WithdrawApplication /> }
+          <WithdrawApplication />
         </StickyNavAnchor>
     }
 

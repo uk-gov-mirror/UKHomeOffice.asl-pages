@@ -117,7 +117,7 @@ const Playback = ({ task, values = {}, establishment, isAsru, children, decision
       decisionSchema.status.options.length === 0 && task.canBeWithdrawn &&
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
-          { task.canBeWithdrawn && <WithdrawApplication /> }
+          <WithdrawApplication />
         </StickyNavAnchor>
     }
   </StickyNavPage>
