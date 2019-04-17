@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { StickyNavPage, StickyNavAnchor, Snippet, Link, Field } from '@asl/components';
+import { StickyNavPage, StickyNavAnchor, Snippet, Link, Field, Form } from '@asl/components';
 import LicenceHolder from '../../../common/components/licence-holder';
+import WithdrawApplication from './withdraw-application';
 
-const Role = ({ establishment, profile, task, values, formFields, children }) => (
+const Role = ({ establishment, profile, task, values, children, schema }) => (
   <StickyNavPage>
 
     { children }
@@ -68,19 +69,28 @@ const Role = ({ establishment, profile, task, values, formFields, children }) =>
         </StickyNavAnchor>
       )
     }
+
     {
-      !!task.nextSteps.length && (
+      schema.status.options.length > 0 &&
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
-          {
-            formFields
-          }
+          <p><Snippet>make-decision.hint</Snippet></p>
+          <Form />
+          { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
         </StickyNavAnchor>
-      )
     }
+
+    {
+      schema.status.options.length === 0 && task.canBeWithdrawn &&
+        <StickyNavAnchor id="withdraw">
+          <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
+          <WithdrawApplication />
+        </StickyNavAnchor>
+    }
+
   </StickyNavPage>
 );
 
-const mapStateToProps = ({ static: { establishment, profile, values } }) => ({ establishment, profile, values });
+const mapStateToProps = ({ static: { establishment, profile, values, schema } }) => ({ establishment, profile, values, schema });
 
 export default connect(mapStateToProps)(Role);

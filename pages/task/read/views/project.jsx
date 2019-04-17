@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, StickyNavPage, StickyNavAnchor, Snippet } from '@asl/components';
+import { Link, StickyNavPage, StickyNavAnchor, Snippet, Form } from '@asl/components';
+import WithdrawApplication from './withdraw-application';
 
 const declarationAnswer = val => val === 'yes' ? 'Yes' : 'Not yet';
 
-const Project = ({ task, formFields, project, establishment, children }) => {
+const Project = ({ task, project, establishment, children, schema }) => {
   const submitted = project.versions.find(v => v.status === 'submitted');
   const taskMeta = task.data.meta;
 
@@ -39,21 +40,29 @@ const Project = ({ task, formFields, project, establishment, children }) => {
             </Fragment>
         }
       </StickyNavAnchor>
+
       {
-        !!task.nextSteps.length && (
+        schema.status.options.length > 0 &&
           <StickyNavAnchor id="status">
             <h2><Snippet>sticky-nav.status</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
-            {
-              formFields
-            }
+            <Form />
+            { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
           </StickyNavAnchor>
-        )
       }
+
+      {
+        schema.status.options.length === 0 && task.canBeWithdrawn &&
+          <StickyNavAnchor id="withdraw">
+            <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
+            <WithdrawApplication />
+          </StickyNavAnchor>
+      }
+
     </StickyNavPage>
   );
 };
 
-const mapStateToProps = ({ static: { project, establishment } }) => ({ project, establishment });
+const mapStateToProps = ({ static: { project, establishment, schema } }) => ({ project, establishment, schema });
 
 export default connect(mapStateToProps)(Project);

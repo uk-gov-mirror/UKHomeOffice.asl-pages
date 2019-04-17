@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   ErrorSummary,
-  Form,
   Link,
   Snippet,
   StickyNavAnchor,
@@ -97,7 +96,7 @@ const getTitle = action => {
   }
 };
 
-const Task = ({ task, profile }) => {
+const Task = ({ task }) => {
   const changedBy = task.data.changedBy;
   const formatDate = date => format(date, dateFormat.medium);
 
@@ -127,11 +126,7 @@ const Task = ({ task, profile }) => {
         <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
       </dl>
 
-      {
-        task.nextSteps.length > 0
-          ? <Form detachFields>{getTaskPlayback(task)}</Form>
-          : getTaskPlayback(task)
-      }
+      { getTaskPlayback(task) }
     </Fragment>
   );
 };

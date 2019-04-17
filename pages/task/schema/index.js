@@ -10,6 +10,10 @@ module.exports = (task) => {
   };
 
   const options = task.nextSteps.map(option => {
+    if (option.id === 'withdrawn-by-applicant') {
+      task.canBeWithdrawn = true;
+    }
+
     const defaultLabel = get(content, `status.${option.id}.action`);
     return {
       value: option.id,
@@ -21,7 +25,7 @@ module.exports = (task) => {
   const schema = {
     status: {
       inputType: 'radioGroup',
-      options: options,
+      options: options.filter(option => option.value !== 'withdrawn-by-applicant'),
       nullValue: [],
       label: get(content, `fields.status.${task.status}`, get(content, 'fields.status.label')),
       validate: [
@@ -38,7 +42,6 @@ module.exports = (task) => {
           return (model.status && commentRequired(model.status)) ? !!field : true;
         }
       }]
-
     }
   };
 
