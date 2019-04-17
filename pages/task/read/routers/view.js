@@ -3,7 +3,7 @@ const { merge, set, unset, get } = require('lodash');
 
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const form = require('../../../common/routers/form');
-const schemaGenerator = require('../../schema');
+const getSchema = require('../../schema/view');
 const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
@@ -132,7 +132,7 @@ module.exports = () => {
   app.use(form(Object.assign({
     configure: (req, res, next) => {
       res.locals.static.content = merge({}, res.locals.static.content, getContent(req.task));
-      req.schema = schemaGenerator(req.task);
+      req.schema = getSchema(req.task);
       req.form.schema = req.schema;
 
       if (req.task.data.model === 'place') {

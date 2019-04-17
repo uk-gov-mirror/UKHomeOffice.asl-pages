@@ -1,13 +1,8 @@
 const { get } = require('lodash');
 const getContent = require('../read/content');
 
-module.exports = (task) => {
-
+module.exports = task => {
   const content = getContent(task);
-
-  const commentRequired = stepId => {
-    return task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
-  };
 
   const options = task.nextSteps.map(option => {
     if (option.id === 'withdrawn-by-applicant') {
@@ -22,7 +17,7 @@ module.exports = (task) => {
     };
   });
 
-  const schema = {
+  return {
     status: {
       inputType: 'radioGroup',
       options: options.filter(option => option.value !== 'withdrawn-by-applicant'),
@@ -34,16 +29,6 @@ module.exports = (task) => {
           definedValues: options.map(option => option.value)
         }
       ]
-    },
-    comment: {
-      inputType: 'textarea',
-      validate: [{
-        customValidate: (field, model) => {
-          return (model.status && commentRequired(model.status)) ? !!field : true;
-        }
-      }]
     }
   };
-
-  return schema;
 };

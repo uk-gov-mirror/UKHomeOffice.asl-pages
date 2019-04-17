@@ -1,39 +1,42 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Snippet, Header, ModelSummary, Link } from '@asl/components';
+import { Form, Snippet, Header, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
-const formatters = {
-  status: {
-    format: val => <Snippet>{`status.${val}.action`}</Snippet>
-  }
+const CommentForm = ({ task, values, formFields }) => {
+  return (
+    <Fragment>
+      <Header title={<Snippet>{`status.${values.status}.action`}</Snippet>} />
+
+      { formFields }
+
+      { requiresDeclaration(values.status) &&
+        <div className="task-declaration">
+          <h2><Snippet>declaration.title</Snippet></h2>
+          <Snippet>{`declaration.${values.status}`}</Snippet>
+        </div>
+      }
+      <p className="control-panel">
+        <Button><Snippet>{`status.${values.status}.action`}</Snippet></Button>
+        <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
+      </p>
+    </Fragment>
+  );
 };
 
-const Confirm = ({ task, values, schema }) => {
+const Confirm = ({ task, values }) => {
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <Form submit={false}>
-          <Header title={<Snippet>title</Snippet>} />
-          <ModelSummary formatters={formatters} model={values} schema={schema} />
-
-          { requiresDeclaration(values.status) &&
-            <div className="task-declaration">
-              <h2><Snippet>declaration.title</Snippet></h2>
-              <Snippet>{`declaration.${values.status}`}</Snippet>
-            </div>
-          }
-          <p className="control-panel">
-            <Button><Snippet>buttons.submit</Snippet></Button>
-            <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
-          </p>
+        <Form detachFields submit={false}>
+          <CommentForm values={values} task={task} />
         </Form>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ static: { task, values, modelSchema } }) => ({ task, values, schema: modelSchema });
+const mapStateToProps = ({ static: { task, values } }) => ({ task, values });
 
 export default connect(mapStateToProps)(Confirm);
