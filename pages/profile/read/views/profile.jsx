@@ -163,6 +163,7 @@ class Profile extends React.Component {
                     <Link
                       page='pil.read'
                       establishmentId={estId}
+                      profileId={id}
                       pilId={pil.id}
                       label={pil.licenceNumber}
                     />
