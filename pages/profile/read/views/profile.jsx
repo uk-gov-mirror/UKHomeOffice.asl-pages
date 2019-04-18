@@ -47,6 +47,7 @@ class Profile extends React.Component {
                       <Link page='project.read'
                         label={project.title}
                         projectId={project.id}
+                        establishmentId={project.establishmentId}
                       />
                     </p>
                     <p>
