@@ -2,15 +2,18 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import { ProfileLink } from '../../components';
+import { dateFormat } from '../../../../constants';
 
 import {
   Accordion,
   ExpandingPanel,
   Snippet,
-  Header
+  Header,
+  LicenceStatusBanner
 } from '@asl/components';
 
 const Index = ({
+  establishment,
   establishment: {
     name,
     licenceNumber,
@@ -30,6 +33,8 @@ const Index = ({
 
   return (
     <Fragment>
+      <LicenceStatusBanner licence={establishment} licenceType="pel" dateFormat={dateFormat.medium} />
+
       <Header
         title={<Snippet>pages.establishment.read</Snippet>}
         subtitle={name}

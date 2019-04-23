@@ -10,7 +10,8 @@ import {
   Join,
   Link,
   Header,
-  Tabs
+  Tabs,
+  LicenceStatusBanner
 } from '@asl/components';
 
 const joinAcronyms = data => {
@@ -58,7 +59,7 @@ const Invite = ({ activeTab }) => (
 );
 
 const People = ({
-  establishment: { name },
+  establishment,
   allowedActions,
   formatters = peopleFormatters,
   showFilters = true,
@@ -66,9 +67,11 @@ const People = ({
   ...props
 }) => (
   <Fragment>
+    <LicenceStatusBanner licence={establishment} licenceType="pel" />
+
     <Header
       title={<Snippet>pages.profile.list</Snippet>}
-      subtitle={name}
+      subtitle={establishment.name}
     />
     {
       allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />

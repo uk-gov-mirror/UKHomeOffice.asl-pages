@@ -7,7 +7,8 @@ import {
   Datatable,
   Snippet,
   Header,
-  Tabs
+  Tabs,
+  LicenceStatusBanner
 } from '@asl/components';
 
 import formatters from '../../formatters';
@@ -19,14 +20,16 @@ const tabs = [
 ];
 
 const Projects = ({
-  establishment: { name },
+  establishment,
   status,
   allowedActions
 }) => (
   <Fragment>
+    <LicenceStatusBanner licence={establishment} licenceType="pel" />
+
     <Header
       title={<Snippet>pages.project.list</Snippet>}
-      subtitle={name}
+      subtitle={establishment.name}
     />
     {
       allowedActions.includes('project.apply') && (

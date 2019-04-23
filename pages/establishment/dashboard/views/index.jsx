@@ -5,9 +5,11 @@ import {
   Link,
   Sidebar,
   Header,
-  PanelList
+  PanelList,
+  LicenceStatusBanner
 } from '@asl/components';
 import { ProfileLink } from '../../components';
+import { dateFormat } from '../../../../constants';
 
 const links = [
   { path: 'establishment.read', permissions: 'establishment.read' },
@@ -24,6 +26,7 @@ const DashboardLink = ({ path }) => (
 );
 
 const Index = ({
+  establishment,
   establishment: {
     name,
     licenceNumber,
@@ -37,6 +40,8 @@ const Index = ({
 
   return (
     <Fragment>
+      <LicenceStatusBanner licence={establishment} licenceType="pel" dateFormat={dateFormat.medium} />
+
       <Header title={name} />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
