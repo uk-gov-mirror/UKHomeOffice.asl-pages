@@ -56,9 +56,11 @@ const PIL = ({ model, profile }) => {
         title={<Snippet>title</Snippet>}
         subtitle={`${profile.firstName} ${profile.lastName}`}
       />
-      { model.status === 'active'
-        ? <ModelSummary model={model} formatters={formatters} schema={schema} />
-        : <p><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></p>
+
+      <ModelSummary model={model} formatters={formatters} schema={schema} />
+
+      { model.status !== 'active' &&
+        <p><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></p>
       }
 
       <p>
