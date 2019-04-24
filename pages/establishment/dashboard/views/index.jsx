@@ -9,7 +9,6 @@ import {
   LicenceStatusBanner
 } from '@asl/components';
 import { ProfileLink } from '../../components';
-import { dateFormat } from '../../../../constants';
 
 const links = [
   { path: 'establishment.read', permissions: 'establishment.read' },
@@ -33,7 +32,7 @@ const Index = ({
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={establishment} licenceType="pel" dateFormat={dateFormat.medium} />
+      <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
       <Header title={establishment.name} />
       <div className="govuk-grid-row">

@@ -27,7 +27,7 @@ const App = ({ model, establishment, canUpdate }) => {
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={model} licenceType="ppl" dateFormat={dateFormat.medium} />
+      <LicenceStatusBanner licence={model} licenceType="ppl" />
 
       <Header
         subtitle={establishment.name}

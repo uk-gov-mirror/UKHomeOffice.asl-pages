@@ -50,7 +50,7 @@ const formatters = {
 const PIL = ({ model, profile }) => {
   return (
     <Fragment>
-      <LicenceStatusBanner licence={model} licenceType="pil" dateFormat={dateFormat.medium} />
+      <LicenceStatusBanner licence={model} licenceType="pil" />
 
       <Header
         title={<Snippet>title</Snippet>}

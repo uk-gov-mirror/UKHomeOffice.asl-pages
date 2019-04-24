@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 import { ProfileLink } from '../../components';
-import { dateFormat } from '../../../../constants';
 
 import {
   Accordion,
@@ -23,7 +22,7 @@ const Index = ({
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={establishment} licenceType="pel" dateFormat={dateFormat.medium} />
+      <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
       <Header
         title={<Snippet>pages.establishment.read</Snippet>}
