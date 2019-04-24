@@ -13,7 +13,7 @@ module.exports = {
     }
   },
   'sticky-nav': {
-    activity: 'Activity',
+    activity: 'Latest activity',
     comments: 'Comments',
     status: 'Next steps',
     withdraw: 'Withdraw application'

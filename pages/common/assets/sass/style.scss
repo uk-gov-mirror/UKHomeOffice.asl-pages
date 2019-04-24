@@ -54,20 +54,26 @@
   }
 }
 
+#activity .toggle-switch {
+  margin-bottom: $govuk-gutter * 2;
+}
+
 .task-activity {
   list-style: none;
   padding-left: 0;
 
   li {
+    margin-bottom: $govuk-gutter-half;
+
     &:not(:last-child) {
       border-bottom: 1px solid govuk-colour('grey-2');
     }
 
-    .comment {
+    .role {
       font-weight: bold;
     }
 
-    .badge {
+    .date {
       float: right;
     }
   }
