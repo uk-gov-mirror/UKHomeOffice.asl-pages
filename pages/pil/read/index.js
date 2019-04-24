@@ -8,7 +8,7 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    if (req.pil.status === 'pending') {
+    if (['pending', 'inactive'].includes(req.pil.status)) {
       return res.redirect(req.buildRoute('pil.update'));
     }
     next();
