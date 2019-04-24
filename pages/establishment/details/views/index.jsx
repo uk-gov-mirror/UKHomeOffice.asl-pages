@@ -14,22 +14,12 @@ import {
 
 const Index = ({
   establishment,
-  establishment: {
-    name,
-    licenceNumber,
-    address,
-    authorisations,
-    conditions,
-    pelh,
-    nprc,
-    ...rest
-  },
   url,
   ...props
 }) => {
 
-  const killing = authorisations.filter(({ type }) => type === 'killing');
-  const rehomes = authorisations.filter(({ type }) => type === 'rehomes');
+  const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
+  const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
 
   return (
     <Fragment>
@@ -37,28 +27,28 @@ const Index = ({
 
       <Header
         title={<Snippet>pages.establishment.read</Snippet>}
-        subtitle={name}
+        subtitle={establishment.name}
       />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <dl>
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-            <dd>{ licenceNumber }</dd>
+            <dd>{ establishment.licenceNumber }</dd>
 
             <dt><Snippet>address</Snippet></dt>
-            <dd>{ address }</dd>
+            <dd>{ establishment.address }</dd>
 
             {
-              pelh && <ProfileLink type="pelh" profile={pelh} />
+              establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
             }
             {
-              nprc && <ProfileLink type="nprc" profile={nprc} />
+              establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
             }
             <dt><Snippet>licenced.title</Snippet></dt>
             <dd>
               <ul>
                 {
-                  ['procedures', 'breeding', 'supplying'].filter(auth => rest[auth]).map(auth =>
+                  ['procedures', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
                     <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
                   )
                 }
@@ -67,11 +57,11 @@ const Index = ({
           </dl>
           <Accordion>
             <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>
-              { conditions
+              { establishment.conditions
                 ? (
                   <Fragment>
                     <p><Snippet>conditions.hasConditions</Snippet></p>
-                    <ReactMarkdown>{ conditions }</ReactMarkdown>
+                    <ReactMarkdown>{ establishment.conditions }</ReactMarkdown>
                   </Fragment>
                 )
                 : <p><Snippet>conditions.noConditions</Snippet></p>

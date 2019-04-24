@@ -27,13 +27,6 @@ const DashboardLink = ({ path }) => (
 
 const Index = ({
   establishment,
-  establishment: {
-    name,
-    licenceNumber,
-    pelh,
-    nprc,
-    asru
-  },
   allowedActions,
   asruAdmin
 }) => {
@@ -42,7 +35,7 @@ const Index = ({
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" dateFormat={dateFormat.medium} />
 
-      <Header title={name} />
+      <Header title={establishment.name} />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <PanelList
@@ -52,25 +45,25 @@ const Index = ({
         <Sidebar>
           <dl>
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-            <dd>{ licenceNumber }</dd>
+            <dd>{ establishment.licenceNumber }</dd>
 
             {
-              pelh && <ProfileLink type="pelh" profile={pelh} />
+              establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
             }
             {
-              nprc && <ProfileLink type="nprc" profile={nprc} />
+              establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
             }
             <dt><Snippet>inspectors</Snippet></dt>
             {
-              !asru.filter(p => p.asruInspector).length && <p>None</p>
+              !establishment.asru.filter(p => p.asruInspector).length && <p>None</p>
             }
             {
-              !asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
+              !asruAdmin && establishment.asru.filter(p => p.asruInspector).map(asru => (
                 <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
               ))
             }
             {
-              asruAdmin && asru.filter(p => p.asruInspector).map(asru => (
+              asruAdmin && establishment.asru.filter(p => p.asruInspector).map(asru => (
                 <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
               ))
             }
@@ -78,15 +71,15 @@ const Index = ({
 
             <dt><Snippet>spoc</Snippet></dt>
             {
-              !asru.filter(p => p.asruLicensing).length && <p>None</p>
+              !establishment.asru.filter(p => p.asruLicensing).length && <p>None</p>
             }
             {
-              !asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+              !asruAdmin && establishment.asru.filter(p => p.asruLicensing).map(asru => (
                 <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
               ))
             }
             {
-              asruAdmin && asru.filter(p => p.asruLicensing).map(asru => (
+              asruAdmin && establishment.asru.filter(p => p.asruLicensing).map(asru => (
                 <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
               ))
             }
