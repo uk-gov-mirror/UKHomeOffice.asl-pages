@@ -4,7 +4,8 @@ import {
   FilterTable,
   Snippet,
   Link,
-  Header
+  Header,
+  LicenceStatusBanner
 } from '@asl/components';
 import formatters from '../../formatters';
 
@@ -31,6 +32,7 @@ const pageFormatters = {
 };
 
 const Places = ({
+  establishment,
   establishment: { name },
   allowedActions,
   ...props
@@ -43,6 +45,8 @@ const Places = ({
   };
 
   return <Fragment>
+    <LicenceStatusBanner licence={establishment} licenceType="pel" />
+
     <Header
       title={<Snippet>pages.place.list</Snippet>}
       subtitle={name}

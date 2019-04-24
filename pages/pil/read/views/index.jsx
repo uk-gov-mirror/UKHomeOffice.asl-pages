@@ -2,11 +2,13 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import dateFormatter from 'date-fns/format';
 import { dateFormat } from '../../../../constants';
+import schema from '../schema';
 import {
   Link,
   Snippet,
   ModelSummary,
-  Header
+  Header,
+  LicenceStatusBanner
 } from '@asl/components';
 
 const formatters = {
@@ -48,13 +50,17 @@ const formatters = {
 const PIL = ({ model, profile }) => {
   return (
     <Fragment>
+      <LicenceStatusBanner licence={model} licenceType="pil" />
+
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={`${profile.firstName} ${profile.lastName}`}
       />
-      { model.status === 'active'
-        ? <ModelSummary model={model} formatters={formatters} />
-        : <p><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></p>
+
+      <ModelSummary model={model} formatters={formatters} schema={schema} />
+
+      { model.status !== 'active' &&
+        <p><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></p>
       }
 
       <p>

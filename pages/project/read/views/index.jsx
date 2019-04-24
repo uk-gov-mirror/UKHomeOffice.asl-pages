@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import omit from 'lodash/omit';
 import { connect } from 'react-redux';
-import { Header, ModelSummary, Link } from '@asl/components';
+import { Header, ModelSummary, Link, LicenceStatusBanner } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../constants';
@@ -27,16 +27,19 @@ const App = ({ model, establishment, canUpdate }) => {
 
   return (
     <Fragment>
+      <LicenceStatusBanner licence={model} licenceType="ppl" />
+
       <Header
         subtitle={establishment.name}
         title={model.title || 'Untitled project'}
       />
+
       <ModelSummary
         model={{
           ...model,
           ...getVersions(model)
         }}
-        schema={omit(schema, 'id')}
+        schema={omit(schema, 'id', 'status')}
         formatters={{
           ...omit(formatters, 'title'),
           expiryDate: {
