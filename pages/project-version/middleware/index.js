@@ -39,7 +39,7 @@ const getComments = () => (req, res, next) => {
               author: `${firstName} ${lastName}`,
               isNew: isNew(req.user, data.activityLog, createdAt)
             };
-          }).reverse()
+          }).reverse();
         })
         .value();
 
