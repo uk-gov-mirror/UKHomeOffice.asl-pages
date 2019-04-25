@@ -56,6 +56,21 @@
 
 .activity-log .toggle-switch {
   margin-bottom: $govuk-gutter * 2;
+  color: $blue;
+
+  &:before {
+    content: '►\00a0';
+  }
+
+  &.open:before {
+    content: '▼\00a0';
+  }
+
+  a:link,
+  a:hover,
+  a:visited {
+    color: $blue;
+  }
 }
 
 .task-activity {

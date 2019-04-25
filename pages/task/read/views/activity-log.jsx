@@ -92,8 +92,13 @@ class ActivityLog extends Component {
           <LogItem key={latestActivity.id} log={latestActivity} task={task} ExtraMeta={ExtraMeta} />
         </ul>
 
-        <p className="toggle-switch">
-          <a href="#" onClick={() => this.toggle()}>{this.isOpen() ? 'Hide earlier activity' : 'Show earlier activity' }</a>
+        <p className={classnames('toggle-switch', { open: this.isOpen() })}>
+          <a href="#" onClick={() => this.toggle()}>
+            { this.isOpen()
+              ? <Snippet>activityLog.close</Snippet>
+              : <Snippet>activityLog.open</Snippet>
+            }
+          </a>
         </p>
 
         <div className={classnames('older-activity', { hidden: !this.isOpen() })}>

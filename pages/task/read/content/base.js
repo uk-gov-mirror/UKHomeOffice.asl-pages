@@ -18,6 +18,10 @@ module.exports = {
     status: 'Next steps',
     withdraw: 'Withdraw application'
   },
+  activityLog: {
+    open: 'Show previous activity',
+    close: 'Hide previous activity'
+  },
   'make-decision': {
     hint: ''
   },
