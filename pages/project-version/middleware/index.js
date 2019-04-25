@@ -30,8 +30,8 @@ const getComments = () => (req, res, next) => {
         .filter(e => e.eventName === 'comment')
         .filter(e => !ignoreAfter || e.createdAt < ignoreAfter)
         .groupBy(comment => comment.event.meta.payload.meta.field)
-        .mapValues(comments =>
-          comments.map(({ comment, createdAt, changedBy: { firstName, lastName } }) => {
+        .mapValues(comments => {
+          return comments.map(({ comment, createdAt, changedBy: { firstName, lastName } }) => {
             return {
               comment,
               // we want to show the date of the following status change, not the comment submission.
@@ -40,8 +40,8 @@ const getComments = () => (req, res, next) => {
               isNew: isNew(req.user, data.activityLog, createdAt)
             };
           })
-            .reverse()
-        )
+          .reverse()    
+        })
         .value();
 
       res.locals.static.comments = comments;
