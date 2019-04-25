@@ -54,20 +54,41 @@
   }
 }
 
+.activity-log .toggle-switch {
+  margin-bottom: $govuk-gutter * 2;
+  color: $blue;
+
+  &:before {
+    content: '►\00a0';
+  }
+
+  &.open:before {
+    content: '▼\00a0';
+  }
+
+  a:link,
+  a:hover,
+  a:visited {
+    color: $blue;
+  }
+}
+
 .task-activity {
   list-style: none;
   padding-left: 0;
 
   li {
+    margin-bottom: $govuk-gutter-half;
+
     &:not(:last-child) {
       border-bottom: 1px solid govuk-colour('grey-2');
     }
 
-    .comment {
+    .role {
       font-weight: bold;
     }
 
-    .badge {
+    .date {
       float: right;
     }
   }
