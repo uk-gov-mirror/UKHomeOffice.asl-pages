@@ -88,7 +88,7 @@ class ActivityLog extends Component {
     }
 
     return (
-      <Fragment>
+      <div className="activity-log">
         <h2><Snippet>sticky-nav.activity</Snippet></h2>
 
         <ul className="task-activity">
@@ -106,7 +106,7 @@ class ActivityLog extends Component {
             ))}
           </ul>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
