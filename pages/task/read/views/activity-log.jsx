@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import { Link, Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
@@ -62,14 +62,6 @@ const LogItem = ({ log, task, ExtraMeta }) => {
 };
 
 class ActivityLog extends Component {
-  constructor(props) {
-    super(props);
-
-    this.task = props.task;
-    this.ExtraMeta = props.ExtraMeta;
-    this.latestActivity = props.task.activityLog.shift();
-  }
-
   componentDidMount() {
     this.setState({ open: false });
   }
@@ -83,16 +75,21 @@ class ActivityLog extends Component {
   }
 
   render() {
-    if (!this.task.activityLog) {
+    const task = this.props.task;
+
+    if (!task.activityLog) {
       return null;
     }
+
+    const ExtraMeta = this.props.ExtraMeta;
+    const latestActivity = this.props.task.activityLog[0];
 
     return (
       <div className="activity-log">
         <h2><Snippet>sticky-nav.activity</Snippet></h2>
 
         <ul className="task-activity">
-          <LogItem key={this.latestActivity.id} log={this.latestActivity} task={this.task} ExtraMeta={this.ExtraMeta} />
+          <LogItem key={latestActivity.id} log={latestActivity} task={task} ExtraMeta={ExtraMeta} />
         </ul>
 
         <p className="toggle-switch">
@@ -101,8 +98,8 @@ class ActivityLog extends Component {
 
         <div className={classnames('older-activity', { hidden: !this.isOpen() })}>
           <ul className="task-activity">
-            { this.task.activityLog.map(log => (
-              <LogItem key={log.id} log={log} task={this.task} ExtraMeta={this.ExtraMeta} />
+            { task.activityLog.map((log, index) => (
+              index > 0 && <LogItem key={log.id} log={log} task={task} ExtraMeta={ExtraMeta} />
             ))}
           </ul>
         </div>
