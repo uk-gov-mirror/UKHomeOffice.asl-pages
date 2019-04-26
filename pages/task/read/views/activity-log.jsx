@@ -30,7 +30,6 @@ const getStatusBadge = eventName => {
 };
 
 const getAuthor = (profile, task) => {
-  console.log('task.data', task.data);
   const name = `${profile.firstName} ${profile.lastName}`;
   const role = getRole(profile, task);
 
