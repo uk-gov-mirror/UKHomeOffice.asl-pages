@@ -10,6 +10,7 @@ start({
     id: state.model.id
   },
   comments: state.static.comments,
+  changed: state.static.changed,
   settings: {
     establishments: state.static.establishments.map(e => e.name)
   },

@@ -1,6 +1,7 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canComment } = require('../middleware');
+const { getPreviousVersion, getVersionChanges } = require('../middleware');
 
 module.exports = settings => {
   const app = page({
@@ -26,6 +27,8 @@ module.exports = settings => {
     res.locals.model = req.version;
     next();
   });
+
+  app.use(getPreviousVersion(), getVersionChanges());
 
   return app;
 };
