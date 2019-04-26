@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import classnames from 'classnames';
 import { Link, Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
@@ -92,22 +92,26 @@ class ActivityLog extends Component {
           <LogItem key={latestActivity.id} log={latestActivity} task={task} ExtraMeta={ExtraMeta} />
         </ul>
 
-        <p className={classnames('toggle-switch', { open: this.isOpen() })}>
-          <a href="#" onClick={e => this.toggle(e)}>
-            { this.isOpen()
-              ? <Snippet>activityLog.close</Snippet>
-              : <Snippet>activityLog.open</Snippet>
-            }
-          </a>
-        </p>
+        { task.activityLog.length > 1 &&
+          <Fragment>
+            <p className={classnames('toggle-switch', { open: this.isOpen() })}>
+              <a href="#" onClick={e => this.toggle(e)}>
+                { this.isOpen()
+                  ? <Snippet>activityLog.close</Snippet>
+                  : <Snippet>activityLog.open</Snippet>
+                }
+              </a>
+            </p>
 
-        <div className={classnames('older-activity', { hidden: !this.isOpen() })}>
-          <ul className="task-activity">
-            { task.activityLog.map((log, index) => (
-              index > 0 && <LogItem key={log.id} log={log} task={task} ExtraMeta={ExtraMeta} />
-            ))}
-          </ul>
-        </div>
+            <div className={classnames('older-activity', { hidden: !this.isOpen() })}>
+              <ul className="task-activity">
+                { task.activityLog.map((log, index) => (
+                  index > 0 && <LogItem key={log.id} log={log} task={task} ExtraMeta={ExtraMeta} />
+                ))}
+              </ul>
+            </div>
+          </Fragment>
+        }
       </div>
     );
   }
