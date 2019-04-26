@@ -6,18 +6,16 @@ import format from 'date-fns/format';
 
 const getRole = (profile, task) => {
   if (profile.asruInspector) {
-    return 'Inspector';
+    return 'Inspector: ';
   }
 
   if (profile.asruLicensing) {
-    return 'Licensing officer';
+    return 'Licensing officer: ';
   }
 
   if (profile.id === task.data.subject.id) {
-    return 'Applicant';
+    return 'Applicant: ';
   }
-
-  return '';
 };
 
 export const getStatus = eventName => eventName.substring(eventName.lastIndexOf(':') + 1);
@@ -32,12 +30,13 @@ const getStatusBadge = eventName => {
 };
 
 const getAuthor = (profile, task) => {
+  console.log('task.data', task.data);
   const name = `${profile.firstName} ${profile.lastName}`;
   const role = getRole(profile, task);
 
   return (
     <p>
-      { role && <span className="role">{role}: </span> }
+      { role && <span className="role">{role}</span> }
       {
         profile.asruUser
           ? name
@@ -66,7 +65,8 @@ class ActivityLog extends Component {
     this.setState({ open: false });
   }
 
-  toggle() {
+  toggle(e) {
+    e.preventDefault();
     return this.setState({ open: !this.state.open });
   }
 
@@ -93,7 +93,7 @@ class ActivityLog extends Component {
         </ul>
 
         <p className={classnames('toggle-switch', { open: this.isOpen() })}>
-          <a href="#" onClick={() => this.toggle()}>
+          <a href="#" onClick={e => this.toggle(e)}>
             { this.isOpen()
               ? <Snippet>activityLog.close</Snippet>
               : <Snippet>activityLog.open</Snippet>
