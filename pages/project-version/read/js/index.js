@@ -20,6 +20,7 @@ start({
     user: `${state.static.user.firstName} ${state.static.user.lastName}`,
     basename: state.static.basename,
     schemaVersion: state.model.project.schemaVersion,
-    establishment: state.static.establishment.name
+    establishment: state.static.establishment.name,
+    changed: state.static.changed
   }
 });

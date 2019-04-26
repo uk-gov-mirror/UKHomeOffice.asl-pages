@@ -1,7 +1,6 @@
 const { chain, get } = require('lodash');
 const { orderBy, remove, isEqual } = require('lodash');
 const moment = require('moment');
-const { traverse, getNode } = require('../../../lib/utils');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -113,17 +112,44 @@ const canComment = () => (req, res, next) => {
     .catch(next);
 };
 
+const traverse = (node, ...params) => {
+  const key = (params.length > 0) ? params.shift() : null;
+  let keys = (params.length > 0) ? params.shift() : [];
+  if (key) { keys.push(key); }
+  if (node instanceof Array) {
+    node.forEach(o => {
+      traverse(o, `${key}${o.id ? `.${o.id}` : ''}`, keys);
+    });
+  } else if (node instanceof Object) {
+    Object.keys(node).forEach(k => {
+      traverse(node[k], `${key ? `${key}.` : ''}${k}`, keys);
+    });
+  }
+  return keys;
+};
+
+const getNode = (tree, path) => {
+  const uuid4 = '^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4{1}[a-fA-F0-9]{3}-[89abAB]{1}[a-fA-F0-9]{3}-[a-fA-F0-9]{12}$';
+  let keys = path.split('.');
+  let node = tree[keys[0]];
+  for (var i = 1; i < keys.length; i++) {
+    let parent = node;
+    if (keys[i].match(uuid4)) {
+      if (parent instanceof Array) {
+        node = parent.find(o => o.id === keys[i]);
+      }
+    } else node = parent[keys[i]];
+  }
+  return node;
+};
+
 const getPreviousVersion = () => (req, res, next) => {
 
   const versions = orderBy(req.project.versions.filter(pv => pv.id !== req.versionId),
-    v => moment(v.createdAt).format('YYYY-MM-DD'), ['desc']);
+    v => v.createdAt, 'desc');
 
   if (versions.length > 0) {
-    let prevVersion = versions.find(v => {
-      if (moment(req.version.createdAt).isAfter(v.createdAt)) {
-        return v;
-      }
-    });
+    let prevVersion = versions.find(v => moment(req.version.createdAt).isAfter(v.createdAt));
 
     req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${prevVersion.id}`)
       .then(({ json: { data } }) => {
@@ -131,14 +157,13 @@ const getPreviousVersion = () => (req, res, next) => {
       })
       .then(() => next())
       .catch(next);
-  }
-
+  } else { next(); }
 };
 
 const getVersionChanges = () => (req, res, next) => {
   if (req.prevVersion) {
-    const cvKeys = traverse(req.version.data, null, []);
-    const pvKeys = traverse(req.prevVersion.data, null, []);
+    const cvKeys = traverse(req.version.data);
+    const pvKeys = traverse(req.prevVersion.data);
     const added = remove(cvKeys, k => !pvKeys.includes(k));
     const removed = remove(pvKeys, k => !cvKeys.includes(k));
     let changed = [];
