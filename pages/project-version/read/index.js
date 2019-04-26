@@ -1,6 +1,10 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
+<<<<<<< HEAD
 const { canComment } = require('../middleware');
+=======
+const { getPreviousVersion, getVersionChanges } = require('../middleware');
+>>>>>>> Add utility functions and set version changes in res
 
 module.exports = settings => {
   const app = page({
@@ -27,5 +31,10 @@ module.exports = settings => {
     next();
   });
 
+<<<<<<< HEAD
+=======
+  app.use(getPreviousVersion(), getVersionChanges());
+
+>>>>>>> Add utility functions and set version changes in res
   return app;
 };

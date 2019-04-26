@@ -1,4 +1,7 @@
 const { chain, get } = require('lodash');
+const { orderBy, remove, isEqual } = require('lodash');
+const moment = require('moment');
+const { traverse, getNode } = require('../../../lib/utils');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -110,8 +113,54 @@ const canComment = () => (req, res, next) => {
     .catch(next);
 };
 
+const getVersionChanges = () => (req, res, next) => {
+
+  if (req.prevVersion) {
+    const cvKeys = traverse(req.version.data, null, []);
+    const pvKeys = traverse(req.prevVersion.data, null, []);
+    const added = remove(cvKeys, k => !pvKeys.includes(k));
+    const removed = remove(pvKeys, k => !cvKeys.includes(k));
+    let changed = [];
+    cvKeys.forEach(k => {
+      let cvNode = getNode(req.version.data, k);
+      let pvNode = getNode(req.prevVersion.data, k);
+      if (!isEqual(cvNode, pvNode)) {
+        changed.push(k);
+      }
+    });
+    res.locals.static.changed = added.concat(removed).concat(changed);
+  }
+  next();
+};
+
+const getPreviousVersion = () => (req, res, next) => {
+
+  const versions = orderBy(req.project.versions.filter(pv => pv.id !== req.versionId),
+    v => moment(v.createdAt).format('YYYY-MM-DD'), ['desc']);
+
+  if (versions.length > 0) {
+    var prevVersion = versions.find(function(v) {
+      if (moment(req.version.createdAt).isAfter(v.createdAt)) {
+        return v;
+      }
+    });
+  }
+
+  if (prevVersion) {
+    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${prevVersion.id}`)
+      .then(({ json: { data } }) => {
+        req.prevVersion = data;
+      })
+      .then(() => next())
+      .catch(next);
+  } else { next(); }
+
+};
+
 module.exports = {
   getVersion,
   getComments,
-  canComment
+  canComment,
+  getPreviousVersion,
+  getVersionChanges
 };
