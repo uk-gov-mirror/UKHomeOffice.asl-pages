@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import classnames from 'classnames';
 import { Link, Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
@@ -6,18 +6,16 @@ import format from 'date-fns/format';
 
 const getRole = (profile, task) => {
   if (profile.asruInspector) {
-    return 'Inspector';
+    return 'Inspector: ';
   }
 
   if (profile.asruLicensing) {
-    return 'Licensing officer';
+    return 'Licensing officer: ';
   }
 
-  if (profile.id === task.data.subject.id) {
-    return 'Applicant';
+  if (task.data.subject && profile.id === task.data.subject.id) {
+    return 'Applicant: ';
   }
-
-  return '';
 };
 
 export const getStatus = eventName => eventName.substring(eventName.lastIndexOf(':') + 1);
@@ -37,7 +35,7 @@ const getAuthor = (profile, task) => {
 
   return (
     <p>
-      { role && <span className="role">{role}: </span> }
+      { role && <span className="role">{role}</span> }
       {
         profile.asruUser
           ? name
@@ -66,7 +64,8 @@ class ActivityLog extends Component {
     this.setState({ open: false });
   }
 
-  toggle() {
+  toggle(e) {
+    e.preventDefault();
     return this.setState({ open: !this.state.open });
   }
 
@@ -92,22 +91,26 @@ class ActivityLog extends Component {
           <LogItem key={latestActivity.id} log={latestActivity} task={task} ExtraMeta={ExtraMeta} />
         </ul>
 
-        <p className={classnames('toggle-switch', { open: this.isOpen() })}>
-          <a href="#" onClick={() => this.toggle()}>
-            { this.isOpen()
-              ? <Snippet>activityLog.close</Snippet>
-              : <Snippet>activityLog.open</Snippet>
-            }
-          </a>
-        </p>
+        { task.activityLog.length > 1 &&
+          <Fragment>
+            <p className={classnames('toggle-switch', { open: this.isOpen() })}>
+              <a href="#" onClick={e => this.toggle(e)}>
+                { this.isOpen()
+                  ? <Snippet>activityLog.close</Snippet>
+                  : <Snippet>activityLog.open</Snippet>
+                }
+              </a>
+            </p>
 
-        <div className={classnames('older-activity', { hidden: !this.isOpen() })}>
-          <ul className="task-activity">
-            { task.activityLog.map((log, index) => (
-              index > 0 && <LogItem key={log.id} log={log} task={task} ExtraMeta={ExtraMeta} />
-            ))}
-          </ul>
-        </div>
+            <div className={classnames('older-activity', { hidden: !this.isOpen() })}>
+              <ul className="task-activity">
+                { task.activityLog.map((log, index) => (
+                  index > 0 && <LogItem key={log.id} log={log} task={task} ExtraMeta={ExtraMeta} />
+                ))}
+              </ul>
+            </div>
+          </Fragment>
+        }
       </div>
     );
   }
