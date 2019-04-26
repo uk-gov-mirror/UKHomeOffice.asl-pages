@@ -10,6 +10,7 @@ start({
     id: state.model.id
   },
   comments: state.static.comments,
+  changed: state.static.changed,
   settings: {
     establishments: state.static.establishments.map(e => e.name)
   },
@@ -20,7 +21,6 @@ start({
     user: `${state.static.user.firstName} ${state.static.user.lastName}`,
     basename: state.static.basename,
     schemaVersion: state.model.project.schemaVersion,
-    establishment: state.static.establishment.name,
-    changed: state.static.changed
+    establishment: state.static.establishment.name
   }
 });

@@ -1,5 +1,4 @@
-const { chain, get } = require('lodash');
-const { orderBy, remove, isEqual } = require('lodash');
+const { chain, get, orderBy, remove, isEqual } = require('lodash');
 const moment = require('moment');
 
 const getVersion = () => (req, res, next) => {
@@ -112,9 +111,7 @@ const canComment = () => (req, res, next) => {
     .catch(next);
 };
 
-const traverse = (node, ...params) => {
-  const key = (params.length > 0) ? params.shift() : null;
-  let keys = (params.length > 0) ? params.shift() : [];
+const traverse = (node, key, keys = []) => {
   if (key) { keys.push(key); }
   if (node instanceof Array) {
     node.forEach(o => {
@@ -138,7 +135,9 @@ const getNode = (tree, path) => {
       if (parent instanceof Array) {
         node = parent.find(o => o.id === keys[i]);
       }
-    } else node = parent[keys[i]];
+    } else {
+      node = parent[keys[i]];
+    }
   }
   return node;
 };
@@ -157,7 +156,9 @@ const getPreviousVersion = () => (req, res, next) => {
       })
       .then(() => next())
       .catch(next);
-  } else { next(); }
+  } else {
+    next();
+  }
 };
 
 const getVersionChanges = () => (req, res, next) => {
