@@ -13,7 +13,7 @@ const getRole = (profile, task) => {
     return 'Licensing officer: ';
   }
 
-  if (profile.id === task.data.subject.id) {
+  if (task.data.subject && profile.id === task.data.subject.id) {
     return 'Applicant: ';
   }
 };
