@@ -149,13 +149,16 @@ const getPreviousVersion = () => (req, res, next) => {
 
   if (versions.length > 0) {
     let prevVersion = versions.find(v => moment(req.version.createdAt).isAfter(v.createdAt));
-
-    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${prevVersion.id}`)
-      .then(({ json: { data } }) => {
-        req.prevVersion = data;
-      })
-      .then(() => next())
-      .catch(next);
+    if (prevVersion) {
+      req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${prevVersion.id}`)
+        .then(({ json: { data } }) => {
+          req.prevVersion = data;
+        })
+        .then(() => next())
+        .catch(next);
+    } else {
+      next();
+    }
   } else {
     next();
   }
