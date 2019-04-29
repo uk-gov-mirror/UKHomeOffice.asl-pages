@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import get from 'lodash/get';
 import { Link, StickyNavPage, StickyNavAnchor, Snippet, Form } from '@asl/components';
 import WithdrawApplication from './withdraw-application';
 
 const declarationAnswer = val => val === 'yes' ? 'Yes' : 'Not yet';
 
 const Project = ({ task, project, establishment, children, schema }) => {
-  const submitted = project.versions.find(v => v.status === 'submitted');
+  const submitted = get(task, 'data.data.version');
   const taskMeta = task.data.meta;
 
   return (
@@ -19,7 +20,7 @@ const Project = ({ task, project, establishment, children, schema }) => {
           <Link
             page="project.version.read"
             className="govuk-button button-secondary"
-            versionId={submitted.id}
+            versionId={submitted}
             establishmentId={establishment.id}
             projectId={project.id}
             label={<Snippet>versions.submitted.label</Snippet>}
