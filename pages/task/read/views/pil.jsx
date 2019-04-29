@@ -29,7 +29,7 @@ const Pil = ({ profile, task, children, schema }) => {
       <StickyNavAnchor id="procedures">
         <h2><Snippet>sticky-nav.procedures</Snippet></h2>
         {
-          pil.procedures.length > 0
+          pil.procedures && pil.procedures.length > 0
             ? (
               <Fragment>
                 <h3><Snippet>pil.procedures.categories</Snippet></h3>
@@ -60,7 +60,7 @@ const Pil = ({ profile, task, children, schema }) => {
       <StickyNavAnchor id="training">
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {
-          (profile.certificates && !!profile.certificates.length)
+          profile.certificates && profile.certificates.length > 0
             ? profile.certificates.map((certificate, index) => (
               <div key={index}>
                 <h3><Snippet>pil.training.certificate.details</Snippet></h3>
@@ -96,7 +96,7 @@ const Pil = ({ profile, task, children, schema }) => {
       <StickyNavAnchor id="exemptions">
         <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
         {
-          (profile.exemptions && !!profile.exemptions.length)
+          profile.exemptions && profile.exemptions.length > 0
             ? profile.exemptions.map((exemption, index) => (
               <div key={index}>
                 <dl>
