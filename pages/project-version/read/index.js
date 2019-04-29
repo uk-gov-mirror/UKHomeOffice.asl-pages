@@ -1,7 +1,7 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canComment } = require('../middleware');
-const { getPreviousVersion, getVersionChanges } = require('../middleware');
+const { getPreviousVersion, getVersionChanges, getFirstVersion, getVersionAmends } = require('../middleware');
 
 module.exports = settings => {
   const app = page({
@@ -28,7 +28,7 @@ module.exports = settings => {
     next();
   });
 
-  app.use(getPreviousVersion(), getVersionChanges());
+  app.use(getPreviousVersion(), getVersionChanges(), getFirstVersion(), getVersionAmends());
 
   return app;
 };

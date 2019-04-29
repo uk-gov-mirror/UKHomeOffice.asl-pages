@@ -11,6 +11,7 @@ start({
   },
   comments: state.static.comments,
   changed: state.static.changed,
+  amends: state.static.amends,
   settings: {
     establishments: state.static.establishments.map(e => e.name)
   },

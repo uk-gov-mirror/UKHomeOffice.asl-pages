@@ -166,21 +166,54 @@ const getPreviousVersion = () => (req, res, next) => {
   }
 };
 
+const getFirstVersion = () => (req, res, next) => {
+
+  const filtered = req.project.versions.filter(v => moment(req.version.createdAt).isAfter(v.createdAt) && v.id !== req.versionId);
+  const versions = orderBy(filtered, v => v.createdAt, 'asc');
+
+  if (versions.length > 0) {
+    let firstVersion = versions[0];
+    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${firstVersion.id}`)
+      .then(({ json: { data } }) => {
+        req.firstVersion = data;
+      })
+      .then(() => next())
+      .catch(next);
+  } else {
+    next();
+  }
+};
+
+const getChanges = (current, version) => {
+  const cvKeys = traverse(current.data);
+  const pvKeys = traverse(version.data);
+  const added = remove(cvKeys, k => !pvKeys.includes(k));
+  const removed = remove(pvKeys, k => !cvKeys.includes(k));
+  let changed = [];
+  cvKeys.forEach(k => {
+    let cvNode = getNode(current.data, k);
+    let pvNode = getNode(version.data, k);
+    if (!isEqual(cvNode, pvNode)) {
+      changed.push(k);
+    }
+  });
+  return added.concat(removed).concat(changed);
+};
+
 const getVersionChanges = () => (req, res, next) => {
   if (req.prevVersion) {
-    const cvKeys = traverse(req.version.data);
-    const pvKeys = traverse(req.prevVersion.data);
-    const added = remove(cvKeys, k => !pvKeys.includes(k));
-    const removed = remove(pvKeys, k => !cvKeys.includes(k));
-    let changed = [];
-    cvKeys.forEach(k => {
-      let cvNode = getNode(req.version.data, k);
-      let pvNode = getNode(req.prevVersion.data, k);
-      if (!isEqual(cvNode, pvNode)) {
-        changed.push(k);
-      }
-    });
-    res.locals.static.changed = added.concat(removed).concat(changed);
+    res.locals.static.changed = getChanges(req.version, req.prevVersion);
+  }
+  next();
+};
+
+const getVersionAmends = () => (req, res, next) => {
+  if (req.firstVersion) {
+    let amends = getChanges(req.version, req.firstVersion);
+    if (res.locals.static.changed) {
+      amends = amends.filter(e => !res.locals.static.changed.includes(e));
+    }
+    res.locals.static.amends = amends;
   }
   next();
 };
@@ -190,5 +223,7 @@ module.exports = {
   getComments,
   canComment,
   getPreviousVersion,
-  getVersionChanges
+  getVersionChanges,
+  getFirstVersion,
+  getVersionAmends
 };
