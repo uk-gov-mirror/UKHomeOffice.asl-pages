@@ -42,7 +42,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('task.base');
-    req.model = { id: `${req.task.id}-decision` };
+    req.model = { id: req.task.id };
 
     if (req.task.activityLog) {
       req.task.activityLog = getRelevantActivity(req.task.activityLog);

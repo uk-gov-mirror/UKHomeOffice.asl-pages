@@ -16,7 +16,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('task.success');
-    req.model = { id: `${req.task.id}-decision` };
+    req.model = { id: req.task.id };
     next();
   });
 
@@ -40,9 +40,7 @@ module.exports = () => {
   });
 
   app.get('/', (req, res, next) => {
-    console.log(req.session.form, req.model.id);
     if (req.session.form && req.session.form[req.model.id]) {
-      console.log('DELETING');
       delete req.session.form[req.model.id];
     }
     next();
