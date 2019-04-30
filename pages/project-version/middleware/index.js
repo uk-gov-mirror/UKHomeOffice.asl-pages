@@ -166,19 +166,17 @@ const getPreviousVersion = () => (req, res, next) => {
   }
 };
 
-const getFirstVersion = () => (req, res, next) => {
+const getGrantedVersion = () => (req, res, next) => {
 
-  const filtered = req.project.versions.filter(v => moment(req.version.createdAt).isAfter(v.createdAt) && v.id !== req.versionId);
-  const versions = orderBy(filtered, v => v.createdAt, 'asc');
+  if (req.project.granted) {
 
-  if (versions.length > 0) {
-    let firstVersion = versions[0];
-    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${firstVersion.id}`)
+    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
       .then(({ json: { data } }) => {
-        req.firstVersion = data;
+        req.grantedVersion = data;
       })
       .then(() => next())
       .catch(next);
+
   } else {
     next();
   }
@@ -208,8 +206,8 @@ const getVersionChanges = () => (req, res, next) => {
 };
 
 const getVersionAmends = () => (req, res, next) => {
-  if (req.firstVersion) {
-    let amends = getChanges(req.version, req.firstVersion);
+  if (req.grantedVersion) {
+    let amends = getChanges(req.version, req.grantedVersion);
     if (res.locals.static.changed) {
       amends = amends.filter(e => !res.locals.static.changed.includes(e));
     }
@@ -224,6 +222,6 @@ module.exports = {
   canComment,
   getPreviousVersion,
   getVersionChanges,
-  getFirstVersion,
+  getGrantedVersion,
   getVersionAmends
 };
