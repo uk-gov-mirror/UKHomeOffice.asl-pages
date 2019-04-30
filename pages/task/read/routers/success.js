@@ -16,7 +16,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('task.success');
-    req.model = { id: `${req.task.id}-decision` };
+    req.model = { id: req.task.id };
     next();
   });
 
