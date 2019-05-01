@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
@@ -21,6 +22,9 @@ module.exports = settings => {
         }
         if (profile.projects && profile.projects.length) {
           roles.push({ type: 'pplh' });
+        }
+        if (get(profile, 'establishments[0].role') === 'admin') {
+          roles.push({ type: 'admin' });
         }
         return {
           ...profile,
