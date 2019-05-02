@@ -33,7 +33,7 @@ module.exports = settings => {
     req.api(`/task/${taskId}/comment`, params)
       .then(response => {
         const id = get(response, 'json.data.json.data.activityLog[0].id');
-        res.json({ id })
+        res.json({ id });
       })
       .catch(next);
   });
