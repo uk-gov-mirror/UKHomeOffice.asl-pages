@@ -32,9 +32,11 @@ const getComments = () => (req, res, next) => {
         .filter(e => !ignoreAfter || e.createdAt < ignoreAfter)
         .groupBy(comment => comment.event.meta.payload.meta.field)
         .mapValues(comments => {
-          return comments.map(({ comment, createdAt, changedBy: { firstName, lastName } }) => {
+          return comments.map(({ id, deleted, comment, createdAt, changedBy: { firstName, lastName } }) => {
             return {
+              id,
               comment,
+              deleted,
               // we want to show the date of the following status change, not the comment submission.
               createdAt: ([...statuses].reverse().find(s => s.createdAt > createdAt) || {}).createdAt,
               author: `${firstName} ${lastName}`,
