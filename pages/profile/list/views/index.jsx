@@ -21,13 +21,17 @@ const joinAcronyms = data => {
   return <Acronym>{data}</Acronym>;
 };
 
+const selectivelyUppercase = filter => {
+  return filter === 'admin' ? 'Admin' : filter.toUpperCase();
+};
+
 export const peopleFormatters = {
   name: {
     format: (name, person) => <Link page="profile.view" profileId={person.id} label={`${person.firstName} ${person.lastName}`} />
   },
   roles: {
     accessor: row => row.roles && row.roles.map(v => v.type),
-    format: data => data && joinAcronyms(data.map(d => d.toUpperCase()))
+    format: data => data && joinAcronyms(data.map(selectivelyUppercase))
   },
   pil: {
     format: data => data || '-'
@@ -39,8 +43,8 @@ const Filters = () => (
     <Search label={<Snippet>searchText</Snippet>} />
     <LinkFilter
       prop="roles"
-      formatter={filter => <Acronym>{filter.toUpperCase()}</Acronym>}
-      append={['pilh', 'pplh']}
+      formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
+      append={['pilh', 'pplh', 'admin']}
     />
     <div className="table-heading">
       <FilterSummary />
