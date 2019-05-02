@@ -8,11 +8,13 @@ const { getVersion, getComments } = require('./middleware');
 module.exports = settings => {
   const app = Router();
 
+  app.use(bodyParser.json());
+
   app.use(getVersion());
 
   app.use(getComments());
 
-  app.post('/comment', bodyParser.json(), (req, res, next) => {
+  app.post('/comment', (req, res, next) => {
     const taskId = get(req.project, 'openTasks[0].id');
     if (!taskId) {
       return next();
@@ -29,7 +31,21 @@ module.exports = settings => {
       }
     };
     req.api(`/task/${taskId}/comment`, params)
-      .then(() => res.json({}))
+      .then(response => {
+        const id = get(response, 'json.data.json.data.activityLog[0].id');
+        res.json({ id })
+      })
+      .catch(next);
+  });
+
+  app.delete('/comment/:commentId', (req, res, next) => {
+    const id = req.params.commentId;
+    const taskId = get(req.project, 'openTasks[0].id');
+    if (!taskId) {
+      return next();
+    }
+    req.api(`/task/${taskId}/comment/${id}`, { method: 'DELETE' })
+      .then(() => res.json({ id }))
       .catch(next);
   });
 
