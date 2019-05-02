@@ -10,8 +10,10 @@ start({
     id: state.model.id
   },
   comments: state.static.comments,
-  changed: state.static.changed,
-  amends: state.static.amends,
+  changes: {
+    latest: (state.static.changes && state.static.changes.latest) || [],
+    granted: (state.static.changes && state.static.changes.granted) || []
+  },
   settings: {
     establishments: state.static.establishments.map(e => e.name)
   },

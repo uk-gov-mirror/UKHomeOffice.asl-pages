@@ -198,20 +198,25 @@ const getChanges = (current, version) => {
   return added.concat(removed).concat(changed);
 };
 
-const getVersionChanges = () => (req, res, next) => {
+const getLatestChanges = () => (req, res, next) => {
   if (req.prevVersion) {
-    res.locals.static.changed = getChanges(req.version, req.prevVersion);
+    res.locals.static.changes = {
+      latest: getChanges(req.version, req.prevVersion)
+    };
   }
   next();
 };
 
-const getVersionAmends = () => (req, res, next) => {
+const getGrantedChanges = () => (req, res, next) => {
   if (req.grantedVersion) {
-    let amends = getChanges(req.version, req.grantedVersion);
-    if (res.locals.static.changed) {
-      amends = amends.filter(e => !res.locals.static.changed.includes(e));
+    let granted = getChanges(req.version, req.grantedVersion);
+    if (res.locals.static.changes.latest) {
+      granted = granted.filter(e => !res.locals.static.changes.latest.includes(e));
     }
-    res.locals.static.amends = amends;
+    res.locals.static.changes = {
+      ...res.locals.static.changes,
+      granted
+    };
   }
   next();
 };
@@ -221,7 +226,7 @@ module.exports = {
   getComments,
   canComment,
   getPreviousVersion,
-  getVersionChanges,
+  getLatestChanges,
   getGrantedVersion,
-  getVersionAmends
+  getGrantedChanges
 };
