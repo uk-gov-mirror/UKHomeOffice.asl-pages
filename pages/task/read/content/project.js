@@ -2,6 +2,7 @@ module.exports = {
   title: 'Review PPL application',
   'sticky-nav': {
     'submitted-version': 'Submitted application',
+    deadline: 'Deadline',
     status: 'Make decision'
   },
   fields: {
