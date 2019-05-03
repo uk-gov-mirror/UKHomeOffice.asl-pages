@@ -44,6 +44,7 @@ module.exports = {
     task: {
       base: 'Tasklist',
       read: 'View task',
+      extend: 'Extend deadline',
       confirm: 'Confirm',
       success: 'Success'
     }

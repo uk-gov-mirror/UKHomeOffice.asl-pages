@@ -2,9 +2,15 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
 import { Link, StickyNavPage, StickyNavAnchor, Snippet, Form } from '@asl/components';
+import Deadline from './deadline';
 import WithdrawApplication from './withdraw-application';
 
 const declarationAnswer = val => val === 'yes' ? 'Yes' : 'Not yet';
+
+const allDeclarationsConfirmed = task => {
+  const taskMeta = task.data.meta;
+  return taskMeta.authority === 'yes' && taskMeta.awerb === 'yes' && taskMeta.ready === 'yes';
+};
 
 const Project = ({ task, project, establishment, children, schema }) => {
   const submitted = get(task, 'data.data.version');
@@ -41,6 +47,13 @@ const Project = ({ task, project, establishment, children, schema }) => {
             </Fragment>
         }
       </StickyNavAnchor>
+
+      {
+        allDeclarationsConfirmed(task) &&
+          <StickyNavAnchor id="deadline">
+            <Deadline task={task} />
+          </StickyNavAnchor>
+      }
 
       {
         schema.status.options.length > 0 &&

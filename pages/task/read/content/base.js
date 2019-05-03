@@ -33,6 +33,16 @@ module.exports = {
     withdrawHint: 'You will need to create a new application if you want to apply for this type of licence in future.',
     withdrawAction: 'Withdraw application'
   },
+  deadline: {
+    hint: 'Click the button below to extend the deadline by 15 days.',
+    extend: {
+      title: 'Extend deadline by 15 days.',
+      button: 'Extend deadline'
+    }
+  },
+  actions: {
+    change: 'Change'
+  },
   errors: {
     status: {
       required: 'Please approve or reject this task',
