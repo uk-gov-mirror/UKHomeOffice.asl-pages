@@ -199,7 +199,6 @@ const getChanges = (current, version) => {
 };
 
 const getAllChanges = () => (req, res, next) => {
-  console.log('getAllChanges');
   Promise.all([
     getChanges(req.version, req.prevVersion),
     getChanges(req.version, req.grantedVersion)
