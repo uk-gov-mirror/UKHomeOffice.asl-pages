@@ -197,12 +197,9 @@ const getAllChanges = () => (req, res, next) => {
     })
     .then(([latest, granted]) => {
       res.locals.static.changes = {
-        latest
+        latest,
+        granted: (granted || []).filter(e => !latest.includes(e))
       };
-
-      if (granted) {
-        res.locals.static.changes.granted = granted.filter(e => !latest.includes(e));
-      }
     })
     .then(() => next())
     .catch(next);
