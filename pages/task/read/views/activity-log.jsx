@@ -48,13 +48,13 @@ const getAuthor = (profile, task) => {
 const LogItem = ({ log, task, ExtraMeta }) => {
   return (
     <li key={log.id}>
-      <span className="date">{format(log.createdAt, dateFormat.datetime)}</span>
+      <span className="date">{format(log.createdAt, dateFormat.medium)}</span>
       {getStatusBadge(log.eventName)}
       {getAuthor(log.changedBy, task)}
-      <p className="comment">{log.comment}</p>
       {
         ExtraMeta && <p><ExtraMeta item={log} task={task} /></p>
       }
+      <p className="comment">{log.comment}</p>
     </li>
   );
 };
