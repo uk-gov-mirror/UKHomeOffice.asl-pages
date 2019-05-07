@@ -165,6 +165,10 @@ const getGrantedVersion = req => {
 };
 
 const getChanges = (current, version) => {
+  if (!current || !version) {
+    return Promise.resolve();
+  }
+
   const cvKeys = traverse(current.data);
   const pvKeys = traverse(version.data);
   const added = remove(cvKeys, k => !pvKeys.includes(k));
@@ -194,7 +198,7 @@ const getAllChanges = () => (req, res, next) => {
     .then(([latest, granted]) => {
       res.locals.static.changes = {
         latest,
-        granted: granted.filter(e => !latest.includes(e))
+        granted: (granted || []).filter(e => !latest.includes(e))
       };
     })
     .then(() => next())
