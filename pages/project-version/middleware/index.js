@@ -1,4 +1,4 @@
-const { chain, get, orderBy, remove, isEqual } = require('lodash');
+const { chain, get, remove, isEqual } = require('lodash');
 const isUUID = require('uuid-validate');
 
 const getVersion = () => (req, res, next) => {
@@ -146,14 +146,14 @@ const getNode = (tree, path) => {
 const getPreviousVersion = req => {
   const previous = req.project.versions
     .filter(version => version.status === 'submitted')
-    .find(version => version.createdAt < req.version.createdAt)
+    .find(version => version.createdAt < req.version.createdAt);
 
   if (!previous) {
     return Promise.resolve();
   }
 
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
-    .then(({ json: { data } }) => data)
+    .then(({ json: { data } }) => data);
 };
 
 const getGrantedVersion = req => {
@@ -161,7 +161,7 @@ const getGrantedVersion = req => {
     return Promise.resolve();
   }
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
-    .then(({ json: { data } }) => data)
+    .then(({ json: { data } }) => data);
 };
 
 const getChanges = (current, version) => {
@@ -189,7 +189,7 @@ const getAllChanges = () => (req, res, next) => {
       return Promise.all([
         getChanges(req.version, previousVersion),
         getChanges(req.version, grantedVersion)
-      ])
+      ]);
     })
     .then(([latest, granted]) => {
       res.locals.static.changes = {
