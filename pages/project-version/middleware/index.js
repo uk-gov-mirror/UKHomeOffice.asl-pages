@@ -1,5 +1,5 @@
-const { chain, get, orderBy, remove, isEqual } = require('lodash');
-const moment = require('moment');
+const { chain, get, remove, isEqual } = require('lodash');
+const isUUID = require('uuid-validate');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -128,12 +128,11 @@ const traverse = (node, key, keys = []) => {
 };
 
 const getNode = (tree, path) => {
-  const uuid4 = '^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-4{1}[a-fA-F0-9]{3}-[89abAB]{1}[a-fA-F0-9]{3}-[a-fA-F0-9]{12}$';
   let keys = path.split('.');
   let node = tree[keys[0]];
-  for (var i = 1; i < keys.length; i++) {
+  for (let i = 1; i < keys.length; i++) {
     let parent = node;
-    if (keys[i].match(uuid4)) {
+    if (isUUID(keys[i])) {
       if (parent instanceof Array) {
         node = parent.find(o => o.id === keys[i]);
       }
@@ -144,42 +143,25 @@ const getNode = (tree, path) => {
   return node;
 };
 
-const getPreviousVersion = () => (req, res, next) => {
+const getPreviousVersion = req => {
+  const previous = req.project.versions
+    .filter(version => version.status === 'submitted')
+    .find(version => version.createdAt < req.version.createdAt);
 
-  const versions = orderBy(req.project.versions.filter(pv => pv.id !== req.versionId),
-    v => v.createdAt, 'desc');
-
-  if (versions.length > 0) {
-    let prevVersion = versions.find(v => moment(req.version.createdAt).isAfter(v.createdAt));
-    if (prevVersion) {
-      req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${prevVersion.id}`)
-        .then(({ json: { data } }) => {
-          req.prevVersion = data;
-        })
-        .then(() => next())
-        .catch(next);
-    } else {
-      next();
-    }
-  } else {
-    next();
+  if (!previous) {
+    return Promise.resolve();
   }
+
+  return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
+    .then(({ json: { data } }) => data);
 };
 
-const getGrantedVersion = () => (req, res, next) => {
-
-  if (req.project.granted) {
-
-    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
-      .then(({ json: { data } }) => {
-        req.grantedVersion = data;
-      })
-      .then(() => next())
-      .catch(next);
-
-  } else {
-    next();
+const getGrantedVersion = req => {
+  if (!req.project.granted) {
+    return Promise.resolve();
   }
+  return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
+    .then(({ json: { data } }) => data);
 };
 
 const getChanges = (current, version) => {
@@ -200,11 +182,16 @@ const getChanges = (current, version) => {
 
 const getAllChanges = () => (req, res, next) => {
   Promise.all([
-    getChanges(req.version, req.prevVersion),
-    getChanges(req.version, req.grantedVersion)
+    getPreviousVersion(req),
+    getGrantedVersion(req)
   ])
+    .then(([previousVersion, grantedVersion]) => {
+      return Promise.all([
+        getChanges(req.version, previousVersion),
+        getChanges(req.version, grantedVersion)
+      ]);
+    })
     .then(([latest, granted]) => {
-
       res.locals.static.changes = {
         latest,
         granted: granted.filter(e => !latest.includes(e))
