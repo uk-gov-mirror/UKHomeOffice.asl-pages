@@ -52,7 +52,7 @@ const LogItem = ({ log, task, ExtraMeta }) => {
       {getStatusBadge(log.eventName)}
       {getAuthor(log.changedBy, task)}
       {
-        ExtraMeta && <p><ExtraMeta item={log} task={task} /></p>
+        ExtraMeta && <ExtraMeta item={log} task={task} />
       }
       <p className="comment">{log.comment}</p>
     </li>

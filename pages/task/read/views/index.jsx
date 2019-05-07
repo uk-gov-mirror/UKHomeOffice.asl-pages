@@ -26,7 +26,7 @@ const ExtraProjectMeta = ({ item, task }) => {
     const versionId = get(item, 'event.data.data.version');
 
     return versionId
-      ? <Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/>
+      ? <p><Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>
       : null;
   }
 
@@ -34,10 +34,18 @@ const ExtraProjectMeta = ({ item, task }) => {
     const deadline = moment(task.createdAt).addWorkingTime(40, 'days');
     const extended = cloneDeep(deadline).addWorkingTime(15, 'days');
 
-    return <Fragment>
-      <p><strong>Original deadline:</strong> { format(deadline.toDate(), dateFormat.medium) }</p>
-      <p><strong>New deadline:</strong> { format(extended.toDate(), dateFormat.medium) }</p>
-    </Fragment>;
+    return (
+      <Fragment>
+        <p>
+          <strong><Snippet>deadline.date.original</Snippet></strong>
+          { ' ' + format(deadline.toDate(), dateFormat.medium) }
+        </p>
+        <p>
+          <strong><Snippet>deadline.date.new</Snippet></strong>
+          { ' ' + format(extended.toDate(), dateFormat.medium) }
+        </p>
+      </Fragment>
+    );
   }
 
   return null;

@@ -15,6 +15,12 @@ module.exports = {
       action: 'Amend draft and resubmit'
     }
   },
+  deadline: {
+    date: {
+      original: 'Original deadline:',
+      new: 'New deadline:'
+    }
+  },
   versions: {
     granted: {
       label: 'View granted version'
