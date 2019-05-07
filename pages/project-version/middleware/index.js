@@ -166,23 +166,52 @@ const getPreviousVersion = () => (req, res, next) => {
   }
 };
 
-const getVersionChanges = () => (req, res, next) => {
-  if (req.prevVersion) {
-    const cvKeys = traverse(req.version.data);
-    const pvKeys = traverse(req.prevVersion.data);
-    const added = remove(cvKeys, k => !pvKeys.includes(k));
-    const removed = remove(pvKeys, k => !cvKeys.includes(k));
-    let changed = [];
-    cvKeys.forEach(k => {
-      let cvNode = getNode(req.version.data, k);
-      let pvNode = getNode(req.prevVersion.data, k);
-      if (!isEqual(cvNode, pvNode)) {
-        changed.push(k);
-      }
-    });
-    res.locals.static.changed = added.concat(removed).concat(changed);
+const getGrantedVersion = () => (req, res, next) => {
+
+  if (req.project.granted) {
+
+    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
+      .then(({ json: { data } }) => {
+        req.grantedVersion = data;
+      })
+      .then(() => next())
+      .catch(next);
+
+  } else {
+    next();
   }
-  next();
+};
+
+const getChanges = (current, version) => {
+  const cvKeys = traverse(current.data);
+  const pvKeys = traverse(version.data);
+  const added = remove(cvKeys, k => !pvKeys.includes(k));
+  const removed = remove(pvKeys, k => !cvKeys.includes(k));
+  let changed = [];
+  cvKeys.forEach(k => {
+    let cvNode = getNode(current.data, k);
+    let pvNode = getNode(version.data, k);
+    if (!isEqual(cvNode, pvNode)) {
+      changed.push(k);
+    }
+  });
+  return added.concat(removed).concat(changed);
+};
+
+const getAllChanges = () => (req, res, next) => {
+  Promise.all([
+    getChanges(req.version, req.prevVersion),
+    getChanges(req.version, req.grantedVersion)
+  ])
+    .then(([latest, granted]) => {
+
+      res.locals.static.changes = {
+        latest,
+        granted: granted.filter(e => !latest.includes(e))
+      };
+    })
+    .then(() => next())
+    .catch(next);
 };
 
 module.exports = {
@@ -190,5 +219,6 @@ module.exports = {
   getComments,
   canComment,
   getPreviousVersion,
-  getVersionChanges
+  getGrantedVersion,
+  getAllChanges
 };
