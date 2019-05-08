@@ -14,41 +14,20 @@ import Profile from './profile';
 import Role from './role';
 import Project from './project';
 import get from 'lodash/get';
-import cloneDeep from 'lodash/cloneDeep';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
-import moment from 'moment-business-time';
 
 const ExtraProjectMeta = ({ item, task }) => {
   const status = getStatus(item.eventName);
-  if (status === 'with-inspectorate') {
-    const versionId = get(item, 'event.data.data.version');
-
-    return versionId
-      ? <p><Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>
-      : null;
+  if (status !== 'with-inspectorate') {
+    return null;
   }
-
-  if (status === 'deadline-extension') {
-    const deadline = moment(task.createdAt).addWorkingTime(40, 'days');
-    const extended = cloneDeep(deadline).addWorkingTime(15, 'days');
-
-    return (
-      <Fragment>
-        <p>
-          <strong><Snippet>deadline.date.original</Snippet></strong>
-          { ' ' + format(deadline.toDate(), dateFormat.medium) }
-        </p>
-        <p>
-          <strong><Snippet>deadline.date.new</Snippet></strong>
-          { ' ' + format(extended.toDate(), dateFormat.medium) }
-        </p>
-      </Fragment>
-    );
+  const versionId = get(item, 'event.data.data.version');
+  if (!versionId) {
+    return null;
   }
-
-  return null;
+  return <p><Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
 };
 
 const getTaskPlayback = task => {
