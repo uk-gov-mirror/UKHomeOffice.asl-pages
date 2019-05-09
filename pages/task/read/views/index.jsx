@@ -14,9 +14,6 @@ import Profile from './profile';
 import Role from './role';
 import Project from './project';
 import get from 'lodash/get';
-import { dateFormat } from '../../../../constants';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
 
 const ExtraProjectMeta = ({ item, task }) => {
   const status = getStatus(item.eventName);
@@ -96,10 +93,7 @@ const getTitle = action => {
   }
 };
 
-const Task = ({ task }) => {
-  const changedBy = task.data.changedBy;
-  const formatDate = date => format(date, dateFormat.medium);
-
+const Task = ({ task, project }) => {
   return (
     <Fragment>
       <div className="govuk-grid-row">
@@ -110,27 +104,15 @@ const Task = ({ task }) => {
 
       <Header title={getTitle(task.data.action)} />
 
-      <div className="govuk-inset-text submitted-by">
-        <Snippet>task.submittedBy</Snippet><span>&nbsp;</span>
-        <Link
-          page="profile.view"
-          profileId={changedBy.id}
-          establishmentId={task.data.establishmentId}
-          label={`${changedBy.firstName} ${changedBy.lastName}`}
-        /><span>&nbsp;</span>
-        <Snippet date={formatDate(parse(task.updatedAt))}>task.submittedOn</Snippet>
-      </div>
-
-      <dl className="current-status">
-        <dt><Snippet>currentStatus</Snippet></dt>
-        <dd><Snippet>{`status.${task.status}.state`}</Snippet></dd>
-      </dl>
+      { task.data.model === 'project' && project &&
+        <h2 className="project-title">{project.title}</h2>
+      }
 
       { getTaskPlayback(task) }
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ static: { task } }) => ({ task });
+const mapStateToProps = ({ static: { task, project } }) => ({ task, project });
 
 export default connect(mapStateToProps)(Task);
