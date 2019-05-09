@@ -4,7 +4,6 @@ import {
   Diff,
   Snippet,
   Field,
-  Form,
   StickyNavPage,
   StickyNavAnchor,
   ModelSummary
@@ -12,6 +11,7 @@ import {
 import { schema } from '../../../place/schema';
 import formatters from '../../../place/formatters';
 import { hasChanged } from '../../../../lib/utils';
+import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
 
 const LicenceHolder = ({ type, profile }) => (
@@ -108,7 +108,7 @@ const Playback = ({ task, values = {}, establishment, isAsru, children, decision
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
           <p><Snippet>make-decision.hint</Snippet></p>
-          <Form />
+          <MakeDecision decisionSchema={decisionSchema} />
           { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
         </StickyNavAnchor>
     }
