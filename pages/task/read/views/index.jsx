@@ -27,7 +27,7 @@ const ExtraProjectMeta = ({ item, task }) => {
   return <p><Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
 };
 
-const getTaskPlayback = task => {
+const getTaskPlayback = (task, project) => {
   if (task.data.model === 'pil') {
     return (
       <Pil task={task}>
@@ -66,11 +66,14 @@ const getTaskPlayback = task => {
   }
   if (task.data.model === 'project') {
     return (
-      <Project task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} ExtraMeta={ExtraProjectMeta} />
-        </StickyNavAnchor>
-      </Project>
+      <Fragment>
+        <h2 className="project-title">{project.title}</h2>
+        <Project task={task}>
+          <StickyNavAnchor id="activity">
+            <ActivityLog task={task} ExtraMeta={ExtraProjectMeta} />
+          </StickyNavAnchor>
+        </Project>
+      </Fragment>
     );
   }
 };
@@ -104,11 +107,7 @@ const Task = ({ task, project }) => {
 
       <Header title={getTitle(task.data.action)} />
 
-      { task.data.model === 'project' && project &&
-        <h2 className="project-title">{project.title}</h2>
-      }
-
-      { getTaskPlayback(task) }
+      { getTaskPlayback(task, project) }
     </Fragment>
   );
 };
