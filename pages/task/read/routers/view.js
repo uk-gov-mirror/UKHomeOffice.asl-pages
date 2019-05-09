@@ -8,8 +8,8 @@ const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 
-const getRelevantActivity = activityLog => activityLog.filter((log, index) => {
-  if (get(log, 'event.meta.payload.data.extended') && index > 0) {
+const getRelevantActivity = activityLog => activityLog.filter(log => {
+  if (get(log, 'event.meta.payload.data.extended')) {
     log.eventName = 'status:deadline-extension';
     return true;
   }
