@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import omit from 'lodash/omit';
-import { Snippet, StickyNavPage, StickyNavAnchor, Diff, Field, Form } from '@asl/components';
+import { Snippet, StickyNavPage, StickyNavAnchor, Diff, Field } from '@asl/components';
 import schema from '../../../user/update/schema';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
+import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
 
 const formatters = {
@@ -37,12 +38,13 @@ const Profile = ({ task, values, children, decisionSchema }) => (
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
           <p><Snippet>make-decision.hint</Snippet></p>
-          <Form />
+          <MakeDecision decisionSchema={decisionSchema} />
           { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
         </StickyNavAnchor>
     }
 
     {
+      // if the only option is to withdraw, display the withdraw button
       decisionSchema.status.options.length === 0 && task.canBeWithdrawn &&
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>

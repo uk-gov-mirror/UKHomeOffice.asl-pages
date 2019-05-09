@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
-import { Link, StickyNavPage, StickyNavAnchor, Snippet, Form } from '@asl/components';
+import { Link, StickyNavPage, StickyNavAnchor, Snippet } from '@asl/components';
 import Deadline from './deadline';
+import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
 
 const declarationAnswer = val => val === 'yes' ? 'Yes' : 'Not yet';
@@ -60,12 +61,13 @@ const Project = ({ task, project, establishment, children, schema }) => {
           <StickyNavAnchor id="status">
             <h2><Snippet>sticky-nav.status</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
-            <Form />
+            <MakeDecision />
             { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
           </StickyNavAnchor>
       }
 
       {
+        // if the only option is to withdraw, display the withdraw button
         schema.status.options.length === 0 && task.canBeWithdrawn &&
           <StickyNavAnchor id="withdraw">
             <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
