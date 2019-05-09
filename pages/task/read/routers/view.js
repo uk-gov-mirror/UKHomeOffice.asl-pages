@@ -9,6 +9,11 @@ const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 
 const getRelevantActivity = activityLog => activityLog.filter(log => {
+  if (get(log, 'event.meta.payload.data.extended')) {
+    log.eventName = 'status:deadline-extension';
+    return true;
+  }
+
   if (!log.eventName.includes('status:')) {
     return false;
   }

@@ -53,5 +53,8 @@ module.exports = {
   rejected: {
     state: 'Rejected',
     action: 'Reject'
+  },
+  'deadline-extension': {
+    state: 'Deadline extended'
   }
 };
