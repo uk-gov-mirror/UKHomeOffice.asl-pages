@@ -102,7 +102,7 @@ const Task = ({ task, project }) => {
         </div>
       </div>
 
-      <Header title={getTitle(task.data.action)} subtitle={project.title} />
+      <Header title={getTitle(task.data.action)} subtitle={project && project.title} />
 
       { getTaskPlayback(task) }
     </Fragment>
