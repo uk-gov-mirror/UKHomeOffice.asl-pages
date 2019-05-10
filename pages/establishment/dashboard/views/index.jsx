@@ -29,6 +29,8 @@ const Index = ({
   allowedActions,
   asruAdmin
 }) => {
+  const inspectors = establishment.asru.filter(p => p.asruInspector);
+  const spocs = establishment.asru.filter(p => p.asruLicensing);
 
   return (
     <Fragment>
@@ -52,43 +54,56 @@ const Index = ({
             {
               establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
             }
+
             <dt><Snippet>inspectors</Snippet></dt>
-            {
-              !establishment.asru.filter(p => p.asruInspector).length && <p>None</p>
-            }
-            {
-              !asruAdmin && establishment.asru.filter(p => p.asruInspector).map(asru => (
-                <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
-              ))
-            }
-            {
-              asruAdmin && establishment.asru.filter(p => p.asruInspector).map(asru => (
-                <Fragment key={`${asru.id}`}>
-                  <Link page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
-                  <br />
-                </Fragment>
-              ))
-            }
-            { asruAdmin && <dd><Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            <dd>
+              { inspectors.length < 1 &&
+                <p className="inspector">None</p>
+              }
+
+              {
+                !asruAdmin && inspectors.map(inspector => (
+                  <p key={`${inspector.id}`} className="inspector">{`${inspector.firstName} ${inspector.lastName}`}</p>
+                ))
+              }
+
+              {
+                asruAdmin && inspectors.map(inspector => (
+                  <p key={`${inspector.id}`} className="inspector">
+                    <Link page="global.profile" profileId={inspector.id} label={`${inspector.firstName} ${inspector.lastName}`} />
+                  </p>
+                ))
+              }
+
+              { asruAdmin &&
+                <Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } />
+              }
+            </dd>
 
             <dt><Snippet>spoc</Snippet></dt>
-            {
-              !establishment.asru.filter(p => p.asruLicensing).length && <p>None</p>
-            }
-            {
-              !asruAdmin && establishment.asru.filter(p => p.asruLicensing).map(asru => (
-                <p key={`${asru.id}`}>{`${asru.firstName} ${asru.lastName}`}</p>
-              ))
-            }
-            {
-              asruAdmin && establishment.asru.filter(p => p.asruLicensing).map(asru => (
-                <Fragment key={`${asru.id}`}>
-                  <Link page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
-                  <br />
-                </Fragment>
-              ))
-            }
-            { asruAdmin && <dd><Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
+            <dd>
+              { spocs.length < 1 &&
+                <p className="spoc">None</p>
+              }
+
+              {
+                !asruAdmin && spocs.map(spoc => (
+                  <p key={`${spoc.id}`} className="spoc">{`${spoc.firstName} ${spoc.lastName}`}</p>
+                ))
+              }
+
+              {
+                asruAdmin && spocs.map(spoc => (
+                  <p key={`${spoc.id}`} className="spoc">
+                    <Link page="global.profile" profileId={spoc.id} label={`${spoc.firstName} ${spoc.lastName}`} />
+                  </p>
+                ))
+              }
+
+              { asruAdmin &&
+                <Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } />
+              }
+            </dd>
           </dl>
         </Sidebar>
       </div>
