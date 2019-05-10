@@ -63,7 +63,10 @@ const Index = ({
             }
             {
               asruAdmin && establishment.asru.filter(p => p.asruInspector).map(asru => (
-                <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+                <Fragment key={`${asru.id}`}>
+                  <Link page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+                  <br />
+                </Fragment>
               ))
             }
             { asruAdmin && <dd><Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } /></dd> }
@@ -79,7 +82,10 @@ const Index = ({
             }
             {
               asruAdmin && establishment.asru.filter(p => p.asruLicensing).map(asru => (
-                <Link key={`${asru.id}`} page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+                <Fragment key={`${asru.id}`}>
+                  <Link page="global.profile" profileId={asru.id} label={`${asru.firstName} ${asru.lastName}`} />
+                  <br />
+                </Fragment>
               ))
             }
             { asruAdmin && <dd><Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } /></dd> }
