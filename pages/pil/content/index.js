@@ -18,6 +18,7 @@ module.exports = {
     C: `Surgical procedures involving general anaesthesia. Plus - administration and maintenance of balanced or
         prolonged general anaesthesia.`,
     D: `Use of neuromuscular blocking agents`,
+    E: 'Education and training procedures conducted in accordance with Project Licence',
     F: 'Other'
   }
 };
