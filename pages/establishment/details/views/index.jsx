@@ -47,7 +47,7 @@ const Index = ({
             <dd>
               <ul>
                 {
-                  ['procedures', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
+                  ['procedure', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
                     <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
                   )
                 }

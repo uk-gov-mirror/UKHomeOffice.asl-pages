@@ -2,7 +2,7 @@ module.exports = {
   address: 'Address',
   licenced: {
     title: 'Licensed to carry out',
-    procedures: 'Regulated procedures on protected animals',
+    procedure: 'Regulated procedures on protected animals',
     breeding: 'Breeding of relevant protected animals',
     supplying: 'Supply of relevant protected animals'
   },
