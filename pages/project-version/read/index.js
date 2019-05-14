@@ -25,6 +25,10 @@ module.exports = settings => {
     res.locals.static.user = req.user.profile;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && req.user.profile.asruUser && res.locals.static.isCommentable;
+    res.locals.static.showConditions = req.user.profile.asruUser
+      ? req.version.status !== 'draft'
+      : req.version.status === 'granted';
+    res.locals.static.editConditions = req.user.profile.asruUser && req.version.status === 'submitted';
     res.locals.model = req.version;
     next();
   });
