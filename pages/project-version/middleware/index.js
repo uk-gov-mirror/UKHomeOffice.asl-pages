@@ -145,7 +145,16 @@ const getNode = (tree, path) => {
 
 const getPreviousVersion = req => {
   const previous = req.project.versions
-    .filter(version => version.status === 'submitted')
+    // only get versions created after last granted, if granted
+    .filter(version => {
+      const granted = req.project.versions.find(v => v.status === 'granted');
+      if (granted) {
+        return version.createdAt >= granted.createdAt;
+      }
+      return true;
+    })
+    // previous version could be granted or submitted
+    .filter(version => version.status === 'submitted' || version.status === 'granted')
     .find(version => version.createdAt < req.version.createdAt);
 
   if (!previous) {
@@ -198,7 +207,7 @@ const getAllChanges = () => (req, res, next) => {
     .then(([latest, granted]) => {
       res.locals.static.changes = {
         latest,
-        granted: (granted || []).filter(e => !latest.includes(e))
+        granted: (granted || []).filter(e => !(latest || []).includes(e))
       };
     })
     .then(() => next())
