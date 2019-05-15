@@ -23,7 +23,7 @@ module.exports = settings => {
     const header = renderToStaticMarkup(<Header project={req.version.project} nonce={res.locals.static.nonce} />);
     const footer = renderToStaticMarkup(<Footer />);
 
-    const hasStatusBanner = () => req.version.project.status !== 'active';
+    const hasStatusBanner = req.version.project.status !== 'active';
 
     const params = {
       method: 'POST',
@@ -34,7 +34,7 @@ module.exports = settings => {
           headerTemplate: header,
           footerTemplate: footer,
           margin: {
-            top: hasStatusBanner() ? 180 : 100,
+            top: hasStatusBanner ? 180 : 100,
             left: 25,
             right: 25,
             bottom: 125
