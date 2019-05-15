@@ -8,7 +8,7 @@ module.exports = {
     title: 'Apply for personal licence - Categories A, B, C, D and F',
     summary: 'Please complete all of the following sections.',
     details: {
-      title: 'Your details'
+      title: 'Applicant details'
     },
     training: {
       title: 'Training'
@@ -17,7 +17,7 @@ module.exports = {
       title: 'Exemptions'
     },
     procedures: {
-      title: 'Procedure categories'
+      title: 'Procedures'
     }
   },
   exemption: {

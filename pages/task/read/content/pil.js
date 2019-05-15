@@ -24,7 +24,7 @@ module.exports = {
     applicant: 'Applicant',
     training: 'Training',
     exemptions: 'Exemptions',
-    procedures: 'Procedure categories',
+    procedures: 'Procedures',
     species: 'Animal types',
     'status-ntco': 'Endorse application'
   },

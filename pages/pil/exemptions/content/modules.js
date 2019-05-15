@@ -2,10 +2,10 @@ const { merge } = require('lodash');
 const content = require('./');
 
 module.exports = merge({}, content, {
-  title: 'Which training modules do you think you should be exempt from?',
+  title: 'Which training modules should the applicant be exempt from?',
   fields: {
     modules: {
-      hint: 'Exemptions from training modules will only be considered if your previous experience demonstrates that you have sufficient existing knowledge and the required level of competence.',
+      hint: 'Exemptions from training modules will only be considered if an applicant\'s previous experience demonstrates that they have sufficient existing knowledge and the required level of competence.',
       label: ''
     },
     reason: {
@@ -17,7 +17,7 @@ module.exports = merge({}, content, {
       required: 'You need to select at least one module.'
     },
     reason: {
-      customValidate: 'Please give a reason you are exempt from module {{meta}}'
+      customValidate: 'Please enter a reason that an applicant should be exempt from module {{meta}}.'
     }
   }
 });
