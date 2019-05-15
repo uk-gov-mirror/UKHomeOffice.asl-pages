@@ -7,4 +7,23 @@ header {
   font-size: 10px;
   margin-left: 25px;
   margin-right: 25px;
+
+  .status-banner {
+    color: white;
+    background-color: black;
+    padding: 5px 10px;
+    text-align: center;
+
+    .status {
+      margin: 0;
+      text-transform: uppercase;
+      font-weight: normal;
+      font-size: 18px;
+    }
+
+    .summary {
+      margin: 0;
+      font-size: 12px;
+    }
+  }
 }

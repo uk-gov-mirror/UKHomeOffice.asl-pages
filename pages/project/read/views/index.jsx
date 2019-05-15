@@ -57,9 +57,7 @@ const App = ({ model, establishment, canUpdate }) => {
       {
         openTask && <p><Link page="task.read" taskId={openTask.id} className="govuk-button" label="View open task" /></p>
       }
-      {
-        model.status === 'active' && <p><Link page="project.version.pdf" versionId={model.granted.id} className="govuk-button" label="Export Licence as PDF" /></p>
-      }
+      <p><Link page="project.version.pdf" versionId={model.granted.id} className="govuk-button" label="Export Licence as PDF" /></p>
     </Fragment>
   );
 };
