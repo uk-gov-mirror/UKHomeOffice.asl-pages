@@ -117,6 +117,11 @@ module.exports = () => {
         return next();
       }
 
+      if (req.task.data.action === 'delete') {
+        res.locals.static.values = req.task.data.deleted;
+        return next();
+      }
+
       let est = '';
       if (model !== 'profile') {
         est = `/establishment/${req.task.data.data.establishmentId}`;
