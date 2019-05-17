@@ -116,26 +116,9 @@ module.exports = () => {
         res.locals.static.values = req.user.profile;
         return next();
       }
-
-      if (req.task.data.action === 'delete') {
-        res.locals.static.values = req.task.data.deleted;
-        return next();
-      }
-
-      let est = '';
-      if (model !== 'profile') {
-        est = `/establishment/${req.task.data.data.establishmentId}`;
-      }
-      const id = req.task.data.id;
-      const url = `/${model}/${id}`;
-
-      return req.api(`${est}${url}`)
-        .then(({ json: { data } }) => {
-          res.locals.static.values = data;
-        })
-        .then(() => next())
-        .catch(next);
     }
+
+    res.locals.static.values = req.task.data.modelData;
     next();
   });
 
