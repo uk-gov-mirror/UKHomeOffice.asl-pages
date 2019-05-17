@@ -12,19 +12,19 @@ module.exports = {
     state: 'Awaiting review'
   },
   'with-inspectorate': {
-    state: 'With inspectorate',
+    state: 'Awaiting recommendation',
     action: 'Refer to inspector'
   },
   'referred-to-inspector': {
-    state: 'Awaiting inspection',
+    state: 'Awaiting recommendation',
     action: 'Refer to inspector'
   },
   'returned-to-applicant': {
-    state: 'Returned to applicant',
+    state: 'Returned',
     action: 'Return to applicant'
   },
   'withdrawn-by-applicant': {
-    state: 'Withdrawn by applicant',
+    state: 'Withdrawn',
     action: 'Withdraw'
   },
   'with-ntco': {
@@ -35,20 +35,20 @@ module.exports = {
     action: 'Endorse application'
   },
   'inspector-recommended': {
-    state: 'Recommended',
-    action: 'Recommend'
+    state: 'Recommendation made',
+    action: 'Recommend for approval'
   },
   'inspector-rejected': {
-    state: 'Not recommended',
+    state: 'Recommendation made',
     action: 'Recommend for rejection'
   },
   resubmitted: {
-    state: 'Resubmitted',
-    action: 'Resubmit'
+    state: 'Submitted',
+    action: 'Submit'
   },
   resolved: {
-    state: 'Resolved',
-    action: 'Update licence'
+    state: 'Approved',
+    action: 'Grant licence'
   },
   rejected: {
     state: 'Rejected',

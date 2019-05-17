@@ -17,7 +17,7 @@ module.exports = merge({}, content, {
       required: 'You need to select at least one module.'
     },
     reason: {
-      customValidate: 'Please enter a reason that an applicant should be exempt from module {{meta}}.'
+      customValidate: 'Enter a reason why an applicant should be exempt from module {{meta}}.'
     }
   }
 });
