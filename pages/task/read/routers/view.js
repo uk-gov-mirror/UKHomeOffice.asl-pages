@@ -46,7 +46,7 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('task.base');
+    req.breadcrumb('task.read');
     req.model = { id: req.task.id };
 
     if (req.task.activityLog) {

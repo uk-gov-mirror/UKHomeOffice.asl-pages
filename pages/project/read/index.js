@@ -7,7 +7,10 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('project.read');
+    req.breadcrumb({
+      label: 'project.read',
+      project: req.project
+    });
     next();
   });
 

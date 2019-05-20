@@ -3,5 +3,5 @@ const confirmContent = require('../../update/content/confirm');
 const baseContent = require('./');
 
 module.exports = merge({}, confirmContent, baseContent, {
-  subtitle: 'Remove premises'
+  subtitle: 'Remove approved area'
 });

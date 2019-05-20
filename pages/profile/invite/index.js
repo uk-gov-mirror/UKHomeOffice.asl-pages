@@ -11,6 +11,7 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.use('/', (req, res, next) => {
+    req.breadcrumb('profile.invite');
     const establishment = req.user.profile.establishments.find(e => e.id === req.establishmentId);
     res.locals.static.establishment = establishment;
     next();

@@ -13,11 +13,15 @@ module.exports = {
       base: 'Personal licence'
     },
     place: {
-      list: 'Approved areas'
+      list: 'Approved areas',
+      create: 'Create approved area',
+      update: 'Amend approved area',
+      delete: 'Remove approved area'
     },
     profile: {
       list: 'People',
       view: '{{model.firstName}} {{model.lastName}}',
+      invite: 'Invite user',
       role: {
         apply: {
           base: 'Apply for named role',
