@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, StickyNavPage, StickyNavAnchor, Link } from '@asl/components';
+import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
@@ -10,7 +10,7 @@ import WithdrawApplication from './withdraw-application';
 const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
 
 const Pil = ({ profile, task, children, schema }) => {
-  const pil = profile.pil;
+  const pil = task.data.data;
   const formatDate = date => format(date, dateFormat.short);
 
   return (
@@ -35,7 +35,43 @@ const Pil = ({ profile, task, children, schema }) => {
               <Fragment>
                 <h3><Snippet>pil.procedures.categories</Snippet></h3>
                 { pil.procedures.map((procedure, index) => (
-                  <p key={index}>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
+                  <Fragment key={index}>
+                    <p>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
+                    {
+                      (procedure === 'D' || procedure === 'F') && (
+                        <Inset>
+                          {
+                            procedure === 'D' && (
+                              <dl>
+                                <dt><Snippet>pil.procedures.evidence</Snippet></dt>
+                                <dd>
+                                  {
+                                    pil.notesCatD
+                                      ? pil.notesCatD
+                                      : <em><Snippet>pil.procedures.noEvidence</Snippet></em>
+                                  }
+                                </dd>
+                              </dl>
+                            )
+                          }
+                          {
+                            procedure === 'F' && (
+                              <dl>
+                                <dt><Snippet>pil.procedures.type</Snippet></dt>
+                                <dd>
+                                  {
+                                    pil.notesCatF
+                                      ? pil.notesCatF
+                                      : <em><Snippet>pil.procedures.noType</Snippet></em>
+                                  }
+                                </dd>
+                              </dl>
+                            )
+                          }
+                        </Inset>
+                      )
+                    }
+                  </Fragment>
                 ))}
               </Fragment>
             )
