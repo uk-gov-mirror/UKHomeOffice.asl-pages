@@ -28,7 +28,7 @@ const Role = ({ establishment, profile, task, values, children, schema }) => (
     </StickyNavAnchor>
     <StickyNavAnchor id="applicant">
       <h2><Snippet>sticky-nav.applicant</Snippet></h2>
-      <Link page="profile.view" establishmentId={establishment.id} label={`${profile.firstName} ${profile.lastName}`} />
+      <Link page="profile.view" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
     </StickyNavAnchor>
     {
       task.data.action === 'create' && (
