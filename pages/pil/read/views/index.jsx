@@ -47,7 +47,7 @@ const formatters = {
   }
 };
 
-const PIL = ({ model, profile }) => {
+const PIL = ({ model, profile, canUpdate }) => {
   return (
     <Fragment>
       <LicenceStatusBanner licence={model} licenceType="pil" />
@@ -59,17 +59,16 @@ const PIL = ({ model, profile }) => {
 
       <ModelSummary model={model} formatters={formatters} schema={schema} />
 
-      { model.status !== 'active' &&
-        <p><Link page="pil.update" pilId={model.id} label={<Snippet>action.applyNow</Snippet>} className="govuk-button" /></p>
-      }
-
-      <p>
+      <p className="control-panel">
+        {
+          canUpdate && <Link page="pil.update" className="govuk-button" label="Amend licence"/>
+        }
         <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />
       </p>
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ model, static: { profile } }) => ({ model, profile });
+const mapStateToProps = ({ model, static: { profile, canUpdate } }) => ({ model, profile, canUpdate });
 
 export default connect(mapStateToProps)(PIL);

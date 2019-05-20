@@ -14,6 +14,20 @@ module.exports = settings => {
     next();
   });
 
+  app.use((req, res, next) => {
+    const params = {
+      id: req.pilId,
+      profileId: req.pil.profileId,
+      establishment: req.establishment.id
+    };
+    req.user.can('pil.update', params)
+      .then(can => {
+        res.locals.static.canUpdate = can;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
   app.get('/', (req, res, next) => {
     res.locals.model = req.pil;
 

@@ -52,7 +52,11 @@ module.exports = {
     },
     procedures: {
       categories: 'Categories',
-      none: 'No procedures selected'
+      none: 'No procedures selected',
+      evidence: 'Evidence of competency',
+      type: 'Type of regulated procedure',
+      noEvidence: 'No evidence provided',
+      noType: 'No type provided'
     },
     species: {
       none: 'No animal types selected'
