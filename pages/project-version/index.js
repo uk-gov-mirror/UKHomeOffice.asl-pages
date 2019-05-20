@@ -14,6 +14,18 @@ module.exports = settings => {
 
   app.use(getComments());
 
+  app.get('/question/:question', (req, res, next) => {
+    const key = req.params.question;
+    if (!key) {
+      return next();
+    }
+    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/question/${key}`)
+      .then(response => {
+        res.json(response.json.data);
+      })
+      .catch(next);
+  });
+
   app.post('/comment', (req, res, next) => {
     const taskId = get(req.project, 'openTasks[0].id');
     if (!taskId) {
