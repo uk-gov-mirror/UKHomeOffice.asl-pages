@@ -10,7 +10,7 @@ module.exports = {
       read: 'Details'
     },
     pil: {
-      base: 'View personal licence',
+      read: 'View personal licence',
       create: 'Apply for personal licence',
       training: 'Training',
       exemptions: 'Exemptions',

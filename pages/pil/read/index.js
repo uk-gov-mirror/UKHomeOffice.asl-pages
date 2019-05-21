@@ -29,7 +29,7 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    req.breadcrumb('pil.base');
+    req.breadcrumb('pil.read');
 
     res.locals.model = req.pil;
 
