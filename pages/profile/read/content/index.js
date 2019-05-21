@@ -40,6 +40,16 @@ module.exports = {
     other: {
       incomplete: 'Application currently in progress.',
       notStarted: 'None'
+    },
+    training: {
+      title: 'Training',
+      certificate: {
+        number: 'Certificate number',
+        awarded: 'Date awarded',
+        body: 'Accreditation body',
+        modules: 'Modules completed'
+      },
+      none: 'No training added'
     }
   }
 };
