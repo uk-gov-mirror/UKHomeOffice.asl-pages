@@ -22,11 +22,6 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use((req, res, next) => {
-    req.breadcrumb('pil.base');
-    next();
-  });
-
   app.use('/:pilId/edit', update());
   app.use('/:pilId/delete', remove());
   app.use('/:pilId', read());

@@ -7,15 +7,13 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    const project = req.project;
-
-    if (!project.title) {
-      project.title = 'Untitled project';
+    if (!req.project.title) {
+      req.project.title = 'Untitled project';
     }
 
     req.breadcrumb({
       label: 'project.read',
-      project
+      project: req.project
     });
     next();
   });

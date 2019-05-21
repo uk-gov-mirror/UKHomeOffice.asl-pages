@@ -16,6 +16,8 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+    req.breadcrumb('pil.create');
+
     const params = {
       id: req.pilId,
       profileId: req.pil.profileId,
@@ -65,6 +67,11 @@ module.exports = settings => {
       })
       .then(() => res.redirect(req.originalUrl + '/success'))
       .catch(next);
+  });
+
+  app.use('/success', (req, res, next) => {
+    req.breadcrumb('pil.success');
+    next();
   });
 
   app.use('/success', success({

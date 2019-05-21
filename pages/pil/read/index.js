@@ -29,6 +29,8 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
+    req.breadcrumb('pil.base');
+
     res.locals.model = req.pil;
 
     res.locals.static.schema = {

@@ -8,6 +8,11 @@ module.exports = settings => {
     paths: ['/modules']
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('pil.exemptions');
+    next();
+  });
+
   app.post('/:exemption', (req, res, next) => {
     if (req.query.action !== 'delete') {
       return next();
