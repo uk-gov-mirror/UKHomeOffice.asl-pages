@@ -3,7 +3,7 @@ const { get } = require('lodash');
 const bodyParser = require('body-parser');
 const read = require('./read');
 const pdf = require('./pdf');
-const { getVersion, getComments } = require('./middleware');
+const { getVersion, getComments, getChangedValues } = require('./middleware');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -16,14 +16,10 @@ module.exports = settings => {
 
   app.get('/question/:question', (req, res, next) => {
     const key = req.params.question;
-    if (!key) {
-      return next();
-    }
-    req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/question/${key}`)
-      .then(response => {
-        res.json(response.json.data);
-      })
-      .catch(next);
+    getChangedValues(key, req)
+      .then(changes => {
+        res.json(changes)
+      });
   });
 
   app.post('/comment', (req, res, next) => {
