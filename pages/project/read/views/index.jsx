@@ -22,12 +22,13 @@ const getVersions = model => {
 
 const App = ({ model, establishment, canUpdate }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
-
   const canAmend = canUpdate && model.status === 'active' && !openTask;
+  // show the license status banner if we have open tasks and if the status of the license is granted
+  const showStatusBanner = model.granted && model.openTasks && model.openTasks.length > 0;
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={model} licenceType="ppl" />
+      {showStatusBanner && <LicenceStatusBanner licence={model} licenceType="ppl" />}
 
       <Header
         subtitle={establishment.name}
