@@ -16,8 +16,7 @@ class Profile extends React.Component {
       roles,
       projects = [],
       establishments,
-      id,
-      certificates
+      id
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions || [];
@@ -170,39 +169,6 @@ class Profile extends React.Component {
                     />
                   </p>
                 )
-              }
-              <h3>
-                <Snippet>pil.training.title</Snippet>
-              </h3>
-              {
-                certificates && certificates.length > 0
-                  ? certificates.map((certificate, index) => (
-                    <div key={index}>
-                      <p><Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}</p>
-                      <p><Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate)}</p>
-                      <p><Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody}</p>
-                      <p><Snippet>pil.training.certificate.modules</Snippet></p>
-                      <p><ul>
-                        { certificate.modules.map((module, index) => (
-                          <Fragment key={index}>
-                            <li>{module.module}</li>
-                            {
-                              module.species && !!module.species.length && (
-                                <ul>
-                                  {
-                                    module.species.map((s, index) =>
-                                      <li key={index}>{s}</li>
-                                    )
-                                  }
-                                </ul>
-                              )
-                            }
-                          </Fragment>
-                        )) }
-                      </ul></p>
-                    </div>
-                  ))
-                  : <p><em><Snippet>pil.training.none</Snippet></em></p>
               }
               {
                 !pil && (
