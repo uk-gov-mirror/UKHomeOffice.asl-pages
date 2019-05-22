@@ -1,7 +1,6 @@
 const form = require('../../common/routers/form');
 const { getSchemaWithNacwos, schema } = require('../schema');
 const { getNacwoById } = require('../../common/helpers');
-const { omit } = require('lodash');
 
 module.exports = settings => form(Object.assign({
   model: 'place',
@@ -9,7 +8,7 @@ module.exports = settings => form(Object.assign({
   configure: (req, res, next) => {
     getSchemaWithNacwos(req, settings.schema || schema)
       .then(mappedSchema => {
-        req.form.schema = omit(mappedSchema, ['restrictions']);
+        req.form.schema = mappedSchema
       })
       .then(() => next())
       .catch(next);
