@@ -10,14 +10,23 @@ module.exports = {
       read: 'Details'
     },
     pil: {
-      base: 'Personal licence'
+      read: 'View personal licence',
+      create: 'Apply for personal licence',
+      training: 'Training',
+      exemptions: 'Exemptions',
+      procedures: 'Procedures',
+      success: 'Success'
     },
     place: {
-      list: 'Approved areas'
+      list: 'Approved areas',
+      create: 'Create approved area',
+      update: 'Amend approved area',
+      delete: 'Remove approved area'
     },
     profile: {
       list: 'People',
-      view: '{{model.firstName}} {{model.lastName}}',
+      view: '{{profile.firstName}} {{profile.lastName}}',
+      invite: 'Invite user',
       role: {
         apply: {
           base: 'Apply for named role',
@@ -34,10 +43,12 @@ module.exports = {
     },
     project: {
       list: 'Projects',
-      read: '{{project.title}}'
+      read: '{{project.title}}',
+      update: 'Edit draft',
+      amend: 'Amend licence'
     },
     account: {
-      menu: 'Account',
+      menu: 'Your account',
       edit: 'Edit'
     },
     feedback: 'Feedback',

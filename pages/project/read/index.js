@@ -7,7 +7,14 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('project.read');
+    if (!req.project.title) {
+      req.project.title = 'Untitled project';
+    }
+
+    req.breadcrumb({
+      label: 'project.read',
+      project: req.project
+    });
     next();
   });
 

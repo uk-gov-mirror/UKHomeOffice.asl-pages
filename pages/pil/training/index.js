@@ -8,6 +8,11 @@ module.exports = settings => {
     ...settings
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('pil.training');
+    next();
+  });
+
   app.param('certificateId', (req, res, next, certificateId) => {
     if (certificateId === 'modules') {
       return next('route');
