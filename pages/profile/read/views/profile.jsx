@@ -208,13 +208,15 @@ class Profile extends React.Component {
               </h3>
               <p>{profileRole}</p>
               <p className="control-panel">
-                <Link
-                  page='profile.permission'
-                  establishmentId={estId}
-                  profileId={id}
-                  className='govuk-button'
-                  label={<Snippet>pages.profile.permission.change</Snippet>}
-                />
+                { !isOwnProfile &&
+                  <Link
+                    page='profile.permission'
+                    establishmentId={estId}
+                    profileId={id}
+                    className='govuk-button'
+                    label={<Snippet>pages.profile.permission.change</Snippet>}
+                  />
+                }
               </p>
             </section>
           )
