@@ -6,7 +6,7 @@ const pdf = require('./pdf');
 const { getVersion, getComments } = require('./middleware');
 
 module.exports = settings => {
-  const app = Router();
+  const app = Router({ mergeParams: true });
 
   app.use(bodyParser.json());
 
