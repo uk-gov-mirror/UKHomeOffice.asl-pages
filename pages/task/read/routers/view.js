@@ -133,7 +133,7 @@ module.exports = () => {
       const id = req.task.data.id;
       const url = `/${model}/${id}`;
 
-      return req.api(`${est}${url}`)
+      return req.api(`${est}${url}`, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           res.locals.static.values = data;
         })
