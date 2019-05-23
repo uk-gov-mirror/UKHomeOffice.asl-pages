@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Snippet, Header, Link } from '@asl/components';
+import { Form, Snippet, Header, Link, Field } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
@@ -8,9 +8,13 @@ const CommentForm = ({ task, values, formFields }) => {
   return (
     <Fragment>
       <Header title={<Snippet>{`status.${values.status}.action`}</Snippet>} />
-
+      {
+        values.restrictions && <Field
+          title={<Snippet>fields.restrictions.label</Snippet>}
+          content={values.restrictions}
+        />
+      }
       { formFields }
-
       { requiresDeclaration(values.status) &&
         <div className="task-declaration">
           <h2><Snippet>declaration.title</Snippet></h2>

@@ -26,7 +26,7 @@ const getRelevantActivity = activityLog => activityLog.filter(log => {
 });
 
 module.exports = () => {
-  const app = Router();
+  const app = Router({ mergeParams: true });
 
   // get relevant versionId if task is for a project.
   app.use((req, res, next) => {
@@ -47,6 +47,18 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('task.read');
+  });
+
+  app.use((req, res, next) =>
+    const action = get(req, 'query.action');
+    if (action === 'withdraw') {
+      set(req, `session.form[${req.task.id}].values`, { status: 'withdrawn-by-applicant' });
+      return res.redirect(req.buildRoute('task.confirm', req.params));
+    }
+    next();
+  });
+
+  app.use((req, res, next) => {
     req.model = { id: req.task.id };
 
     if (req.task.activityLog) {
@@ -116,9 +128,27 @@ module.exports = () => {
         res.locals.static.values = req.user.profile;
         return next();
       }
+
+      if (req.task.data.action === 'delete') {
+        res.locals.static.values = req.task.data.deleted;
+        return next();
+      }
+
+      let est = '';
+      if (model !== 'profile') {
+        est = `/establishment/${req.task.data.data.establishmentId}`;
+      }
+      const id = req.task.data.id;
+      const url = `/${model}/${id}`;
+
+      return req.api(`${est}${url}`)
+        .then(({ json: { data } }) => {
+          res.locals.static.values = data;
+        })
+        .then(() => next())
+        .catch(next);
     }
 
-    res.locals.static.values = req.task.data.modelData;
     next();
   });
 

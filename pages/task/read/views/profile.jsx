@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import omit from 'lodash/omit';
 import { Snippet, StickyNavPage, StickyNavAnchor, Diff, Field } from '@asl/components';
-import schema from '../../../user/update/schema';
+import userSchema from '../../../user/update/schema';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
-import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
+import MakeDecision from './make-decision';
 
 const formatters = {
   dob: {
@@ -14,14 +14,14 @@ const formatters = {
   }
 };
 
-const Profile = ({ task, values, children, decisionSchema }) => (
+const Profile = ({ task, values, children, schema, formFields }) => (
   <StickyNavPage>
 
     { children }
 
     <StickyNavAnchor id="changes">
       <h2><Snippet>sticky-nav.changes</Snippet></h2>
-      <Diff values={task.data.data} model={values} schema={omit(schema, 'comments')} formatters={formatters} />
+      <Diff values={task.data.data} model={values} schema={omit(userSchema, 'comments')} formatters={formatters} />
     </StickyNavAnchor>
     <StickyNavAnchor id="comments">
       <Field
@@ -34,18 +34,22 @@ const Profile = ({ task, values, children, decisionSchema }) => (
     </StickyNavAnchor>
 
     {
-      decisionSchema.status.options.length > 0 &&
+      schema.status.options.length > 0 &&
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
           <p><Snippet>make-decision.hint</Snippet></p>
-          <MakeDecision decisionSchema={decisionSchema} />
-          { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
+          {
+            <MakeDecision schema={schema} formFields={formFields} />
+          }
+          {
+            task.canBeWithdrawn && <WithdrawApplication showHeading />
+          }
         </StickyNavAnchor>
     }
 
     {
       // if the only option is to withdraw, display the withdraw button
-      decisionSchema.status.options.length === 0 && task.canBeWithdrawn &&
+      schema.status.options.length === 0 && task.canBeWithdrawn &&
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
           <WithdrawApplication />
@@ -54,6 +58,6 @@ const Profile = ({ task, values, children, decisionSchema }) => (
   </StickyNavPage>
 );
 
-const mapStateToProps = ({ static: { values, schema: decisionSchema } }) => ({ values, decisionSchema });
+const mapStateToProps = ({ static: { values, schema } }) => ({ values, schema });
 
 export default connect(mapStateToProps)(Profile);

@@ -22,10 +22,6 @@ module.exports = () => {
     locals: (req, res, next) => {
       const values = get(req, `session.form[${req.task.id}].values`);
 
-      if (req.task.data.model === 'place') {
-        req.schema.restrictions = {};
-      }
-
       set(res, 'locals.static', {
         ...res.locals.static,
         task: req.task,

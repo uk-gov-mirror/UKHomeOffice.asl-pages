@@ -8,7 +8,7 @@ import {
   StickyNavAnchor,
   ModelSummary
 } from '@asl/components';
-import { schema } from '../../../place/schema';
+import { schema as placeSchema } from '../../../place/schema';
 import formatters from '../../../place/formatters';
 import { hasChanged } from '../../../../lib/utils';
 import MakeDecision from './make-decision';
@@ -21,7 +21,7 @@ const LicenceHolder = ({ type, profile }) => (
   </Fragment>
 );
 
-const Playback = ({ task, values = {}, establishment, isAsru, children, decisionSchema }) => (
+const Playback = ({ task, values = {}, establishment, formFields, isAsru, children, schema }) => (
   <StickyNavPage>
 
     { children }
@@ -46,7 +46,7 @@ const Playback = ({ task, values = {}, establishment, isAsru, children, decision
       task.data.action === 'update' && (
         <StickyNavAnchor id="diff">
           <h2><Snippet>sticky-nav.diff</Snippet></h2>
-          <Diff values={task.data.data} model={values} schema={schema} formatters={formatters} comparator={hasChanged} />
+          <Diff values={task.data.data} model={values} schema={placeSchema} formatters={formatters} comparator={hasChanged} />
         </StickyNavAnchor>
       )
     }
@@ -54,7 +54,7 @@ const Playback = ({ task, values = {}, establishment, isAsru, children, decision
       (task.data.action === 'create' || task.data.action === 'delete') && (
         <StickyNavAnchor id={task.data.action}>
           <h2><Snippet>{`sticky-nav.${task.data.action}`}</Snippet></h2>
-          <ModelSummary formatters={formatters} model={task.data.action === 'delete' ? values : task.data.data} schema={schema} />
+          <ModelSummary formatters={formatters} model={task.data.action === 'delete' ? values : task.data.data} schema={placeSchema} />
         </StickyNavAnchor>
       )
     }
@@ -104,17 +104,21 @@ const Playback = ({ task, values = {}, establishment, isAsru, children, decision
     }
 
     {
-      decisionSchema.status.options.length > 0 &&
+      schema.status.options.length > 0 &&
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
           <p><Snippet>make-decision.hint</Snippet></p>
-          <MakeDecision decisionSchema={decisionSchema} />
-          { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
+          {
+            <MakeDecision schema={schema} formFields={formFields} />
+          }
+          {
+            task.canBeWithdrawn && <WithdrawApplication showHeading />
+          }
         </StickyNavAnchor>
     }
 
     {
-      decisionSchema.status.options.length === 0 && task.canBeWithdrawn &&
+      schema.status.options.length === 0 && task.canBeWithdrawn &&
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
           <WithdrawApplication />
@@ -124,14 +128,12 @@ const Playback = ({ task, values = {}, establishment, isAsru, children, decision
 );
 
 const mapStateToProps = ({
-  model,
-  static: { values, establishment, isAsru, schema: decisionSchema }
+  static: { values, establishment, isAsru, schema }
 }) => ({
-  model,
   values,
   establishment,
   isAsru,
-  decisionSchema
+  schema
 });
 
 export default connect(mapStateToProps)(Playback);
