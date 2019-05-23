@@ -76,9 +76,7 @@ const Role = ({ establishment, profile, task, values, children, schema, formFiel
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
           <p><Snippet>make-decision.hint</Snippet></p>
-          {
-            <MakeDecision schema={schema} formFields={formFields} />
-          }
+          <MakeDecision schema={schema} formFields={formFields} />
           {
             task.canBeWithdrawn && <WithdrawApplication showHeading />
           }

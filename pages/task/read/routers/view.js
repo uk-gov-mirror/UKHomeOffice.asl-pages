@@ -47,9 +47,6 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('task.read');
-  });
-
-  app.use((req, res, next) =>
     const action = get(req, 'query.action');
     if (action === 'withdraw') {
       set(req, `session.form[${req.task.id}].values`, { status: 'withdrawn-by-applicant' });

@@ -153,9 +153,7 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
         schema.status.options.length > 0 &&
           <StickyNavAnchor id={getNtcoStatus(task.status)}>
             <h2><Snippet>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
-            {
-              <MakeDecision schema={schema} formFields={formFields} />
-            }
+            <MakeDecision schema={schema} formFields={formFields} />
             {
               task.canBeWithdrawn && <WithdrawApplication showHeading />
             }
