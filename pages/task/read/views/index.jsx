@@ -5,7 +5,8 @@ import {
   Link,
   Snippet,
   StickyNavAnchor,
-  Header
+  Header,
+  Form
 } from '@asl/components';
 import ActivityLog, { getStatus } from './activity-log';
 import Pil from './pil';
@@ -103,8 +104,11 @@ const Task = ({ task, project }) => {
       </div>
 
       <Header title={getTitle(task.data.action)} subtitle={project && project.title} />
-
-      { getTaskPlayback(task) }
+      {
+        task.nextSteps.length > 0
+          ? <Form detachFields>{getTaskPlayback(task)}</Form>
+          : getTaskPlayback(task)
+      }
     </Fragment>
   );
 };

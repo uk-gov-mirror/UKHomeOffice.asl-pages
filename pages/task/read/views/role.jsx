@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { StickyNavPage, StickyNavAnchor, Snippet, Link, Field } from '@asl/components';
 import LicenceHolder from '../../../common/components/licence-holder';
-import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
+import MakeDecision from './make-decision';
 
-const Role = ({ establishment, profile, task, values, children, schema }) => (
+const Role = ({ establishment, profile, task, values, children, schema, formFields }) => (
   <StickyNavPage>
 
     { children }
@@ -72,22 +72,26 @@ const Role = ({ establishment, profile, task, values, children, schema }) => (
     }
 
     {
-      schema.status.options.length > 0 &&
+      schema.status.options.length > 0 && (
         <StickyNavAnchor id="status">
           <h2><Snippet>sticky-nav.status</Snippet></h2>
           <p><Snippet>make-decision.hint</Snippet></p>
-          <MakeDecision />
-          { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
+          <MakeDecision schema={schema} formFields={formFields} />
+          {
+            task.canBeWithdrawn && <WithdrawApplication showHeading />
+          }
         </StickyNavAnchor>
+      )
     }
 
     {
       // if the only option is to withdraw, display the withdraw button
-      schema.status.options.length === 0 && task.canBeWithdrawn &&
+      schema.status.options.length === 0 && task.canBeWithdrawn && (
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
           <WithdrawApplication />
         </StickyNavAnchor>
+      )
     }
 
   </StickyNavPage>

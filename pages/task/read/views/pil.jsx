@@ -4,12 +4,12 @@ import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset } from '@asl/compo
 import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
-import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
+import MakeDecision from './make-decision';
 
 const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
 
-const Pil = ({ profile, task, children, schema }) => {
+const Pil = ({ profile, task, children, schema, formFields }) => {
   const pil = task.data.data;
   const formatDate = date => format(date, dateFormat.short);
 
@@ -153,8 +153,10 @@ const Pil = ({ profile, task, children, schema }) => {
         schema.status.options.length > 0 &&
           <StickyNavAnchor id={getNtcoStatus(task.status)}>
             <h2><Snippet>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
-            <MakeDecision />
-            { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
+            <MakeDecision schema={schema} formFields={formFields} />
+            {
+              task.canBeWithdrawn && <WithdrawApplication showHeading />
+            }
           </StickyNavAnchor>
       }
 
