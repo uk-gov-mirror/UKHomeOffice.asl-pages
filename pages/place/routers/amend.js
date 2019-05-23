@@ -8,7 +8,7 @@ module.exports = settings => form(Object.assign({
   configure: (req, res, next) => {
     getSchemaWithNacwos(req, settings.schema || schema)
       .then(mappedSchema => {
-        req.form.schema = mappedSchema
+        req.form.schema = mappedSchema;
       })
       .then(() => next())
       .catch(next);
