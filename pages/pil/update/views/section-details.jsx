@@ -26,6 +26,10 @@ const SectionDetails = ({
   >
     {
       models.map((model, index) => {
+        if (model.otherAccreditingBody) {
+          model.accreditingBody = model.otherAccreditingBody;
+        }
+
         return (
           <div className="govuk-grid-row" key={index}>
             <div className="govuk-grid-column-three-quarters">

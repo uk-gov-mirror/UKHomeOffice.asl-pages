@@ -1,6 +1,22 @@
 const { accreditingBodies } = require('@asl/constants');
 const moment = require('moment');
 
+const accreditingBodyOptions = () => {
+  return accreditingBodies.map(name => {
+    return {
+      label: name,
+      value: name,
+      reveal: name === 'Other' ? {
+        otherAccreditingBody: {
+          inputType: 'inputText',
+          label: 'If other, please specify',
+          validate: 'required'
+        }
+      } : null
+    };
+  });
+};
+
 module.exports = {
   certificateNumber: {
     inputType: 'inputText',
@@ -9,8 +25,8 @@ module.exports = {
     ]
   },
   accreditingBody: {
-    inputType: 'select',
-    options: accreditingBodies,
+    inputType: 'radioGroup',
+    options: accreditingBodyOptions(),
     validate: [
       'required',
       {
