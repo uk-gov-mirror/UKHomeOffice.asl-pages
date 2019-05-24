@@ -5,9 +5,17 @@ import { Button } from '@ukhomeoffice/react-components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
 const CommentForm = ({ task, values, formFields }) => {
+  let action = task.data.action;
+  if (action === 'grant' && task.type === 'amendment') {
+    action = 'update';
+  }
+  const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
   return (
     <Fragment>
-      <Header title={<Snippet>{`status.${values.status}.action`}</Snippet>} />
+      <Header
+        title={title}
+        subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
+      />
       {
         values.restrictions && <Field
           title={<Snippet>fields.restrictions.label</Snippet>}
@@ -18,11 +26,11 @@ const CommentForm = ({ task, values, formFields }) => {
       { requiresDeclaration(values.status) &&
         <div className="task-declaration">
           <h2><Snippet>declaration.title</Snippet></h2>
-          <Snippet>{`declaration.${values.status}`}</Snippet>
+          <Snippet type={task.type}>{`declaration.${values.status}`}</Snippet>
         </div>
       }
       <p className="control-panel">
-        <Button><Snippet>{`status.${values.status}.action`}</Snippet></Button>
+        <Button>{title}</Button>
         <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
       </p>
     </Fragment>

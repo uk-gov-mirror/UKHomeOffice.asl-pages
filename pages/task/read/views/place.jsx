@@ -110,7 +110,7 @@ const Playback = ({ task, values = {}, establishment, formFields, isAsru, childr
           <p><Snippet>make-decision.hint</Snippet></p>
           <MakeDecision schema={schema} formFields={formFields} />
           {
-            task.canBeWithdrawn && <WithdrawApplication showHeading />
+            task.canBeWithdrawn && <WithdrawApplication type={task.type} showHeading />
           }
         </StickyNavAnchor>
     }
@@ -119,7 +119,7 @@ const Playback = ({ task, values = {}, establishment, formFields, isAsru, childr
       schema.status.options.length === 0 && task.canBeWithdrawn &&
         <StickyNavAnchor id="withdraw">
           <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
-          <WithdrawApplication />
+          <WithdrawApplication type={task.type} />
         </StickyNavAnchor>
     }
   </StickyNavPage>

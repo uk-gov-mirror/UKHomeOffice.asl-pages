@@ -45,6 +45,10 @@ const formatters = {
       const id = get(model, 'id');
       const licence = get(model, 'data.model');
       const subject = get(model, 'data.subject');
+      const status = get(model, 'data.modelData.status');
+      if (type === 'grant' && status === 'active') {
+        type = 'update';
+      }
 
       return (
         <Fragment>
@@ -53,7 +57,7 @@ const formatters = {
             taskId={id}
             // adding optional snippet for backwards compatibility
             // as some task types wont have content defined.
-            label={<Snippet optional>{`task.${licence}.${type}`}</Snippet>}
+            label={<Snippet optional>{`tasks.${licence}.${type}`}</Snippet>}
           />
           {
             subject && (

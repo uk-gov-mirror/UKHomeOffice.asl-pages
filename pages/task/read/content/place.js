@@ -2,9 +2,6 @@ const { merge } = require('lodash');
 const place = require('../../../place/content');
 
 module.exports = merge({}, place, {
-  updateTitle: 'Review licensed premises change request',
-  createTitle: 'Review licensed premises creation',
-  deleteTitle: 'Review licensed premises deletion',
   'sticky-nav': {
     details: 'Establishment details',
     create: 'Licensed premises to add',
