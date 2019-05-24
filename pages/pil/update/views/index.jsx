@@ -94,7 +94,11 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
       </div>
 
       <Header
-        title={<Snippet>pil.title</Snippet>}
+        title={
+          model.status === 'active'
+            ? <Snippet>pil.titleAmend</Snippet>
+            : <Snippet>pil.title</Snippet>
+        }
         subtitle={establishment.name}
       />
       <p><Snippet>pil.summary</Snippet></p>
