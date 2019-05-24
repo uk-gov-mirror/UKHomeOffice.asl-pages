@@ -1,20 +1,22 @@
 module.exports = {
-  title: 'Review PIL application',
   status: {
     'ntco-endorsed': {
       action: 'Yes',
-      declaration: 'I confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application'
+      declaration: {
+        application: 'I confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application',
+        amendment: 'I confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment'
+      }
     },
     'returned-to-applicant': {
       'with-ntco': 'No'
-    },
-    resolved: {
-      action: 'Grant licence'
     }
   },
   fields: {
     status: {
-      'with-ntco': 'Do you endorse this application?'
+      'with-ntco': {
+        amendment: 'Do you endorse this amendment?',
+        application: 'Do you endorse this application?'
+      }
     },
     comment: {
       label: 'Comments'
@@ -26,7 +28,7 @@ module.exports = {
     exemptions: 'Exemptions',
     procedures: 'Procedures',
     species: 'Animal types',
-    'status-ntco': 'Endorse application'
+    'status-ntco': 'Endorse {{type}}'
   },
   pil: {
     applicant: {

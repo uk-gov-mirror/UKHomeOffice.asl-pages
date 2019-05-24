@@ -152,10 +152,10 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
       {
         schema.status.options.length > 0 &&
           <StickyNavAnchor id={getNtcoStatus(task.status)}>
-            <h2><Snippet>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
+            <h2><Snippet type={task.type}>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
             <MakeDecision schema={schema} formFields={formFields} />
             {
-              task.canBeWithdrawn && <WithdrawApplication showHeading />
+              task.canBeWithdrawn && <WithdrawApplication type={task.type} showHeading />
             }
           </StickyNavAnchor>
       }
@@ -163,8 +163,8 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
       {
         schema.status.options.length === 0 && task.canBeWithdrawn &&
           <StickyNavAnchor id="withdraw">
-            <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
-            <WithdrawApplication />
+            <h2><Snippet type={task.type}>sticky-nav.withdraw</Snippet></h2>
+            <WithdrawApplication type={task.type} />
           </StickyNavAnchor>
       }
 

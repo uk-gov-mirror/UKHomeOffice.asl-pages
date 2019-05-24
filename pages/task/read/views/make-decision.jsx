@@ -10,7 +10,6 @@ const MakeDecision = ({ schema, formFields }) => {
         <Button>{schema.status.options[0].label}</Button>
       </Fragment>
     );
-
 };
 
 export default MakeDecision;

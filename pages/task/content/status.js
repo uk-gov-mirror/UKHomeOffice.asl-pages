@@ -25,14 +25,20 @@ module.exports = {
   },
   'withdrawn-by-applicant': {
     state: 'Withdrawn',
-    action: 'Withdraw'
+    action: {
+      application: 'Withdraw application',
+      amendment: 'Withdraw amendment'
+    }
   },
   'with-ntco': {
     state: 'Awaiting endorsement'
   },
   'ntco-endorsed': {
     state: 'Awaiting review',
-    action: 'Endorse application'
+    action: {
+      application: 'Endorse application',
+      amendment: 'Endorse amendment'
+    }
   },
   'inspector-recommended': {
     state: 'Recommendation made',
@@ -44,11 +50,14 @@ module.exports = {
   },
   resubmitted: {
     state: 'Submitted',
-    action: 'Submit'
+    action: 'Resubmit'
   },
   resolved: {
     state: 'Approved',
-    action: 'Grant licence'
+    action: {
+      application: 'Grant licence',
+      amendment: 'Update licence'
+    }
   },
   rejected: {
     state: 'Rejected',

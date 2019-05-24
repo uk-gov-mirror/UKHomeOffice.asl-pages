@@ -1,8 +1,10 @@
 const status = require('../../content/status');
+const tasks = require('../../content/tasks');
 
 module.exports = {
-  title: 'Review application',
   status,
+  tasks,
+  title: 'Review task',
   currentStatus: 'Current status',
   fields: {
     status: {
@@ -16,7 +18,7 @@ module.exports = {
     activity: 'Latest activity',
     comments: 'Comments',
     status: 'Next steps',
-    withdraw: 'Withdraw application'
+    withdraw: 'Withdraw {{type}}'
   },
   activityLog: {
     open: 'Show previous activity',
@@ -31,7 +33,7 @@ module.exports = {
     applicantName: 'Applicant name',
     withdrawTitle: 'Withdraw application',
     withdrawHint: 'You will need to create a new application if you want to apply for this type of licence in future.',
-    withdrawAction: 'Withdraw application'
+    withdrawAction: 'Withdraw {{type}}'
   },
   deadline: {
     hint: 'Click the button below to extend the deadline by 15 days.',
