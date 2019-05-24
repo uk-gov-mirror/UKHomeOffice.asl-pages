@@ -18,7 +18,8 @@ module.exports = settings => {
     const key = req.params.question;
     getChangedValues(key, req)
       .then(changes => {
-        res.json(changes)
+        console.log(changes);
+        res.json(changes);
       });
   });
 

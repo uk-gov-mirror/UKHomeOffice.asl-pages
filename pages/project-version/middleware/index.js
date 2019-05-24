@@ -221,20 +221,20 @@ const getChangedValues = (question, req) => {
   ])
     .then(([previousVersion, grantedVersion]) => {
       const current = getNode(req.version.data, question);
-      let previous = getNode(previousVersion.data, question);
-      let granted = getNode(grantedVersion.data, question);
+      const previous = previousVersion && getNode(previousVersion.data, question);
+      let granted = grantedVersion && getNode(grantedVersion.data, question);
 
       if (previousVersion.status === 'granted') {
         return {
           granted: !isEqual(current, previous) && previous
-        }
+        };
       }
       return {
-        previous: !isEqual(current, previous) && previous,
-        granted: !isEqual(current, granted) && granted
-      }
-    })
-}
+        previous: previous && !isEqual(current, previous) && previous,
+        granted: granted && !isEqual(current, granted) && granted
+      };
+    });
+};
 
 module.exports = {
   getVersion,
