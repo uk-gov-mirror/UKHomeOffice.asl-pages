@@ -222,7 +222,7 @@ const getChangedValues = (question, req) => {
     .then(([previousVersion, grantedVersion]) => {
       const current = getNode(req.version.data, question);
       const previous = previousVersion && getNode(previousVersion.data, question);
-      let granted = grantedVersion && getNode(grantedVersion.data, question);
+      const granted = grantedVersion && getNode(grantedVersion.data, question);
 
       if (previousVersion.status === 'granted') {
         return {

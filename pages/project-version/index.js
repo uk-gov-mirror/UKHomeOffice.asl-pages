@@ -15,12 +15,8 @@ module.exports = settings => {
   app.use(getComments());
 
   app.get('/question/:question', (req, res, next) => {
-    const key = req.params.question;
-    getChangedValues(key, req)
-      .then(changes => {
-        console.log(changes);
-        res.json(changes);
-      });
+    getChangedValues(req.params.question, req)
+      .then(changes => res.json(changes));
   });
 
   app.post('/comment', (req, res, next) => {
