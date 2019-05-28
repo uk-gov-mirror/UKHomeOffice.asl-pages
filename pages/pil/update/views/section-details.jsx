@@ -26,7 +26,7 @@ const SectionDetails = ({
   >
     {
       models.map((model, index) => {
-        if (model.otherAccreditingBody) {
+        if (model.accreditingBody === 'Other' && model.otherAccreditingBody) {
           model.accreditingBody = model.otherAccreditingBody;
         }
 
