@@ -1,5 +1,6 @@
 const moment = require('moment');
 const { Router } = require('express');
+const { omit } = require('lodash');
 const form = require('../../../common/routers/form');
 const { certificate: schema } = require('../schema');
 const { buildModel } = require('../../../../lib/utils');
@@ -14,7 +15,17 @@ module.exports = settings => {
   });
 
   app.use('/', form({
-    schema,
+    configure: (req, res, next) => {
+      req.form.schema = {
+        ...schema,
+        otherAccreditingBody: {}
+      };
+      next();
+    },
+    locals: (req, res, next) => {
+      res.locals.static.schema = omit(req.form.schema, 'otherAccreditingBody');
+      next();
+    },
     process: (req, res, next) => {
       const day = req.body['passDate-day'];
       const month = req.body['passDate-month'];

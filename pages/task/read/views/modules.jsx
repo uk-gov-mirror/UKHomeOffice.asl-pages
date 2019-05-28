@@ -10,7 +10,7 @@ const Modules = ({certificates}) => {
       <h3><Snippet>pil.training.certificate.details</Snippet></h3>
       <p><Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}</p>
       <p><Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate)}</p>
-      <p><Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody}</p>
+      <p><Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody === 'Other' ? certificate.otherAccreditingBody : certificate.accreditingBody}</p>
 
       <h3><Snippet>pil.training.modules</Snippet></h3>
       <ul>

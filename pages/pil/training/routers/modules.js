@@ -40,7 +40,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    const fields = ['certificateNumber', 'accreditingBody', 'passDate', 'modules'];
+    const fields = ['certificateNumber', 'accreditingBody', 'otherAccreditingBody', 'passDate', 'modules'];
     const values = pick(req.session.form[req.model.id].values, fields);
 
     values.modules = values.modules.map(module => {
