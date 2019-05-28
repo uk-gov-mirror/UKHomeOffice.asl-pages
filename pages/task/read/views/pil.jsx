@@ -6,12 +6,12 @@ import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
+import Modules from './modules';
 
 const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
 
 const Pil = ({ profile, task, children, schema, formFields }) => {
   const pil = task.data.data;
-  const formatDate = date => format(date, dateFormat.short);
 
   return (
     <StickyNavPage>
@@ -98,34 +98,7 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {
           profile.certificates && profile.certificates.length > 0
-            ? profile.certificates.map((certificate, index) => (
-              <div key={index}>
-                <h3><Snippet>pil.training.certificate.details</Snippet></h3>
-                <p><Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}</p>
-                <p><Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate)}</p>
-                <p><Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody}</p>
-
-                <h3><Snippet>pil.training.modules</Snippet></h3>
-                <ul>
-                  { certificate.modules.map((module, index) => (
-                    <Fragment key={index}>
-                      <li>{module.module}</li>
-                      {
-                        module.species && !!module.species.length && (
-                          <ul>
-                            {
-                              module.species.map((s, index) =>
-                                <li key={index}>{s}</li>
-                              )
-                            }
-                          </ul>
-                        )
-                      }
-                    </Fragment>
-                  )) }
-                </ul>
-              </div>
-            ))
+            ? <Modules certificates={profile.certificates} />
             : <p><em><Snippet>pil.training.none</Snippet></em></p>
         }
       </StickyNavAnchor>
