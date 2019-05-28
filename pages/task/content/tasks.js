@@ -4,25 +4,25 @@ module.exports = {
     delete: 'Remove named person'
   },
   place: {
-    create: 'Create approved area',
-    update: 'Amend approved area',
-    delete: 'Remove approved area'
+    create: 'New approved area',
+    update: 'Area amendment',
+    delete: 'Area removal'
   },
   pil: {
-    grant: 'Apply for personal licence',
-    update: 'Amend personal licence',
-    revoke: 'Revoke personal licence'
+    grant: 'PIL application',
+    update: 'PIL amendment',
+    revoke: 'PIL revocation'
   },
   profile: {
-    update: 'Amend profile'
+    update: 'Profile amendment'
   },
   project: {
-    grant: 'Apply for project licence',
-    update: 'Amend project licence',
-    revoke: 'Revoke project licence'
+    grant: 'PPL application',
+    update: 'PPL amendment',
+    revoke: 'PPL revocation'
   },
   establishment: {
-    update: 'Amend establishment details',
-    revoke: 'Revoke establishment licence'
+    update: 'Establishment amendment',
+    revoke: 'PEL revocation'
   }
 };

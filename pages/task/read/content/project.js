@@ -1,12 +1,11 @@
 module.exports = {
   'sticky-nav': {
     'submitted-version': 'Submitted application',
-    deadline: 'Deadline',
-    status: 'Make decision'
+    deadline: 'Deadline'
   },
   fields: {
     status: {
-      label: 'What do you want to do next?'
+      label: ''
     }
   },
   status: {
@@ -22,9 +21,6 @@ module.exports = {
       label: 'View submitted application',
       hint: 'This is the application that has been submitted for approval.'
     }
-  },
-  'make-decision': {
-    hint: 'View the submitted application above before making a decision.'
   },
   declarations: {
     'pel-holder': 'Does this application have the endorsement of your primary establishment\'s PEL holder?',
