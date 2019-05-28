@@ -214,11 +214,34 @@ const getAllChanges = () => (req, res, next) => {
     .catch(next);
 };
 
+const getChangedValues = (question, req) => {
+  return Promise.all([
+    getPreviousVersion(req),
+    getGrantedVersion(req)
+  ])
+    .then(([previousVersion, grantedVersion]) => {
+      const current = getNode(req.version.data, question);
+      const previous = previousVersion && getNode(previousVersion.data, question);
+      const granted = grantedVersion && getNode(grantedVersion.data, question);
+
+      if (previousVersion.status === 'granted') {
+        return {
+          granted: !isEqual(current, previous) && previous
+        };
+      }
+      return {
+        previous: previous && !isEqual(current, previous) && previous,
+        granted: granted && !isEqual(current, granted) && granted
+      };
+    });
+};
+
 module.exports = {
   getVersion,
   getComments,
   canComment,
   getPreviousVersion,
   getGrantedVersion,
-  getAllChanges
+  getAllChanges,
+  getChangedValues
 };
