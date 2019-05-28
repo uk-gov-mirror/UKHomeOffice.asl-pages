@@ -8,7 +8,7 @@ module.exports = {
   currentStatus: 'Current status',
   fields: {
     status: {
-      label: 'What is your decision?'
+      label: ''
     },
     comment: {
       label: 'Comments'
@@ -17,7 +17,7 @@ module.exports = {
   'sticky-nav': {
     activity: 'Latest activity',
     comments: 'Comments',
-    status: 'Next steps',
+    status: 'What do you want to do?',
     withdraw: 'Withdraw {{type}}'
   },
   activityLog: {
@@ -31,8 +31,6 @@ module.exports = {
     submittedBy: 'Submitted by',
     submittedOn: 'on {{date}}.',
     applicantName: 'Applicant name',
-    withdrawTitle: 'Withdraw application',
-    withdrawHint: 'You will need to create a new application if you want to apply for this type of licence in future.',
     withdrawAction: 'Withdraw {{type}}'
   },
   deadline: {
@@ -43,7 +41,8 @@ module.exports = {
     }
   },
   actions: {
-    change: 'Change'
+    change: 'Change',
+    withdraw: 'Withdraw'
   },
   errors: {
     status: {
@@ -53,5 +52,8 @@ module.exports = {
     comment: {
       customValidate: 'Please provide a reason'
     }
+  },
+  buttons: {
+    submit: 'Continue'
   }
 };

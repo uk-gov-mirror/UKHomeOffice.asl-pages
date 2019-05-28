@@ -1,22 +1,12 @@
 module.exports = {
   status: {
-    'ntco-endorsed': {
-      action: 'Yes',
-      declaration: {
-        application: 'I confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application',
-        amendment: 'I confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment'
-      }
-    },
     'returned-to-applicant': {
       'with-ntco': 'No'
     }
   },
   fields: {
     status: {
-      'with-ntco': {
-        amendment: 'Do you endorse this amendment?',
-        application: 'Do you endorse this application?'
-      }
+      'with-ntco': ''
     },
     comment: {
       label: 'Comments'
@@ -27,8 +17,7 @@ module.exports = {
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedures',
-    species: 'Animal types',
-    'status-ntco': 'Endorse {{type}}'
+    species: 'Animal types'
   },
   pil: {
     applicant: {

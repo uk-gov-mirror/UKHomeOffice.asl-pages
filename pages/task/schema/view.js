@@ -12,7 +12,7 @@ module.exports = task => {
     return {
       value: option.id,
       label: get(content, `status.${option.id}.action.${task.type}`, get(content, `status.${option.id}.action`)),
-      hint: get(content, `status.${option.id}.declaration.${task.type}`, get(content, `status.${option.id}.declaration`))
+      hint: get(content, `status.${option.id}.hint.${task.type}`, get(content, `status.${option.id}.hint`))
     };
   });
 

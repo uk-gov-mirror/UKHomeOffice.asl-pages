@@ -7,8 +7,6 @@ import format from 'date-fns/format';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
 
-const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
-
 const Pil = ({ profile, task, children, schema, formFields }) => {
   const pil = task.data.data;
   const formatDate = date => format(date, dateFormat.short);
@@ -151,8 +149,8 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
 
       {
         schema.status.options.length > 0 &&
-          <StickyNavAnchor id={getNtcoStatus(task.status)}>
-            <h2><Snippet type={task.type}>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
+          <StickyNavAnchor id="status">
+            <h2><Snippet type={task.type}>sticky-nav.status</Snippet></h2>
             <MakeDecision schema={schema} formFields={formFields} />
             {
               task.canBeWithdrawn && <WithdrawApplication type={task.type} showHeading />
