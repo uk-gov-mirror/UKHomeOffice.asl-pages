@@ -32,7 +32,7 @@ module.exports = {
   },
   passDate: {
     inputType: 'dateInput',
-    hint: 'For example, 20.08.1980',
+    hint: 'For example, 20 08 1980',
     validate: [
       'required',
       'validDate',
