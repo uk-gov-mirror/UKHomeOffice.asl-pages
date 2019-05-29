@@ -226,12 +226,12 @@ const getChangedValues = (question, req) => {
 
       if (previousVersion.status === 'granted') {
         return {
-          granted: !isEqual(current, previous) && previous
+          granted: !isEqual(current, previous) && (previous || null)
         };
       }
       return {
-        previous: previous && !isEqual(current, previous) && previous,
-        granted: granted && !isEqual(current, granted) && granted
+        previous: !isEqual(current, previous) && (previous || null),
+        granted: !isEqual(current, granted) && (granted || null)
       };
     });
 };
