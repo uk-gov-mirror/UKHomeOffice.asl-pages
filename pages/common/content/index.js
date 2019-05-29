@@ -14,8 +14,7 @@ module.exports = {
       create: 'Apply for personal licence',
       training: 'Training',
       exemptions: 'Exemptions',
-      procedures: 'Procedures',
-      success: 'Success'
+      procedures: 'Procedures'
     },
     place: {
       list: 'Approved areas',
