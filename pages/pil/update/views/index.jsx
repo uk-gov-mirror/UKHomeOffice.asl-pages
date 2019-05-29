@@ -7,6 +7,8 @@ import {
   Header,
   SectionList
 } from '@asl/components';
+import format from 'date-fns/format';
+import { dateFormat } from '../../../../constants';
 
 import InProgressWarning from '../../../common/components/in-progress-warning';
 
@@ -31,6 +33,9 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
       models: certificates,
       schema: { ...certificatesSchema, ...modulesSchema },
       formatters: {
+        passDate: {
+          format: date => format(date, dateFormat.medium)
+        },
         modules: {
           format: modules => (
             <ul>

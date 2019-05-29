@@ -21,7 +21,7 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
         <p><Link page="profile.view" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
         <dl>
           <dt><Snippet>pil.applicant.dob</Snippet><span>:</span></dt>
-          <dd>{profile.dob ? format(profile.dob, dateFormat.short) : <Snippet>pil.applicant.missingDob</Snippet>}</dd>
+          <dd>{profile.dob ? format(profile.dob, dateFormat.medium) : <Snippet>pil.applicant.missingDob</Snippet>}</dd>
         </dl>
       </StickyNavAnchor>
 
