@@ -69,11 +69,6 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/success', (req, res, next) => {
-    req.breadcrumb('pil.success');
-    next();
-  });
-
   app.use('/success', success({
     licence: 'pil',
     status: 'resubmitted'
