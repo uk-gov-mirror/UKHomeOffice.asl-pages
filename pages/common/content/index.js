@@ -12,6 +12,7 @@ module.exports = {
     pil: {
       read: 'View personal licence',
       create: 'Apply for personal licence',
+      amend: 'Amend personal licence',
       training: 'Training',
       exemptions: 'Exemptions',
       procedures: 'Procedures'

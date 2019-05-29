@@ -16,7 +16,11 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('pil.create');
+    if (req.pil.status === 'active') {
+      req.breadcrumb('pil.amend');
+    } else {
+      req.breadcrumb('pil.create');
+    }
 
     const params = {
       id: req.pilId,
