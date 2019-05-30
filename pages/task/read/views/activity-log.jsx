@@ -4,42 +4,24 @@ import { Link, Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import format from 'date-fns/format';
 
-const getRole = (profile, task) => {
-  if (profile.asruInspector) {
-    return 'Inspector: ';
-  }
-
-  if (profile.asruLicensing) {
-    return 'Licensing officer: ';
-  }
-
-  if (task.data.subject && profile.id === task.data.subject.id) {
-    return 'Applicant: ';
-  }
-};
-
-export const getStatus = eventName => eventName.substring(eventName.lastIndexOf(':') + 1);
-
-const getStatusBadge = eventName => {
+const getStatusBadge = status => {
   const good = ['resolved'];
   const bad = ['rejected', 'withdrawn'];
-  const status = getStatus(eventName);
   const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
 
   return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
 };
 
-const getAuthor = (profile, task) => {
-  const name = `${profile.firstName} ${profile.lastName}`;
-  const role = getRole(profile, task);
-
+const getAuthor = ({ changedBy, event: { status } }, task) => {
+  const name = `${changedBy.firstName} ${changedBy.lastName}`;
+  const action = <Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet>
   return (
     <p>
-      { role && <span className="role">{role}</span> }
+      <strong>{action}: </strong>
       {
-        profile.asruUser
+        changedBy.asruUser
           ? name
-          : <Link page="profile.view" profileId={profile.id} establishmentId={task.data.establishmentId} label={name} />
+          : <Link page="profile.view" profileId={changedBy.id} establishmentId={task.data.establishmentId} label={name} />
       }
     </p>
   );
@@ -49,8 +31,8 @@ const LogItem = ({ log, task, ExtraMeta }) => {
   return (
     <li key={log.id}>
       <span className="date">{format(log.createdAt, dateFormat.medium)}</span>
-      {getStatusBadge(log.eventName)}
-      {getAuthor(log.changedBy, task)}
+      {getStatusBadge(log.event.status)}
+      {getAuthor(log, task)}
       {
         ExtraMeta && <ExtraMeta item={log} task={task} />
       }

@@ -8,7 +8,7 @@ import {
   Header,
   Form
 } from '@asl/components';
-import ActivityLog, { getStatus } from './activity-log';
+import ActivityLog from './activity-log';
 import Pil from './pil';
 import Place from './place';
 import Profile from './profile';
@@ -17,7 +17,7 @@ import Project from './project';
 import get from 'lodash/get';
 
 const ExtraProjectMeta = ({ item, task }) => {
-  const status = getStatus(item.eventName);
+  const status = item.event.name;
   if (status !== 'with-inspectorate') {
     return null;
   }
