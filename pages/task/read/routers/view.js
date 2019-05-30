@@ -9,16 +9,13 @@ const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 
 const getRelevantActivity = activityLog => activityLog.filter(log => {
+  const [type, previous] = log.eventName.split(':');
   if (get(log, 'event.meta.payload.data.extended')) {
     log.eventName = 'status:deadline-extension';
     return true;
   }
 
-  if (!log.eventName.includes('status:')) {
-    return false;
-  }
-
-  if (log.eventName.includes('status:with-ntco')) {
+  if (type !== 'status' || previous === 'ntco-endorsed' || previous === 'resubmitted') {
     return false;
   }
 
