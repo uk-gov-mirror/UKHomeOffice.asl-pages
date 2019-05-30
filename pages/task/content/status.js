@@ -3,7 +3,7 @@ module.exports = {
     state: 'Incomplete'
   },
   create: {
-    state: 'Case opened',
+    state: 'Case opened'
   },
   update: {
     state: 'Case updated'
