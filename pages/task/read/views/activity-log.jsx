@@ -14,7 +14,7 @@ const getStatusBadge = status => {
 
 const getAuthor = ({ changedBy, event: { status } }, task) => {
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
-  const action = <Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet>
+  const action = <Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet>;
   return (
     <p>
       <strong>{action}: </strong>
