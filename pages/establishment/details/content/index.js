@@ -23,5 +23,10 @@ module.exports = {
       circumstances: 'Circumstances',
       applicableAnimals: 'Applicable animals'
     }
+  },
+  fields: {
+    conditions: {
+      label: ''
+    }
   }
 };
