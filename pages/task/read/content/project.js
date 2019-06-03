@@ -1,6 +1,6 @@
 module.exports = {
   'sticky-nav': {
-    'submitted-version': 'Submitted application',
+    'submitted-version': 'Latest submission',
     deadline: 'Deadline'
   },
   fields: {
@@ -18,8 +18,8 @@ module.exports = {
       label: 'View granted version'
     },
     submitted: {
-      label: 'View submitted application',
-      hint: 'This is the application that has been submitted for approval.'
+      label: 'View latest submission',
+      hint: 'This is the {{type}} that has been submitted for approval.'
     }
   },
   declarations: {
