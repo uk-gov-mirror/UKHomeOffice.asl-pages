@@ -22,7 +22,7 @@ const Project = ({ task, project, establishment, children, schema, formFields })
       { children }
       <StickyNavAnchor id="submitted-version">
         <h2><Snippet>sticky-nav.submitted-version</Snippet></h2>
-        <p><Snippet>versions.submitted.hint</Snippet></p>
+        <p><Snippet type={task.type}>versions.submitted.hint</Snippet></p>
         <p>
           <Link
             page="project.version.read"

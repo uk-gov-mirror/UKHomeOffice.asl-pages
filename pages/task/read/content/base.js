@@ -4,7 +4,7 @@ const tasks = require('../../content/tasks');
 module.exports = {
   status,
   tasks,
-  title: 'Review task',
+  title: 'Review {{type}}',
   currentStatus: 'Current status',
   fields: {
     status: {

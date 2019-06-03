@@ -90,7 +90,7 @@ const Task = ({ task, project }) => {
       </div>
 
       <Header
-        title={<Snippet>title</Snippet>}
+        title={<Snippet type={task.type}>title</Snippet>}
         subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
       />
       {
