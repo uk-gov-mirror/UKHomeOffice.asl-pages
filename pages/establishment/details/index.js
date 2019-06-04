@@ -12,7 +12,6 @@ module.exports = settings => {
   app.use((req, res, next) => {
     req.breadcrumb('establishment.read');
     req.model = req.establishment;
-    res.locals.static.asruUser = req.user.profile.asruUser;
     next();
   });
 
