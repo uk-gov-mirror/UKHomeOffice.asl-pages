@@ -16,7 +16,7 @@ module.exports = settings => {
     next();
   });
 
-  app.use(form({ schema }))
+  app.use(form({ schema }));
 
   app.post('/', (req, res, next) => {
     const conditions = get(req.form, 'values.conditions');
@@ -25,15 +25,20 @@ module.exports = settings => {
       json: {
         data: { conditions }
       }
-    }
+    };
     req.api(`/establishment/${req.establishmentId}/conditions`, params)
       .then(() => next())
-      .catch(next)
+      .catch(next);
   });
 
-  // app.post((req, res, next) => {
-  //
-  // })
+  app.post('/', (req, res, next) => {
+    const id = req.establishment.id;
+    req.notification({
+      key: req.user.profile.asruLicensing ? 'conditions-updated' : 'update-requested'
+    });
+    delete req.session.form[id];
+    res.redirect(req.buildRoute('establishment.read'));
+  });
 
   return app;
 };

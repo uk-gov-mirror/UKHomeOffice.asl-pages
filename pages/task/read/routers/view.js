@@ -66,7 +66,6 @@ module.exports = () => {
     const establishmentId = get(req.task, 'data.model') === 'establishment'
       ? get(req.task, 'data.id')
       : get(req.task, 'data.data.establishmentId');
-    console.log(establishmentId)
     if (establishmentId) {
       return getEstablishment(req, establishmentId)
         .then(establishment => {

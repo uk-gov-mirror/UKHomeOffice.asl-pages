@@ -1,161 +1,127 @@
-import React, { Fragment, Component } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
 import { ProfileLink } from '../../components';
-
+import { Warning } from '@ukhomeoffice/react-components';
 import {
   Accordion,
   ExpandingPanel,
   Snippet,
   Header,
   LicenceStatusBanner,
-  Form
+  Conditions,
+  Link
 } from '@asl/components';
 
-class Index extends Component {
-  constructor(options) {
-    super(options);
-    this.toggleEdit = this.toggleEdit.bind(this);
-  }
+const Index = ({
+  establishment,
+  asruUser,
+  openTask,
+  ...props
+}) => {
+  const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
+  const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
 
-  componentDidMount() {
-    this.setState({
-      editing: false
-    })
-  }
+  return (
+    <Fragment>
+      <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-  toggleEdit(e) {
-    e.preventDefault();
-    this.setState({
-      editing: !this.state.editing
-    });
-  }
+      <Header
+        title={<Snippet>pages.establishment.read</Snippet>}
+        subtitle={establishment.name}
+      />
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <dl>
+            <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
+            <dd>{ establishment.licenceNumber }</dd>
 
-  render() {
-    const {
-      establishment,
-      asruUser,
-      ...props
-    } = this.props;
+            <dt><Snippet>address</Snippet></dt>
+            <dd>{ establishment.address }</dd>
 
-    const { editing } = this.state || {}
-
-    const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
-    const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
-
-    return (
-      <Fragment>
-        <LicenceStatusBanner licence={establishment} licenceType="pel" />
-
-        <Header
-          title={<Snippet>pages.establishment.read</Snippet>}
-          subtitle={establishment.name}
-        />
-        <div className="govuk-grid-row">
-          <div className="govuk-grid-column-two-thirds">
-            <dl>
-              <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-              <dd>{ establishment.licenceNumber }</dd>
-
-              <dt><Snippet>address</Snippet></dt>
-              <dd>{ establishment.address }</dd>
-
-              {
-                establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
-              }
-              {
-                establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
-              }
-              <dt><Snippet>licenced.title</Snippet></dt>
-              <dd>
-                <ul>
-                  {
-                    ['procedure', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
-                      <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
-                    )
-                  }
-                </ul>
-              </dd>
-            </dl>
-            <Accordion>
-              <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>
-                { establishment.conditions
-                  ? (
-                    <Fragment>
-                      <p><Snippet>conditions.hasConditions</Snippet></p>
-                      {
-                        editing
-                          ? <Form />
-                          : (
-                            <Fragment>
-                              <ReactMarkdown>{ establishment.conditions }</ReactMarkdown>
-                              {
-                                asruUser && <a href="#" onClick={this.toggleEdit}>Update conditions</a>
-                              }
-                            </Fragment>
-                          )
-                      }
-
-                    </Fragment>
-                  )
-                  : (
-                    <Fragment>
-                      <p><Snippet>conditions.noConditions</Snippet></p>
-                      {
-                        asruUser && <a href="#" onClick={this.toggleEdit}>Add conditions</a>
-                      }
-                    </Fragment>
+            {
+              establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
+            }
+            {
+              establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
+            }
+            <dt><Snippet>licenced.title</Snippet></dt>
+            <dd>
+              <ul>
+                {
+                  ['procedure', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
+                    <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
                   )
                 }
-              </ExpandingPanel>
+              </ul>
+            </dd>
+          </dl>
+          <Accordion>
+            <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>
               {
-                (!!killing.length || !!rehomes.length) && <ExpandingPanel title={<Snippet>authorisations.title</Snippet>}>
+                <Conditions
+                  conditions={establishment.conditions}
+                  canUpdate={asruUser && !openTask}
+                  label={<Snippet>conditions.hasConditions</Snippet>}
+                  noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+                >
                   {
-                    !!killing.length && <Fragment>
-                      <h2><Snippet>authorisations.killing.title</Snippet></h2>
-                      <dl>
-                        {
-                          killing.map(({ method, description }, index) =>
-                            <div key={index}>
-                              <dt><Snippet>authorisations.killing.method</Snippet></dt>
-                              <dd>{ method }</dd>
-
-                              <dt><Snippet>authorisations.killing.applicableAnimals</Snippet></dt>
-                              <dd>{ description }</dd>
-                            </div>
-                          )
-                        }
-                      </dl>
-                    </Fragment>
+                    openTask && asruUser && (
+                      <Warning>
+                        <Snippet>updateInProgress</Snippet>
+                        <p><Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} /></p>
+                      </Warning>
+                    )
                   }
-                  {
-                    !!rehomes.length && <Fragment>
-                      <h2><Snippet>authorisations.rehoming.title</Snippet></h2>
-                      <dl>
-                        {
-                          rehomes.map(({ method, description }, index) =>
-                            <Fragment key={index}>
-                              <dt><Snippet>authorisations.rehoming.circumstances</Snippet></dt>
-                              <dd>{ method }</dd>
-
-                              <dt><Snippet>authorisations.rehoming.applicableAnimals</Snippet></dt>
-                              <dd>{ description }</dd>
-                            </Fragment>
-                          )
-                        }
-                      </dl>
-                    </Fragment>
-                  }
-                </ExpandingPanel>
+                </Conditions>
               }
-            </Accordion>
-          </div>
-        </div>
-      </Fragment>
-    )
-  }
-}
+            </ExpandingPanel>
+            {
+              (!!killing.length || !!rehomes.length) && <ExpandingPanel title={<Snippet>authorisations.title</Snippet>}>
+                {
+                  !!killing.length && <Fragment>
+                    <h2><Snippet>authorisations.killing.title</Snippet></h2>
+                    <dl>
+                      {
+                        killing.map(({ method, description }, index) =>
+                          <div key={index}>
+                            <dt><Snippet>authorisations.killing.method</Snippet></dt>
+                            <dd>{ method }</dd>
 
-const mapStateToProps = ({ static: { establishment, asruUser } }) => ({ establishment, asruUser });
+                            <dt><Snippet>authorisations.killing.applicableAnimals</Snippet></dt>
+                            <dd>{ description }</dd>
+                          </div>
+                        )
+                      }
+                    </dl>
+                  </Fragment>
+                }
+                {
+                  !!rehomes.length && <Fragment>
+                    <h2><Snippet>authorisations.rehoming.title</Snippet></h2>
+                    <dl>
+                      {
+                        rehomes.map(({ method, description }, index) =>
+                          <Fragment key={index}>
+                            <dt><Snippet>authorisations.rehoming.circumstances</Snippet></dt>
+                            <dd>{ method }</dd>
+
+                            <dt><Snippet>authorisations.rehoming.applicableAnimals</Snippet></dt>
+                            <dd>{ description }</dd>
+                          </Fragment>
+                        )
+                      }
+                    </dl>
+                  </Fragment>
+                }
+              </ExpandingPanel>
+            }
+          </Accordion>
+        </div>
+      </div>
+    </Fragment>
+  );
+};
+
+const mapStateToProps = ({ static: { establishment, asruUser, openTask } }) => ({ establishment, asruUser, openTask });
 
 export default connect(mapStateToProps)(Index);

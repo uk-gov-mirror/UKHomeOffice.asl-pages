@@ -1,20 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import get from 'lodash/get';
-import ReactMarkdown from 'react-markdown';
 import {
   StickyNavPage,
   StickyNavAnchor,
   Snippet,
-  Link,
-  Field,
   DiffText
 } from '@asl/components';
 import LicenceHolder from '../../../common/components/licence-holder';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
-import { hasChanged } from '../../../../lib/utils';
-import establishmentConditionsSchema from '../../../establishment/details/schema'
 
 const Role = ({ establishment, profile, task, values, children, schema, formFields }) => (
   <StickyNavPage>
