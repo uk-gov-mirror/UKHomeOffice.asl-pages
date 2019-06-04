@@ -14,12 +14,13 @@ import {
 
 const Index = ({
   establishment,
-  asruUser,
+  allowedActions,
   openTask,
   ...props
 }) => {
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
+  const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
 
   return (
     <Fragment>
@@ -60,12 +61,12 @@ const Index = ({
               {
                 <Conditions
                   conditions={establishment.conditions}
-                  canUpdate={asruUser && !openTask}
+                  canUpdate={canUpdateConditions && !openTask}
                   label={<Snippet>conditions.hasConditions</Snippet>}
                   noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
                 >
                   {
-                    openTask && asruUser && (
+                    openTask && canUpdateConditions && (
                       <Warning>
                         <Snippet>updateInProgress</Snippet>
                         <p><Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} /></p>
@@ -122,6 +123,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, asruUser, openTask } }) => ({ establishment, asruUser, openTask });
+const mapStateToProps = ({ static: { establishment, allowedActions, openTask } }) => ({ establishment, allowedActions, openTask });
 
 export default connect(mapStateToProps)(Index);
