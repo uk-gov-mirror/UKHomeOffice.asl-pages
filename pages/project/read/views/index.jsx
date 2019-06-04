@@ -20,14 +20,13 @@ const getVersions = model => {
   return versions;
 };
 
-const App = ({ model, establishment, canUpdate }) => {
+const App = ({ model, establishment, canUpdate, isGrantedVersion }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
-
   const canAmend = canUpdate && model.status === 'active' && !openTask;
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={model} licenceType="ppl" />
+      <LicenceStatusBanner licence={model} licenceType="ppl" isGrantedVersion={isGrantedVersion} />
 
       <Header
         subtitle={establishment.name}

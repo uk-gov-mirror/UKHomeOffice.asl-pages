@@ -143,7 +143,8 @@ module.exports = {
       inactive: 'Draft',
       pending: 'Draft',
       revoked: 'Revoked',
-      expired: 'Expired'
+      expired: 'Expired',
+      active: 'Amendment in progress'
     },
     summary: {
       pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected
@@ -151,7 +152,9 @@ module.exports = {
       pil: `This licence is not active. The licence holder or applicant is not authorised to carry out regulated
         procedures in the categories stated in this licence/application.`,
       ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of
-        work as stated in this licence/application.`
-    }
+      work as stated in this licence/application.`,
+      ppl_active: `This amendment has not been approved yet.`
+    },
+    view: 'View granted licence'
   }
 };
