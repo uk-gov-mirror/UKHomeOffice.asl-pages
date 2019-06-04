@@ -2,10 +2,13 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, LicenceStatusBanner } from '@asl/components';
 
-const Project = ({ isActionable, taskId, project }) => {
+const Project = ({ isActionable, taskId, project, isGrantedVersion }) => {
+
+  const isExpired = project.expiryDate && project.expiryDate < new Date().toISOString();
+
   return (
     <Fragment>
-      <LicenceStatusBanner licence={project} licenceType="ppl" />
+      {(!isGrantedVersion || isExpired) && <LicenceStatusBanner licence={project} licenceType="ppl" />}
       <div id="ppl-drafting-tool"></div>
       {
         isActionable && (
@@ -22,6 +25,6 @@ const Project = ({ isActionable, taskId, project }) => {
   ;
 };
 
-const mapStateToProps = ({ static: { isActionable, taskId, project } }) => ({ isActionable, taskId, project });
+const mapStateToProps = ({ static: { isActionable, taskId, project, isGrantedVersion } }) => ({ isActionable, taskId, project, isGrantedVersion });
 
 export default connect(mapStateToProps)(Project);
