@@ -26,7 +26,7 @@ const App = ({ model, establishment, canUpdate, isGrantedVersion }) => {
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={model} licenceType="ppl" isGrantedVersion={isGrantedVersion} />
+      <LicenceStatusBanner licence={model} licenceType="ppl" />
 
       <Header
         subtitle={establishment.name}
