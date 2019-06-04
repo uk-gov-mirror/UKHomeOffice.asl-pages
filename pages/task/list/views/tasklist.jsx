@@ -18,7 +18,7 @@ const formatters = {
     format: date => format(date, dateFormat.medium)
   },
   establishment: {
-    format: establishment => establishment || '-'
+    format: (establishment, model) => establishment || '-'
   },
   licence: {
     format: licence => {

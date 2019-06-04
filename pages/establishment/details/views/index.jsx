@@ -1,24 +1,26 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
 import { ProfileLink } from '../../components';
-
+import { Warning } from '@ukhomeoffice/react-components';
 import {
   Accordion,
   ExpandingPanel,
   Snippet,
   Header,
-  LicenceStatusBanner
+  LicenceStatusBanner,
+  Conditions,
+  Link
 } from '@asl/components';
 
 const Index = ({
   establishment,
-  url,
+  allowedActions,
+  openTask,
   ...props
 }) => {
-
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
+  const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
 
   return (
     <Fragment>
@@ -56,14 +58,22 @@ const Index = ({
           </dl>
           <Accordion>
             <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>
-              { establishment.conditions
-                ? (
-                  <Fragment>
-                    <p><Snippet>conditions.hasConditions</Snippet></p>
-                    <ReactMarkdown>{ establishment.conditions }</ReactMarkdown>
-                  </Fragment>
-                )
-                : <p><Snippet>conditions.noConditions</Snippet></p>
+              {
+                <Conditions
+                  conditions={establishment.conditions}
+                  canUpdate={canUpdateConditions && !openTask}
+                  label={<Snippet>conditions.hasConditions</Snippet>}
+                  noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+                >
+                  {
+                    openTask && canUpdateConditions && (
+                      <Warning>
+                        <Snippet>updateInProgress</Snippet>
+                        <p><Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} /></p>
+                      </Warning>
+                    )
+                  }
+                </Conditions>
               }
             </ExpandingPanel>
             {
@@ -113,6 +123,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
+const mapStateToProps = ({ static: { establishment, allowedActions, openTask } }) => ({ establishment, allowedActions, openTask });
 
 export default connect(mapStateToProps)(Index);

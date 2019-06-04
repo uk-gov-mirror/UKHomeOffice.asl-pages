@@ -23,6 +23,7 @@ module.exports = {
   },
   establishment: {
     update: 'Establishment amendment',
-    revoke: 'PEL revocation'
+    revoke: 'PEL revocation',
+    'update-conditions': 'Update conditions'
   }
 };

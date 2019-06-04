@@ -4,6 +4,7 @@ const place = require('./place');
 const profile = require('./profile');
 const role = require('./role');
 const project = require('./project');
+const establishment = require('./establishment');
 const { merge } = require('lodash');
 
 const getContent = model => {
@@ -18,6 +19,8 @@ const getContent = model => {
       return role;
     case 'project':
       return project;
+    case 'establishment':
+      return establishment;
   }
   return {};
 };

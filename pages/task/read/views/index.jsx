@@ -14,6 +14,7 @@ import Place from './place';
 import Profile from './profile';
 import Role from './role';
 import Project from './project';
+import Establishment from './establishment';
 import get from 'lodash/get';
 
 const ExtraProjectMeta = ({ item, task }) => {
@@ -29,6 +30,15 @@ const ExtraProjectMeta = ({ item, task }) => {
 };
 
 const getTaskPlayback = (task) => {
+  if (task.data.model === 'establishment') {
+    return (
+      <Establishment task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Establishment>
+    );
+  }
   if (task.data.model === 'pil') {
     return (
       <Pil task={task}>
