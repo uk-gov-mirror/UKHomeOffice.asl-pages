@@ -17,7 +17,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     if (req.pil.status === 'active') {
-      req.breadcrumb('pil.amend');
+      req.breadcrumb('pil.update');
     } else {
       req.breadcrumb('pil.create');
     }
