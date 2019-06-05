@@ -78,8 +78,6 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
     }
   };
 
-  console.log(openTask);
-
   return (
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
