@@ -28,8 +28,6 @@ module.exports = {
     'conditions-updated': 'The conditions on this licence have been updated.',
     'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
   },
-  updateInProgress: 'There is a pending change request to these conditions.',
-  'view-task': 'View open task',
   fields: {
     conditions: {
       label: ''

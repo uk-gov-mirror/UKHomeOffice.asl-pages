@@ -13,7 +13,10 @@ module.exports = {
     }
   },
   'sticky-nav': {
-    applicant: 'Applicant',
+    applicant: {
+      application: 'Applicant',
+      amendment: 'Licence holder'
+    },
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedures',

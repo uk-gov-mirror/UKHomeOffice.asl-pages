@@ -156,5 +156,7 @@ module.exports = {
       ppl_active: `This amendment has not been approved yet.`
     },
     view: 'View granted licence'
-  }
+  },
+  updateInProgress: 'There is a pending change request to these conditions.',
+  'view-task': 'View open task'
 };

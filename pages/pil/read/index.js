@@ -1,5 +1,6 @@
-const { omit } = require('lodash');
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
+const { form } = require('../../common/routers');
 
 module.exports = settings => {
   const app = page({
@@ -30,31 +31,45 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     req.breadcrumb('pil.read');
-
-    res.locals.model = req.pil;
-
-    res.locals.static.schema = {
-      licenceNumber: {},
-      status: {},
-      issueDate: {},
-      revocationDate: {},
-      species: {},
-      procedures: {},
-      notesCatD: {
-        show: false
-      },
-      notesCatF: {
-        show: false
-      },
-      conditions: {}
-    };
-
-    if (!req.pil.revocationDate) {
-      res.locals.static.schema = omit(res.locals.static.schema, 'revocationDate');
-    }
-
+    res.locals.static.pil = req.pil;
+    res.locals.static.openTask = req.pil.tasks[0];
     res.locals.static.profile = req.profile;
     next();
+  });
+
+  app.use((req, res, next) => {
+    req.model = req.pil;
+    next();
+  });
+
+  app.use(form({
+    schema: {
+      conditions: {
+        inputType: 'textarea'
+      }
+    }
+  }));
+
+  app.post('/', (req, res, next) => {
+    const conditions = get(req.form, 'values.conditions');
+    const params = {
+      method: 'PUT',
+      json: {
+        data: { conditions }
+      }
+    };
+    req.api(`/profile/${req.profileId}/pil/${req.pilId}/conditions`, params)
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.post('/', (req, res, next) => {
+    const id = req.pil.id;
+    req.notification({
+      key: req.user.profile.asruLicensing ? 'conditions-updated' : 'update-requested'
+    });
+    delete req.session.form[id];
+    res.redirect(req.buildRoute('pil.read'));
   });
 
   return app;
