@@ -94,6 +94,7 @@ module.exports = () => {
   app.use((req, res, next) => {
     const profileId = get(req.task, 'data.data.profileId');
     const establishmentId = get(req.task, 'data.data.establishmentId');
+
     if (profileId && establishmentId) {
       return req.api(`/establishment/${establishmentId}/profile/${profileId}`)
         .then(({ json: { data } }) => {
@@ -116,9 +117,11 @@ module.exports = () => {
     next();
   });
 
-  // if deleting model get vals, if updating model, get current values for diff
+  // if deleting model get vals, if updating model, get current values for diff,
+  // if updating conditions get vals for context
   app.use((req, res, next) => {
-    if (req.task.data.action === 'update' || req.task.data.action === 'delete') {
+    const action = req.task.data.action;
+    if (action === 'update' || action === 'delete' || action === 'update-conditions') {
       const model = req.task.data.model;
       if (model === 'profile' && req.user.profile.id === req.task.data.id) {
         res.locals.static.values = req.user.profile;
@@ -128,6 +131,10 @@ module.exports = () => {
       let est = '';
       if (model !== 'profile') {
         est = `/establishment/${req.task.data.data.establishmentId}`;
+
+        if (model === 'pil') {
+          est = `${est}/profile/${req.task.data.data.profileId}`;
+        }
       }
       const id = req.task.data.id;
       const url = `/${model}/${id}`;

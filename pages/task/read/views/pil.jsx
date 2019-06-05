@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset } from '@asl/components';
+import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset, DiffText } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
@@ -8,16 +8,16 @@ import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
 import Modules from './modules';
 
-const Pil = ({ profile, task, children, schema, formFields }) => {
-  const pil = task.data.data;
+const Pil = ({ profile, values, task, children, schema, formFields }) => {
+  const pil = task.data.action === 'update-conditions' ? values : task.data.data;
 
   return (
     <StickyNavPage>
 
       { children }
 
-      <StickyNavAnchor id="applicant">
-        <h2><Snippet>sticky-nav.applicant</Snippet></h2>
+      <StickyNavAnchor id={`applicant.${task.type}`}>
+        <h2><Snippet>{`sticky-nav.applicant.${task.type}`}</Snippet></h2>
         <p><Link page="profile.view" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
         <dl>
           <dt><Snippet>pil.applicant.dob</Snippet><span>:</span></dt>
@@ -121,6 +121,15 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
       </StickyNavAnchor>
 
       {
+        task.data.action === 'update-conditions' && (
+          <StickyNavAnchor id="conditions">
+            <h2><Snippet>sticky-nav.conditions</Snippet></h2>
+            <DiffText oldValue={pil.conditions} newValue={task.data.data.conditions} />
+          </StickyNavAnchor>
+        )
+      }
+
+      {
         schema.status.options.length > 0 &&
           <StickyNavAnchor id="status">
             <h2><Snippet type={task.type}>sticky-nav.status</Snippet></h2>
@@ -143,6 +152,6 @@ const Pil = ({ profile, task, children, schema, formFields }) => {
   );
 };
 
-const mapStateToProps = ({ static: { profile, schema } }) => ({ profile, schema });
+const mapStateToProps = ({ static: { profile, schema, values } }) => ({ profile, schema, values });
 
 export default connect(mapStateToProps)(Pil);
