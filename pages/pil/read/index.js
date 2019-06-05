@@ -64,7 +64,6 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    console.log(req.session);
     const id = req.pil.id;
     req.notification({
       key: req.user.profile.asruLicensing ? 'conditions-updated' : 'update-requested'
