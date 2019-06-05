@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Snippet, Header, Link, Field } from '@asl/components';
+import { Form, Snippet, Header, Link, Field, ErrorSummary } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
-const CommentForm = ({ task, values, formFields }) => {
+const CommentForm = ({ task, values, errors, formFields }) => {
   let action = task.data.action;
   if (action === 'grant' && task.type === 'amendment') {
     action = 'update';
@@ -16,6 +16,7 @@ const CommentForm = ({ task, values, formFields }) => {
         title={title}
         subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
       />
+      <ErrorSummary errors={errors} />
       {
         values.restrictions && <Field
           title={<Snippet>fields.restrictions.label</Snippet>}
@@ -37,18 +38,18 @@ const CommentForm = ({ task, values, formFields }) => {
   );
 };
 
-const Confirm = ({ task, values }) => {
+const Confirm = ({ task, values, errors }) => {
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <Form detachFields submit={false}>
-          <CommentForm values={values} task={task} />
+          <CommentForm values={values} task={task} errors={errors} />
         </Form>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ static: { task, values } }) => ({ task, values });
+const mapStateToProps = ({ static: { task, values, errors } }) => ({ task, values, errors });
 
 export default connect(mapStateToProps)(Confirm);
