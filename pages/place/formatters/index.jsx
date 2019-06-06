@@ -12,7 +12,7 @@ export default {
     mapOptions: labelFromCode
   },
   nacwo: {
-    format: val => `${val.firstName} ${val.lastName}`,
+    format: val => val && `${val.firstName} ${val.lastName}`,
     accessor: 'id'
   }
 };
