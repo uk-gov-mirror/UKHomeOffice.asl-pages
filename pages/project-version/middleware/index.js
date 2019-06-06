@@ -132,6 +132,9 @@ const getNode = (tree, path) => {
   let node = tree[keys[0]];
   for (let i = 1; i < keys.length; i++) {
     let parent = node;
+    if (!parent) {
+      return;
+    }
     if (isUUID(keys[i])) {
       if (parent instanceof Array) {
         node = parent.find(o => o.id === keys[i]);
