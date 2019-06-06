@@ -121,8 +121,11 @@ module.exports = () => {
   // if updating conditions get vals for context
   app.use((req, res, next) => {
     const action = req.task.data.action;
+    const model = req.task.data.model;
+    if (model === 'establishment') {
+      return next();
+    }
     if (action === 'update' || action === 'delete' || action === 'update-conditions') {
-      const model = req.task.data.model;
       if (model === 'profile' && req.user.profile.id === req.task.data.id) {
         res.locals.static.values = req.user.profile;
         return next();
