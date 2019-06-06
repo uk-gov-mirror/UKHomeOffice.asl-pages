@@ -52,6 +52,9 @@ module.exports = {
             1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
             provide information which you know to be false or misleading.`
         }
+      },
+      species: {
+        label: 'Animal types'
       }
     }
   ),

@@ -82,6 +82,7 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     const ids = req.profile.exemptions.map(exemption => exemption.id);
+
     // TODO: refactor to allow addition of one exemption at a time.
     return Promise.all(
       ids.map(id => {

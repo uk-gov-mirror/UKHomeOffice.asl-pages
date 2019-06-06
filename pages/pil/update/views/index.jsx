@@ -59,10 +59,23 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
       models: exemptions,
       schema: {
         module: {},
-        species: {
-          format: species => (species && species.length > 0 && <span className="species"> ({species.join(', ')})</span>)
-        },
+        species: {},
         description: {}
+      },
+      formatters: {
+        species: {
+          format: species => (
+            <ul>
+              {
+                species.map((type, index) =>
+                  <li key={index}>
+                    { type }
+                  </li>
+                )
+              }
+            </ul>
+          )
+        }
       },
       addOrEdit: 'edit',
       completed: exemptions.length > 0 || skipExemptions
