@@ -42,20 +42,20 @@ module.exports = () => {
         ...schema,
         ...schema.modules.options.reduce((obj, val) => {
 
-          let o = {
+          let type = {
             ...obj,
             [`module-${val.value}-reason`]: val.reveal.reason
           };
 
           if (modulesThatRequireSpecies.includes(val.value)) {
-            o[`module-${val.value}-species`] = {
+            type[`module-${val.value}-species`] = {
               inputType: 'select',
               options: species,
               label: content.fields.species.label
             };
           }
 
-          return o;
+          return type;
         }, {})
       };
       next();

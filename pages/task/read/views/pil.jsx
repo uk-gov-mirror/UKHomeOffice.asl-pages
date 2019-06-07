@@ -109,7 +109,18 @@ const Pil = ({ profile, values, task, children, schema, formFields }) => {
               <div key={index}>
                 <dl>
                   <dt><Snippet>pil.exemptions.module</Snippet><span>:</span></dt>
-                  <dd>{exemption.module}</dd>
+                  <dd>{exemption.module}
+                    {
+                      exemption.species && exemption.species.length > 0 &&
+                        (
+                          <Fragment>
+                            { exemption.species.map((s, index) => (
+                              <p key={index}>{s}</p>
+                            ))}
+                          </Fragment>
+                        )
+
+                    }</dd>
 
                   <dt><Snippet>pil.exemptions.reason</Snippet><span>:</span></dt>
                   <dd>{exemption.description}</dd>
