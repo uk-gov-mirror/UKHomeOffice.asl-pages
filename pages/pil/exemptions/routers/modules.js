@@ -42,7 +42,7 @@ module.exports = () => {
         ...schema,
         ...schema.modules.options.reduce((obj, val) => {
 
-          let type = {
+          const type = {
             ...obj,
             [`module-${val.value}-reason`]: val.reveal.reason
           };
@@ -61,7 +61,8 @@ module.exports = () => {
       next();
     },
     locals: (req, res, next) => {
-      res.locals.static.schema = omit(req.form.schema, moduleCodes.map(c => `module-${c}-reason`).concat(moduleCodes.map(c => `module-${c}-species`)));
+      const revealValues = moduleCodes.map(c => `module-${c}-reason`).concat(moduleCodes.map(c => `module-${c}-species`));
+      res.locals.static.schema = omit(req.form.schema, revealValues);
       res.locals.static.modulesThatRequireSpecies = modulesThatRequireSpecies;
       Object.assign(
         res.locals.static.content.errors,
