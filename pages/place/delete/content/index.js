@@ -4,12 +4,12 @@ const commonContent = require('../../content');
 module.exports = merge({}, commonContent, {
   fields: {
     comments: {
-      label: 'Why are you removing this from licensed premises?'
+      label: 'Why are you removing this approved area?'
     }
   },
   pages: {
     place: {
-      delete: 'Remove premises'
+      delete: 'Remove approved area'
     }
   }
 });

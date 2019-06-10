@@ -9,7 +9,7 @@ module.exports = {
     outstanding: 'Outstanding',
     inProgress: 'In progress',
     completed: 'Completed',
-    myTasks: 'My Tasks'
+    myTasks: 'My tasks'
   },
   task: {
     role: {
@@ -17,9 +17,9 @@ module.exports = {
       delete: 'Remove named person'
     },
     place: {
-      create: 'Add licensed premises',
-      update: 'Amend licensed premises',
-      delete: 'Remove licensed premises'
+      create: 'Add approved area',
+      update: 'Amend approved area',
+      delete: 'Remove approved area'
     },
     pil: {
       grant: 'PIL application'

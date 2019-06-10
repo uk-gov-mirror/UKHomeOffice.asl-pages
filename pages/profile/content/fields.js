@@ -35,7 +35,7 @@ module.exports = {
       read: {
         label: 'Intermediate',
         hint: `* View details of all people and all licences at the establishment.
-               * View details of the establishment, including named people and Schedule of Premises.
+               * View details of the establishment, including named people and licensed premises.
                * Request amendments to the licences they hold.`
       },
       admin: {

@@ -109,7 +109,7 @@ describe('Place', () => {
     it('can load', () => {
       browser.url('/pages/place/create');
       const title = browser.getText('h1');
-      assert.equal(title, 'Add new premises');
+      assert.equal(title, 'Add approved area');
     });
 
     it('redirects to /create if confirm page is hit without submission', () => {
