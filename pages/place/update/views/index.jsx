@@ -10,7 +10,8 @@ import formatters from '../../formatters';
 import InProgressWarning from '../../../common/components/in-progress-warning';
 
 const pageFormatters = {
-  restrictions: { showIf: model => model.restrictions }
+  restrictions: { showIf: model => model.restrictions },
+  changesToRestrictions: { showIf: model => model.restrictions }
 };
 
 const Page = ({ model }) => {

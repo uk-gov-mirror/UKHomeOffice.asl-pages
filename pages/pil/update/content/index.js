@@ -6,6 +6,7 @@ const proceduresFields = require('../../procedures/content').fields;
 module.exports = {
   pil: {
     title: 'Apply for personal licence - Categories A, B, C, D and F',
+    titleAmend: 'Amend personal licence - Categories A, B, C, D, and F',
     summary: 'Please complete all of the following sections.',
     details: {
       title: 'Applicant details'

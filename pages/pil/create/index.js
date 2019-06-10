@@ -8,6 +8,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     if (!req.profile.pil) {
+      req.breadcrumb('pil.create');
       return next();
     }
     res.redirect(req.buildRoute('pil.read', { pilId: req.profile.pil.id }));

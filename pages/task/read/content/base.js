@@ -1,12 +1,14 @@
 const status = require('../../content/status');
+const tasks = require('../../content/tasks');
 
 module.exports = {
-  title: 'Review application',
   status,
+  tasks,
+  title: 'Review {{type}}',
   currentStatus: 'Current status',
   fields: {
     status: {
-      label: 'What is your decision?'
+      label: ''
     },
     comment: {
       label: 'Comments'
@@ -14,9 +16,11 @@ module.exports = {
   },
   'sticky-nav': {
     activity: 'Latest activity',
+    establishment: 'Establishment details',
     comments: 'Comments',
-    status: 'Next steps',
-    withdraw: 'Withdraw application'
+    status: 'What do you want to do?',
+    conditions: 'Additional conditions',
+    withdraw: 'Withdraw {{type}}'
   },
   activityLog: {
     open: 'Show previous activity',
@@ -29,9 +33,7 @@ module.exports = {
     submittedBy: 'Submitted by',
     submittedOn: 'on {{date}}.',
     applicantName: 'Applicant name',
-    withdrawTitle: 'Withdraw application',
-    withdrawHint: 'You will need to create a new application if you want to apply for this type of licence in future.',
-    withdrawAction: 'Withdraw application'
+    withdrawAction: 'Withdraw {{type}}'
   },
   deadline: {
     hint: 'Click the button below to extend the deadline by 15 days.',
@@ -41,7 +43,8 @@ module.exports = {
     }
   },
   actions: {
-    change: 'Change'
+    change: 'Change',
+    withdraw: 'Withdraw'
   },
   errors: {
     status: {
@@ -51,5 +54,8 @@ module.exports = {
     comment: {
       customValidate: 'Please provide a reason'
     }
+  },
+  buttons: {
+    submit: 'Continue'
   }
 };

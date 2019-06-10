@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import get from 'lodash/get';
 import { Link, StickyNavPage, StickyNavAnchor, Snippet } from '@asl/components';
 import Deadline from './deadline';
-import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
+import MakeDecision from './make-decision';
 
 const declarationAnswer = val => val === 'yes' ? 'Yes' : 'Not yet';
 
@@ -13,7 +13,7 @@ const allDeclarationsConfirmed = task => {
   return taskMeta.authority === 'yes' && taskMeta.awerb === 'yes' && taskMeta.ready === 'yes';
 };
 
-const Project = ({ task, project, establishment, children, schema }) => {
+const Project = ({ task, project, establishment, children, schema, formFields }) => {
   const submitted = get(task, 'data.data.version');
   const taskMeta = task.data.meta;
 
@@ -22,7 +22,7 @@ const Project = ({ task, project, establishment, children, schema }) => {
       { children }
       <StickyNavAnchor id="submitted-version">
         <h2><Snippet>sticky-nav.submitted-version</Snippet></h2>
-        <p><Snippet>versions.submitted.hint</Snippet></p>
+        <p><Snippet type={task.type}>versions.submitted.hint</Snippet></p>
         <p>
           <Link
             page="project.version.read"
@@ -61,18 +61,21 @@ const Project = ({ task, project, establishment, children, schema }) => {
           <StickyNavAnchor id="status">
             <h2><Snippet>sticky-nav.status</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
-            <MakeDecision />
-            { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
+            <MakeDecision schema={schema} formFields={formFields} />
+            {
+              task.canBeWithdrawn && <WithdrawApplication type={task.type} showHeading />
+            }
           </StickyNavAnchor>
       }
 
       {
         // if the only option is to withdraw, display the withdraw button
-        schema.status.options.length === 0 && task.canBeWithdrawn &&
+        schema.status.options.length === 0 && task.canBeWithdrawn && (
           <StickyNavAnchor id="withdraw">
             <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
-            <WithdrawApplication />
+            <WithdrawApplication type={task.type} />
           </StickyNavAnchor>
+        )
       }
 
     </StickyNavPage>

@@ -1,29 +1,27 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, StickyNavPage, StickyNavAnchor, Link } from '@asl/components';
+import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset, DiffText } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
-import MakeDecision from './make-decision';
 import WithdrawApplication from './withdraw-application';
+import MakeDecision from './make-decision';
+import Modules from './modules';
 
-const getNtcoStatus = status => status === 'with-ntco' ? 'status-ntco' : 'status';
-
-const Pil = ({ profile, task, children, schema }) => {
-  const pil = profile.pil;
-  const formatDate = date => format(date, dateFormat.short);
+const Pil = ({ profile, values, task, children, schema, formFields }) => {
+  const pil = task.data.action === 'update-conditions' ? values : task.data.data;
 
   return (
     <StickyNavPage>
 
       { children }
 
-      <StickyNavAnchor id="applicant">
-        <h2><Snippet>sticky-nav.applicant</Snippet></h2>
+      <StickyNavAnchor id={`applicant.${task.type}`}>
+        <h2><Snippet>{`sticky-nav.applicant.${task.type}`}</Snippet></h2>
         <p><Link page="profile.view" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
         <dl>
           <dt><Snippet>pil.applicant.dob</Snippet><span>:</span></dt>
-          <dd>{profile.dob ? format(profile.dob, dateFormat.short) : <Snippet>pil.applicant.missingDob</Snippet>}</dd>
+          <dd>{profile.dob ? format(profile.dob, dateFormat.medium) : <Snippet>pil.applicant.missingDob</Snippet>}</dd>
         </dl>
       </StickyNavAnchor>
 
@@ -35,7 +33,43 @@ const Pil = ({ profile, task, children, schema }) => {
               <Fragment>
                 <h3><Snippet>pil.procedures.categories</Snippet></h3>
                 { pil.procedures.map((procedure, index) => (
-                  <p key={index}>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
+                  <Fragment key={index}>
+                    <p>{`${procedure.toUpperCase()}. ${procedureDefinitions[procedure]}`}</p>
+                    {
+                      (procedure === 'D' || procedure === 'F') && (
+                        <Inset>
+                          {
+                            procedure === 'D' && (
+                              <dl>
+                                <dt><Snippet>pil.procedures.evidence</Snippet></dt>
+                                <dd>
+                                  {
+                                    pil.notesCatD
+                                      ? pil.notesCatD
+                                      : <em><Snippet>pil.procedures.noEvidence</Snippet></em>
+                                  }
+                                </dd>
+                              </dl>
+                            )
+                          }
+                          {
+                            procedure === 'F' && (
+                              <dl>
+                                <dt><Snippet>pil.procedures.type</Snippet></dt>
+                                <dd>
+                                  {
+                                    pil.notesCatF
+                                      ? pil.notesCatF
+                                      : <em><Snippet>pil.procedures.noType</Snippet></em>
+                                  }
+                                </dd>
+                              </dl>
+                            )
+                          }
+                        </Inset>
+                      )
+                    }
+                  </Fragment>
                 ))}
               </Fragment>
             )
@@ -62,34 +96,7 @@ const Pil = ({ profile, task, children, schema }) => {
         <h2><Snippet>sticky-nav.training</Snippet></h2>
         {
           profile.certificates && profile.certificates.length > 0
-            ? profile.certificates.map((certificate, index) => (
-              <div key={index}>
-                <h3><Snippet>pil.training.certificate.details</Snippet></h3>
-                <p><Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}</p>
-                <p><Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate)}</p>
-                <p><Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody}</p>
-
-                <h3><Snippet>pil.training.modules</Snippet></h3>
-                <ul>
-                  { certificate.modules.map((module, index) => (
-                    <Fragment key={index}>
-                      <li>{module.module}</li>
-                      {
-                        module.species && !!module.species.length && (
-                          <ul>
-                            {
-                              module.species.map((s, index) =>
-                                <li key={index}>{s}</li>
-                              )
-                            }
-                          </ul>
-                        )
-                      }
-                    </Fragment>
-                  )) }
-                </ul>
-              </div>
-            ))
+            ? <Modules certificates={profile.certificates} />
             : <p><em><Snippet>pil.training.none</Snippet></em></p>
         }
       </StickyNavAnchor>
@@ -114,19 +121,30 @@ const Pil = ({ profile, task, children, schema }) => {
       </StickyNavAnchor>
 
       {
+        task.data.action === 'update-conditions' && (
+          <StickyNavAnchor id="conditions">
+            <h2><Snippet>sticky-nav.conditions</Snippet></h2>
+            <DiffText oldValue={pil.conditions} newValue={task.data.data.conditions} />
+          </StickyNavAnchor>
+        )
+      }
+
+      {
         schema.status.options.length > 0 &&
-          <StickyNavAnchor id={getNtcoStatus(task.status)}>
-            <h2><Snippet>{`sticky-nav.${getNtcoStatus(task.status)}`}</Snippet></h2>
-            <MakeDecision />
-            { task.canBeWithdrawn && <WithdrawApplication showHeading /> }
+          <StickyNavAnchor id="status">
+            <h2><Snippet type={task.type}>sticky-nav.status</Snippet></h2>
+            <MakeDecision schema={schema} formFields={formFields} />
+            {
+              task.canBeWithdrawn && <WithdrawApplication type={task.type} showHeading />
+            }
           </StickyNavAnchor>
       }
 
       {
         schema.status.options.length === 0 && task.canBeWithdrawn &&
           <StickyNavAnchor id="withdraw">
-            <h2><Snippet>sticky-nav.withdraw</Snippet></h2>
-            <WithdrawApplication />
+            <h2><Snippet type={task.type}>sticky-nav.withdraw</Snippet></h2>
+            <WithdrawApplication type={task.type} />
           </StickyNavAnchor>
       }
 
@@ -134,6 +152,6 @@ const Pil = ({ profile, task, children, schema }) => {
   );
 };
 
-const mapStateToProps = ({ static: { profile, schema } }) => ({ profile, schema });
+const mapStateToProps = ({ static: { profile, schema, values } }) => ({ profile, schema, values });
 
 export default connect(mapStateToProps)(Pil);

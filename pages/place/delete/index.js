@@ -12,6 +12,11 @@ module.exports = settings => {
     ...settings
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('place.delete');
+    next();
+  });
+
   app.use(form({
     model: 'place',
     schema: {

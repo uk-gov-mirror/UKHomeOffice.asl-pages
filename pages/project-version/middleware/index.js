@@ -132,6 +132,9 @@ const getNode = (tree, path) => {
   let node = tree[keys[0]];
   for (let i = 1; i < keys.length; i++) {
     let parent = node;
+    if (!parent) {
+      return;
+    }
     if (isUUID(keys[i])) {
       if (parent instanceof Array) {
         node = parent.find(o => o.id === keys[i]);
@@ -207,11 +210,33 @@ const getAllChanges = () => (req, res, next) => {
     .then(([latest, granted]) => {
       res.locals.static.changes = {
         latest,
-        granted: (granted || []).filter(e => !(latest || []).includes(e))
+        granted
       };
     })
     .then(() => next())
     .catch(next);
+};
+
+const getChangedValues = (question, req) => {
+  return Promise.all([
+    getPreviousVersion(req),
+    getGrantedVersion(req)
+  ])
+    .then(([previousVersion, grantedVersion]) => {
+      const current = getNode(req.version.data, question);
+      const previous = previousVersion && getNode(previousVersion.data, question);
+      const granted = grantedVersion && getNode(grantedVersion.data, question);
+
+      if (previousVersion.status === 'granted') {
+        return {
+          granted: !isEqual(current, previous) && (previous || null)
+        };
+      }
+      return {
+        previous: !isEqual(current, previous) && (previous || null),
+        granted: !isEqual(current, granted) && (granted || null)
+      };
+    });
 };
 
 module.exports = {
@@ -220,5 +245,6 @@ module.exports = {
   canComment,
   getPreviousVersion,
   getGrantedVersion,
-  getAllChanges
+  getAllChanges,
+  getChangedValues
 };

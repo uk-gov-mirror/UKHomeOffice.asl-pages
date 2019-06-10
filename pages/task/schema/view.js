@@ -9,11 +9,10 @@ module.exports = task => {
       task.canBeWithdrawn = true;
     }
 
-    const defaultLabel = get(content, `status.${option.id}.action`);
     return {
       value: option.id,
-      label: get(content, `status.${option.id}.${task.status}`, defaultLabel),
-      hint: get(content, `status.${option.id}.declaration`)
+      label: get(content, `status.${option.id}.action.${task.type}`, get(content, `status.${option.id}.action`)),
+      hint: get(content, `status.${option.id}.hint.${task.type}`, get(content, `status.${option.id}.hint`))
     };
   });
 
@@ -22,7 +21,7 @@ module.exports = task => {
       inputType: 'radioGroup',
       options: options.filter(option => option.value !== 'withdrawn-by-applicant'),
       nullValue: [],
-      label: get(content, `fields.status.${task.status}`, get(content, 'fields.status.label')),
+      label: get(content, `fields.status.${task.status}.${task.type}`, get(content, `fields.status.${task.status}`, get(content, 'fields.status.label'))),
       validate: [
         'required',
         {

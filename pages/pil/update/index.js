@@ -1,7 +1,7 @@
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { get } = require('lodash');
+const { get, pick } = require('lodash');
 
 const success = require('../../common/routers/success');
 const procedures = require('../procedures');
@@ -16,7 +16,29 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.model = req.pil;
+    if (req.pil.status === 'active') {
+      req.breadcrumb('pil.update');
+    } else {
+      req.breadcrumb('pil.create');
+    }
+
+    const params = {
+      id: req.pilId,
+      profileId: req.pil.profileId,
+      establishment: req.establishment.id
+    };
+    req.user.can('pil.update', params)
+      .then(can => can ? next() : next(new Error('Unauthorised')))
+      .catch(next);
+  });
+
+  app.use((req, res, next) => {
+    const values = get(req.session, `form[${req.pilId}].values`);
+    req.model = {
+      ...req.pil,
+      ...values
+    };
+
     next();
   });
 
@@ -37,10 +59,16 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return req.api(
-      `/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/grant`,
-      { method: 'PUT' }
-    )
+    const opts = {
+      method: 'PUT',
+      json: {
+        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF')
+      }
+    };
+    req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/grant`, opts)
+      .then(() => {
+        delete req.session.form[req.model.id];
+      })
       .then(() => res.redirect(req.originalUrl + '/success'))
       .catch(next);
   });

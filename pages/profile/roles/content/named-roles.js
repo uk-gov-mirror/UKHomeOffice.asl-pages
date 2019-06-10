@@ -1,6 +1,7 @@
 const dictionary = require('@asl/dictionary');
 
 const roles = [
+  'holc',
   'nacwo',
   'nio',
   'nvs',

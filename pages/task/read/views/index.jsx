@@ -5,18 +5,20 @@ import {
   Link,
   Snippet,
   StickyNavAnchor,
-  Header
+  Header,
+  Form
 } from '@asl/components';
-import ActivityLog, { getStatus } from './activity-log';
+import ActivityLog from './activity-log';
 import Pil from './pil';
 import Place from './place';
 import Profile from './profile';
 import Role from './role';
 import Project from './project';
+import Establishment from './establishment';
 import get from 'lodash/get';
 
 const ExtraProjectMeta = ({ item, task }) => {
-  const status = getStatus(item.eventName);
+  const status = item.event.name;
   if (status !== 'with-inspectorate') {
     return null;
   }
@@ -28,6 +30,15 @@ const ExtraProjectMeta = ({ item, task }) => {
 };
 
 const getTaskPlayback = (task) => {
+  if (task.data.model === 'establishment') {
+    return (
+      <Establishment task={task}>
+        <StickyNavAnchor id="activity">
+          <ActivityLog task={task} />
+        </StickyNavAnchor>
+      </Establishment>
+    );
+  }
   if (task.data.model === 'pil') {
     return (
       <Pil task={task}>
@@ -75,25 +86,11 @@ const getTaskPlayback = (task) => {
   }
 };
 
-const getTitle = action => {
-  let key = 'title';
-  if (action === 'create') {
-    key = 'createTitle';
-  }
-  if (action === 'delete') {
-    key = 'deleteTitle';
-  }
-  if (action === 'update') {
-    key = 'updateTitle';
-  }
-  try {
-    return <Snippet>{key}</Snippet>;
-  } catch (e) {
-    return <Snippet>title</Snippet>;
-  }
-};
-
 const Task = ({ task, project }) => {
+  let action = task.data.action;
+  if (action === 'grant' && task.type === 'amendment') {
+    action = 'update';
+  }
   return (
     <Fragment>
       <div className="govuk-grid-row">
@@ -102,9 +99,18 @@ const Task = ({ task, project }) => {
         </div>
       </div>
 
-      <Header title={getTitle(task.data.action)} subtitle={project && project.title} />
-
-      { getTaskPlayback(task) }
+      <Header
+        title={<Snippet type={task.type}>title</Snippet>}
+        subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
+      />
+      {
+        project && <h3>{project.title || 'Untitled project'}</h3>
+      }
+      {
+        task.nextSteps.length > 0
+          ? <Form detachFields>{getTaskPlayback(task)}</Form>
+          : getTaskPlayback(task)
+      }
     </Fragment>
   );
 };

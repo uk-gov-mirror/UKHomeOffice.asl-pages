@@ -1,13 +1,17 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { StickyNavPage, StickyNavAnchor, Snippet, Link, Field } from '@asl/components';
+import {
+  StickyNavPage,
+  StickyNavAnchor,
+  Snippet,
+  DiffText
+} from '@asl/components';
 import LicenceHolder from '../../../common/components/licence-holder';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
 
 const Role = ({ establishment, profile, task, values, children, schema, formFields }) => (
   <StickyNavPage>
-
     { children }
 
     <StickyNavAnchor id="establishment">
@@ -26,47 +30,12 @@ const Role = ({ establishment, profile, task, values, children, schema, formFiel
         }
       </dl>
     </StickyNavAnchor>
-    <StickyNavAnchor id="applicant">
-      <h2><Snippet>sticky-nav.applicant</Snippet></h2>
-      <Link page="profile.view" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
-    </StickyNavAnchor>
+
     {
-      task.data.action === 'create' && (
-        <StickyNavAnchor id="role">
-          <h2><Snippet>sticky-nav.role</Snippet></h2>
-          <dl>
-            <dt><Snippet>fields.role.label</Snippet></dt>
-            <dd><Snippet>{`namedRoles.${task.data.data.type}`}</Snippet></dd>
-            {
-              task.data.data.rcvsNumber && (
-                <Fragment>
-                  <dt><Snippet>fields.rcvsNumber.label</Snippet></dt>
-                  <dd>{ task.data.data.rcvsNumber }</dd>
-                </Fragment>
-              )
-            }
-          </dl>
-        </StickyNavAnchor>
-      )
-    }
-    {
-      task.data.action === 'delete' && (
-        <StickyNavAnchor id="role">
-          <h2><Snippet>sticky-nav.role</Snippet></h2>
-          <dl>
-            <dt><Snippet>fields.role.label</Snippet></dt>
-            <dd><Snippet>{`namedRoles.${values.type}`}</Snippet></dd>
-          </dl>
-        </StickyNavAnchor>
-      )
-    }
-    {
-      (task.data.meta && task.data.meta.comment) && (
-        <StickyNavAnchor id="comments">
-          <Field
-            title={<Snippet>sticky-nav.comments</Snippet>}
-            content={task.data.meta.comment}
-          />
+      task.data.action === 'update-conditions' && (
+        <StickyNavAnchor id="conditions">
+          <h2><Snippet>sticky-nav.conditions</Snippet></h2>
+          <DiffText oldValue={establishment.conditions} newValue={task.data.data.conditions} />
         </StickyNavAnchor>
       )
     }

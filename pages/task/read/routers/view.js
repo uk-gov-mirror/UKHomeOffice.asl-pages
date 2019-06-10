@@ -9,16 +9,13 @@ const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 
 const getRelevantActivity = activityLog => activityLog.filter(log => {
+  const [type, previous] = log.eventName.split(':');
   if (get(log, 'event.meta.payload.data.extended')) {
     log.eventName = 'status:deadline-extension';
     return true;
   }
 
-  if (!log.eventName.includes('status:')) {
-    return false;
-  }
-
-  if (log.eventName.includes('status:with-ntco')) {
+  if (type !== 'status' || previous === 'ntco-endorsed' || previous === 'resubmitted') {
     return false;
   }
 
@@ -26,7 +23,7 @@ const getRelevantActivity = activityLog => activityLog.filter(log => {
 });
 
 module.exports = () => {
-  const app = Router();
+  const app = Router({ mergeParams: true });
 
   // get relevant versionId if task is for a project.
   app.use((req, res, next) => {
@@ -46,7 +43,16 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('task.base');
+    req.breadcrumb('task.read');
+    const action = get(req, 'query.action');
+    if (action === 'withdraw') {
+      set(req, `session.form[${req.task.id}].values`, { status: 'withdrawn-by-applicant' });
+      return res.redirect(req.buildRoute('task.confirm', req.params));
+    }
+    next();
+  });
+
+  app.use((req, res, next) => {
     req.model = { id: req.task.id };
 
     if (req.task.activityLog) {
@@ -57,7 +63,9 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    const establishmentId = get(req.task, 'data.data.establishmentId');
+    const establishmentId = get(req.task, 'data.model') === 'establishment'
+      ? get(req.task, 'data.id')
+      : get(req.task, 'data.data.establishmentId');
     if (establishmentId) {
       return getEstablishment(req, establishmentId)
         .then(establishment => {
@@ -86,6 +94,7 @@ module.exports = () => {
   app.use((req, res, next) => {
     const profileId = get(req.task, 'data.data.profileId');
     const establishmentId = get(req.task, 'data.data.establishmentId');
+
     if (profileId && establishmentId) {
       return req.api(`/establishment/${establishmentId}/profile/${profileId}`)
         .then(({ json: { data } }) => {
@@ -108,10 +117,15 @@ module.exports = () => {
     next();
   });
 
-  // if deleting model get vals, if updating model, get current values for diff
+  // if deleting model get vals, if updating model, get current values for diff,
+  // if updating conditions get vals for context
   app.use((req, res, next) => {
-    if (req.task.data.action === 'update' || req.task.data.action === 'delete') {
-      const model = req.task.data.model;
+    const action = req.task.data.action;
+    const model = req.task.data.model;
+    if (model === 'establishment') {
+      return next();
+    }
+    if (action === 'update' || action === 'delete' || action === 'update-conditions') {
       if (model === 'profile' && req.user.profile.id === req.task.data.id) {
         res.locals.static.values = req.user.profile;
         return next();
@@ -120,16 +134,31 @@ module.exports = () => {
       let est = '';
       if (model !== 'profile') {
         est = `/establishment/${req.task.data.data.establishmentId}`;
+
+        if (model === 'pil') {
+          est = `${est}/profile/${req.task.data.data.profileId}`;
+        }
       }
       const id = req.task.data.id;
       const url = `/${model}/${id}`;
 
-      return req.api(`${est}${url}`)
+      return req.api(`${est}${url}`, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           res.locals.static.values = data;
         })
         .then(() => next())
         .catch(next);
+    }
+
+    next();
+  });
+
+  app.use((req, res, next) => {
+    const model = req.task.data.model;
+    if (model === 'role' || model === 'profile' || model === 'place') {
+      req.task.type = 'amendment';
+    } else {
+      req.task.type = get(req.task, 'data.modelData.status') === 'active' ? 'amendment' : 'application';
     }
     next();
   });

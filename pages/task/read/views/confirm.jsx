@@ -1,42 +1,55 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Snippet, Header, Link } from '@asl/components';
+import { Form, Snippet, Header, Link, Field, ErrorSummary } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { requiresDeclaration } from '../../../../lib/utils';
 
-const CommentForm = ({ task, values, formFields }) => {
+const CommentForm = ({ task, values, errors, formFields }) => {
+  let action = task.data.action;
+  if (action === 'grant' && task.type === 'amendment') {
+    action = 'update';
+  }
+  const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
   return (
     <Fragment>
-      <Header title={<Snippet>{`status.${values.status}.action`}</Snippet>} />
-
+      <Header
+        title={title}
+        subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
+      />
+      <ErrorSummary errors={errors} />
+      {
+        values.restrictions && <Field
+          title={<Snippet>fields.restrictions.label</Snippet>}
+          content={values.restrictions}
+        />
+      }
       { formFields }
-
       { requiresDeclaration(values.status) &&
         <div className="task-declaration">
           <h2><Snippet>declaration.title</Snippet></h2>
-          <Snippet>{`declaration.${values.status}`}</Snippet>
+          <Snippet type={task.type}>{`declaration.${values.status}`}</Snippet>
         </div>
       }
       <p className="control-panel">
-        <Button><Snippet>{`status.${values.status}.action`}</Snippet></Button>
+        <Button>{title}</Button>
         <Link page="task.read" taskId={task.id} label={<Snippet>actions.change</Snippet>} />
       </p>
     </Fragment>
   );
 };
 
-const Confirm = ({ task, values }) => {
+const Confirm = ({ task, values, errors }) => {
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
         <Form detachFields submit={false}>
-          <CommentForm values={values} task={task} />
+          <CommentForm values={values} task={task} errors={errors} />
         </Form>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ static: { task, values } }) => ({ task, values });
+const mapStateToProps = ({ static: { task, values, errors } }) => ({ task, values, errors });
 
 export default connect(mapStateToProps)(Confirm);

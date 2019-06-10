@@ -22,7 +22,6 @@ const getVersions = model => {
 
 const App = ({ model, establishment, canUpdate }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
-
   const canAmend = canUpdate && model.status === 'active' && !openTask;
 
   return (
@@ -58,7 +57,8 @@ const App = ({ model, establishment, canUpdate }) => {
         openTask && <p><Link page="task.read" taskId={openTask.id} className="govuk-button" label="View open task" /></p>
       }
       {
-        model.status === 'active' && <p><Link page="project.version.pdf" versionId={model.granted.id} className="govuk-button" label="Export Licence as PDF" /></p>
+        model.status === 'active' &&
+        <p><Link page="project.version.pdf" versionId={model.status === 'active' ? model.granted.id : model.draft.id} className="govuk-button button-secondary" label="Export Licence as PDF" /></p>
       }
     </Fragment>
   );

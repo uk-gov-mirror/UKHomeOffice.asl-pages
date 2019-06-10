@@ -29,9 +29,8 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use('/:projectId', read());
-
   app.use('/', list());
+  app.use('/:projectId', read());
 
   return app;
 };

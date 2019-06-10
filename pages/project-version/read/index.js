@@ -28,8 +28,10 @@ module.exports = settings => {
     res.locals.static.showConditions = req.user.profile.asruUser
       ? req.version.status !== 'draft'
       : req.version.status === 'granted';
-    res.locals.static.editConditions = req.user.profile.asruUser && req.version.status === 'submitted';
+    res.locals.static.editConditions = req.user.profile.asruUser && req.version.status === 'submitted' && req.project.versions[0].id === req.version.id;
     res.locals.model = req.version;
+    res.locals.static.project = req.project;
+    res.locals.static.version = req.version.id;
     next();
   });
 

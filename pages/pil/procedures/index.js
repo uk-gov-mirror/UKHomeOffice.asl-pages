@@ -11,11 +11,12 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.model = merge({},
+    req.breadcrumb('pil.procedures');
+
+    req.model = merge({ id: req.pilId },
       pick(req.pil, 'procedures', 'notesCatD', 'notesCatF'),
       buildModel(schema)
     );
-    req.model.id = `${req.pilId}-procedures`;
     next();
   });
 
@@ -30,23 +31,6 @@ module.exports = settings => {
       next();
     }
   }));
-
-  app.post('/', (req, res, next) => {
-
-    const opts = {
-      method: 'PUT',
-      json: {
-        data: pick(req.form.values, 'procedures', 'notesCatD', 'notesCatF')
-      }
-    };
-
-    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}`, opts)
-      .then(() => {
-        delete req.session.form[req.model.id];
-        return next();
-      })
-      .catch(next);
-  });
 
   app.post('/', (req, res, next) => {
     return res.redirect(req.buildRoute('pil.update'));

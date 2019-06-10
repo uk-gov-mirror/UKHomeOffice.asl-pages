@@ -14,6 +14,11 @@ module.exports = settings => {
     ...settings
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('place.create');
+    next();
+  });
+
   app.use('/', amend({
     schema: Object.assign({}, schema, {
       comments: {

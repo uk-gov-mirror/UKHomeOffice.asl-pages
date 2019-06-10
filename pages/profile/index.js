@@ -37,6 +37,7 @@ module.exports = () => {
         req.profileId = profileId;
 
         res.locals.static.establishment = meta.establishment;
+        res.locals.static.profile = req.profile;
         res.locals.model = req.model;
       })
       .then(() => next())

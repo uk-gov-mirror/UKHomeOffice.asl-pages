@@ -23,5 +23,14 @@ module.exports = {
       circumstances: 'Circumstances',
       applicableAnimals: 'Applicable animals'
     }
+  },
+  notifications: {
+    'conditions-updated': 'The conditions on this licence have been updated.',
+    'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
+  },
+  fields: {
+    conditions: {
+      label: ''
+    }
   }
 };

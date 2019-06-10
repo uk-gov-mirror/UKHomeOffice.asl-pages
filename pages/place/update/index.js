@@ -12,6 +12,11 @@ module.exports = settings => {
     ...settings
   });
 
+  app.use((req, res, next) => {
+    req.breadcrumb('place.update');
+    next();
+  });
+
   app.use('/', amend({
     schema: Object.assign({}, schema, {
       restrictions: {

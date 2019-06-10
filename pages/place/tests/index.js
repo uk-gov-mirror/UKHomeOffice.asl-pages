@@ -353,7 +353,7 @@ describe('Place', () => {
     it('can load', () => {
       browser.url('/pages/place/an-id/delete');
       const title = browser.getText('h1');
-      assert.equal(title, 'Remove premises');
+      assert.equal(title, 'Remove approved area');
     });
 
     it('redirects to confirm page on submit', () => {

@@ -1,23 +1,28 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link } from '@asl/components';
+import { Link, LicenceStatusBanner } from '@asl/components';
 
-const Project = ({ isActionable, taskId }) => (
-  <Fragment>
-    <div id="ppl-drafting-tool"></div>
-    {
-      isActionable && (
-        <Link
-          className="govuk-button"
-          page="task.read"
-          taskId={taskId}
-          label="Next steps"
-        />
-      )
-    }
-  </Fragment>
-);
+const Project = ({ isActionable, taskId, project, version }) => {
 
-const mapStateToProps = ({ static: { isActionable, taskId } }) => ({ isActionable, taskId });
+  return (
+    <Fragment>
+      <LicenceStatusBanner licence={project} version={version} licenceType="ppl" />
+      <div id="ppl-drafting-tool"></div>
+      {
+        isActionable && (
+          <Link
+            className="govuk-button"
+            page="task.read"
+            taskId={taskId}
+            label="Next steps"
+          />
+        )
+      }
+    </Fragment>
+  )
+  ;
+};
+
+const mapStateToProps = ({ static: { isActionable, taskId, project, version } }) => ({ isActionable, taskId, project, version });
 
 export default connect(mapStateToProps)(Project);

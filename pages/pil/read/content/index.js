@@ -15,5 +15,14 @@ module.exports = merge({}, baseContent, {
   action: {
     applyNow: 'Apply now',
     backToProfile: 'Back to profile'
+  },
+  conditions: {
+    title: 'Conditions',
+    hasConditions: 'In addition to the standard conditions:',
+    noConditions: 'The standard conditions apply'
+  },
+  notifications: {
+    'conditions-updated': 'The conditions on this licence have been updated.',
+    'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
   }
 });

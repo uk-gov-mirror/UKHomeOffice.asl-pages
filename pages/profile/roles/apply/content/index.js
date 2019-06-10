@@ -19,7 +19,7 @@ module.exports = merge({}, baseContent, {
     submit: 'Continue'
   },
   errors: {
-    role: {
+    type: {
       required: 'Please select a named role'
     }
   }

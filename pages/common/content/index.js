@@ -10,14 +10,23 @@ module.exports = {
       read: 'Details'
     },
     pil: {
-      base: 'Personal licence'
+      read: 'View personal licence',
+      create: 'Apply for personal licence',
+      update: 'Amend personal licence',
+      training: 'Training',
+      exemptions: 'Exemptions',
+      procedures: 'Procedures'
     },
     place: {
-      list: 'Approved areas'
+      list: 'Approved areas',
+      create: 'Create approved area',
+      update: 'Amend approved area',
+      delete: 'Remove approved area'
     },
     profile: {
       list: 'People',
-      view: '{{model.firstName}} {{model.lastName}}',
+      view: '{{profile.firstName}} {{profile.lastName}}',
+      invite: 'Invite user',
       role: {
         apply: {
           base: 'Apply for named role',
@@ -34,10 +43,12 @@ module.exports = {
     },
     project: {
       list: 'Projects',
-      read: '{{project.title}}'
+      read: '{{project.title}}',
+      update: 'Edit draft',
+      amend: 'Amend licence'
     },
     account: {
-      menu: 'Account',
+      menu: 'Your account',
       edit: 'Edit'
     },
     feedback: 'Feedback',
@@ -132,15 +143,17 @@ module.exports = {
       inactive: 'Draft',
       pending: 'Draft',
       revoked: 'Revoked',
-      expired: 'Expired'
+      expired: 'Expired',
+      active: 'Amendment in progress'
     },
     summary: {
-      pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected
-        animals, or to breed, supply, or keep protected animals in any approved area.`,
-      pil: `This licence is not active. The licence holder or applicant is not authorised to carry out regulated
-        procedures in the categories stated in this licence/application.`,
-      ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of
-        work as stated in this licence/application.`
-    }
-  }
+      pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.`,
+      pil: `This licence is not active. The licence holder or applicant is not authorised to carry out regulated procedures in the categories stated in this licence/application.`,
+      ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.`,
+      ppl_active: `This amendment has not been approved yet.`
+    },
+    view: 'View granted licence'
+  },
+  updateInProgress: 'There is a pending change request to these conditions.',
+  'view-task': 'View open task'
 };
