@@ -65,7 +65,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
       formatters: {
         species: {
           format: species => (
-            <ul>{ species.map((type, index) => <li key={index}>{type}</li>) }</ul>
+            <ul>{ (species || []).map((type, index) => <li key={index}>{type}</li>) }</ul>
           )
         }
       },

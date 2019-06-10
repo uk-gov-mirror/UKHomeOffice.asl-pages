@@ -9,12 +9,7 @@ const { moduleCodes } = require('@asl/constants');
 const { species } = require('@asl/constants');
 const content = require('../content/modules');
 
-const modulesThatRequireSpecies = [
-  'PILA (theory)',
-  'PILA (skills)',
-  'K (theory)',
-  'K (skills)'
-];
+const { modulesThatRequireSpecies } = require('../../constants');
 
 module.exports = () => {
   const app = Router();
