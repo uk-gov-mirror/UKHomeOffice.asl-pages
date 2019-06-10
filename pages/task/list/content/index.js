@@ -11,6 +11,6 @@ module.exports = {
     outstanding: 'Outstanding',
     inProgress: 'In progress',
     completed: 'Completed',
-    myTasks: 'My Tasks'
+    myTasks: 'My tasks'
   }
 };
