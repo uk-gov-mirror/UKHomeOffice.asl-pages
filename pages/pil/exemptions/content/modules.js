@@ -10,6 +10,11 @@ module.exports = merge({}, content, {
     },
     reason: {
       label: 'Reasons for exemption'
+    },
+    species: {
+      label: 'Please specify a type of animal.',
+      add: 'Add another',
+      remove: 'Remove'
     }
   },
   errors: {

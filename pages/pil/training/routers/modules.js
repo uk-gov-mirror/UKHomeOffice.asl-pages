@@ -4,12 +4,7 @@ const { modules: schema } = require('../schema');
 const { pick, castArray } = require('lodash');
 const { buildModel } = require('../../../../lib/utils');
 
-const modulesThatRequireSpecies = [
-  'PILA (theory)',
-  'PILA (skills)',
-  'K (theory)',
-  'K (skills)'
-];
+const { modulesThatRequireSpecies } = require('../../constants');
 
 module.exports = settings => {
   const app = Router();
