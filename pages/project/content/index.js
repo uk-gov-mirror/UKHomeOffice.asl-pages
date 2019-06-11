@@ -38,6 +38,7 @@ module.exports = {
   status: {
     active: 'Active',
     expired: 'Expired',
+    revoked: 'Revoked',
     inactive: 'Drafts'
   }
 };
