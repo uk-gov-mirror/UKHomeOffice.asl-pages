@@ -25,6 +25,9 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
     },
     species: {
       format: pilSpecies => {
+        if (!pilSpecies) {
+          return '-';
+        }
         if (!Array.isArray(pilSpecies)) {
           return;
         }
@@ -87,7 +90,7 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
         subtitle={`${profile.firstName} ${profile.lastName}`}
       />
 
-      <ModelSummary model={pil} formatters={formatters} schema={schema} />
+      <ModelSummary model={pil} formatters={formatters} schema={schema} formatNullValue={true} />
 
       <p className="control-panel">
         {
