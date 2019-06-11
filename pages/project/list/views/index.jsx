@@ -16,6 +16,7 @@ import formatters from '../../formatters';
 const tabs = [
   'active',
   'expired',
+  'revoked',
   'inactive'
 ];
 
