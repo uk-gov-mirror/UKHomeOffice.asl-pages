@@ -3,7 +3,6 @@ module.exports = {
     amendment: {
       resubmitted: {
         title: 'Amendment submitted',
-        subtitle: 'A confirmation has been sent to {{email}}.',
         body: `An inspector will review your changes and contact you if they need any more information.
 
           You will be notified by the Home Office when your changes are approved or rejected.`
@@ -42,7 +41,6 @@ module.exports = {
     application: {
       resubmitted: {
         title: 'Application submitted',
-        subtitle: 'A confirmation has been sent to {{email}}.',
         body: `**An applicant is not licensed to carry out any new procedures until an application or amendment has been granted by the Home Office.**
 
           The Training and Competency Officer at your establishment will review the training and exemption information.
@@ -105,7 +103,6 @@ module.exports = {
     amendment: {
       resubmitted: {
         title: 'Amendment submitted',
-        subtitle: 'A confirmation has been sent to {{email}}.',
         body: `**An applicant is not licensed to carry out any new procedures until an application or amendment has been granted by the Home Office.**
 
           The Home Office will review your changes and will contact you if they need any more information.`
@@ -162,7 +159,6 @@ module.exports = {
     application: {
       resubmitted: {
         title: 'Application sent',
-        subtitle: 'A confirmation has been sent to {{email}}.',
         body: `An Inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
@@ -196,7 +192,6 @@ module.exports = {
     amendment: {
       resubmitted: {
         title: 'Amendment submitted',
-        subtitle: 'A confirmation has been sent to {{email}}.',
         body: `An inspector will review your changes and contact you if they need any more information.
 
           You will be notified by the Home Office when your changes are approved or rejected.`
