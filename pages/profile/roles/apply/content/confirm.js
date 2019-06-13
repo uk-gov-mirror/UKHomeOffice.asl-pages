@@ -12,7 +12,7 @@ module.exports = merge({}, baseContent, {
     declaration1: `You have the authority of the PEL holder/NPRC to make this amendment, and that you have received, read, and hold a copy of the Home Office guidance on the operation of the Animals (Scientific Procedures) Act 1986.`
   },
   buttons: {
-    submit: 'Submit to ASRU'
+    submit: 'Submit'
   },
   errors: {
     declarations: {
