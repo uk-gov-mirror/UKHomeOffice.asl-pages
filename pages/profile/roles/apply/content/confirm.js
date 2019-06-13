@@ -8,15 +8,15 @@ module.exports = merge({}, baseContent, {
   rcvsNumber: 'RCVS number:',
   explanation: 'Explain why this person is suitable for the role:',
   declarations: {
-    title: 'Please confirm that you understand',
-    declaration1: `Applicant authority, conflict of interests and PELh authority declaration text to go here`
+    title: 'Please confirm',
+    declaration1: `You have the authority of the PEL holder/NPRC to make this amendment, and that you have received, read, and hold a copy of the Home Office guidance on the operation of the Animals (Scientific Procedures) Act 1986.`
   },
   buttons: {
-    submit: 'Submit to ASRU'
+    submit: 'Submit'
   },
   errors: {
     declarations: {
-      customValidate: 'Please confirm that you understand'
+      customValidate: 'Confirm the declaration.'
     }
   }
 });
