@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { permissions } = require('../../lib/middleware');
 const dashboard = require('./dashboard');
 const details = require('./details');
+const update = require('./update');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
@@ -32,6 +33,7 @@ module.exports = () => {
 
   app.get('/', dashboard());
   app.use('/details', details());
+  app.use('/details/edit', update());
 
   return app;
 };

@@ -4,13 +4,18 @@ import {
   StickyNavPage,
   StickyNavAnchor,
   Snippet,
+  Diff,
   DiffText
 } from '@asl/components';
 import LicenceHolder from '../../../common/components/licence-holder';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
+import { hasChanged } from '../../../../lib/utils';
+import establishmentSchema from '../../../establishment/update/schema';
+import formatters from '../../../establishment/formatters';
+import { groupFlags } from '../../../establishment/formatters/flag-grouping';
 
-const Role = ({ establishment, profile, task, values, children, schema, formFields }) => (
+const Establishment = ({ establishment, task, values, children, schema, formFields }) => (
   <StickyNavPage>
     { children }
 
@@ -30,6 +35,15 @@ const Role = ({ establishment, profile, task, values, children, schema, formFiel
         }
       </dl>
     </StickyNavAnchor>
+
+    {
+      task.data.action === 'update' && (
+        <StickyNavAnchor id="diff">
+          <h2><Snippet>sticky-nav.diff</Snippet></h2>
+          <Diff values={groupFlags(task.data.data)} model={groupFlags(values)} schema={establishmentSchema} formatters={formatters} comparator={hasChanged} />
+        </StickyNavAnchor>
+      )
+    }
 
     {
       task.data.action === 'update-conditions' && (
@@ -68,4 +82,4 @@ const Role = ({ establishment, profile, task, values, children, schema, formFiel
 
 const mapStateToProps = ({ static: { establishment, profile, values, schema } }) => ({ establishment, profile, values, schema });
 
-export default connect(mapStateToProps)(Role);
+export default connect(mapStateToProps)(Establishment);

@@ -7,7 +7,8 @@ module.exports = {
     establishment: {
       list: 'Establishments',
       dashboard: '{{establishment.name}}',
-      read: 'Details'
+      read: 'Details',
+      update: 'Amend establishment details'
     },
     pil: {
       read: 'View personal licence',
@@ -71,7 +72,9 @@ module.exports = {
     },
     establishment: {
       list: 'Establishments',
-      read: 'Establishment details'
+      read: 'Establishment details',
+      edit: 'Amend establishment details',
+      confirm: 'Confirm changes'
     },
     profile: {
       list: 'People',
