@@ -1,3 +1,4 @@
+const { uniq, flattenDeep } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -7,8 +8,6 @@ const success = require('../../common/routers/success');
 const procedures = require('../procedures');
 const exemptions = require('../exemptions');
 const training = require('../training');
-
-const flattenDeep = (arr) => { return arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val), []); };
 
 module.exports = settings => {
   const app = page({
@@ -45,7 +44,7 @@ module.exports = settings => {
     req.model = {
       ...req.pil,
       ...values,
-      species: species.filter((v, i) => species.indexOf(v) === i)
+      species: uniq(species)
     };
 
     next();
