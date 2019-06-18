@@ -8,6 +8,8 @@ const procedures = require('../procedures');
 const exemptions = require('../exemptions');
 const training = require('../training');
 
+const flattenDeep = (arr) => { return arr.reduce((acc, val) => Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val), []); };
+
 module.exports = settings => {
   const app = page({
     ...settings,
@@ -33,10 +35,17 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+
     const values = get(req.session, `form[${req.pilId}].values`);
+
+    const trainingSpecies = flattenDeep(req.model.certificates.map(c => c.modules.map(m => m.species)));
+    const exemptionsSpecies = flattenDeep(req.model.exemptions.map(e => e.species));
+    const species = trainingSpecies.concat(exemptionsSpecies);
+
     req.model = {
       ...req.pil,
-      ...values
+      ...values,
+      species: species.filter((v, i) => species.indexOf(v) === i)
     };
 
     next();
@@ -59,10 +68,11 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
+
     const opts = {
       method: 'PUT',
       json: {
-        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF')
+        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species')
       }
     };
     req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/grant`, opts)
