@@ -1,18 +1,7 @@
 module.exports = {
   groupFlags: establishment => {
-    establishment.licences = [];
-    ['supplying', 'breeding', 'procedure'].map(licence => {
-      if (establishment[licence] === true) {
-        establishment.licences.push(licence);
-      }
-    });
-
-    establishment.authorisations = [];
-    ['killing', 'rehomes'].map(authorisation => {
-      if (establishment[authorisation] === true) {
-        establishment.authorisations.push(authorisation);
-      }
-    });
+    establishment.licences = ['supplying', 'breeding', 'procedure'].filter(licence => establishment[licence]);
+    establishment.authorisations = ['killing', 'rehomes'].filter(authorisation => establishment[authorisation]);
 
     return establishment;
   },
