@@ -1,10 +1,9 @@
-const form = require('../../common/routers/form');
-const { getEstablishment, getNacwoById } = require('../../common/helpers');
-const { schema } = require('../schema');
+const form = require('../../../common/routers/form');
+const schema = require('../schema');
 const declarationsSchema = require('../schema/declarations');
 
 module.exports = settings => form(Object.assign({
-  model: 'place',
+  model: 'establishment',
   schema: declarationsSchema,
   saveValues: (req, res, next) => {
     delete req.session.form[req.model.id].values.declarations;
@@ -12,22 +11,11 @@ module.exports = settings => form(Object.assign({
   },
   locals: (req, res, next) => {
     Object.assign(res.locals, { model: req.model });
-    Promise.all([
-      getEstablishment(req),
-      getNacwoById(req, req.form.values.nacwo)
-    ])
-      .then(([establishment, nacwo]) => {
-        Object.assign(res.locals.static, {
-          establishment,
-          schema: Object.assign({}, schema, declarationsSchema),
-          values: {
-            ...req.session.form[req.model.id].values,
-            nacwo
-          }
-        });
-      })
-      .then(() => next())
-      .catch(next);
+    Object.assign(res.locals.static, {
+      schema: Object.assign({}, schema, declarationsSchema),
+      values: req.session.form[req.model.id].values
+    });
+    next();
   },
   checkSession: (req, res, next) => {
     if (req.session.form && req.session.form[req.model.id]) {
@@ -40,6 +28,7 @@ module.exports = settings => form(Object.assign({
     return res.redirect(req.baseUrl.replace(/\/confirm/, ''));
   },
   cancelEdit: (req, res, next) => {
-    return res.redirect(req.buildRoute('place.list'));
+    delete req.session.form[req.model.id];
+    return res.redirect(req.buildRoute('establishment.read'));
   }
 }, settings));

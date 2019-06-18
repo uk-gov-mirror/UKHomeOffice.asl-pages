@@ -32,5 +32,8 @@ module.exports = {
     conditions: {
       label: ''
     }
+  },
+  actions: {
+    amend: 'Amend'
   }
 };

@@ -123,6 +123,7 @@ module.exports = () => {
     const action = req.task.data.action;
     const model = req.task.data.model;
     if (model === 'establishment') {
+      res.locals.static.values = req.establishment;
       return next();
     }
     if (action === 'update' || action === 'delete' || action === 'update-conditions') {

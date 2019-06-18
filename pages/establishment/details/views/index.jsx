@@ -21,6 +21,7 @@ const Index = ({
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
+  const canAmendDetails = allowedActions.includes('establishment.update');
 
   return (
     <Fragment>
@@ -117,6 +118,13 @@ const Index = ({
               </ExpandingPanel>
             }
           </Accordion>
+
+          {
+            canAmendDetails &&
+              <p className="control-panel">
+                <Link page="establishment.update.base" label={<Snippet>actions.amend</Snippet>} className="govuk-button" />
+              </p>
+          }
         </div>
       </div>
     </Fragment>
