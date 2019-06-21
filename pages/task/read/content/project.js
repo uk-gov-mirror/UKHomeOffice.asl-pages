@@ -1,10 +1,16 @@
 module.exports = {
   'sticky-nav': {
     'submitted-version': 'Latest submission',
+    granted: 'Granted licence',
+    'licence-holder': 'PPL holder',
+    experience: 'PPL holder experience',
     deadline: 'Deadline'
   },
   fields: {
     status: {
+      label: ''
+    },
+    licenceHolder: {
       label: ''
     }
   },

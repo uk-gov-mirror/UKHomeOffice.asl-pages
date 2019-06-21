@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const read = require('./read');
 const list = require('./list');
+const updateLicenceHolder = require('./update-licence-holder');
+const { permissions } = require('../../lib/middleware');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
@@ -29,8 +31,18 @@ module.exports = () => {
       .catch(next);
   });
 
+  const checkPermissions = task => (req, res, next) => {
+    const params = {
+      id: req.projectId,
+      licenceHolderId: req.project.licenceHolderId,
+      establishment: req.establishment.id
+    };
+    permissions(task, params)(req, res, next);
+  };
+
   app.use('/', list());
-  app.use('/:projectId', read());
+  app.use('/:projectId', checkPermissions('project.read.single'), read());
+  app.use('/:projectId/update-licence-holder', checkPermissions('project.update'), updateLicenceHolder());
 
   return app;
 };

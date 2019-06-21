@@ -122,7 +122,7 @@ module.exports = ({
   };
 
   const _validate = (req, res, next) => {
-    const validation = validator(req.form.values, req.form.schema);
+    const validation = validator(req.form.values, req.form.schema, req.model);
     if (size(validation)) {
       return next({ validation });
     }

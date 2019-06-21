@@ -60,7 +60,7 @@
     "qs": "^6.5.2",
     "r2": "^2.0.1",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react-dom": "^16.8.6",
     "react-markdown": "^3.6.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

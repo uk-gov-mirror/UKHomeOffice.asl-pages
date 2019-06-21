@@ -43,6 +43,17 @@ const App = ({ model, establishment, canUpdate }) => {
           ...omit(formatters, 'title'),
           expiryDate: {
             format: date => format(date, dateFormat.medium)
+          },
+          licenceHolder: {
+            format: ({ id, firstName, lastName }) => (
+              <Fragment>
+                {firstName} {lastName}<br />
+                <Link page="profile.view" profileId={id} label="View profile" />
+                { canUpdate && (
+                  <Fragment> | <Link page="project.updateLicenceHolder.update" label="Change" /></Fragment>
+                )}
+              </Fragment>
+            )
           }
         }}
       />
