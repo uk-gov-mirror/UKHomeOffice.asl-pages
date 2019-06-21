@@ -1,3 +1,5 @@
+const authorisations = require('../../../establishment/update/content/authorisations');
+
 module.exports = {
   'sticky-nav': {
     diff: 'Changes requested'
@@ -17,7 +19,7 @@ module.exports = {
         procedure: 'Regulated scientific procedures on regulated animals'
       }
     },
-    authorisations: {
+    authorisationTypes: {
       label: 'Authorisations',
       options: {
         killing: 'Methods of killing not specified in Schedule 1',
@@ -27,5 +29,6 @@ module.exports = {
     conditions: {
       label: 'Additional conditions'
     }
-  }
+  },
+  authorisations
 };

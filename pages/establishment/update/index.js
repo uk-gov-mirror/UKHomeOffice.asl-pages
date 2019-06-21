@@ -1,10 +1,35 @@
-const { omit } = require('lodash');
+const { pick, uniq } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const schema = require('./schema');
 const confirm = require('./routers/confirm');
 const success = require('../../common/routers/success');
 const { groupFlags, ungroupFlags } = require('../../establishment/formatters/flag-grouping');
+
+const fieldsToAuthorisations = params => {
+  return Object.keys(params).reduce((authorisations, fieldName) => {
+    if (params[fieldName] && /^authorisation-/.test(fieldName)) {
+      const id = fieldName.slice(-36); // get the uuid
+      let authorisation = authorisations.find(a => a.id === id);
+
+      if (!authorisation) {
+        authorisation = { id };
+        authorisations.push(authorisation);
+      }
+
+      authorisation.type = /killing/.test(fieldName) ? 'killing' : 'rehomes';
+
+      if (/method/.test(fieldName)) {
+        authorisation.method = params[fieldName];
+      }
+
+      if (/description/.test(fieldName)) {
+        authorisation.description = params[fieldName];
+      }
+    }
+    return authorisations;
+  }, []);
+};
 
 module.exports = settings => {
   const app = page({
@@ -16,6 +41,10 @@ module.exports = settings => {
   app.use((req, res, next) => {
     req.breadcrumb('establishment.update');
     req.model = groupFlags(req.establishment);
+
+    req.model.authorisationTypes = uniq(
+      req.model.authorisations.reduce((acc, authorisation) => acc.concat(authorisation.type), [])
+    );
 
     next();
   });
@@ -31,9 +60,9 @@ module.exports = settings => {
       if (!Array.isArray(req.body.licences)) {
         req.form.values.licences = req.body.licences ? [req.body.licences] : [];
       }
-      if (!Array.isArray(req.body.authorisations)) {
-        req.form.values.authorisations = req.body.authorisations ? [req.body.authorisations] : [];
-      }
+
+      req.form.values.authorisations = fieldsToAuthorisations(req.body);
+
       next();
     }
   }));
@@ -48,11 +77,14 @@ module.exports = settings => {
     let values = ungroupFlags(req.session.form[req.model.id].values);
     const { comments } = values;
 
+    values.authorisations = values.authorisations.map(authorisation => ({
+      ...authorisation,
+      establishmentId: req.establishmentId
+    }));
+
     const params = {
-      data: omit(values, ['licences', 'authorisations', 'comments']),
-      meta: {
-        comments
-      }
+      data: pick(values, ['name', 'address', 'procedure', 'breeding', 'supplying', 'authorisations']),
+      meta: { comments }
     };
 
     const opts = {

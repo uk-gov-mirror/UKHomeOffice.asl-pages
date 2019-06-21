@@ -3,16 +3,22 @@ import { connect } from 'react-redux';
 import { ApplicationConfirm, ControlBar, Diff, ErrorSummary, Field, Header, Snippet } from '@asl/components';
 import { hasChanged } from '../../../../lib/utils';
 import formatters from '../../formatters';
+import Authorisations from './authorisations';
 
-const Confirm = ({ values, csrfToken }) => {
+const Confirm = ({ model, values, csrfToken }) => {
   return (
     <Fragment>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <ErrorSummary />
+
           <Header title={<Snippet>pages.establishment.confirm</Snippet>} />
           <h2><Snippet>subtitle</Snippet></h2>
+
           <Diff comparator={hasChanged} formatters={formatters} />
+
+          <Authorisations model={model} values={values} />
+
           {
             values && values.comments && (
               <Field
@@ -37,6 +43,6 @@ const Confirm = ({ values, csrfToken }) => {
   );
 };
 
-const mapStateToProps = ({ static: { values, csrfToken } }) => ({ values, csrfToken });
+const mapStateToProps = ({ model, static: { values, csrfToken } }) => ({ model, values, csrfToken });
 
 export default connect(mapStateToProps)(Confirm);

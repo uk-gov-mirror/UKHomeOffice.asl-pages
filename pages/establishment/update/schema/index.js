@@ -1,7 +1,16 @@
 const content = require('../content');
 
 const licenceOptions = ['supplying', 'breeding', 'procedure'];
-const authorisationOptions = ['killing', 'rehomes'];
+const authorisationTypeOptions = ['killing', 'rehomes'];
+
+const reveal = {
+  method: {
+    inputType: 'textarea'
+  },
+  description: {
+    inputType: 'textarea'
+  }
+};
 
 module.exports = {
   name: {
@@ -25,17 +34,19 @@ module.exports = {
     ],
     nullValue: []
   },
-  authorisations: {
+  authorisationTypes: {
     inputType: 'checkboxGroup',
-    options: authorisationOptions.map(option => ({
+    options: authorisationTypeOptions.map(option => ({
       value: option,
-      label: content.fields.authorisations.options[option]
+      label: content.fields.authorisationTypes.options[option],
+      reveal
     })),
     validate: [
       {
-        definedValues: authorisationOptions
+        definedValues: authorisationTypeOptions
       }
     ],
-    nullValue: []
+    nullValue: [],
+    showDiff: false
   }
 };

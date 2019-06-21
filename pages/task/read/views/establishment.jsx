@@ -14,6 +14,7 @@ import { hasChanged } from '../../../../lib/utils';
 import establishmentSchema from '../../../establishment/update/schema';
 import formatters from '../../../establishment/formatters';
 import { groupFlags } from '../../../establishment/formatters/flag-grouping';
+import Authorisations from '../../../establishment/update/views/authorisations';
 
 const Establishment = ({ establishment, task, values, children, schema, formFields }) => (
   <StickyNavPage>
@@ -41,6 +42,8 @@ const Establishment = ({ establishment, task, values, children, schema, formFiel
         <StickyNavAnchor id="diff">
           <h2><Snippet>sticky-nav.diff</Snippet></h2>
           <Diff values={groupFlags(task.data.data)} model={groupFlags(values)} schema={establishmentSchema} formatters={formatters} comparator={hasChanged} />
+
+          <Authorisations model={values} values={task.data.data} />
         </StickyNavAnchor>
       )
     }
