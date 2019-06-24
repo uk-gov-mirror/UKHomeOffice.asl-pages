@@ -1,4 +1,5 @@
 const { pick, uniq } = require('lodash');
+const isUUID = require('uuid-validate');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const schema = require('./schema');
@@ -10,6 +11,11 @@ const fieldsToAuthorisations = params => {
   return Object.keys(params).reduce((authorisations, fieldName) => {
     if (params[fieldName] && /^authorisation-/.test(fieldName)) {
       const id = fieldName.slice(-36); // get the uuid
+
+      if (!isUUID(id)) {
+        return authorisations;
+      }
+
       let authorisation = authorisations.find(a => a.id === id);
 
       if (!authorisation) {
