@@ -43,7 +43,7 @@ module.exports = settings => {
     req.model = groupFlags(req.establishment);
 
     req.model.authorisationTypes = uniq(
-      req.model.authorisations.reduce((acc, authorisation) => acc.concat(authorisation.type), [])
+      req.model.authorisations.map(authorisation => authorisation.type)
     );
 
     next();
