@@ -1,4 +1,7 @@
-module.exports = {
+const { merge } = require('lodash');
+const content = require('./');
+
+module.exports = merge({}, content, {
   title: 'Please review your answers for changing a PPL holder',
   declarations: {
     title: 'Please confirm that you understand',
@@ -9,4 +12,4 @@ module.exports = {
       customValidate: 'Please confirm that you understand'
     }
   }
-};
+});

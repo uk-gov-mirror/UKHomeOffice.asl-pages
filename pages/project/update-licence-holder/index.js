@@ -21,10 +21,12 @@ module.exports = () => {
 
   app.use('/', update());
   app.use('/confirm', confirm());
-  app.use('/success', success({
-    licence: 'project',
-    status: 'resubmitted'
-  }));
+  app.use('/success', (req, res, next) => {
+    success({
+      licence: 'project',
+      status: req.project.status === 'inactive' ? 'licenceHolderUpdated' : 'resubmitted'
+    })(req, res, next);
+  });
 
   return app;
 };

@@ -24,6 +24,11 @@ const App = ({ model, establishment, canUpdate }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
   const canAmend = canUpdate && model.status === 'active' && !openTask;
 
+  const canUpdateLicenceHolder = canUpdate &&
+    ((model.granted && !model.draft) || !model.granted) &&
+    !model.submitted &&
+    !openTask;
+
   return (
     <Fragment>
       <LicenceStatusBanner licence={model} licenceType="ppl" />
@@ -49,7 +54,7 @@ const App = ({ model, establishment, canUpdate }) => {
               <Fragment>
                 {firstName} {lastName}<br />
                 <Link page="profile.view" profileId={id} label="View profile" />
-                { canUpdate && (
+                { canUpdateLicenceHolder && (
                   <Fragment> | <Link page="project.updateLicenceHolder.update" label="Change" /></Fragment>
                 )}
               </Fragment>

@@ -3,7 +3,7 @@ import { StaticRouter } from 'react-router';
 import { connect } from 'react-redux';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
-import { Link, StickyNavPage, StickyNavAnchor, Snippet, Diff } from '@asl/components';
+import { Link, StickyNavPage, StickyNavAnchor, Snippet, Diff, Field } from '@asl/components';
 import Deadline from './deadline';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
@@ -88,7 +88,7 @@ const Project = ({ task, project, establishment, children, schema, formFields })
         task.data.action === 'update' && (
           <StickyNavAnchor id="licence-holder">
             <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
-            <Diff values={task.data.data} model={project} schema={pick(projectSchema, 'licenceHolder')} formatters={formatters} />
+            <Diff values={{ licenceHolder: task.data.licenceHolder }} model={project} schema={pick(projectSchema, 'licenceHolder')} formatters={formatters} />
           </StickyNavAnchor>
         )
       }
@@ -124,6 +124,17 @@ const Project = ({ task, project, establishment, children, schema, formFields })
                 label={<Snippet>versions.granted.label</Snippet>}
               />
             </p>
+          </StickyNavAnchor>
+        )
+      }
+
+      {
+        task.data.meta.comments && (
+          <StickyNavAnchor id="comments">
+            <Field
+              title={<Snippet>sticky-nav.comments</Snippet>}
+              content={task.data.meta.comments}
+            />
           </StickyNavAnchor>
         )
       }

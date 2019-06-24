@@ -88,15 +88,6 @@ module.exports = () => {
         .then(() => next())
         .catch(next);
     }
-    if (req.task.data.model === 'project' && req.task.data.action === 'update') {
-      const licenceHolderId = get(req.task, 'data.data.licenceHolderId');
-      return req.api(`/establishment/${req.establishmentId}/profile/${licenceHolderId}`)
-        .then(({ json: { data } }) => {
-          set(req.task, 'data.data.licenceHolder', data);
-        })
-        .then(() => next())
-        .catch(next);
-    }
     next();
   });
 

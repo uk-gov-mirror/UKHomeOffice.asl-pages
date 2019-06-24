@@ -30,7 +30,7 @@ module.exports = () => {
         data: {
           licenceHolderId: values.licenceHolder
         },
-        meta: omit(values, 'licenceHolder')
+        meta: omit(values, 'licenceHolder', 'declaration-1')
       }
     };
     req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/update-licence-holder`, params)

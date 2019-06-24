@@ -5,9 +5,12 @@ import {
   Header,
   Snippet,
   ErrorSummary,
-  ApplicationConfirm
+  ApplicationConfirm,
+  Link
 } from '@asl/components';
 import ReviewFields from '@asl/projects/client/components/review-fields';
+
+const editLink = <Link page="project.updateLicenceHolder.update" label="Edit" />;
 
 const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) => (
   <Fragment>
@@ -20,7 +23,10 @@ const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) 
       <dt>Current PPL holder</dt>
       <dd>{`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}</dd>
       <dt>New PPL holder</dt>
-      <dd>{`${proposedLicenceHolder.firstName} ${proposedLicenceHolder.lastName}`}</dd>
+      <dd>
+        {`${proposedLicenceHolder.firstName} ${proposedLicenceHolder.lastName}`}<br />
+        { editLink }
+      </dd>
     </dl>
     <StaticRouter>
       <ReviewFields
@@ -33,6 +39,19 @@ const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) 
         }}
       />
     </StaticRouter>
+    {
+      project.status === 'active' && (
+        <Fragment>
+          <h3><Snippet>fields.comments.label</Snippet></h3>
+          <p>
+            {
+              values.comments || <em>No answer provided</em>
+            }
+          </p>
+          <p>{ editLink }</p>
+        </Fragment>
+      )
+    }
     <form method="POST">
       <input type="hidden" name="_csrf" value={csrfToken} />
       <ApplicationConfirm />
@@ -40,6 +59,6 @@ const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) 
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { project, fields, values, proposedLicenceHolder, csrfToken } }) => ({ project, fields, values, proposedLicenceHolder, csrfToken });
+const mapStateToProps = ({ static: { project, fields, values, proposedLicenceHolder, csrfToken } }) => ({ values, project, fields, proposedLicenceHolder, csrfToken });
 
 export default connect(mapStateToProps)(Confirm);

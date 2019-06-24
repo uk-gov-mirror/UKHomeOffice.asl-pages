@@ -5,15 +5,28 @@ import {
   ErrorSummary,
   Header,
   Snippet,
-  WidthContainer
+  WidthContainer,
+  Fieldset
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import Fieldset from '@asl/projects/client/components/fieldset';
+import RTEFieldset from '@asl/projects/client/components/fieldset';
 
-const FormBody = ({ fields, values, formFields, setValue, submit }) => (
+const commentsSchema = {
+  comments: {
+    inputType: 'textarea'
+  }
+};
+
+const FormBody = ({ fields, values, formFields, setValue, submit, project }) => (
   <Fragment>
-    <WidthContainer>{ formFields }</WidthContainer>
-    <Fieldset
+    <WidthContainer>
+      <dl>
+        <dt>Current PPL holder</dt>
+        <dd>{`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}</dd>
+      </dl>
+      { formFields }
+    </WidthContainer>
+    <RTEFieldset
       fields={fields}
       values={values}
       altLabels={true}
@@ -21,9 +34,12 @@ const FormBody = ({ fields, values, formFields, setValue, submit }) => (
       onFieldChange={setValue}
     />
     {
-      Object.keys(values).filter(key => !['licenceHolder', 'experience-projects'].includes(key)).map(key => (
+      Object.keys(values).filter(key => !['licenceHolder', 'experience-projects', 'comments'].includes(key)).map(key => (
         <input key={key} type="hidden" name={key} value={values[key]} />
       ))
+    }
+    {
+      project.status === 'active' && <Fieldset model={values} schema={commentsSchema} />
     }
     <Button>
       <Snippet>buttons.submit</Snippet>
@@ -61,6 +77,7 @@ class UpdateLicenceHolder extends Component {
         />
         <Form detachFields submit={false}>
           <FormBody
+            project={project}
             fields={fields}
             values={values}
             setValue={this.setValue}

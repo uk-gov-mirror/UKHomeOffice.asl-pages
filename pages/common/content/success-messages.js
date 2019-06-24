@@ -157,6 +157,10 @@ module.exports = {
   },
   project: {
     application: {
+      licenceHolderUpdated: {
+        title: 'Applicant updated',
+        body: 'The applicant has been updated on this draft application.'
+      },
       resubmitted: {
         title: 'Application sent',
         body: `An Inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.

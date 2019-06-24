@@ -1,8 +1,12 @@
 module.exports = {
   title: 'Change PPL holder',
+  currentLicenceHolder: 'Current PPL holder',
   fields: {
     licenceHolder: {
-      label: 'Licence holder'
+      label: 'New PPL holder'
+    },
+    comments: {
+      label: 'Why are you making this amendment'
     }
   },
   errors: {
