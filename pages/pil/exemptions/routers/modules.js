@@ -23,7 +23,7 @@ module.exports = () => {
       return {
         ...obj,
         modules: [ ...obj.modules, module ],
-        [`module-${module}-reason`]: value.exemptionDescription,
+        [`module-${module}-reason`]: value.description,
         [`module-${module}-species`]: value.species
       };
     }, req.model);

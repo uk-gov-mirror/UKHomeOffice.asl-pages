@@ -13,18 +13,27 @@ import { Select } from '@ukhomeoffice/react-components';
 import { species } from '@asl/constants';
 
 import { normalise } from '../../../../lib/utils';
-
+const content = require('../content/modules');
 const SPECIES_REVEAL_TOTAL_COUNT = 10;
-const SPECIES_REVEAL_VISIBLE_COUNT = 1;
+const SPECIES_REVEAL_VISIBLE_COUNT = 0;
 
-const connectComponent = key => {
+const connectComponent = (key, modulesThatRequireSpecies) => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {
     schema = schema.modules.options.find(m => m.value === key).reveal;
-    return {
+    const s = {
       model,
       errors,
       schema: mapKeys(schema, (v, k) => `module-${key}-${k}`)
     };
+
+    if (modulesThatRequireSpecies.includes(key)) {
+      s.schema[`module-${key}-species`] = {
+        inputType: 'select',
+        options: species,
+        label: content.fields.species.label
+      };
+    }
+    return s;
   };
 
   return connect(mapStateToProps)(Fieldset);
@@ -34,7 +43,7 @@ const formatters = modulesThatRequireSpecies => {
   return {
     modules: {
       mapOptions: (op, b) => {
-        const ConnectedComponent = connectComponent(op.value);
+        const ConnectedComponent = connectComponent(op.value, modulesThatRequireSpecies);
         return {
           ...op,
           prefix: op.value,
