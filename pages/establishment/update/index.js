@@ -1,5 +1,4 @@
 const { pick, uniq } = require('lodash');
-const isUUID = require('uuid-validate');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const schema = require('./schema');
@@ -10,11 +9,13 @@ const { groupFlags, ungroupFlags } = require('../../establishment/formatters/fla
 const fieldsToAuthorisations = params => {
   return Object.keys(params).reduce((authorisations, fieldName) => {
     if (params[fieldName] && /^authorisation-/.test(fieldName)) {
-      const id = fieldName.slice(-36); // get the uuid
+      const matched = fieldName.match(/^authorisation-(killing|rehomes)-(method|description)-([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/);
 
-      if (!isUUID(id)) {
+      if (!matched) {
         return authorisations;
       }
+
+      const [, authType, authInfo, id] = matched;
 
       let authorisation = authorisations.find(a => a.id === id);
 
@@ -23,13 +24,13 @@ const fieldsToAuthorisations = params => {
         authorisations.push(authorisation);
       }
 
-      authorisation.type = /killing/.test(fieldName) ? 'killing' : 'rehomes';
+      authorisation.type = authType;
 
-      if (/method/.test(fieldName)) {
+      if (authInfo === 'method') {
         authorisation.method = params[fieldName];
       }
 
-      if (/description/.test(fieldName)) {
+      if (authInfo === 'description') {
         authorisation.description = params[fieldName];
       }
     }
