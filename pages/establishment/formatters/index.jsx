@@ -1,4 +1,4 @@
-import { capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
 
 const listFormatter = list => {
   if (list.length < 1) {

@@ -140,3 +140,13 @@ p.inspector,
 p.spoc {
   margin: 0;
 }
+
+.govuk-inset-text.repeater {
+  h3 {
+    margin-bottom: $govuk-gutter-half;
+  }
+
+  .remove {
+    float: right;
+  }
+}
