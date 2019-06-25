@@ -8,7 +8,7 @@ const { groupFlags, ungroupFlags } = require('../../establishment/formatters/fla
 
 const fieldsToAuthorisations = params => {
   return Object.keys(params).reduce((authorisations, fieldName) => {
-    if (params[fieldName] && /^authorisation-/.test(fieldName)) {
+    if (params[fieldName]) {
       const matched = fieldName.match(/^authorisation-(killing|rehomes)-(method|description)-([0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})$/);
 
       if (!matched) {
