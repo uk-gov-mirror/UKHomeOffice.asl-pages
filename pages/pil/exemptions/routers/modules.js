@@ -91,13 +91,14 @@ module.exports = () => {
       .then(() => {
         return Promise.all(
           req.form.values.modules.map(module => {
+            const species = req.form.values[`module-${module}-species`];
             const opts = {
               method: 'POST',
               json: {
                 data: {
                   module,
                   description: req.form.values[`module-${module}-reason`],
-                  species: castArray(req.form.values[`module-${module}-species`]).filter(s => s !== '')
+                  species: species ? castArray(species).filter(s => s !== '') : null
                 }
               }
             };
