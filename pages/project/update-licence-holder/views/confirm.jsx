@@ -32,6 +32,7 @@ const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) 
       <ReviewFields
         fields={fields}
         values={values}
+        altLabels={true}
         noComments
         onEdit={(e, field) => {
           e.preventDefault();
