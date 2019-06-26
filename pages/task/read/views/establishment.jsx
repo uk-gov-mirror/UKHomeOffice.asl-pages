@@ -5,7 +5,8 @@ import {
   StickyNavAnchor,
   Snippet,
   Diff,
-  DiffText
+  DiffText,
+  Field
 } from '@asl/components';
 import LicenceHolder from '../../../common/components/licence-holder';
 import WithdrawApplication from './withdraw-application';
@@ -53,6 +54,17 @@ const Establishment = ({ establishment, task, values, children, schema, formFiel
         <StickyNavAnchor id="conditions">
           <h2><Snippet>sticky-nav.conditions</Snippet></h2>
           <DiffText oldValue={establishment.conditions} newValue={task.data.data.conditions} />
+        </StickyNavAnchor>
+      )
+    }
+
+    {
+      task.data.meta.comments && (
+        <StickyNavAnchor id="comments">
+          <Field
+            title={<Snippet>sticky-nav.comments</Snippet>}
+            content={task.data.meta.comments}
+          />
         </StickyNavAnchor>
       )
     }
