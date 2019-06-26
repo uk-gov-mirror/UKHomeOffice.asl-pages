@@ -39,7 +39,7 @@ module.exports = settings => {
 
     const trainingSpecies = flattenDeep(req.model.certificates.map(c => c.modules.map(m => m.species)));
     const exemptionsSpecies = flattenDeep(req.model.exemptions.map(e => e.species));
-    const species = trainingSpecies.concat(exemptionsSpecies);
+    const species = trainingSpecies.concat(exemptionsSpecies).filter(Boolean);
 
     req.model = {
       ...req.pil,
