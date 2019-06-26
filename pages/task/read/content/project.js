@@ -22,7 +22,8 @@ module.exports = {
   },
   versions: {
     granted: {
-      label: 'View granted version'
+      label: 'View granted licence',
+      info: 'Read the version of this project licence that is currently active'
     },
     submitted: {
       label: 'View latest submission',

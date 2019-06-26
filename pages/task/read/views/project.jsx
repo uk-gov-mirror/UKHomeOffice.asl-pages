@@ -114,6 +114,7 @@ const Project = ({ task, project, establishment, children, schema, formFields })
         task.data.action === 'update' && (
           <StickyNavAnchor id="granted">
             <h2><Snippet>sticky-nav.granted</Snippet></h2>
+            <p><Snippet>versions.granted.info</Snippet></p>
             <p>
               <Link
                 page="project.version.read"
