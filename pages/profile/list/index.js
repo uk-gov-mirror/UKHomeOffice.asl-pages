@@ -1,4 +1,4 @@
-const { get } = require('lodash');
+const { get, some } = require('lodash');
 const { page } = require('@asl/service/ui');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
@@ -20,7 +20,7 @@ module.exports = settings => {
         if (profile.pil && profile.pil.status === 'active') {
           roles.push({ type: 'pilh' });
         }
-        if (profile.projects && profile.projects.length) {
+        if (profile.projects && profile.projects.length && some(profile.projects, p => p.status === 'active')) {
           roles.push({ type: 'pplh' });
         }
         if (get(profile, 'establishments[0].role') === 'admin') {
