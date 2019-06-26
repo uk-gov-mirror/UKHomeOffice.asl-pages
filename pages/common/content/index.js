@@ -30,7 +30,7 @@ module.exports = {
       invite: 'Invite user',
       role: {
         apply: {
-          base: 'Apply for named role',
+          base: 'Assign named role',
           confirm: 'Confirm',
           success: 'Success'
         },
@@ -109,7 +109,7 @@ module.exports = {
   personalLicenceNumber: 'Personal licence number',
   licenceHolder: 'Licence holder',
   pelh: 'Establishment licence holder',
-  nprc: 'Named person responsible for compliance',
+  nprc: 'Named Person Responsible for Compliance',
   inspectors: 'Inspectors',
   spoc: 'Single Point of Contact (SPoC)',
   establishment: 'Establishment',
