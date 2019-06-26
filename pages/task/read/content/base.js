@@ -11,7 +11,8 @@ module.exports = {
       label: ''
     },
     comment: {
-      label: 'Comments'
+      label: 'Comments',
+      hint: 'Any comments will be added to the activity log of this task. Comments can be seen by establishment users, as well as inspectors and Home Office team members.'
     }
   },
   'sticky-nav': {

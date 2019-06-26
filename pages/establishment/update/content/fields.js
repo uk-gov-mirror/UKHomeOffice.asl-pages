@@ -33,6 +33,6 @@ module.exports = {
     label: 'Provide details of the animals to be set free or rehomed'
   },
   comments: {
-    label: 'Why are you making this change?'
+    label: 'Why are you making this amendment?'
   }
 };

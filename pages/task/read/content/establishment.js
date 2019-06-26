@@ -2,7 +2,7 @@ const authorisations = require('../../../establishment/update/content/authorisat
 
 module.exports = {
   'sticky-nav': {
-    diff: 'Changes requested'
+    diff: 'Amendment requested'
   },
   fields: {
     name: {
