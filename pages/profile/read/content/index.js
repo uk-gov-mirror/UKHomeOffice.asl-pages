@@ -3,7 +3,7 @@ module.exports = {
   responsibilities: {
     title: 'Named roles',
     noRoles: 'None',
-    roleApply: 'Apply for named role',
+    roleApply: 'Assign named role',
     roleRemove: 'Remove role'
   },
   projects: {
@@ -26,7 +26,7 @@ module.exports = {
     continue: 'Continue',
     pplApply: 'Apply for project licence',
     pilApply: 'Apply for personal licence',
-    roleApply: 'Apply for named role',
+    roleApply: 'Assign named role',
     view: 'View'
   },
   pil: {

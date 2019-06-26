@@ -9,7 +9,8 @@ module.exports = {
     label: 'Last name'
   },
   dob: {
-    label: 'Date of birth'
+    label: 'Date of birth',
+    hint: `This information is collected to ensure you are over 18 years old, and therefore eligible to hold a licence.  However, your date of birth will not be visible to other users in your establishment.`
   },
   email: {
     label: 'Email address'
