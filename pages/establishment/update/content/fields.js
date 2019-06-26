@@ -21,6 +21,6 @@ module.exports = {
     }
   },
   comments: {
-    label: 'Why are you making this change?'
+    label: 'Why are you making this amendment?'
   }
 };

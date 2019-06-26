@@ -3,8 +3,8 @@ const { merge } = require('lodash');
 
 module.exports = merge({}, profile, {
   'sticky-nav': {
-    changes: 'Changes requested',
-    comments: 'Reason for change'
+    changes: 'Amendment requested',
+    comments: 'Why are you making this amendment?'
   },
   'no-comments': 'No reason provided'
 });

@@ -19,7 +19,7 @@ module.exports = {
   changesToRestrictions: {
     label: 'Changes to restrictions',
     conditionalReveal: {
-      label: 'Do these restrictions need to be changed?',
+      label: 'Does this area\'s restrictions need to be changed?',
       yesLabel: 'Yes',
       noLabel: 'No'
     }
@@ -34,6 +34,6 @@ module.exports = {
     label: 'Current restrictions'
   },
   comments: {
-    label: 'Why are you making this change?'
+    label: 'Why are you making this amendment?'
   }
 };
