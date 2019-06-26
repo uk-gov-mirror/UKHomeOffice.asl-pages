@@ -19,7 +19,7 @@ module.exports = {
   changesToRestrictions: {
     label: 'Changes to restrictions',
     conditionalReveal: {
-      label: 'Does this area\'s restrictions need to be changed?',
+      label: 'Do the restrictions for this area need to be changed?',
       yesLabel: 'Yes',
       noLabel: 'No'
     }
