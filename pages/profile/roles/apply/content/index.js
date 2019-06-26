@@ -5,7 +5,7 @@ module.exports = merge({}, baseContent, {
   title: 'Amend profile',
   fields: {
     type: {
-      label: 'Which named role do you want to assign?.'
+      label: 'Which named role do you want to assign?'
     },
     rcvsNumber: {
       label: 'RCVS number'
