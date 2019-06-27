@@ -34,7 +34,9 @@ export const peopleFormatters = {
     format: data => data && joinAcronyms(data.map(selectivelyUppercase))
   },
   pil: {
-    format: data => data || '-'
+    format: (pil, row) => {
+      return (pil && row.pil.status === 'active') ? pil : '-';
+    }
   }
 };
 
