@@ -12,7 +12,7 @@ module.exports = {
     },
     comment: {
       label: 'Comments',
-      hint: 'Any comments will be added to the activity log of this task. Comments can be seen by establishment users, as well as inspectors and Home Office team members.'
+      hint: 'Comments can be seen by establishment users, as well as inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task. '
     }
   },
   'sticky-nav': {
