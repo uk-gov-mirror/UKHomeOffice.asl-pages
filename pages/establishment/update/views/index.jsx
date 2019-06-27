@@ -15,12 +15,24 @@ import uuid from 'uuid/v4';
 
 const connectComponent = value => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {
+
     schema = schema.authorisationTypes.options.find(authorisation => authorisation.value === value).reveal;
-    return {
+
+    console.log('connectComponent schema begin');
+    console.log(JSON.stringify(schema));
+    console.log('connectComponent schema end');
+
+    const p = {
       model,
       errors,
       schema: mapKeys(schema, (v, k) => `authorisation-${value}-${k}`)
     };
+
+    console.log('connectComponent p begin');
+    console.log(JSON.stringify(p));
+    console.log('connectComponent p end');
+
+    return p;
   };
 
   return connect(mapStateToProps)(RepeatedFieldset);
@@ -37,6 +49,10 @@ class RepeatedFieldset extends Component {
 class Repeat extends Component {
   constructor(options) {
     super(options);
+
+    console.log('Repeat props begin');
+    console.log(JSON.stringify(this.props));
+    console.log('Repeat props end');
 
     this.state = {
       authorisations: this.props.authorisations.length
@@ -91,6 +107,24 @@ class Repeat extends Component {
     return <Fragment>
       {
         authorisations.map((authorisation, index) => {
+
+          console.log('Repeat render model begin');
+          console.log(JSON.stringify(mapKeys(authorisations[index], (val, key) => `authorisation-${authorisation.type}-${key}-${authorisation.id}`)));
+          console.log('Repeat render model end');
+
+          console.log('Repeat render schema begin');
+          console.log(mapKeys(
+            mapValues(schema,
+              (value, key) => ({
+                ...value,
+                label: <Snippet>{`fields.${key}.label`}</Snippet>
+              })),
+            (value, key) => `${key}-${authorisation.id}`
+          ));
+          console.log('Repeat render schema end');
+
+          // the specie is not repeated because it is not added to the model
+
           return (
             <Inset key={authorisation.id} className="repeater">
               <div>

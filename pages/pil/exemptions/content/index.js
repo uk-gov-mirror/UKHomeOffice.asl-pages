@@ -13,5 +13,11 @@ module.exports = {
     exempt: {
       required: 'You need to select yes or no.'
     }
+  },
+  action: {
+    repeat: {
+      add: 'Add another',
+      remove: 'Remove'
+    }
   }
 };
