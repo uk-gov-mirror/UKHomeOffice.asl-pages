@@ -18,7 +18,6 @@ class Deadline extends Component {
       const status = activity.eventName.split(':').pop();
       return status === 'resubmitted' ? activity.createdAt : lastSubmission;
     }, task.createdAt);
-    console.log(submitted);
 
     const period = this.isExtended() ? 55 : 40;
 
