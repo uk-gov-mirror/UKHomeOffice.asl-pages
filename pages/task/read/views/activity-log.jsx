@@ -28,10 +28,11 @@ const getAuthor = ({ changedBy, event: { status } }, task) => {
 };
 
 const LogItem = ({ log, task, ExtraMeta }) => {
+  const status = log.eventName.split(':').pop();
   return (
     <li key={log.id}>
       <span className="date">{format(log.createdAt, dateFormat.medium)}</span>
-      {getStatusBadge(log.event.status)}
+      {getStatusBadge(status)}
       {getAuthor(log, task)}
       {
         ExtraMeta && <ExtraMeta item={log} task={task} />
