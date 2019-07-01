@@ -41,7 +41,7 @@ module.exports = {
     application: {
       resubmitted: {
         title: 'Application submitted',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
           The Training and Competency Officer at your establishment will review the training and exemption information.
 
@@ -51,7 +51,7 @@ module.exports = {
       },
       'ntco-endorsed': {
         title: 'Application endorsed',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
           The Home Office will review this application and your endorsement, and may consult with an Inspector if required.
 
@@ -59,7 +59,7 @@ module.exports = {
       },
       'returned-to-applicant': {
         title: 'Application returned',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
           The person who submitted this application will review your comments.
 
@@ -67,7 +67,7 @@ module.exports = {
       },
       'referred-to-inspector': {
         title: 'Application referred',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
           An Inspector will review this application and will contact you if they need any more information.`
       },
@@ -79,7 +79,7 @@ module.exports = {
       },
       'inspector-rejected': {
         title: 'Recommendation sent',
-        body: `An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.
+        body: `An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.
 
           A Licensing Officer will review your recommendation and will contact you if they need any more information.`
       },
@@ -89,7 +89,7 @@ module.exports = {
       },
       rejected: {
         title: 'Application rejected',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
           The applicant will review your comments and the reason for rejecting their licence application.
 
@@ -103,13 +103,13 @@ module.exports = {
     amendment: {
       resubmitted: {
         title: 'Amendment submitted',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           The Home Office will review your changes and will contact you if they need any more information.`
       },
       'ntco-endorsed': {
         title: 'Amendment endorsed',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           The Home Office will review this application and your endorsement, and may consult with an Inspector if required.
 
@@ -117,7 +117,7 @@ module.exports = {
       },
       'returned-to-applicant': {
         title: 'Amendment returned',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           The person who submitted this amendment will review your comments.
 
@@ -125,19 +125,19 @@ module.exports = {
       },
       'referred-to-inspector': {
         title: 'Amendment referred',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           An Inspector will review this amendment and will contact you if they need any more information.`
       },
       'inspector-recommended': {
         title: 'Recommendation sent',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           A Licensing Officer will review your recommendation and will contact you if they need any more information.`
       },
       'inspector-rejected': {
         title: 'Recommendation sent',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           A Licensing Officer will review your recommendation and will contact you if they need any more information.`
       },
@@ -147,7 +147,7 @@ module.exports = {
       },
       rejected: {
         title: 'Amendment rejected',
-        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application or amendment until it has been granted or approved by the Home Office.**
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
           The person who submitted this amendment will review your comments and the reason for rejecting it.
 
