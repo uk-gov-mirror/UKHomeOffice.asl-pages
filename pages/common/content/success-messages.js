@@ -111,7 +111,7 @@ module.exports = {
         title: 'Amendment endorsed',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
-          The Home Office will review this application and your endorsement, and may consult with an Inspector if required.
+          The Home Office will review this amendment and your endorsement, and may consult with an Inspector if required.
 
           They will contact you if they need any more information.`
       },
@@ -163,7 +163,7 @@ module.exports = {
       },
       resubmitted: {
         title: 'Application sent',
-        body: `An Inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
+        body: `An inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
