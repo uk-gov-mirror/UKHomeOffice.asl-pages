@@ -14,11 +14,14 @@ class Deadline extends Component {
     const task = this.props.task;
     const isInspector = this.props.isInspector;
 
-    let deadline = moment(task.createdAt).addWorkingTime(40, 'days');
+    const submitted = task.activityLog.reduceRight((lastSubmission, activity) => {
+      const status = activity.eventName.split(':').pop();
+      return status === 'resubmitted' ? activity.createdAt : lastSubmission;
+    }, task.createdAt);
 
-    if (this.isExtended()) {
-      deadline.addWorkingTime(15, 'days');
-    }
+    const period = this.isExtended() ? 55 : 40;
+
+    const deadline = moment(submitted).addWorkingTime(period, 'days');
 
     return (
       <div className="deadline">

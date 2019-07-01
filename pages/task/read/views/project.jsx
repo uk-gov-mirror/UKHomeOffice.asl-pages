@@ -13,6 +13,19 @@ import { schema as projectSchema } from '../../../project/schema';
 
 const declarationAnswer = val => val === 'yes' ? 'Yes' : 'Not yet';
 
+const completeAndCorrect = task => {
+  if (task.data.action !== 'grant') {
+    return false;
+  }
+  if (task.status === 'returned-to-applicant') {
+    return false;
+  }
+  if (!allDeclarationsConfirmed(task)) {
+    return false;
+  }
+  return true;
+};
+
 const allDeclarationsConfirmed = task => {
   const taskMeta = task.data.meta;
   return taskMeta.authority === 'yes' && taskMeta.awerb === 'yes' && taskMeta.ready === 'yes';
@@ -78,7 +91,7 @@ const Project = ({ task, project, establishment, children, schema, formFields })
       }
 
       {
-        task.data.action === 'grant' && allDeclarationsConfirmed(task) &&
+        completeAndCorrect(task) &&
           <StickyNavAnchor id="deadline">
             <Deadline task={task} />
           </StickyNavAnchor>
