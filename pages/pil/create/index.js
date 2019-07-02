@@ -1,9 +1,20 @@
 const { page } = require('@asl/service/ui');
+const differenceInYears = require('date-fns/difference_in_years');
 
 module.exports = settings => {
   const app = page({
     ...settings,
     root: __dirname
+  });
+
+  app.use((req, res, next) => {
+    const over18 = req.profile.dob ? differenceInYears(new Date(), new Date(req.profile.dob)) >= 18 : false;
+
+    if (!over18) {
+      throw new Error('All licence applicants must be over 18.');
+    }
+
+    next();
   });
 
   app.use((req, res, next) => {
