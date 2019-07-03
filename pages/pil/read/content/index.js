@@ -14,7 +14,10 @@ module.exports = merge({}, baseContent, {
   },
   action: {
     applyNow: 'Apply now',
-    backToProfile: 'Back to profile'
+    backToProfile: 'Back to profile',
+    revoke: 'Revoke licence',
+    reapply: 'Reapply for licence',
+    amend: 'Amend licence'
   },
   conditions: {
     title: 'Conditions',

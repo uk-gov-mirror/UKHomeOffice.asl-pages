@@ -96,9 +96,13 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
         {
           canUpdate && (
             <Fragment>
-              <Link page="pil.update" className="govuk-button" label={pil.status === 'active' ? 'Amend licence' : 'Reapply for licence'}/>
+              <Link
+                page="pil.update"
+                className="govuk-button"
+                label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}`}</Snippet>}
+              />
               {
-                pil.status === 'active' && <Link page="pil.revoke.base" label="Revoke licence" />
+                pil.status === 'active' && <Link page="pil.revoke.base" label={<Snippet>action.revoke</Snippet>} />
               }
             </Fragment>
           )
