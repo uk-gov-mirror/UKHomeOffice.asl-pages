@@ -81,7 +81,7 @@ module.exports = {
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.'
     },
     log: 'Recommended by',
-    recommendation: 'Reject'
+    recommendation: '**Recommendation:**  Reject'
   },
   resubmitted: {
     state: 'Submitted',
