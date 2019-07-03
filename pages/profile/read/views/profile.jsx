@@ -46,20 +46,13 @@ class Profile extends React.Component {
 
               {
                 activeProjects.map(project => (
-                  <Fragment key={project.id}>
+                  <div key={project.id} className="project">
                     <p>
                       <Link page='project.read'
                         label={project.title}
                         projectId={project.id}
                         establishmentId={project.establishmentId}
                       />
-                    </p>
-                    <p>
-                      <span>
-                        <Snippet licenceNumber={project.licenceNumber}>
-                          projects.licenceNumber
-                        </Snippet>
-                      </span>
                     </p>
                     <p>
                       <span>
@@ -73,7 +66,7 @@ class Profile extends React.Component {
                         </Snippet>
                       </span>
                     </p>
-                  </Fragment>
+                  </div>
                 ))
               }
               {
@@ -106,7 +99,7 @@ class Profile extends React.Component {
                 isOwnProfile && (
                   <form method='POST' action={`/e/${estId}/projects/create`}>
                     <p className="control-panel">
-                      <Button className='govuk-button add-margin'>
+                      <Button className='govuk-button button-secondary add-margin'>
                         <Snippet>buttons.pplApply</Snippet>
                       </Button>
                     </p>
@@ -137,7 +130,7 @@ class Profile extends React.Component {
                   page='profile.role.apply.base'
                   establishmentId={estId}
                   profileId={id}
-                  className='govuk-button'
+                  className='govuk-button button-secondary'
                   label={<Snippet>responsibilities.roleApply</Snippet>}
                 />
                 {
@@ -146,7 +139,6 @@ class Profile extends React.Component {
                       page='profile.role.remove.base'
                       establishmentId={estId}
                       profileId={id}
-                      className='govuk-button'
                       label={<Snippet>responsibilities.roleRemove</Snippet>}
                     />
                   )
@@ -212,7 +204,7 @@ class Profile extends React.Component {
                       page='pil.create'
                       establishmentId={estId}
                       profileId={id}
-                      className='govuk-button'
+                      className='govuk-button button-secondary'
                       label={<Snippet>{`buttons.${pilIncomplete ? 'view' : 'pilApply'}`}</Snippet>}
                     />
                   </p>
