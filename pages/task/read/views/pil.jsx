@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset, DiffText } from '@asl/components';
+import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset, DiffText, Field } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
 import format from 'date-fns/format';
@@ -136,6 +136,17 @@ const Pil = ({ profile, values, task, children, schema, formFields }) => {
           <StickyNavAnchor id="conditions">
             <h2><Snippet>sticky-nav.conditions</Snippet></h2>
             <DiffText oldValue={pil.conditions} newValue={task.data.data.conditions} />
+          </StickyNavAnchor>
+        )
+      }
+
+      {
+        task.data.meta.comments && (
+          <StickyNavAnchor id="comments">
+            <Field
+              title={<Snippet>sticky-nav.comments</Snippet>}
+              content={task.data.meta.comments}
+            />
           </StickyNavAnchor>
         )
       }

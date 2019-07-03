@@ -14,7 +14,7 @@ module.exports = ({
     if (!licence || !status) {
       return next();
     }
-    if (req.model && req.model.status) {
+    if (!type && req.model && req.model.status) {
       type = req.model.status === 'active' ? 'amendment' : 'application';
     }
     const success = get(successContent, `${licence}.${type}.${status}`);

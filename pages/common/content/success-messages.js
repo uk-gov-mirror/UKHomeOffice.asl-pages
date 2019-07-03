@@ -38,6 +38,18 @@ module.exports = {
     }
   },
   pil: {
+    revocation: {
+      resubmitted: {
+        title: 'Revocation submitted',
+        body: `A licensing officer will review your revocation and contact you if they need any more information.
+
+          You will be notified by the Home Office when your revocation is approved or rejected.`
+      },
+      resolved: {
+        title: 'Licence revoked',
+        body: 'This licence is no longer active. The person who held this licence is no longer authorised to carry out any regulated procedures in any categories.'
+      }
+    },
     application: {
       resubmitted: {
         title: 'Application submitted',

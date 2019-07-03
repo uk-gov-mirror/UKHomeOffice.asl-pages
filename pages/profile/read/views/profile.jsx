@@ -167,6 +167,9 @@ class Profile extends React.Component {
                       pilId={pil.id}
                       label={pil.licenceNumber}
                     />
+                    {
+                      pil.status !== 'active' && <span> ({pil.status})</span>
+                    }
                   </p>
                 )
               }

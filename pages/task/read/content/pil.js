@@ -15,7 +15,8 @@ module.exports = {
   'sticky-nav': {
     applicant: {
       application: 'Applicant',
-      amendment: 'Licence holder'
+      amendment: 'Licence holder',
+      revocation: 'Licence holder'
     },
     training: 'Training',
     exemptions: 'Exemptions',

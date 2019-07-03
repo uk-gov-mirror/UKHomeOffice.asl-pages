@@ -14,6 +14,7 @@ module.exports = {
       read: 'View personal licence',
       create: 'Apply for personal licence',
       update: 'Amend personal licence',
+      revoke: 'Revoke personal licence',
       training: 'Training',
       exemptions: 'Exemptions',
       procedures: 'Procedures'
