@@ -43,10 +43,10 @@ module.exports = {
     },
     cantApply: 'Can\'t apply for licence',
     noDob: {
-      ownProfile: 'All licence applicants need a valid date of birth in their profile. Please add this information to your profile before you apply for a licence.',
-      otherProfile: 'All licence applicants need a valid date of birth in their profile. Contact the applicant to update their profile before applying for a licence on their behalf.'
+      ownProfile: 'All licence applicants need a valid date of birth. Please add this information to your account before you apply for a licence.',
+      otherProfile: 'All licence applicants need a valid date of birth. Contact the applicant to update their account before applying for a licence on their behalf.'
     },
     under18: 'All licence applicants must be over 18.',
-    addDob: 'Add this information to your profile'
+    addDob: 'Add this information to your account'
   }
 };
