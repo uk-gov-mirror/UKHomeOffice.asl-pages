@@ -28,11 +28,7 @@ const getAuthor = ({ changedBy, event: { status } }, task) => {
 };
 
 const getRecommendation = status => {
-  return (
-    <p>
-      <strong>Recommendation: </strong><Snippet>{`status.${status}.recommendation`}</Snippet>
-    </p>
-  );
+  return <p><Snippet>{`status.${status}.recommendation`}</Snippet></p>;
 };
 
 const LogItem = ({ log, task, ExtraMeta }) => {
