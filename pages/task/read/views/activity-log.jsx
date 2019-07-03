@@ -27,6 +27,10 @@ const getAuthor = ({ changedBy, event: { status } }, task) => {
   );
 };
 
+const getRecommendation = status => {
+  return <p><Snippet>{`status.${status}.recommendation`}</Snippet></p>;
+};
+
 const LogItem = ({ log, task, ExtraMeta }) => {
   const status = log.eventName.split(':').pop();
   return (
@@ -34,6 +38,7 @@ const LogItem = ({ log, task, ExtraMeta }) => {
       <span className="date">{format(log.createdAt, dateFormat.medium)}</span>
       {getStatusBadge(status)}
       {getAuthor(log, task)}
+      {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}
       {
         ExtraMeta && <ExtraMeta item={log} task={task} />
       }

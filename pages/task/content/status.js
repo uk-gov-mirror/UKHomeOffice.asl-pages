@@ -70,7 +70,8 @@ module.exports = {
       application: 'The application will be sent to a Licensing Officer who will action your recommendation.',
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.'
     },
-    log: 'Recommended by'
+    log: 'Recommended by',
+    recommendation: '**Recommendation:** Approve'
   },
   'inspector-rejected': {
     state: 'Recommendation made',
@@ -79,7 +80,8 @@ module.exports = {
       application: 'The application will be sent to a Licensing Officer who will action your recommendation.',
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.'
     },
-    log: 'Recommended by'
+    log: 'Recommended by',
+    recommendation: '**Recommendation:**  Reject'
   },
   resubmitted: {
     state: 'Submitted',
