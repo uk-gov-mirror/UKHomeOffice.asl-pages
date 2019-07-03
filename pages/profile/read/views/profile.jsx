@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import formatDate from 'date-fns/format';
+import differenceInYears from 'date-fns/difference_in_years';
 import { defineValue } from '../../../common/formatters';
 import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
@@ -16,7 +17,8 @@ class Profile extends React.Component {
       roles,
       projects = [],
       establishments,
-      id
+      id,
+      dob
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions || [];
@@ -30,6 +32,8 @@ class Profile extends React.Component {
     const profileRole = establishments.find(est => est.id === estId).role;
     const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
     const pilActive = pil && pil.status === 'active';
+
+    const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
 
     return (
       <Fragment>
@@ -185,7 +189,24 @@ class Profile extends React.Component {
                 )
               }
               {
-                (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive && (
+                (!dob || !over18) && (
+                  <Fragment>
+                    <p><strong><Snippet>pil.cantApply</Snippet></strong></p>
+                    <p>
+                      {
+                        !dob &&
+                          <Fragment>
+                            <Snippet>{`pil.noDob.${isOwnProfile ? 'ownProfile' : 'otherProfile'}`}</Snippet>
+                          </Fragment>
+                      }
+                      { dob && !over18 && <Snippet>pil.under18</Snippet> }
+                    </p>
+                    { !dob && isOwnProfile && <p><Link page='account.edit' label={<Snippet>pil.addDob</Snippet>} /></p> }
+                  </Fragment>
+                )
+              }
+              {
+                (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive && over18 && (
                   <p className="control-panel">
                     <Link
                       page='pil.create'
