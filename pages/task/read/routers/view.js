@@ -156,6 +156,10 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     const model = req.task.data.model;
+    if (req.task.data.action === 'revoke') {
+      req.task.type = 'revocation';
+      return next();
+    }
     if (model === 'role' || model === 'profile' || model === 'place') {
       req.task.type = 'amendment';
     } else {

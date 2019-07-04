@@ -14,7 +14,7 @@ import {
 import { Warning } from '@ukhomeoffice/react-components';
 
 const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
-  const canUpdateConditions = allowedActions.includes('pil.updateConditions');
+  const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
 
   const formatters = {
     issueDate: {
@@ -94,7 +94,18 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
 
       <p className="control-panel">
         {
-          canUpdate && <Link page="pil.update" className="govuk-button" label="Amend licence"/>
+          canUpdate && (
+            <Fragment>
+              <Link
+                page="pil.update"
+                className="govuk-button"
+                label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}`}</Snippet>}
+              />
+              {
+                pil.status === 'active' && <Link page="pil.revoke.base" label={<Snippet>action.revoke</Snippet>} />
+              }
+            </Fragment>
+          )
         }
         <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />
       </p>
