@@ -18,5 +18,11 @@ module.exports = merge({}, content, {
     modules: {
       required: 'You need to select at least one module.'
     }
+  },
+  action: {
+    repeat: {
+      add: 'Add another',
+      remove: 'Remove'
+    }
   }
 });

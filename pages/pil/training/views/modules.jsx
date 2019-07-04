@@ -1,43 +1,138 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
+import mapKeys from 'lodash/mapKeys';
 import { connect } from 'react-redux';
+import { Button } from '@ukhomeoffice/react-components';
 import {
-  Header,
   Snippet,
   FormLayout,
   Inset,
-  AddAnother
+  Fieldset,
+  Header
 } from '@asl/components';
-import { Select } from '@ukhomeoffice/react-components';
+
 import { species } from '@asl/constants';
 
-import { normalise } from '../../../../lib/utils';
+const content = require('../content/modules');
 
-const SPECIES_REVEAL_TOTAL_COUNT = 10;
-const SPECIES_REVEAL_VISIBLE_COUNT = 1;
+const connectComponent = key => {
+  const mapStateToProps = ({ model, static: { schema, errors, modulesThatRequireSpecies } }) => {
+    schema = schema.modules.options.find(m => m.value === key).reveal;
+    const props = {
+      model,
+      errors,
+      option: key,
+      schema: mapKeys(schema, (v, k) => `module-${key}-${k}`),
+      modulesThatRequireSpecies
+    };
+
+    return props;
+  };
+
+  return connect(mapStateToProps)(RepeatedFieldset);
+};
+
+const speciesOptions = {
+  inputType: 'select',
+  options: species,
+  label: content.fields.species.label
+};
+
+class RepeatedFieldset extends Component {
+
+  constructor(options) {
+    super(options);
+
+    this.state = {
+      items: this.props.model[`module-${this.props.type}-species`]
+        ? this.props.model[`module-${this.props.type}-species`]
+        : ['']
+    };
+  }
+
+  addItem(e) {
+    e.preventDefault();
+    this.setState({
+      items: [ ...this.state.items, '' ]
+    });
+  }
+
+  removeItem (index, e) {
+    e.preventDefault();
+    this.setState({
+      items: this.state.items.filter((item, i) => {
+        return i !== index;
+      })
+    });
+
+  }
+
+  updateItem(index) {
+    return val => {
+      this.setState({
+        items: this.state.items.map((item, i) => {
+          if (i === index) {
+            return Object.values(val)[0];
+          }
+          return item;
+        })
+      });
+    };
+  }
+
+  render() {
+    const { schema, modulesThatRequireSpecies, option } = this.props;
+    const { items } = this.state;
+
+    return (
+      <Fragment>
+        <Fieldset schema={schema} model={this.props.model} />
+        {
+          modulesThatRequireSpecies.includes(option) && (
+            <Fragment>
+              {
+                items.map((item, index) => {
+                  const fieldName = `module-${option}-species-${index}`;
+                  return (
+                    <Fragment key={index}>
+                      {
+                        index > 0 && (
+                          <p>
+                            <Button className="link" onClick={e => this.removeItem(index - 1, e)}>Remove item</Button>
+                          </p>
+                        )
+                      }
+                      <Fieldset
+                        schema={{ [fieldName]: speciesOptions }}
+                        onChange={this.updateItem(index)}
+                        model={{ [fieldName]: item }}
+                      />
+                    </Fragment>
+                  );
+                })
+              }
+              <p>
+                <a href="#" className="add-another-add" onClick={e => this.addItem(e)}><Snippet>action.repeat.add</Snippet></a>
+              </p>
+            </Fragment>
+          )
+        }
+
+      </Fragment>
+    );
+  }
+}
 
 const formatters = modulesThatRequireSpecies => {
   return {
     modules: {
-      mapOptions: op => {
+      mapOptions: (op, b) => {
+        const ConnectedComponent = connectComponent(op.value, modulesThatRequireSpecies);
         return {
           ...op,
           prefix: op.value,
-          reveal: modulesThatRequireSpecies.includes(op.value) ? (
-            <Inset>
-              <AddAnother
-                labelAdd={<Snippet>fields.species.add</Snippet>}
-                labelRemove={<Snippet>fields.species.remove</Snippet>}
-                totalCount={SPECIES_REVEAL_TOTAL_COUNT}
-                visibleCount= {SPECIES_REVEAL_VISIBLE_COUNT}>
-                <Select
-                  id={`module-${normalise(op.value)}-species`}
-                  name={`module-${op.value}-species`}
-                  label={<Snippet>{`fields.species.label`}</Snippet>}
-                  options={species}
-                />
-              </AddAnother>
-            </Inset>
-          ) : null
+          reveal: <Inset>
+            <ConnectedComponent type={op.value} />
+          </Inset>
         };
       }
     }
