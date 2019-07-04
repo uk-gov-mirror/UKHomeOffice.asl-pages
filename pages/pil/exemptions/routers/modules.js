@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { omit, castArray } = require('lodash');
+const { omit, castArray, pickBy, startsWith } = require('lodash');
 
 const form = require('../../../common/routers/form');
 const { buildModel } = require('../../../../lib/utils');
@@ -72,6 +72,17 @@ module.exports = () => {
           }, {})
         }
       );
+      next();
+    },
+    process: (req, res, next) => {
+
+      req.form.values.modules.map(m => {
+        const specs = Object.values(pickBy(req.body, (value, key) => {
+          return startsWith(key, `module-${m}-species`);
+        })).filter(s => s !== '');
+        req.form.values[`module-${m}-species`] = specs;
+      });
+
       next();
     }
   }));
