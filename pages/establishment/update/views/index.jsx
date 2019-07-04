@@ -15,16 +15,13 @@ import uuid from 'uuid/v4';
 
 const connectComponent = value => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {
-
     schema = schema.authorisationTypes.options.find(authorisation => authorisation.value === value).reveal;
 
-    const p = {
+    return {
       model,
       errors,
       schema: mapKeys(schema, (v, k) => `authorisation-${value}-${k}`)
     };
-
-    return p;
   };
 
   return connect(mapStateToProps)(RepeatedFieldset);
@@ -41,6 +38,7 @@ class RepeatedFieldset extends Component {
 class Repeat extends Component {
   constructor(options) {
     super(options);
+
     this.state = {
       authorisations: this.props.authorisations.length
         ? this.props.authorisations
