@@ -16,7 +16,6 @@ import uuid from 'uuid/v4';
 const connectComponent = value => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {
     schema = schema.authorisationTypes.options.find(authorisation => authorisation.value === value).reveal;
-
     return {
       model,
       errors,
@@ -92,7 +91,6 @@ class Repeat extends Component {
     return <Fragment>
       {
         authorisations.map((authorisation, index) => {
-
           return (
             <Inset key={authorisation.id} className="repeater">
               <div>
