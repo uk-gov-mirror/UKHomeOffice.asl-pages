@@ -35,8 +35,6 @@ const App = ({ model, establishment, canUpdate }) => {
     licenceHolder
   } = model;
 
-  console.log(model);
-
   return (
     <Fragment>
       <LicenceStatusBanner licence={model} licenceType="ppl" />
