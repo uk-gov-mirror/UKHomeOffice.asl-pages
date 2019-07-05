@@ -12,8 +12,14 @@ module.exports = {
     licenceNumber: {
       label: 'PPL number'
     },
+    issueDate: {
+      label: 'Date granted'
+    },
     expiryDate: {
       label: 'Expiry date'
+    },
+    revocationDate: {
+      label: 'Date revoked'
     },
     submittedAt: {
       label: 'Submitted to ASRU'
@@ -23,16 +29,19 @@ module.exports = {
     },
     granted: {
       label: 'Licence details',
-      expired: 'View expired licence details',
-      view: 'View granted licence details'
+      expired: 'View expired licence',
+      view: 'View granted licence'
     },
     draft: {
       label: 'Current draft',
-      view: 'Update project draft'
+      view: 'Open draft'
     },
     submitted: {
       label: 'Submitted',
       view: 'View submitted application'
+    },
+    duration: {
+      label: 'Project duration'
     }
   },
   status: {
