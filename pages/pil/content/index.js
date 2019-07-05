@@ -20,5 +20,11 @@ module.exports = {
     D: `Use of neuromuscular blocking agents`,
     E: 'Education and training procedures conducted in accordance with Project Licence',
     F: 'Other'
+  },
+  action: {
+    repeat: {
+      add: 'Add another',
+      remove: 'Remove'
+    }
   }
 };

@@ -1,6 +1,6 @@
 const { merge } = require('lodash');
 const trainingFields = require('../../training/content').fields;
-const modulesFields = require('../../training/content/modules').fields;
+const modulesFields = require('../../modules/content').fields;
 const proceduresFields = require('../../procedures/content').fields;
 
 module.exports = {

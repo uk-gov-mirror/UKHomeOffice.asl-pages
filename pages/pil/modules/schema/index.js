@@ -1,8 +1,7 @@
 const { moduleCodes } = require('@asl/constants');
 const { toArray } = require('../../../../lib/utils');
-const content = require('../content/modules');
+const content = require('../content');
 const { species } = require('@asl/constants');
-// TODO rename and put where ?
 const SPECIES_REVEAL_TOTAL_COUNT = 10;
 
 const options = moduleCodes.map(module => {

@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { omit, castArray, pickBy, startsWith } = require('lodash');
+const { omit, castArray } = require('lodash');
 
 const form = require('../../../common/routers/form');
 const { buildModel } = require('../../../../lib/utils');
-
+const { process } = require('../../../../lib/middleware/species');
 const { modules: schema } = require('../schema');
 const { moduleCodes } = require('@asl/constants');
 const { species } = require('@asl/constants');
@@ -74,17 +74,7 @@ module.exports = () => {
       );
       next();
     },
-    process: (req, res, next) => {
-
-      req.form.values.modules.map(m => {
-        const specs = Object.values(pickBy(req.body, (value, key) => {
-          return startsWith(key, `module-${m}-species`);
-        })).filter(s => s !== '');
-        req.form.values[`module-${m}-species`] = specs;
-      });
-
-      next();
-    }
+    process: process()
   }));
 
   app.post('/', (req, res, next) => {
