@@ -1,33 +1,39 @@
 import React, { Fragment } from 'react';
-import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
-import { Header, ModelSummary, Link, LicenceStatusBanner } from '@asl/components';
+import { Header, Link, LicenceStatusBanner, Snippet, ControlBar } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../constants';
-import formatters from '../../formatters';
-import { schema } from '../../schema';
 
-const getVersions = model => {
-  const versions = {};
-  if (model.draft) {
-    versions.draft = model.draft;
+const getProjectDuration = model => {
+  if (!model.granted || isEmpty(model.granted.duration)) {
+    return '-';
   }
-  const version = model.versions[0];
-  if (version && version.status === 'submitted') {
-    versions.submitted = version;
-  }
-  return versions;
+
+  const { years, months } = model.granted.duration;
+
+  return `${years} years ${months} months`;
 };
+
+const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
 const App = ({ model, establishment, canUpdate }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
   const canAmend = canUpdate && model.status === 'active' && !openTask;
 
+  const amendmentType = openTask
+    ? 'submitted'
+    : model.granted && model.draft ? 'continue' : 'create';
+
   const canUpdateLicenceHolder = canUpdate &&
     ((model.granted && !model.draft) || !model.granted) &&
     !model.submitted &&
     !openTask;
+
+  const {
+    licenceHolder
+  } = model;
 
   return (
     <Fragment>
@@ -38,43 +44,85 @@ const App = ({ model, establishment, canUpdate }) => {
         title={model.title || 'Untitled project'}
       />
 
-      <ModelSummary
-        model={{
-          ...model,
-          ...getVersions(model)
-        }}
-        schema={omit(schema, 'id', 'status')}
-        formatters={{
-          ...omit(formatters, 'title'),
-          expiryDate: {
-            format: date => format(date, dateFormat.medium)
-          },
-          licenceHolder: {
-            format: ({ id, firstName, lastName }) => (
-              <Fragment>
-                {firstName} {lastName}<br />
-                <Link page="profile.view" profileId={id} label="View profile" />
-                { canUpdateLicenceHolder && (
-                  <Fragment> | <Link page="project.updateLicenceHolder.update" label="Change" /></Fragment>
-                )}
-              </Fragment>
-            )
-          }
-        }}
-      />
+      <dl className="inline">
+
+        <dt><Snippet>fields.licenceHolder.label</Snippet></dt>
+        <dd>
+          <Fragment>
+            {licenceHolder.firstName} {licenceHolder.lastName}<br />
+            <Link page="profile.view" profileId={licenceHolder.id} label="View profile" />
+            { canUpdateLicenceHolder && (
+              <Fragment> | <Link page="project.updateLicenceHolder.update" label="Change" /></Fragment>
+            )}
+          </Fragment>
+        </dd>
+
+        <Fragment>
+          <dt><Snippet>fields.licenceNumber.label</Snippet></dt>
+          <dd>{model.licenceNumber ? model.licenceNumber : '-'}</dd>
+        </Fragment>
+
+        {
+          model.granted &&
+            <Fragment>
+              <dt><Snippet>fields.duration.label</Snippet></dt>
+              <dd>{getProjectDuration(model)}</dd>
+
+              <dt><Snippet>fields.issueDate.label</Snippet></dt>
+              <dd>{format(model.issueDate, dateFormat.medium)}</dd>
+
+              <dt><Snippet>fields.expiryDate.label</Snippet></dt>
+              <dd>{format(model.expiryDate, dateFormat.medium)}</dd>
+            </Fragment>
+        }
+      </dl>
+
+      <ControlBar>
+        {
+          !model.granted && model.draft &&
+            <Button page="project.version.update" versionId={model.draft.id}>
+              <Snippet>fields.draft.view</Snippet>
+            </Button>
+        }
+
+        {
+          model.granted &&
+            <Button page="project.version.read" versionId={model.granted.id}>
+              <Snippet>{`fields.granted.${hasExpired(model) ? 'expired' : 'view'}`}</Snippet>
+            </Button>
+        }
+      </ControlBar>
+
       {
-        canAmend && (
-          <form method="post">
-            <Button>Amend licence</Button>
-          </form>
-        )
+        (canAmend || openTask) &&
+          <Fragment>
+            <hr />
+            <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
+            <p>
+              <Snippet amendmentStartDate={model.draft && format(model.draft.createdAt, dateFormat.short)}>
+                {`amendment.${amendmentType}.description`}
+              </Snippet>
+            </p>
+            {
+              openTask ? (
+                <Link page="task.read" taskId={openTask.id} className="govuk-button button-secondary" label={<Snippet>{`amendment.${amendmentType}.action`}</Snippet>} />
+              ) : (
+                <form method="post">
+                  <Button className="button-secondary">
+                    <Snippet>{`amendment.${amendmentType}.action`}</Snippet>
+                  </Button>
+                </form>
+              )
+            }
+          </Fragment>
       }
-      {
-        openTask && <p><Link page="task.read" taskId={openTask.id} className="govuk-button" label="View open task" /></p>
-      }
+
       {
         model.status === 'active' &&
-        <p><Link page="project.version.pdf" versionId={model.status === 'active' ? model.granted.id : model.draft.id} className="govuk-button button-secondary" label="Export Licence as PDF" /></p>
+          <Fragment>
+            <hr />
+            <p><Link page="project.version.pdf" versionId={model.status === 'active' ? model.granted.id : model.draft.id} className="govuk-button button-secondary" label="Export Licence as PDF" /></p>
+          </Fragment>
       }
     </Fragment>
   );
