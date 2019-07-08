@@ -3,7 +3,7 @@ const { omit, castArray } = require('lodash');
 
 const form = require('../../../common/routers/form');
 const { buildModel } = require('../../../../lib/utils');
-const { process } = require('../../../../lib/middleware/species');
+const { processSpecies } = require('../../helpers');
 const { modules: schema } = require('../schema');
 const { moduleCodes } = require('@asl/constants');
 const { species } = require('@asl/constants');
@@ -39,20 +39,25 @@ module.exports = () => {
 
           const type = {
             ...obj,
-            [`module-${val.value}-reason`]: val.reveal.reason
-          };
-
-          if (modulesThatRequireSpecies.includes(val.value)) {
-            type[`module-${val.value}-species`] = {
+            [`module-${val.value}-reason`]: val.reveal.reason,
+            [`module-${val.value}-species`]: {
               inputType: 'select',
               options: species,
               label: content.fields.species.label
-            };
-          }
-
+            }
+          };
           return type;
         }, {})
       };
+      next();
+    },
+    process: (req, res, next) => {
+      Object.assign(
+        (req.form.values = {
+          ...req.form.values,
+          ...processSpecies(req)
+        })
+      );
       next();
     },
     locals: (req, res, next) => {
@@ -73,8 +78,7 @@ module.exports = () => {
         }
       );
       next();
-    },
-    process: process()
+    }
   }));
 
   app.post('/', (req, res, next) => {
