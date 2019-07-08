@@ -97,7 +97,7 @@ class RepeatedFieldset extends Component {
                       {
                         index > 0 && (
                           <p>
-                            <Button className="link" onClick={e => this.removeItem(index - 1, e)}>Remove item</Button>
+                            <a href="#" className="link" onClick={e => this.removeItem(index - 1, e)}>Remove item</a>
                           </p>
                         )
                       }
@@ -122,25 +122,27 @@ class RepeatedFieldset extends Component {
   }
 }
 
-const formatters = modulesThatRequireSpecies => {
+const formatters = (modulesThatRequireSpecies, reason) => {
   return {
     modules: {
-      mapOptions: (op, b) => {
-        const ConnectedComponent = connectComponent(op.value, modulesThatRequireSpecies);
+      mapOptions: option => {
+        const ConnectedComponent = connectComponent(option.value, modulesThatRequireSpecies);
         return {
-          ...op,
-          prefix: op.value,
-          reveal: <Inset>
-            <ConnectedComponent type={op.value} />
-          </Inset>
+          ...option,
+          prefix: option.value,
+          reveal: (modulesThatRequireSpecies.includes(option.value) || reason) && (
+            <Inset>
+              <ConnectedComponent type={option.value} />
+            </Inset>
+          )
         };
       }
     }
   };
 };
 
-const Page = ({ modulesThatRequireSpecies }) => (
-  <FormLayout formatters={formatters(modulesThatRequireSpecies)}>
+const Page = ({ modulesThatRequireSpecies, reason }) => (
+  <FormLayout formatters={formatters(modulesThatRequireSpecies, reason)}>
     <Header title={<Snippet>title</Snippet>} />
   </FormLayout>
 );

@@ -1,3 +1,4 @@
-import Page from '../../modules/views';
+import React from 'react';
+import Modules from '../../modules/views';
 
-export default Page;
+export default () => <Modules reason={true} />;
