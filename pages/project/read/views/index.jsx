@@ -80,9 +80,12 @@ const App = ({ model, establishment, canUpdate }) => {
       <ControlBar>
         {
           !model.granted && model.draft &&
-            <Button page="project.version.update" versionId={model.draft.id}>
-              <Snippet>fields.draft.view</Snippet>
-            </Button>
+            <Link
+              page="project.version.update"
+              versionId={model.draft.id}
+              className="govuk-button"
+              label={<Snippet>fields.draft.view</Snippet>}
+            />
         }
 
         {
