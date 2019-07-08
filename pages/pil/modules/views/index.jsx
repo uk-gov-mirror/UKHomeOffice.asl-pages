@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import mapKeys from 'lodash/mapKeys';
 import { connect } from 'react-redux';
-import { Button } from '@ukhomeoffice/react-components';
 import {
   Snippet,
   FormLayout,
