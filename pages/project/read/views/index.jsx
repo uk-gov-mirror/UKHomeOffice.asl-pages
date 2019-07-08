@@ -87,9 +87,12 @@ const App = ({ model, establishment, canUpdate }) => {
 
         {
           model.granted &&
-            <Button page="project.version.read" versionId={model.granted.id}>
-              <Snippet>{`fields.granted.${hasExpired(model) ? 'expired' : 'view'}`}</Snippet>
-            </Button>
+            <Link
+              page="project.version.read"
+              versionId={model.granted.id}
+              className="govuk-button"
+              label={<Snippet>{`fields.granted.${hasExpired(model) ? 'expired' : 'view'}`}</Snippet>}
+            />
         }
       </ControlBar>
 
