@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const form = require('../../../common/routers/form');
+const { processSpecies } = require('../../helpers');
 const { modules: schema } = require('../schema');
 const { pick, castArray } = require('lodash');
 const { buildModel } = require('../../../../lib/utils');
@@ -26,6 +27,15 @@ module.exports = settings => {
 
         };
       }, {})
+    },
+    process: (req, res, next) => {
+      Object.assign(
+        (req.form.values = {
+          ...req.form.values,
+          ...processSpecies(req)
+        })
+      );
+      next();
     },
     locals: (req, res, next) => {
       res.locals.static.schema = schema;

@@ -1,7 +1,8 @@
 const { merge } = require('lodash');
+const baseContent = require('../../content');
 const content = require('./');
 
-module.exports = merge({}, content, {
+module.exports = merge({}, baseContent, content, {
   title: 'Which training modules should the applicant be exempt from?',
   fields: {
     modules: {

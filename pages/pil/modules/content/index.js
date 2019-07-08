@@ -1,5 +1,5 @@
 const { merge } = require('lodash');
-const content = require('./');
+const content = require('../../content');
 
 module.exports = merge({}, content, {
   title: 'Which modules did this certificate cover?',
@@ -17,12 +17,6 @@ module.exports = merge({}, content, {
   errors: {
     modules: {
       required: 'You need to select at least one module.'
-    }
-  },
-  action: {
-    repeat: {
-      add: 'Add another',
-      remove: 'Remove'
     }
   }
 });
