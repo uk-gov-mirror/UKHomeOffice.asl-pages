@@ -170,7 +170,7 @@ class Profile extends React.Component {
                 )
               }
               {
-                !pil && (
+                !pil && over18 && (
                   <p>
                     <Snippet>pil.noPil</Snippet>
                   </p>
@@ -186,16 +186,15 @@ class Profile extends React.Component {
               {
                 (!dob || !over18) && (
                   <Fragment>
-                    <p>
-                      {
-                        !dob &&
-                          <Fragment>
-                            <Snippet>{`pil.noDob.${isOwnProfile ? 'ownProfile' : 'otherProfile'}`}</Snippet>
-                          </Fragment>
-                      }
-                      { dob && !over18 && <Snippet>pil.under18</Snippet> }
-                    </p>
-                    { !dob && isOwnProfile && <p><Link page='account.edit' label={<Snippet>pil.addDob</Snippet>} /></p> }
+                    {
+                      dob && !over18 && <p><Snippet>pil.under18</Snippet></p>
+                    }
+                    {
+                      !dob && <p><Snippet>{`pil.noDob.${isOwnProfile ? 'ownProfile' : 'otherProfile'}`}</Snippet></p>
+                    }
+                    {
+                      !dob && isOwnProfile && <p><Link page='account.edit' label={<Snippet>pil.addDob</Snippet>} /></p>
+                    }
                   </Fragment>
                 )
               }
