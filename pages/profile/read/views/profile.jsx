@@ -186,7 +186,6 @@ class Profile extends React.Component {
               {
                 (!dob || !over18) && (
                   <Fragment>
-                    <p><strong><Snippet>pil.cantApply</Snippet></strong></p>
                     <p>
                       {
                         !dob &&
