@@ -41,7 +41,7 @@ const App = ({ model, establishment, canUpdate, url, content }) => {
     const message = type === 'draft' ? content.discardDraft.confirm : content.amendment.discard.confirm;
 
     if (window.confirm(message)) {
-      e.target.closest('form').submit();
+      e.target.submit();
     }
   };
 
@@ -137,10 +137,10 @@ const App = ({ model, establishment, canUpdate, url, content }) => {
 
                   {
                     amendmentType === 'continue' &&
-                      <form method="POST" action={`${url}/delete/amendment`}>
-                        <a href="#" onClick={discard(<Snippet>amendment.discard.confirm</Snippet>)}>
-                          <Snippet>amendment.discard.action</Snippet>
-                        </a>
+                      <form method="POST" action={`${url}/delete/amendment`} onSubmit={discard('amendment')}>
+                        <button className="link">
+                          <span><Snippet>amendment.discard.action</Snippet></span>
+                        </button>
                       </form>
                   }
                 </Fragment>
@@ -155,8 +155,8 @@ const App = ({ model, establishment, canUpdate, url, content }) => {
             <hr />
             <h2><Snippet>discardDraft.title</Snippet></h2>
             <p><Snippet>discardDraft.description</Snippet></p>
-            <form method="POST" action={`${url}/delete/draft`}>
-              <Button className="button-warning" onClick={discard(<Snippet>discardDraft.confirm</Snippet>)}>
+            <form method="POST" action={`${url}/delete/draft`} onSubmit={discard('draft')}>
+              <Button className="button-warning">
                 <Snippet>discardDraft.action</Snippet>
               </Button>
             </form>
