@@ -47,11 +47,5 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.post('/delete', (req, res, next) => {
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { method: 'DELETE' })
-      .then(() => res.redirect(req.buildRoute('project.list')))
-      .catch(next);
-  });
-
   return app;
 };

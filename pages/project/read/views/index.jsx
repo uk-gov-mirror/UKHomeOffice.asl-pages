@@ -18,7 +18,7 @@ const getProjectDuration = model => {
 
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
-const App = ({ model, establishment, canUpdate }) => {
+const App = ({ model, establishment, canUpdate, url, content }) => {
   const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
   const canAmend = canUpdate && model.status === 'active' && !openTask;
 
@@ -34,6 +34,16 @@ const App = ({ model, establishment, canUpdate }) => {
   const {
     licenceHolder
   } = model;
+
+  const discard = type => e => {
+    e.preventDefault();
+
+    const message = type === 'draft' ? content.discardDraft.confirm : content.amendment.discard.confirm;
+
+    if (window.confirm(message)) {
+      e.target.closest('form').submit();
+    }
+  };
 
   return (
     <Fragment>
@@ -111,15 +121,45 @@ const App = ({ model, establishment, canUpdate }) => {
             </p>
             {
               openTask ? (
-                <Link page="task.read" taskId={openTask.id} className="govuk-button button-secondary" label={<Snippet>{`amendment.${amendmentType}.action`}</Snippet>} />
+                <Link
+                  page="task.read"
+                  taskId={openTask.id}
+                  className="govuk-button button-secondary"
+                  label={<Snippet>{`amendment.${amendmentType}.action`}</Snippet>}
+                />
               ) : (
-                <form method="post">
-                  <Button className="button-secondary">
-                    <Snippet>{`amendment.${amendmentType}.action`}</Snippet>
-                  </Button>
-                </form>
+                <Fragment>
+                  <form method="POST">
+                    <Button className="button-secondary">
+                      <Snippet>{`amendment.${amendmentType}.action`}</Snippet>
+                    </Button>
+                  </form>
+
+                  {
+                    amendmentType === 'continue' &&
+                      <form method="POST" action={`${url}/delete/amendment`}>
+                        <a href="#" onClick={discard(<Snippet>amendment.discard.confirm</Snippet>)}>
+                          <Snippet>amendment.discard.action</Snippet>
+                        </a>
+                      </form>
+                  }
+                </Fragment>
               )
             }
+          </Fragment>
+      }
+
+      {
+        !model.granted && model.draft && !openTask &&
+          <Fragment>
+            <hr />
+            <h2><Snippet>discardDraft.title</Snippet></h2>
+            <p><Snippet>discardDraft.description</Snippet></p>
+            <form method="POST" action={`${url}/delete/draft`}>
+              <Button className="button-warning" onClick={discard(<Snippet>discardDraft.confirm</Snippet>)}>
+                <Snippet>discardDraft.action</Snippet>
+              </Button>
+            </form>
           </Fragment>
       }
 
@@ -134,6 +174,6 @@ const App = ({ model, establishment, canUpdate }) => {
   );
 };
 
-const mapStateToProps = ({ model, static: { establishment, canUpdate } }) => ({ model, establishment, canUpdate });
+const mapStateToProps = ({ model, static: { establishment, canUpdate, url, content } }) => ({ model, establishment, canUpdate, url, content });
 
 export default connect(mapStateToProps)(App);
