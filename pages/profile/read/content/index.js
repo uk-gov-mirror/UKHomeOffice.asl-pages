@@ -27,18 +27,18 @@ module.exports = {
     pplApply: 'Apply for project licence',
     pilApply: 'Apply for personal licence',
     roleApply: 'Assign named role',
-    view: 'View'
+    pilView: 'View draft'
   },
   pil: {
     title: 'Personal licence',
     noPil: 'None',
-    incompletePil: 'Application currently in progress.',
+    incompletePil: 'Application started.',
     user: {
-      incomplete: 'Application currently in progress.',
+      incomplete: 'Application started.',
       notStarted: 'None'
     },
     other: {
-      incomplete: 'Application currently in progress.',
+      incomplete: 'Application started.',
       notStarted: 'None'
     },
     cantApply: 'Can\'t apply for licence',

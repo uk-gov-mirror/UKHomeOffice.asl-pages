@@ -208,7 +208,7 @@ class Profile extends React.Component {
                       establishmentId={estId}
                       profileId={id}
                       className='govuk-button button-secondary'
-                      label={<Snippet>{`buttons.${pilIncomplete ? 'view' : 'pilApply'}`}</Snippet>}
+                      label={<Snippet>{`buttons.${pilIncomplete ? 'pilView' : 'pilApply'}`}</Snippet>}
                     />
                   </p>
                 )
