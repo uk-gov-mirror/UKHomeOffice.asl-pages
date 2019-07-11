@@ -8,5 +8,5 @@ module.exports = {
     title: 'Category E',
     subtitle:
       'To apply for a Category E personal licence, or to add category E procedures to an existing licence, please contact your establishment’s SPoC for advice or email [aspa.london@homeoffice.gov.uk](mailto:aspa.london@homeoffice.gov.uk).'
-  },
+  }
 };
