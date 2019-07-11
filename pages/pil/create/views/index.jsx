@@ -18,9 +18,11 @@ const Category = ({ type }) => {
       method="POST"
       action={`?action=${type}`}
     >
-      <button className="govuk-button">
-        <Snippet>buttons.apply</Snippet>
-      </button>
+      {
+        type !== 'catE' && <button className="govuk-button">
+          <Snippet>buttons.apply</Snippet>
+        </button>
+      }
     </ApplyChanges>
   </Fragment>;
 };
