@@ -2,7 +2,7 @@ module.exports = {
   catAF: {
     title: 'Categories A,B,C,D and F',
     subtitle:
-      'These personal licenses authorise you to carry out certain procedures on the species defined on your training certificates.'
+      'These personal licences authorise you to carry out certain procedures on the types of animal defined on your training certificates.'
   },
   catE: {
     title: 'Category E',
