@@ -27,7 +27,12 @@ module.exports = () => {
     req.api(`/establishment/${req.establishmentId}/projects`, { method: 'POST' })
       .then(({ json: { data } }) => {
         req.projectId = data.data.id;
-        res.redirect(req.buildRoute('project.read'));
+
+        return req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}`)
+          .then(({ json: { data } }) => {
+            req.project = data;
+          })
+          .then(() => res.redirect(req.buildRoute('project.version.update', { projectId: req.project.id, versionId: req.project.draft.id })));
       })
       .catch(next);
   });
