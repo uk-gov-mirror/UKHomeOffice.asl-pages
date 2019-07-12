@@ -10,6 +10,7 @@ import {
 } from '@asl/components';
 
 import { species } from '@asl/constants';
+import { normalise } from '../../../../lib/utils';
 
 const content = require('../content');
 
@@ -90,7 +91,7 @@ class RepeatedFieldset extends Component {
             <Fragment>
               {
                 items.map((item, index) => {
-                  const fieldName = `module-${option}-species-${index}`;
+                  const fieldName = `module-${normalise(option)}-species-${index}`;
                   return (
                     <Fragment key={index}>
                       {
