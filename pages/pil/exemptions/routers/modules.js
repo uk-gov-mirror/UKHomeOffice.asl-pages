@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { omit, castArray } = require('lodash');
 
 const form = require('../../../common/routers/form');
-const { buildModel } = require('../../../../lib/utils');
+const { buildModel, normalise } = require('../../../../lib/utils');
 const { processSpecies } = require('../../helpers');
 const { modules: schema } = require('../schema');
 const { moduleCodes } = require('@asl/constants');
@@ -24,7 +24,7 @@ module.exports = () => {
         ...obj,
         modules: [ ...obj.modules, module ],
         [`module-${module}-reason`]: value.description,
-        [`module-${module}-species`]: value.species
+        [`module-${normalise(module)}-species`]: value.species
       };
     }, req.model);
 
@@ -40,7 +40,7 @@ module.exports = () => {
           const type = {
             ...obj,
             [`module-${val.value}-reason`]: val.reveal.reason,
-            [`module-${val.value}-species`]: {
+            [`module-${normalise(val.value)}-species`]: {
               inputType: 'select',
               options: species,
               label: content.fields.species.label
@@ -61,7 +61,7 @@ module.exports = () => {
       next();
     },
     locals: (req, res, next) => {
-      const revealValues = moduleCodes.map(c => `module-${c}-reason`).concat(moduleCodes.map(c => `module-${c}-species`));
+      const revealValues = moduleCodes.map(code => `module-${code}-reason`).concat(moduleCodes.map(code => `module-${normalise(code)}-species`));
       res.locals.static.schema = omit(req.form.schema, revealValues);
       res.locals.static.modulesThatRequireSpecies = modulesThatRequireSpecies;
       Object.assign(
@@ -96,7 +96,7 @@ module.exports = () => {
       .then(() => {
         return Promise.all(
           req.form.values.modules.map(module => {
-            const species = req.form.values[`module-${module}-species`];
+            const species = req.form.values[`module-${normalise(module)}-species`];
             const opts = {
               method: 'POST',
               json: {

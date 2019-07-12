@@ -43,8 +43,8 @@ class RepeatedFieldset extends Component {
     super(options);
 
     this.state = {
-      items: this.props.model[`module-${this.props.type}-species`]
-        ? this.props.model[`module-${this.props.type}-species`]
+      items: this.props.model[`module-${normalise(this.props.type)}-species`]
+        ? this.props.model[`module-${normalise(this.props.type)}-species`]
         : ['']
     };
   }
