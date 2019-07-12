@@ -10,6 +10,7 @@ import {
 } from '@asl/components';
 
 import { species } from '@asl/constants';
+import { normalise } from '../../../../lib/utils';
 
 const content = require('../content');
 
@@ -42,8 +43,8 @@ class RepeatedFieldset extends Component {
     super(options);
 
     this.state = {
-      items: this.props.model[`module-${this.props.type}-species`]
-        ? this.props.model[`module-${this.props.type}-species`]
+      items: this.props.model[`module-${normalise(this.props.type)}-species`]
+        ? this.props.model[`module-${normalise(this.props.type)}-species`]
         : ['']
     };
   }
@@ -90,7 +91,7 @@ class RepeatedFieldset extends Component {
             <Fragment>
               {
                 items.map((item, index) => {
-                  const fieldName = `module-${option}-species-${index}`;
+                  const fieldName = `module-${normalise(option)}-species-${index}`;
                   return (
                     <Fragment key={index}>
                       {

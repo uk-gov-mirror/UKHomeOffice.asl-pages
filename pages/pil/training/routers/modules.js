@@ -3,8 +3,7 @@ const form = require('../../../common/routers/form');
 const { processSpecies } = require('../../helpers');
 const { modules: schema } = require('../schema');
 const { pick, castArray } = require('lodash');
-const { buildModel } = require('../../../../lib/utils');
-
+const { buildModel, normalise } = require('../../../../lib/utils');
 const { modulesThatRequireSpecies } = require('../../constants');
 
 module.exports = settings => {
@@ -23,7 +22,7 @@ module.exports = settings => {
       ...schema.modules.options.reduce((obj, val) => {
         return {
           ...obj,
-          [`module-${val.value}-species`]: val.species
+          [`module-${normalise(val.value)}-species`]: val.species
 
         };
       }, {})
@@ -53,7 +52,7 @@ module.exports = settings => {
         return { module };
       }
 
-      const species = req.form.values[`module-${module}-species`];
+      const species = req.form.values[`module-${normalise(module)}-species`];
 
       if (!species) {
         throw new Error(`Please select at least one type of animal for module ${module}`);
