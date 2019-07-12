@@ -34,7 +34,7 @@ module.exports = settings => {
       .then(canUpdate => {
         res.locals.static.canUpdate = canUpdate;
 
-        const openTask = req.project.openTasks.find(task => task.status !== 'returned-to-applicant');
+        const openTask = req.project.openTasks[0];
         res.locals.static.openTask = openTask;
 
         res.locals.static.editPerms = {
