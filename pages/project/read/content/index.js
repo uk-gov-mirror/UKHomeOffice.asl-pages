@@ -14,11 +14,17 @@ module.exports = merge({}, baseContent, {
       action: 'Continue editing amendment',
       secondaryAction: 'Discard this amendment'
     },
-    submitted: {
+    submittedAmendment: {
       title: 'Amendment in progress',
       description: 'An amendment to this licence has been submitted and is being reviewed. You can view the details of this task or withdraw the amendment.',
       action: 'View task',
       secondaryAction: 'Recall amendment'
+    },
+    submittedDraft: {
+      title: 'Application in progress',
+      description: 'This application has been submitted and is being reviewed. You can view the details of this task or recall the application.',
+      action: 'View task',
+      secondaryAction: 'Recall application'
     },
     discard: {
       action: 'Discard this amendment',

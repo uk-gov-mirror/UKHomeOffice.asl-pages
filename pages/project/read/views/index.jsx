@@ -19,9 +19,13 @@ const getProjectDuration = model => {
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
 const App = ({ model, establishment, url, content, openTask, canAmend, canDeleteDraft, canUpdateLicenceHolder }) => {
-  const amendmentType = openTask
-    ? 'submitted'
-    : model.granted && model.draft ? 'continue' : 'create';
+  let amendmentType = '';
+
+  if (openTask) {
+    amendmentType = model.granted ? 'submittedAmendment' : 'submittedDraft';
+  } else {
+    amendmentType = model.granted && model.draft ? 'continue' : 'create';
+  }
 
   const { licenceHolder } = model;
 
@@ -132,17 +136,17 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
         openTask &&
           <Fragment>
             <hr />
-            <h2><Snippet>{`amendment.submitted.title`}</Snippet></h2>
+            <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
               <Snippet amendmentStartDate={model.draft && format(model.draft.createdAt, dateFormat.short)}>
-                {`amendment.submitted.description`}
+                {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
             <Link
               page="task.read"
               taskId={openTask.id}
               className="govuk-button button-secondary"
-              label={<Snippet>{`amendment.submitted.action`}</Snippet>}
+              label={<Snippet>{`amendment.${amendmentType}.action`}</Snippet>}
             />
           </Fragment>
       }
