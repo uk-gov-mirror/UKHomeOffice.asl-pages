@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Snippet, StickyNavPage, StickyNavAnchor, Link, Inset, DiffText, Field } from '@asl/components';
-import { dateFormat } from '../../../../constants';
 import { procedureDefinitions } from '../../../pil/content';
-import format from 'date-fns/format';
+import differenceInYears from 'date-fns/difference_in_years';
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
 import Modules from './modules';
 
 const Pil = ({ profile, values, task, children, schema, formFields }) => {
   const pil = task.data.action === 'update-conditions' ? values : task.data.data;
+  const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
 
   return (
     <StickyNavPage>
@@ -20,8 +20,12 @@ const Pil = ({ profile, values, task, children, schema, formFields }) => {
         <h2><Snippet>{`sticky-nav.applicant.${task.type}`}</Snippet></h2>
         <p><Link page="profile.view" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
         <dl>
-          <dt><Snippet>pil.applicant.dob</Snippet><span>:</span></dt>
-          <dd>{profile.dob ? format(profile.dob, dateFormat.medium) : <Snippet>pil.applicant.missingDob</Snippet>}</dd>
+          <dt><Snippet>pil.applicant.over18</Snippet></dt>
+          <dd>{
+            over18 === 'unknown'
+              ? <Snippet>pil.applicant.missingDob</Snippet>
+              : over18 === true ? 'Yes' : 'No'
+          }</dd>
         </dl>
       </StickyNavAnchor>
 
