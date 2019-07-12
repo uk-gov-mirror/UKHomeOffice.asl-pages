@@ -18,22 +18,12 @@ const getProjectDuration = model => {
 
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
-const App = ({ model, establishment, canUpdate, url, content }) => {
-  const openTask = model.openTasks.find(task => task.status !== 'returned-to-applicant');
-  const canAmend = canUpdate && model.status === 'active' && !openTask;
-
+const App = ({ model, establishment, url, content, openTask, canAmend, canDeleteDraft, canUpdateLicenceHolder }) => {
   const amendmentType = openTask
     ? 'submitted'
     : model.granted && model.draft ? 'continue' : 'create';
 
-  const canUpdateLicenceHolder = canUpdate &&
-    ((model.granted && !model.draft) || !model.granted) &&
-    !model.submitted &&
-    !openTask;
-
-  const {
-    licenceHolder
-  } = model;
+  const { licenceHolder } = model;
 
   const discard = type => e => {
     e.preventDefault();
@@ -110,7 +100,7 @@ const App = ({ model, establishment, canUpdate, url, content }) => {
       </ControlBar>
 
       {
-        (canAmend || openTask) &&
+        canAmend &&
           <Fragment>
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
@@ -119,38 +109,46 @@ const App = ({ model, establishment, canUpdate, url, content }) => {
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
-            {
-              openTask ? (
-                <Link
-                  page="task.read"
-                  taskId={openTask.id}
-                  className="govuk-button button-secondary"
-                  label={<Snippet>{`amendment.${amendmentType}.action`}</Snippet>}
-                />
-              ) : (
-                <Fragment>
-                  <form method="POST">
-                    <Button className="button-secondary">
-                      <Snippet>{`amendment.${amendmentType}.action`}</Snippet>
-                    </Button>
-                  </form>
+            <Fragment>
+              <form method="POST">
+                <Button className="button-secondary">
+                  <Snippet>{`amendment.${amendmentType}.action`}</Snippet>
+                </Button>
+              </form>
 
-                  {
-                    amendmentType === 'continue' &&
-                      <form method="POST" action={`${url}/delete/amendment`} onSubmit={discard('amendment')}>
-                        <button className="link">
-                          <span><Snippet>amendment.discard.action</Snippet></span>
-                        </button>
-                      </form>
-                  }
-                </Fragment>
-              )
-            }
+              {
+                amendmentType === 'continue' &&
+                  <form method="POST" action={`${url}/delete/amendment`} onSubmit={discard('amendment')}>
+                    <button className="link">
+                      <span><Snippet>amendment.discard.action</Snippet></span>
+                    </button>
+                  </form>
+              }
+            </Fragment>
           </Fragment>
       }
 
       {
-        !model.granted && model.draft && !openTask &&
+        openTask &&
+          <Fragment>
+            <hr />
+            <h2><Snippet>{`amendment.submitted.title`}</Snippet></h2>
+            <p>
+              <Snippet amendmentStartDate={model.draft && format(model.draft.createdAt, dateFormat.short)}>
+                {`amendment.submitted.description`}
+              </Snippet>
+            </p>
+            <Link
+              page="task.read"
+              taskId={openTask.id}
+              className="govuk-button button-secondary"
+              label={<Snippet>{`amendment.submitted.action`}</Snippet>}
+            />
+          </Fragment>
+      }
+
+      {
+        canDeleteDraft &&
           <Fragment>
             <hr />
             <h2><Snippet>discardDraft.title</Snippet></h2>
@@ -174,6 +172,24 @@ const App = ({ model, establishment, canUpdate, url, content }) => {
   );
 };
 
-const mapStateToProps = ({ model, static: { establishment, canUpdate, url, content } }) => ({ model, establishment, canUpdate, url, content });
+const mapStateToProps = ({
+  model,
+  static: {
+    establishment,
+    url,
+    content,
+    openTask,
+    editPerms: { canAmend, canDeleteDraft, canUpdateLicenceHolder }
+  }
+}) => ({
+  model,
+  establishment,
+  url,
+  content,
+  openTask,
+  canAmend,
+  canDeleteDraft,
+  canUpdateLicenceHolder
+});
 
 export default connect(mapStateToProps)(App);
