@@ -25,7 +25,7 @@ module.exports = {
   },
   pil: {
     applicant: {
-      dob: 'Date of birth',
+      over18: 'Applicant over 18?',
       missingDob: 'unknown'
     },
     training: {
