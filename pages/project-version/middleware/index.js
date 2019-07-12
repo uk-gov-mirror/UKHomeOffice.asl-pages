@@ -239,6 +239,16 @@ const getChangedValues = (question, req) => {
     });
 };
 
+const getProjectEstablishment = () => (req, res, next) => {
+  req.api(`/establishment/${req.project.establishmentId}`)
+    .then(({ json: { data } }) => {
+      req.project.establishment = data;
+      req.project.establishment.licenceHolder = (data.roles.find(r => r.type === 'pelh' || r.type === 'nprc') || {}).profile;
+    })
+    .then(() => next())
+    .catch(next);
+};
+
 module.exports = {
   getVersion,
   getComments,
@@ -246,5 +256,6 @@ module.exports = {
   getPreviousVersion,
   getGrantedVersion,
   getAllChanges,
-  getChangedValues
+  getChangedValues,
+  getProjectEstablishment
 };
