@@ -33,6 +33,15 @@ module.exports = settings => {
     req.user.can('project.update', params)
       .then(canUpdate => {
         res.locals.static.canUpdate = canUpdate;
+
+        const openTask = req.project.openTasks.find(task => task.status !== 'returned-to-applicant');
+        res.locals.static.openTask = openTask;
+
+        res.locals.static.editPerms = {
+          canAmend: canUpdate && req.project.status === 'active' && !openTask,
+          canDeleteDraft: canUpdate && !openTask && !req.project.granted && req.project.draft,
+          canUpdateLicenceHolder: canUpdate && ((req.project.granted && !req.project.draft) || !req.project.granted) && !req.project.submitted && !openTask
+        };
       })
       .then(() => next())
       .catch(next);
@@ -44,12 +53,6 @@ module.exports = settings => {
         req.versionId = data.data.id;
         res.redirect(req.buildRoute('project.version.update'));
       })
-      .catch(next);
-  });
-
-  app.post('/delete', (req, res, next) => {
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { method: 'DELETE' })
-      .then(() => res.redirect(req.buildRoute('project.list')))
       .catch(next);
   });
 

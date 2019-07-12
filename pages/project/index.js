@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const read = require('./read');
 const list = require('./list');
+const remove = require('./delete');
 const updateLicenceHolder = require('./update-licence-holder');
 const { permissions } = require('../../lib/middleware');
 
@@ -26,7 +27,12 @@ module.exports = () => {
     req.api(`/establishment/${req.establishmentId}/projects`, { method: 'POST' })
       .then(({ json: { data } }) => {
         req.projectId = data.data.id;
-        res.redirect(req.buildRoute('project.read'));
+
+        return req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}`)
+          .then(({ json: { data } }) => {
+            req.project = data;
+          })
+          .then(() => res.redirect(req.buildRoute('project.version.update', { projectId: req.project.id, versionId: req.project.draft.id })));
       })
       .catch(next);
   });
@@ -43,6 +49,7 @@ module.exports = () => {
   app.use('/', list());
   app.use('/:projectId', checkPermissions('project.read.single'), read());
   app.use('/:projectId/update-licence-holder', checkPermissions('project.update'), updateLicenceHolder());
+  app.use('/:projectId/delete', checkPermissions('project.read.single'), remove());
 
   return app;
 };
