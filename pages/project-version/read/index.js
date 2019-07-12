@@ -1,7 +1,6 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { canComment } = require('../middleware');
-const { getAllChanges } = require('../middleware');
+const { canComment, getAllChanges, getProjectEstablishment } = require('../middleware');
 
 module.exports = settings => {
   const app = page({
@@ -9,18 +8,19 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.use(canComment());
-  app.use(getAllChanges());
+  app.use(
+    canComment(),
+    getAllChanges(),
+    getProjectEstablishment()
+  );
 
   app.use((req, res, next) => {
-    const establishment = req.establishment;
     const task = get(req.project, 'openTasks[0]');
     const showComments = req.version.status !== 'granted' && !!task;
 
     res.locals.static.taskId = task ? task.id : null;
     res.locals.static.basename = req.buildRoute('project.version.read');
-    res.locals.static.establishments = req.user.profile.establishments.filter(e => e.id !== establishment.id);
-    res.locals.static.establishment = establishment;
+    res.locals.static.establishment = req.project.establishment;
     res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.version') === req.versionId;
     res.locals.static.user = req.user.profile;
     res.locals.static.showComments = showComments;
@@ -32,6 +32,7 @@ module.exports = settings => {
     res.locals.model = req.version;
     res.locals.static.project = req.project;
     res.locals.static.version = req.version.id;
+    res.locals.static.isGranted = req.project.status === 'active' && req.project.granted.id === req.version.id;
     next();
   });
 
