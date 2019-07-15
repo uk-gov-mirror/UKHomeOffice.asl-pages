@@ -34,6 +34,7 @@ module.exports = {
     label: 'Current restrictions'
   },
   comments: {
-    label: 'Why are you making this amendment?'
+    label: 'Why are you making this amendment?',
+    hint: 'Comments can be seen by establishment users, as well as inspectors and Home Office team members.'
   }
 };
