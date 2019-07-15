@@ -32,7 +32,11 @@ module.exports = settings => {
     res.locals.model = req.version;
     res.locals.static.project = req.project;
     res.locals.static.version = req.version.id;
-    res.locals.static.isGranted = req.project.status === 'active' && req.project.granted.id === req.version.id;
+    // granted legacy PPLs are displayed in "read-only" mode
+    // there is no "granted view" of legacy licences
+    res.locals.static.isGranted = req.project.status === 'active' &&
+      req.project.granted.id === req.version.id &&
+      req.project.schemaVersion > 0;
     next();
   });
 
