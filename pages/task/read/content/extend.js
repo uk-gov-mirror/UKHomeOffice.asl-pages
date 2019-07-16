@@ -4,8 +4,8 @@ const baseContent = require('./base');
 module.exports = merge({}, baseContent, {
   fields: {
     comment: {
-      label: '',
-      hint: 'Please tell us why you are extending this deadline by 15 days.'
+      label: 'Comments',
+      hint: 'Comments can be seen by establishment users, as well as inspectors and Home Office team members.'
     }
   }
 });
