@@ -37,9 +37,9 @@ module.exports = {
     withdrawAction: 'Withdraw {{type}}'
   },
   deadline: {
-    hint: 'Click the button below to extend the deadline by 15 days.',
+    hint: 'The statutory target deadline for complex or multidisciplinary applications can be extended by up to 15 working days.',
     extend: {
-      title: 'Extend deadline by 15 days.',
+      title: 'Extend statutory deadline',
       button: 'Extend deadline'
     }
   },
