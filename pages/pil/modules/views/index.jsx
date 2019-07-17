@@ -8,7 +8,7 @@ import {
   Fieldset,
   Header
 } from '@asl/components';
-
+import { Input } from '@ukhomeoffice/react-components';
 import { species } from '@asl/constants';
 import { normalise } from '../../../../lib/utils';
 
@@ -21,7 +21,7 @@ const connectComponent = key => {
       model,
       errors,
       option: key,
-      schema: mapKeys(schema, (v, k) => `module-${key}-${k}`),
+      schema: mapKeys(schema, (v, k) => `module-${normalise(key)}-${k}`),
       modulesThatRequireSpecies
     };
 
@@ -43,9 +43,7 @@ class RepeatedFieldset extends Component {
     super(options);
 
     this.state = {
-      items: this.props.model[`module-${normalise(this.props.type)}-species`]
-        ? this.props.model[`module-${normalise(this.props.type)}-species`]
-        : ['']
+      items: this.props.model[`module-${normalise(this.props.type)}-species`] || ['']
     };
   }
 
@@ -104,8 +102,11 @@ class RepeatedFieldset extends Component {
                       <Fieldset
                         schema={{ [fieldName]: speciesOptions }}
                         onChange={this.updateItem(index)}
-                        model={{ [fieldName]: item }}
+                        model={{ [fieldName]: !item || species.includes(item) ? item : 'Other' }}
                       />
+                      <fieldset className={!item || (species.includes(item) && item !== 'Other') ? 'hidden' : ''}>
+                        <Input name={`${fieldName}-other`} label={content.fields.other.label} value={!species.includes(item) ? item : ''} />
+                      </fieldset>
                     </Fragment>
                   );
                 })

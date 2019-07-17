@@ -20,11 +20,12 @@ module.exports = () => {
 
     req.model = exemptions.reduce((obj, value, key) => {
       const module = value.module;
+      const normalisedModule = normalise(module);
       return {
         ...obj,
         modules: [ ...obj.modules, module ],
-        [`module-${module}-reason`]: value.description,
-        [`module-${normalise(module)}-species`]: value.species
+        [`module-${normalisedModule}-reason`]: value.description,
+        [`module-${normalisedModule}-species`]: value.species
       };
     }, req.model);
 
@@ -36,11 +37,12 @@ module.exports = () => {
       req.form.schema = {
         ...schema,
         ...schema.modules.options.reduce((obj, val) => {
+          const normalisedModule = normalise(val.value);
 
           const type = {
             ...obj,
-            [`module-${val.value}-reason`]: val.reveal.reason,
-            [`module-${normalise(val.value)}-species`]: {
+            [`module-${normalisedModule}-reason`]: val.reveal.reason,
+            [`module-${normalisedModule}-species`]: {
               inputType: 'select',
               options: species,
               label: content.fields.species.label
@@ -61,7 +63,7 @@ module.exports = () => {
       next();
     },
     locals: (req, res, next) => {
-      const revealValues = moduleCodes.map(code => `module-${code}-reason`).concat(moduleCodes.map(code => `module-${normalise(code)}-species`));
+      const revealValues = moduleCodes.map(code => `module-${normalise(code)}-reason`).concat(moduleCodes.map(code => `module-${normalise(code)}-species`));
       res.locals.static.schema = omit(req.form.schema, revealValues);
       res.locals.static.modulesThatRequireSpecies = modulesThatRequireSpecies;
       Object.assign(
@@ -70,7 +72,7 @@ module.exports = () => {
           ...moduleCodes.reduce((obj, code) => {
             return {
               ...obj,
-              [`module-${code}-reason`]: {
+              [`module-${normalise(code)}-reason`]: {
                 customValidate: `${res.locals.static.content.errors.reason.customValidate} ${code}`
               }
             };
@@ -96,13 +98,14 @@ module.exports = () => {
       .then(() => {
         return Promise.all(
           req.form.values.modules.map(module => {
-            const species = req.form.values[`module-${normalise(module)}-species`];
+            const normalisedModule = normalise(module);
+            const species = req.form.values[`module-${normalisedModule}-species`];
             const opts = {
               method: 'POST',
               json: {
                 data: {
                   module,
-                  description: req.form.values[`module-${module}-reason`],
+                  description: req.form.values[`module-${normalisedModule}-reason`],
                   species: species ? castArray(species).filter(s => s !== '') : null
                 }
               }
