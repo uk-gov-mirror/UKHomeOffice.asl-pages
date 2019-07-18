@@ -8,7 +8,8 @@ import {
   Snippet,
   Header,
   Tabs,
-  LicenceStatusBanner
+  LicenceStatusBanner,
+  Link
 } from '@asl/components';
 
 import formatters from '../../formatters';
@@ -34,9 +35,12 @@ const Projects = ({
     />
     {
       allowedActions.includes('project.apply') && (
-        <form method="POST" action="projects/create">
-          <Button className="float-right button-secondary"><Snippet>buttons.create</Snippet></Button>
-        </form>
+        <p className="control-panel projects-actions">
+          <form method="POST" action="projects/create">
+            <Button><Snippet>buttons.create</Snippet></Button>
+          </form>
+          <Link page="project.import" className="govuk-button button-secondary" label={<Snippet>buttons.upload</Snippet>} />
+        </p>
       )
     }
     <Tabs active={tabs.indexOf(status)}>

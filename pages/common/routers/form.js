@@ -1,7 +1,18 @@
 const { Router } = require('express');
+const multer = require('multer');
 const bodyParser = require('body-parser');
 const { generateSecret, checkSecret } = require('../../../lib/middleware/csrf');
-const { mapValues, size, get, isUndefined, identity, pickBy, pick } = require('lodash');
+const {
+  mapValues,
+  map,
+  size,
+  get,
+  isUndefined,
+  identity,
+  pickBy,
+  pick,
+  omit
+} = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged, cleanModel } = require('../../../lib/utils');
 
@@ -59,6 +70,21 @@ module.exports = ({
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
     req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
     return configure(req, res, next);
+  };
+
+  const _parse = (req, res, next) => {
+    const contentType = req.get('content-type');
+    if (contentType && contentType.match(/multipart\/form-data/)) {
+      const storage = multer.memoryStorage();
+      const options = map(pickBy(req.form.schema, field => field.inputType === 'inputFile'), (value, name) => {
+        return {
+          name,
+          maxCount: value.maxCount || 1
+        };
+      });
+      return multer({ storage }).fields(options)(req, res, next);
+    }
+    return bodyParser.urlencoded({ extended: false })(req, res, next);
   };
 
   const _processQuery = (req, res, next) => {
@@ -122,7 +148,11 @@ module.exports = ({
   };
 
   const _validate = (req, res, next) => {
-    const validation = validator(req.form.values, req.form.schema, req.model);
+    const fileKeys = Object.keys(req.form.schema).filter(k => req.form.schema[k].inputType === 'inputFile');
+    const validation = {
+      ...validator(req.form.values, omit(req.form.schema, fileKeys), req.model),
+      ...validator(req.files, pick(req.form.schema, fileKeys), req.model)
+    };
     if (size(validation)) {
       return next({ validation });
     }
@@ -170,8 +200,8 @@ module.exports = ({
   );
 
   form.post('/',
-    bodyParser.urlencoded({ extended: false }),
     _configure,
+    _parse,
     _checkSecret,
     _clearErrors,
     _process,
