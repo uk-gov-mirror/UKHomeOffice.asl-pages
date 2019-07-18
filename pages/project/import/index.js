@@ -9,6 +9,7 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
+    req.breadcrumb('project.upload');
     req.model = {
       id: 'new-project'
     };

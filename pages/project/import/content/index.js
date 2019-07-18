@@ -8,10 +8,10 @@ module.exports = {
   },
   errors: {
     upload: {
-      fileRequired: 'Choose a file to import',
-      maxSize: 'Only files smaller than 5mb can be uploaded',
-      mimeType: 'Only .ppl files can be uploaded',
-      ext: 'Only .ppl files can be uploaded'
+      fileRequired: 'Select a PPL',
+      maxSize: 'The PPL should be smaller than 5MB',
+      mimeType: 'The selected file must be a PPL',
+      ext: 'The selected file must be a PPL'
     }
   }
 };

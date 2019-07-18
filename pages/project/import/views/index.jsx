@@ -12,6 +12,7 @@ const ImportPage = ({ establishment: { name } }) => (
       title={<Snippet>title</Snippet>}
       subtitle={name}
     />
+    <p><Snippet>hint</Snippet></p>
   </FormLayout>
 );
 
