@@ -221,7 +221,7 @@ class Profile extends React.Component {
                 <Snippet role={profileRole}>permissionLevel.title</Snippet>
               </h3>
               <p><Snippet>{`fields.role.options.${profileRole}.label`}</Snippet></p>
-              <p><Snippet>{`fields.role.options.${profileRole}.hint`}</Snippet></p>
+              <Snippet>{`fields.role.options.${profileRole}.hint`}</Snippet>
               <p className="control-panel">
                 { !isOwnProfile &&
                   <Link
