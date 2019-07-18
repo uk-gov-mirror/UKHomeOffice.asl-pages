@@ -9,7 +9,7 @@ module.exports = req => {
       ...speciesMap,
       [`module-${normalisedModule}-species`]: Object.values(pickBy(req.body, (value, key) => {
         return startsWith(key, `module-${normalisedModule}-species`);
-      })).filter(s => s !== '')
+      })).filter(s => s !== 'Other' && s !== '')
     };
   }, {});
 };
