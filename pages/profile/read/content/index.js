@@ -1,4 +1,7 @@
-module.exports = {
+const { merge } = require('lodash');
+const baseContent = require('../../content');
+
+module.exports = merge({}, baseContent, {
   profile: 'Profile',
   responsibilities: {
     title: 'Named roles',
@@ -48,4 +51,4 @@ module.exports = {
     under18: 'Personal licence holders must be over 18.',
     addDob: 'Please add your date of birth to your account.'
   }
-};
+});
