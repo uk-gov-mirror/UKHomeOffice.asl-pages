@@ -3,9 +3,14 @@ $font-family: Helvetica, Arial, sans-serif;
 //colours
 $purple: #8F23B3;
 $text: #222222;
+$lighter-grey: #F2F2F2;
 $light-grey: #DEE0E2;
 $dark-grey: #6F777B;
 $mid-grey: #BFC1C3;
+$dark-purple: #4C2C92;
+
+//spacing
+$govuk-gutter: 30px;
 
 //typography
 h1 {
@@ -13,16 +18,11 @@ h1 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 24px;
 }
 
 h3 {
-  font-size: 20px;
-}
-
-h4 {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 15px;
 }
 
 .float-left {
@@ -40,8 +40,8 @@ h4 {
 body {
   -webkit-print-color-adjust: exact;
   font-family: $font-family;
-  font-size: 16px;
+  font-size: 15px;
   text-rendering: optimizeLegibility;
-  line-height: 1.5;
+  line-height: 1.2;
   color: $text;
 }
