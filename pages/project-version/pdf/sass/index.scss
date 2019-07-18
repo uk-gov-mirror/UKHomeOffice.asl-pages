@@ -1,15 +1,72 @@
 @import 'base';
+@import 'images';
 
-h1 {
-  border-left: 5px solid $purple;
+@mixin tab {
+  font-size: 24px;
+  background-color: $dark-grey;
+  color: white;
+  display: inline-block;
+  font-weight: normal;
+  padding: 3px 15px;
+  margin-bottom: 0;
+}
+
+.logo {
+  background-image: $logo;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  width: auto;
+  height: 65px;
+  margin-bottom: $govuk-gutter * 2;
+}
+
+.granted-section {
+  page-break-inside: avoid;
+}
+
+h1.project-title {
+  font-size: 35px;
+  font-weight: normal;
+  margin-bottom: $govuk-gutter * 2;
+}
+
+.review {
+  .grey {
+    display: none;
+  }
+}
+
+.hint {
+  display: none;
+}
+
+.protocol-content .expanding-panel header h3 {
+  display: none;
+}
+
+.licence-holder {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.purple-inset, .condition {
+  border-left: 4px solid $purple;
   padding-left: 10px;
-  line-height: 45px;
-  text-transform: uppercase
 }
 
 h2.subtitle {
   font-weight: normal;
   margin-left: 15px;
+}
+
+h3.licence {
+  font-size: 23px;
+  text-transform: uppercase;
+  margin-bottom: 60px;
+}
+
+hr {
+  display: none;
 }
 
 dl dt {
@@ -27,13 +84,51 @@ dl dd {
   text-indent: 5px;
 }
 
-.section {
+.section:not(.legacy-pdf .section) {
   page-break-after: always;
 }
 
+.section.protocols {
+  page-break-before: always;
+}
+
+.conditions h2 {
+  font-size: 15px !important;
+}
+
+.granted-page.action-plan {
+  > h3:first-of-type {
+    display: none;
+  }
+
+  .objective-review {
+    h3 {
+      display: none;
+    }
+
+    h2 {
+      @extend h3;
+      display: block;
+    }
+  }
+}
+
+.protocol {
+  .protocol-purpose h3,
+  .locations h3 {
+    @extend h2;
+  }
+
+  h2.group {
+    display: none;
+  }
+}
+
 .summary-table {
-  padding: 15px;
-  page-break-after: always;
+
+  > h3 {
+    @include tab;
+  }
 
   table {
     width: 100%;
@@ -58,19 +153,15 @@ dl dd {
 }
 
 .protocol {
-  padding: 15px;
   page-break-after: always;
+  page-break-before: always;
 
   .field {
     page-break-during: avoid;
   }
 
   .protocol-number {
-    background-color: #777;
-    display: inline-block;
-    color: white;
-    padding: 10px 15px;
-    margin: 0;
+    @include tab;
   }
 
   .protocol-panel {
@@ -121,17 +212,62 @@ dl dd {
   }
 
   .protocol-content {
-    margin: 15px;
-
     h2 {
       font-size: 24px;
       margin-top: 40px;
       margin-bottom: 0px;
+    }
+
+    .granted-steps {
+      h2.step-number {
+        @include tab;
+        background-color: $dark-purple;
+        font-size: 15px;
+        font-weight: bold;
+      }
+
+      .header {
+        .review {
+          border: 1px solid $dark-purple;
+          background-color: $lighter-grey;
+          padding: 0 15px;
+        }
+      }
     }
   }
 
   p.end {
     text-align: center;
     font-weight: bold;
+  }
+}
+
+.anaesthetic-codes {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}
+
+.standard-conditions {
+  > ol {
+    padding-left: 1.2em;
+
+    ol {
+      counter-reset: list;
+
+      > li {
+        list-style: none;
+        position: relative;
+
+        &:before {
+          counter-increment: list;
+          content: "(" counter(list, lower-alpha) ") ";
+          position: absolute;
+          left: -1.4em;
+        }
+      }
+    }
   }
 }

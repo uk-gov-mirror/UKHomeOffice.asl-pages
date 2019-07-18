@@ -3,6 +3,7 @@ import fetch from 'r2';
 import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
 import createStore from '@asl/projects/client/store';
+import { getProjectEstablishment } from '../middleware';
 import App from './views';
 import Header from './views/header';
 import Footer from './views/footer';
@@ -10,12 +11,18 @@ import Footer from './views/footer';
 module.exports = settings => {
   const app = Router();
 
+  app.use(getProjectEstablishment());
+
   app.get('/', (req, res, next) => {
     const initialState = {
       project: req.version.data,
       application: {
-        schemaVersion: req.version.project.schemaVersion,
-        readonly: true
+        schemaVersion: req.project.schemaVersion,
+        establishment: req.project.establishment,
+        project: req.project,
+        isGranted: true,
+        readonly: true,
+        showConditions: true
       }
     };
     const store = createStore(initialState);
