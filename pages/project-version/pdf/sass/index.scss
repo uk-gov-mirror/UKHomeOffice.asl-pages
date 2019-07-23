@@ -96,6 +96,11 @@ dl dd {
   font-size: 15px !important;
 }
 
+.granted-condition,
+.granted-authorisation {
+  page-break-inside: avoid;
+}
+
 .granted-page.action-plan {
   > h3:first-of-type {
     display: none;
@@ -121,6 +126,12 @@ dl dd {
 
   h2.group {
     display: none;
+  }
+}
+
+.granted-step {
+  .header {
+    page-break-inside: avoid;
   }
 }
 
