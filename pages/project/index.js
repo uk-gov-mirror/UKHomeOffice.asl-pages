@@ -2,6 +2,7 @@ const { Router } = require('express');
 const read = require('./read');
 const list = require('./list');
 const remove = require('./delete');
+const importProject = require('./import');
 const updateLicenceHolder = require('./update-licence-holder');
 const { permissions } = require('../../lib/middleware');
 
@@ -9,7 +10,7 @@ module.exports = () => {
   const app = Router({ mergeParams: true });
 
   app.param('projectId', (req, res, next, projectId) => {
-    if (projectId === 'create') {
+    if (projectId === 'create' || projectId === 'import') {
       return next('route');
     }
     req.projectId = projectId;
@@ -47,6 +48,7 @@ module.exports = () => {
   };
 
   app.use('/', list());
+  app.use('/import', permissions('project.apply'), importProject());
   app.use('/:projectId', checkPermissions('project.read.single'), read());
   app.use('/:projectId/update-licence-holder', checkPermissions('project.update'), updateLicenceHolder());
   app.use('/:projectId/delete', checkPermissions('project.read.single'), remove());

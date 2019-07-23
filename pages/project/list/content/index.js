@@ -4,6 +4,7 @@ const baseContent = require('../../content');
 module.exports = merge({}, baseContent, {
   searchText: 'Search by project title, licence holder or licence number',
   buttons: {
-    create: 'Draft new application'
+    create: 'Apply for project licence',
+    upload: 'Upload draft application'
   }
 });

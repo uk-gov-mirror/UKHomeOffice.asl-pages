@@ -48,7 +48,8 @@ module.exports = {
       read: '{{project.title}}',
       update: 'Edit draft',
       amend: 'Amend licence',
-      updateLicenceHolder: 'Update licence holder'
+      updateLicenceHolder: 'Update licence holder',
+      upload: 'Upload draft application'
     },
     account: {
       menu: 'Your account',
