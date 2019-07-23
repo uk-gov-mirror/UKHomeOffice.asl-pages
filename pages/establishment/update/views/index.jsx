@@ -105,7 +105,7 @@ class Repeat extends Component {
 
               <Fieldset
                 {...this.props}
-                model={mapKeys(authorisations[index], (val, key) => `authorisation-${authorisation.type}-${key}-${authorisation.id}`)}
+                model={mapKeys(authorisations.filter(auth => auth.type !== undefined), (val, key) => `authorisation-${authorisation.type}-${key}-${authorisation.id}`)}
                 onChange={this.onFieldsetChange(index)}
                 schema={
                   mapKeys(
