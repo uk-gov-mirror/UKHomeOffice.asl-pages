@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
-    "@asl/components": "^3.20.0",
+    "@asl/components": "^3.21.0",
     "@asl/constants": "^0.3.2",
     "@asl/dictionary": "^1.1.2",
     "@asl/projects": "^4.2.1",
