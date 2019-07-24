@@ -169,7 +169,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
         model.status === 'active' &&
           <Fragment>
             <hr />
-            <p><Link page="project.version.pdf" versionId={model.status === 'active' ? model.granted.id : model.draft.id} className="govuk-button button-secondary" label="Export Licence as PDF" /></p>
+            <p><Link page="project.version.pdf" versionId={model.status === 'active' ? model.granted.id : model.draft.id} className="govuk-button button-secondary" label="Export licence as PDF" /></p>
           </Fragment>
       }
     </Fragment>

@@ -13,11 +13,10 @@ module.exports = merge({}, baseContent, {
   },
   title: 'Change permission level',
   remove: {
-    title: 'Remove permissions for this establishment',
-    warning: `If you remove the user from this establishment they will no longer be able to view any of this
+    title: 'Remove permissions',
+    warning: `If you remove this person from this establishment, they will no longer be able to view any of this
       establishment's data.`,
-    nonRemovable: `This user can not be removed because they hold current active licences or a position of responsibility
-      in this establishment. If you wish to remove this user from your establishment, you need to revoke their licences or
+    nonRemovable: `This person currently holds an active licence or a position of responsibility in this establishment. To remove them from your establishment, you should revoke their licences or
       reassign their areas of responsibility.`
   },
   notifications: {
