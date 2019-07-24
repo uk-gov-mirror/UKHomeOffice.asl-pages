@@ -2,7 +2,7 @@ const { merge } = require('lodash');
 const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
-  title: 'Personal Licence',
+  title: 'Personal licence',
   fields: {
     licenceNumber: { label: 'Licence number' },
     status: { label: 'Status' },

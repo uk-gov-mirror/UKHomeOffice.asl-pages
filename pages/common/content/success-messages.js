@@ -19,7 +19,7 @@ module.exports = {
         title: 'Amendment returned',
         body: `The person who submitted the amendment will review your comments.
 
-          They can then choose to withdraw the amendment, or submit an edited version.`
+          They can then choose to withdraw the amendment, or submit a new one.`
       },
       resolved: {
         title: 'Amendment approved',
@@ -41,9 +41,7 @@ module.exports = {
     revocation: {
       resubmitted: {
         title: 'Revocation submitted',
-        body: `A licensing officer will review your revocation and contact you if they need any more information.
-
-          You will be notified by the Home Office when your revocation is approved or rejected.`
+        body: `A licensing officer will review your request to revoke this licence and contact you if they need any more information.`
       },
       resolved: {
         title: 'Licence revoked',
@@ -75,7 +73,7 @@ module.exports = {
 
           The person who submitted this application will review your comments.
 
-          They can then choose to withdraw their application, or submit an edited version.`
+          They can then choose to withdraw their application, or submit a new one.`
       },
       'referred-to-inspector': {
         title: 'Application referred',
@@ -133,7 +131,7 @@ module.exports = {
 
           The person who submitted this amendment will review your comments.
 
-          They can then choose to withdraw their amendment, or submit an edited version.`
+          They can then choose to withdraw their amendment, or submit a new one.`
       },
       'referred-to-inspector': {
         title: 'Amendment referred',
@@ -192,7 +190,7 @@ module.exports = {
         title: 'Application returned',
         body: `The applicant will review your comments and address any changes that need to be made.
 
-          They can then choose to withdraw their application, or submit an edited version.`
+          They can then choose to withdraw their application, or submit a new one.`
       },
       resolved: {
         title: 'Licence granted',
@@ -224,7 +222,7 @@ module.exports = {
         title: 'Amendment returned',
         body: `The person who submitted the amendment will review your comments.
 
-          They can then choose to withdraw the amendment, or submit an edited version.`
+          They can then choose to withdraw the amendment, or submit a new one.`
       },
       resolved: {
         title: 'Amendment approved',
