@@ -42,7 +42,7 @@ module.exports = {
       'no-review-reason': 'Reason'
     },
     'ready-for-inspector': {
-      question: 'Has an inspector advised you that this version of your draft application is ready for assessment?'
+      question: 'Has an inspector advised that this version of the draft application is ready for assessment?'
     }
   }
 };
