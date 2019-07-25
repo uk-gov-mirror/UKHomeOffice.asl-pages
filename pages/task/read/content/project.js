@@ -31,8 +31,18 @@ module.exports = {
     }
   },
   declarations: {
-    'pel-holder': 'Does this application have the endorsement of your primary establishment\'s PEL holder?',
-    'awerb': 'Has the application been reviewed by the AWERB of each relevant establishment?',
-    'ready-for-inspector': 'Has the applicant deemed the application ready for Inspector approval?'
+    'pel-holder': {
+      question: 'Does this application have the endorsement of your primary establishment\'s PEL holder?',
+      name: 'PEL Holder:',
+      'endorsement-date': 'Endorsement date: '
+    },
+    'awerb': {
+      question: 'Has the application been reviewed by the AWERB of each relevant establishment?',
+      'review-date': 'AWERB review date:',
+      'no-review-reason': 'Reason'
+    },
+    'ready-for-inspector': {
+      question: 'Has the applicant deemed the application ready for Inspector approval?'
+    }
   }
 };
