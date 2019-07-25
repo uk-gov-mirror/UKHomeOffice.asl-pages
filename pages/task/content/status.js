@@ -23,7 +23,7 @@ module.exports = {
     hint: {
       application: 'The application will be sent to an inspector for assessment.',
       amendment: 'The amendment will be sent to an inspector for assessment.',
-      revocation: 'The revocation will be sent to an inspector for assessment.'
+      revocation: 'The revocation request will be sent to an inspector for assessment.'
     },
     log: 'Referred by'
   },
@@ -33,7 +33,7 @@ module.exports = {
     hint: {
       application: 'The application will be returned to the applicant with your comments.',
       amendment: 'The amendment will be returned to the applicant with your comments.',
-      revocation: 'The revocation will be returned to the applicant with your comments.'
+      revocation: 'The revocation request will be returned to the applicant with your comments.'
     },
     log: 'Returned by'
   },
@@ -47,7 +47,7 @@ module.exports = {
     hint: {
       application: 'You will need to create a new application to apply for this type of licence in the future.',
       amendment: 'You will need to create a new amendment to submit these changes again.',
-      revocation: 'You will need to create a new revocation for this licence to be revoked.'
+      revocation: 'You will need to create a new revocation request for this licence to be revoked.'
     },
     log: 'Withdrawn by'
   },
@@ -73,7 +73,7 @@ module.exports = {
     hint: {
       application: 'The application will be sent to a Licensing Officer who will action your recommendation.',
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.',
-      revocation: 'The revocation will be sent to a Licensing Officer who will action your recommendation.'
+      revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.'
     },
     log: 'Recommended by',
     recommendation: '**Recommendation:** Approve'
@@ -84,7 +84,7 @@ module.exports = {
     hint: {
       application: 'The application will be sent to a Licensing Officer who will action your recommendation.',
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.',
-      revocation: 'The revocation will be sent to a Licensing Officer who will action your recommendation.'
+      revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.'
     },
     log: 'Recommended by',
     recommendation: '**Recommendation:**  Reject'
@@ -99,7 +99,7 @@ module.exports = {
     hint: {
       application: 'Your application will be sent to the Home Office for review.',
       amendment: 'Your amendment will be sent to the Home Office for review.',
-      revocation: 'Your revocation will be sent to the Home Office for review.'
+      revocation: 'Your revocation request will be sent to the Home Office for review.'
     },
     log: 'Resubmitted by'
   },
@@ -131,7 +131,7 @@ module.exports = {
     hint: {
       application: 'The applicant will need to create a new application to apply for this type of licence in the future.',
       amendment: 'The applicant will need to create a new amendment to submit these changes again.',
-      revocation: 'The applicant will need to create a new revocation for this licence to be revoked.'
+      revocation: 'The applicant will need to create a new revocation request for this licence to be revoked.'
     },
     log: 'Rejected by'
   },
