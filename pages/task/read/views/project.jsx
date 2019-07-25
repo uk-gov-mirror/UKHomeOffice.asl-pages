@@ -28,10 +28,8 @@ const completeAndCorrect = task => {
 const declarationConfirmed = declaration => declaration.toLowerCase() === 'yes';
 
 const allDeclarationsConfirmed = task => {
-  const declarations = task.data.meta;
-  return declarationConfirmed(declarations.authority) &&
-    declarationConfirmed(declarations.awerb) &&
-    declarationConfirmed(declarations.ready);
+  const { authority, awerb, ready } = task.data.meta;
+  return declarationConfirmed(authority) && declarationConfirmed(awerb) && declarationConfirmed(ready);
 };
 
 const Project = ({ task, project, establishment, children, schema, formFields }) => {
