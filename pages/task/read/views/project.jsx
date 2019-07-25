@@ -28,15 +28,15 @@ const completeAndCorrect = task => {
 const declarationConfirmed = declaration => declaration.toLowerCase() === 'yes';
 
 const allDeclarationsConfirmed = task => {
-  const taskMeta = task.data.meta;
-  return declarationConfirmed(taskMeta.authority) &&
-    declarationConfirmed(taskMeta.awerb) &&
-    declarationConfirmed(taskMeta.ready);
+  const declarations = task.data.meta;
+  return declarationConfirmed(declarations.authority) &&
+    declarationConfirmed(declarations.awerb) &&
+    declarationConfirmed(declarations.ready);
 };
 
 const Project = ({ task, project, establishment, children, schema, formFields }) => {
   const submitted = get(task, 'data.data.version');
-  const taskMeta = task.data.meta;
+  const declarations = task.data.meta;
 
   const formatters = {
     licenceHolder: {
@@ -79,41 +79,41 @@ const Project = ({ task, project, establishment, children, schema, formFields })
               task.status === 'with-inspectorate' && (
                 <Fragment>
                   <p><strong><Snippet>declarations.pel-holder.question</Snippet></strong></p>
-                  <p>{taskMeta.authority}</p>
+                  <p>{declarations.authority}</p>
                   {
-                    declarationConfirmed(taskMeta.authority) &&
+                    declarationConfirmed(declarations.authority) &&
                       <Fragment>
                         <p>
-                          <Snippet>declarations.pel-holder.name</Snippet> {taskMeta['authority-pelholder-name']}
+                          <Snippet>declarations.pel-holder.name</Snippet> {declarations['authority-pelholder-name']}
                         </p>
                         <p>
-                          <Snippet>declarations.pel-holder.endorsement-date</Snippet> {taskMeta['authority-endorsement-date']}
+                          <Snippet>declarations.pel-holder.endorsement-date</Snippet> {declarations['authority-endorsement-date']}
                         </p>
                       </Fragment>
                   }
 
                   <p><strong><Snippet>declarations.awerb.question</Snippet></strong></p>
-                  <p>{taskMeta.awerb}</p>
+                  <p>{declarations.awerb}</p>
                   {
-                    declarationConfirmed(taskMeta.awerb) &&
+                    declarationConfirmed(declarations.awerb) &&
                       <Fragment>
                         <p>
-                          <Snippet>declarations.awerb.review-date</Snippet> {taskMeta['awerb-review-date']}
+                          <Snippet>declarations.awerb.review-date</Snippet> {declarations['awerb-review-date']}
                         </p>
                       </Fragment>
                   }
                   {
                     // we don't collect a reason for 'Not yet'
-                    taskMeta.awerb.toLowerCase() === 'no' &&
+                    declarations.awerb.toLowerCase() === 'no' &&
                       <Fragment>
                         <p>
-                          <Snippet>declarations.awerb.no-review-reason</Snippet> {taskMeta['awerb-no-review-reason']}
+                          <Snippet>declarations.awerb.no-review-reason</Snippet> {declarations['awerb-no-review-reason']}
                         </p>
                       </Fragment>
                   }
 
                   <p><strong><Snippet>declarations.ready-for-inspector.question</Snippet></strong></p>
-                  <p>{taskMeta.ready}</p>
+                  <p>{declarations.ready}</p>
                 </Fragment>
               )
             }
