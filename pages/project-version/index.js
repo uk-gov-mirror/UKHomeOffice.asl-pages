@@ -3,6 +3,7 @@ const { get } = require('lodash');
 const bodyParser = require('body-parser');
 const read = require('./read');
 const pdf = require('./pdf');
+const docx = require('./docx');
 const { getVersion, getComments, getChangedValues } = require('./middleware');
 
 module.exports = settings => {
@@ -54,6 +55,7 @@ module.exports = settings => {
       .catch(next);
   });
 
+  app.use('/docx', docx(settings));
   app.use('/pdf', pdf(settings));
   app.use('/*', read());
 
