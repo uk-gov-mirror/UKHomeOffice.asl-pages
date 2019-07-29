@@ -51,7 +51,7 @@
     "find-root": "^1.1.0",
     "govuk-frontend": "^1.3.0",
     "jest": "^24.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "minimatch": "^3.0.4",
     "moment": "^2.22.2",
     "moment-business-time": "^0.7.1",
