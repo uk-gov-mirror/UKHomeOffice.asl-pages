@@ -19,7 +19,13 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+
     res.locals.model = req.project;
+    // if the latest version of the project is withdrawn, set it to draft
+    if (!res.locals.model.draft && res.locals.model.versions && res.locals.model.versions[0].status === 'withdrawn') {
+      res.locals.model.draft = res.locals.model.versions[0];
+      res.locals.model.draft.status = 'draft';
+    }
     res.locals.static.establishment = req.establishment;
     next();
   });
