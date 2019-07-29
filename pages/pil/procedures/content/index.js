@@ -22,5 +22,8 @@ module.exports = {
     procedures: {
       title: 'Which procedures do you want to be licensed to carry out?'
     }
+  },
+  buttons: {
+    submit: 'Continue'
   }
 };
