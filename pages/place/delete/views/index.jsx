@@ -29,6 +29,7 @@ const DeletePage = ({
             <TextArea
               label={<Snippet>fields.comments.label</Snippet>}
               value={model.comments}
+              autoExpand={true}
               name="comments"
             />
             <ControlBar block={true}>
