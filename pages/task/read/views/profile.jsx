@@ -10,7 +10,7 @@ import MakeDecision from './make-decision';
 
 const formatters = {
   dob: {
-    format: date => format(date, dateFormat.short)
+    format: date => date ? format(date, dateFormat.short) : '-'
   }
 };
 
