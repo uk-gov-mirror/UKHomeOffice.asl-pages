@@ -18,10 +18,10 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
 
   const formatters = {
     issueDate: {
-      format: issueDate => dateFormatter(issueDate, dateFormat.medium)
+      format: issueDate => issueDate ? dateFormatter(issueDate, dateFormat.medium) : '-'
     },
     revocationDate: {
-      format: revocationDate => dateFormatter(revocationDate, dateFormat.medium)
+      format: revocationDate => revocationDate ? dateFormatter(revocationDate, dateFormat.medium) : '-'
     },
     species: {
       format: pilSpecies => {
