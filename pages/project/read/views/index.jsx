@@ -93,6 +93,15 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
         }
 
         {
+          !model.granted && model.withdrawn &&
+            <form method="POST">
+              <button className="govuk-button">
+                <span><Snippet>fields.draft.view</Snippet></span>
+              </button>
+            </form>
+        }
+
+        {
           model.granted &&
             <Link
               page="project.version.read"
