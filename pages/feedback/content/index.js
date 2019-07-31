@@ -1,10 +1,10 @@
 module.exports = {
   feedback: {
     title: 'Feedback',
-    content: `Please email feedback to [animalscience@digital.homeoffice.gov.uk](mailto:animalscience@digital.homeoffice.gov.uk)
+    content: `Please send any feedback to [aspelqueries@homeoffice.gov.uk](mailto:aspelqueries@homeoffice.gov.uk).
 
-All feedback will be read and considered, but might not get a response.
+All feedback will be read and considered, but may not be dealt with immediately.
 
-Include screengrabs and links in your emails, and be descriptive about any issues you notice, so we look to fix them.`
+Please include a detailed summary of the issue in your email, along with any screengrabs or links that help to illustrate the issue you're experiencing.`
   }
 };
