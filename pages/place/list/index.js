@@ -11,6 +11,10 @@ module.exports = settings => {
 
   app.use(datatable({
     filters: Object.keys(pickBy(schema, s => s.filter)),
+    configure: (req, res, next) => {
+      req.datatable.sort = { column: 'site', ascending: true };
+      next();
+    },
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/places`;
       next();
