@@ -29,7 +29,7 @@ const formatters = {
       <Link page="profile.view" profileId={id} label={`${firstName} ${lastName}`} />
   },
   expiryDate: {
-    format: date => <ExpiryDate date={date}/>
+    format: date => date ? <ExpiryDate date={date}/> : '-'
   },
   updatedAt: {
     format: date => formatDate(date, dateFormat.datetime)
