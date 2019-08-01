@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
 import { Header, Link, LicenceStatusBanner, Snippet, ControlBar } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import format from 'date-fns/format';
+import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 
 const getProjectDuration = model => {
@@ -73,10 +73,10 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
               <dd>{getProjectDuration(model)}</dd>
 
               <dt><Snippet>fields.issueDate.label</Snippet></dt>
-              <dd>{format(model.issueDate, dateFormat.medium)}</dd>
+              <dd>{formatDate(model.issueDate, dateFormat.medium)}</dd>
 
               <dt><Snippet>fields.expiryDate.label</Snippet></dt>
-              <dd>{format(model.expiryDate, dateFormat.medium)}</dd>
+              <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
             </Fragment>
         }
       </dl>
@@ -109,7 +109,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
-              <Snippet amendmentStartDate={model.draft && format(model.draft.createdAt, dateFormat.short)}>
+              <Snippet amendmentStartDate={model.draft && formatDate(model.draft.createdAt, dateFormat.short)}>
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
@@ -138,7 +138,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
-              <Snippet amendmentStartDate={model.draft && format(model.draft.createdAt, dateFormat.short)}>
+              <Snippet amendmentStartDate={model.draft && formatDate(model.draft.createdAt, dateFormat.short)}>
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>

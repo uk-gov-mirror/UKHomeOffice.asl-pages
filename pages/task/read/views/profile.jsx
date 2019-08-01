@@ -4,13 +4,14 @@ import omit from 'lodash/omit';
 import { Snippet, StickyNavPage, StickyNavAnchor, Diff, Field } from '@asl/components';
 import userSchema from '../../../user/update/schema';
 import { dateFormat } from '../../../../constants';
-import format from 'date-fns/format';
+import { formatDate } from '../../../../lib/utils';
+
 import WithdrawApplication from './withdraw-application';
 import MakeDecision from './make-decision';
 
 const formatters = {
   dob: {
-    format: date => date ? format(date, dateFormat.short) : '-'
+    format: date => formatDate(date, dateFormat.short)
   }
 };
 

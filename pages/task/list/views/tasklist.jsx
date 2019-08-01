@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import format from 'date-fns/format';
+import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import {
   Tabs,
@@ -15,7 +15,7 @@ const bad = ['rejected', 'withdrawn'];
 
 const formatters = {
   updatedAt: {
-    format: date => format(date, dateFormat.medium)
+    format: date => formatDate(date, dateFormat.medium)
   },
   establishment: {
     format: (establishment, model) => establishment || '-'

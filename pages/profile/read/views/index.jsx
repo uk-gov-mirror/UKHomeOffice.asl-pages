@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import dateFormatter from 'date-fns/format';
+import { formatDate } from '../../../../lib/utils';
 import { Header } from '@asl/components';
 import Profile from './profile';
 import { dateFormat } from '../../../../constants';
@@ -32,7 +32,7 @@ const Index = ({
             {
               model.dob && isOwnProfile && <Fragment>
                 <dt>Date of birth:</dt>
-                <dd>{ dateFormatter(model.dob, dateFormat.medium) }</dd>
+                <dd>{ formatDate(model.dob, dateFormat.medium) }</dd>
               </Fragment>
             }
           </dl>

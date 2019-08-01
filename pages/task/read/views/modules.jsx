@@ -1,15 +1,14 @@
 import React, { Fragment } from 'react';
 import { Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
-import format from 'date-fns/format';
+import { formatDate } from '../../../../lib/utils';
 
 const Modules = ({certificates}) => {
-  const formatDate = date => format(date, dateFormat.short);
   return certificates.map((certificate, index) => (
     <div key={index}>
       <h3><Snippet>pil.training.certificate.details</Snippet></h3>
       <p><Snippet>pil.training.certificate.number</Snippet><span>:</span> {certificate.certificateNumber}</p>
-      <p><Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate)}</p>
+      <p><Snippet>pil.training.certificate.awarded</Snippet><span>:</span> {formatDate(certificate.passDate, dateFormat.short)}</p>
       <p><Snippet>pil.training.certificate.body</Snippet><span>:</span> {certificate.accreditingBody === 'Other' ? certificate.otherAccreditingBody : certificate.accreditingBody}</p>
 
       <h3><Snippet>pil.training.modules</Snippet></h3>

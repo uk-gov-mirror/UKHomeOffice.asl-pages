@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import dateFormatter from 'date-fns/format';
 import { dateFormat } from '../../../../constants';
+import { formatDate } from '../../../../lib/utils';
 import schema from '../schema';
 import {
   Link,
@@ -18,10 +18,10 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
 
   const formatters = {
     issueDate: {
-      format: issueDate => issueDate ? dateFormatter(issueDate, dateFormat.medium) : '-'
+      format: issueDate => formatDate(issueDate, dateFormat.medium)
     },
     revocationDate: {
-      format: revocationDate => revocationDate ? dateFormatter(revocationDate, dateFormat.medium) : '-'
+      format: revocationDate => formatDate(revocationDate, dateFormat.medium)
     },
     species: {
       format: pilSpecies => {
