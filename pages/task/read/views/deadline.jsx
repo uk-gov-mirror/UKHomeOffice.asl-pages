@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
-import format from 'date-fns/format';
+import { formatDate } from '../../../../lib/utils';
 import moment from 'moment-business-time';
 
 class Deadline extends Component {
@@ -27,7 +27,7 @@ class Deadline extends Component {
       <div className="deadline">
         <h2><Snippet>sticky-nav.deadline</Snippet></h2>
 
-        <h3>{ format(deadline.toDate(), dateFormat.medium) }</h3>
+        <h3>{ formatDate(deadline.toDate(), dateFormat.medium) }</h3>
 
         { isInspector && !this.isExtended() &&
           <Fragment>

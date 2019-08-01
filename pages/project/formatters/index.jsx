@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { Link, ExpiryDate, Snippet } from '@asl/components';
-import format from 'date-fns/format';
+import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 
 const bad = ['expired'];
@@ -29,10 +29,10 @@ const formatters = {
       <Link page="profile.view" profileId={id} label={`${firstName} ${lastName}`} />
   },
   expiryDate: {
-    format: date => <ExpiryDate date={date}/>
+    format: date => date ? <ExpiryDate date={date}/> : '-'
   },
   updatedAt: {
-    format: date => format(date, dateFormat.datetime)
+    format: date => formatDate(date, dateFormat.datetime)
   },
   granted: {
     format: (granted, model) => {

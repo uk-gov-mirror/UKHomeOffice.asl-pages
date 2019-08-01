@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import formatDate from 'date-fns/format';
 import differenceInYears from 'date-fns/difference_in_years';
+import { formatDate } from '../../../../lib/utils';
 import { defineValue } from '../../../common/formatters';
 import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
