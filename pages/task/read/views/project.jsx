@@ -25,7 +25,7 @@ const completeAndCorrect = (task, project) => {
 };
 
 // declarations can be 'Yes', 'No', or 'Not yet'
-const declarationConfirmed = declaration => declaration.toLowerCase() === 'yes';
+const declarationConfirmed = declaration => declaration && declaration.toLowerCase() === 'yes';
 
 const allDeclarationsConfirmed = (task, project) => {
   const { authority, awerb, ready } = task.data.meta;
