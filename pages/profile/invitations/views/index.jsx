@@ -1,6 +1,7 @@
 import React from 'react';
 import Index from '../../list/views/index';
 import { ExpiryDate, Snippet } from '@asl/components';
+import addDays from 'date-fns/add_days';
 
 const formatters = {
   email: {
@@ -12,7 +13,7 @@ const formatters = {
   createdAt: {
     format: date => date ? <ExpiryDate
       date={date}
-      adjustment={7}
+      expiry={addDays(date, 7)}
       showNotice={7}
       showUrgent={3}
       unit="day"
