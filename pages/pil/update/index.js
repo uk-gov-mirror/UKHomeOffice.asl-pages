@@ -26,7 +26,7 @@ module.exports = settings => {
     const params = {
       id: req.pilId,
       profileId: req.pil.profileId,
-      establishment: req.establishment.id
+      establishment: req.pil.establishmentId
     };
     req.user.can('pil.update', params)
       .then(can => {
