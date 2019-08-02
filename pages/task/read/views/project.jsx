@@ -11,14 +11,14 @@ import ReviewFields from '@asl/projects/client/components/review-fields';
 import { fields } from '../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../project/schema';
 
-const completeAndCorrect = (task, project) => {
+const completeAndCorrect = (task, isAmendment) => {
   if (task.data.action !== 'grant') {
     return false;
   }
   if (task.status === 'returned-to-applicant') {
     return false;
   }
-  if (!allDeclarationsConfirmed(task, project)) {
+  if (!allDeclarationsConfirmed(task, isAmendment)) {
     return false;
   }
   return true;
@@ -27,21 +27,18 @@ const completeAndCorrect = (task, project) => {
 // declarations can be 'Yes', 'No', or 'Not yet'
 const declarationConfirmed = declaration => declaration && declaration.toLowerCase() === 'yes';
 
-const allDeclarationsConfirmed = (task, project) => {
+const allDeclarationsConfirmed = (task, isAmendment) => {
   const { authority, awerb, ready } = task.data.meta;
-
-  if (project.granted) {
-    // amendment
+  if (isAmendment) {
     return declarationConfirmed(authority) && declarationConfirmed(awerb);
-  } else {
-    // new application
-    return declarationConfirmed(authority) && declarationConfirmed(awerb) && declarationConfirmed(ready);
   }
+  return declarationConfirmed(authority) && declarationConfirmed(awerb) && declarationConfirmed(ready);
 };
 
 const Project = ({ task, project, establishment, children, schema, formFields }) => {
   const submitted = get(task, 'data.data.version');
   const declarations = task.data.meta;
+  const isAmendment = project.issueDate !== null;
 
   const formatters = {
     licenceHolder: {
@@ -134,8 +131,13 @@ const Project = ({ task, project, establishment, children, schema, formFields })
                       </Fragment>
                   }
 
-                  <p><strong><Snippet>declarations.ready-for-inspector.question</Snippet></strong></p>
-                  <p>{declarations.ready}</p>
+                  {
+                    !isAmendment &&
+                      <Fragment>
+                        <p><strong><Snippet>declarations.ready-for-inspector.question</Snippet></strong></p>
+                        <p>{declarations.ready}</p>
+                      </Fragment>
+                  }
                 </Fragment>
               )
             }
@@ -144,7 +146,7 @@ const Project = ({ task, project, establishment, children, schema, formFields })
       }
 
       {
-        completeAndCorrect(task, project) &&
+        !isAmendment && completeAndCorrect(task, isAmendment) &&
           <StickyNavAnchor id="deadline">
             <Deadline task={task} />
           </StickyNavAnchor>
