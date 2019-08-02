@@ -36,6 +36,11 @@ class Profile extends React.Component {
 
     const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
 
+    const canUpdate = (isOwnProfile || allowedActions.includes('pil.create')) &&
+      !pilActive &&
+      over18 &&
+      (correctEstablishment || !pilIncomplete);
+
     return (
       <Fragment>
         {
@@ -200,11 +205,7 @@ class Profile extends React.Component {
                 )
               }
               {
-                (isOwnProfile || allowedActions.includes('pil.create')) &&
-                  !pilActive &&
-                  over18 &&
-                  (correctEstablishment || !pilIncomplete) &&
-                (
+                canUpdate && (
                   <p className="control-panel">
                     <Link
                       page='pil.create'
