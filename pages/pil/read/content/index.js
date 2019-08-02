@@ -12,6 +12,7 @@ module.exports = merge({}, baseContent, {
     conditions: { label: 'Conditions' },
     procedures: { label: 'Procedures' }
   },
+  cantUpdate: '**You cant amend this PIL as it is held at another establishment**',
   action: {
     applyNow: 'Apply now',
     backToProfile: 'Back to profile',

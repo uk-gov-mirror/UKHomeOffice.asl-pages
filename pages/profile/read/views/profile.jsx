@@ -155,7 +155,7 @@ class Profile extends React.Component {
                 <Snippet>pil.title</Snippet>
               </h3>
               {
-                pil && pil.licenceNumber && correctEstablishment && (
+                pil && pil.licenceNumber && (
                   <p>
                     <Link
                       page='pil.read'
@@ -203,7 +203,7 @@ class Profile extends React.Component {
                 (isOwnProfile || allowedActions.includes('pil.create')) &&
                   !pilActive &&
                   over18 &&
-                  correctEstablishment &&
+                  (correctEstablishment || !pilIncomplete) &&
                 (
                   <p className="control-panel">
                     <Link

@@ -23,8 +23,7 @@ module.exports = settings => {
     };
     req.user.can('pil.update', params)
       .then(can => {
-        res.locals.static.canUpdate = can &&
-          req.pil.establishmentId === req.establishment.id;
+        res.locals.static.canUpdate = can;
       })
       .then(() => next())
       .catch(next);
@@ -35,6 +34,7 @@ module.exports = settings => {
     res.locals.static.pil = req.pil;
     res.locals.static.openTask = req.pil.tasks[0];
     res.locals.static.profile = req.profile;
+    res.locals.static.correctEstablishment = req.pil.establishmentId === req.establishment.id;
     next();
   });
 

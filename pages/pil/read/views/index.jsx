@@ -13,8 +13,16 @@ import {
 } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
-const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
+const PIL = ({
+  pil,
+  profile,
+  canUpdate,
+  allowedActions,
+  openTask,
+  correctEstablishment
+}) => {
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
+  const backToProfile = <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />;
 
   const formatters = {
     issueDate: {
@@ -92,27 +100,54 @@ const PIL = ({ pil, profile, canUpdate, allowedActions, openTask }) => {
 
       <ModelSummary model={pil} formatters={formatters} schema={schema} formatNullValue={true} />
 
-      <p className="control-panel">
-        {
-          canUpdate && (
-            <Fragment>
-              <Link
-                page="pil.update"
-                className="govuk-button"
-                label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}`}</Snippet>}
-              />
-              {
-                pil.status === 'active' && <Link page="pil.revoke.base" label={<Snippet>action.revoke</Snippet>} />
-              }
-            </Fragment>
-          )
-        }
-        <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />
-      </p>
+      {
+        canUpdate && (
+          <Fragment>
+            {
+              correctEstablishment
+                ? (
+                  <p className="control-panel">
+                    <Link
+                      page="pil.update"
+                      className="govuk-button"
+                      label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}`}</Snippet>}
+                    />
+                    {
+                      pil.status === 'active' && <Link page="pil.revoke.base" label={<Snippet>action.revoke</Snippet>} />
+                    }
+                    { backToProfile }
+                  </p>
+                )
+                : (
+                  <Fragment>
+                    <p className="clear"><Snippet>cantUpdate</Snippet></p>
+                    { backToProfile }
+                  </Fragment>
+                )
+            }
+          </Fragment>
+        )
+      }
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ static: { profile, canUpdate, pil, openTask, allowedActions } }) => ({ pil, profile, canUpdate, allowedActions, openTask });
+const mapStateToProps = ({
+  static: {
+    profile,
+    canUpdate,
+    pil,
+    openTask,
+    allowedActions,
+    correctEstablishment
+  }
+}) => ({
+  pil,
+  profile,
+  canUpdate,
+  allowedActions,
+  openTask,
+  correctEstablishment
+});
 
 export default connect(mapStateToProps)(PIL);
