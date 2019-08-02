@@ -61,9 +61,9 @@ const mapSchema = (nacwos, schema) => {
     nacwo: {
       options,
       validate: [
-        ...schema.nacwo.validate,
+        ...(schema.nacwo.validate || []),
         {
-          definedValues: options.map(option => option.value)
+          definedValues: options.map(option => option.value).concat([''])
         }
       ]
     }
