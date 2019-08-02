@@ -48,8 +48,7 @@ const baseSchema = {
   },
   nacwo: {
     inputType: 'select',
-    accessor: 'id',
-    validate: ['required']
+    accessor: 'id'
   }
 };
 
