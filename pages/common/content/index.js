@@ -131,9 +131,9 @@ module.exports = {
     }
   },
   diff: {
-    singular: 'Less than 1 month left',
-    plural: 'Less than {{diff}} months left',
-    standard: '{{diff}} months left',
+    singular: 'Less than 1 {{unit}} left',
+    plural: 'Less than {{diff}} {{unit}}s left',
+    standard: '{{diff}} {{unit}}s left',
     expired: 'Expired'
   },
   success: {

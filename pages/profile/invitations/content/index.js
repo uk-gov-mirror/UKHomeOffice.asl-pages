@@ -14,8 +14,8 @@ module.exports = merge({}, baseContent, {
     }
   },
   diff: {
-    singular: 'Less than 1 day left',
-    plural: 'Less than {{diff}} days left',
-    standard: '{{diff}} days left'
+    singular: 'Less than 1 {{unit}} left',
+    plural: 'Less than {{diff}} {{unit}}s left',
+    standard: '{{diff}} {{unit}}s left'
   }
 });
