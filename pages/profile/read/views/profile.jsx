@@ -11,7 +11,8 @@ class Profile extends React.Component {
   render() {
     const { id: estId } = this.props.establishment;
     const isOwnProfile = this.props.isOwnProfile || false;
-    const pil = this.props.profile.pil && this.props.profile.pil.establishmentId === estId ? this.props.profile.pil : null;
+    const pil = this.props.profile.pil;
+    const correctEstablishment = pil && pil.establishmentId === estId;
 
     const {
       roles,
@@ -34,6 +35,11 @@ class Profile extends React.Component {
     const pilActive = pil && pil.status === 'active';
 
     const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
+
+    const canApply = (isOwnProfile || allowedActions.includes('pil.create')) &&
+      !pilActive &&
+      over18 &&
+      (correctEstablishment || !pilIncomplete);
 
     return (
       <Fragment>
@@ -179,7 +185,7 @@ class Profile extends React.Component {
               {
                 pil && pilIncomplete && (
                   <p>
-                    <Snippet>pil.incompletePil</Snippet>
+                    <Snippet>{`pil.${correctEstablishment ? 'incompletePil' : 'incompleteOtherEst'}`}</Snippet>
                   </p>
                 )
               }
@@ -199,7 +205,7 @@ class Profile extends React.Component {
                 )
               }
               {
-                (isOwnProfile || allowedActions.includes('pil.create')) && !pilActive && over18 && (
+                canApply && (
                   <p className="control-panel">
                     <Link
                       page='pil.create'

@@ -36,6 +36,7 @@ module.exports = merge({}, baseContent, {
     title: 'Personal licence',
     noPil: 'None',
     incompletePil: 'Application started.',
+    incompleteOtherEst: 'Application started at another establishment.',
     user: {
       incomplete: 'Application started.',
       notStarted: 'None'
