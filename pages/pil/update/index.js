@@ -29,7 +29,13 @@ module.exports = settings => {
       establishment: req.establishment.id
     };
     req.user.can('pil.update', params)
-      .then(can => can ? next() : next(new Error('Unauthorised')))
+      .then(can => {
+        const authorised = can && req.pil.establishmentId === req.establishment.id;
+        if (authorised) {
+          return next();
+        }
+        next(new Error('Unauthorised'));
+      })
       .catch(next);
   });
 

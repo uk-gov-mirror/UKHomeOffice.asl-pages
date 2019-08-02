@@ -23,7 +23,8 @@ module.exports = settings => {
     };
     req.user.can('pil.update', params)
       .then(can => {
-        res.locals.static.canUpdate = can;
+        res.locals.static.canUpdate = can &&
+          req.pil.establishmentId === req.establishment.id;
       })
       .then(() => next())
       .catch(next);
