@@ -58,6 +58,23 @@ const Project = ({ task, project, establishment, children, schema, formFields })
   return (
     <StickyNavPage>
       { children }
+
+      {
+        task.data.action === 'grant' && (
+          <StickyNavAnchor id="licence-holder">
+            <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
+            <p>
+              <Link
+                page="profile.view"
+                establishmentId={establishment.id}
+                profileId={project.licenceHolder.id}
+                label={`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}
+              />
+            </p>
+          </StickyNavAnchor>
+        )
+      }
+
       {
         task.data.action === 'grant' && (
           <StickyNavAnchor id="submitted-version">
