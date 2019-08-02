@@ -11,14 +11,14 @@ import ReviewFields from '@asl/projects/client/components/review-fields';
 import { fields } from '../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../project/schema';
 
-const completeAndCorrect = task => {
+const completeAndCorrect = (task, project) => {
   if (task.data.action !== 'grant') {
     return false;
   }
   if (task.status === 'returned-to-applicant') {
     return false;
   }
-  if (!allDeclarationsConfirmed(task)) {
+  if (!allDeclarationsConfirmed(task, project)) {
     return false;
   }
   return true;
@@ -27,9 +27,16 @@ const completeAndCorrect = task => {
 // declarations can be 'Yes', 'No', or 'Not yet'
 const declarationConfirmed = declaration => declaration.toLowerCase() === 'yes';
 
-const allDeclarationsConfirmed = task => {
+const allDeclarationsConfirmed = (task, project) => {
   const { authority, awerb, ready } = task.data.meta;
-  return declarationConfirmed(authority) && declarationConfirmed(awerb) && declarationConfirmed(ready);
+
+  if (project.granted) {
+    // amendment
+    return declarationConfirmed(authority) && declarationConfirmed(awerb);
+  } else {
+    // new application
+    return declarationConfirmed(authority) && declarationConfirmed(awerb) && declarationConfirmed(ready);
+  }
 };
 
 const Project = ({ task, project, establishment, children, schema, formFields }) => {
@@ -137,7 +144,7 @@ const Project = ({ task, project, establishment, children, schema, formFields })
       }
 
       {
-        completeAndCorrect(task) &&
+        completeAndCorrect(task, project) &&
           <StickyNavAnchor id="deadline">
             <Deadline task={task} />
           </StickyNavAnchor>
