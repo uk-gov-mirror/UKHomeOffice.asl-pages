@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { StaticRouter } from 'react-router';
 import { connect } from 'react-redux';
+import ReactMarkdown from 'react-markdown';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import { Link, StickyNavPage, StickyNavAnchor, Snippet, Diff, Field } from '@asl/components';
@@ -117,8 +118,9 @@ const Project = ({ task, project, establishment, children, schema, formFields })
                     declarationConfirmed(declarations.awerb) &&
                       <Fragment>
                         <p>
-                          <Snippet>declarations.awerb.review-date</Snippet> {declarations['awerb-review-date']}
+                          <Snippet>declarations.awerb.review-date</Snippet>
                         </p>
+                        <ReactMarkdown>{declarations['awerb-review-date']}</ReactMarkdown>
                       </Fragment>
                   }
                   {
