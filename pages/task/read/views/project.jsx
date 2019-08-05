@@ -119,8 +119,8 @@ const Project = ({ task, project, establishment, children, schema, formFields })
                       <Fragment>
                         <p>
                           <Snippet>declarations.awerb.review-date</Snippet>
-                          <ReactMarkdown>{declarations['awerb-review-date']}</ReactMarkdown>
                         </p>
+                        <ReactMarkdown>{declarations['awerb-review-date']}</ReactMarkdown>
                       </Fragment>
                   }
                   {
