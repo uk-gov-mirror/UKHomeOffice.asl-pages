@@ -20,11 +20,17 @@ const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Da
 
 const App = ({ model, establishment, url, content, openTask, canAmend, canDeleteDraft, canUpdateLicenceHolder, canUpdate }) => {
   let amendmentType = '';
-
+  let amendmentStartDate = '';
   if (openTask) {
     amendmentType = model.granted ? 'submittedAmendment' : 'submittedDraft';
   } else {
-    amendmentType = model.granted && model.draft ? 'continue' : 'create';
+    amendmentType = model.granted && (model.draft || model.withdrawn) ? 'continue' : 'create';
+  }
+
+  if (model.draft) {
+    amendmentStartDate = model.draft && dateFormat(model.draft.createdAt, dateFormat.short);
+  } else if (model.withdrawn) {
+    amendmentStartDate = model.withdrawn && dateFormat(model.withdrawn.createdAt, dateFormat.short);
   }
 
   const { licenceHolder } = model;
@@ -128,7 +134,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
-              <Snippet amendmentStartDate={model.draft && formatDate(model.draft.createdAt, dateFormat.short)}>
+              <Snippet amendmentStartDate={amendmentStartDate}>
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
@@ -157,7 +163,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
-              <Snippet amendmentStartDate={model.draft && formatDate(model.draft.createdAt, dateFormat.short)}>
+              <Snippet amendmentStartDate={amendmentStartDate}>
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
