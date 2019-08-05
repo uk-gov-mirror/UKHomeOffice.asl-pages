@@ -36,9 +36,14 @@ const schema = {
 };
 
 const getSchema = status => {
-  return status === 'inactive'
-    ? pick(schema, 'id', 'title', 'licenceHolder', 'updatedAt')
-    : pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'expiryDate');
+  switch (status) {
+    case 'inactive':
+      return pick(schema, 'id', 'title', 'licenceHolder', 'updatedAt');
+    case 'revoked':
+      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber');
+    default:
+      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'expiryDate');
+  }
 };
 
 getSchema.schema = schema;

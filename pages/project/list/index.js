@@ -18,9 +18,19 @@ module.exports = settings => {
   app.use(datatable({
     configure: (req, res, next) => {
       const status = req.query.status || 'active';
-      req.datatable.sort = req.query.status === 'inactive'
-        ? { column: 'updatedAt', ascending: false }
-        : { column: 'expiryDate', ascending: true };
+
+      switch (status) {
+        case 'inactive':
+          req.datatable.sort = { column: 'updatedAt', ascending: false };
+          break;
+        case 'revoked':
+          req.datatable.sort = { column: 'title', ascending: true };
+          break;
+        default:
+          req.datatable.sort = { column: 'expiryDate', ascending: true };
+          break;
+      }
+
       req.datatable.schema = schema(status);
       next();
     },
