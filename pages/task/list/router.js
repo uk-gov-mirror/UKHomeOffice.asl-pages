@@ -26,6 +26,7 @@ module.exports = ({
     const lastName = get(req, 'user.profile.lastName');
     res.locals.static.profileName = `${firstName} ${lastName}`;
     res.locals.static.progress = req.datatable.progress;
+    res.locals.static.workflowConnectionError = req.datatable.connectionError;
     res.locals.datatable.progress = req.datatable.progress;
 
     res.locals.static.tabs = tabs(req.user.profile);

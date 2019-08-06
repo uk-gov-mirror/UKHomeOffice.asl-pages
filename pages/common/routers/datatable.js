@@ -108,13 +108,16 @@ module.exports = ({
         if (meta.establishment) {
           res.establishment = meta.establishment;
         }
+        const { filters, total, count, ...rest } = meta;
 
-        set(req.datatable, 'filters.options', meta.filters);
-        set(req.datatable, 'pagination.totalCount', meta.total);
-        set(req.datatable, 'pagination.count', meta.count);
+        set(req.datatable, 'filters.options', filters);
+        set(req.datatable, 'pagination.totalCount', total);
+        set(req.datatable, 'pagination.count', count);
         set(req.datatable, 'data.rows', data.map(cleanModel));
 
-        if (!data.length && meta.count) {
+        Object.assign(req.datatable, rest || {});
+
+        if (!data.length && count) {
           const redirect = removeQueryParams(req.originalUrl, ['page', 'rows']);
           res.redirect(redirect);
         }
