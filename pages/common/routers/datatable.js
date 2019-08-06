@@ -36,7 +36,8 @@ module.exports = ({
   getApiPath = defaultMiddleware,
   getValues = defaultMiddleware,
   persistQuery = defaultMiddleware,
-  locals = defaultMiddleware
+  locals = defaultMiddleware,
+  errorHandler = (err, req, res, next) => next(err)
 } = {}) => ({
   apiPath,
   schema,
@@ -108,16 +109,13 @@ module.exports = ({
         if (meta.establishment) {
           res.establishment = meta.establishment;
         }
-        const { filters, total, count, ...rest } = meta;
 
-        set(req.datatable, 'filters.options', filters);
-        set(req.datatable, 'pagination.totalCount', total);
-        set(req.datatable, 'pagination.count', count);
+        set(req.datatable, 'filters.options', meta.filters);
+        set(req.datatable, 'pagination.totalCount', meta.total);
+        set(req.datatable, 'pagination.count', meta.count);
         set(req.datatable, 'data.rows', data.map(cleanModel));
 
-        Object.assign(req.datatable, rest || {});
-
-        if (!data.length && count) {
+        if (!data.length && meta.count) {
           const redirect = removeQueryParams(req.originalUrl, ['page', 'rows']);
           res.redirect(redirect);
         }
@@ -142,6 +140,8 @@ module.exports = ({
     _getValues,
     _locals
   );
+
+  app.use(errorHandler);
 
   return app;
 };
