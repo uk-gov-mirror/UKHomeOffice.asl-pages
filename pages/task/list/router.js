@@ -21,6 +21,11 @@ module.exports = ({
     req.datatable.apiPath = [req.datatable.apiPath, { query: { ...req.query, progress } }];
     next();
   },
+  errorHandler: (err, req, res, next) => {
+    req.log('error', { ...err, message: err.message, stack: err.stack });
+    res.locals.static.workflowConnectionError = true;
+    next();
+  },
   locals: (req, res, next) => {
     const firstName = get(req, 'user.profile.firstName');
     const lastName = get(req, 'user.profile.lastName');

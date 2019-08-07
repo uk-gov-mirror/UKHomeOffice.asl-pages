@@ -12,5 +12,6 @@ module.exports = {
     inProgress: 'In progress',
     completed: 'Completed',
     myTasks: 'My tasks'
-  }
+  },
+  'tasklist-unavailable': 'Task list unavailable'
 };

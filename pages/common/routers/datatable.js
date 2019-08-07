@@ -36,7 +36,8 @@ module.exports = ({
   getApiPath = defaultMiddleware,
   getValues = defaultMiddleware,
   persistQuery = defaultMiddleware,
-  locals = defaultMiddleware
+  locals = defaultMiddleware,
+  errorHandler = (err, req, res, next) => next(err)
 } = {}) => ({
   apiPath,
   schema,
@@ -139,6 +140,8 @@ module.exports = ({
     _getValues,
     _locals
   );
+
+  app.use(errorHandler);
 
   return app;
 };

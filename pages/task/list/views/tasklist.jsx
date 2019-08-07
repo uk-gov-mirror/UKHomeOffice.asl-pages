@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
 import { formatDate } from '../../../../lib/utils';
@@ -7,7 +8,8 @@ import {
   Tabs,
   Datatable,
   Snippet,
-  Link
+  Link,
+  Panel
 } from '@asl/components';
 
 const good = ['resolved'];
@@ -73,22 +75,32 @@ const formatters = {
   }
 };
 
-class Tasklist extends React.Component {
-
-  render() {
-    const tabs = this.props.tabs || [];
-    const progress = this.props.progress || tabs[0];
-    const selected = tabs.indexOf(progress);
-    return <Fragment>
+const Tasklist = ({
+  workflowConnectionError,
+  tabs = [],
+  progress
+}) => {
+  if (workflowConnectionError) {
+    return (
+      <Panel>
+        <h2>
+          <Snippet>tasklist-unavailable</Snippet>
+        </h2>
+      </Panel>
+    );
+  }
+  progress = progress || tabs[0];
+  const selected = tabs.indexOf(progress);
+  return (
+    <Fragment>
       {
         !!tabs.length && <Tabs active={selected}>
           { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
         </Tabs>
       }
       <Datatable formatters={formatters} className="tasklist" />
-    </Fragment>;
-  }
+    </Fragment>
+  );
+};
 
-}
-
-export default Tasklist;
+export default connect(({ static: { workflowConnectionError, tabs, progress } }) => ({ workflowConnectionError, tabs, progress }))(Tasklist);
