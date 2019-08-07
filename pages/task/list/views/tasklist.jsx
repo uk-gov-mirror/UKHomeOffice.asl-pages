@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
+import truncate from 'lodash/truncate';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import {
@@ -46,10 +47,37 @@ const formatters = {
     format: (type, model) => {
       const id = get(model, 'id');
       const licence = get(model, 'data.model');
-      const subject = get(model, 'data.subject');
       const status = get(model, 'data.modelData.status');
+
       if (type === 'grant' && status === 'active') {
         type = 'update';
+      }
+
+      let contextLabel = null;
+
+      switch (licence) {
+        case 'project':
+          const projectTitle = get(model, 'data.modelData.title');
+          if (projectTitle) {
+            contextLabel = truncate(projectTitle, { length: 24 });
+          }
+          break;
+
+        case 'pil':
+        case 'role':
+        case 'profile':
+          const subject = get(model, 'data.subject');
+          if (subject) {
+            contextLabel = `${subject.firstName} ${subject.lastName}`;
+          }
+          break;
+
+        case 'place':
+          const place = get(model, 'data.modelData');
+          if (place) {
+            contextLabel = place.name;
+          }
+          break;
       }
 
       return (
@@ -62,12 +90,11 @@ const formatters = {
             label={<Snippet optional>{`tasks.${licence}.${type}`}</Snippet>}
           />
           {
-            subject && (
+            contextLabel &&
               <Fragment>
                 <br />
-                <span>{`${subject.firstName} ${subject.lastName}`}</span>
+                <span>{contextLabel}</span>
               </Fragment>
-            )
           }
         </Fragment>
       );
