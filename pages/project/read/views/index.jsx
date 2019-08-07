@@ -18,13 +18,19 @@ const getProjectDuration = model => {
 
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
-const App = ({ model, establishment, url, content, openTask, canAmend, canDeleteDraft, canUpdateLicenceHolder }) => {
+const App = ({ model, establishment, url, content, openTask, canAmend, canDeleteDraft, canUpdateLicenceHolder, canUpdate }) => {
   let amendmentType = '';
-
+  let amendmentStartDate = '';
   if (openTask) {
     amendmentType = model.granted ? 'submittedAmendment' : 'submittedDraft';
   } else {
-    amendmentType = model.granted && model.draft ? 'continue' : 'create';
+    amendmentType = model.granted && (model.draft || model.withdrawn) ? 'continue' : 'create';
+  }
+
+  if (model.draft) {
+    amendmentStartDate = model.draft && formatDate(model.draft.createdAt, dateFormat.short);
+  } else if (model.withdrawn) {
+    amendmentStartDate = model.withdrawn && formatDate(model.withdrawn.createdAt, dateFormat.short);
   }
 
   const { licenceHolder } = model;
@@ -93,6 +99,25 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
         }
 
         {
+          !model.granted && !model.draft && model.withdrawn && !canUpdate &&
+          <Link
+            page="project.version.update"
+            versionId={model.withdrawn.id}
+            className="govuk-button"
+            label={<Snippet>fields.draft.view</Snippet>}
+          />
+        }
+
+        {
+          !model.granted && !model.draft && model.withdrawn && canUpdate &&
+          <form method="POST">
+            <button className="govuk-button">
+              <span><Snippet>fields.draft.view</Snippet></span>
+            </button>
+          </form>
+        }
+
+        {
           model.granted &&
             <Link
               page="project.version.read"
@@ -109,7 +134,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
-              <Snippet amendmentStartDate={model.draft && formatDate(model.draft.createdAt, dateFormat.short)}>
+              <Snippet amendmentStartDate={amendmentStartDate}>
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
@@ -138,7 +163,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
             <p>
-              <Snippet amendmentStartDate={model.draft && formatDate(model.draft.createdAt, dateFormat.short)}>
+              <Snippet amendmentStartDate={amendmentStartDate}>
                 {`amendment.${amendmentType}.description`}
               </Snippet>
             </p>
@@ -183,7 +208,8 @@ const mapStateToProps = ({
     url,
     content,
     openTask,
-    editPerms: { canAmend, canDeleteDraft, canUpdateLicenceHolder }
+    editPerms: { canAmend, canDeleteDraft, canUpdateLicenceHolder },
+    canUpdate
   }
 }) => ({
   model,
@@ -193,7 +219,8 @@ const mapStateToProps = ({
   openTask,
   canAmend,
   canDeleteDraft,
-  canUpdateLicenceHolder
+  canUpdateLicenceHolder,
+  canUpdate
 });
 
 export default connect(mapStateToProps)(App);

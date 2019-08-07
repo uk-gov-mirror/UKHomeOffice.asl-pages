@@ -39,7 +39,7 @@ module.exports = settings => {
 
         res.locals.static.editPerms = {
           canAmend: canUpdate && req.project.status === 'active' && !openTask,
-          canDeleteDraft: canUpdate && !openTask && !req.project.granted && req.project.draft,
+          canDeleteDraft: canUpdate && !openTask && !req.project.granted && (req.project.draft || req.project.withdrawn),
           canUpdateLicenceHolder: canUpdate && ((req.project.granted && !req.project.draft) || !req.project.granted) && !req.project.submitted && !openTask
         };
       })
