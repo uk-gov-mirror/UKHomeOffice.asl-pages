@@ -80,30 +80,25 @@ const Tasklist = ({
   tabs = [],
   progress
 }) => {
+  if (workflowConnectionError) {
+    return (
+      <Panel>
+        <h2>
+          <Snippet>tasklist-unavailable</Snippet>
+        </h2>
+      </Panel>
+    );
+  }
   progress = progress || tabs[0];
   const selected = tabs.indexOf(progress);
   return (
     <Fragment>
       {
-        workflowConnectionError
-          ? (
-            <Panel>
-              <h2>
-                <Snippet>tasklist-unavailable</Snippet>
-              </h2>
-            </Panel>
-          )
-          : (
-            <Fragment>
-              {
-                !!tabs.length && <Tabs active={selected}>
-                  { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
-                </Tabs>
-              }
-              <Datatable formatters={formatters} className="tasklist" />
-            </Fragment>
-          )
+        !!tabs.length && <Tabs active={selected}>
+          { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
+        </Tabs>
       }
+      <Datatable formatters={formatters} className="tasklist" />
     </Fragment>
   );
 };
