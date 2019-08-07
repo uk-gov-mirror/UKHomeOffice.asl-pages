@@ -28,9 +28,9 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
   }
 
   if (model.draft) {
-    amendmentStartDate = model.draft && dateFormat(model.draft.createdAt, dateFormat.short);
+    amendmentStartDate = model.draft && formatDate(model.draft.createdAt, dateFormat.short);
   } else if (model.withdrawn) {
-    amendmentStartDate = model.withdrawn && dateFormat(model.withdrawn.createdAt, dateFormat.short);
+    amendmentStartDate = model.withdrawn && formatDate(model.withdrawn.createdAt, dateFormat.short);
   }
 
   const { licenceHolder } = model;
