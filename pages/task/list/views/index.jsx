@@ -5,22 +5,15 @@ import {
   Header,
   Snippet
 } from '@asl/components';
-import TaskListUnavilable from './tasklist-unavailable';
 
-const TaskListPage = ({ name, progress, tabs, workflowConnectionError }) => (
+const TaskListPage = ({ profileName }) => (
   <Fragment>
     <Header
       title={<Snippet>title</Snippet>}
-      subtitle={name}
+      subtitle={profileName}
     />
-    {
-      workflowConnectionError
-        ? <TaskListUnavilable />
-        : <TaskList tabs={ tabs } progress={ progress } />
-    }
+    <TaskList />
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { profileName: name, progress, tabs, workflowConnectionError } }) => ({ name, progress, tabs, workflowConnectionError });
-
-export default connect(mapStateToProps)(TaskListPage);
+export default connect(({ static: { profileName } }) => ({ profileName }))(TaskListPage);
