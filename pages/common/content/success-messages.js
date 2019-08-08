@@ -107,7 +107,7 @@ module.exports = {
       },
       'withdrawn-by-applicant': {
         title: 'Application withdrawn',
-        body: 'You will need to create a new application if you want to apply for this type of licence in the future.'
+        body: 'The application will revert to a draft that can be opened from the applicant\'s profile page.'
       }
     },
     amendment: {
@@ -236,7 +236,7 @@ module.exports = {
       },
       'withdrawn-by-applicant': {
         title: 'Amendment withdrawn',
-        body: 'You will need to create a new amendment if you want to submit these changes again.'
+        body: 'The application will revert to a draft that can be opened from the applicant\'s profile page.'
       }
     }
   },

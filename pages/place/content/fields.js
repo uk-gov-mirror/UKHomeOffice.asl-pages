@@ -31,7 +31,7 @@ module.exports = {
     label: 'Declaration'
   },
   restrictions: {
-    label: 'Current restrictions'
+    label: 'Restrictions'
   },
   comments: {
     label: 'Why are you making this amendment?',
