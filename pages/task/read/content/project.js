@@ -4,8 +4,7 @@ module.exports = {
     granted: 'Granted licence',
     'licence-holder': 'PPL holder',
     experience: 'PPL holder experience',
-    deadline: 'Statutory target deadline',
-    comments: 'Comments'
+    deadline: 'Statutory target deadline'
   },
   fields: {
     status: {
