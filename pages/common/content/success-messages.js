@@ -236,7 +236,7 @@ module.exports = {
       },
       'withdrawn-by-applicant': {
         title: 'Amendment withdrawn',
-        body: `The amendment will revert to a draft that can be opened from the applicant\'s profile page.
+        body: `The amendment will revert to a draft that can be opened from the applicant's profile page.
 
         Any comments that an inspector may have added to this amendment have been deleted.`
       }
