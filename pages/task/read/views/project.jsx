@@ -200,11 +200,12 @@ const Project = ({ task, project, establishment, children, schema, formFields })
       }
 
       {
-        task.data.meta.comments && (
+        // early PPL amendments had a typo in the field name: comment (typo) vs comments (correct)
+        (task.data.meta.comments || task.data.meta.comment) && (
           <StickyNavAnchor id="comments">
             <Field
               title={<Snippet>sticky-nav.comments</Snippet>}
-              content={task.data.meta.comments}
+              content={task.data.meta.comments || task.data.meta.comment}
             />
           </StickyNavAnchor>
         )
