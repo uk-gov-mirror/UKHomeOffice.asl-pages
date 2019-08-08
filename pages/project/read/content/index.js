@@ -18,17 +18,17 @@ module.exports = merge({}, baseContent, {
       title: 'Amendment in progress',
       description: 'An amendment to this licence has been submitted and is being reviewed. You can view the details of this task or withdraw the amendment.',
       action: 'View task',
-      secondaryAction: 'Recall amendment'
+      secondaryAction: 'Withdraw amendment'
     },
     submittedDraft: {
       title: 'Application in progress',
-      description: 'This application has been submitted and is being reviewed. You can view the details of this task or recall the application.',
+      description: 'This application has been submitted and is being reviewed. You can view the details of this task or withdraw the application.',
       action: 'View task',
-      secondaryAction: 'Recall application'
+      secondaryAction: 'Withdraw application'
     },
     discard: {
       action: 'Discard this amendment',
-      confirm: `Are you sure you want to discard this amendment? Any changes made in this amendment will be deleted if it is discarded.`
+      confirm: `Are you sure you want to discard this amendment? Any changes made in this amendment will be deleted.`
     }
   },
   discardDraft: {
