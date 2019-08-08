@@ -5,6 +5,14 @@ import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';
 import moment from 'moment-business-time';
 
+const withAsru = task => [
+  'with-inspectorate',
+  'referred-to-inspector',
+  'with-licensing',
+  'inspector-recommended',
+  'inspector-rejected'
+].includes(task.status);
+
 class Deadline extends Component {
   isExtended() {
     return !!this.props.task.data.extended;
@@ -13,6 +21,7 @@ class Deadline extends Component {
   render() {
     const task = this.props.task;
     const isInspector = this.props.isInspector;
+    const isExtendable = withAsru(task) && !this.isExtended();
 
     const submitted = task.activityLog.reduceRight((lastSubmission, activity) => {
       const status = activity.eventName.split(':').pop();
@@ -29,7 +38,7 @@ class Deadline extends Component {
 
         <h3>{ formatDate(deadline.toDate(), dateFormat.medium) }</h3>
 
-        { isInspector && !this.isExtended() &&
+        { isInspector && isExtendable &&
           <Fragment>
             <p><Snippet>deadline.hint</Snippet></p>
             <Link
