@@ -45,7 +45,7 @@ module.exports = {
       revocation: 'Withdraw revocation'
     },
     hint: {
-      application: 'You will need to create a new application to apply for this type of licence in the future.',
+      application: 'The application will revert to a draft that can be opened from the applicant\'s profile page.',
       amendment: 'You will need to create a new amendment to submit these changes again.',
       revocation: 'You will need to create a new revocation request for this licence to be revoked.'
     },
