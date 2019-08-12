@@ -3,33 +3,18 @@ import { connect } from 'react-redux';
 import { Link, Snippet } from '@asl/components';
 import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';
-import moment from 'moment-business-time';
 
 class Deadline extends Component {
-  isExtended() {
-    return !!this.props.task.data.extended;
-  }
-
   render() {
     const task = this.props.task;
-    const isExtendable = this.props.isInspector && task.isOpen && !this.isExtended();
-
-    const submitted = task.activityLog.reduceRight((lastSubmission, activity) => {
-      const status = activity.eventName.split(':').pop();
-      return status === 'resubmitted' ? activity.createdAt : lastSubmission;
-    }, task.createdAt);
-
-    const period = this.isExtended() ? 55 : 40;
-
-    const deadline = moment(submitted).addWorkingTime(period, 'days');
 
     return (
       <div className="deadline">
         <h2><Snippet>sticky-nav.deadline</Snippet></h2>
 
-        <h3>{ formatDate(deadline.toDate(), dateFormat.medium) }</h3>
+        <h3>{ formatDate(task.deadline, dateFormat.medium) }</h3>
 
-        { isExtendable &&
+        { this.props.isInspector && task.isExtendable &&
           <Fragment>
             <p><Snippet>deadline.hint</Snippet></p>
             <Link
