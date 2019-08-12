@@ -174,3 +174,8 @@ p.spoc {
     font-size: 0.95em;
   }
 }
+
+.next-steps {
+  @extend .control-panel;
+  margin-top: 0;
+}

@@ -11,12 +11,15 @@ const Project = ({ isActionable, taskId, project, version, establishment }) => {
       <div id="ppl-drafting-tool"></div>
       {
         isActionable && (
-          <Link
-            className="govuk-button"
-            page="task.read"
-            taskId={taskId}
-            label="Next steps"
-          />
+          <p className="next-steps">
+            <Link
+              className="govuk-button"
+              page="task.read"
+              taskId={taskId}
+              label="Next steps"
+            />
+            <span className="status-message"></span>
+          </p>
         )
       }
     </Fragment>
