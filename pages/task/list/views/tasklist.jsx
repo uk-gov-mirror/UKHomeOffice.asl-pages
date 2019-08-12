@@ -11,7 +11,7 @@ import {
   Snippet,
   Link,
   Panel,
-  ExpiryDate
+  Countdown
 } from '@asl/components';
 
 const good = ['resolved'];
@@ -46,7 +46,7 @@ const formatters = {
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
           {
-            deadline && <ExpiryDate date={deadline} unit="day" showNotice={999} showUrgent={9} showDate={false} />
+            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} />
           }
         </Fragment>
       );
