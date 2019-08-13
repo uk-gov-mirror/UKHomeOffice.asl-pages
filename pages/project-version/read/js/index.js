@@ -3,8 +3,6 @@ import start from '@asl/projects';
 const state = window.INITIAL_STATE;
 
 start({
-  basename: state.static.basename
-}, {
   project: {
     ...state.model.data,
     id: state.model.id
