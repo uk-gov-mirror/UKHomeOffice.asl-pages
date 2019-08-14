@@ -10,7 +10,8 @@ import {
   Datatable,
   Snippet,
   Link,
-  Panel
+  Panel,
+  Countdown
 } from '@asl/components';
 
 const good = ['resolved'];
@@ -38,9 +39,17 @@ const formatters = {
     }
   },
   status: {
-    format: status => {
+    format: (status, model) => {
+      const deadline = get(model, 'deadline');
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
-      return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
+      return (
+        <Fragment>
+          <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
+          {
+            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} />
+          }
+        </Fragment>
+      );
     }
   },
   type: {
