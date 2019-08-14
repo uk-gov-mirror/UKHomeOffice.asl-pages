@@ -82,9 +82,9 @@ const formatters = {
           break;
 
         case 'place':
-          const place = get(model, 'data.modelData');
-          if (place) {
-            contextLabel = place.name;
+          const placeName = get(model, 'data.modelData.name') || get(model, 'data.data.name');
+          if (placeName) {
+            contextLabel = placeName;
           }
           break;
       }
