@@ -107,8 +107,9 @@ const Project = ({ task, project, establishment, children, schema, formFields })
                     declarations.awerb.toLowerCase() === 'no' &&
                       <Fragment>
                         <p>
-                          <Snippet>declarations.awerb.no-review-reason</Snippet> {declarations['awerb-no-review-reason']}
+                          <strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong>
                         </p>
+                        <ReactMarkdown>{declarations['awerb-no-review-reason']}</ReactMarkdown>
                       </Fragment>
                   }
 
