@@ -9,6 +9,10 @@ module.exports = () => {
   app.use((req, res, next) => {
     req.breadcrumb('task.confirm');
     req.model = { id: req.task.id };
+    const status = get(req, `session.form[${req.task.id}].values.status`);
+    if (!status) {
+      return res.redirect(req.buildRoute('task.read'));
+    }
     next();
   });
 
@@ -52,7 +56,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('task.success', { taskId: req.task.id }));
+    return res.redirect(req.buildRoute('task.success'));
   });
 
   return app;

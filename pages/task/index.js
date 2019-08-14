@@ -8,6 +8,7 @@ module.exports = settings => {
   app.param('taskId', (req, res, next, taskId) => {
     return req.api(`/tasks/${taskId}`)
       .then(response => {
+        req.taskId = taskId;
         req.task = response.json.data;
       })
       .then(() => next())
