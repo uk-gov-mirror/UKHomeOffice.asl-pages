@@ -12,7 +12,8 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    const status = get(req.session, `form.${req.model.id}.values.status`);
+    const id = req.model.id;
+    const status = get(req.session, `form.${id}.values.status`, get(req.session, `form.${id}.values.storeStatus`));
     req.status = status;
     res.locals.static.profile = req.task.data.changedBy;
     next();
@@ -28,8 +29,11 @@ module.exports = () => {
   });
 
   app.get('/', (req, res, next) => {
-    const status = get(req.session, `form[${req.model.id}].values.status`);
-    set(req.session, `form.${req.model.id}.values.status`, status);
+    const id = req.model.id;
+    delete req.session.form[id];
+    // we need to clear the session so previous form values aren't
+    // persisted, however we need to use the status if page is refreshed
+    set(req.session, `form.${id}.values.storeStatus`, req.status);
     next();
   });
 
