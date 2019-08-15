@@ -38,7 +38,7 @@ module.exports = {
     'awerb': {
       question: 'Has the application been reviewed by the AWERB of each relevant establishment?',
       'review-date': 'AWERB review date:',
-      'no-review-reason': 'Reason'
+      'no-review-reason': 'Why has this amendment not been reviewed by the AWERB of each relevant establishment?'
     },
     'ready-for-inspector': {
       question: 'Has an inspector advised that this version of the draft application is ready for assessment?'
