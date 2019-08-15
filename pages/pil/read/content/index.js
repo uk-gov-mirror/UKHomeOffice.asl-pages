@@ -23,7 +23,7 @@ module.exports = merge({}, baseContent, {
   conditions: {
     title: 'Conditions',
     hasConditions: 'In addition to the standard conditions:',
-    noConditions: 'The standard conditions apply'
+    noConditions: '[The standard conditions apply.](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193122/Personal_Licence_-_Standard_Conditions.pdf)'
   },
   notifications: {
     'conditions-updated': 'The conditions on this licence have been updated.',
