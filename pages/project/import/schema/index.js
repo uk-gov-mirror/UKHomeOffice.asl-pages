@@ -5,7 +5,12 @@ module.exports = {
       'fileRequired',
       // 5MB
       { maxSize: 5e+6 },
-      { mimeType: 'application/octet-stream' },
+      {
+        mimeType: [
+          'application/octet-stream',
+          'text/plain'
+        ]
+      },
       { ext: 'ppl' }
     ]
   }
