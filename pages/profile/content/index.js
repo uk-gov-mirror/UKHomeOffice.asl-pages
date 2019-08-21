@@ -12,8 +12,7 @@ module.exports = {
       required: 'You need to enter a last name.'
     },
     email: {
-      required: 'You need to enter an email address for this person.',
-      match: 'This email address does not exist.'
+      required: 'You need to enter an email address for this person.'
     },
     role: {
       required: 'You need to set a permission level for this new user.'
