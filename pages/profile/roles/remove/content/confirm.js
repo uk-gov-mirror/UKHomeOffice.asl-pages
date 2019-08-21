@@ -2,7 +2,7 @@ const { merge } = require('lodash');
 const baseContent = require('../../../content');
 
 module.exports = merge({}, baseContent, {
-  reviewRoleApplication: 'Amend profile',
+  reviewRoleApplication: 'Remove named role',
   applyingFor: 'You are removing:',
   onBehalfOf: 'From the user:',
   rcvsNumber: 'RCVS number:',
