@@ -1,4 +1,3 @@
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const PERMISSION_LEVELS = ['admin', 'read', 'basic'];
 
 module.exports = {
@@ -17,10 +16,7 @@ module.exports = {
   email: {
     inputType: 'inputEmail',
     validate: [
-      'required',
-      {
-        match: EMAIL_REGEX
-      }
+      'required'
     ]
   },
   role: {
