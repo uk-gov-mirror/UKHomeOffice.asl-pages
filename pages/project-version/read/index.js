@@ -25,10 +25,16 @@ module.exports = settings => {
     res.locals.static.user = req.user.profile;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && req.user.profile.asruUser && res.locals.static.isCommentable;
+
     res.locals.static.showConditions = req.user.profile.asruUser
       ? req.version.status !== 'draft'
       : req.version.status === 'granted';
-    res.locals.static.editConditions = req.user.profile.asruUser && req.version.status === 'submitted' && req.project.versions[0].id === req.version.id;
+
+    res.locals.static.editConditions = req.user.profile.asruUser &&
+      task.withASRU &&
+      req.version.status === 'submitted' &&
+      req.project.versions[0].id === req.version.id;
+
     res.locals.model = req.version;
     res.locals.static.project = req.project;
     res.locals.static.version = req.version.id;
