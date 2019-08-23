@@ -73,16 +73,21 @@
   }
 }
 
-.task-activity {
-  list-style: none;
-  padding-left: 0;
+.activity-log {
+  ul {
+    list-style: none;
+    padding-left: 0;
 
-  li {
-    margin-bottom: $govuk-gutter-half;
+    li {
+      margin-bottom: $govuk-gutter-half;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid govuk-colour('grey-2');
+      &:not(:last-child) {
+        border-bottom: 1px solid govuk-colour('grey-2');
+      }
     }
+  }
+
+  .log-item {
 
     .role {
       font-weight: bold;

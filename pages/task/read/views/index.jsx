@@ -2,89 +2,11 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   ErrorSummary,
-  Link,
   Snippet,
-  StickyNavAnchor,
   Header,
   Form
 } from '@asl/components';
-import ActivityLog from './activity-log';
-import Pil from './pil';
-import Place from './place';
-import Profile from './profile';
-import Role from './role';
-import Project from './project';
-import Establishment from './establishment';
-import get from 'lodash/get';
-
-const ExtraProjectMeta = ({ item, task }) => {
-  const status = item.event.name;
-  if (status !== 'with-inspectorate') {
-    return null;
-  }
-  const versionId = get(item, 'event.data.data.version');
-  if (!versionId) {
-    return null;
-  }
-  return <p><Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
-};
-
-const getTaskPlayback = (task) => {
-  if (task.data.model === 'establishment') {
-    return (
-      <Establishment task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} />
-        </StickyNavAnchor>
-      </Establishment>
-    );
-  }
-  if (task.data.model === 'pil') {
-    return (
-      <Pil task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} />
-        </StickyNavAnchor>
-      </Pil>
-    );
-  }
-  if (task.data.model === 'place') {
-    return (
-      <Place task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} />
-        </StickyNavAnchor>
-      </Place>
-    );
-  }
-  if (task.data.model === 'profile') {
-    return (
-      <Profile task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} />
-        </StickyNavAnchor>
-      </Profile>
-    );
-  }
-  if (task.data.model === 'role') {
-    return (
-      <Role task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} />
-        </StickyNavAnchor>
-      </Role>
-    );
-  }
-  if (task.data.model === 'project') {
-    return (
-      <Project task={task}>
-        <StickyNavAnchor id="activity">
-          <ActivityLog task={task} ExtraMeta={ExtraProjectMeta} />
-        </StickyNavAnchor>
-      </Project>
-    );
-  }
-};
+import Model from './models';
 
 const Task = ({ task, project }) => {
   let action = task.data.action;
@@ -108,8 +30,12 @@ const Task = ({ task, project }) => {
       }
       {
         task.nextSteps.length > 0
-          ? <Form detachFields>{getTaskPlayback(task)}</Form>
-          : getTaskPlayback(task)
+          ? (
+            <Form detachFields>
+              <Model task={task} />
+            </Form>
+          )
+          : <Model task={task} />
       }
     </Fragment>
   );

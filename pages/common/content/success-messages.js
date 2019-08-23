@@ -34,6 +34,16 @@ module.exports = {
       'withdrawn-by-applicant': {
         title: 'Amendment withdrawn',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Amendment recalled',
+        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
     }
   },
@@ -46,6 +56,16 @@ module.exports = {
       resolved: {
         title: 'Licence revoked',
         body: 'This licence is no longer active. The person who held this licence is no longer authorised to carry out any regulated procedures in any categories.'
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Revocation recalled',
+        body: 'This revocation has been recalled from ASRU. You can resubmit or discard this revocation.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Revocation discarded',
+        body: 'This revocation has been discarded. You will need to start a new revocation to revoke this licence.'
       }
     },
     application: {
@@ -108,6 +128,16 @@ module.exports = {
       'withdrawn-by-applicant': {
         title: 'Application withdrawn',
         body: 'The application will revert to a draft that can be opened from the applicant\'s profile page.'
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Application recalled',
+        body: 'This application has been recalled from ASRU. You can continue to edit or discard your application.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Application discarded',
+        body: 'You will need to create a new application if you want to submit these changes again.'
       }
     },
     amendment: {
@@ -162,6 +192,16 @@ module.exports = {
           The person who submitted this amendment will review your comments and the reason for rejecting it.
 
           They will need to create a new amendment if they wish to submit these changes again.`
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Amendment recalled',
+        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
     }
   },
@@ -201,6 +241,16 @@ module.exports = {
         body: `The applicant will review your comments and the reason for rejecting it.
 
           They will need to create a new application if they wish to apply for this type of licence in the future.`
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Amendment recalled',
+        body: 'This application has been recalled from ASRU. You can continue to edit or discard your application.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new application if you want to submit these changes again.'
       }
     },
     amendment: {
@@ -239,6 +289,16 @@ module.exports = {
         body: `The amendment will revert to a draft that can be opened from the applicant's profile page.
 
         Any comments that an inspector may have added to this amendment have been deleted.`
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Amendment recalled',
+        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
     },
     revocation: {
