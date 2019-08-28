@@ -29,9 +29,7 @@ const selector = ({ static: { schema, values } }) => ({ schema, values });
 export default function Model({ task, formFields }) {
   const { schema, values } = useSelector(selector, shallowEqual);
   const Model = models[task.data.model];
-  // early PPL amendments had a typo in the field name: comment (typo) vs comments (correct)
-  const hasComments = task.data.meta &&
-    (task.data.meta.comments || task.data.meta.comment);
+  const hasComments = task.data.meta && task.data.meta.comments;
 
   return (
     <StickyNavPage>
@@ -46,7 +44,7 @@ export default function Model({ task, formFields }) {
           <StickyNavAnchor id={task.data.action === 'revoke' ? 'revocation' : 'comments'}>
             <Field
               title={<Snippet>{`sticky-nav.${task.data.action === 'revoke' ? 'revocation' : 'comments'}`}</Snippet>}
-              content={task.data.meta.comments || task.data.meta.comment}
+              content={task.data.meta.comments}
             />
           </StickyNavAnchor>
         )

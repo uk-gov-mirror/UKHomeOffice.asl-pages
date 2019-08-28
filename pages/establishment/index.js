@@ -13,7 +13,7 @@ module.exports = () => {
       req.api(`/establishment/${req.establishmentId}`)
         .then(response => {
           req.establishment = response.json.data;
-          res.locals.static.openTask = response.json.meta.openTasks[0];
+          req.establishment.openTasks = response.json.meta.openTasks || [];
           const pelh = req.establishment.roles.find(r => r.type === 'pelh');
           const nprc = req.establishment.roles.find(r => r.type === 'nprc');
           if (pelh) {

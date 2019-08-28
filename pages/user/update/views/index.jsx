@@ -6,10 +6,11 @@ import {
   Snippet
 } from '@asl/components';
 import InProgressWarning from '../../../common/components/in-progress-warning';
+import { canUpdateModel } from '../../../../lib/utils';
 
 const Page = ({ model }) => {
-  if (model.tasks && model.tasks.length) {
-    return <InProgressWarning task={model.tasks[0]} />;
+  if (!canUpdateModel(model)) {
+    return <InProgressWarning task={model.openTasks[0]} />;
   }
   return (
     <FormLayout>

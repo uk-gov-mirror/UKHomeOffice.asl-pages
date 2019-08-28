@@ -7,14 +7,14 @@ module.exports = () => {
   app.post('/draft', (req, res, next) => {
     res.locals.static.content = content;
 
-    if (req.project.status === 'inactive') {
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { method: 'DELETE' })
-        .then(() => req.notification({ key: 'draftDiscarded' }))
-        .then(() => res.redirect(`${req.buildRoute('project.list')}?status=inactive`))
-        .catch(next);
+    if (req.project.status !== 'inactive') {
+      return next(new Error('Active projects cannot be deleted.'));
     }
 
-    throw new Error('Active projects cannot be deleted.');
+    return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { method: 'DELETE' })
+      .then(() => req.notification({ key: 'draftDiscarded' }))
+      .then(() => res.redirect(`${req.buildRoute('project.list')}?status=inactive`))
+      .catch(next);
   });
 
   app.post('/amendment', (req, res, next) => {

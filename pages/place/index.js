@@ -1,7 +1,6 @@
-const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
 const { schema } = require('./schema');
-const { cleanModel } = require('../../lib/utils');
+const { cleanModel, buildModel } = require('../../lib/utils');
 const { permissions } = require('../../lib/middleware');
 
 module.exports = () => {
@@ -9,25 +8,19 @@ module.exports = () => {
 
   app.param('id', (req, res, next, id) => {
     if (id === 'create') {
-      req.model = reduce(schema, (all, { nullValue }, key) => {
-        return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
-      }, {});
+      req.model = buildModel(schema);
       req.model.id = 'new-place';
       return next('route');
     }
     return req.api(`/establishment/${req.establishmentId}/place/${id}`)
       .then(({ json: { data, meta } }) => {
+        req.placeId = id;
         res.locals.static.establishment = meta.establishment;
         req.model = cleanModel(data);
-        req.model.tasks = meta.openTasks || [];
+        req.model.openTasks = meta.openTasks || [];
       })
       .then(() => next())
       .catch(next);
-  });
-
-  app.use((req, res, next) => {
-    res.locals.static.schema = schema;
-    next();
   });
 
   app.use((req, res, next) => {

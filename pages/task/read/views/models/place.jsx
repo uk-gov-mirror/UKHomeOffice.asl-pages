@@ -60,7 +60,7 @@ export default function Playback({ task, schema, values }) {
     ),
 
     (
-      values.restrictions && (
+      values && values.restrictions && (
         <StickyNavAnchor id="restrictions" key="restrictions">
           <Field
             editable={isAsru && !!task.nextSteps.length && !task.data.data.restrictions}

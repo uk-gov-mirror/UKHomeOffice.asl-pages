@@ -7,6 +7,13 @@ module.exports = {
 
           You will be notified by the Home Office when your changes are approved or rejected.`
       },
+      // TODO: CONTENT
+      updated: {
+        title: 'Amendment submitted',
+        body: `An inspector will review your changes and contact you if they need any more information.
+
+          You will be notified by the Home Office when your changes are approved or rejected.`
+      },
       'inspector-recommended': {
         title: 'Recommendation sent',
         body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
@@ -79,6 +86,17 @@ module.exports = {
 
           Exemptions may also be assessed by an inspector.`
       },
+      // TODO: CONTENT
+      updated: {
+        title: 'Application submitted',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
+
+          The Training and Competency Officer at your establishment will review the training and exemption information.
+
+          They may contact you for more information before they endorse an application.
+
+          Exemptions may also be assessed by an inspector.`
+      },
       'ntco-endorsed': {
         title: 'Application endorsed',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
@@ -142,6 +160,13 @@ module.exports = {
     },
     amendment: {
       resubmitted: {
+        title: 'Amendment submitted',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
+
+          The Home Office will review your changes and will contact you if they need any more information.`
+      },
+      // TODO: CONTENT
+      updated: {
         title: 'Amendment submitted',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
@@ -313,6 +338,68 @@ module.exports = {
       resolved: {
         title: 'Licence revoked',
         body: 'This licence is no longer active. The person who held this licence is no longer authorised to carry out any regulated procedures in any categories.'
+      }
+    }
+  },
+  profile: {
+    amendment: {
+      // TODO: CONTENT
+      resubmitted: {
+        title: 'Amendment submitted',
+        body: `An inspector will review your changes and contact you if they need any more information.
+
+          You will be notified by the Home Office when your changes are approved or rejected.`
+      },
+      // TODO: CONTENT
+      updated: {
+        title: 'Amendment submitted',
+        body: `An inspector will review your changes and contact you if they need any more information.
+
+          You will be notified by the Home Office when your changes are approved or rejected.`
+      },
+      // TODO: CONTENT
+      'inspector-recommended': {
+        title: 'Recommendation sent',
+        body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
+      },
+      // TODO: CONTENT
+      'inspector-rejected': {
+        title: 'Recommendation sent',
+        body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
+      },
+      // TODO: CONTENT
+      'returned-to-applicant': {
+        title: 'Amendment returned',
+        body: `The person who submitted the amendment will review your comments.
+
+          They can then choose to withdraw the amendment, or submit a new one.`
+      },
+      // TODO: CONTENT
+      resolved: {
+        title: 'Amendment approved',
+        body: 'The profile has been updated with the changes approved in this amendment.'
+      },
+      // TODO: CONTENT
+      rejected: {
+        title: 'Amendment rejected',
+        body: `The person who submitted this amendment will review your comments and the reason for rejecting it.
+
+          They will need to create a new amendment if they wish to submit these changes again.`
+      },
+      // TODO: CONTENT
+      'withdrawn-by-applicant': {
+        title: 'Amendment withdrawn',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
+      // TODO: CONTENT
+      'recalled-by-applicant': {
+        title: 'Amendment recalled',
+        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+      },
+      // TODO: CONTENT
+      'discarded-by-applicant': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
     }
   },

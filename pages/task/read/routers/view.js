@@ -7,12 +7,17 @@ const getSchema = require('../../schema/view');
 const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
+const updateData = require('../middleware/update-data');
 
 const getRelevantActivity = activityLog => activityLog.filter(log => {
   const [type, previous] = log.eventName.split(':');
   if (get(log, 'event.meta.payload.data.extended')) {
     log.eventName = 'status:deadline-extension';
     return true;
+  }
+
+  if (log.eventName === 'status:updated:resubmitted') {
+    return false;
   }
 
   if (type !== 'status' || previous === 'ntco-endorsed' || previous === 'resubmitted') {
@@ -197,15 +202,9 @@ module.exports = () => {
   })));
 
   app.post('/', (req, res, next) => {
-    const model = get(req.task, 'data.model');
     const status = get(req.form, 'values.status');
-    if (model === 'project' && status === 'resubmitted') {
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
-        .then(({ json: { data } }) => {
-          req.versionId = data.data.id;
-          res.redirect(req.buildRoute('project.version.update'));
-        })
-        .catch(next);
+    if (status === 'updated') {
+      return updateData(req, res, next);
     }
     next();
   });

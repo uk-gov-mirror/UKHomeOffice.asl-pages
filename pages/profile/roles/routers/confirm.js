@@ -1,14 +1,17 @@
 const { Router } = require('express');
 const form = require('../../../common/routers/form');
 const schema = require('../schema/declarations');
+const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
 
-module.exports = action => {
+module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.use('/', (req, res, next) => {
-    req.breadcrumb(`profile.role.${action}.confirm`);
+    req.breadcrumb('role.confirm');
     next();
   });
+
+  app.post('/', updateDataFromTask(settings.sendData));
 
   app.use('/', form({
     model: 'role-confirm',
@@ -27,12 +30,14 @@ module.exports = action => {
       if (req.session.form && req.session.form[req.model.id]) {
         return next();
       }
-      return res.redirect(req.buildRoute(`profile.role.${action}.base`));
+      return res.redirect(req.buildRoute(`role.${settings.action}`));
     },
     cancelEdit: (req, res, next) => {
       return res.redirect(req.buildRoute('profile.view'));
     }
   }));
+
+  app.post('/', redirectToTaskIfOpen());
 
   return app;
 };

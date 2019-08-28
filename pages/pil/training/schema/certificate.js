@@ -33,6 +33,7 @@ module.exports = {
   passDate: {
     inputType: 'inputDate',
     hint: 'For example, 20/08/2018',
+    nullValue: '',
     validate: [
       'required',
       'validDate',

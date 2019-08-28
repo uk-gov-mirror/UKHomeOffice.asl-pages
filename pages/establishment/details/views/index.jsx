@@ -122,7 +122,7 @@ const Index = ({
           {
             canAmendDetails &&
               <p className="control-panel">
-                <Link page="establishment.update.base" label={<Snippet>actions.amend</Snippet>} className="govuk-button" />
+                <Link page="establishment.update" label={<Snippet>actions.amend</Snippet>} className="govuk-button" />
               </p>
           }
         </div>

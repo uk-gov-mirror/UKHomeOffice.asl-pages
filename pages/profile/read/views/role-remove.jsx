@@ -14,7 +14,7 @@ const RoleRemove = ({ allowedActions }) => {
     <div>
       <p>
         <Link
-          page='profile.role.remove.base'
+          page='role.delete'
           label={<Snippet>responsibilities.roleRemove</Snippet>}
         />
       </p>

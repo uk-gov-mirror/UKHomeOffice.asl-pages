@@ -5,10 +5,11 @@ import {
   ApplicationConfirm,
   ErrorSummary,
   Header,
-  SectionList
+  SectionList,
+  OpenTaskWarning
 } from '@asl/components';
 import { dateFormat } from '../../../../constants';
-import { formatDate } from '../../../../lib/utils';
+import { formatDate, canUpdateModel } from '../../../../lib/utils';
 
 import InProgressWarning from '../../../common/components/in-progress-warning';
 
@@ -94,14 +95,15 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
 
   const applicationComplete = sections.every(section => section.completed);
 
-  if (model.tasks && model.tasks.length) {
-    return <InProgressWarning task={model.tasks[0]} />;
+  if (!canUpdateModel(model)) {
+    return <InProgressWarning task={model.openTasks[0]} />;
   }
 
   return (
     <Fragment>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
+          <OpenTaskWarning />
           <ErrorSummary />
         </div>
       </div>

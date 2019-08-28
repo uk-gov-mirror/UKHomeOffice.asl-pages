@@ -18,9 +18,11 @@ module.exports = {
     definedValues: 'Invalid option, select from the list of available NACWOs.'
   },
   changesToRestrictions: {
-    required: 'Describe the changes you would like to make to the restrictions.'
+    required: 'Describe the changes you would like to make to the restrictions.',
+    customValidate: 'Describe the changes you would like to make to the restrictions.'
   },
-  declaration: {
-    required: 'Check the declaration to confirm you have permission from the PEL holder.'
+  declarations: {
+    required: 'Please confirm that you understand',
+    customValidate: 'Please confirm that you understand'
   }
 };

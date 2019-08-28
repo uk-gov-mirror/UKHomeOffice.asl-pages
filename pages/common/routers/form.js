@@ -11,7 +11,9 @@ const {
   identity,
   pickBy,
   pick,
-  omit
+  omit,
+  chain,
+  reduce
 } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged, cleanModel } = require('../../../lib/utils');
@@ -31,6 +33,20 @@ const flattenNested = (data, schema) => {
     return get(value, accessor, value);
   });
 };
+
+const getConditionalRevealKeys = schema => chain(schema)
+  .filter(field => field.inputType === 'conditionalReveal')
+  .map(field => Object.keys(field.reveal))
+  .flatten()
+  .value();
+
+const schemaWithReveals = schema => reduce(schema, (obj, value, key) => {
+  return {
+    ...obj,
+    [key]: value,
+    ...(value.reveal || {})
+  };
+}, {});
 
 const trim = value => {
   if (typeof value === 'string') {
@@ -124,7 +140,8 @@ module.exports = ({
     });
     req.form.values = mapValues(req.form.values, trim);
     req.form.values = cleanModel(req.form.values);
-    const conditionalRevealKeys = Object.keys(schema).filter(key => schema[key].conditionalReveal).map(key => `conditional-reveal-${key}`);
+
+    const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
     Object.assign(req.form.values, { ...pick(req.body, conditionalRevealKeys) });
     return process(req, res, next);
   };
@@ -133,25 +150,36 @@ module.exports = ({
     if (!checkChanged) {
       return next();
     }
-    const changedFields = pickBy(req.form.schema, (field, key) => {
-      return field.editable !== false &&
-        Object.keys(req.model).includes(key) &&
+
+    const changedFields = pickBy(schemaWithReveals(req.form.schema), (field, key) => {
+      return field.checkChanged !== false &&
         hasChanged(req.form.values[key], req.model[key], field);
     });
-    const extraFields = pickBy(req.form.schema, (field, key) => {
-      return field.detectChange && req.form.values[key];
-    });
-    if (size({ ...changedFields, ...extraFields })) {
+
+    if (size(changedFields)) {
       return next();
     }
+
     return next({ validation: { form: 'unchanged' } });
   };
 
   const _validate = (req, res, next) => {
-    const fileKeys = Object.keys(req.form.schema).filter(k => req.form.schema[k].inputType === 'inputFile');
+    const schema = reduce(req.form.schema, (obj, value, key) => {
+      if (value.inputType === 'conditionalReveal' && req.form.values[key] === 'true') {
+        return {
+          ...obj,
+          ...value.reveal
+        };
+      }
+      return {
+        ...obj,
+        [key]: value
+      };
+    }, {});
+    const fileKeys = Object.keys(schema).filter(k => schema[k].inputType === 'inputFile');
     const validation = {
-      ...validator(req.form.values, omit(req.form.schema, fileKeys), req.model),
-      ...validator(req.files, pick(req.form.schema, fileKeys), req.model)
+      ...validator(req.form.values, omit(schema, fileKeys), req.model),
+      ...validator(req.files, pick(schema, fileKeys), req.model)
     };
     if (size(validation)) {
       return next({ validation });
@@ -160,7 +188,24 @@ module.exports = ({
   };
 
   const _saveValues = (req, res, next) => {
+    const conditionalReveals = pickBy(req.form.schema, field => {
+      return field.inputType === 'conditionalReveal';
+    });
+
     Object.assign(req.session.form[req.model.id].values, req.form.values);
+
+    Object.keys(conditionalReveals).forEach(key => {
+      if (req.form.values[key] !== 'true') {
+        Object.keys(conditionalReveals[key].reveal).forEach(revealKey => {
+          const reveal = conditionalReveals[key].reveal[revealKey];
+          // remove value if parent conditional reveal is not 'true'
+          req.session.form[req.model.id].values[revealKey] = reveal.nullValue || null;
+        });
+      }
+      // remove pseudo fields
+      delete req.session.form[req.model.id].values[key];
+    });
+
     return saveValues(req, res, next);
   };
 

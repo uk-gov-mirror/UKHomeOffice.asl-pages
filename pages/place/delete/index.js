@@ -1,4 +1,4 @@
-const { pick, get } = require('lodash');
+const { pick } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { schema } = require('../schema');
 const confirm = require('../routers/confirm');
@@ -36,30 +36,18 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('place.delete.confirm', { placeId: req.model.id }));
+    return res.redirect(`${req.buildRoute('place.delete')}/confirm`);
   });
 
-  app.use('/confirm', confirm());
-
-  app.get('/confirm', (req, res, next) => {
-    res.locals.model = req.model;
-    res.locals.static.values = req.form.values;
-    return next();
-  });
-
-  app.post('/confirm', (req, res, next) => {
-    const comments = get(req.session, `form[${req.model.id}].values.comments`);
-    const opts = {
+  app.use('/confirm', (req, res, next) => {
+    confirm({
       method: 'DELETE',
-      json: { meta: { comments } }
-    };
-    return req.api(`/establishment/${req.establishmentId}/place/${req.model.id}`, opts)
-      .then(() => next())
-      .catch(next);
+      apiUrl: `/establishment/${req.establishmentId}/place/${req.model.id}`
+    })(req, res, next);
   });
 
   app.post('/confirm', (req, res, next) => {
-    return res.redirect(req.buildRoute('place.delete.success', { placeId: req.model.id }));
+    return res.redirect(`${req.buildRoute('place.delete')}/success`);
   });
 
   app.use('/success', success({

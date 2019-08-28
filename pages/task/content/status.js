@@ -162,5 +162,17 @@ module.exports = {
   'deadline-extension': {
     state: 'Deadline extended',
     log: 'Extended by'
+  },
+  updated: {
+    state: 'Updated and resubmitted',
+    action: {
+      application: 'Edit and resubmit the application',
+      amendment: 'Edit and resubmit the amendment'
+    },
+    hint: {
+      application: 'To make changes to the application you previously submitted and respond to any comments',
+      amendment: 'To make changes to the amendment you previously submitted and respond to any comments'
+    },
+    log: 'Updated by'
   }
 };

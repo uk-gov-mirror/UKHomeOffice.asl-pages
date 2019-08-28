@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import mapKeys from 'lodash/mapKeys';
 import mapValues from 'lodash/mapValues';
+import get from 'lodash/get';
+import uuid from 'uuid/v4';
 import {
   Snippet,
   FormLayout,
@@ -11,7 +13,6 @@ import {
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import InProgressWarning from '../../../common/components/in-progress-warning';
-import uuid from 'uuid/v4';
 
 const connectComponent = value => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {
@@ -125,9 +126,9 @@ const formatters = {
   }
 };
 
-const Page = ({ model, openTask }) => {
-  if (openTask) {
-    return <InProgressWarning task={openTask} />;
+const Page = ({ model }) => {
+  if (model.openTasks.length && !get(model, 'openTasks[0].editable')) {
+    return <InProgressWarning task={model.openTasks[0]} />;
   }
 
   return (
@@ -137,6 +138,6 @@ const Page = ({ model, openTask }) => {
   );
 };
 
-const mapStateToProps = ({ model, static: { openTask } }) => ({ model, openTask });
+const mapStateToProps = ({ model }) => ({ model });
 
 export default connect(mapStateToProps)(Page);

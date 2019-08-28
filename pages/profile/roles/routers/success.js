@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const success = require('../../../common/routers/success');
 
-module.exports = action => {
+module.exports = () => {
   const app = Router();
 
   app.get('/', (req, res, next) => {
-    req.breadcrumb(`profile.role.${action}.success`);
+    req.breadcrumb('role.success');
     next();
   });
 

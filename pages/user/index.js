@@ -11,7 +11,7 @@ module.exports = () => {
     req.api('/me')
       .then(({ json: { data, meta } }) => {
         req.model = data;
-        req.model.tasks = meta.openTasks || [];
+        req.model.openTasks = meta.openTasks || [];
         res.locals.model = req.model;
       })
       .then(() => next())

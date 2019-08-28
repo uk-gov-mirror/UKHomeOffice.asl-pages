@@ -7,10 +7,5 @@ module.exports = merge({}, commonContent, baseContent, {
     title: 'Please confirm that you understand',
     declaration1: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
   },
-  subtitle: 'Amend approved area',
-  errors: {
-    declarations: {
-      customValidate: 'Please confirm that you understand'
-    }
-  }
+  subtitle: 'Amend approved area'
 });

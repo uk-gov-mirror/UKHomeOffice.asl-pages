@@ -12,7 +12,7 @@ const Index = () => {
       <div className="govuk-grid-column-two-thirds">
         <ul className="panel-list">
           <li>
-            <Link page="account.edit" label={ <Snippet>pages.account.edit</Snippet> } />
+            <Link page="account.update" label={ <Snippet>pages.account.update</Snippet> } />
           </li>
         </ul>
       </div>

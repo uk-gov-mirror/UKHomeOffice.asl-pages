@@ -10,7 +10,7 @@ import LicenceHolder from '../../../../common/components/licence-holder';
 import { hasChanged } from '../../../../../lib/utils';
 import establishmentSchema from '../../../../establishment/update/schema';
 import formatters from '../../../../establishment/formatters';
-import { groupFlags } from '../../../../establishment/formatters/flag-grouping';
+import { groupFlags } from '../../../../establishment/update/helpers';
 import Authorisations from '../../../../establishment/update/views/authorisations';
 
 export default function Establishment({ task, schema, values }) {

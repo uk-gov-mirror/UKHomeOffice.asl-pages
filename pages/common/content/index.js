@@ -29,19 +29,13 @@ module.exports = {
       list: 'People',
       view: '{{profile.firstName}} {{profile.lastName}}',
       invite: 'Invite user',
-      role: {
-        apply: {
-          base: 'Assign named role',
-          confirm: 'Confirm',
-          success: 'Success'
-        },
-        remove: {
-          base: 'Remove named role',
-          confirm: 'Confirm',
-          success: 'Success'
-        }
-      },
       permission: 'Change / remove permissions'
+    },
+    role: {
+      create: 'Assign named role',
+      delete: 'Remove named role',
+      confirm: 'Confirm',
+      success: 'Success'
     },
     project: {
       list: 'Projects',
@@ -54,7 +48,7 @@ module.exports = {
     },
     account: {
       menu: 'Your account',
-      edit: 'Edit'
+      update: 'Edit'
     },
     feedback: 'Feedback',
     task: {
@@ -67,7 +61,8 @@ module.exports = {
   },
   pages: {
     account: {
-      title: 'Your account'
+      title: 'Your account',
+      update: 'Edit your details'
     },
     dashboard: {
       greeting: 'Hello {{name}}',
@@ -144,6 +139,9 @@ module.exports = {
   },
   notifications: {
     success: 'Changes saved!'
+  },
+  warnings: {
+    openTask: 'This item is currently being edited'
   },
   invalidLicence: {
     status: {

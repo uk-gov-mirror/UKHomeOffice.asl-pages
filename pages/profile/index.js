@@ -23,6 +23,7 @@ module.exports = () => {
       req.model = reduce(schema, (all, { nullValue }, key) => {
         return { ...all, [key]: isUndefined(nullValue) ? null : nullValue };
       }, {});
+      req.profile = req.model;
       req.model.id = 'new-profile';
       return next('route');
     }
