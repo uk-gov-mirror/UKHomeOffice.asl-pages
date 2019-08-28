@@ -32,15 +32,20 @@ module.exports = settings => {
     };
     req.user.can('project.update', params)
       .then(canUpdate => {
-        res.locals.static.canUpdate = canUpdate;
-
         const openTask = req.project.openTasks[0];
+        const openAmendment = openTask && openTask.data.action === 'amend';
+        const openRevocation = openTask && openTask.data.action === 'revoke';
+
         res.locals.static.openTask = openTask;
+        res.locals.static.openAmendment = openAmendment;
+        res.locals.static.openRevocation = openRevocation;
 
         res.locals.static.editPerms = {
+          canUpdate,
           canAmend: canUpdate && req.project.status === 'active' && !openTask,
           canDeleteDraft: canUpdate && !openTask && !req.project.granted && (req.project.draft || req.project.withdrawn),
-          canUpdateLicenceHolder: canUpdate && ((req.project.granted && !req.project.draft) || !req.project.granted) && !req.project.submitted && !openTask
+          canUpdateLicenceHolder: canUpdate && ((req.project.granted && !req.project.draft) || !req.project.granted) && !req.project.submitted && !openTask,
+          canRevoke: req.project.status === 'active' && (canUpdate || req.user.profile.asruUser) && !openTask
         };
       })
       .then(() => next())

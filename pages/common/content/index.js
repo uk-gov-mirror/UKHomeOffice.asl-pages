@@ -49,7 +49,8 @@ module.exports = {
       update: 'Edit draft',
       amend: 'Amend licence',
       updateLicenceHolder: 'Update licence holder',
-      upload: 'Upload draft application'
+      upload: 'Upload draft application',
+      revoke: 'Revoke licence'
     },
     account: {
       menu: 'Your account',
