@@ -2,6 +2,7 @@ const { Router } = require('express');
 const read = require('./read');
 const list = require('./list');
 const remove = require('./delete');
+const revoke = require('./revoke');
 const importProject = require('./import');
 const updateLicenceHolder = require('./update-licence-holder');
 const { permissions } = require('../../lib/middleware');
@@ -51,7 +52,8 @@ module.exports = () => {
   app.use('/import', permissions('project.apply'), importProject());
   app.use('/:projectId', checkPermissions('project.read.single'), read());
   app.use('/:projectId/update-licence-holder', checkPermissions('project.update'), updateLicenceHolder());
-  app.use('/:projectId/delete', checkPermissions('project.read.single'), remove());
+  app.use('/:projectId/delete', checkPermissions('project.delete'), remove());
+  app.use('/:projectId/revoke', checkPermissions('project.revoke'), revoke());
 
   return app;
 };

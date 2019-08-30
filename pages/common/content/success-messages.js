@@ -240,6 +240,20 @@ module.exports = {
 
         Any comments that an inspector may have added to this amendment have been deleted.`
       }
+    },
+    revocation: {
+      resubmitted: {
+        title: 'Revocation submitted',
+        body: 'An inspector will review your request to revoke this licence and contact you if they need any more information.'
+      },
+      'inspector-recommended': {
+        title: 'Revocation submitted',
+        body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
+      },
+      resolved: {
+        title: 'Licence revoked',
+        body: 'This licence is no longer active. The person who held this licence is no longer authorised to carry out any regulated procedures in any categories.'
+      }
     }
   },
   fallback: {

@@ -19,6 +19,7 @@ module.exports = {
     activity: 'Latest activity',
     establishment: 'Establishment details',
     comments: 'Reason for amendment',
+    revocation: 'Reason for revocation',
     status: 'What do you want to do?',
     conditions: 'Additional conditions',
     withdraw: 'Withdraw {{type}}'

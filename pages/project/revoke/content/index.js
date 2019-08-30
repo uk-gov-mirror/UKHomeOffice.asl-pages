@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Revoke personal licence',
+  title: 'Revoke licence',
   fields: {
     comments: {
       label: 'Why are you revoking this licence?'

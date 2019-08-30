@@ -18,7 +18,20 @@ const getProjectDuration = model => {
 
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
-const App = ({ model, establishment, url, content, openTask, canAmend, canDeleteDraft, canUpdateLicenceHolder, canUpdate }) => {
+const App = ({
+  model,
+  establishment,
+  url,
+  content,
+  openTask,
+  openAmendment,
+  openRevocation,
+  canAmend,
+  canDeleteDraft,
+  canUpdateLicenceHolder,
+  canUpdate,
+  canRevoke
+}) => {
   let amendmentType = '';
   let amendmentStartDate = '';
   if (openTask) {
@@ -158,7 +171,7 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
       }
 
       {
-        openTask &&
+        openAmendment &&
           <Fragment>
             <hr />
             <h2><Snippet>{`amendment.${amendmentType}.title`}</Snippet></h2>
@@ -177,6 +190,23 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
       }
 
       {
+        openRevocation &&
+          <Fragment>
+            <hr />
+            <h2><Snippet>{`revocation.title`}</Snippet></h2>
+            <p>
+              <Snippet>{`revocation.description`}</Snippet>
+            </p>
+            <Link
+              page="task.read"
+              taskId={openTask.id}
+              className="govuk-button button-secondary"
+              label={<Snippet>{`revocation.action`}</Snippet>}
+            />
+          </Fragment>
+      }
+
+      {
         canDeleteDraft &&
           <Fragment>
             <hr />
@@ -187,6 +217,20 @@ const App = ({ model, establishment, url, content, openTask, canAmend, canDelete
                 <Snippet>discardDraft.action</Snippet>
               </Button>
             </form>
+          </Fragment>
+      }
+
+      {
+        canRevoke &&
+          <Fragment>
+            <hr />
+            <h2><Snippet>{`revoke.title`}</Snippet></h2>
+            <p><Snippet>revoke.description</Snippet></p>
+            <Link
+              page="project.revoke.base"
+              className="govuk-button button-warning"
+              label={<Snippet>revoke.action</Snippet>}
+            />
           </Fragment>
       }
     </Fragment>
@@ -200,8 +244,9 @@ const mapStateToProps = ({
     url,
     content,
     openTask,
-    editPerms: { canAmend, canDeleteDraft, canUpdateLicenceHolder },
-    canUpdate
+    openAmendment,
+    openRevocation,
+    editPerms: { canAmend, canDeleteDraft, canUpdateLicenceHolder, canUpdate, canRevoke }
   }
 }) => ({
   model,
@@ -209,10 +254,13 @@ const mapStateToProps = ({
   url,
   content,
   openTask,
+  openAmendment,
+  openRevocation,
   canAmend,
   canDeleteDraft,
   canUpdateLicenceHolder,
-  canUpdate
+  canUpdate,
+  canRevoke
 });
 
 export default connect(mapStateToProps)(App);

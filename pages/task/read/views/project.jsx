@@ -182,9 +182,9 @@ const Project = ({ task, project, establishment, children, schema, formFields })
       {
         // early PPL amendments had a typo in the field name: comment (typo) vs comments (correct)
         (task.data.meta.comments || task.data.meta.comment) && (
-          <StickyNavAnchor id="comments">
+          <StickyNavAnchor id={task.data.action === 'revoke' ? 'revocation' : 'comments'}>
             <Field
-              title={<Snippet>sticky-nav.comments</Snippet>}
+              title={<Snippet>{`sticky-nav.${task.data.action === 'revoke' ? 'revocation' : 'comments'}`}</Snippet>}
               content={task.data.meta.comments || task.data.meta.comment}
             />
           </StickyNavAnchor>
