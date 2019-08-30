@@ -11,7 +11,9 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('project.revoke');
-    req.model = req.project;
+    req.model = {
+      id: `${req.project.id}-revoke`
+    };
     next();
   });
 
