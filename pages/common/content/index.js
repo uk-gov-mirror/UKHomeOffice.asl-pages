@@ -130,7 +130,7 @@ module.exports = {
       csrf: 'This form data has been changed somewhere else.'
     }
   },
-  diff: {
+  countdown: {
     singular: '1 {{unit}} left',
     plural: '{{diff}} {{unit}}s left',
     expired: 'Expired',
