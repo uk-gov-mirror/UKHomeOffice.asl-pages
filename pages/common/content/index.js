@@ -133,7 +133,8 @@ module.exports = {
   diff: {
     singular: '1 {{unit}} left',
     plural: '{{diff}} {{unit}}s left',
-    expired: 'Expired'
+    expired: 'Expired',
+    expiresToday: 'Expires today'
   },
   success: {
     whatNext: {
