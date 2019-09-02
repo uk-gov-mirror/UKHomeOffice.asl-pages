@@ -33,7 +33,7 @@ module.exports = settings => {
     req.user.can('project.update', params)
       .then(canUpdate => {
         const openTask = req.project.openTasks[0];
-        const openAmendment = openTask && openTask.data.action === 'amend';
+        const openAmendment = openTask && openTask.data.action === 'grant';
         const openRevocation = openTask && openTask.data.action === 'revoke';
 
         res.locals.static.openTask = openTask;
