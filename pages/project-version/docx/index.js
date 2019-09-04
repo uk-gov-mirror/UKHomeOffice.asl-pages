@@ -38,12 +38,9 @@ module.exports = () => {
 
   app.get('/', (req, res, next) => {
     const values = req.version.data;
-    const establishment = req.project.establishment;
-    const licenceHolder = req.project.licenceHolder;
-    const licenceNumber = req.project.licenceNumber;
     const sections = Object.values(schema[req.project.schemaVersion]);
 
-    renderer({ establishment, licenceHolder, licenceNumber }, sections, values, updateImageDimensions)
+    renderer(req.project, sections, values, updateImageDimensions)
       .then(pack)
       .then(buffer => {
         res.attachment(`${values.title || 'Untitled project'}.docx`);
