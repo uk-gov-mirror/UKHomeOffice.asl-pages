@@ -31,7 +31,7 @@ module.exports = settings => {
       : req.version.status === 'granted';
 
     res.locals.static.editConditions = req.user.profile.asruUser &&
-      task.withASRU &&
+      task && task.withASRU &&
       req.version.status === 'submitted' &&
       req.project.versions[0].id === req.version.id;
 
