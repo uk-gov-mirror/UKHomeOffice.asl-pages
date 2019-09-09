@@ -37,7 +37,7 @@ module.exports = () => {
     if (model === 'project') {
       req.projectId = get(req.task, 'data.id');
       req.establishmentId = get(req.task, 'data.data.establishmentId');
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`)
+      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           req.project = data;
         })
