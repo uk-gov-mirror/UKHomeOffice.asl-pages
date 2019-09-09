@@ -17,6 +17,7 @@ module.exports = () => {
     return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${pilId}`)
       .then(({ json: { data, meta } }) => {
         req.model = data;
+        req.pil = data;
         req.pilId = pilId;
         req.model.openTasks = meta.openTasks || [];
       })
