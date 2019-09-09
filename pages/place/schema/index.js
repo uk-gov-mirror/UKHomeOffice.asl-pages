@@ -49,6 +49,29 @@ const baseSchema = {
   nacwo: {
     inputType: 'select',
     accessor: 'id'
+  },
+  restrictions: {
+    inputType: 'text',
+    showDiff: false,
+    checkChanged: false
+  },
+  changeRestrictions: {
+    inputType: 'conditionalReveal',
+    showDiff: false,
+    checkChanged: false,
+    reveal: {
+      changesToRestrictions: {
+        inputType: 'textarea',
+        validate: [
+          'required'
+        ]
+      }
+    }
+  },
+  comments: {
+    inputType: 'textarea',
+    showDiff: false,
+    checkChanged: false
   }
 };
 

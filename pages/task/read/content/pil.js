@@ -2,6 +2,12 @@ module.exports = {
   status: {
     'returned-to-applicant': {
       'with-ntco': 'No'
+    },
+    'resubmitted': {
+      hint: {
+        application: 'Your application will be sent to an NTCO for endorsement',
+        amendment: 'Your amendment will be sent to an NTCO for endorsement'
+      }
     }
   },
   fields: {

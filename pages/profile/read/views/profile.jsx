@@ -133,7 +133,7 @@ class Profile extends React.Component {
             allowedActions.includes('profile.roles') && (
               <p className="control-panel">
                 <Link
-                  page='profile.role.apply.base'
+                  page='role.create'
                   establishmentId={estId}
                   profileId={id}
                   className='govuk-button button-secondary'
@@ -142,7 +142,7 @@ class Profile extends React.Component {
                 {
                   !isEmpty(estRoles) && (
                     <Link
-                      page='profile.role.remove.base'
+                      page='role.delete'
                       establishmentId={estId}
                       profileId={id}
                       label={<Snippet>responsibilities.roleRemove</Snippet>}
@@ -199,7 +199,7 @@ class Profile extends React.Component {
                       !dob && <p><Snippet>{`pil.noDob.${isOwnProfile ? 'ownProfile' : 'otherProfile'}`}</Snippet></p>
                     }
                     {
-                      !dob && isOwnProfile && <p><Link page='account.edit' label={<Snippet>pil.addDob</Snippet>} /></p>
+                      !dob && isOwnProfile && <p><Link page='account.update' label={<Snippet>pil.addDob</Snippet>} /></p>
                     }
                   </Fragment>
                 )

@@ -8,15 +8,16 @@ import {
 } from '@asl/components';
 import formatters from '../../formatters';
 import InProgressWarning from '../../../common/components/in-progress-warning';
+import { canUpdateModel } from '../../../../lib/utils';
 
 const pageFormatters = {
   restrictions: { showIf: model => model.restrictions },
-  changesToRestrictions: { showIf: model => model.restrictions }
+  changeRestrictions: { showIf: model => model.restrictions }
 };
 
 const Page = ({ model }) => {
-  if (model.tasks && model.tasks.length) {
-    return <InProgressWarning task={model.tasks[0]} />;
+  if (!canUpdateModel(model)) {
+    return <InProgressWarning task={model.openTasks[0]} />;
   }
   return <FormLayout formatters={Object.assign({}, formatters, pageFormatters)}>
     <Header title={<Snippet>pages.place.edit</Snippet>} />

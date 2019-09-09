@@ -20,7 +20,7 @@ const Confirm = ({
   values,
   ...props
 }) => {
-  const editPage = props.action === 'remove' ? 'profile.role.remove.base' : 'profile.role.apply.base';
+  const editPage = props.action === 'remove' ? 'role.delete' : 'role.create';
 
   return (
     <Fragment>

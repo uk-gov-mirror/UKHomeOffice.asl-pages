@@ -37,6 +37,30 @@ module.exports = {
     },
     log: 'Returned by'
   },
+  'recalled-by-applicant': {
+    state: 'Recalled',
+    action: {
+      application: 'Recall application',
+      amendment: 'Recall amendment',
+      revocation: 'Recall revocation'
+    },
+    hint: 'You can recall this submission to continue making edits.',
+    log: 'Recalled by'
+  },
+  'discarded-by-applicant': {
+    state: 'Discarded',
+    action: {
+      application: 'Discard application',
+      amendment: 'Discard amendment',
+      revocation: 'Discard revocation'
+    },
+    hint: {
+      application: 'You will need to create a new application to apply for this type of licence in the future.',
+      amendment: 'You will need to create a new amendment to submit these changes again.',
+      revocation: 'You will need to create a new revocation request for this licence to be revoked.'
+    },
+    log: 'Discarded by'
+  },
   'withdrawn-by-applicant': {
     state: 'Withdrawn',
     action: {
@@ -138,5 +162,17 @@ module.exports = {
   'deadline-extension': {
     state: 'Deadline extended',
     log: 'Extended by'
+  },
+  updated: {
+    state: 'Updated and resubmitted',
+    action: {
+      application: 'Edit and resubmit the application',
+      amendment: 'Edit and resubmit the amendment'
+    },
+    hint: {
+      application: 'To make changes to the application you previously submitted and respond to any comments',
+      amendment: 'To make changes to the amendment you previously submitted and respond to any comments'
+    },
+    log: 'Updated by'
   }
 };

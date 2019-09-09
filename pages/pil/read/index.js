@@ -9,7 +9,7 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    if (['pending', 'inactive'].includes(req.pil.status)) {
+    if (['pending', 'inactive'].includes(req.model.status)) {
       return res.redirect(req.buildRoute('pil.update'));
     }
     next();
@@ -18,7 +18,7 @@ module.exports = settings => {
   app.use((req, res, next) => {
     const params = {
       id: req.pilId,
-      profileId: req.pil.profileId,
+      profileId: req.model.profileId,
       establishment: req.establishment.id
     };
     req.user.can('pil.update', params)
@@ -31,15 +31,10 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     req.breadcrumb('pil.read');
-    res.locals.static.pil = req.pil;
-    res.locals.static.openTask = req.pil.tasks[0];
+    res.locals.static.pil = req.model;
+    res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;
-    res.locals.static.correctEstablishment = req.pil.establishmentId === req.establishment.id;
-    next();
-  });
-
-  app.use((req, res, next) => {
-    req.model = req.pil;
+    res.locals.static.correctEstablishment = req.model.establishmentId === req.establishment.id;
     next();
   });
 
@@ -65,7 +60,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    const id = req.pil.id;
+    const id = req.model.id;
     req.notification({
       key: req.user.profile.asruLicensing ? 'conditions-updated' : 'update-requested'
     });

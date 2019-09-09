@@ -1,9 +1,24 @@
-const { omit } = require('lodash');
+const { omit, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
 const getSchema = require('./schema');
 const confirm = require('../routers/confirm');
 const success = require('../routers/success');
+const { clearSessionIfNotFromTask } = require('../../../common/middleware');
+
+const sendData = (req, params = {}) => {
+  const { type, rcvsNumber, comment } = req.session.form[req.model.id].values;
+
+  const opts = {
+    method: 'POST',
+    json: merge({
+      data: { type, rcvsNumber, profileId: req.profileId },
+      meta: { comment }
+    }, params)
+  };
+
+  return req.api(`/establishment/${req.establishmentId}/role`, opts);
+};
 
 module.exports = settings => {
   const app = page({
@@ -12,10 +27,19 @@ module.exports = settings => {
     paths: ['/confirm', '/success']
   });
 
-  app.use('/', (req, res, next) => {
-    req.breadcrumb('profile.role.apply.base');
+  app.use((req, res, next) => {
+    req.model = {
+      id: 'new-role'
+    };
     next();
   });
+
+  app.use('/', (req, res, next) => {
+    req.breadcrumb('role.create');
+    next();
+  });
+
+  app.get('/', clearSessionIfNotFromTask());
 
   app.use('/', form({
     configure: (req, res, next) => {
@@ -33,28 +57,21 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('profile.role.apply.confirm'));
+    return res.redirect(`${req.buildRoute('role.create')}/confirm`);
   });
 
-  app.use('/confirm', confirm('apply'));
+  app.use('/confirm', confirm({
+    type: 'create',
+    sendData
+  }));
 
   app.post('/confirm', (req, res, next) => {
-    const { type, rcvsNumber, comment } = req.session.form[req.model.id].values;
-
-    const opts = {
-      method: 'POST',
-      json: {
-        data: { type, rcvsNumber, profileId: req.profileId },
-        meta: { comment }
-      }
-    };
-
-    return req.api(`/establishment/${req.establishmentId}/role`, opts)
-      .then(() => res.redirect(req.buildRoute(`profile.role.apply.success`)))
+    sendData(req)
+      .then(() => res.redirect(`${req.buildRoute('role.create')}/success`))
       .catch(next);
   });
 
-  app.use('/success', success('apply'));
+  app.use('/success', success());
 
   return app;
 };

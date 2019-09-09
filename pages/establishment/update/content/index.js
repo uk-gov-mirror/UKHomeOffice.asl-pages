@@ -3,8 +3,11 @@ const fields = require('./fields');
 module.exports = {
   fields,
   errors: {
-    authorisations: {
+    authorisationTypes: {
       definedValues: 'Invalid option, select from the list of available authorisations.'
+    },
+    licences: {
+      definedValues: 'Invalid option, select from the list of available options.'
     },
     comments: {
       required: 'Please provide a reason for making this change.'

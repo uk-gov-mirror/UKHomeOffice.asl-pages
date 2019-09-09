@@ -16,13 +16,11 @@ module.exports = {
   holding: {
     label: 'Holding'
   },
+  changeRestrictions: {
+    label: 'Do the restrictions for this area need to be changed?'
+  },
   changesToRestrictions: {
-    label: 'Changes to restrictions',
-    conditionalReveal: {
-      label: 'Do the restrictions for this area need to be changed?',
-      yesLabel: 'Yes',
-      noLabel: 'No'
-    }
+    label: 'Changes to restrictions'
   },
   nacwo: {
     label: 'NACWO'

@@ -37,17 +37,28 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    const values = req.session.form[`${req.task.id}`].values;
+    const values = req.session.form[`${req.task.id}`];
+    if (values.returnTo) {
+      // preserve http method
+      return res.redirect(307, values.returnTo);
+    }
+    next();
+  });
 
-    const params = {
-      ...pick(values, 'status'),
-      meta: pick(values, 'comment', 'restrictions')
-    };
+  app.post('/', (req, res, next) => {
+    const values = req.session.form[`${req.task.id}`].values;
 
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(params)
+      json: {
+        status: values.status,
+        data: values.data,
+        meta: {
+          ...values.meta,
+          ...pick(values, 'comment', 'restrictions')
+        }
+      }
     };
 
     return req.api(`/tasks/${req.task.id}/status`, opts)

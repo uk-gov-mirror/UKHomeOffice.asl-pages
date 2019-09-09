@@ -1,4 +1,4 @@
-const { uniq, flattenDeep } = require('lodash');
+const { uniq, flattenDeep, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -9,15 +9,29 @@ const procedures = require('../procedures');
 const exemptions = require('../exemptions');
 const training = require('../training');
 
+const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
+
 module.exports = settings => {
+  const sendData = (req, params = {}) => {
+    const opts = {
+      method: 'PUT',
+      json: merge({
+        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species')
+      }, params)
+    };
+    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/grant`, opts);
+  };
+
   const app = page({
     ...settings,
     root: __dirname,
     paths: ['/success']
   });
 
+  app.get('/', hydrate());
+
   app.use((req, res, next) => {
-    if (req.pil.status === 'active') {
+    if (req.model.status === 'active') {
       req.breadcrumb('pil.update');
     } else {
       req.breadcrumb('pil.create');
@@ -25,8 +39,8 @@ module.exports = settings => {
 
     const params = {
       id: req.pilId,
-      profileId: req.pil.profileId,
-      establishment: req.pil.establishmentId
+      profileId: req.model.profileId,
+      establishment: req.model.establishmentId
     };
     req.user.can('pil.update', params)
       .then(can => can ? next() : next(new Error('Unauthorised')))
@@ -35,20 +49,22 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
 
-    const values = get(req.session, `form[${req.pilId}].values`);
+    const values = get(req.session, `form[${req.model.id}].values`);
 
-    const trainingSpecies = flattenDeep(req.model.certificates.map(c => c.modules.map(m => m.species)));
-    const exemptionsSpecies = flattenDeep(req.model.exemptions.map(e => e.species));
+    const trainingSpecies = flattenDeep(req.profile.certificates.map(c => c.modules.map(m => m.species)));
+    const exemptionsSpecies = flattenDeep(req.profile.exemptions.map(e => e.species));
     const species = trainingSpecies.concat(exemptionsSpecies).filter(Boolean);
 
     req.model = {
-      ...req.pil,
+      ...req.model,
       ...values,
       species: uniq(species)
     };
 
     next();
   });
+
+  app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
     schema,
@@ -66,18 +82,10 @@ module.exports = settings => {
     }
   }));
 
-  app.post('/', (req, res, next) => {
+  app.post('/', redirectToTaskIfOpen());
 
-    const opts = {
-      method: 'PUT',
-      json: {
-        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species')
-      }
-    };
-    req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/grant`, opts)
-      .then(() => {
-        delete req.session.form[req.model.id];
-      })
+  app.post('/', (req, res, next) => {
+    sendData(req)
       .then(() => res.redirect(req.originalUrl + '/success'))
       .catch(next);
   });
@@ -92,6 +100,8 @@ module.exports = settings => {
   app.use('/exemptions', exemptions());
 
   app.use('/training', training());
+
+  app.use((req, res) => res.sendResponse());
 
   return app;
 };

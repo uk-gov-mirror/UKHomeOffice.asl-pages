@@ -1,13 +1,35 @@
-const { omit, get } = require('lodash');
+const { get, merge, pick } = require('lodash');
 const moment = require('moment');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
+const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
+
+const sendData = (req, params = {}) => {
+  const values = req.session.form[req.model.id].values;
+  const opts = {
+    method: 'PUT',
+    json: merge({
+      data: pick(values, ['firstName', 'lastName', 'dob', 'telephone']),
+      meta: { comments: values.comments }
+    }, params)
+  };
+  return req.api(`/me`, opts);
+};
 
 module.exports = settings => {
   const app = page({
     root: __dirname
   });
+
+  app.get('/', (req, res, next) => {
+    req.breadcrumb('account.update');
+    next();
+  });
+
+  app.get('/', hydrate());
+
+  app.post('/', updateDataFromTask(sendData));
 
   app.use('/', form({
     schema,
@@ -27,23 +49,10 @@ module.exports = settings => {
     }
   }));
 
-  app.get('/', (req, res, next) => {
-    req.breadcrumb('account.edit');
-    next();
-  });
+  app.post('/', redirectToTaskIfOpen());
 
   app.post('/', (req, res, next) => {
-    const values = req.session.form[req.model.id].values;
-    const opts = {
-      method: 'PUT',
-      json: {
-        data: omit(values, 'comments'),
-        meta: {
-          comments: values.comments
-        }
-      }
-    };
-    return req.api(`/me`, opts)
+    sendData(req)
       .then(response => {
         const status = get(response, 'json.data.status');
         req.notification({ key: status === 'autoresolved' ? 'success' : 'pending' });
@@ -58,7 +67,7 @@ module.exports = settings => {
     delete req.session.form[id];
     delete req.session.profile;
 
-    return res.redirect(req.buildRoute('account.edit'));
+    return res.redirect(req.buildRoute('account.update'));
   });
 
   return app;

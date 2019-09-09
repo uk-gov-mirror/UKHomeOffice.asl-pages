@@ -14,11 +14,6 @@ module.exports = {
       label: ''
     }
   },
-  status: {
-    resubmitted: {
-      action: 'Amend draft and resubmit'
-    }
-  },
   versions: {
     granted: {
       label: 'View granted licence',
