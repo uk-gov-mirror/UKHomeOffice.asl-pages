@@ -8,8 +8,8 @@ module.exports = {
   },
   conditions: {
     title: 'Conditions',
-    hasConditions: 'In addition to the [standard conditions of Section 2C licences](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193124/Project_Licence_-_Standard_Conditions.pdf):',
-    noConditions: 'The [standard conditions of Section 2C licences](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/193124/Project_Licence_-_Standard_Conditions.pdf) apply.'
+    hasConditions: 'In addition to the [standard conditions of Section 2C licences](https://www.gov.uk/government/publications/establishment-licence-standard-conditions):',
+    noConditions: 'The [standard conditions of Section 2C licences](https://www.gov.uk/government/publications/establishment-licence-standard-conditions) apply.'
   },
   authorisations: {
     title: 'Authorisations',
