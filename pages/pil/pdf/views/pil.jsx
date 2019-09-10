@@ -18,27 +18,11 @@ const PIL = ({ pil, content }) => {
 
       <h1 className="licence-holder">{`${licenceHolder.firstName} ${licenceHolder.lastName}`}</h1>
 
-      {/* <ReactMarkdown>{content.legalPreamble}</ReactMarkdown> */}
-
-      <p>
-        A personal licence on its own does not authorise you to perform regulated procedures on protected animals. You
-        apply regulated procedures of the category or categories specified below to animals of the species or groups
-        specified below at places specified in authorised project licences subject to the restrictions and provisions
-        contained in the Act and the conditions and restrictions below.
-      </p>
-      <p>
-        You are required to keep a record of all regulated procedures that you have carried out, and to make this
-        record available to the Home Office upon request. If you cease to work at the establishment given as the primary
-        availability on your licence, or it ceases to be the place where you wish your licence to be primarily
-        available, you must notify the Home Office.
-      </p>
-      <p>
-        This licence shall be in force until it is revoked by the Home Office and shall be subject to periodic review.
-      </p>
+      <ReactMarkdown className="legal-preamble">{content.legalPreamble}</ReactMarkdown>
 
       <section className="primary-establishment break">
         <h2>Primary establishment</h2>
-        <p>{establishment.address}</p>
+        <ReactMarkdown>{establishment.address}</ReactMarkdown>
       </section>
 
       <section className="animal-types">
@@ -90,17 +74,9 @@ const PIL = ({ pil, content }) => {
           hasAdditionalConditions ? (
             <Fragment>
               <p>In addition to the standard conditions:</p>
-              <ol>
-                {
-                  pil.conditions.map((condition, index) => (
-                    <li key={index}>
-                      <div className="purple-inset">
-                        <ReactMarkdown>{condition}</ReactMarkdown>
-                      </div>
-                    </li>
-                  ))
-                }
-              </ol>
+              <div className="purple-inset">
+                <ReactMarkdown>{pil.conditions}</ReactMarkdown>
+              </div>
             </Fragment>
           ) : (
             <p>None.</p>
