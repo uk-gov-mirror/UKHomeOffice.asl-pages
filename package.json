@@ -10,9 +10,11 @@
     "test:unit": "CSRF=false jest",
     "prebuild": "mkdir -p ./pages/common/dist/css/pdf",
     "build": "npm run build:css",
-    "build:css": "npm run build:css:app && npm run build:css:pdf",
+    "build:css": "npm run build:css:app && npm run build:css:pdf && npm run build:css:pdf:project",
     "build:css:app": "npm-sass ./pages/common/assets/sass/style.scss > ./pages/common/dist/css/app.css",
     "build:css:pdf": "node-sass ./pages/common/assets/sass/pdf -o ./pages/common/dist/css/pdf",
+    "prebuild:css:pdf:project": "mkdir -p ./pages/project-version/pdf/css",
+    "build:css:pdf:project": "node-sass ./pages/project-version/pdf/sass -o ./pages/project-version/pdf/css",
     "prepublish": "npm run build"
   },
   "repository": {
