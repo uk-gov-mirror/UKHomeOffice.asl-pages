@@ -10,25 +10,25 @@ module.exports = merge({}, baseContent, {
     },
     continue: {
       title: 'Amendment in progress',
-      description: 'An amendment to this licence was started on {{amendmentStartDate}}. You can either continue with this amendment, or discard it.',
-      action: 'Continue editing amendment',
-      secondaryAction: 'Discard this amendment'
+      description: 'An amendment to this licence was started on {{amendmentStartDate}}. You can either continue editing this amendment, or discard it.',
+      action: 'Edit amendment',
+      secondaryAction: 'Discard amendment'
     },
     submittedAmendment: {
       title: 'Amendment in progress',
-      description: 'An amendment to this licence has been submitted and is being reviewed. You can view the details of this task or withdraw the amendment.',
+      description: 'An amendment to this licence has been submitted and is being reviewed. You can either view the details of this task, or recall the amendment.',
       action: 'View task',
-      secondaryAction: 'Withdraw amendment'
+      secondaryAction: 'Recall amendment'
     },
     submittedDraft: {
       title: 'Application in progress',
-      description: 'This application has been submitted and is being reviewed. You can view the details of this task or withdraw the application.',
+      description: 'This application has been submitted and is being reviewed. You can either view the details of this task, or recall the application.',
       action: 'View task',
-      secondaryAction: 'Withdraw application'
+      secondaryAction: 'Recall application'
     },
     discard: {
       action: 'Discard this amendment',
-      confirm: `Are you sure you want to discard this amendment? Any changes made in this amendment will be deleted.`
+      confirm: `Are you sure you want to discard this amendment? Any changes you have made will be deleted.`
     }
   },
   discardDraft: {

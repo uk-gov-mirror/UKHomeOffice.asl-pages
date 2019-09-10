@@ -7,7 +7,6 @@ module.exports = {
 
           You will be notified by the Home Office when your changes are approved or rejected.`
       },
-      // TODO: CONTENT
       updated: {
         title: 'Amendment submitted',
         body: `An inspector will review your changes and contact you if they need any more information.
@@ -26,7 +25,7 @@ module.exports = {
         title: 'Amendment returned',
         body: `The person who submitted the amendment will review your comments.
 
-          They can then choose to withdraw the amendment, or submit a new one.`
+          They can then choose to discard the amendment, or make changes based on your comments.`
       },
       resolved: {
         title: 'Amendment approved',
@@ -45,7 +44,7 @@ module.exports = {
       // TODO: CONTENT
       'recalled-by-applicant': {
         title: 'Amendment recalled',
-        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+        body: 'You can now edit this amendment and resubmit it, or discard it and start again.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
@@ -67,12 +66,12 @@ module.exports = {
       // TODO: CONTENT
       'recalled-by-applicant': {
         title: 'Revocation recalled',
-        body: 'This revocation has been recalled from ASRU. You can resubmit or discard this revocation.'
+        body: 'You can now edit this revocation request and resubmit it, or discard it.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
         title: 'Revocation discarded',
-        body: 'This revocation has been discarded. You will need to start a new revocation to revoke this licence.'
+        body: 'You will need to create a new request if you want to revoke this licence in the future.'
       }
     },
     application: {
@@ -111,7 +110,7 @@ module.exports = {
 
           The person who submitted this application will review your comments.
 
-          They can then choose to withdraw their application, or submit a new one.`
+          They can then choose to discard the application, or make changes based on your comments.`
       },
       'referred-to-inspector': {
         title: 'Application referred',
@@ -150,12 +149,12 @@ module.exports = {
       // TODO: CONTENT
       'recalled-by-applicant': {
         title: 'Application recalled',
-        body: 'This application has been recalled from ASRU. You can continue to edit or discard your application.'
+        body: 'You can now edit this application and resubmit it, or discard it and start again.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
         title: 'Application discarded',
-        body: 'You will need to create a new application if you want to submit these changes again.'
+        body: 'You will need to create a new application if you want to apply for this type of licence again.'
       }
     },
     amendment: {
@@ -186,7 +185,7 @@ module.exports = {
 
           The person who submitted this amendment will review your comments.
 
-          They can then choose to withdraw their amendment, or submit a new one.`
+          They can then choose to discard the amendment, or make changes based on your comments.`
       },
       'referred-to-inspector': {
         title: 'Amendment referred',
@@ -221,7 +220,7 @@ module.exports = {
       // TODO: CONTENT
       'recalled-by-applicant': {
         title: 'Amendment recalled',
-        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+        body: 'You can now edit this amendment and resubmit it, or discard it and start again.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
@@ -255,7 +254,7 @@ module.exports = {
         title: 'Application returned',
         body: `The applicant will review your comments and address any changes that need to be made.
 
-          They can then choose to withdraw their application, or submit a new one.`
+          They can then choose to discard the amendment, or submit it again.`
       },
       resolved: {
         title: 'Licence granted',
@@ -269,13 +268,13 @@ module.exports = {
       },
       // TODO: CONTENT
       'recalled-by-applicant': {
-        title: 'Amendment recalled',
-        body: 'This application has been recalled from ASRU. You can continue to edit or discard your application.'
+        title: 'Application recalled',
+        body: 'You can now edit this application and resubmit it, or discard it and start again.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
-        title: 'Amendment discarded',
-        body: 'You will need to create a new application if you want to submit these changes again.'
+        title: 'Application discarded',
+        body: 'You will need to create a new application if you want to apply for this type of licence again.'
       }
     },
     amendment: {
@@ -297,7 +296,7 @@ module.exports = {
         title: 'Amendment returned',
         body: `The person who submitted the amendment will review your comments.
 
-          They can then choose to withdraw the amendment, or submit a new one.`
+          They can then choose to discard the amendment, or make changes based on your comments.`
       },
       resolved: {
         title: 'Amendment approved',
@@ -318,7 +317,7 @@ module.exports = {
       // TODO: CONTENT
       'recalled-by-applicant': {
         title: 'Amendment recalled',
-        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+        body: 'You can now edit this amendment and resubmit it, or discard it and start again.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
@@ -372,7 +371,7 @@ module.exports = {
         title: 'Amendment returned',
         body: `The person who submitted the amendment will review your comments.
 
-          They can then choose to withdraw the amendment, or submit a new one.`
+          They can then choose to discard the amendment, or make changes based on your comments.`
       },
       // TODO: CONTENT
       resolved: {
@@ -394,7 +393,7 @@ module.exports = {
       // TODO: CONTENT
       'recalled-by-applicant': {
         title: 'Amendment recalled',
-        body: 'This amendment has been recalled from ASRU. You can continue to edit or discard your amendment.'
+        body: 'You can now edit this application and resubmit it, or discard it and start again.'
       },
       // TODO: CONTENT
       'discarded-by-applicant': {

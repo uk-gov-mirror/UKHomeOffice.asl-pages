@@ -44,7 +44,7 @@ module.exports = {
       amendment: 'Recall amendment',
       revocation: 'Recall revocation'
     },
-    hint: 'You can recall this submission to continue making edits.',
+    hint: 'The task will be returned and can be edited.',
     log: 'Recalled by'
   },
   'discarded-by-applicant': {
@@ -125,7 +125,7 @@ module.exports = {
       amendment: 'Your amendment will be sent to the Home Office for review.',
       revocation: 'Your revocation request will be sent to the Home Office for review.'
     },
-    log: 'Resubmitted by'
+    log: 'Submitted by'
   },
   resolved: {
     state: 'Approved',
@@ -164,15 +164,15 @@ module.exports = {
     log: 'Extended by'
   },
   updated: {
-    state: 'Updated and resubmitted',
+    state: 'Resubmitted',
     action: {
       application: 'Edit and resubmit the application',
       amendment: 'Edit and resubmit the amendment'
     },
     hint: {
-      application: 'To make changes to the application you previously submitted and respond to any comments',
-      amendment: 'To make changes to the amendment you previously submitted and respond to any comments'
+      application: 'Make changes to the application you previously submitted and respond to any comments.',
+      amendment: 'Make changes to the amendment you previously submitted and respond to any comments.'
     },
-    log: 'Updated by'
+    log: 'Submitted by'
   }
 };
