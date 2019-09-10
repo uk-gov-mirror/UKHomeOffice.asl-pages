@@ -8,11 +8,11 @@
     "test": "npm run test:lint && npm run test:unit",
     "test:lint": "eslint . --ext jsx,js",
     "test:unit": "CSRF=false jest",
-    "build": "npm run build:css && npm run build:css:pdf",
-    "prebuild:css": "mkdir -p ./pages/common/dist/css",
-    "build:css": "npm-sass ./pages/common/assets/sass/style.scss > ./pages/common/dist/css/app.css",
-    "prebuild:css:pdf": "mkdir -p ./pages/project-version/pdf/css",
-    "build:css:pdf": "node-sass ./pages/project-version/pdf/sass -o ./pages/project-version/pdf/css",
+    "prebuild": "mkdir -p ./pages/common/dist/css/pdf",
+    "build": "npm run build:css",
+    "build:css": "npm run build:css:app && npm run build:css:pdf",
+    "build:css:app": "npm-sass ./pages/common/assets/sass/style.scss > ./pages/common/dist/css/app.css",
+    "build:css:pdf": "node-sass ./pages/common/assets/sass/pdf -o ./pages/common/dist/css/pdf",
     "prepublish": "npm run build"
   },
   "repository": {

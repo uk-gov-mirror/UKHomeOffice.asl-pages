@@ -6,8 +6,9 @@ const read = require('./read');
 const update = require('./update');
 const remove = require('./delete');
 const revoke = require('./revoke');
+const pdf = require('./pdf');
 
-module.exports = () => {
+module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.param('pilId', (req, res, next, pilId) => {
@@ -29,6 +30,7 @@ module.exports = () => {
   app.use('/:pilId/edit', update());
   app.use('/:pilId/delete', remove());
   app.use('/:pilId', read());
+  app.use('/:pilId/pdf', pdf(settings));
   app.use('/create', create());
 
   app.get('/', (req, res, next) => {
