@@ -97,6 +97,10 @@ dl dd {
   text-indent: 5px;
 }
 
+.break {
+  page-break-after: always;
+}
+
 .section:not(.legacy-pdf .section) {
   page-break-after: always;
 }
@@ -294,4 +298,14 @@ dl dd {
       }
     }
   }
+}
+
+section.primary-establishment,
+section.procedures {
+  margin-top: 60px;
+}
+
+.procedure-code {
+  font-size: 20px;
+  margin-bottom: -10px;
 }

@@ -36,12 +36,12 @@ const PIL = ({ pil, content }) => {
         This licence shall be in force until it is revoked by the Home Office and shall be subject to periodic review.
       </p>
 
-      <section className="section">
+      <section className="primary-establishment break">
         <h2>Primary establishment</h2>
         <p>{establishment.address}</p>
       </section>
 
-      <section className="section">
+      <section className="animal-types">
         <h2>Animal types</h2>
         {
           hasSpecies ? (
@@ -56,13 +56,13 @@ const PIL = ({ pil, content }) => {
         }
       </section>
 
-      <section className="section">
+      <section className="procedures break">
         <h2>Procedures</h2>
         {
           hasProcedures ? (
-            pil.procedures.map((procedureCode, index) => (
-              <Fragment key={index}>
-                <h3>{procedureCode}</h3>
+            pil.procedures.map(procedureCode => (
+              <Fragment key={procedureCode}>
+                <h3 className="procedure-code">{procedureCode}</h3>
                 <p>{content.procedureDefinitions[procedureCode]}</p>
                 { procedureCode === 'D' &&
                   <Fragment>
@@ -84,7 +84,7 @@ const PIL = ({ pil, content }) => {
         }
       </section>
 
-      <section className="section">
+      <section className="additional-conditions break">
         <h2>Additional conditions</h2>
         {
           hasAdditionalConditions ? (
@@ -108,7 +108,7 @@ const PIL = ({ pil, content }) => {
         }
       </section>
 
-      <StandardConditions conditions={content.standardConditions} />
+      <StandardConditions conditions={content.standardConditions} className="break" />
     </Fragment>
   );
 };
