@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
 import ReactMarkdown from 'react-markdown';
 
-const PIL = ({ pil, licenceHolder, establishment, content }) => {
+const PIL = ({ pil, content }) => {
+  const licenceHolder = pil.licenceHolder;
+  const establishment = pil.establishment;
+
   const hasSpecies = pil.species && pil.species.length > 0;
   const hasProcedures = pil.procedures && pil.procedures.length > 0;
   const hasAdditionalConditions = pil.conditions && pil.conditions.length > 0;
@@ -111,6 +113,4 @@ const PIL = ({ pil, licenceHolder, establishment, content }) => {
   );
 };
 
-const mapStateToProps = ({ pil, licenceHolder, establishment }) => ({ pil, licenceHolder, establishment });
-
-export default connect(mapStateToProps)(PIL);
+export default PIL;

@@ -2,8 +2,7 @@ import React from 'react';
 import fetch from 'r2';
 import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
-import createStore from '../../common/pdf/client/store';
-import App from './views';
+import Body from './views';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
 import content from './content';
@@ -12,15 +11,14 @@ module.exports = settings => {
   const app = Router();
 
   app.get('/', (req, res, next) => {
-    const initialState = {
-      pil: req.pil,
+    const pil = {
+      ...req.pil,
       licenceHolder: req.profile,
       establishment: req.establishment
     };
-    const store = createStore(initialState);
 
-    const html = renderToStaticMarkup(<App store={store} nonce={res.locals.static.nonce} content={content} />);
-    const header = renderToStaticMarkup(<Header model={req.pil} licenceType="pil" nonce={res.locals.static.nonce} />);
+    const html = renderToStaticMarkup(<Body pil={pil} nonce={res.locals.static.nonce} content={content} />);
+    const header = renderToStaticMarkup(<Header model={pil} licenceType="pil" nonce={res.locals.static.nonce} />);
     const footer = renderToStaticMarkup(<Footer />);
 
     const hasStatusBanner = req.pil.status !== 'active';
@@ -47,7 +45,7 @@ module.exports = settings => {
       .response
       .then(response => {
         if (response.status < 300) {
-          res.attachment(`${req.pil.licenceNumber}.pdf`);
+          res.attachment(`${pil.licenceNumber}.pdf`);
           response.body.pipe(res);
         } else {
           throw new Error('Error generating PDF');
