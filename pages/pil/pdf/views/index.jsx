@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Wrapper from '../../../common/pdf/views/wrapper';
+import Wrapper from '../../../common/views/pdf/wrapper';
 import PIL from './pil';
 
 const Index = ({ store, nonce, content }) => (

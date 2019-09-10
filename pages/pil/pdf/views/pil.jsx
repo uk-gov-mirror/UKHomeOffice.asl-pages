@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import StandardConditions from '../../../common/pdf/views/standard-conditions';
+import StandardConditions from '../../../common/views/pdf/standard-conditions';
 import ReactMarkdown from 'react-markdown';
 
 const PIL = ({ pil, licenceHolder, establishment, content }) => {

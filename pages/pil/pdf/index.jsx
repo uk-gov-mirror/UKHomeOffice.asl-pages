@@ -4,8 +4,8 @@ import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
 import createStore from '../../common/pdf/client/store';
 import App from './views';
-import Header from '../../common/pdf/views/header';
-import Footer from '../../common/pdf/views/footer';
+import Header from '../../common/views/pdf/header';
+import Footer from '../../common/views/pdf/footer';
 import content from './content';
 
 module.exports = settings => {
