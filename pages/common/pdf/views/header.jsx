@@ -17,6 +17,10 @@ const Header = ({ model, licenceType, nonce }) => (
 
         <Fragment> | Granted: <strong>{format(model.issueDate)}</strong></Fragment>
 
+        { licenceType === 'pil' &&
+          <Fragment> | Last amended: <strong>{format(model.updatedAt)}</strong></Fragment>
+        }
+
         { licenceType === 'ppl' && model.status !== 'expired' && model.status !== 'revoked' &&
           <Fragment> | Expires: <strong>{format(model.expiryDate)}</strong></Fragment>
         }
