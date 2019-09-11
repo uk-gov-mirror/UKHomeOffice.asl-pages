@@ -48,12 +48,6 @@ const PIL = ({ pil, content }) => {
               <Fragment key={procedureCode}>
                 <h3 className="procedure-code">{procedureCode}</h3>
                 <p>{content.procedureDefinitions[procedureCode]}</p>
-                { procedureCode === 'D' &&
-                  <Fragment>
-                    <p><strong>Evidence of competency:</strong></p>
-                    <p>{pil.notesCatD}</p>
-                  </Fragment>
-                }
                 { procedureCode === 'F' &&
                   <Fragment>
                     <p><strong>Type of regulated procedure:</strong></p>
