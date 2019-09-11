@@ -30,26 +30,34 @@ module.exports = settings => {
       licenceHolderId: req.project.licenceHolderId,
       establishment: req.establishment.id
     };
-    req.user.can('project.update', params)
+    Promise.resolve()
+      .then(() => req.user.can('project.update', params))
       .then(canUpdate => {
         const openTask = req.project.openTasks[0];
-        const openAmendment = openTask && openTask.data.action === 'grant';
-        const openRevocation = openTask && openTask.data.action === 'revoke';
+        const editable = (!openTask || (openTask && openTask.editable));
 
+        res.locals.static.canUpdate = canUpdate;
+        res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
-        res.locals.static.openAmendment = openAmendment;
-        res.locals.static.openRevocation = openRevocation;
 
-        res.locals.static.editPerms = {
-          canUpdate,
-          canAmend: canUpdate && req.project.status === 'active' && !openTask,
-          canDeleteDraft: canUpdate && !openTask && !req.project.granted && (req.project.draft || req.project.withdrawn),
-          canUpdateLicenceHolder: canUpdate && ((req.project.granted && !req.project.draft) || !req.project.granted) && !req.project.submitted && !openTask,
-          canRevoke: req.project.status === 'active' && (canUpdate || req.user.profile.asruUser) && !openTask
-        };
+        if (editable && req.project.status === 'active') {
+          return req.user.can('project.revoke', params)
+            .then(canRevoke => {
+              res.locals.static.canRevoke = canRevoke;
+            })
+            .then(() => next())
+            .catch(next);
+        }
+        next();
       })
-      .then(() => next())
       .catch(next);
+  });
+
+  app.get('/', (req, res, next) => {
+    res.locals.static.confirmMessage = req.project.status === 'active'
+      ? res.locals.static.content.confirm.amendment
+      : res.locals.static.content.confirm.application;
+    next();
   });
 
   app.post('/', (req, res, next) => {

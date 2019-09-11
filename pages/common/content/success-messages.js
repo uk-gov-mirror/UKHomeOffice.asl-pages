@@ -337,6 +337,14 @@ module.exports = {
       resolved: {
         title: 'Licence revoked',
         body: 'This licence is no longer active. The person who held this licence is no longer authorised to carry out any regulated procedures in any categories.'
+      },
+      'recalled-by-applicant': {
+        title: 'Revocation recalled',
+        body: 'You can now edit this revocation request and resubmit it, or discard it.'
+      },
+      'discarded-by-applicant': {
+        title: 'Revocation discarded',
+        body: 'You will need to create a new revocation if you want to submit these changes again.'
       }
     }
   },

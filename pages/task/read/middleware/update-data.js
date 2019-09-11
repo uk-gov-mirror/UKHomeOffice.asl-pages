@@ -10,15 +10,6 @@ module.exports = (req, res, next) => {
   let id = get(req.task, 'data.id');
   let action = get(req.task, 'data.action');
 
-  if (model === 'project' && action === 'grant') {
-    return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
-      .then(({ json: { data } }) => {
-        req.versionId = data.data.id;
-        res.redirect(req.buildRoute('project.version.update'));
-      })
-      .catch(next);
-  }
-
   if (action === 'grant') {
     action = 'update';
   }
@@ -37,6 +28,12 @@ module.exports = (req, res, next) => {
         ...req.task.data.meta
       }
     });
+  }
+
+  if (model === 'project') {
+    model = 'project.version';
+
+    params.versionId = req.project.draft.id;
   }
 
   return res.redirect(req.buildRoute(`${model}.${action}`, params));
