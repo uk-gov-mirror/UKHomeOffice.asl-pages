@@ -7,7 +7,6 @@ import {
   Link,
   Snippet,
   ModelSummary,
-  Header,
   LicenceStatusBanner,
   Conditions,
   DownloadHeader
