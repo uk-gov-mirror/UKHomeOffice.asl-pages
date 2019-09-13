@@ -202,20 +202,26 @@ function RevokeLicence() {
 }
 
 function Actions({ model }) {
-  const canUpdate = useSelector(state => state.static.canUpdate);
+  const { canUpdate, canRevoke } = useSelector(state => state.static);
 
   // project can be edited if it is active or a draft.
   const isEditable = model.status === 'inactive' || model.status === 'active';
 
-  if (!canUpdate || !isEditable) {
+  if ((!canUpdate && !canRevoke) || !isEditable) {
     return null;
   }
 
   return (
     <Fragment>
       <OpenTask model={model} />
-      <StartAmendment model={model} />
-      <DiscardDraft model={model} />
+      {
+        canUpdate && (
+          <Fragment>
+            <StartAmendment model={model} />
+            <DiscardDraft model={model} />
+          </Fragment>
+        )
+      }
     </Fragment>
   );
 }
