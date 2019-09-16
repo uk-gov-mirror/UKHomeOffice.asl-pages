@@ -10,7 +10,7 @@ import {
 } from '@asl/components';
 import ReviewFields from '@asl/projects/client/components/review-fields';
 
-const editLink = <Link page="project.updateLicenceHolder.update" label="Edit" />;
+const editLink = <Link page="project.updateLicenceHolder" label="Edit" />;
 
 const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) => (
   <Fragment>

@@ -31,9 +31,13 @@ module.exports = (req, res, next) => {
   }
 
   if (model === 'project') {
-    model = 'project.version';
+    if (action === 'grant') {
+      model = 'project.version';
 
-    params.versionId = req.project.draft.id;
+      params.versionId = req.project.draft.id;
+    } else if (action === 'update') {
+      action = 'updateLicenceHolder';
+    }
   }
 
   return res.redirect(req.buildRoute(`${model}.${action}`, params));

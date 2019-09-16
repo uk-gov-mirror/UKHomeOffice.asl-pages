@@ -3,9 +3,12 @@ const { isUndefined, omit } = require('lodash');
 const form = require('../../../common/routers/form');
 const getSchema = require('../schema');
 const experienceFields = require('../schema/experience-fields');
+const { hydrate } = require('../../../common/middleware');
 
 module.exports = () => {
   const app = Router();
+
+  app.get('/', hydrate());
 
   app.use(form({
     configure(req, res, next) {
@@ -37,7 +40,7 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('project.updateLicenceHolder.confirm'));
+    res.redirect(`${req.buildRoute('project.updateLicenceHolder')}/confirm`);
   });
 
   return app;

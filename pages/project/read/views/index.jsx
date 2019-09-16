@@ -249,7 +249,7 @@ export default function ProjectLandingPage() {
           <Link page="profile.view" profileId={model.licenceHolder.id} label="View profile" />
           {
             canUpdate && !openTask && isEditable && (
-              <Fragment> | <Link page="project.updateLicenceHolder.update" label="Change" /></Fragment>
+              <Fragment> | <Link page="project.updateLicenceHolder" label="Change" /></Fragment>
             )
           }
         </dd>

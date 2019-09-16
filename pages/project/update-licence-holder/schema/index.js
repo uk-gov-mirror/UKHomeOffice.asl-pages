@@ -1,13 +1,12 @@
 module.exports = profiles => {
   return {
-    licenceHolder: {
+    licenceHolderId: {
       inputType: 'select',
       validate: [
         'required',
         { definedValues: profiles.map(p => p.id) },
         { customValidate: (field, values, model) => field !== model.licenceHolderId }
       ],
-      accessor: 'id',
       options: profiles.map(profile => {
         return {
           value: profile.id,
