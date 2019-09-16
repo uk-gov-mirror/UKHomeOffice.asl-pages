@@ -12,7 +12,7 @@ module.exports = {
       label: 'Address'
     },
     licences: {
-      label: 'Licenced to carry out',
+      label: 'Licensed to carry out',
       options: {
         supplying: 'Supply of relevant protected animals',
         breeding: 'Breeding  of relevant protected animals',

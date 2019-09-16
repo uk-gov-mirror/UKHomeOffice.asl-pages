@@ -6,7 +6,7 @@ module.exports = {
     label: 'Address'
   },
   licences: {
-    label: 'Licenced to carry out',
+    label: 'Licensed to carry out',
     options: {
       supplying: 'Supply of relevant protected animals',
       breeding: 'Breeding  of relevant protected animals',
@@ -21,16 +21,16 @@ module.exports = {
     }
   },
   'authorisation-killing-method': {
-    label: 'Specify a killing method'
+    label: 'Specify a killing method.'
   },
   'authorisation-killing-description': {
-    label: 'Specify the type or describe the animals to which the killing method will be applied'
+    label: 'Specify the type or describe the animals to which the killing method will be applied.'
   },
   'authorisation-rehomes-method': {
-    label: 'Provide details of the circumstances under which this may occur [see section 17A of the Animals (Scientific Procedures) Act 1986 - subsections 3 and 4](https://www.gov.uk/government/publications/consolidated-version-of-aspa-1986)'
+    label: 'Provide details of the circumstances under which this may occur. ([See section 17A of the Animals (Scientific Procedures) Act 1986 - subsections 3 and 4.](https://www.gov.uk/government/publications/consolidated-version-of-aspa-1986))'
   },
   'authorisation-rehomes-description': {
-    label: 'Provide details of the animals to be set free or rehomed'
+    label: 'Provide details of the animals to be set free or rehomed.'
   },
   comments: {
     label: 'Why are you making this amendment?',
