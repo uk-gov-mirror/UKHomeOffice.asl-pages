@@ -1,6 +1,8 @@
 @import 'base';
 @import 'images';
 
+$sectionSeparator: 50px;
+
 @mixin tab {
   font-size: 24px;
   background-color: $dark-grey;
@@ -23,7 +25,7 @@
   background-repeat: no-repeat;
   width: auto;
   height: 65px;
-  margin-bottom: $govuk-gutter * 2;
+  margin-bottom: $sectionSeparator;
 }
 
 .granted-section {
@@ -31,10 +33,15 @@
 }
 
 h1.project-title,
+h1.establishment-name,
 h1.licence-holder {
   font-size: 35px;
   font-weight: normal;
-  margin-bottom: $govuk-gutter * 2;
+  margin-bottom: $sectionSeparator;
+}
+
+h1.establishment-name {
+  margin-bottom: 0;
 }
 
 .review {
@@ -57,11 +64,6 @@ section.continuedreuse .review {
   display: none;
 }
 
-.licence-holder {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
 .purple-inset, .condition {
   border-left: 4px solid $purple;
   padding-left: 10px;
@@ -73,9 +75,10 @@ h2.subtitle {
 }
 
 h3.licence {
-  font-size: 23px;
+  font-size: 18px;
+  font-weight: normal;
   text-transform: uppercase;
-  margin-bottom: 60px;
+  margin-bottom: $sectionSeparator;
 }
 
 hr {
@@ -301,11 +304,58 @@ dl dd {
 }
 
 section.primary-establishment,
-section.procedures {
-  margin-top: 60px;
+section.procedures,
+section.licence-holder,
+section.named-people,
+section.authorisations {
+  margin-top: $sectionSeparator;
 }
 
 .procedure-code {
   font-size: 20px;
   margin-bottom: -10px;
+}
+
+section.named-people {
+  h4 {
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-top: 5px;
+  }
+}
+
+section.authorisations {
+  h3.rehomes {
+    margin-top: 40px;
+  }
+}
+
+section.approved-areas {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      font-weight: bold;
+      background-color: $light-grey;
+      padding: 10px;
+      border: 1px solid $mid-grey;
+      border-top: none;
+
+      &.site {
+        background-color: $blue;
+        color: white;
+        border: none;
+      }
+    }
+
+    td {
+      text-align: left;
+      padding: 10px;
+      border: 1px solid $mid-grey;
+    }
+  }
 }

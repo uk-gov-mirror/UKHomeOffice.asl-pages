@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-const StandardConditions = ({ conditions, className }) => (
+const StandardConditions = ({ conditions, className, title = 'Standard conditions' }) => (
   <section className={`section standard-conditions ${className}`}>
-    <h2>Standard conditions</h2>
+    <h2>{title}</h2>
     <ol>
       {
         conditions.map((condition, index) => (

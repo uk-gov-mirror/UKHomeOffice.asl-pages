@@ -7,7 +7,7 @@ const PIL = ({ pil, content }) => {
 
   const hasSpecies = pil.species && pil.species.length > 0;
   const hasProcedures = pil.procedures && pil.procedures.length > 0;
-  const hasAdditionalConditions = pil.conditions && pil.conditions.length > 0;
+  const hasAdditionalConditions = !!pil.conditions;
 
   return (
     <Fragment>
