@@ -180,10 +180,10 @@ function DiscardDraft({ model }) {
   );
 }
 
-function RevokeLicence() {
+function RevokeLicence({ model }) {
   const { openTask, canRevoke } = useSelector(state => state.static);
 
-  if (openTask || !canRevoke) {
+  if (openTask || !canRevoke || model.status !== 'active') {
     return null;
   }
 
@@ -276,7 +276,7 @@ export default function ProjectLandingPage() {
       </dl>
       <CurrentVersion model={model} />
       <Actions model={model} />
-      <RevokeLicence />
+      <RevokeLicence model={model} />
     </Fragment>
   );
 }
