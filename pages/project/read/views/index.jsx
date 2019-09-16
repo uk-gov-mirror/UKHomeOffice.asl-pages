@@ -180,10 +180,10 @@ function DiscardDraft({ model }) {
   );
 }
 
-function RevokeLicence() {
+function RevokeLicence({ model }) {
   const { openTask, canRevoke } = useSelector(state => state.static);
 
-  if (openTask || !canRevoke) {
+  if (openTask || !canRevoke || model.status !== 'active') {
     return null;
   }
 
@@ -202,20 +202,26 @@ function RevokeLicence() {
 }
 
 function Actions({ model }) {
-  const canUpdate = useSelector(state => state.static.canUpdate);
+  const { canUpdate, canRevoke } = useSelector(state => state.static);
 
   // project can be edited if it is active or a draft.
   const isEditable = model.status === 'inactive' || model.status === 'active';
 
-  if (!canUpdate || !isEditable) {
+  if ((!canUpdate && !canRevoke) || !isEditable) {
     return null;
   }
 
   return (
     <Fragment>
       <OpenTask model={model} />
-      <StartAmendment model={model} />
-      <DiscardDraft model={model} />
+      {
+        canUpdate && (
+          <Fragment>
+            <StartAmendment model={model} />
+            <DiscardDraft model={model} />
+          </Fragment>
+        )
+      }
     </Fragment>
   );
 }
@@ -270,7 +276,7 @@ export default function ProjectLandingPage() {
       </dl>
       <CurrentVersion model={model} />
       <Actions model={model} />
-      <RevokeLicence />
+      <RevokeLicence model={model} />
     </Fragment>
   );
 }

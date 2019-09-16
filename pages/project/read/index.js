@@ -30,26 +30,20 @@ module.exports = settings => {
       licenceHolderId: req.project.licenceHolderId,
       establishment: req.establishment.id
     };
-    Promise.resolve()
-      .then(() => req.user.can('project.update', params))
-      .then(canUpdate => {
+    Promise.all([
+      req.user.can('project.update', params),
+      req.user.can('project.revoke', params)
+    ])
+      .then(([canUpdate, canRevoke]) => {
         const openTask = req.project.openTasks[0];
         const editable = (!openTask || (openTask && openTask.editable));
 
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
-
-        if (editable && req.project.status === 'active') {
-          return req.user.can('project.revoke', params)
-            .then(canRevoke => {
-              res.locals.static.canRevoke = canRevoke;
-            })
-            .then(() => next())
-            .catch(next);
-        }
-        next();
+        res.locals.static.canRevoke = canRevoke;
       })
+      .then(() => next())
       .catch(next);
   });
 
