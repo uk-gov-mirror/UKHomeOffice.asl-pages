@@ -22,6 +22,7 @@ const PIL = ({ pil, content }) => {
 
       <section className="primary-establishment break">
         <h2>Primary establishment</h2>
+        <p>{establishment.name}</p>
         <ReactMarkdown>{establishment.address}</ReactMarkdown>
       </section>
 
