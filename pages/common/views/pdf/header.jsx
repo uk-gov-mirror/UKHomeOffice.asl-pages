@@ -17,7 +17,7 @@ const Header = ({ model, licenceType, nonce }) => (
 
         <Fragment> | Granted: <strong>{format(model.issueDate)}</strong></Fragment>
 
-        { licenceType === 'pil' &&
+        { ['pil', 'pel'].includes(licenceType) &&
           <Fragment> | Last amended: <strong>{format(model.updatedAt)}</strong></Fragment>
         }
 

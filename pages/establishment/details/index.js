@@ -12,6 +12,7 @@ module.exports = settings => {
   app.use((req, res, next) => {
     req.breadcrumb('establishment.read');
     req.model = req.establishment;
+    res.locals.static.currentPath = req.originalUrl;
     next();
   });
 

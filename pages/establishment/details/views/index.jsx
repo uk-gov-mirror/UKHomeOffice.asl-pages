@@ -6,17 +6,17 @@ import {
   Accordion,
   ExpandingPanel,
   Snippet,
-  Header,
   LicenceStatusBanner,
   Conditions,
-  Link
+  Link,
+  DownloadHeader
 } from '@asl/components';
 
 const Index = ({
   establishment,
   allowedActions,
   openTask,
-  ...props
+  currentPath
 }) => {
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
@@ -27,10 +27,17 @@ const Index = ({
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-      <Header
-        title={<Snippet>pages.establishment.read</Snippet>}
-        subtitle={establishment.name}
+      <h3 className="establishment-name">{establishment.name}</h3>
+
+      <DownloadHeader
+        model={establishment}
+        licenceType="pel"
+        isGranted={establishment.status === 'active'}
+        showWord={false}
+        showPdf={true}
+        basename={currentPath}
       />
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <dl>
@@ -131,6 +138,6 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, allowedActions, openTask } }) => ({ establishment, allowedActions, openTask });
+const mapStateToProps = ({ static: { establishment, allowedActions, openTask, currentPath } }) => ({ establishment, allowedActions, openTask, currentPath });
 
 export default connect(mapStateToProps)(Index);

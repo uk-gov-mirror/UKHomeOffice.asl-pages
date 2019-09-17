@@ -3,8 +3,9 @@ const { permissions } = require('../../lib/middleware');
 const dashboard = require('./dashboard');
 const details = require('./details');
 const update = require('./update');
+const pdf = require('./pdf');
 
-module.exports = () => {
+module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.use(
@@ -33,6 +34,7 @@ module.exports = () => {
 
   app.get('/', dashboard());
   app.use('/details', details());
+  app.use('/details/pdf', pdf(settings));
   app.use('/details/edit', update());
 
   return app;
