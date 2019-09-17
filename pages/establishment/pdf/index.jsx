@@ -2,6 +2,7 @@ import React from 'react';
 import fetch from 'r2';
 import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
+import groupBy from 'lodash/groupBy';
 import Body from './views';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
@@ -17,13 +18,6 @@ const namedPeople = establishment => {
   return profiles;
 };
 
-const groupBy = key => array =>
-  array.reduce((objectsByKeyValue, obj) => {
-    const value = obj[key];
-    objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-    return objectsByKeyValue;
-  }, {});
-
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
@@ -35,7 +29,7 @@ module.exports = settings => {
 
     req.api(`/establishment/${req.establishmentId}/places?limit=10000&sort=site`)
       .then(response => {
-        establishment.places = groupBy('site')(response.json.data);
+        establishment.places = groupBy(response.json.data, 'site');
       })
       .then(() => {
         const html = renderToStaticMarkup(<Body establishment={establishment} nonce={res.locals.static.nonce} content={content} />);
