@@ -18,7 +18,7 @@ const triggerContinued = () => {
 };
 
 const Establishment = ({ establishment, content }) => {
-  const licenceHolders = establishment.namedPeople.pelh || establishment.namedPeople.nprc || [];
+  const licenceHolders = establishment.namedPeople.pelh;
   const hasAdditionalConditions = !!establishment.conditions;
   const hasApprovedAreas = !!establishment.places;
   const hasAuthorisations = establishment.authorisations && establishment.authorisations.length > 0;
