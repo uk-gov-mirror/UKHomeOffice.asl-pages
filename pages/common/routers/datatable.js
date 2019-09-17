@@ -20,7 +20,7 @@ const buildQuery = (req, schema) => {
     search = search[0];
   }
 
-  if (sort && sort.column) {
+  if (sort && sort.column && schema[sort.column]) {
     if (schema[sort.column].sort) {
       sort.column = schema[sort.column].sort;
     } else if (schema[sort.column].accessor) {
