@@ -18,8 +18,7 @@ const triggerContinued = () => {
 };
 
 const Establishment = ({ establishment, content }) => {
-  const licenceHolder = establishment.pelh;
-
+  const licenceHolders = establishment.namedPeople.pelh || establishment.namedPeople.nprc || [];
   const hasAdditionalConditions = !!establishment.conditions;
   const hasApprovedAreas = !!establishment.places;
   const hasAuthorisations = establishment.authorisations && establishment.authorisations.length > 0;
@@ -47,8 +46,14 @@ const Establishment = ({ establishment, content }) => {
       </ul>
 
       <section className="licence-holder">
-        <h2>Establishment licence holder</h2>
-        <p><strong>{`${licenceHolder.firstName} ${licenceHolder.lastName}`}</strong></p>
+        <h2>Establishment licence holder(s)</h2>
+        {
+          licenceHolders && licenceHolders.length > 0 ? (
+            <p><strong>{licenceHolders.map(getName).join(', ')}</strong></p>
+          ) : (
+            <p>None.</p>
+          )
+        }
       </section>
 
       <section className="named-people break">
