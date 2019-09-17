@@ -7,9 +7,9 @@ import {
   Link,
   Snippet,
   ModelSummary,
-  Header,
   LicenceStatusBanner,
-  Conditions
+  Conditions,
+  DownloadHeader
 } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
@@ -19,7 +19,8 @@ const PIL = ({
   canUpdate,
   allowedActions,
   openTask,
-  correctEstablishment
+  correctEstablishment,
+  currentPath
 }) => {
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
   const backToProfile = <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />;
@@ -93,9 +94,15 @@ const PIL = ({
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
 
-      <Header
-        title={<Snippet>title</Snippet>}
-        subtitle={`${profile.firstName} ${profile.lastName}`}
+      <h3 className="licence-holder-name">{`${profile.firstName} ${profile.lastName}`}</h3>
+
+      <DownloadHeader
+        model={pil}
+        licenceType="pil"
+        isGranted={pil.status === 'active'}
+        showWord={false}
+        showPdf={true}
+        basename={currentPath}
       />
 
       <ModelSummary model={pil} formatters={formatters} schema={schema} formatNullValue={true} />
@@ -139,7 +146,8 @@ const mapStateToProps = ({
     pil,
     openTask,
     allowedActions,
-    correctEstablishment
+    correctEstablishment,
+    currentPath
   }
 }) => ({
   pil,
@@ -147,7 +155,8 @@ const mapStateToProps = ({
   canUpdate,
   allowedActions,
   openTask,
-  correctEstablishment
+  correctEstablishment,
+  currentPath
 });
 
 export default connect(mapStateToProps)(PIL);

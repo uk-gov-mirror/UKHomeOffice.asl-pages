@@ -35,6 +35,7 @@ module.exports = settings => {
     res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;
     res.locals.static.correctEstablishment = req.model.establishmentId === req.establishment.id;
+    res.locals.static.currentPath = req.originalUrl;
     next();
   });
 
