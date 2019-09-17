@@ -27,7 +27,7 @@ const PIL = ({ pil, content }) => {
             <ReactMarkdown>{pil.establishment.address}</ReactMarkdown>
           </section>
         ) : (
-          <span className="break"></span>
+          <div className="break"></div>
         )
       }
 
