@@ -24,5 +24,6 @@ start({
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
     isGranted: state.static.isGranted
-  }
+  },
+  static: { urls: state.static.urls }
 });
