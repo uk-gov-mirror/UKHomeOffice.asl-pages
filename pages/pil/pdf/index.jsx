@@ -14,6 +14,7 @@ module.exports = settings => {
     const pil = {
       ...req.pil,
       licenceHolder: req.profile,
+      showEstablishment: req.pil.establishmentId === req.establishment.id,
       establishment: req.establishment
     };
 

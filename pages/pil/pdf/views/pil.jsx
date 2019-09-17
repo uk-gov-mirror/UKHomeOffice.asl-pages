@@ -4,7 +4,6 @@ import ReactMarkdown from 'react-markdown';
 
 const PIL = ({ pil, content }) => {
   const licenceHolder = pil.licenceHolder;
-  const establishment = pil.establishment;
 
   const hasSpecies = pil.species && pil.species.length > 0;
   const hasProcedures = pil.procedures && pil.procedures.length > 0;
@@ -20,11 +19,17 @@ const PIL = ({ pil, content }) => {
 
       <ReactMarkdown className="legal-preamble">{content.legalPreamble}</ReactMarkdown>
 
-      <section className="primary-establishment break">
-        <h2>Primary establishment</h2>
-        <p>{establishment.name}</p>
-        <ReactMarkdown>{establishment.address}</ReactMarkdown>
-      </section>
+      {
+        pil.showEstablishment ? (
+          <section className="primary-establishment break">
+            <h2>Primary establishment</h2>
+            <p>{pil.establishment.name}</p>
+            <ReactMarkdown>{pil.establishment.address}</ReactMarkdown>
+          </section>
+        ) : (
+          <span className="break"></span>
+        )
+      }
 
       <section className="animal-types">
         <h2>Animal types</h2>
