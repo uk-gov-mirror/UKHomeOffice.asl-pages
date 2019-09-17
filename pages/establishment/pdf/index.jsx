@@ -11,7 +11,7 @@ import content from './content';
 const namedPeople = establishment => {
   const profiles = {};
 
-  ['pelh', 'holc', 'nprc', 'nio', 'ntco', 'nvs', 'nacwo'].forEach(roleType => {
+  ['pelh', 'nprc', 'nio', 'ntco', 'nvs', 'nacwo'].forEach(roleType => {
     profiles[roleType] = establishment.roles.filter(role => role.type === roleType).map(role => role.profile);
   });
 
