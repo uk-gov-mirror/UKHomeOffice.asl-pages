@@ -2,7 +2,7 @@ module.exports = {
   title: 'Change PPL holder',
   currentLicenceHolder: 'Current PPL holder',
   fields: {
-    licenceHolder: {
+    licenceHolderId: {
       label: 'New PPL holder'
     },
     comments: {
@@ -11,7 +11,7 @@ module.exports = {
     }
   },
   errors: {
-    licenceHolder: {
+    licenceHolderId: {
       required: 'Select a new licence holder',
       definedValues: 'Select a licence holder from the list',
       customValidate: 'Select a new PPL holder'

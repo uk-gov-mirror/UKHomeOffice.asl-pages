@@ -323,6 +323,12 @@ module.exports = {
       'discarded-by-applicant': {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
+      updated: {
+        title: 'Amendment submitted',
+        body: `An inspector will review your changes and contact you if they need any more information.
+
+          You will be notified by the Home Office when your changes are approved or rejected.`
       }
     },
     revocation: {
