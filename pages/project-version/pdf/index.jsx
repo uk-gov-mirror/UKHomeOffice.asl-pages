@@ -5,8 +5,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import createStore from '@asl/projects/client/store';
 import { getProjectEstablishment } from '../middleware';
 import App from './views';
-import Header from './views/header';
-import Footer from './views/footer';
+import Header from '../../common/views/pdf/header';
+import Footer from '../../common/views/pdf/footer';
 
 module.exports = settings => {
   const app = Router();
@@ -27,7 +27,7 @@ module.exports = settings => {
     };
     const store = createStore(initialState);
     const html = renderToStaticMarkup(<App store={store} nonce={res.locals.static.nonce} />);
-    const header = renderToStaticMarkup(<Header project={req.version.project} nonce={res.locals.static.nonce} />);
+    const header = renderToStaticMarkup(<Header model={req.version.project} licenceType="ppl" nonce={res.locals.static.nonce} />);
     const footer = renderToStaticMarkup(<Footer />);
 
     const hasStatusBanner = req.version.project.status !== 'active';
