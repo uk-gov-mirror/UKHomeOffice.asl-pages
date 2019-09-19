@@ -10,10 +10,6 @@ module.exports = (req, res, next) => {
   let id = get(req.task, 'data.id');
   let action = get(req.task, 'data.action');
 
-  if (action === 'grant') {
-    action = 'update';
-  }
-
   if (model === 'profile') {
     model = 'account';
   }
@@ -33,11 +29,13 @@ module.exports = (req, res, next) => {
   if (model === 'project') {
     if (action === 'grant') {
       model = 'project.version';
-
+      action = 'update';
       params.versionId = req.project.draft.id;
     } else if (action === 'update') {
       action = 'updateLicenceHolder';
     }
+  } else if (action === 'grant') {
+    action = 'update';
   }
 
   return res.redirect(req.buildRoute(`${model}.${action}`, params));
