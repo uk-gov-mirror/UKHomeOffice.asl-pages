@@ -52,28 +52,6 @@ const getComments = () => (req, res, next) => {
     .catch(next);
 };
 
-const getStatus = (req, taskId) => Promise.resolve()
-  .then(() => req.api(`/tasks/${taskId}`))
-  .then(({ json: { data } }) => {
-    return data.activityLog
-      .filter(log => log.eventName.match(/^status:/))
-      .map(log => log.event.status);
-  });
-
-const withAsru = (req, taskId) => {
-  return getStatus(req, taskId)
-    .then(statuses => {
-      return statuses.reduceRight((wAsru, status) => {
-        if (status === 'resubmitted') {
-          return true;
-        } else if (status === 'returned-to-applicant') {
-          return false;
-        }
-        return wAsru;
-      }, true);
-    });
-};
-
 const hasEditPermission = (req) => {
   if (req.user.profile.asruUser) {
     return Promise.resolve();
@@ -89,18 +67,13 @@ const hasEditPermission = (req) => {
 
 const userCanComment = req => {
   const asruUser = req.user.profile.asruUser;
-  const taskId = get(req.project, 'openTasks[0].id');
-
-  if (!taskId) {
+  const task = get(req.project, 'openTasks[0]');
+  if (!task) {
     return Promise.resolve(false);
   }
-
   return Promise.resolve()
     .then(() => {
-      return withAsru(req, taskId);
-    })
-    .then((isWithAsru) => {
-      return asruUser ? isWithAsru : !isWithAsru && hasEditPermission(req);
+      return asruUser ? task.withASRU : (!task.withASRU && hasEditPermission(req));
     });
 };
 
