@@ -10,39 +10,31 @@ const getVersion = () => (req, res, next) => {
     .catch(next);
 };
 
-const isNew = (user, activityLog, createdAt) => {
-  const activity = user.profile.asruUser ? /returned-to-applicant$/ : /resubmitted$/;
-  const logItem = activityLog.find(e => e.eventName.match(activity));
-  return !logItem || createdAt > logItem.createdAt;
-};
-
 const getComments = () => (req, res, next) => {
   if (!req.project.openTasks.length) {
     return next();
   }
   req.api(`/tasks/${req.project.openTasks[0].id}`)
     .then(({ json: { data } }) => {
-      const status = req.user.profile.asruUser ? 'returned-to-applicant' : 'resubmitted';
-      const statuses = data.activityLog.filter(e => e.eventName.match(/^status:/));
-      // if most recent status change is returned to applicant (asru user) or
-      // resubmitted (non-asru), ignore comments made after this status change.
-      const ignoreAfter = statuses[0] && statuses[0].event.status === status && statuses[0].createdAt;
+      const statusChanges = data.activityLog.filter(e => e.eventName.match(/^status:/));
       const comments = chain(data.activityLog)
         .filter(e => e.eventName === 'comment')
-        .filter(e => !ignoreAfter || e.createdAt < ignoreAfter)
-        .groupBy(comment => comment.event.meta.payload.meta.field)
+        .map(activity => {
+          const { id, deleted, comment, createdAt, isNew, changedBy: { firstName, lastName } } = activity;
+          return {
+            id,
+            field: activity.event.meta.payload.meta.field,
+            comment,
+            deleted,
+            // we want to show the date of the following status change, not the comment submission.
+            createdAt: ([...statusChanges].reverse().find(s => s.createdAt > createdAt) || {}).createdAt,
+            author: `${firstName} ${lastName}`,
+            isNew
+          };
+        })
+        .groupBy(comment => comment.field)
         .mapValues(comments => {
-          return comments.map(({ id, deleted, comment, createdAt, changedBy: { firstName, lastName } }) => {
-            return {
-              id,
-              comment,
-              deleted,
-              // we want to show the date of the following status change, not the comment submission.
-              createdAt: ([...statuses].reverse().find(s => s.createdAt > createdAt) || {}).createdAt,
-              author: `${firstName} ${lastName}`,
-              isNew: isNew(req.user, data.activityLog, createdAt)
-            };
-          }).reverse();
+          return comments.reverse();
         })
         .value();
 
