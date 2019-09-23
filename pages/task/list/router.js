@@ -27,7 +27,6 @@ module.exports = ({
     next();
   },
   locals: (req, res, next) => {
-    const progress = req.query.progress || tabs(req.user.profile)[0];
     const firstName = get(req, 'user.profile.firstName');
     const lastName = get(req, 'user.profile.lastName');
     res.locals.static.profileName = `${firstName} ${lastName}`;
@@ -36,10 +35,10 @@ module.exports = ({
 
     res.locals.static.tabs = tabs(req.user.profile);
 
+    const progress = req.query.progress || tabs(req.user.profile)[0];
+
     if (progress === 'completed') {
       res.locals.static.content.fields.updatedAt.label = 'Completed';
-    } else if (progress === 'inProgress' || (progress === 'outstanding' && !req.user.profile.asruUser)) {
-      res.locals.static.content.fields.updatedAt.label = 'Last changed';
     }
 
     next();
