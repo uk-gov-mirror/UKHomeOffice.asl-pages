@@ -1,6 +1,6 @@
 module.exports = {
   updatedAt: {
-    label: 'Received'
+    label: 'Last changed'
   },
   establishment: {
     label: 'Establishment'

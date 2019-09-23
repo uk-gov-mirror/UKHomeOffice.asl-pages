@@ -34,6 +34,13 @@ module.exports = ({
     res.locals.datatable.progress = req.datatable.progress;
 
     res.locals.static.tabs = tabs(req.user.profile);
+
+    const progress = req.query.progress || tabs(req.user.profile)[0];
+
+    if (progress === 'completed') {
+      res.locals.static.content.fields.updatedAt.label = 'Completed';
+    }
+
     next();
   }
 })({ schema, apiPath });
