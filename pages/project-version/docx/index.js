@@ -38,7 +38,7 @@ module.exports = () => {
 
   app.get('/', (req, res, next) => {
     const values = req.version.data;
-    const sections = Object.values(schema[req.project.schemaVersion]);
+    const sections = Object.values(schema[req.project.schemaVersion]());
 
     renderer(req.project, sections, values, updateImageDimensions)
       .then(pack)
