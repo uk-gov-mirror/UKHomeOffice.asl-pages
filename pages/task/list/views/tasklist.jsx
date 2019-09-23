@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import truncate from 'lodash/truncate';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import {
@@ -66,12 +65,6 @@ const formatters = {
 
       switch (licence) {
         case 'project':
-          const projectTitle = get(model, 'data.modelData.title');
-          if (projectTitle) {
-            contextLabel = truncate(projectTitle, { length: 24 });
-          }
-          break;
-
         case 'pil':
         case 'role':
         case 'profile':
