@@ -18,8 +18,12 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+    req.breadcrumb('pil.create');
     if (!req.profile.pil) {
-      req.breadcrumb('pil.create');
+      return next();
+    }
+    // allow new application if a revoked PIL is held by another establishment
+    if (req.profile.pil.status === 'revoked' && req.profile.pil.establishmentId !== req.establishmentId) {
       return next();
     }
     res.redirect(req.buildRoute('pil.read', { pilId: req.profile.pil.id }));
