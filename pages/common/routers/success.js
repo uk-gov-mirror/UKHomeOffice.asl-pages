@@ -19,7 +19,7 @@ module.exports = ({
     }
     const success = get(successContent, `${licence}.${type}.${status}`);
     merge(res.locals.static.content, { success });
-    res.locals.static.profile = req.user.profile;
+    res.locals.static.profile = res.locals.static.profile || req.user.profile;
     next();
   });
 
