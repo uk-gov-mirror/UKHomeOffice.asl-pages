@@ -4,11 +4,11 @@ import { Inset, Snippet } from '@asl/components';
 const Authorisations = ({model, values}) => {
   const currentKillingAuthorisations = model.authorisations.filter(a => a.type === 'killing');
   const currentRehomeAuthorisations = model.authorisations.filter(a => a.type === 'rehomes');
-  const hasCurrentAuthorisations = currentKillingAuthorisations.length > 0 || currentRehomeAuthorisations > 0;
+  const hasCurrentAuthorisations = currentKillingAuthorisations.length > 0 || currentRehomeAuthorisations.length > 0;
 
   const proposedKillingAuthorisations = values.authorisations.filter(a => a.type === 'killing');
   const proposedRehomeAuthorisations = values.authorisations.filter(a => a.type === 'rehomes');
-  const hasProposedAuthorisations = proposedKillingAuthorisations.length > 0 || proposedRehomeAuthorisations > 0;
+  const hasProposedAuthorisations = proposedKillingAuthorisations.length > 0 || proposedRehomeAuthorisations.length > 0;
 
   return (
     <div>
