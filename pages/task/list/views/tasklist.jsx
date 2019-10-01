@@ -62,11 +62,13 @@ const formatters = {
       }
 
       let contextLabel = null;
-      let title = null
+      let title = null;
+      if (licence === 'project') {
+        title = get(model, 'data.modelData.title', 'Untitled project');
+      }
 
       switch (licence) {
         case 'project':
-          title = get(model, 'data.modelData.title', 'Untitled project');
         case 'pil':
         case 'role':
         case 'profile':
