@@ -62,6 +62,10 @@ const formatters = {
       }
 
       let contextLabel = null;
+      let title = null;
+      if (licence === 'project') {
+        title = get(model, 'data.modelData.title') || 'Untitled project';
+      }
 
       switch (licence) {
         case 'project':
@@ -83,7 +87,7 @@ const formatters = {
       }
 
       return (
-        <Fragment>
+        <div title={title}>
           <Link
             page="task.read"
             taskId={id}
@@ -98,7 +102,7 @@ const formatters = {
                 <span>{contextLabel}</span>
               </Fragment>
           }
-        </Fragment>
+        </div>
       );
     }
   }
