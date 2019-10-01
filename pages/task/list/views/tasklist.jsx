@@ -66,7 +66,7 @@ const formatters = {
 
       switch (licence) {
         case 'project':
-          title = get(model, 'data.modelData.title');
+          title = get(model, 'data.modelData.title', 'Untitled project');
         case 'pil':
         case 'role':
         case 'profile':
