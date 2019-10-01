@@ -64,7 +64,7 @@ const formatters = {
       let contextLabel = null;
       let title = null;
       if (licence === 'project') {
-        title = get(model, 'data.modelData.title', 'Untitled project');
+        title = get(model, 'data.modelData.title') || 'Untitled project';
       }
 
       switch (licence) {
