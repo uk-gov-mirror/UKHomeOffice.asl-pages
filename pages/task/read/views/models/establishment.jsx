@@ -15,6 +15,7 @@ import Authorisations from '../../../../establishment/update/views/authorisation
 
 export default function Establishment({ task, schema, values }) {
   const establishment = useSelector(state => state.static.establishment);
+  const showNprc = establishment.nprc && (!establishment.pelh || establishment.pelh.id !== establishment.nprc.id);
 
   return [
     <StickyNavAnchor id="establishment" key="establishment">
@@ -29,7 +30,7 @@ export default function Establishment({ task, schema, values }) {
           establishment.pelh && <LicenceHolder type="pelh" profile={establishment.pelh} />
         }
         {
-          establishment.nprc && <LicenceHolder type="nprc" profile={establishment.nprc} />
+          showNprc && <LicenceHolder type="nprc" profile={establishment.nprc} />
         }
       </dl>
     </StickyNavAnchor>,
