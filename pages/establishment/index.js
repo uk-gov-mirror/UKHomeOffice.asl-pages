@@ -20,7 +20,7 @@ module.exports = settings => {
           if (pelh) {
             req.establishment.pelh = pelh.profile;
           }
-          if (nprc) {
+          if (nprc && (!pelh || nprc.profile.id !== pelh.profile.id)) {
             req.establishment.nprc = nprc.profile;
           }
           res.locals.static.establishment = req.establishment;
