@@ -1,4 +1,4 @@
-const { chain, get, remove, isEqual } = require('lodash');
+const { chain, get, remove, isEqual, uniq } = require('lodash');
 const isUUID = require('uuid-validate');
 
 const getVersion = () => (req, res, next) => {
@@ -214,6 +214,23 @@ const getProjectEstablishment = () => (req, res, next) => {
     .catch(next);
 };
 
+const getPreviousProtocols = () => (req, res, next) => {
+  Promise.all([
+    getPreviousVersion(req),
+    getGrantedVersion(req)
+  ])
+    .then(([previous, granted]) => {
+      previous = get(previous, 'data.protocols', []).filter(p => !p.deleted).map(p => p.id);
+      granted = get(granted, 'data.protocols', []).map(p => p.id);
+
+      const showDeleted = uniq([ ...previous, ...granted ]);
+
+      res.locals.static.previousProtocols = { previous, granted, showDeleted };
+    })
+    .then(() => next())
+    .catch(next);
+};
+
 module.exports = {
   getVersion,
   getComments,
@@ -222,5 +239,6 @@ module.exports = {
   getGrantedVersion,
   getAllChanges,
   getChangedValues,
-  getProjectEstablishment
+  getProjectEstablishment,
+  getPreviousProtocols
 };

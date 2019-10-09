@@ -1,6 +1,11 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { canComment, getAllChanges, getProjectEstablishment } = require('../middleware');
+const {
+  canComment,
+  getAllChanges,
+  getProjectEstablishment,
+  getPreviousProtocols
+} = require('../middleware');
 
 module.exports = settings => {
   const app = page({
@@ -11,7 +16,8 @@ module.exports = settings => {
   app.use(
     canComment(),
     getAllChanges(),
-    getProjectEstablishment()
+    getProjectEstablishment(),
+    getPreviousProtocols()
   );
 
   app.use((req, res, next) => {

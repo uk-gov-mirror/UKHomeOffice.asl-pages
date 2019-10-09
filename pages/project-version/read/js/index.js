@@ -23,7 +23,8 @@ start({
     establishment: state.static.establishment,
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
-    isGranted: state.static.isGranted
+    isGranted: state.static.isGranted,
+    previousProtocols: state.static.previousProtocols
   },
   static: { urls: state.static.urls }
 });
