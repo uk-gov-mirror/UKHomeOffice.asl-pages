@@ -175,16 +175,13 @@ const getAllChanges = () => (req, res, next) => {
     getGrantedVersion(req)
   ])
     .then(([previousVersion, grantedVersion]) => {
-      return Promise.all([
-        getChanges(req.version, previousVersion),
-        getChanges(req.version, grantedVersion)
-      ]);
-    })
-    .then(([latest, granted]) => {
-      res.locals.static.changes = {
-        latest,
-        granted
+      return {
+        latest: getChanges(req.version, previousVersion),
+        granted: getChanges(req.version, grantedVersion)
       };
+    })
+    .then(changes => {
+      res.locals.static.changes = changes;
     })
     .then(() => next())
     .catch(next);
@@ -196,18 +193,13 @@ const getChangedValues = (question, req) => {
     getGrantedVersion(req)
   ])
     .then(([previousVersion, grantedVersion]) => {
-      const current = getNode(req.version.data, question);
       const previous = previousVersion && getNode(previousVersion.data, question);
       const granted = grantedVersion && getNode(grantedVersion.data, question);
-
-      if (previousVersion.status === 'granted') {
-        return {
-          granted: !isEqual(current, previous) && (previous || null)
-        };
-      }
       return {
-        previous: !isEqual(current, previous) && (previous || null),
-        granted: !isEqual(current, granted) && (granted || null)
+        grantedId: grantedVersion.id,
+        previousId: previousVersion.id,
+        previous,
+        granted
       };
     });
 };
