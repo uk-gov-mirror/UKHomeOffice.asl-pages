@@ -39,7 +39,7 @@ const getComments = () => (req, res, next) => {
     return next();
   }
   req.api(`/tasks/${req.project.openTasks[0].id}`)
-    .then(response => extractComments(response.json.data, req.user))
+    .then(response => extractComments(response.json.data))
     .then(comments => {
       res.locals.static.comments = comments;
     })
