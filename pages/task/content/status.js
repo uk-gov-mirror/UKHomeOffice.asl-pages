@@ -91,6 +91,24 @@ module.exports = {
     },
     log: 'Endorsed by'
   },
+  // TODO: content
+  'with-admin': {
+    state: 'Awaiting endorsement',
+    log: 'Submitted by'
+  },
+  // TODO: content
+  'admin-endorsed': {
+    state: 'Awaiting review',
+    action: {
+      application: 'Endorse application',
+      amendment: 'Endorse amendment'
+    },
+    hint: {
+      application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
+      amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.'
+    },
+    log: 'Endorsed by'
+  },
   'inspector-recommended': {
     state: 'Recommendation made',
     action: 'Recommend for approval',

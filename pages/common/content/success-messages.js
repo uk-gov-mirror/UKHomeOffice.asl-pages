@@ -241,6 +241,20 @@ module.exports = {
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
+      // TODO: content
+      'with-admin': {
+        title: 'Application sent',
+        body: `An admin user at your establishment will review this application.
+
+          They may contact you for more information before they endorse an application.`
+      },
+      // TODO: content
+      'admin-endorsed': {
+        title: 'Application endorsed',
+        body: `An inspector will review this application. You will be able to see any comments that they have added once an application is returned to you.
+
+          You will be notified when an inspector has made a recommendation to the Home Office about this application.`
+      },
       'inspector-recommended': {
         title: 'Recommendation sent',
         body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
@@ -283,6 +297,20 @@ module.exports = {
         body: `An inspector will review your changes and contact you if they need any more information.
 
           You will be notified by the Home Office when your changes are approved or rejected.`
+      },
+      // TODO: content
+      'with-admin': {
+        title: 'Amendment submitted',
+        body: `An admin user at your establishment will review this amendment.
+
+          They may contact you for more information before they endorse an amendment.`
+      },
+      // TODO: content
+      'admin-endorsed': {
+        title: 'Amendment endorsed',
+        body: `An inspector will review these changes and contact you if they need any more information.
+
+          The applicant will be notified by the Home Office when these changes are approved or rejected.`
       },
       'inspector-recommended': {
         title: 'Recommendation sent',
