@@ -143,7 +143,7 @@ const getGrantedVersion = req => {
 
 const getChanges = (current, version) => {
   if (!current || !version) {
-    return Promise.resolve();
+    return [];
   }
 
   const cvKeys = traverse(current.data);
