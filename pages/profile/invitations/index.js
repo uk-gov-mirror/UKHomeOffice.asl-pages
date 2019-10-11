@@ -11,7 +11,7 @@ module.exports = settings => {
   app.use((req, res, next) => {
     req.datatable = {
       sort: {
-        column: 'createdAt',
+        column: 'updatedAt',
         ascending: false
       }
     };
