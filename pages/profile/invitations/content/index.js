@@ -6,7 +6,7 @@ module.exports = merge({}, baseContent, {
     email: {
       label: 'Email'
     },
-    createdAt: {
+    updatedAt: {
       label: 'Invitation sent'
     },
     role: {
