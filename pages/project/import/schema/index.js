@@ -11,7 +11,12 @@ module.exports = {
           'text/plain'
         ]
       },
-      { ext: 'ppl' }
+      {
+        ext: [
+          'ppl',
+          'txt'
+        ]
+      }
     ]
   }
 };
