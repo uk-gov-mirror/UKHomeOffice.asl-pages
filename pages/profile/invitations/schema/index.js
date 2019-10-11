@@ -5,7 +5,7 @@ module.exports = {
   role: {
     show: true
   },
-  createdAt: {
+  updatedAt: {
     show: true
   }
 };

@@ -10,7 +10,7 @@ const formatters = {
   role: {
     format: role => <Snippet>{`fields.role.options.${role}.label`}</Snippet>
   },
-  createdAt: {
+  updatedAt: {
     format: date => date ? <ExpiryDate
       date={date}
       expiry={addDays(date, 7)}
