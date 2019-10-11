@@ -5,6 +5,7 @@ const read = require('./read');
 const pdf = require('./pdf');
 const docx = require('./docx');
 const { getVersion, getComments, getChangedValues } = require('./middleware');
+const extractComments = require('./lib/extract-comments');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -40,6 +41,31 @@ module.exports = settings => {
       .then(response => {
         const id = get(response, 'json.data.json.data.activityLog[0].id');
         res.json({ id });
+      })
+      .catch(next);
+  });
+
+  app.put('/comment/:commentId', (req, res, next) => {
+    const id = req.params.commentId;
+    const taskId = get(req.project, 'openTasks[0].id');
+    if (!taskId) {
+      return next();
+    }
+    const { field, comment } = req.body;
+    const params = {
+      method: 'PUT',
+      json: {
+        comment,
+        meta: {
+          field,
+          versionId: req.versionId
+        }
+      }
+    };
+
+    req.api(`/task/${taskId}/comment/${id}`, params)
+      .then(response => {
+        res.json(extractComments(response.json.data));
       })
       .catch(next);
   });
