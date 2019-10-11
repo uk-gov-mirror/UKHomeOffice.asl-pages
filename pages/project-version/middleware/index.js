@@ -1,5 +1,6 @@
-const { chain, get, remove, isEqual, uniq } = require('lodash');
+const { get, remove, isEqual, uniq } = require('lodash');
 const isUUID = require('uuid-validate');
+const extractComments = require('../lib/extract-comments');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -8,30 +9,6 @@ const getVersion = () => (req, res, next) => {
     })
     .then(() => next())
     .catch(next);
-};
-
-const extractComments = task => {
-  const statusChanges = task.activityLog.filter(e => e.eventName.match(/^status:/));
-  return chain(task.activityLog)
-    .filter(e => e.eventName === 'comment')
-    .map(activity => {
-      const { id, deleted, comment, createdAt, isNew, changedBy: { firstName, lastName } } = activity;
-      return {
-        id,
-        field: activity.event.meta.payload.meta.field,
-        comment,
-        deleted,
-        // we want to show the date of the following status change, not the comment submission.
-        createdAt: ([...statusChanges].reverse().find(s => s.createdAt > createdAt) || {}).createdAt,
-        author: `${firstName} ${lastName}`,
-        isNew
-      };
-    })
-    .groupBy(comment => comment.field)
-    .mapValues(comments => {
-      return comments.reverse();
-    })
-    .value();
 };
 
 const getComments = () => (req, res, next) => {
@@ -235,6 +212,5 @@ module.exports = {
   getAllChanges,
   getChangedValues,
   getProjectEstablishment,
-  getPreviousProtocols,
-  extractComments
+  getPreviousProtocols
 };

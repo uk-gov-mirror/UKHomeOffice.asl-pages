@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const read = require('./read');
 const pdf = require('./pdf');
 const docx = require('./docx');
-const { getVersion, getComments, getChangedValues, extractComments } = require('./middleware');
+const { getVersion, getComments, getChangedValues } = require('./middleware');
+const extractComments = require('./lib/extract-comments');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
