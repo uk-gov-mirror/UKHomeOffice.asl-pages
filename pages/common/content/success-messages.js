@@ -242,14 +242,14 @@ module.exports = {
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
       // TODO: content
-      'with-admin': {
+      'awaiting-endorsement': {
         title: 'Application sent',
-        body: `An admin user at your establishment will review this application.
+        body: `An administrator at your establishment will review this application.
 
           They may contact you for more information before they endorse an application.`
       },
       // TODO: content
-      'admin-endorsed': {
+      endorsed: {
         title: 'Application endorsed',
         body: `An inspector will review this application. You will be able to see any comments that they have added once an application is returned to you.
 
@@ -299,14 +299,14 @@ module.exports = {
           You will be notified by the Home Office when your changes are approved or rejected.`
       },
       // TODO: content
-      'with-admin': {
+      'awaiting-endorsement': {
         title: 'Amendment submitted',
-        body: `An admin user at your establishment will review this amendment.
+        body: `An administrator at your establishment will review this amendment.
 
           They may contact you for more information before they endorse an amendment.`
       },
       // TODO: content
-      'admin-endorsed': {
+      endorsed: {
         title: 'Amendment endorsed',
         body: `An inspector will review these changes and contact you if they need any more information.
 

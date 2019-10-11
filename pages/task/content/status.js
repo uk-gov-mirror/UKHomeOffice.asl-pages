@@ -92,12 +92,12 @@ module.exports = {
     log: 'Endorsed by'
   },
   // TODO: content
-  'with-admin': {
+  'awaiting-endorsement': {
     state: 'Awaiting endorsement',
     log: 'Submitted by'
   },
   // TODO: content
-  'admin-endorsed': {
+  endorsed: {
     state: 'Awaiting review',
     action: {
       application: 'Endorse application',
