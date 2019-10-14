@@ -103,10 +103,6 @@ module.exports = {
       application: 'Endorse application',
       amendment: 'Endorse amendment'
     },
-    hint: {
-      application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
-      amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.'
-    },
     log: 'Endorsed by'
   },
   'inspector-recommended': {
