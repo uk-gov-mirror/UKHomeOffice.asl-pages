@@ -15,6 +15,9 @@ module.exports = {
     issueDate: {
       label: 'Date granted'
     },
+    amendedDate: {
+      label: 'Last amended'
+    },
     expiryDate: {
       label: 'Expiry date'
     },

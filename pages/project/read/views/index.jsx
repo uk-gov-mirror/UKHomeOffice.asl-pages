@@ -268,6 +268,14 @@ export default function ProjectLandingPage() {
               <dt><Snippet>fields.issueDate.label</Snippet></dt>
               <dd>{formatDate(model.issueDate, dateFormat.medium)}</dd>
 
+              {
+                model.amendedDate &&
+                <Fragment>
+                  <dt><Snippet>fields.amendedDate.label</Snippet></dt>
+                  <dd>{formatDate(model.amendedDate, dateFormat.medium)}</dd>
+                </Fragment>
+              }
+
               <dt><Snippet>fields.expiryDate.label</Snippet></dt>
               <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
             </Fragment>
