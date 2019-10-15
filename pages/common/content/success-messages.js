@@ -96,7 +96,16 @@ module.exports = {
 
           Exemptions may also be assessed by an inspector.`
       },
+      // TODO: remove, left for b/c
       'ntco-endorsed': {
+        title: 'Application endorsed',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
+
+          The Home Office will review this application and your endorsement, and may consult with an Inspector if required.
+
+          They will contact you if they need any more information.`
+      },
+      endorsed: {
         title: 'Application endorsed',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
@@ -171,7 +180,16 @@ module.exports = {
 
           The Home Office will review your changes and will contact you if they need any more information.`
       },
+      // TODO: remove, left for b/c
       'ntco-endorsed': {
+        title: 'Amendment endorsed',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
+
+          The Home Office will review this amendment and your endorsement, and may consult with an Inspector if required.
+
+          They will contact you if they need any more information.`
+      },
+      endorsed: {
         title: 'Amendment endorsed',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 

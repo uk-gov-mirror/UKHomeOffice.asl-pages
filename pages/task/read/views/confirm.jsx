@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Form, Snippet, Header, Link, Field, ErrorSummary } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import { requiresDeclaration } from '../../../../lib/utils';
 
 const CommentForm = ({ task, values, errors, formFields }) => {
   let action = task.data.action;
@@ -10,6 +9,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
     action = 'update';
   }
   const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
+  const requiresDeclaration = task.data.model === 'pil' && values.status === 'endorsed';
   return (
     <Fragment>
       <Header
@@ -24,7 +24,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
         />
       }
       { formFields }
-      { requiresDeclaration(values.status) &&
+      { requiresDeclaration &&
         <div className="task-declaration">
           <h2><Snippet>declaration.title</Snippet></h2>
           <Snippet type={task.type}>{`declaration.${values.status}`}</Snippet>
