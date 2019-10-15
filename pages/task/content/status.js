@@ -91,6 +91,20 @@ module.exports = {
     },
     log: 'Endorsed by'
   },
+  // TODO: content
+  'awaiting-endorsement': {
+    state: 'Awaiting endorsement',
+    log: 'Submitted by'
+  },
+  // TODO: content
+  endorsed: {
+    state: 'Awaiting review',
+    action: {
+      application: 'Endorse application',
+      amendment: 'Endorse amendment'
+    },
+    log: 'Endorsed by'
+  },
   'inspector-recommended': {
     state: 'Recommendation made',
     action: 'Recommend for approval',

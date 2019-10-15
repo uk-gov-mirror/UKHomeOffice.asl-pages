@@ -8,6 +8,12 @@ module.exports = {
         application: 'Your application will be sent to an NTCO for endorsement',
         amendment: 'Your amendment will be sent to an NTCO for endorsement'
       }
+    },
+    endorsed: {
+      hint: {
+        application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
+        amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.'
+      }
     }
   },
   fields: {

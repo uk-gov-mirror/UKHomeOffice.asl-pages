@@ -96,7 +96,16 @@ module.exports = {
 
           Exemptions may also be assessed by an inspector.`
       },
+      // TODO: remove, left for b/c
       'ntco-endorsed': {
+        title: 'Application endorsed',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
+
+          The Home Office will review this application and your endorsement, and may consult with an Inspector if required.
+
+          They will contact you if they need any more information.`
+      },
+      endorsed: {
         title: 'Application endorsed',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
 
@@ -171,7 +180,16 @@ module.exports = {
 
           The Home Office will review your changes and will contact you if they need any more information.`
       },
+      // TODO: remove, left for b/c
       'ntco-endorsed': {
+        title: 'Amendment endorsed',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
+
+          The Home Office will review this amendment and your endorsement, and may consult with an Inspector if required.
+
+          They will contact you if they need any more information.`
+      },
+      endorsed: {
         title: 'Amendment endorsed',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
 
@@ -241,6 +259,26 @@ module.exports = {
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
+      'with-inspectorate': {
+        title: 'Application sent',
+        body: `An inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
+
+          You will be notified when an inspector has made a recommendation to the Home Office about your application.`
+      },
+      // TODO: content
+      'awaiting-endorsement': {
+        title: 'Application sent',
+        body: `An administrator at your establishment will review this application.
+
+          They may contact you for more information before they endorse an application.`
+      },
+      // TODO: content
+      endorsed: {
+        title: 'Application endorsed',
+        body: `An inspector will review this application. You will be able to see any comments that they have added once an application is returned to you.
+
+          You will be notified when an inspector has made a recommendation to the Home Office about this application.`
+      },
       'inspector-recommended': {
         title: 'Recommendation sent',
         body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
@@ -283,6 +321,26 @@ module.exports = {
         body: `An inspector will review your changes and contact you if they need any more information.
 
           You will be notified by the Home Office when your changes are approved or rejected.`
+      },
+      'with-inspectorate': {
+        title: 'Amendment submitted',
+        body: `An inspector will review your changes and contact you if they need any more information.
+
+          You will be notified by the Home Office when your changes are approved or rejected.`
+      },
+      // TODO: content
+      'awaiting-endorsement': {
+        title: 'Amendment submitted',
+        body: `An administrator at your establishment will review this amendment.
+
+          They may contact you for more information before they endorse an amendment.`
+      },
+      // TODO: content
+      endorsed: {
+        title: 'Amendment endorsed',
+        body: `An inspector will review these changes and contact you if they need any more information.
+
+          The applicant will be notified by the Home Office when these changes are approved or rejected.`
       },
       'inspector-recommended': {
         title: 'Recommendation sent',
