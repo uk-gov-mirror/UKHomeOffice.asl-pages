@@ -24,7 +24,7 @@ module.exports = () => {
   app.use('/success', (req, res, next) => {
     success({
       licence: 'project',
-      status: req.project.status === 'inactive' ? 'licenceHolderUpdated' : 'resubmitted'
+      status: req.project.status === 'inactive' ? 'licenceHolderUpdated' : null
     })(req, res, next);
   });
 

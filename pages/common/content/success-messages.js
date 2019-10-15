@@ -259,6 +259,12 @@ module.exports = {
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
+      'with-inspectorate': {
+        title: 'Application sent',
+        body: `An inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
+
+          You will be notified when an inspector has made a recommendation to the Home Office about your application.`
+      },
       // TODO: content
       'awaiting-endorsement': {
         title: 'Application sent',
@@ -311,6 +317,12 @@ module.exports = {
     },
     amendment: {
       resubmitted: {
+        title: 'Amendment submitted',
+        body: `An inspector will review your changes and contact you if they need any more information.
+
+          You will be notified by the Home Office when your changes are approved or rejected.`
+      },
+      'with-inspectorate': {
         title: 'Amendment submitted',
         body: `An inspector will review your changes and contact you if they need any more information.
 

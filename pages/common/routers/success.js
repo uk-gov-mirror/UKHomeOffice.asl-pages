@@ -11,6 +11,9 @@ module.exports = ({
   const app = Router();
 
   app.use((req, res, next) => {
+    if (!status) {
+      status = get(req.model, 'openTasks[0].status');
+    }
     if (!licence || !status) {
       return next();
     }
