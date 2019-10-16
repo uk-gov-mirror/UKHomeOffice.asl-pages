@@ -98,12 +98,11 @@ module.exports = {
   },
   // TODO: content
   endorsed: {
-    state: 'Awaiting review',
+    state: 'Awaiting recommendation',
     action: {
       application: 'Endorse application',
       amendment: 'Endorse amendment'
-    },
-    log: 'Endorsed by'
+    }
   },
   'inspector-recommended': {
     state: 'Recommendation made',

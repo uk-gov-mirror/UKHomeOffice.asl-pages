@@ -14,6 +14,12 @@ module.exports = {
       label: ''
     }
   },
+  status: {
+    endorsed: {
+      hint: 'Confirm the PEL holder approves this application.',
+      log: 'Endorsed on behalf of the PEL holder by'
+    }
+  },
   versions: {
     granted: {
       label: 'View granted licence',
@@ -25,11 +31,6 @@ module.exports = {
     }
   },
   declarations: {
-    'pel-holder': {
-      question: 'Does this application have the endorsement of your primary establishment\'s PEL holder?',
-      name: 'PEL Holder:',
-      'endorsement-date': 'Endorsement date: '
-    },
     'awerb': {
       question: 'Has the application been reviewed by the AWERB of each relevant establishment?',
       'review-date': 'AWERB review date:',

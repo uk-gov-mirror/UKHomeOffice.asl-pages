@@ -18,9 +18,11 @@ module.exports = merge({}, baseContent, {
   },
   declaration: {
     title: 'Declaration',
-    endorsed:
-      `By endorsing this {{type}}, I agree that:
+    endorsed: {
+      pil: `By endorsing this {{type}}, I agree that:
          * I have the authority of the establishment licence holder, and they are aware that this establishment will
-         have financial responsibility for this personal licence if granted.`
+         have financial responsibility for this personal licence if granted.`,
+      project: 'By endorsing this application, I confirm that I have the consent of the Establishment Licence holder'
+    }
   }
 });

@@ -16,7 +16,9 @@ const getRelevantActivity = activityLog => activityLog.filter(log => {
     return true;
   }
 
-  if (log.eventName === 'status:updated:resubmitted') {
+  if (log.eventName === 'status:updated:resubmitted' ||
+    log.eventName === 'status:endorsed:with-inspectorate' ||
+    log.eventName === 'status:endorsed:with-licensing') {
     return false;
   }
 
