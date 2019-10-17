@@ -84,18 +84,15 @@ export default function Project({ task, schema }) {
                 <p><strong><Snippet>declarations.pel-holder.question</Snippet></strong></p>
                 <p>{declarations.authority}</p>
                 {
-                  declarationConfirmed(declarations.authority)
-                    ? (
-                      <Fragment>
-                        <p>
-                          <Snippet>declarations.pel-holder.name</Snippet> {declarations['authority-pelholder-name']}
-                        </p>
-                        <p>
-                          <Snippet>declarations.pel-holder.endorsement-date</Snippet> {declarations['authority-endorsement-date']}
-                        </p>
-                      </Fragment>
-                    )
-                    : 'No answer provided'
+                  declarationConfirmed(declarations.authority) &&
+                    <Fragment>
+                      <p>
+                        <Snippet>declarations.pel-holder.name</Snippet> {declarations['authority-pelholder-name'] || 'No answer provided'}
+                      </p>
+                      <p>
+                        <Snippet>declarations.pel-holder.endorsement-date</Snippet> {declarations['authority-endorsement-date'] || 'No answer provided'}
+                      </p>
+                    </Fragment>
                 }
 
                 <p><strong><Snippet>declarations.awerb.question</Snippet></strong></p>
