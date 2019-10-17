@@ -168,8 +168,8 @@ const getChangedValues = (question, req) => {
       const previous = previousVersion && getNode(previousVersion.data, question);
       const granted = grantedVersion && getNode(grantedVersion.data, question);
       return {
-        grantedId: grantedVersion.id,
-        previousId: previousVersion.id,
+        grantedId: grantedVersion && grantedVersion.id,
+        previousId: previousVersion && previousVersion.id,
         previous,
         granted
       };
