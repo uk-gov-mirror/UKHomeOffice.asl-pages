@@ -254,30 +254,30 @@ module.exports = {
         body: 'The applicant has been updated on this draft application.'
       },
       resubmitted: {
-        title: 'Application sent',
+        title: 'Application submitted',
         body: `An inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
       'with-inspectorate': {
-        title: 'Application sent',
+        title: 'Application submitted',
         body: `An inspector will review your application. You will be able to see any comments that they have added once an application is returned to you.
 
           You will be notified when an inspector has made a recommendation to the Home Office about your application.`
       },
       // TODO: content
       'awaiting-endorsement': {
-        title: 'Application sent',
-        body: `An administrator at your establishment will review this application.
+        title: 'Application submitted',
+        body: `**The procedures applied for in this application cannot be carried out until the licence is granted.**
 
-          They may contact you for more information before they endorse an application.`
+          An administrator, acting on behalf of the establishment's PEL holder, will review your application before it is submitted to the Home Office.`
       },
       // TODO: content
       endorsed: {
         title: 'Application endorsed',
-        body: `An inspector will review this application. You will be able to see any comments that they have added once an application is returned to you.
+        body: `**The procedures applied for in this application cannot be carried out until the licence is granted.**
 
-          You will be notified when an inspector has made a recommendation to the Home Office about this application.`
+          The Home Office will review this application and your endorsement. They will contact you or the applicant if they need any more information.`
       },
       'inspector-recommended': {
         title: 'Recommendation sent',

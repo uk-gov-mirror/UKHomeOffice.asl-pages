@@ -87,10 +87,10 @@ export default function Project({ task, schema }) {
                   declarationConfirmed(declarations.authority) &&
                     <Fragment>
                       <p>
-                        <Snippet>declarations.pel-holder.name</Snippet> {declarations['authority-pelholder-name']}
+                        <Snippet>declarations.pel-holder.name</Snippet> {declarations['authority-pelholder-name'] || 'No answer provided'}
                       </p>
                       <p>
-                        <Snippet>declarations.pel-holder.endorsement-date</Snippet> {declarations['authority-endorsement-date']}
+                        <Snippet>declarations.pel-holder.endorsement-date</Snippet> {declarations['authority-endorsement-date'] || 'No answer provided'}
                       </p>
                     </Fragment>
                 }

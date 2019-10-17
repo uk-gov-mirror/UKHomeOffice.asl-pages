@@ -14,6 +14,12 @@ module.exports = {
       label: ''
     }
   },
+  status: {
+    endorsed: {
+      hint: 'Confirm the PEL holder approves this application.',
+      log: 'Endorsed on behalf of the PEL holder by'
+    }
+  },
   versions: {
     granted: {
       label: 'View granted licence',

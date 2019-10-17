@@ -9,7 +9,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
     action = 'update';
   }
   const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
-  const requiresDeclaration = task.data.model === 'pil' && values.status === 'endorsed';
+  const requiresDeclaration = (task.data.model === 'pil' || task.data.model === 'project') && values.status === 'endorsed';
   return (
     <Fragment>
       <Header
@@ -27,7 +27,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
       { requiresDeclaration &&
         <div className="task-declaration">
           <h2><Snippet>declaration.title</Snippet></h2>
-          <Snippet type={task.type}>{`declaration.${values.status}`}</Snippet>
+          <Snippet type={task.type}>{`declaration.${values.status}.${task.data.model}`}</Snippet>
         </div>
       }
       <p className="control-panel">
