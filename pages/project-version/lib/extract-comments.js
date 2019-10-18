@@ -5,7 +5,7 @@ module.exports = task => {
   return chain(task.activityLog)
     .filter(e => e.eventName === 'comment')
     .map(activity => {
-      const { id, deleted, comment, createdAt, isNew, changedBy: { firstName, lastName } } = activity;
+      const { id, deleted, comment, createdAt, isNew, isMine, changedBy: { firstName, lastName } } = activity;
       return {
         id,
         field: activity.event.meta.payload.meta.field,
@@ -14,7 +14,8 @@ module.exports = task => {
         // we want to show the date of the following status change, not the comment submission.
         createdAt: ([...statusChanges].reverse().find(s => s.createdAt > createdAt) || {}).createdAt,
         author: `${firstName} ${lastName}`,
-        isNew
+        isNew,
+        isMine
       };
     })
     .groupBy(comment => comment.field)
