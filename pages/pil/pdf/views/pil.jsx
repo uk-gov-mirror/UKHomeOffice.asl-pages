@@ -68,7 +68,7 @@ const PIL = ({ pil, content }) => {
         }
       </section>
 
-      <section className="additional-conditions break">
+      <section className="additional-conditions">
         <h2>Additional conditions</h2>
         {
           hasAdditionalConditions ? (
