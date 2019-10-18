@@ -7,6 +7,7 @@ module.exports = merge({}, baseContent, {
     licenceNumber: { label: 'Licence number' },
     status: { label: 'Status' },
     issueDate: { label: 'Issue date' },
+    updatedAt: { label: 'Last amended' },
     revocationDate: { label: 'Revocation date' },
     species: { label: 'Animal types' },
     conditions: { label: 'Conditions' },

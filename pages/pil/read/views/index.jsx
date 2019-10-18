@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';
+import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import schema from '../schema';
 import {
   Link,
@@ -28,6 +29,11 @@ const PIL = ({
   const formatters = {
     issueDate: {
       format: issueDate => formatDate(issueDate, dateFormat.medium)
+    },
+    updatedAt: {
+      format: (updatedAt, pil) => differenceInCalendarDays(updatedAt, pil.issueDate) > 0
+        ? formatDate(updatedAt, dateFormat.medium)
+        : '-'
     },
     revocationDate: {
       format: revocationDate => formatDate(revocationDate, dateFormat.medium)
