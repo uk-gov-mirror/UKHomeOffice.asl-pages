@@ -48,7 +48,12 @@ module.exports = {
     },
     account: {
       menu: 'Your account',
-      update: 'Edit'
+      update: 'Edit your details',
+      updateEmail: {
+        base: 'Update your email address',
+        confirm: 'Confirm',
+        success: 'Success'
+      }
     },
     feedback: 'Feedback',
     task: {
@@ -62,7 +67,11 @@ module.exports = {
   pages: {
     account: {
       title: 'Your account',
-      update: 'Edit your details'
+      update: 'Edit your details',
+      updateEmail: {
+        base: 'Update your email address',
+        confirm: 'Confirm changes'
+      }
     },
     dashboard: {
       greeting: 'Hello {{name}}',

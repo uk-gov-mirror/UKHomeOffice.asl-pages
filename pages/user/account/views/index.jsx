@@ -14,6 +14,9 @@ const Index = () => {
           <li>
             <Link page="account.update" label={ <Snippet>pages.account.update</Snippet> } />
           </li>
+          <li>
+            <Link page="account.updateEmail.base" label={ <Snippet>pages.account.updateEmail.base</Snippet> } />
+          </li>
         </ul>
       </div>
     </div>

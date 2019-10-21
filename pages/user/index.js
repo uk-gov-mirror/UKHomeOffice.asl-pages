@@ -2,6 +2,7 @@ const { Router } = require('express');
 
 const account = require('./account');
 const update = require('./update');
+const updateEmail = require('./update-email');
 
 module.exports = () => {
 
@@ -25,6 +26,7 @@ module.exports = () => {
 
   router.use('/', account());
   router.use('/edit', update());
+  router.use('/update-email', updateEmail());
 
   return router;
 
