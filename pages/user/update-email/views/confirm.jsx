@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ControlBar, Diff, ErrorSummary, Header, Snippet } from '@asl/components';
 import { hasChanged } from '../../../../lib/utils';
 
-const Confirm = ({ profile, values, csrfToken }) => {
+const Confirm = ({ profile, csrfToken }) => {
   return (
     <Fragment>
       <div className="govuk-grid-row">
@@ -19,7 +19,7 @@ const Confirm = ({ profile, values, csrfToken }) => {
               <input type="hidden" name="_csrf" value={csrfToken} />
               <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
               <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
-              <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
+              <a href="?cancel=true"><Snippet>buttons.cancel</Snippet></a>
             </ControlBar>
           </form>
         </div>
@@ -32,14 +32,12 @@ const mapStateToProps = (
   {
     profile,
     static: {
-      values,
       csrfToken
     }
   }
 ) => (
   {
     profile,
-    values,
     csrfToken
   }
 );

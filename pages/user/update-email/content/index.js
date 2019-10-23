@@ -30,8 +30,5 @@ module.exports = merge({}, baseContent, {
   },
   buttons: {
     submit: 'Submit'
-  },
-  notifications: {
-    success: 'Your email address has been changed'
   }
 });

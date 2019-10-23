@@ -1,5 +1,4 @@
 const { page } = require('@asl/service/ui');
-const { get, pick } = require('lodash');
 const form = require('../../common/routers/form');
 const success = require('../../common/routers/success');
 const confirm = require('./routers/confirm');
@@ -15,13 +14,13 @@ module.exports = settings => {
   app.use((req, res, next) => {
     req.breadcrumb('account.updateEmail.base');
     req.model = req.user.profile;
+    res.locals.static.profile = req.user.profile;
     next();
   });
 
   app.use('/', form({
     schema,
     locals: (req, res, next) => {
-      res.locals.static.profile = req.user.profile;
       res.locals.model.password = ''; // clear password field on validation fail
 
       if (res.locals.model.email === req.user.profile.email) {
@@ -40,13 +39,9 @@ module.exports = settings => {
       }
     };
 
-    req.api('/me/auth-token', opts)
-      .then(response => {
-        req.session.form[req.model.id].values = {
-          ...pick(req.session.form[req.model.id].values, 'email'),
-          authToken: get(response, 'json.data.token')
-        };
-        req.session.form[req.model.id].values.authToken.access_token = req.user.access_token;
+    req.api('/me/verify', opts)
+      .then(() => {
+        delete req.session.form[req.model.id].values.password;
       })
       .then(() => res.redirect(req.buildRoute('account.updateEmail.confirm')))
       .catch(next);
