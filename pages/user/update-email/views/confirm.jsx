@@ -1,18 +1,24 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ControlBar, Diff, ErrorSummary, Header, Snippet } from '@asl/components';
-import { hasChanged } from '../../../../lib/utils';
+import { ControlBar, Header, Snippet } from '@asl/components';
 
-const Confirm = ({ profile, csrfToken }) => {
+const Confirm = ({ profile, csrfToken, values }) => {
+  console.log(profile);
+
   return (
     <Fragment>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <ErrorSummary />
-
           <Header title={<Snippet>pages.account.updateEmail.confirm</Snippet>} />
+          <br />
 
-          <Diff comparator={hasChanged} model={profile} />
+          <h3><Snippet>fields.email.current</Snippet></h3>
+          <p>{profile.email}</p>
+          <br />
+
+          <h3><Snippet>fields.email.label</Snippet></h3>
+          <p>{values.email}</p>
+          <br />
 
           <form method="POST">
             <ControlBar>
@@ -30,15 +36,17 @@ const Confirm = ({ profile, csrfToken }) => {
 
 const mapStateToProps = (
   {
-    profile,
     static: {
-      csrfToken
+      csrfToken,
+      profile,
+      values
     }
   }
 ) => (
   {
+    csrfToken,
     profile,
-    csrfToken
+    values
   }
 );
 

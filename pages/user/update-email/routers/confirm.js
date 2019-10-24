@@ -1,6 +1,5 @@
 const { Router } = require('express');
-const { omit, pick } = require('lodash');
-const schema = require('../schema/index');
+const { pick } = require('lodash');
 
 module.exports = () => {
   const app = Router();
@@ -19,8 +18,6 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.breadcrumb('account.updateEmail.confirm');
-    // schema and values needed for the diff component
-    res.locals.static.schema = Object.assign({}, omit(schema, ['emailConfirm', 'password']));
     res.locals.static.values = req.session.form[req.model.id].values;
     next();
   });

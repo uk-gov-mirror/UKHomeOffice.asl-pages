@@ -50,7 +50,7 @@ module.exports = {
       menu: 'Your account',
       update: 'Edit your details',
       updateEmail: {
-        base: 'Update your email address',
+        base: 'Change your email address',
         confirm: 'Confirm',
         success: 'Success'
       }
@@ -69,7 +69,7 @@ module.exports = {
       title: 'Your account',
       update: 'Edit your details',
       updateEmail: {
-        base: 'Update your email address',
+        base: 'Change your email address',
         confirm: 'Confirm changes'
       }
     },

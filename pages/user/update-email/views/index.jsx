@@ -16,7 +16,7 @@ const Page = ({ model, profile }) => {
   return (
     <FormLayout>
       <Header title={<Snippet>title</Snippet>} />
-      <h3>Your current email address</h3>
+      <h3><Snippet>fields.email.current</Snippet></h3>
       <p>{profile.email}</p>
     </FormLayout>
   );
