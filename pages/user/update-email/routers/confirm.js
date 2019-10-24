@@ -33,6 +33,9 @@ module.exports = () => {
     };
 
     req.api('/me/email', opts)
+      .then(() => {
+        delete req.session.form[req.model.id];
+      })
       .then(() => res.redirect(req.buildRoute('account.updateEmail.success')))
       .catch(next);
   });
