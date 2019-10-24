@@ -34,7 +34,7 @@ const getRecommendation = status => {
 
 const ExtraProjectMeta = ({ item, task }) => {
   const status = item.event.status;
-  if (status !== 'with-inspectorate') {
+  if (status !== 'with-inspectorate' && status !== 'resubmitted') {
     return null;
   }
   const versionId = get(item, 'event.data.data.version');
