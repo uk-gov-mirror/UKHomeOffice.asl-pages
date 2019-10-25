@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { ControlBar, Header, Snippet } from '@asl/components';
 
 const Confirm = ({ profile, csrfToken, values }) => {
-  console.log(profile);
-
   return (
     <Fragment>
       <div className="govuk-grid-row">

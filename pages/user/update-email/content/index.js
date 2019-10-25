@@ -30,6 +30,6 @@ module.exports = merge({}, baseContent, {
     }
   },
   buttons: {
-    submit: 'Submit'
+    submit: 'Continue'
   }
 });
