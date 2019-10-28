@@ -1,4 +1,4 @@
-const { get, flattenDeep, castArray } = require('lodash');
+const { flattenDeep, castArray } = require('lodash');
 const schema = require('@asl/projects/client/schema/v1/experience').default;
 
 const fields = schema.fields;
