@@ -4,8 +4,8 @@ module.exports = {
     validate: [
       'required',
       {
-        customValidate: (fieldValue) => {
-          return /^\S+@\S+$/.test(fieldValue);
+        customValidate: (fieldValue, formValues, model) => {
+          return fieldValue !== model.email && /^\S+@\S+$/.test(fieldValue);
         }
       }
     ]

@@ -12,7 +12,7 @@ module.exports = merge({}, baseContent, {
       label: 'Confirm your new email address'
     },
     password: {
-      label: 'Password'
+      label: 'Please enter your current password to authorise the change'
     }
   },
   errors: {
