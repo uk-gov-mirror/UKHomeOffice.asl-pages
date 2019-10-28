@@ -1,4 +1,5 @@
 const { page } = require('@asl/service/ui');
+const { set } = require('lodash');
 const form = require('../../common/routers/form');
 const success = require('../../common/routers/success');
 const confirm = require('./routers/confirm');
@@ -44,7 +45,13 @@ module.exports = settings => {
         delete req.session.form[req.model.id].values.password;
       })
       .then(() => res.redirect(req.buildRoute('account.updateEmail.confirm')))
-      .catch(next);
+      .catch(err => {
+        if (err.status === 403) {
+          set(req.session.form[req.model.id], 'validationErrors.password', 'invalid');
+          return res.redirect(req.buildRoute('account.updateEmail.base'));
+        }
+        next(err);
+      });
   });
 
   app.use('/confirm', confirm());
