@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { pick } = require('lodash');
+const { pick, set } = require('lodash');
 
 module.exports = () => {
   const app = Router();
@@ -37,7 +37,13 @@ module.exports = () => {
         delete req.session.form[req.model.id];
       })
       .then(() => res.redirect(req.buildRoute('account.updateEmail.success')))
-      .catch(next);
+      .catch(err => {
+        if (err.message === 'Email address is already in use') {
+          set(req.session.form[req.model.id], 'validationErrors.email', 'inUse');
+          return res.redirect(req.buildRoute('account.updateEmail.base'));
+        }
+        next(err);
+      });
   });
 
   return app;
