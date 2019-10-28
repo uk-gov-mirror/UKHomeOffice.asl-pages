@@ -16,7 +16,6 @@ module.exports = settings => {
     req.breadcrumb('account.updateEmail.base');
     req.model = req.user.profile;
     res.locals.static.profile = req.user.profile;
-    console.log(req.session.form[req.model.id]);
     next();
   });
 
