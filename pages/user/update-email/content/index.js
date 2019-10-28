@@ -26,7 +26,8 @@ module.exports = merge({}, baseContent, {
       customValidate: 'Please confirm your new email address is correct'
     },
     password: {
-      required: 'Please enter your password'
+      required: 'Please enter your password',
+      invalid: 'The password you entered does not match our records'
     }
   },
   buttons: {
