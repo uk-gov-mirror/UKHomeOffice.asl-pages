@@ -40,7 +40,7 @@ function Section({
 }
 
 function CurrentVersion({ model }) {
-  const { openTask, editable } = useSelector(state => state.static);
+  const { openTask, editable, canUpdate } = useSelector(state => state.static);
   const target = model.status === 'inactive' && model.draft
     ? 'update'
     : 'read';
@@ -50,7 +50,7 @@ function CurrentVersion({ model }) {
     : model.versions[0].id;
 
   const status = model.versions[0].status;
-  const returned = openTask && editable;
+  const returned = openTask && editable && canUpdate;
 
   const labelKey = model.granted
     ? `granted.${model.status}`
@@ -67,7 +67,7 @@ function CurrentVersion({ model }) {
 }
 
 function OpenTask({ model }) {
-  const { openTask, editable } = useSelector(state => state.static);
+  const { openTask, editable, canUpdate } = useSelector(state => state.static);
 
   if (!openTask) {
     return null;
@@ -78,6 +78,7 @@ function OpenTask({ model }) {
   }
 
   let type = model.status === 'inactive' ? 'application' : 'amendment';
+  const status = type;
 
   if (openTask.data.action === 'revoke') {
     type = 'revocation';
@@ -91,10 +92,14 @@ function OpenTask({ model }) {
     type = 'returned-draft';
   }
 
+  if (!canUpdate) {
+    type = 'cannot-update';
+  }
+
   return (
     <Section
-      title={<Snippet>{`openTask.${type}.title`}</Snippet>}
-      content={<Snippet>{`openTask.${type}.description`}</Snippet>}
+      title={<Snippet status={`${status.charAt(0).toUpperCase()}${status.substring(1)}`}>{`openTask.${type}.title`}</Snippet>}
+      content={<Snippet status={status}>{`openTask.${type}.description`}</Snippet>}
     >
       <Link
         page="task.read"
