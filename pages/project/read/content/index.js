@@ -26,7 +26,7 @@ module.exports = merge({}, baseContent, {
       description: 'There is an application in progress, you can continue authoring the application above or view the task to see a list of available steps.'
     },
     'cannot-update': {
-      title: '{{status}} in progess',
+      title: '{{status}} in progress',
       description: 'There is an open task for this {{status}}.'
     }
   },
