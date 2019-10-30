@@ -1,7 +1,7 @@
-const { get, flattenDeep, castArray } = require('lodash');
-const schema = require('@asl/projects/client/schema').default;
+const { flattenDeep, castArray } = require('lodash');
+const schema = require('@asl/projects/client/schema/v1/experience').default;
 
-const fields = get(schema[1](), 'applicantInformation.subsections.experience.fields');
+const fields = schema.fields;
 const fieldNames = flattenDeep(fields.map(field => {
   return [
     field.name,
