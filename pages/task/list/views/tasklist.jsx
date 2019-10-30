@@ -5,10 +5,13 @@ import get from 'lodash/get';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import {
+  Acronym,
   Tabs,
   Datatable,
   Snippet,
   Link,
+  LinkFilter,
+  FilterSummary,
   Panel,
   Countdown
 } from '@asl/components';
@@ -108,6 +111,23 @@ const formatters = {
   }
 };
 
+const selectivelyUppercase = filter => {
+  return filter === 'profile' ? 'Profile' : filter.toUpperCase();
+};
+
+const Filters = () => (
+  <Fragment>
+    <LinkFilter
+      prop="licence"
+      formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
+      append={['pil', 'ppl', 'pel', 'profile']}
+    />
+    <div className="table-heading">
+      <FilterSummary />
+    </div>
+  </Fragment>
+);
+
 const Tasklist = ({
   workflowConnectionError,
   tabs = [],
@@ -131,6 +151,7 @@ const Tasklist = ({
           { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
         </Tabs>
       }
+      <Filters />
       <Datatable formatters={formatters} className="tasklist" />
     </Fragment>
   );
