@@ -78,11 +78,12 @@ function OpenTask({ model }) {
   }
 
   let type = model.status === 'inactive' ? 'application' : 'amendment';
-  const status = type;
 
   if (openTask.data.action === 'revoke') {
     type = 'revocation';
   }
+
+  const status = type;
 
   if (openTask.data.action === 'update') {
     type = 'update-licence-holder';
