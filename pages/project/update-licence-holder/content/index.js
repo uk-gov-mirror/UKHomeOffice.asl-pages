@@ -3,7 +3,8 @@ module.exports = {
   currentLicenceHolder: 'Current PPL holder',
   fields: {
     licenceHolderId: {
-      label: 'New PPL holder'
+      label: 'Proposed PPL holder',
+      hint: 'If you cannot see the person you are looking for please contact an administrator at your establishment who can make this change for you.'
     },
     comments: {
       label: 'Why are you making this amendment?',
