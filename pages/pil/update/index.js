@@ -2,7 +2,7 @@ const { uniq, flattenDeep, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { get, pick } = require('lodash');
+const { get, pick, omit } = require('lodash');
 
 const success = require('../../common/routers/success');
 const procedures = require('../procedures');
@@ -68,7 +68,7 @@ module.exports = settings => {
 
   app.use(form({
     configure: (req, res, next) => {
-      req.form.schema = req.user.profile.asruUser ? {} : schema;
+      req.form.schema = req.user.profile.asruUser ? omit(schema, 'declarations') : schema;
       next();
     },
     validate: (req, res, next) => {
