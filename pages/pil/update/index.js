@@ -98,7 +98,7 @@ module.exports = settings => {
   app.use('/success', (req, res, next) => {
     success({
       licence: 'pil',
-      status: req.user.profile.asruLicensing ? 'autoresolved' : (req.user.profile.asruUser ? 'with-licensing' : 'resubmitted')
+      status: get(req.model, 'openTasks[0].status', 'autoresolved')
     })(req, res, next);
   });
 
