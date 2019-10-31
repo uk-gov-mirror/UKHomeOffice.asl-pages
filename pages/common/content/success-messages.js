@@ -244,6 +244,18 @@ module.exports = {
       'discarded-by-applicant': {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
+      'autoresolved': {
+        title: 'Licence amended',
+        body: `**This personal licence has been amended.**
+
+          The licence holder has been notified of this change.`
+      },
+      'with-licensing': {
+        title: 'Amendment submitted',
+        body: `**This amendment has been submitted to a licensing officer to process. They will be in touch if they need any further information.**
+
+          The licence holder has been notified of this request, and will be notified once the licence has been updated.`
       }
     }
   },

@@ -70,6 +70,8 @@ module.exports = {
     title: 'Please confirm that you understand'
   },
   buttons: {
-    submit: 'Submit to NTCO'
+    submit: 'Submit to NTCO',
+    submitAsLicensing: 'Update licence',
+    submitAsAsru: 'Submit to licensing'
   }
 };
