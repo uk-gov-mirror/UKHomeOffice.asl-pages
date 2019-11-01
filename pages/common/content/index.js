@@ -118,6 +118,7 @@ module.exports = {
   licenceHolder: 'Licence holder',
   pelh: 'Establishment licence holder',
   nprc: 'Named Person Responsible for Compliance',
+  holc: 'HOLC',
   inspectors: 'Inspectors',
   spoc: 'Single Point of Contact (SPoC)',
   establishment: 'Establishment',
