@@ -13,5 +13,11 @@ module.exports = {
     completed: 'Completed',
     myTasks: 'My tasks'
   },
+  'no-tasks': {
+    outstanding: 'You have no outstanding tasks',
+    inProgress: 'You have no tasks in progress',
+    completed: 'You have no completed tasks',
+    myTasks: 'There are no tasks assigned to you'
+  },
   'tasklist-unavailable': 'Task list unavailable'
 };
