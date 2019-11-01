@@ -59,7 +59,7 @@ const PIL = ({
         if (!procedures) {
           return '-';
         }
-        return procedures.map(procedure => {
+        return procedures.sort().map(procedure => {
           return (
             <p key={procedure}>
               <strong>{procedure}</strong>: <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
