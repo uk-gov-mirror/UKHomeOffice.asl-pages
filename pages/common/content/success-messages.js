@@ -75,6 +75,16 @@ module.exports = {
       }
     },
     application: {
+      'awaiting-endorsement': {
+        title: 'Application submitted',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
+
+          The Training and Competency Officer at your establishment will review the training and exemption information.
+
+          They may contact you for more information before they endorse an application.
+
+          Exemptions may also be assessed by an inspector.`
+      },
       resubmitted: {
         title: 'Application submitted',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
