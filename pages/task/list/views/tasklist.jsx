@@ -131,7 +131,8 @@ const Filters = () => (
 const Tasklist = ({
   workflowConnectionError,
   tabs = [],
-  progress
+  progress,
+  hasTasks
 }) => {
   if (workflowConnectionError) {
     return (
@@ -151,10 +152,37 @@ const Tasklist = ({
           { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
         </Tabs>
       }
-      <Filters />
-      <Datatable formatters={formatters} className="tasklist" />
+      {
+        hasTasks && <Fragment>
+          <Filters />
+          <Datatable formatters={formatters} className="tasklist" />
+        </Fragment>
+      }
+      {
+        !hasTasks && <p><Snippet>{ `no-tasks.${progress}` }</Snippet></p>
+      }
     </Fragment>
   );
 };
 
-export default connect(({ static: { workflowConnectionError, tabs, progress } }) => ({ workflowConnectionError, tabs, progress }))(Tasklist);
+const mapStateToProps = ({
+  static: {
+    workflowConnectionError,
+    tabs,
+    progress
+  },
+  datatable: {
+    pagination: {
+      totalCount: taskCount
+    }
+  }
+}) => {
+  return {
+    workflowConnectionError,
+    tabs,
+    progress,
+    hasTasks: taskCount > 0
+  };
+};
+
+export default connect(mapStateToProps)(Tasklist);
