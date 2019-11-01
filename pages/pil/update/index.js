@@ -2,7 +2,7 @@ const { uniq, flattenDeep, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { get, pick } = require('lodash');
+const { get, pick, omit } = require('lodash');
 
 const success = require('../../common/routers/success');
 const procedures = require('../procedures');
@@ -67,7 +67,10 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    schema,
+    configure: (req, res, next) => {
+      req.form.schema = req.user.profile.asruUser ? omit(schema, 'declarations') : schema;
+      next();
+    },
     validate: (req, res, next) => {
       if (!req.model.procedures.length) {
         return next({ validation: { form: 'incomplete' } });
@@ -78,6 +81,8 @@ module.exports = settings => {
       res.locals.static.profile = req.profile;
       res.locals.static.skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
       res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
+      res.locals.static.isAsru = req.user.profile.asruUser;
+      res.locals.static.isLicensing = req.user.profile.asruLicensing;
       next();
     }
   }));
@@ -90,10 +95,12 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/success', success({
-    licence: 'pil',
-    status: 'resubmitted'
-  }));
+  app.use('/success', (req, res, next) => {
+    success({
+      licence: 'pil',
+      status: get(req.model, 'openTasks[0].status', 'autoresolved')
+    })(req, res, next);
+  });
 
   app.use('/procedures', procedures());
 

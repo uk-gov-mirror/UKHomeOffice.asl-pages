@@ -20,7 +20,7 @@ import {
 
 import SectionDetails from './section-details';
 
-const Index = ({ establishment, certificates, exemptions, model, skipExemptions, skipTraining, csrfToken }) => {
+const Index = ({ schema, establishment, certificates, exemptions, model, isAsru, isLicensing, skipExemptions, skipTraining, csrfToken }) => {
 
   const sections = [
     {
@@ -94,6 +94,7 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
   ];
 
   const applicationComplete = sections.every(section => section.completed);
+  const submitSnippet = isLicensing ? 'buttons.submitAsLicensing' : (isAsru ? 'buttons.submitAsAsru' : 'buttons.submit');
 
   if (!canUpdateModel(model)) {
     return <InProgressWarning task={model.openTasks[0]} />;
@@ -124,7 +125,11 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
             applicationComplete &&
             <form method="POST">
               <input type="hidden" name="_csrf" value={csrfToken} />
-              <ApplicationConfirm />
+              {
+                schema.declarations
+                  ? <ApplicationConfirm />
+                  : <button className="govuk-button"><Snippet>{submitSnippet}</Snippet></button>
+              }
             </form>
           }
         </div>
@@ -136,15 +141,29 @@ const Index = ({ establishment, certificates, exemptions, model, skipExemptions,
 const mapStateToProps = ({
   model,
   static: {
+    schema,
     establishment,
     profile: {
       exemptions,
       certificates
     },
+    isAsru,
+    isLicensing,
     skipExemptions,
     skipTraining,
     csrfToken
   }
-}) => ({ establishment, exemptions, certificates, model, skipExemptions, skipTraining, csrfToken });
+}) => ({
+  schema,
+  establishment,
+  exemptions,
+  certificates,
+  model,
+  isAsru,
+  isLicensing,
+  skipExemptions,
+  skipTraining,
+  csrfToken
+});
 
 export default connect(mapStateToProps)(Index);
