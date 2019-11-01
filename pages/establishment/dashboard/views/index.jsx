@@ -54,6 +54,9 @@ const Index = ({
             {
               establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
             }
+            {
+              establishment.holc && <ProfileLink type="holc" profile={establishment.holc} />
+            }
 
             <dt><Snippet>inspectors</Snippet></dt>
             <dd>
