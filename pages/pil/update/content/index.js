@@ -11,14 +11,17 @@ module.exports = {
     details: {
       title: 'Applicant details'
     },
+    establishment: {
+      title: 'Establishment'
+    },
+    procedures: {
+      title: 'Procedures'
+    },
     training: {
       title: 'Training'
     },
     exemptions: {
       title: 'Exemptions'
-    },
-    procedures: {
-      title: 'Procedures'
     }
   },
   exemption: {

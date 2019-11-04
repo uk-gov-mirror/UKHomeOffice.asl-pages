@@ -29,6 +29,30 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       completed: true
     },
     {
+      name: 'establishment',
+      page: 'establishment.read',
+      establishment,
+      completed: true
+    },
+    {
+      name: 'procedures',
+      page: 'pil.procedures',
+      removeLink: false,
+      schema: {},
+      models: (model.procedures || []).map(procedure => {
+        const rtn = { procedures: procedure };
+        if (procedure === 'D') {
+          rtn.notesCatD = model.notesCatD;
+        }
+        if (procedure === 'F') {
+          rtn.notesCatF = model.notesCatF;
+        }
+        return rtn;
+      }),
+      addOrEdit: 'edit',
+      completed: model.procedures && model.procedures.length > 0
+    },
+    {
       name: 'training',
       page: 'pil.training.exempt',
       models: certificates,
@@ -72,24 +96,6 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       },
       addOrEdit: 'edit',
       completed: exemptions.length > 0 || skipExemptions
-    },
-    {
-      name: 'procedures',
-      page: 'pil.procedures',
-      removeLink: false,
-      schema: {},
-      models: (model.procedures || []).map(procedure => {
-        const rtn = { procedures: procedure };
-        if (procedure === 'D') {
-          rtn.notesCatD = model.notesCatD;
-        }
-        if (procedure === 'F') {
-          rtn.notesCatF = model.notesCatF;
-        }
-        return rtn;
-      }),
-      addOrEdit: 'edit',
-      completed: model.procedures && model.procedures.length > 0
     }
   ];
 

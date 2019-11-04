@@ -10,6 +10,7 @@ import {
 
 const SectionDetails = ({
   models = [],
+  establishment = null,
   removeLink = true,
   addOrEdit = 'add',
   url,
@@ -24,6 +25,10 @@ const SectionDetails = ({
     label={<Snippet>{`pil.${name}.title`}</Snippet>}
     completed={completed}
   >
+    {
+      name === 'establishment' && establishment &&
+        <p>{establishment.name}</p>
+    }
     {
       models.map((model, index) => {
         if (model.accreditingBody === 'Other' && model.otherAccreditingBody) {
