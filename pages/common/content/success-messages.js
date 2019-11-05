@@ -177,6 +177,12 @@ module.exports = {
       }
     },
     amendment: {
+      'awaiting-endorsement': {
+        title: 'Amendment submitted',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
+
+          The Home Office will review your changes and will contact you if they need any more information.`
+      },
       resubmitted: {
         title: 'Amendment submitted',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this amendment until it has been approved by the Home Office.**
