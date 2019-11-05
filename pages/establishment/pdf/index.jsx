@@ -68,7 +68,7 @@ module.exports = settings => {
           })
           .catch(next);
       })
-      .catch(next)
+      .catch(next);
 
   });
 
