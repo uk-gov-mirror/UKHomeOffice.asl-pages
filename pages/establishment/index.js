@@ -38,8 +38,8 @@ module.exports = settings => {
 
   app.get('/', dashboard());
   app.use('/details', details());
-  app.use('/details/pdf', pdf(settings));
-  app.use('/details/edit', update());
+  app.use('/details/pdf', permissions('establishment.pdf'), pdf(settings));
+  app.use('/details/edit', permissions('establishment.update'), update());
 
   return app;
 };

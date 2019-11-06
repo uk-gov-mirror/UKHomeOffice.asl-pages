@@ -22,6 +22,7 @@ const Index = ({
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
   const canAmendDetails = allowedActions.includes('establishment.update');
+  const canDownloadPDF = allowedActions.includes('establishment.pdf');
 
   return (
     <Fragment>
@@ -34,7 +35,7 @@ const Index = ({
         licenceType="pel"
         isGranted={establishment.status === 'active'}
         showWord={false}
-        showPdf={true}
+        showPdf={canDownloadPDF}
         basename={currentPath}
       />
 
