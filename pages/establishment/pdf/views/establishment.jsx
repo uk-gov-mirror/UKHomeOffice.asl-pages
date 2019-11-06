@@ -1,9 +1,12 @@
 import React, { Fragment } from 'react';
 import ReactMarkdown from 'react-markdown';
 import map from 'lodash/map';
+import sortBy from 'lodash/sortBy';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
 
 const getName = person => `${person.firstName} ${person.lastName}`;
+
+const getPeopleList = people => sortBy(people, ['lastName']).map(getName).join(', ');
 
 const triggerContinued = () => {
   let first = true;
@@ -49,7 +52,7 @@ const Establishment = ({ establishment, content }) => {
         <h2>Establishment licence holder(s)</h2>
         {
           licenceHolders && licenceHolders.length > 0 ? (
-            <p><strong>{licenceHolders.map(getName).join(', ')}</strong></p>
+            <p><strong>{getPeopleList(licenceHolders)}</strong></p>
           ) : (
             <p>None.</p>
           )
@@ -60,19 +63,19 @@ const Establishment = ({ establishment, content }) => {
         <h2>Named people</h2>
 
         <h4>Named Person Responsible for Compliance</h4>
-        <p>{ establishment.namedPeople.nprc.map(getName).join(', ') || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nprc) || 'None.' }</p>
 
         <h4>Named Information Officers</h4>
-        <p>{ establishment.namedPeople.nio.map(getName).join(', ') || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nio) || 'None.' }</p>
 
         <h4>Named Training and Competency Officers</h4>
-        <p>{ establishment.namedPeople.ntco.map(getName).join(', ') || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.ntco) || 'None.' }</p>
 
         <h4>Named Veternary Surgeons</h4>
-        <p>{ establishment.namedPeople.nvs.map(getName).join(', ') || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nvs) || 'None.' }</p>
 
         <h4>Named Animal Care and Welfare Officers</h4>
-        <p>{ establishment.namedPeople.nacwo.map(getName).join(', ') || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nacwo) || 'None.' }</p>
       </section>
 
       {/* page break */}
