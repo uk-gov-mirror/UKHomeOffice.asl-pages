@@ -6,7 +6,7 @@ import StandardConditions from '../../../common/views/pdf/standard-conditions';
 
 const getName = person => `${person.firstName} ${person.lastName}`;
 
-const getPeopleList = people => sortBy(people, ['lastName']).map(getName).join(', ');
+const getPeopleList = people => sortBy(people, ['lastName', 'firstName']).map(getName).join(', ');
 
 const triggerContinued = () => {
   let first = true;
