@@ -43,10 +43,10 @@ const Index = ({
         <div className="govuk-grid-column-two-thirds">
           <dl>
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-            <dd>{ establishment.licenceNumber }</dd>
+            <dd>{ establishment.licenceNumber ? establishment.licenceNumber : '-' }</dd>
 
             <dt><Snippet>address</Snippet></dt>
-            <dd>{ establishment.address }</dd>
+            <dd>{ establishment.address ? establishment.address : '-' }</dd>
 
             {
               establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
@@ -56,13 +56,19 @@ const Index = ({
             }
             <dt><Snippet>licenced.title</Snippet></dt>
             <dd>
-              <ul>
-                {
-                  ['procedure', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
-                    <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
-                  )
-                }
-              </ul>
+              {
+                (establishment.procedure || establishment.breeding || establishment.supplying) &&
+                  <ul>
+                    {
+                      ['procedure', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
+                        <li key={auth}><Snippet>{`licenced.${auth}`}</Snippet></li>
+                      )
+                    }
+                  </ul>
+              }
+              {
+                !(establishment.procedure || establishment.breeding || establishment.supplying) && '-'
+              }
             </dd>
           </dl>
           <Accordion>
