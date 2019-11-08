@@ -18,6 +18,8 @@ const SectionDetails = ({
   name,
   schema,
   completed,
+  modelTitle,
+  addLink,
   formatters = {}
 }) => (
   <Completable
@@ -38,6 +40,9 @@ const SectionDetails = ({
         return (
           <div className="govuk-grid-row" key={index}>
             <div className="govuk-grid-column-three-quarters">
+              {
+                modelTitle && modelTitle(index)
+              }
               <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
             </div>
             <div className="actions govuk-grid-column-one-quarter">
@@ -62,7 +67,7 @@ const SectionDetails = ({
     {
       !!models.length && <Link
         page={page}
-        label={<Snippet>{`actions.${addOrEdit}`}</Snippet>}
+        label={addLink || <Snippet>{`actions.${addOrEdit}`}</Snippet>}
       />
     }
   </Completable>

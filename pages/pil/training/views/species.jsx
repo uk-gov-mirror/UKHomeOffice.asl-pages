@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  Snippet,
   FormLayout,
-  Header
+  Header,
+  Snippet
 } from '@asl/components';
 
-export default function Modules() {
+export default function Species() {
   return (
     <FormLayout>
       <Header title={<Snippet>title</Snippet>} />

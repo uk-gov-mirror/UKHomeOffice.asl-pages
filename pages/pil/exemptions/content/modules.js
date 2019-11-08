@@ -16,6 +16,9 @@ module.exports = merge({}, baseContent, content, {
       label: 'Please specify a type of animal.',
       add: 'Add another',
       remove: 'Remove'
+    },
+    other: {
+      label: 'Which other type?'
     }
   },
   errors: {

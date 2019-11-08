@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Snippet } from '@asl/components';
-import { dateFormat } from '../../../../constants';
-import { formatDate } from '../../../../lib/utils';
+import { dateFormat } from '../../../../../constants';
+import { formatDate } from '../../../../../lib/utils';
 
 const Modules = ({certificates}) => {
   return certificates.map((certificate, index) => (
@@ -13,19 +13,28 @@ const Modules = ({certificates}) => {
 
       <h3><Snippet>pil.training.modules</Snippet></h3>
       <ul>
-        {certificate.modules.map((module, index) => (
-          <Fragment key={index}>
-            <li>{module.module}</li>
-            {module.species && !!module.species.length && (
-              <ul>
-                {module.species.map((s, index) => (
-                  <li key={index}>{s}</li>
-                ))}
-              </ul>
-            )}
-          </Fragment>
-        ))}
+        {
+          certificate.modules.map((module, index) => (
+            <li key={index}>{module.module}</li>
+          ))
+        }
       </ul>
+      <h3><Snippet>pil.training.species</Snippet></h3>
+      {
+        certificate.species && !!certificate.species.length
+          ? (
+            <ul>
+              {
+                certificate.species.map((s, index) => (
+                  <li key={index}>{s}</li>
+                ))
+              }
+            </ul>
+          )
+          : (
+            <p><em><Snippet>pil.species.none</Snippet></em></p>
+          )
+      }
     </div>
   ));
 };

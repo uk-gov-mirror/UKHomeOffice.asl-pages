@@ -1,6 +1,6 @@
 const { merge } = require('lodash');
 const trainingFields = require('../../training/content').fields;
-const modulesFields = require('../../modules/content').fields;
+const exemptionsFields = require('../../exemptions/content').fields;
 const proceduresFields = require('../../procedures/content').fields;
 
 module.exports = {
@@ -30,11 +30,12 @@ module.exports = {
   actions: {
     add: 'Add',
     edit: 'Edit',
-    remove: 'Remove'
+    remove: 'Remove',
+    'add-certificate': 'Add another certificate'
   },
   fields: merge({},
     trainingFields,
-    modulesFields,
+    exemptionsFields,
     proceduresFields,
     {
       modules: {

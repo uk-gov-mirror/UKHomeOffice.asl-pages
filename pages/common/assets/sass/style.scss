@@ -190,3 +190,26 @@ p.spoc {
 .section-item.establishment p {
   font-size: 16px;
 }
+
+.section-item.training {
+  dl.inline {
+    dt, dd {
+      display: block;
+      float: none;
+    }
+
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      font-weight: normal;
+      margin-bottom: $govuk-gutter-half;
+
+      ul {
+        list-style-type: disc;
+        padding-left: 1em;
+      }
+    }
+  }
+}
