@@ -54,6 +54,22 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       completed: model.procedures && model.procedures.length > 0
     },
     {
+      name: 'species',
+      page: 'pil.species',
+      models: model.species || [],
+      addOrEdit: 'edit',
+      completed: model.species && model.species.length > 0,
+      template: model.species && model.species.length && (
+        <ul>
+          {
+            (model.species || []).map((s, i) => (
+              <li key={i}><strong>{s}</strong></li>
+            ))
+          }
+        </ul>
+      )
+    },
+    {
       name: 'training',
       page: 'pil.training.exempt',
       models: certificates,

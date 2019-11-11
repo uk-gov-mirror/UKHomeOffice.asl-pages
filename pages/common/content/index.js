@@ -17,7 +17,8 @@ module.exports = {
       revoke: 'Revoke personal licence',
       training: 'Training',
       exemptions: 'Exemptions',
-      procedures: 'Procedures'
+      procedures: 'Procedures',
+      species: 'Animal types'
     },
     place: {
       list: 'Approved areas',

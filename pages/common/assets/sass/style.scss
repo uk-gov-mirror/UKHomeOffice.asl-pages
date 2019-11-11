@@ -191,6 +191,15 @@ p.spoc {
   font-size: 16px;
 }
 
+.section-item.species {
+  ul {
+    margin-top: $govuk-gutter;
+    margin-bottom: $govuk-gutter;
+    list-style-type: disc;
+    padding-left: 1em;
+  }
+}
+
 .section-item.training {
   dl.inline {
     dt, dd {
