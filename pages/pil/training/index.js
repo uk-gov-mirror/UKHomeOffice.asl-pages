@@ -1,10 +1,10 @@
 const { page } = require('@asl/service/ui');
-const { certificate, modules, exempt } = require('./routers');
+const { certificate, modules, exempt, species } = require('./routers');
 
 module.exports = settings => {
   const app = page({
     root: __dirname,
-    paths: ['/modules', '/exempt'],
+    paths: ['/modules', '/exempt', '/species'],
     ...settings
   });
 
@@ -14,7 +14,7 @@ module.exports = settings => {
   });
 
   app.param('certificateId', (req, res, next, certificateId) => {
-    if (certificateId === 'modules') {
+    if (certificateId === 'modules' || certificateId === 'species') {
       return next('route');
     }
     req.certificateId = certificateId;
@@ -31,6 +31,7 @@ module.exports = settings => {
       .catch(next);
   });
 
+  app.use('/species', species());
   app.use('/modules', modules());
   app.use('/exempt', exempt());
   app.use('/', certificate());

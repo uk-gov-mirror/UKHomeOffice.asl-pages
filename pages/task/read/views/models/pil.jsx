@@ -9,7 +9,7 @@ import {
   DiffText
 } from '@asl/components';
 import { procedureDefinitions } from '../../../../pil/content';
-import Modules from '../../../../profile/read/views/modules';
+import Modules from '../components/modules';
 
 export default function PIL({ task, values }) {
   const profile = useSelector(state => state.static.profile);

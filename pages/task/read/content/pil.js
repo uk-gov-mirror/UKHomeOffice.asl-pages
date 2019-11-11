@@ -52,7 +52,8 @@ module.exports = {
         file: 'Certificate image'
       },
       modules: 'Modules completed',
-      none: 'No training added'
+      none: 'No training added',
+      species: 'Animal types'
     },
     exemptions: {
       module: 'Module',

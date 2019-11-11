@@ -51,9 +51,9 @@ module.exports = settings => {
 
     const values = get(req.session, `form[${req.model.id}].values`);
 
-    const trainingSpecies = flattenDeep(req.profile.certificates.map(c => c.modules.map(m => m.species)));
+    const certificateSpecies = flattenDeep(req.profile.certificates.map(c => c.species));
     const exemptionsSpecies = flattenDeep(req.profile.exemptions.map(e => e.species));
-    const species = trainingSpecies.concat(exemptionsSpecies).filter(Boolean);
+    const species = certificateSpecies.concat(exemptionsSpecies).filter(Boolean);
 
     req.model = {
       ...req.model,

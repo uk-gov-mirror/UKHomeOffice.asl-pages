@@ -15,7 +15,8 @@ import InProgressWarning from '../../../common/components/in-progress-warning';
 
 import {
   certificate as certificatesSchema,
-  modules as modulesSchema
+  modules as modulesSchema,
+  species as speciesSchema
 } from '../../training/schema';
 
 import SectionDetails from './section-details';
@@ -56,7 +57,8 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       name: 'training',
       page: 'pil.training.exempt',
       models: certificates,
-      schema: { ...certificatesSchema, ...modulesSchema },
+      modelTitle: index => <p><strong>Certificate {index + 1}</strong></p>,
+      schema: { ...certificatesSchema, ...modulesSchema, ...speciesSchema },
       formatters: {
         passDate: {
           format: date => formatDate(date, dateFormat.medium)
@@ -68,14 +70,23 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
                 modules.map(({ module, species }, index) =>
                   <li key={index}>
                     { module }
-                    { species && species.length > 0 && <span className="species"> ({species.join(', ')})</span> }
                   </li>
                 )
               }
             </ul>
           )
+        },
+        species: {
+          format: species => species && species.length
+            ? <ul>
+              {
+                species.map((s, index) => <li key={index}>{s}</li>)
+              }
+            </ul>
+            : '-'
         }
       },
+      addLink: <Snippet>actions.add-certificate</Snippet>,
       completed: certificates.length > 0 || skipTraining
     },
     {
