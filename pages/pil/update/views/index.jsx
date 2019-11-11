@@ -77,13 +77,13 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
           )
         },
         species: {
-          format: species => (
-            <ul>
+          format: species => species && species.length
+            ? <ul>
               {
                 species.map((s, index) => <li key={index}>{s}</li>)
               }
             </ul>
-          )
+            : '-'
         }
       },
       addLink: <Snippet>actions.add-certificate</Snippet>,

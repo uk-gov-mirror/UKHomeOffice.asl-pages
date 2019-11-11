@@ -1,7 +1,11 @@
 const { Router } = require('express');
+const { get, intersection } = require('lodash');
 const form = require('../../../common/routers/form');
 const { modules: schema } = require('../schema');
 const { buildModel } = require('../../../../lib/utils');
+const sendData = require('../middleware/send-data');
+
+const { modulesThatRequireSpecies } = require('../../constants');
 
 module.exports = settings => {
   const app = Router();
@@ -15,8 +19,18 @@ module.exports = settings => {
 
   app.use('/', form({ schema }));
 
+  app.post('/', (req, res, next) => {
+    const modules = get(req.session, `form[${req.profileId}-certificate].values.modules`);
+    if (intersection(modules, modulesThatRequireSpecies).length) {
+      return res.redirect(req.buildRoute('pil.training.species'));
+    }
+    return next();
+  });
+
+  app.post('/', sendData());
+
   app.post('/', (req, res) => {
-    res.redirect(req.buildRoute('pil.training.species'));
+    res.redirect(req.buildRoute('pil.update'));
   });
 
   return app;
