@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'What types of animals does this certificate cover?',
+  title: 'What types of animals are used for this personal licence?',
   fields: {
     species: {
       label: '',
@@ -8,7 +8,7 @@ module.exports = {
   },
   errors: {
     species: {
-      required: 'Select one'
+      required: 'Please select at least one animal type.'
     }
   },
   buttons: {

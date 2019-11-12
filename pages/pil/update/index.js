@@ -1,10 +1,10 @@
-const { uniq, flattenDeep, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
-const { get, pick, omit } = require('lodash');
+const { get, pick, omit, merge } = require('lodash');
 
 const success = require('../../common/routers/success');
+const species = require('../species');
 const procedures = require('../procedures');
 const exemptions = require('../exemptions');
 const training = require('../training');
@@ -48,18 +48,8 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-
     const values = get(req.session, `form[${req.model.id}].values`);
-
-    const certificateSpecies = flattenDeep(req.profile.certificates.map(c => c.species));
-    const exemptionsSpecies = flattenDeep(req.profile.exemptions.map(e => e.species));
-    const species = certificateSpecies.concat(exemptionsSpecies).filter(Boolean);
-
-    req.model = {
-      ...req.model,
-      ...values,
-      species: uniq(species)
-    };
+    req.model = { ...req.model, ...values };
 
     next();
   });
@@ -102,10 +92,9 @@ module.exports = settings => {
     })(req, res, next);
   });
 
+  app.use('/animal-types', species());
   app.use('/procedures', procedures());
-
   app.use('/exemptions', exemptions());
-
   app.use('/training', training());
 
   app.use((req, res) => res.sendResponse());

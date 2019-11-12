@@ -17,6 +17,9 @@ module.exports = {
     procedures: {
       title: 'Procedures'
     },
+    species: {
+      title: 'Animal types'
+    },
     training: {
       title: 'Training'
     },

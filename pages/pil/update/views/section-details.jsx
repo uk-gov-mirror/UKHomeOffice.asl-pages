@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
@@ -20,7 +20,8 @@ const SectionDetails = ({
   completed,
   modelTitle,
   addLink,
-  formatters = {}
+  formatters = {},
+  template
 }) => (
   <Completable
     page={page}
@@ -32,37 +33,43 @@ const SectionDetails = ({
         <p>{establishment.name}</p>
     }
     {
-      models.map((model, index) => {
-        if (model.accreditingBody === 'Other' && model.otherAccreditingBody) {
-          model.accreditingBody = model.otherAccreditingBody;
-        }
+      template || (
+        <Fragment>
+          {
+            models.map((model, index) => {
+              if (model.accreditingBody === 'Other' && model.otherAccreditingBody) {
+                model.accreditingBody = model.otherAccreditingBody;
+              }
 
-        return (
-          <div className="govuk-grid-row" key={index}>
-            <div className="govuk-grid-column-three-quarters">
-              {
-                modelTitle && modelTitle(index)
-              }
-              <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
-            </div>
-            <div className="actions govuk-grid-column-one-quarter">
-              {
-                removeLink && (
-                  <ApplyChanges
-                    type="form"
-                    method="POST"
-                    action={`${url}/${name}/${model.id}?action=delete&referrer=${url}`}
-                  >
-                    <button className="link">
-                      <span><Snippet>actions.remove</Snippet></span>
-                    </button>
-                  </ApplyChanges>
-                )
-              }
-            </div>
-          </div>
-        );
-      })
+              return (
+                <div className="govuk-grid-row" key={index}>
+                  <div className="govuk-grid-column-three-quarters">
+                    {
+                      modelTitle && modelTitle(index)
+                    }
+                    <ModelSummary className="section-data" model={model} schema={schema} formatters={formatters} />
+                  </div>
+                  <div className="actions govuk-grid-column-one-quarter">
+                    {
+                      removeLink && (
+                        <ApplyChanges
+                          type="form"
+                          method="POST"
+                          action={`${url}/${name}/${model.id}?action=delete&referrer=${url}`}
+                        >
+                          <button className="link">
+                            <span><Snippet>actions.remove</Snippet></span>
+                          </button>
+                        </ApplyChanges>
+                      )
+                    }
+                  </div>
+                </div>
+              );
+            })
+          }
+        </Fragment>
+      )
     }
     {
       !!models.length && <Link
