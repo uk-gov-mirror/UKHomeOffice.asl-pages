@@ -1,6 +1,7 @@
 const { get, remove, isEqual, uniq } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
+const { mapSpecies, mapPermissiblePurpose } = require('@asl/projects/client/helpers');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -73,6 +74,12 @@ const traverse = (node, key, keys = []) => {
 };
 
 const getNode = (tree, path) => {
+  if (path === 'species') {
+    return mapSpecies(tree);
+  }
+  if (path === 'permissible-purpose') {
+    return mapPermissiblePurpose(tree);
+  }
   let keys = path.split('.');
   let node = tree[keys[0]];
   for (let i = 1; i < keys.length; i++) {
