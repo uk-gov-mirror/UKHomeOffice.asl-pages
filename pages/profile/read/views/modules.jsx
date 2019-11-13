@@ -1,7 +1,7 @@
 import React from 'react';
 import { Snippet } from '@asl/components';
-import { dateFormat } from '../../../../../constants';
-import { formatDate } from '../../../../../lib/utils';
+import { dateFormat } from '../../../../constants';
+import { formatDate } from '../../../../lib/utils';
 
 const Modules = ({certificates}) => {
   return certificates.map((certificate, index) => (
