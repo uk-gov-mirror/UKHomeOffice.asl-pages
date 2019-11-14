@@ -2,7 +2,7 @@ const { pickBy, startsWith } = require('lodash');
 const { normalise } = require('../../../lib/utils');
 
 module.exports = req => {
-  return req.form.values.modules.reduce((speciesMap, module) => {
+  return (req.form.values.modules || []).reduce((speciesMap, module) => {
     const normalisedModule = normalise(module);
 
     return {
