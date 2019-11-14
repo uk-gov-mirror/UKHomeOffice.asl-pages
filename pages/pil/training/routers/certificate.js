@@ -43,6 +43,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
+    delete req.session.form[req.pil.id].validationErrors;
     return res.redirect(req.buildRoute('pil.training.modules'));
   });
 

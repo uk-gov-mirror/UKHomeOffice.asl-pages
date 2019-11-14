@@ -9,6 +9,15 @@ module.exports = {
     },
     procedures: {
       label: 'Procedures'
+    },
+    certificateNumber: {
+      label: 'Certificate number'
+    },
+    accreditingBody: {
+      label: 'Accreditation body'
+    },
+    passDate: {
+      label: 'Date awarded'
     }
   },
   procedureDefinitions: {

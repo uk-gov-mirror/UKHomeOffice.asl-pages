@@ -1,16 +1,8 @@
-module.exports = {
+const { merge } = require('lodash');
+const baseContent = require('../../content');
+
+module.exports = merge({}, baseContent, {
   title: 'Enter training details',
-  fields: {
-    certificateNumber: {
-      label: 'Certificate number'
-    },
-    accreditingBody: {
-      label: 'Accreditation body'
-    },
-    passDate: {
-      label: 'Date awarded'
-    }
-  },
   buttons: {
     submit: 'Continue'
   },
@@ -27,4 +19,4 @@ module.exports = {
       dateIsBefore: 'Date awarded must be in the past.'
     }
   }
-};
+});
