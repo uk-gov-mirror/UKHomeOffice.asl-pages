@@ -73,8 +73,6 @@ module.exports = settings => {
         exemptions: !!((req.profile.exemptions && req.profile.exemptions.length) || skipExemptions)
       };
 
-      console.log(sectionComplete);
-
       if (!sectionComplete.procedures) {
         return next({ validation: { procedures: 'incomplete' } });
       }
