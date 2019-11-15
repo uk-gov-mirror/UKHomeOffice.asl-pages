@@ -199,8 +199,8 @@ const getPreviousProtocols = () => (req, res, next) => {
     getGrantedVersion(req)
   ])
     .then(([previous, granted]) => {
-      previous = get(previous, 'data.protocols', []).filter(p => !p.deleted).map(p => p.id);
-      granted = get(granted, 'data.protocols', []).map(p => p.id);
+      previous = get(previous, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+      granted = get(granted, 'data.protocols', []).filter(Boolean).map(p => p.id);
 
       const showDeleted = uniq([ ...previous, ...granted ]);
 
