@@ -63,7 +63,7 @@ const traverse = (node, key, keys = []) => {
   if (key) { keys.push(key); }
   if (node instanceof Array) {
     node.forEach(o => {
-      traverse(o, `${key}${o.id ? `.${o.id}` : ''}`, keys);
+      traverse(o, `${key}${o && o.id ? `.${o.id}` : ''}`, keys);
     });
   } else if (node instanceof Object) {
     Object.keys(node).forEach(k => {
