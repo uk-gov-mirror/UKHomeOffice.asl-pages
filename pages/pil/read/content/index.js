@@ -17,9 +17,22 @@ module.exports = merge({}, baseContent, {
   action: {
     applyNow: 'Apply now',
     backToProfile: 'Back to profile',
-    revoke: 'Revoke licence',
-    reapply: 'Reapply for licence',
-    amend: 'Amend licence'
+    revoke: {
+      summary: `## Revoke licence
+        Cancel this licence if it is no longer needed.`,
+      button: 'Revoke licence'
+    },
+    reapply: {
+      button: 'Reapply for licence'
+    },
+    amend: {
+      summary: `## Amend licence
+        You can amend this personal licence if you want to:
+        * Change any of the licence details
+        * Transfer the licence to another establishment
+      `,
+      button: 'Amend licence'
+    }
   },
   conditions: {
     title: 'Conditions',
