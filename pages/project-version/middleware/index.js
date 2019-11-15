@@ -200,7 +200,7 @@ const getPreviousProtocols = () => (req, res, next) => {
   ])
     .then(([previous, granted]) => {
       previous = get(previous, 'data.protocols', []).filter(p => !p.deleted).map(p => p.id);
-      granted = get(granted, 'data.protocols', []).map(p => p.id);
+      granted = get(granted, 'data.protocols', []).map(p => p && p.id);
 
       const showDeleted = uniq([ ...previous, ...granted ]);
 
