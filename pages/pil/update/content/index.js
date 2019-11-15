@@ -1,9 +1,7 @@
 const { merge } = require('lodash');
-const trainingFields = require('../../training/content').fields;
-const exemptionsFields = require('../../exemptions/content').fields;
-const proceduresFields = require('../../procedures/content').fields;
+const baseContent = require('../../content');
 
-module.exports = {
+module.exports = merge({}, baseContent, {
   pil: {
     title: 'Apply for personal licence - Categories A, B, C, D and F',
     titleAmend: 'Amend personal licence - Categories A, B, C, D, and F',
@@ -36,41 +34,45 @@ module.exports = {
     remove: 'Remove',
     'add-certificate': 'Add another certificate'
   },
-  fields: merge({},
-    trainingFields,
-    exemptionsFields,
-    proceduresFields,
-    {
-      modules: {
-        label: 'Modules completed'
-      },
-      module: {
-        label: 'Exempt from module'
-      },
-      description: {
-        label: 'Reason for exemption'
-      },
-      procedures: {
-        label: 'Procedure category'
-      },
-      declaration: {
-        yes: {
-          label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
-            1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
-            provide information which you know to be false or misleading.`
-        }
-      },
-      species: {
-        label: 'Animal types'
+  fields: {
+    modules: {
+      label: 'Modules completed'
+    },
+    module: {
+      label: 'Exempt from module'
+    },
+    description: {
+      label: 'Reason for exemption'
+    },
+    procedures: {
+      label: 'Procedure category'
+    },
+    declaration: {
+      yes: {
+        label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
+          1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
+          provide information which you know to be false or misleading.`
       }
+    },
+    species: {
+      label: 'Animal types'
     }
-  ),
+  },
   errors: {
     declarations: {
       customValidate: 'Please confirm that you understand'
     },
-    form: {
-      incomplete: 'You need to add at least one procedure'
+    procedures: {
+      incomplete: 'Please complete the procedures section'
+    },
+    species: {
+      incomplete: 'Please complete the animal types section'
+    },
+    training: {
+      incomplete: 'Please complete the training section'
+    },
+    exemptions: {
+      incomplete: 'Please complete the exemptions section'
     }
   },
   declarations: {
@@ -81,4 +83,4 @@ module.exports = {
     submitAsLicensing: 'Update licence',
     submitAsAsru: 'Submit to licensing'
   }
-};
+});

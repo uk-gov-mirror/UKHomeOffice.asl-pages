@@ -126,7 +126,6 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
     }
   ];
 
-  const applicationComplete = sections.every(section => section.completed);
   const submitSnippet = isLicensing ? 'buttons.submitAsLicensing' : (isAsru ? 'buttons.submitAsAsru' : 'buttons.submit');
 
   if (!canUpdateModel(model)) {
@@ -154,17 +153,14 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
-          {
-            applicationComplete &&
-            <form method="POST">
-              <input type="hidden" name="_csrf" value={csrfToken} />
-              {
-                schema.declarations
-                  ? <ApplicationConfirm />
-                  : <button className="govuk-button"><Snippet>{submitSnippet}</Snippet></button>
-              }
-            </form>
-          }
+          <form method="POST">
+            <input type="hidden" name="_csrf" value={csrfToken} />
+            {
+              schema.declarations
+                ? <ApplicationConfirm />
+                : <button className="govuk-button"><Snippet>{submitSnippet}</Snippet></button>
+            }
+          </form>
         </div>
       </div>
     </Fragment>

@@ -42,6 +42,7 @@ module.exports = settings => {
       profileId: req.model.profileId,
       establishment: req.model.establishmentId
     };
+
     req.user.can('pil.update', params)
       .then(can => can ? next() : next(new Error('Unauthorised')))
       .catch(next);
@@ -62,9 +63,32 @@ module.exports = settings => {
       next();
     },
     validate: (req, res, next) => {
-      if (!req.model.procedures.length) {
-        return next({ validation: { form: 'incomplete' } });
+      const skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
+      const skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
+
+      const sectionComplete = {
+        procedures: !!(req.model.procedures && req.model.procedures.length),
+        species: !!(req.model.species && req.model.species.length),
+        training: !!((req.profile.certificates && req.profile.certificates.length) || skipTraining),
+        exemptions: !!((req.profile.exemptions && req.profile.exemptions.length) || skipExemptions)
+      };
+
+      if (!sectionComplete.procedures) {
+        return next({ validation: { procedures: 'incomplete' } });
       }
+
+      if (!sectionComplete.species) {
+        return next({ validation: { species: 'incomplete' } });
+      }
+
+      if (!sectionComplete.training) {
+        return next({ validation: { training: 'incomplete' } });
+      }
+
+      if (!sectionComplete.exemptions) {
+        return next({ validation: { exemptions: 'incomplete' } });
+      }
+
       next();
     },
     locals: (req, res, next) => {
