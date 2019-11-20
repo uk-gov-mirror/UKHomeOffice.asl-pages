@@ -114,13 +114,14 @@ module.exports = ({
         set(req.datatable, 'pagination.totalCount', meta.total);
         set(req.datatable, 'pagination.count', meta.count);
         set(req.datatable, 'data.rows', data.map(cleanModel));
-
-        if (!data.length && meta.count) {
-          const redirect = removeQueryParams(req.originalUrl, ['page', 'rows']);
-          res.redirect(redirect);
-        }
       })
-      .then(() => getValues(req, res, next))
+      .then(() => {
+        if (!req.datatable.data.rows.length && req.datatable.pagination.count) {
+          const redirect = removeQueryParams(req.originalUrl, ['page', 'rows']);
+          return res.redirect(redirect);
+        }
+        getValues(req, res, next);
+      })
       .catch(next);
   };
 
