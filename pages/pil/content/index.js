@@ -18,6 +18,12 @@ module.exports = {
     },
     passDate: {
       label: 'Date awarded'
+    },
+    notesCatD: {
+      label: 'Evidence of competency'
+    },
+    notesCatF: {
+      label: 'Type of regulated procedure'
     }
   },
   procedureDefinitions: {
