@@ -30,7 +30,6 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    req.breadcrumb('pil.read');
     res.locals.static.pil = req.model;
     res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;

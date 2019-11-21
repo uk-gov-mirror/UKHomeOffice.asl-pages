@@ -10,11 +10,6 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use((req, res, next) => {
-    req.breadcrumb('place.update');
-    next();
-  });
-
   app.use('/confirm', confirm());
 
   app.use('/success', success({

@@ -11,8 +11,6 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('pil.procedures');
-
     req.model = merge({ id: `${req.pilId}-procedures` },
       pick(req.pil, 'procedures', 'notesCatD', 'notesCatF'),
       buildModel(schema)
@@ -34,7 +32,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const procedures = get(req.session, `form[${req.model.id}].values`);
-    req.session.form[req.pil.id].values = merge({}, req.session.form[req.pil.id].values, procedures);
+    req.session.form[req.pil.id].values = Object.assign({}, req.session.form[req.pil.id].values, procedures);
     delete req.session.form[req.pil.id].validationErrors;
     return res.redirect(req.buildRoute('pil.update'));
   });

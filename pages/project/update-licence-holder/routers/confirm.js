@@ -45,7 +45,7 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     sendData(req)
       .then(() => {
-        res.redirect(`${req.buildRoute('project.updateLicenceHolder')}/success`);
+        res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'success' }));
       })
       .catch(next);
   });

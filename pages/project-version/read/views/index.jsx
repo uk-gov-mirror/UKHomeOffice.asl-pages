@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, LicenceStatusBanner } from '@asl/components';
+import { Link } from '@asl/components';
+import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 
 const Project = ({ isActionable, taskId, project, version, establishment }) => {
 

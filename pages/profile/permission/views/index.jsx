@@ -37,7 +37,7 @@ const Page = ({ url, isNamed }) => {
         </ApplyChanges>
         <p>
           <Link
-            page="profile.view"
+            page="profile.read"
             label={<Snippet>pages.profile.links.back</Snippet>}
           />
         </p>

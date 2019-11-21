@@ -54,7 +54,8 @@ class Profile extends React.Component {
                 activeProjects.map(project => (
                   <div key={project.id} className="project">
                     <p>
-                      <Link page='project.read'
+                      <Link
+                        page='project.read'
                         label={project.title}
                         projectId={project.id}
                         establishmentId={project.establishmentId}
@@ -87,7 +88,8 @@ class Profile extends React.Component {
                 draftProjects.map(project => (
                   <Fragment key={project.id}>
                     <p>
-                      <Link page='project.read'
+                      <Link
+                        page='project.read'
                         label={project.title ? project.title : 'Untitled project'}
                         projectId={project.id}
                         establishmentId={project.establishmentId}

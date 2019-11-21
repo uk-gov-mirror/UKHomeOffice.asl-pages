@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const { get } = require('lodash');
 const bodyParser = require('body-parser');
-const read = require('./read');
 const pdf = require('./pdf');
 const docx = require('./docx');
 const { getVersion, getComments, getChangedValues } = require('./middleware');
 const extractComments = require('./lib/extract-comments');
+const routes = require('./routes');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -13,6 +13,11 @@ module.exports = settings => {
   app.use(bodyParser.json());
 
   app.use(getVersion());
+
+  app.use((req, res, next) => {
+    console.log('ok');
+    next();
+  });
 
   app.use(getComments());
 
@@ -83,7 +88,8 @@ module.exports = settings => {
 
   app.use('/docx', docx(settings));
   app.use('/pdf', pdf(settings));
-  app.use('/*', read());
 
   return app;
 };
+
+module.exports.routes = routes;

@@ -17,7 +17,7 @@ module.exports = () => {
 
   app.get('/', (req, res, next) => {
     if (req.profile.certificates.length) {
-      return res.redirect(req.buildRoute('pil.training.certificate'));
+      return res.redirect(req.buildRoute('pil.update.training.certificate'));
     }
     next();
   });
@@ -26,7 +26,7 @@ module.exports = () => {
     delete req.session.form[req.pil.id].validationErrors;
     if (req.form.values.exempt === 'Yes') {
       set(req.session, `${req.profileId}.skipTraining`, false);
-      return res.redirect(req.buildRoute('pil.training.certificate'));
+      return res.redirect(req.buildRoute('pil.update.training.certificate'));
     } else {
       set(req.session, `${req.profileId}.skipTraining`, true);
       return res.redirect(req.buildRoute('pil.update'));

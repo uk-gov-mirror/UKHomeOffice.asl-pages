@@ -1,4 +1,4 @@
-const namedRoles = require('../../../profile/roles/content/named-roles');
+const namedRoles = require('../../../role/content/named-roles');
 
 module.exports = {
   namedRoles,

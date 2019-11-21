@@ -22,11 +22,6 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.get('/', (req, res, next) => {
-    req.breadcrumb('account.update');
-    next();
-  });
-
   app.get('/', hydrate());
 
   app.post('/', updateDataFromTask(sendData));

@@ -1,6 +1,5 @@
 const { Router } = require('express');
-const read = require('./read');
-const list = require('./list');
+const routes = require('./routes');
 
 module.exports = settings => {
   const app = Router();
@@ -15,8 +14,7 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/:taskId', read(settings));
-  app.use('/', list(settings));
-
   return app;
 };
+
+module.exports.routes = routes;

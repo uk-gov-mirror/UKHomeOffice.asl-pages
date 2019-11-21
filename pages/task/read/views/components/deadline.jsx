@@ -18,7 +18,7 @@ class Deadline extends Component {
           <Fragment>
             <p><Snippet>deadline.hint</Snippet></p>
             <Link
-              page="task.extend"
+              page="task.read.extend"
               taskId={task.id}
               label={<Snippet>deadline.extend.button</Snippet>}
               className="govuk-button button-secondary"

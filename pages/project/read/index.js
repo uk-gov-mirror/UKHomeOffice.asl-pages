@@ -10,11 +10,6 @@ module.exports = settings => {
     if (!req.project.title) {
       req.project.title = 'Untitled project';
     }
-
-    req.breadcrumb({
-      label: 'project.read',
-      project: req.project
-    });
     next();
   });
 
@@ -58,7 +53,7 @@ module.exports = settings => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
       .then(({ json: { data } }) => {
         req.versionId = data.data.id;
-        res.redirect(req.buildRoute('project.version.update'));
+        res.redirect(req.buildRoute('projectVersion.update'));
       })
       .catch(next);
   });

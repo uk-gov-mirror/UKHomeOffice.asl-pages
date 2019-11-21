@@ -10,7 +10,7 @@ module.exports = () => {
   app.use(update());
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('place.create')}/confirm`);
+    return res.redirect(req.buildRoute('place.create', { suffix: 'confirm' }));
   });
 
   return app;

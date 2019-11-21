@@ -13,12 +13,14 @@ module.exports = {
     pil: {
       read: 'View personal licence',
       create: 'Apply for personal licence',
-      update: 'Amend personal licence',
-      revoke: 'Revoke personal licence',
-      training: 'Training',
-      exemptions: 'Exemptions',
-      procedures: 'Procedures',
-      species: 'Animal types'
+      update: {
+        root: 'Amend personal licence',
+        training: 'Training',
+        exemptions: 'Exemptions',
+        procedures: 'Procedures',
+        species: 'Animal types'
+      },
+      revoke: 'Revoke personal licence'
     },
     place: {
       list: 'Approved areas',
@@ -28,8 +30,9 @@ module.exports = {
     },
     profile: {
       list: 'People',
-      view: '{{profile.firstName}} {{profile.lastName}}',
+      read: '{{profile.firstName}} {{profile.lastName}}',
       invite: 'Invite user',
+      invitations: 'Invitations',
       permission: 'Change / remove permissions'
     },
     role: {
@@ -41,28 +44,29 @@ module.exports = {
     project: {
       list: 'Projects',
       read: '{{project.title}}',
-      update: 'Edit draft',
-      amend: 'Amend licence',
       updateLicenceHolder: 'Update licence holder',
       upload: 'Upload draft application',
       revoke: 'Revoke licence'
     },
+    projectVersion: {
+      read: 'View',
+      update: 'Amend licence',
+      'update-draft': 'Edit draft'
+    },
     account: {
       menu: 'Your account',
       update: 'Edit your details',
-      updateEmail: {
-        base: 'Change your email address',
-        confirm: 'Confirm',
-        success: 'Success'
-      }
+      updateEmail: 'Change your email address'
     },
     feedback: 'Feedback',
     task: {
-      base: 'Tasklist',
-      read: 'View task',
-      extend: 'Extend deadline',
-      confirm: 'Confirm',
-      success: 'Success'
+      list: 'Tasklist',
+      read: {
+        root: 'View task',
+        extend: 'Extend deadline',
+        confirm: 'Confirm',
+        success: 'Success'
+      }
     }
   },
   pages: {

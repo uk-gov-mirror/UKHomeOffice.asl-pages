@@ -8,10 +8,10 @@ import {
   Link,
   Snippet,
   ModelSummary,
-  LicenceStatusBanner,
   Conditions,
   DownloadHeader
 } from '@asl/components';
+import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import { Warning } from '@ukhomeoffice/react-components';
 
 const PIL = ({
@@ -24,7 +24,7 @@ const PIL = ({
   currentPath
 }) => {
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
-  const backToProfile = <Link page="profile.view" label={<Snippet>action.backToProfile</Snippet>} />;
+  const backToProfile = <Link page="profile.read" label={<Snippet>action.backToProfile</Snippet>} />;
 
   const formatters = {
     issueDate: {
@@ -126,7 +126,7 @@ const PIL = ({
                       label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}`}</Snippet>}
                     />
                     {
-                      pil.status === 'active' && <Link page="pil.revoke.base" label={<Snippet>action.revoke</Snippet>} />
+                      pil.status === 'active' && <Link page="pil.revoke" label={<Snippet>action.revoke</Snippet>} />
                     }
                     { backToProfile }
                   </p>

@@ -12,11 +12,6 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use((req, res, next) => {
-    req.breadcrumb('place.delete');
-    next();
-  });
-
   app.use(form({
     model: 'place',
     schema: {
@@ -36,7 +31,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('place.delete')}/confirm`);
+    return res.redirect(req.buildRoute('place.delete', { suffix: 'confirm' }));
   });
 
   app.use('/confirm', (req, res, next) => {
@@ -47,7 +42,7 @@ module.exports = settings => {
   });
 
   app.post('/confirm', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('place.delete')}/success`);
+    return res.redirect(req.buildRoute('place.delete', { suffix: 'success' }));
   });
 
   app.use('/success', success({

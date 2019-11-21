@@ -28,7 +28,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('pil.revoke.success'));
+    res.redirect(req.buildRoute('pil.revoke', { suffix: 'success' }));
   });
 
   return app;

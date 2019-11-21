@@ -22,7 +22,7 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     const modules = get(req.session, `form[${req.profileId}-certificate].values.modules`);
     if (intersection(modules, modulesThatRequireSpecies).length) {
-      return res.redirect(req.buildRoute('pil.training.species'));
+      return res.redirect(req.buildRoute('pil.update.training.species'));
     }
     return next();
   });

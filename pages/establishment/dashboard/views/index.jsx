@@ -5,22 +5,29 @@ import {
   Link,
   Sidebar,
   Header,
-  PanelList,
-  LicenceStatusBanner
+  PanelList
 } from '@asl/components';
-import { ProfileLink } from '../../components';
+import LicenceStatusBanner from '../../../common/components/licence-status-banner';
+import ProfileLink from '../../components/profile-link';
 
 const links = [
-  { path: 'establishment.read', permissions: 'establishment.read' },
-  { path: 'place.list', permissions: 'place.read' },
-  { path: 'profile.list', permissions: 'profile.read.basic' },
-  { path: 'project.list', permissions: 'project.read.basic' }
+  { page: 'establishment.read', permissions: 'establishment.read' },
+  { page: 'place.list', permissions: 'place.read' },
+  { page: 'profile.list', permissions: 'profile.read.basic' },
+  { page: 'project.list', permissions: 'project.read.basic' }
 ];
 
-const DashboardLink = ({ path }) => (
+function getContentKey(page, route) {
+  if (route) {
+    return `${page}.${route}`;
+  }
+  return page;
+}
+
+const DashboardLink = ({ page, route }) => (
   <Fragment>
-    <Link page={path} label={<Snippet>{`pages.${path}`}</Snippet>} />
-    <p><Snippet>{`dashboard.${path}.subtitle`}</Snippet></p>
+    <Link page={page} label={<Snippet>{`pages.${getContentKey(page, route)}`}</Snippet>} />
+    <p><Snippet>{`dashboard.${getContentKey(page, route)}.subtitle`}</Snippet></p>
   </Fragment>
 );
 
@@ -40,7 +47,7 @@ const Index = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <PanelList
-            panels={links.filter(link => allowedActions.includes(link.permissions)).map(link => <DashboardLink key={link.path} { ...link } />)}
+            panels={links.filter(link => allowedActions.includes(link.permissions)).map((link, index) => <DashboardLink key={index} { ...link } />)}
           />
         </div>
         <Sidebar>
@@ -73,7 +80,7 @@ const Index = ({
               {
                 asruAdmin && inspectors.map(inspector => (
                   <p key={`${inspector.id}`} className="inspector">
-                    <Link page="global.profile" profileId={inspector.id} label={`${inspector.firstName} ${inspector.lastName}`} />
+                    <Link page="globalProfile" profileId={inspector.id} label={`${inspector.firstName} ${inspector.lastName}`} />
                   </p>
                 ))
               }
@@ -98,7 +105,7 @@ const Index = ({
               {
                 asruAdmin && spocs.map(spoc => (
                   <p key={`${spoc.id}`} className="spoc">
-                    <Link page="global.profile" profileId={spoc.id} label={`${spoc.firstName} ${spoc.lastName}`} />
+                    <Link page="globalProfile" profileId={spoc.id} label={`${spoc.firstName} ${spoc.lastName}`} />
                   </p>
                 ))
               }

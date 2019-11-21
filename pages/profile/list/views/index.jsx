@@ -10,9 +10,9 @@ import {
   Join,
   Link,
   Header,
-  Tabs,
-  LicenceStatusBanner
+  Tabs
 } from '@asl/components';
+import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -27,7 +27,7 @@ const selectivelyUppercase = filter => {
 
 export const peopleFormatters = {
   name: {
-    format: (name, person) => <Link page="profile.view" profileId={person.id} label={`${person.firstName} ${person.lastName}`} />
+    format: (name, person) => <Link page="profile.read" profileId={person.id} label={`${person.firstName} ${person.lastName}`} />
   },
   roles: {
     accessor: row => row.roles && row.roles.map(v => v.type),

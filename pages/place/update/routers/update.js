@@ -7,7 +7,7 @@ module.exports = () => {
   app.use('/', update());
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('place.update')}/confirm`);
+    return res.redirect(req.buildRoute('place.update', { suffix: 'confirm' }));
   });
 
   return app;

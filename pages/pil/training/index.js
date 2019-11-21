@@ -1,16 +1,11 @@
 const { page } = require('@asl/service/ui');
-const { certificate, modules, exempt, species } = require('./routers');
+const routes = require('./routes');
 
 module.exports = settings => {
   const app = page({
     root: __dirname,
     paths: ['/modules', '/exempt', '/species'],
     ...settings
-  });
-
-  app.use((req, res, next) => {
-    req.breadcrumb('pil.training');
-    next();
   });
 
   app.param('certificateId', (req, res, next, certificateId) => {
@@ -31,10 +26,7 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/species', species());
-  app.use('/modules', modules());
-  app.use('/exempt', exempt());
-  app.use('/', certificate());
-
   return app;
 };
+
+module.exports.routes = routes;

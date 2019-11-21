@@ -11,7 +11,6 @@ module.exports = settings => {
   app.use('/', form({ schema }));
 
   app.use('/', (req, res, next) => {
-    req.breadcrumb('profile.invite');
     return req.api(`/establishment/${req.establishmentId}`)
       .then(response => {
         res.locals.static.establishment = response.json.data;
@@ -40,7 +39,7 @@ module.exports = settings => {
       email: req.session.form[id].values.email
     });
     delete req.session.form[id];
-    return res.redirect(`${req.buildRoute('profile.list')}/invitations`);
+    return res.redirect(req.buildRoute('profile.invitations'));
   });
 
   return app;

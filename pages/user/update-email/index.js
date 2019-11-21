@@ -13,8 +13,10 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('account.updateEmail.base');
-    req.model = req.user.profile;
+    req.model = {
+      id: `${req.user.profile.id}-email`,
+      email: req.user.profile.email
+    };
     res.locals.static.profile = req.user.profile;
     next();
   });
@@ -44,11 +46,11 @@ module.exports = settings => {
       .then(() => {
         delete req.session.form[req.model.id].values.password;
       })
-      .then(() => res.redirect(req.buildRoute('account.updateEmail.confirm')))
+      .then(() => res.redirect(req.buildRoute('account.updateEmail', { suffix: 'confirm' })))
       .catch(err => {
         if (err.status === 403) {
           set(req.session.form[req.model.id], 'validationErrors.password', 'invalid');
-          return res.redirect(req.buildRoute('account.updateEmail.base'));
+          return res.redirect(req.buildRoute('account.updateEmail'));
         }
         next(err);
       });

@@ -1,4 +1,6 @@
 const { page } = require('@asl/service/ui');
+const schema = require('../schema');
+const { buildModel } = require('../../../lib/utils');
 const create = require('./routers/create');
 const confirm = require('./routers/confirm');
 const success = require('../../common/routers/success');
@@ -11,7 +13,8 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('place.create');
+    req.model = buildModel(schema);
+    req.model.id = 'new-place';
     next();
   });
 

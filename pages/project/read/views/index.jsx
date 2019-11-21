@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
-import { Header, Link, LicenceStatusBanner, Snippet } from '@asl/components';
+import { Header, Link, Snippet } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
+import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 
@@ -41,9 +42,9 @@ function Section({
 
 function CurrentVersion({ model }) {
   const { openTask, editable, canUpdate } = useSelector(state => state.static);
-  const target = model.status === 'inactive' && model.draft
-    ? 'update'
-    : 'read';
+  const page = model.status === 'inactive' && model.draft
+    ? 'projectVersion.update'
+    : 'projectVersion';
 
   const versionId = model.granted
     ? model.granted.id
@@ -58,7 +59,7 @@ function CurrentVersion({ model }) {
 
   return (
     <Link
-      page={`project.version.${target}`}
+      page={page}
       versionId={versionId}
       className="govuk-button"
       label={<Snippet>{`actions.view.${labelKey}`}</Snippet>}
@@ -199,7 +200,7 @@ function RevokeLicence({ model }) {
       content={<Snippet>revoke.description</Snippet>}
     >
       <Link
-        page="project.revoke.base"
+        page="project.revoke"
         className="govuk-button button-warning"
         label={<Snippet>actions.revoke</Snippet>}
       />
@@ -252,7 +253,7 @@ export default function ProjectLandingPage() {
         <dt><Snippet>fields.licenceHolder.label</Snippet></dt>
         <dd>
           {model.licenceHolder.firstName} {model.licenceHolder.lastName}<br />
-          <Link page="profile.view" profileId={model.licenceHolder.id} label="View profile" />
+          <Link page="profile.read" profileId={model.licenceHolder.id} label="View profile" />
           {
             canUpdate && !openTask && isEditable && (
               <Fragment> | <Link page="project.updateLicenceHolder" label="Change" /></Fragment>

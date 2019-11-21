@@ -4,9 +4,9 @@ import {
   FilterTable,
   Snippet,
   Link,
-  Header,
-  LicenceStatusBanner
+  Header
 } from '@asl/components';
+import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import formatters from '../../formatters';
 
 import ExpandableRow from './row';
@@ -27,7 +27,7 @@ const pageFormatters = {
     }
   },
   nacwo: {
-    format: nacwo => nacwo && <Link page="profile.view" profileId={nacwo.id} label={`${nacwo.firstName} ${nacwo.lastName}`} />
+    format: nacwo => nacwo && <Link page="profile.read" profileId={nacwo.id} label={`${nacwo.firstName} ${nacwo.lastName}`} />
   }
 };
 

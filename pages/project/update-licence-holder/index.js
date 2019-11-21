@@ -10,11 +10,6 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('project.updateLicenceHolder');
-    next();
-  });
-
-  app.use((req, res, next) => {
     req.model = req.project;
     next();
   });

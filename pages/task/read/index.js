@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const { view, extend, confirm, success } = require('./routers');
+const routes = require('./routes');
 
 module.exports = settings => {
   const app = page({
@@ -8,10 +8,7 @@ module.exports = settings => {
     paths: ['/extend', '/confirm', '/success']
   });
 
-  app.use('/', view());
-  app.use('/extend', extend());
-  app.use('/confirm', confirm());
-  app.use('/success', success());
-
   return app;
 };
+
+module.exports.routes = routes;

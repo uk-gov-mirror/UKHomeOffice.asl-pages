@@ -10,11 +10,6 @@ module.exports = settings => {
     ...settings
   });
 
-  app.use('/', (req, res, next) => {
-    req.breadcrumb('profile.permission');
-    next();
-  });
-
   app.use('/', form({
     schema,
     configure: (req, res, next) => {
@@ -44,7 +39,7 @@ module.exports = settings => {
 
     return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/permission`, opts)
       .then(() => req.notification({ key: 'changed' }))
-      .then(() => res.redirect(req.buildRoute('profile.view')))
+      .then(() => res.redirect(req.buildRoute('profile.read')))
       .catch(next);
   });
 
