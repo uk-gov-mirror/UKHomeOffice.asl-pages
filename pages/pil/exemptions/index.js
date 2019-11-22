@@ -1,16 +1,11 @@
 const { page } = require('@asl/service/ui');
-const { modules, exempt } = require('./routers');
+const routes = require('./routes');
 
 module.exports = settings => {
   const app = page({
     ...settings,
     root: __dirname,
     paths: ['/modules']
-  });
-
-  app.use((req, res, next) => {
-    req.breadcrumb('pil.exemptions');
-    next();
   });
 
   app.post('/:exemption', (req, res, next) => {
@@ -24,9 +19,7 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use('/', exempt());
-
-  app.use('/modules', modules());
-
   return app;
 };
+
+module.exports.routes = routes;

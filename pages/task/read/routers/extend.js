@@ -7,7 +7,6 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
-    req.breadcrumb('task.extend');
     req.model = { id: req.task.id };
     next();
   });
@@ -51,7 +50,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('task.read', { taskId: req.task.id }));
+    return res.redirect(req.buildRoute('task.read'));
   });
 
   return app;

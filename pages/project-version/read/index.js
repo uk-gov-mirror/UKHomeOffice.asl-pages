@@ -25,7 +25,7 @@ module.exports = settings => {
     const showComments = req.version.status !== 'granted' && !!task;
 
     res.locals.static.taskId = task ? task.id : null;
-    res.locals.static.basename = req.buildRoute('project.version.read');
+    res.locals.static.basename = req.buildRoute('projectVersion');
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.version') === req.versionId;
     res.locals.static.user = req.user.profile;

@@ -222,3 +222,97 @@ p.spoc {
     }
   }
 }
+
+.licence-status-banner {
+  overflow: auto;
+  margin-bottom: $govuk-gutter;
+  padding: 8px $govuk-gutter-half;
+  background-color: govuk-colour('grey-1');
+  color: $white;
+  font-size: 16px;
+
+  a:link,
+  a:hover,
+  a:visited {
+    color: $white;
+  }
+
+  &.expired {
+    background-color: govuk-colour('orange');
+    color: $black;
+
+    .toggle-switch {
+      a:link,
+      a:hover,
+      a:visited {
+        color: $black;
+      }
+    }
+
+    .status-details {
+      border-top: 1px solid $black;
+    }
+  }
+
+  &.revoked {
+    background-color: govuk-colour('red');
+  }
+
+  &.open header .status:before {
+    content: '▼\00a0';
+  }
+
+  header {
+    background-color: inherit;
+
+    p {
+      margin: 0;
+    }
+
+    .status {
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      &:before {
+        content: '►\00a0';
+        font-size: 1em;
+        background-image: none;
+      }
+    }
+
+    .toggle-switch {
+      float: right;
+      text-decoration: underline;
+
+      a:link,
+      a:hover,
+      a:visited {
+        color: $white;
+      }
+    }
+  }
+
+  .status-details {
+    border-top: 1px solid $white;
+    margin-left: 22px;
+    margin-top: 6px;
+    padding-top: 10px;
+  }
+
+  ul.licence-dates {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+      margin-right: $govuk-gutter;
+      font-weight: bold;
+
+      .date {
+        font-weight: normal;
+      }
+    }
+  }
+}

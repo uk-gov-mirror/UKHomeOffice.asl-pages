@@ -10,8 +10,6 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('pil.species');
-
     req.model = merge({ id: `${req.pilId}-species` },
       pick(req.pil, 'species'),
       buildModel(schema)

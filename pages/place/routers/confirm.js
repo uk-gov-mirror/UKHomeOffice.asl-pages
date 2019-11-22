@@ -57,11 +57,11 @@ module.exports = settings => {
       if (req.session.form && req.session.form[req.model.id]) {
         return next();
       }
-      return res.redirect(req.originalUrl.replace(/\/confirm/, ''));
+      return res.redirect(req.buildRoute(settings.page));
     },
     editAnswers: (req, res, next) => {
       delete req.session.form[req.model.id].validationErrors;
-      return res.redirect(req.baseUrl.replace(/\/confirm/, ''));
+      return res.redirect(req.buildRoute(settings.page));
     },
     cancelEdit: (req, res, next) => {
       return res.redirect(req.buildRoute('place.list'));

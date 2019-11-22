@@ -50,11 +50,11 @@ module.exports = () => {
       if (req.session.form && req.session.form[req.model.id]) {
         return next();
       }
-      return res.redirect(req.originalUrl.replace(/\/confirm/, ''));
+      return res.redirect(req.buildRoute('establishment.update'));
     },
     editAnswers: (req, res, next) => {
       delete req.session.form[req.model.id].validationErrors;
-      return res.redirect(req.baseUrl.replace(/\/confirm/, ''));
+      return res.redirect(req.buildRoute('establishment.update'));
     },
     cancelEdit: (req, res, next) => {
       delete req.session.form[req.model.id];
@@ -71,7 +71,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    res.redirect(`${req.buildRoute('establishment.update')}/success`);
+    res.redirect(req.buildRoute('establishment.update', { suffix: 'success' }));
   });
 
   app.get('/', (req, res) => res.sendResponse());

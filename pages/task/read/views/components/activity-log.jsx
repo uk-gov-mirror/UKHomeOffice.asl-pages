@@ -22,7 +22,7 @@ const getAuthor = ({ changedBy, event: { status } }, task) => {
       {
         changedBy.asruUser
           ? name
-          : <Link page="profile.view" profileId={changedBy.id} establishmentId={task.data.establishmentId} label={name} />
+          : <Link page="profile.read" profileId={changedBy.id} establishmentId={task.data.establishmentId} label={name} />
       }
     </p>
   );
@@ -41,7 +41,7 @@ const ExtraProjectMeta = ({ item, task }) => {
   if (!versionId) {
     return null;
   }
-  return <p><Link page="project.version.read" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
+  return <p><Link page="projectVersion" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
 };
 
 const LogItem = ({ log, task }) => {

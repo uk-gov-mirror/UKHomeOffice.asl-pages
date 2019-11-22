@@ -18,7 +18,6 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('pil.create');
     if (!req.profile.pil) {
       return next();
     }

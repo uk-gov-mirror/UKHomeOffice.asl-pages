@@ -33,7 +33,7 @@ export default function Project({ task, schema }) {
         return (
           <Fragment>
             <Link
-              page="profile.view"
+              page="profile.read"
               establishmentId={establishment.id}
               profileId={licenceHolder.id}
               label={`${licenceHolder.firstName} ${licenceHolder.lastName}`}
@@ -53,7 +53,7 @@ export default function Project({ task, schema }) {
           <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
           <p>
             <Link
-              page="profile.view"
+              page="profile.read"
               establishmentId={establishment.id}
               profileId={project.licenceHolder.id}
               label={`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}
@@ -70,7 +70,7 @@ export default function Project({ task, schema }) {
           <p><Snippet type={task.type}>versions.submitted.hint</Snippet></p>
           <p>
             <Link
-              page="project.version.read"
+              page="projectVersion"
               className="govuk-button button-secondary"
               versionId={submitted}
               establishmentId={establishment.id}
@@ -172,7 +172,7 @@ export default function Project({ task, schema }) {
           <p><Snippet>versions.granted.info</Snippet></p>
           <p>
             <Link
-              page="project.version.read"
+              page="projectVersion"
               className="govuk-button button-secondary"
               versionId={project.granted.id}
               establishmentId={establishment.id}

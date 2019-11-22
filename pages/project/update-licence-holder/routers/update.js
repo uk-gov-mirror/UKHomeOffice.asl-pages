@@ -40,7 +40,7 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    res.redirect(`${req.buildRoute('project.updateLicenceHolder')}/confirm`);
+    res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'confirm' }));
   });
 
   return app;

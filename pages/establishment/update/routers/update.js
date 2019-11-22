@@ -73,7 +73,7 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('establishment.update')}/confirm`);
+    return res.redirect(req.buildRoute('establishment.update', { suffix: 'confirm' }));
   });
 
   app.get('/', (req, res) => res.sendResponse());

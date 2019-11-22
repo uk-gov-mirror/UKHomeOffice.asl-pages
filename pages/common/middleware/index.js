@@ -33,7 +33,7 @@ const updateDataFromTask = updateModel => (req, res, next) => {
     const comment = get(taskValues, 'values.comment');
     return updateModel(req, { status: 'updated', taskId, meta: { comment } })
       .then(() => delete req.session.form[req.model.id])
-      .then(() => res.redirect(req.buildRoute('task.success', { taskId })))
+      .then(() => res.redirect(req.buildRoute('task.read', { taskId, suffix: 'success' })))
       .catch(next);
   }
   next();
@@ -52,7 +52,7 @@ const redirectToTaskIfOpen = () => (req, res, next) => {
           returnTo: req.baseUrl
         });
       })
-      .then(() => res.redirect(req.buildRoute('task.confirm', { taskId })))
+      .then(() => res.redirect(req.buildRoute('task.read', { taskId, suffix: 'confirm' })))
       // task doesn't exist, continue;
       .catch(() => next());
   }

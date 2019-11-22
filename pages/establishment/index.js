@@ -1,15 +1,10 @@
 const { Router } = require('express');
-const { permissions } = require('../../lib/middleware');
-const dashboard = require('./dashboard');
-const details = require('./details');
-const update = require('./update');
-const pdf = require('./pdf');
+const routes = require('./routes');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.use(
-    permissions('establishment.read'),
     (req, res, next) => {
       req.api(`/establishment/${req.establishmentId}`)
         .then(response => {
@@ -36,10 +31,7 @@ module.exports = settings => {
     }
   );
 
-  app.get('/', dashboard());
-  app.use('/details', details());
-  app.use('/details/pdf', permissions('establishment.pdf'), pdf(settings));
-  app.use('/details/edit', permissions('establishment.update'), update());
-
   return app;
 };
+
+module.exports.routes = routes;

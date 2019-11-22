@@ -29,7 +29,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('project.revoke.success'));
+    res.redirect(req.buildRoute('project.revoke', { suffix: 'success' }));
   });
 
   return app;

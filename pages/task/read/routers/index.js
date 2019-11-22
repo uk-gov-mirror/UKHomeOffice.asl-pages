@@ -1,5 +1,5 @@
 module.exports = {
-  view: require('./view'),
+  read: require('./read'),
   extend: require('./extend'),
   confirm: require('./confirm'),
   success: require('./success')

@@ -6,18 +6,17 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     if (req.query.edit) {
-      return res.redirect(req.buildRoute('account.updateEmail.base'));
+      return res.redirect(req.buildRoute('account.updateEmail'));
     }
 
     if (req.query.cancel) {
       delete req.session.form[req.model.id];
-      return res.redirect(req.buildRoute('account.menu'));
+      return res.redirect(req.buildRoute('account'));
     }
     next();
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('account.updateEmail.confirm');
     res.locals.static.values = req.session.form[req.model.id].values;
     next();
   });
@@ -36,11 +35,11 @@ module.exports = () => {
       .then(() => {
         delete req.session.form[req.model.id];
       })
-      .then(() => res.redirect(req.buildRoute('account.updateEmail.success')))
+      .then(() => res.redirect(req.buildRoute('account.updateEmail', { suffix: 'success' })))
       .catch(err => {
         if (err.message === 'Email address is already in use') {
           set(req.session.form[req.model.id], 'validationErrors.email', 'inUse');
-          return res.redirect(req.buildRoute('account.updateEmail.base'));
+          return res.redirect(req.buildRoute('account.updateEmail'));
         }
         next(err);
       });

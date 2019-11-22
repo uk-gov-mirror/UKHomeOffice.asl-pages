@@ -6,7 +6,6 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
-    req.breadcrumb('task.success');
     req.model = { id: req.task.id };
     next();
   });

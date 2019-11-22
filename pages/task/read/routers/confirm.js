@@ -7,7 +7,6 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
-    req.breadcrumb('task.confirm');
     req.model = { id: req.task.id };
     const status = get(req, `session.form[${req.task.id}].values.status`);
     if (!status) {
@@ -67,7 +66,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    return res.redirect(req.buildRoute('task.success'));
+    return res.redirect('success');
   });
 
   return app;

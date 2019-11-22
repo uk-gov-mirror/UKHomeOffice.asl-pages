@@ -12,7 +12,6 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('establishment.update');
     req.model = groupFlags(req.establishment);
     next();
   });

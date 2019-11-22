@@ -6,6 +6,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     confirm({
+      page: 'place.update',
       method: 'PUT',
       apiUrl: `/establishment/${req.establishmentId}/place/${req.model.id}`
     })(req, res, next);
@@ -14,7 +15,7 @@ module.exports = settings => {
   app.get('/', (req, res) => res.sendResponse());
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('place.update')}/success`);
+    return res.redirect(req.buildRoute('place.update', { suffix: 'success' }));
   });
 
   return app;

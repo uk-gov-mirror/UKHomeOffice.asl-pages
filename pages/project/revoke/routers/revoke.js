@@ -14,7 +14,7 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('project.revoke.confirm'));
+    res.redirect(req.buildRoute('project.revoke', { suffix: 'confirm' }));
   });
 
   return app;

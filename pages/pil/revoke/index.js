@@ -11,7 +11,6 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = req.pil;
-    req.breadcrumb('pil.revoke');
     next();
   });
 

@@ -7,6 +7,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     confirm({
+      page: 'place.create',
       method: 'POST',
       apiUrl: `/establishment/${req.establishmentId}/place`
     })(req, res, next);
@@ -24,7 +25,7 @@ module.exports = () => {
   app.get('/', (req, res) => res.sendResponse());
 
   app.post('/', (req, res, next) => {
-    return res.redirect(`${req.buildRoute('place.create')}/success`);
+    return res.redirect(req.buildRoute('place.create', { suffix: 'success' }));
   });
 
   return app;

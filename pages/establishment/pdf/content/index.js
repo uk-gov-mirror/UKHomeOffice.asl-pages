@@ -1,5 +1,5 @@
 const { merge } = require('lodash');
-const details = require('../../details/content');
+const read = require('../../read/content');
 const standardConditions = require('./standard-conditions');
 
-module.exports = merge({}, details, { standardConditions });
+module.exports = merge({}, read, { standardConditions });
