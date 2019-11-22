@@ -8,6 +8,7 @@ import {
   SectionList,
   OpenTaskWarning
 } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
 import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
 
@@ -20,6 +21,14 @@ import {
 } from '../../training/schema';
 
 import SectionDetails from './section-details';
+
+function confirmDelete(e) {
+  e.preventDefault();
+
+  if (window.confirm('Are you sure you want to delete this draft PIL application?')) {
+    e.target.submit();
+  }
+}
 
 const Index = ({ schema, establishment, certificates, exemptions, model, isAsru, isLicensing, skipExemptions, skipTraining, csrfToken }) => {
 
@@ -161,6 +170,17 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
                 : <button className="govuk-button"><Snippet>{submitSnippet}</Snippet></button>
             }
           </form>
+          {
+            model.status === 'pending' && (
+              <form
+                action="delete"
+                method="POST"
+                onSubmit={confirmDelete}
+              >
+                <Button className="link">Discard draft application</Button>
+              </form>
+            )
+          }
         </div>
       </div>
     </Fragment>
