@@ -273,6 +273,80 @@ module.exports = {
 
           The licence holder has been notified of this request, and will be notified once the licence has been updated.`
       }
+    },
+    transfer: {
+      'awaiting-endorsement': {
+        title: 'Transfer request submitted',
+        body: `An NTCO at the receiving establishment will review your transfer request and contact you if they need more information.
+
+          NTCO and administrators at the current establishment have also been notified.
+
+          You will be notified by the Home Office when your transfer request is approved or rejected.`
+      },
+      resubmitted: {
+        title: 'Transfer request submitted',
+        body: `The Home Office will review your transfer request and will contact you if they need any more information.`
+      },
+      endorsed: {
+        title: 'Transfer request endorsed',
+        body: `The Home Office will review this personal licence transfer request and your endorsement, and may consult with an Inspector if required.
+
+          They may contact you if they need any more information.`
+      },
+      'returned-to-applicant': {
+        title: 'Transfer request returned',
+        body: `The person who submitted this transfer request will review your comments.
+
+          They can then choose to discard the transfer request, or make changes based on your comments.`
+      },
+      'referred-to-inspector': {
+        title: 'Transfer request referred',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this transfer until it has been approved by the Home Office.**
+
+          An Inspector will review this transfer request and will contact you if they need any more information.`
+      },
+      'inspector-recommended': {
+        title: 'Recommendation sent',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this transfer request until it has been approved by the Home Office.**
+
+          A Licensing Officer will review your recommendation and will contact you if they need any more information.`
+      },
+      'inspector-rejected': {
+        title: 'Recommendation sent',
+        body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this transfer request until it has been approved by the Home Office.**
+
+          A Licensing Officer will review your recommendation and will contact you if they need any more information.`
+      },
+      resolved: {
+        title: 'Transfer approved',
+        body: `The personal licence has been approved and transferred.
+
+          The establishment that was previously responsible for this licence will continue to have access to it until the licence holder is removed from that establishment.`
+      },
+      rejected: {
+        title: 'Transfer rejected',
+        body: `The person who submitted this transfer request will review your comments and the reason for rejecting it.
+
+          They will need to create a new transfer request if they wish to submit these changes again.`
+      },
+      'recalled-by-applicant': {
+        title: 'Transfer recalled',
+        body: 'You can now edit this transfer request and resubmit it, or discard it and start again.'
+      },
+      'discarded-by-applicant': {
+        title: 'Transfer discarded',
+        body: 'You will need to create a new transfer request if you want to submit these changes again.'
+      },
+      'autoresolved': {
+        title: 'Licence amended',
+        body: `**This personal licence has been amended.**
+
+          The licence holder has been notified of this change.`
+      },
+      'with-licensing': {
+        title: 'Transfer request submitted',
+        body: `The Home Office will review your transfer request and will contact you if they need any more information.`
+      }
     }
   },
   project: {

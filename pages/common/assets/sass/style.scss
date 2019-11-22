@@ -323,3 +323,12 @@ p.spoc {
     padding: $govuk-gutter 0;
   }
 }
+
+details {
+  margin-bottom: $govuk-gutter;
+
+  summary {
+    color: #005ea5;
+    cursor: pointer;
+  }
+}

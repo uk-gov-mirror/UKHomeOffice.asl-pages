@@ -18,7 +18,8 @@ module.exports = {
         training: 'Training',
         exemptions: 'Exemptions',
         procedures: 'Procedures',
-        species: 'Animal types'
+        species: 'Animal types',
+        establishment: 'Transfer personal licence'
       },
       revoke: 'Revoke personal licence'
     },

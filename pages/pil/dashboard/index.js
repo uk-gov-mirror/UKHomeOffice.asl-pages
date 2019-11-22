@@ -7,13 +7,21 @@ const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../com
 
 module.exports = settings => {
   const sendData = (req, params = {}) => {
+    let action = 'grant';
+
     const opts = {
       method: 'PUT',
       json: merge({
         data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species')
       }, params)
     };
-    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/grant`, opts);
+
+    if (req.model.establishment.to) {
+      action = 'transfer';
+      opts.json.data.establishment = req.model.establishment;
+    }
+
+    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/${action}`, opts);
   };
 
   const app = page({
@@ -39,6 +47,16 @@ module.exports = settings => {
   app.use((req, res, next) => {
     const values = get(req.session, `form[${req.model.id}].values`);
     req.model = { ...req.model, ...values };
+
+    const establishmentTransfer = req.user.profile.establishments
+      .filter(e => e.id !== req.establishment.id)
+      .find(e => e.id === get(req.model, 'establishmentId'));
+
+    req.model.establishment = {
+      from: pick(req.establishment, ['id', 'name']),
+      to: establishmentTransfer ? pick(establishmentTransfer, ['id', 'name']) : null
+    };
+
     next();
   });
 
@@ -84,6 +102,9 @@ module.exports = settings => {
       res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
+      res.locals.static.canTransferPil = req.pil.status === 'active' && req.user.profile.id === req.profile.id; // can only transfer own (active) pil
+
+      // res.locals.static.canTransferPil = false; // PIL TRANSFER FEATURE FLAG (disables edit establishment link)
       next();
     }
   }));
@@ -99,6 +120,7 @@ module.exports = settings => {
   app.get('/success', (req, res, next) => {
     success({
       licence: 'pil',
+      type: get(req.model, 'openTasks[0].data.action') === 'transfer' ? 'transfer' : null,
       status: get(req.model, 'openTasks[0].status', 'autoresolved')
     })(req, res, next);
   });

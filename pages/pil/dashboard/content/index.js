@@ -58,6 +58,9 @@ module.exports = merge({}, baseContent, {
           provide information which you know to be false or misleading.`
       }
     },
+    name: {
+      label: 'Establishment name'
+    },
     species: {
       label: 'Animal types'
     }

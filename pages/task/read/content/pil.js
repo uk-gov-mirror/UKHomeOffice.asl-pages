@@ -13,7 +13,8 @@ module.exports = {
       state: 'Awaiting review',
       hint: {
         application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
-        amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.'
+        amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.',
+        transfer: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this transfer request.'
       },
       log: 'Endorsed by'
     }
@@ -30,12 +31,15 @@ module.exports = {
     applicant: {
       application: 'Applicant',
       amendment: 'Licence holder',
-      revocation: 'Licence holder'
+      revocation: 'Licence holder',
+      transfer: 'Licence holder'
     },
+    // establishment: 'Establishment transfer',
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedures',
-    species: 'Animal types'
+    species: 'Animal types',
+    transfer: 'Establishment transfer'
   },
   pil: {
     applicant: {
@@ -70,6 +74,10 @@ module.exports = {
     },
     species: {
       none: 'No animal types selected'
+    },
+    establishment: {
+      current: 'Current establishment',
+      proposed: 'Proposed establishment'
     }
   },
   errors: {

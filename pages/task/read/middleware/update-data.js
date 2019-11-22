@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
     } else if (action === 'update') {
       action = 'updateLicenceHolder';
     }
-  } else if (action === 'grant') {
+  } else if (action === 'grant' || action === 'transfer') {
     action = 'update';
   }
 

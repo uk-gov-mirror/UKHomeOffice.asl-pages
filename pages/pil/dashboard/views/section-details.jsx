@@ -10,9 +10,9 @@ import {
 
 const SectionDetails = ({
   models = [],
-  establishment = null,
   removeLink = true,
   addOrEdit = 'add',
+  canTransferPil = false,
   url,
   page,
   name,
@@ -28,10 +28,6 @@ const SectionDetails = ({
     label={<Snippet>{`pil.${name}.title`}</Snippet>}
     completed={completed}
   >
-    {
-      name === 'establishment' && establishment &&
-        <p>{establishment.name}</p>
-    }
     {
       template || (
         <Fragment>
@@ -72,10 +68,11 @@ const SectionDetails = ({
       )
     }
     {
-      !!models.length && <Link
-        page={page}
-        label={addLink || <Snippet>{`actions.${addOrEdit}`}</Snippet>}
-      />
+      (!!models.length || (name === 'establishment' && canTransferPil)) &&
+        <Link
+          page={page}
+          label={addLink || <Snippet>{`actions.${addOrEdit}`}</Snippet>}
+        />
     }
   </Completable>
 );
