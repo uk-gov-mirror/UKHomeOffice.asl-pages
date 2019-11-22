@@ -13,6 +13,9 @@ module.exports = () => {
   app.use((req, res, next) => {
     const id = req.model.id;
     const status = get(req.session, `form.${id}.values.status`, get(req.session, `form.${id}.values.storeStatus`));
+    if (!status) {
+      return res.redirect(req.buildRoute('task.read'));
+    }
     req.status = status;
     res.locals.static.profile = req.task.data.changedBy;
     next();
