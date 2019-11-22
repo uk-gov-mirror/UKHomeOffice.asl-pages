@@ -9,7 +9,7 @@ const revoke = require('./revoke');
 const projectPermissions = task => (req, res, next) => {
   const params = {
     id: req.projectId,
-    licenceHolderId: req.project.licenceHolderId,
+    licenceHolderId: req.project && req.project.licenceHolderId,
     establishment: req.establishment.id
   };
   permissions(task, params)(req, res, next);
