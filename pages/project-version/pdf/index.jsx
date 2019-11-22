@@ -15,7 +15,7 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     const initialState = {
-      project: req.version.data,
+      project: req.version.data || { title: 'Untitled project' },
       application: {
         schemaVersion: req.project.schemaVersion,
         establishment: req.project.establishment,
