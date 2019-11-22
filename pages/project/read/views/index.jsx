@@ -42,7 +42,8 @@ function Section({
 
 function CurrentVersion({ model }) {
   const { openTask, editable, canUpdate } = useSelector(state => state.static);
-  const page = model.status === 'inactive' && model.draft
+  const showEditLink = model.status === 'inactive' && model.draft && canUpdate;
+  const page = showEditLink
     ? 'projectVersion.update'
     : 'projectVersion';
 
