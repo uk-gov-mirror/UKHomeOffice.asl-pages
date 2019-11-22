@@ -49,7 +49,7 @@ module.exports = {
   },
   errors: {
     status: {
-      required: 'Please approve or reject this task',
+      required: 'Please select an option from the list',
       definedValues: 'Please select an option from the list'
     },
     comment: {
