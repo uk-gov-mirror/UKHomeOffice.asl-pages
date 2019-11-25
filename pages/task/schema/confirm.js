@@ -1,6 +1,7 @@
 module.exports = (task, chosenStatus) => {
   const commentRequired = stepId => {
-    return task.nextSteps.find(nextStep => nextStep.id === stepId).commentRequired;
+    const nextStep = task.nextSteps.find(nextStep => nextStep.id === stepId);
+    return nextStep && nextStep.commentRequired;
   };
 
   return {
