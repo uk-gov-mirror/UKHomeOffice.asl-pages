@@ -23,7 +23,7 @@ module.exports = () => {
   app.post('/', (req, res) => {
     res.locals.static.content = content;
     req.notification({ key: 'discarded' });
-    res.redirect(req.buildRoute('profile.view'));
+    res.redirect(req.buildRoute('profile.read'));
   });
 
   return app;

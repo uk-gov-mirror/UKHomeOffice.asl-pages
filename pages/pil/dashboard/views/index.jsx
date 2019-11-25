@@ -8,7 +8,6 @@ import {
   SectionList,
   OpenTaskWarning
 } from '@asl/components';
-import { Button } from '@ukhomeoffice/react-components';
 import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
 
@@ -177,7 +176,7 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
                 method="POST"
                 onSubmit={confirmDelete}
               >
-                <Button className="link">Discard draft application</Button>
+                <button className="link"><span>Discard draft application</span></button>
               </form>
             )
           }
