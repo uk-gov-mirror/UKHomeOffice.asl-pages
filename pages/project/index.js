@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const isUUID = require('uuid-validate');
+const { NotFoundError } = require('@asl/service/errors');
 const routes = require('./routes');
 
 module.exports = settings => {
@@ -7,6 +9,9 @@ module.exports = settings => {
   app.param('projectId', (req, res, next, projectId) => {
     if (projectId === 'create' || projectId === 'import') {
       return next('route');
+    }
+    if (!isUUID(projectId)) {
+      return next(new NotFoundError());
     }
     req.projectId = projectId;
     return req.api(`/establishment/${req.establishmentId}/projects/${projectId}`)
