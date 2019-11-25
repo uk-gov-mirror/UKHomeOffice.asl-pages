@@ -10,14 +10,9 @@ const routes = require('./routes');
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ limit: '5mb' }));
 
   app.use(getVersion());
-
-  app.use((req, res, next) => {
-    console.log('ok');
-    next();
-  });
 
   app.use(getComments());
 
