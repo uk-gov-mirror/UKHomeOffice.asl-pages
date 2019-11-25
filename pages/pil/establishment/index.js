@@ -10,7 +10,6 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.breadcrumb('pil.establishment');
     req.model.id = `${req.pil.id}-establishment`;
     next();
   });
