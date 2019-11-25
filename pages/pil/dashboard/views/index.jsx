@@ -40,7 +40,7 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
     },
     {
       name: 'establishment',
-      page: 'pil.update.establishment',
+      page: 'establishment.read',
       template: <p>{ model.establishment.to ? model.establishment.to.name : model.establishment.from.name }</p>,
       addOrEdit: 'edit',
       completed: true,

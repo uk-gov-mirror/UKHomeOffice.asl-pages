@@ -68,10 +68,17 @@ const SectionDetails = ({
       )
     }
     {
-      (!!models.length || (name === 'establishment' && canTransferPil)) &&
+      !!models.length &&
         <Link
           page={page}
           label={addLink || <Snippet>{`actions.${addOrEdit}`}</Snippet>}
+        />
+    }
+    {
+      name === 'establishment' && canTransferPil &&
+        <Link
+          page="pil.update.establishment"
+          label={<Snippet>{`actions.edit`}</Snippet>}
         />
     }
   </Completable>
