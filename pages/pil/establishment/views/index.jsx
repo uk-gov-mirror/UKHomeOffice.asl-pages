@@ -11,7 +11,7 @@ const currentEstablishment = establishment => {
   );
 };
 
-const yTho = () => {
+const explainMissingEstablishments = () => {
   return (
     <details>
       <summary><Snippet>details.summary</Snippet></summary>
@@ -34,7 +34,7 @@ const Index = ({ establishment, schema, csrfToken }) => {
           schema.establishment.options.length < 1 &&
             <div className="no-option">
               { currentEstablishment(establishment) }
-              { yTho() }
+              { explainMissingEstablishments() }
               <Link page="pil.update" label="Back" className="govuk-button" />
             </div>
         }
@@ -56,7 +56,7 @@ const Index = ({ establishment, schema, csrfToken }) => {
                   </tr>
                 </tbody>
               </table>
-              { yTho() }
+              { explainMissingEstablishments() }
               <form method="POST">
                 <input type="hidden" name="_csrf" value={csrfToken} />
                 <input type="hidden" name="establishment" value={schema.establishment.options[0].value} />
@@ -69,7 +69,7 @@ const Index = ({ establishment, schema, csrfToken }) => {
           schema.establishment.options.length > 1 &&
             <div className="multi-option">
               { currentEstablishment(establishment) }
-              { yTho() }
+              { explainMissingEstablishments() }
               <Form />
             </div>
         }
