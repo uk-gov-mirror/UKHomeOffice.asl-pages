@@ -46,7 +46,8 @@ module.exports = {
       read: '{{project.title}}',
       updateLicenceHolder: 'Update licence holder',
       upload: 'Upload draft application',
-      revoke: 'Revoke licence'
+      revoke: 'Revoke licence',
+      import: 'Import project'
     },
     projectVersion: {
       read: 'View',
