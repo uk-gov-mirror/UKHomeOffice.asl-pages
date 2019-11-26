@@ -13,7 +13,8 @@ const {
   pick,
   omit,
   chain,
-  reduce
+  reduce,
+  castArray
 } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged, cleanModel } = require('../../../lib/utils');
@@ -26,6 +27,22 @@ if (process.env.CSRF === 'false') {
   _generateSecret = defaultMiddleware;
   _checkSecret = defaultMiddleware;
 }
+
+const getOptionReveals = (schema, values) => {
+  return Object.keys(schema).reduce((obj, key) => {
+    const field = schema[key];
+    if (!field.options) {
+      return obj;
+    }
+    const selectedOptions = field.options.filter(opt => castArray(values[key]).includes(opt.value));
+    return selectedOptions.reduce((o, opt) => {
+      return {
+        ...o,
+        ...(opt.reveal || {})
+      };
+    }, {});
+  }, {});
+};
 
 const flattenNested = (data, schema) => {
   return mapValues(data, (value, key) => {
@@ -176,9 +193,12 @@ module.exports = ({
         [key]: value
       };
     }, {});
+
+    const reveals = getOptionReveals(req.form.schema, req.form.values);
+
     const fileKeys = Object.keys(schema).filter(k => schema[k].inputType === 'inputFile');
     const validation = {
-      ...validator(req.form.values, omit(schema, fileKeys), req.model),
+      ...validator(req.form.values, omit({ ...schema, ...reveals }, fileKeys), req.model),
       ...validator(req.files, pick(schema, fileKeys), req.model)
     };
     if (size(validation)) {
