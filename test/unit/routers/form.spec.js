@@ -24,7 +24,7 @@ describe('Form Router', () => {
         };
         const expected = {
           schema,
-          validationErrors: undefined,
+          validationErrors: {},
           values: {
             id: 'test-model'
           }
@@ -156,7 +156,41 @@ describe('Form Router', () => {
           }
         };
         const expected = { field1: 'required' };
-        form()(req, res, () => {
+        form({ schema: { field1: {} } })(req, res, () => {
+          expect(req.form.validationErrors).toEqual(expected);
+          done();
+        });
+      });
+      test('ignores errors from the session on fields that do not appear in the schema', done => {
+        req.session = {
+          form: {
+            'test-model': {
+              validationErrors: {
+                field1: 'required',
+                field2: 'required'
+              }
+            }
+          }
+        };
+        const expected = { field1: 'required' };
+        form({ schema: { field1: {} } })(req, res, () => {
+          expect(req.form.validationErrors).toEqual(expected);
+          done();
+        });
+      });
+      test('includes errors from the session on fields that are revealed', done => {
+        req.session = {
+          form: {
+            'test-model': {
+              validationErrors: {
+                field1: 'required',
+                field2: 'required'
+              }
+            }
+          }
+        };
+        const expected = { field1: 'required', field2: 'required' };
+        form({ schema: { field1: { reveal: { field2: {} } } } })(req, res, () => {
           expect(req.form.validationErrors).toEqual(expected);
           done();
         });
@@ -178,7 +212,7 @@ describe('Form Router', () => {
             validationErrors: errors
           }
         };
-        form()(req, res, () => {
+        form({ schema: { field1: {} } })(req, res, () => {
           expect(res.locals.model).toEqual(req.model);
           expect(res.locals.static.errors).toEqual(errors);
           done();
