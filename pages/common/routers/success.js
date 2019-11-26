@@ -20,8 +20,10 @@ module.exports = ({
     if (!type) {
       if (get(req.model, 'openTasks[0].data.action') === 'transfer') {
         type = 'transfer';
-      } else if (req.model && req.model.status) {
-        type = req.model.status === 'active' ? 'amendment' : 'application';
+      } else if (get(req.model, 'status') === 'active') {
+        type = 'amendment';
+      } else {
+        type = 'application';
       }
     }
     const success = get(successContent, `${licence}.${type}.${status}`);
