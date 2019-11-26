@@ -120,7 +120,6 @@ module.exports = settings => {
   app.get('/success', (req, res, next) => {
     success({
       licence: 'pil',
-      type: get(req.model, 'openTasks[0].data.action') === 'transfer' ? 'transfer' : null,
       status: get(req.model, 'openTasks[0].status', 'autoresolved')
     })(req, res, next);
   });
