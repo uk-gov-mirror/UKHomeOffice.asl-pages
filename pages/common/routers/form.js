@@ -210,7 +210,7 @@ module.exports = ({
   };
 
   const _getValidationErrors = (req, res, next) => {
-    const fields = Object.keys(req.form.schema);
+    const fields = Object.keys(schemaWithReveals(req.form.schema));
     req.form.validationErrors = pick(req.session.form[req.model.id].validationErrors, fields);
     return getValidationErrors(req, res, next);
   };
