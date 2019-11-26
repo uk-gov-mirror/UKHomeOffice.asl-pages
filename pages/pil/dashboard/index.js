@@ -1,4 +1,5 @@
 const { page } = require('@asl/service/ui');
+const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { get, pick, omit, merge } = require('lodash');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -31,6 +32,13 @@ module.exports = settings => {
   });
 
   app.get('/', hydrate());
+
+  app.use((req, res, next) => {
+    if (req.establishment.id !== req.pil.establishmentId) {
+      next(new UnauthorisedError());
+    }
+    next();
+  });
 
   app.use('/', (req, res, next) => {
     const params = {
