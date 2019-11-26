@@ -195,6 +195,22 @@ describe('Form Router', () => {
           done();
         });
       });
+      test('includes unchanged form errors', done => {
+        req.session = {
+          form: {
+            'test-model': {
+              validationErrors: {
+                form: 'unchanged'
+              }
+            }
+          }
+        };
+        const expected = { form: 'unchanged' };
+        form({ schema: { field1: {} } })(req, res, () => {
+          expect(req.form.validationErrors).toEqual(expected);
+          done();
+        });
+      });
     });
 
     describe('_locals', () => {
