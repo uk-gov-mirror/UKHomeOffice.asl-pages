@@ -49,11 +49,11 @@ module.exports = settings => {
     req.model = { ...req.model, ...values };
 
     const establishmentTransfer = req.user.profile.establishments
-      .filter(e => e.id !== req.pil.establishment.id)
+      .filter(e => e.id !== req.establishment.id)
       .find(e => e.id === get(req.model, 'establishmentId'));
 
     req.model.establishment = {
-      from: pick(req.pil.establishment, ['id', 'name']),
+      from: pick(req.establishment, ['id', 'name']),
       to: establishmentTransfer ? pick(establishmentTransfer, ['id', 'name']) : null
     };
 
