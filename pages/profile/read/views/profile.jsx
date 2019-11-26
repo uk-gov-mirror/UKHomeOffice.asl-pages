@@ -105,7 +105,7 @@ class Profile extends React.Component {
               }
               {
                 isOwnProfile && (
-                  <form method='POST' action={`/e/${estId}/projects/create`}>
+                  <form method='POST' action={`/establishments/${estId}/projects/create`}>
                     <p className="control-panel">
                       <Button className='govuk-button button-secondary add-margin'>
                         <Snippet>buttons.pplApply</Snippet>
