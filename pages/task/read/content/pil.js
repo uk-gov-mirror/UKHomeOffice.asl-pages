@@ -34,7 +34,6 @@ module.exports = {
       revocation: 'Licence holder',
       transfer: 'Licence holder'
     },
-    // establishment: 'Establishment transfer',
     training: 'Training',
     exemptions: 'Exemptions',
     procedures: 'Procedures',
