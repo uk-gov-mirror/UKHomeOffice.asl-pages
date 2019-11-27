@@ -3,6 +3,7 @@ module.exports = (establishments, pil) => {
     .filter(e => e.id !== pil.establishmentId)
     .map(establishment => ({
       label: establishment.name,
+      // toString else definedValues check fails
       value: establishment.id.toString()
     }));
 
