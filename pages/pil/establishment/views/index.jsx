@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Snippet, OpenTaskWarning, ErrorSummary, Header, Form, Link } from '@asl/components';
+import { Snippet, OpenTaskWarning, ErrorSummary, Header, Form, Link, ControlBar } from '@asl/components';
 
 const currentEstablishment = establishment => {
   return (
@@ -60,7 +60,10 @@ const Index = ({ establishment, schema, csrfToken }) => {
               <form method="POST">
                 <input type="hidden" name="_csrf" value={csrfToken} />
                 <input type="hidden" name="establishment" value={schema.establishment.options[0].value} />
-                <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
+                <ControlBar>
+                  <button type="submit" className="govuk-button"><Snippet>buttons.submit</Snippet></button>
+                  <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
+                </ControlBar>
               </form>
             </div>
         }
@@ -68,9 +71,10 @@ const Index = ({ establishment, schema, csrfToken }) => {
         {
           schema.establishment.options.length > 1 &&
             <div className="multi-option">
-              { currentEstablishment(establishment) }
               { explainMissingEstablishments() }
+              { currentEstablishment(establishment) }
               <Form />
+              <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
             </div>
         }
       </div>
