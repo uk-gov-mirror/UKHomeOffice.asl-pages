@@ -71,8 +71,8 @@ const Index = ({ establishment, schema, csrfToken }) => {
         {
           schema.establishment.options.length > 1 &&
             <div className="multi-option">
-              { currentEstablishment(establishment) }
               { explainMissingEstablishments() }
+              { currentEstablishment(establishment) }
               <Form />
               <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
             </div>
