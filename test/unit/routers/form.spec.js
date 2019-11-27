@@ -373,6 +373,82 @@ describe('Form Router', () => {
         formRouter(req, res);
       });
 
+      test('includes reveal fields', done => {
+        const schema = {
+          field1: {
+            options: [
+              {
+                value: true,
+                reveal: {
+                  revealField: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: false
+              }
+            ]
+          }
+        };
+        req.body = {
+          field1: true
+        };
+        const expected = {
+          revealField: 'required'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+          done();
+        });
+        form({ schema })(req, res);
+      });
+
+      test('includes multiple reveal fields', done => {
+        const schema = {
+          field1: {
+            options: [
+              {
+                value: 'first-val',
+                reveal: {
+                  reveal1: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: 'second-val',
+                reveal: {
+                  reveal2: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: 'third-val',
+                reveal: {
+                  reveal3: {
+                    validate: 'required'
+                  }
+                }
+              }
+            ]
+          }
+        };
+        req.body = {
+          field1: ['first-val', 'third-val']
+        };
+        const expected = {
+          reveal1: 'required',
+          reveal3: 'required'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+          done();
+        });
+        form({ schema })(req, res);
+      });
+
       test('persists form values to session', done => {
         req.body = {
           field1: null,
