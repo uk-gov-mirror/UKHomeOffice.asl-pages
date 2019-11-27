@@ -29,7 +29,7 @@ function confirmDelete(e) {
   }
 }
 
-const Index = ({ schema, establishment, certificates, exemptions, model, isAsru, isLicensing, skipExemptions, skipTraining, csrfToken }) => {
+const Index = ({ schema, establishment, certificates, exemptions, model, isAsru, isLicensing, canTransferPil, skipExemptions, skipTraining, csrfToken }) => {
 
   const sections = [
     {
@@ -40,8 +40,10 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
     {
       name: 'establishment',
       page: 'establishment.read',
-      establishment,
-      completed: true
+      template: <p>{ model.establishment.to ? model.establishment.to.name : model.establishment.from.name }</p>,
+      addOrEdit: 'edit',
+      completed: true,
+      canTransferPil
     },
     {
       name: 'procedures',
@@ -197,6 +199,7 @@ const mapStateToProps = ({
     },
     isAsru,
     isLicensing,
+    canTransferPil,
     skipExemptions,
     skipTraining,
     csrfToken
@@ -209,6 +212,7 @@ const mapStateToProps = ({
   model,
   isAsru,
   isLicensing,
+  canTransferPil,
   skipExemptions,
   skipTraining,
   csrfToken

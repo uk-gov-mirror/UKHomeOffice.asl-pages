@@ -316,3 +316,19 @@ p.spoc {
     }
   }
 }
+
+.pil-actions {
+  section {
+    border-top: 1px solid govuk-colour('grey-2');
+    padding: $govuk-gutter 0;
+  }
+}
+
+details {
+  margin-bottom: $govuk-gutter;
+
+  summary {
+    color: $blue;
+    cursor: pointer;
+  }
+}

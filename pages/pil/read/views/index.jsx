@@ -119,17 +119,27 @@ const PIL = ({
             {
               correctEstablishment
                 ? (
-                  <p className="control-panel">
-                    <Link
-                      page="pil.update"
-                      className="govuk-button"
-                      label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}`}</Snippet>}
-                    />
+                  <div className="pil-actions">
+                    <section className="amend-licence">
+                      <Snippet>action.amend.summary</Snippet>
+                      <Link
+                        page="pil.update"
+                        className="govuk-button button-secondary"
+                        label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
+                      />
+                    </section>
                     {
-                      pil.status === 'active' && <Link page="pil.revoke" label={<Snippet>action.revoke</Snippet>} />
+                      pil.status === 'active' &&
+                        <section className="revoke-licence">
+                          <Snippet>action.revoke.summary</Snippet>
+                          <Link
+                            page="pil.revoke"
+                            className="govuk-button button-warning"
+                            label={<Snippet>action.revoke.button</Snippet>}
+                          />
+                        </section>
                     }
-                    { backToProfile }
-                  </p>
+                  </div>
                 )
                 : (
                   <Fragment>

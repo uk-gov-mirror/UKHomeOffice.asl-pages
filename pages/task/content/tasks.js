@@ -12,7 +12,8 @@ module.exports = {
     grant: 'PIL application',
     update: 'PIL amendment',
     revoke: 'PIL revocation',
-    'update-conditions': 'Update conditions'
+    'update-conditions': 'Update conditions',
+    transfer: 'PIL transfer'
   },
   profile: {
     update: 'Profile amendment'

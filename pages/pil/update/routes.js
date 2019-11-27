@@ -3,6 +3,7 @@ const procedures = require('../procedures');
 const exemptions = require('../exemptions');
 const training = require('../training');
 const dashboard = require('../dashboard');
+const establishment = require('../establishment');
 
 module.exports = {
   root: {
@@ -24,5 +25,9 @@ module.exports = {
   training: {
     path: '/training',
     router: training
+  },
+  establishment: {
+    path: '/establishment',
+    router: establishment
   }
 };

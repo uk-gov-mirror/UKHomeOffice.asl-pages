@@ -8,7 +8,7 @@ export default ({ task }) => {
   return (
     <Fragment>
       <p>This item cannot be edited as it is currently being amended.</p>
-      <p><Link page="task.read" taskId={task.id} label="View task" /></p>
+      <p><Link page="task.read" className="govuk-button button-secondary" taskId={task.id} label="View task" /></p>
     </Fragment>
   );
 };

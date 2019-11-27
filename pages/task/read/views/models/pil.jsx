@@ -13,15 +13,40 @@ import Modules from '../../../../profile/read/views/modules';
 
 export default function PIL({ task, values }) {
   const profile = useSelector(state => state.static.profile);
-
+  const establishment = useSelector(state => state.static.establishment);
   const pil = task.data.action === 'update-conditions' ? values : task.data.data;
   const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
+  const isTransfer = task.data.action === 'transfer';
 
   const applicantKey = `applicant.${task.type}`;
 
   return [
+    <StickyNavAnchor id="establishment" key="establishment">
+      <h2><Snippet>{`sticky-nav.${isTransfer ? 'transfer' : 'establishment'}`}</Snippet></h2>
+      {
+        isTransfer &&
+          <table className="govuk-table compare">
+            <thead>
+              <tr>
+                <th><Snippet>pil.establishment.current</Snippet></th>
+                <th><Snippet>pil.establishment.proposed</Snippet></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{pil.establishment.from.name}</td>
+                <td><span className="highlight">{pil.establishment.to.name}</span></td>
+              </tr>
+            </tbody>
+          </table>
+      }
+      {
+        !isTransfer && <p>{establishment.name}</p>
+      }
+    </StickyNavAnchor>,
+
     <StickyNavAnchor id={applicantKey} key={applicantKey}>
-      <h2><Snippet>{`sticky-nav.applicant.${task.type}`}</Snippet></h2>
+      <h2><Snippet>{`sticky-nav.${applicantKey}`}</Snippet></h2>
       <p><Link page="profile.read" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
       <dl>
         <dt><Snippet>pil.applicant.over18</Snippet></dt>

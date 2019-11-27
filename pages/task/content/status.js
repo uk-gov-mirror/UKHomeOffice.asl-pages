@@ -23,7 +23,8 @@ module.exports = {
     hint: {
       application: 'The application will be sent to an inspector for assessment.',
       amendment: 'The amendment will be sent to an inspector for assessment.',
-      revocation: 'The revocation request will be sent to an inspector for assessment.'
+      revocation: 'The revocation request will be sent to an inspector for assessment.',
+      transfer: 'The transfer request will be sent to an inspector for assessment.'
     },
     log: 'Referred by'
   },
@@ -33,7 +34,8 @@ module.exports = {
     hint: {
       application: 'The application will be returned to the applicant with your comments.',
       amendment: 'The amendment will be returned to the applicant with your comments.',
-      revocation: 'The revocation request will be returned to the applicant with your comments.'
+      revocation: 'The revocation request will be returned to the applicant with your comments.',
+      transfer: 'The transfer request will be returned to the applicant with your comments.'
     },
     log: 'Returned by'
   },
@@ -42,7 +44,8 @@ module.exports = {
     action: {
       application: 'Recall application',
       amendment: 'Recall amendment',
-      revocation: 'Recall revocation'
+      revocation: 'Recall revocation',
+      transfer: 'Recall transfer'
     },
     hint: 'The task will be returned and can be edited.',
     log: 'Recalled by'
@@ -52,12 +55,14 @@ module.exports = {
     action: {
       application: 'Discard application',
       amendment: 'Discard amendment',
-      revocation: 'Discard revocation'
+      revocation: 'Discard revocation',
+      transfer: 'Discard transfer'
     },
     hint: {
       application: 'You will need to create a new application to apply for this type of licence in the future.',
       amendment: 'You will need to create a new amendment to submit these changes again.',
-      revocation: 'You will need to create a new revocation request for this licence to be revoked.'
+      revocation: 'You will need to create a new revocation request for this licence to be revoked.',
+      transfer: 'You will need to start a new transfer request if you still wish to transfer this licence.'
     },
     log: 'Discarded by'
   },
@@ -66,12 +71,14 @@ module.exports = {
     action: {
       application: 'Withdraw application',
       amendment: 'Withdraw amendment',
-      revocation: 'Withdraw revocation'
+      revocation: 'Withdraw revocation',
+      transfer: 'Withdraw transfer'
     },
     hint: {
       application: 'The application will revert to a draft that can be opened from the applicant\'s profile page.',
       amendment: 'You will need to create a new amendment to submit these changes again.',
-      revocation: 'You will need to create a new revocation request for this licence to be revoked.'
+      revocation: 'You will need to create a new revocation request for this licence to be revoked.',
+      transfer: 'You will need to create a new transfer request for this licence to be transferred.'
     },
     log: 'Withdrawn by'
   },
@@ -83,11 +90,13 @@ module.exports = {
     state: 'Awaiting review',
     action: {
       application: 'Endorse application',
-      amendment: 'Endorse amendment'
+      amendment: 'Endorse amendment',
+      transfer: 'Endorse transfer request'
     },
     hint: {
       application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
-      amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.'
+      amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.',
+      transfer: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this transfer request.'
     },
     log: 'Endorsed by'
   },
@@ -101,7 +110,8 @@ module.exports = {
     state: 'Awaiting recommendation',
     action: {
       application: 'Endorse application',
-      amendment: 'Endorse amendment'
+      amendment: 'Endorse amendment',
+      transfer: 'Endorse transfer request'
     }
   },
   'inspector-recommended': {
@@ -110,7 +120,8 @@ module.exports = {
     hint: {
       application: 'The application will be sent to a Licensing Officer who will action your recommendation.',
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.',
-      revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.'
+      revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.',
+      transfer: 'The transfer request will be sent to a Licensing Office who will action your recommendation'
     },
     log: 'Recommended by',
     recommendation: '**Recommendation:** Approve'
@@ -121,7 +132,8 @@ module.exports = {
     hint: {
       application: 'The application will be sent to a Licensing Officer who will action your recommendation.',
       amendment: 'The amendment will be sent to a Licensing Officer who will action your recommendation.',
-      revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.'
+      revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.',
+      transfer: 'The transfer request will be sent to a Licensing Officer who will action your recommendation.'
     },
     log: 'Recommended by',
     recommendation: '**Recommendation:**  Reject'
@@ -131,12 +143,14 @@ module.exports = {
     action: {
       application: 'Submit application',
       amendment: 'Submit amendment',
-      revocation: 'Submit revocation'
+      revocation: 'Submit revocation',
+      transfer: 'Submit transfer'
     },
     hint: {
       application: 'Your application will be sent to the Home Office for review.',
       amendment: 'Your amendment will be sent to the Home Office for review.',
-      revocation: 'Your revocation request will be sent to the Home Office for review.'
+      revocation: 'Your revocation request will be sent to the Home Office for review.',
+      transfer: 'Your transfer request will be sent to the Home Office for review'
     },
     log: 'Submitted by'
   },
@@ -145,17 +159,20 @@ module.exports = {
     action: {
       application: 'Grant licence',
       amendment: 'Amend licence',
-      revocation: 'Revoke licence'
+      revocation: 'Revoke licence',
+      transfer: 'Approve transfer'
     },
     hint: {
       application: 'A new licence will be granted.',
       amendment: 'The existing licence will be updated.',
-      revocation: 'The existing licence will be revoked.'
+      revocation: 'The existing licence will be revoked.',
+      transfer: 'The licence will be transferred to the proposed establishment.'
     },
     log: {
       application: 'Granted by',
       amendment: 'Approved by',
-      revocation: 'Revoked by'
+      revocation: 'Revoked by',
+      transfer: 'Approved by'
     }
   },
   rejected: {
@@ -163,12 +180,14 @@ module.exports = {
     action: {
       application: 'Reject application',
       amendment: 'Reject amendment',
-      revocation: 'Reject revocation'
+      revocation: 'Reject revocation',
+      transfer: 'Reject transfer request'
     },
     hint: {
       application: 'The applicant will need to create a new application to apply for this type of licence in the future.',
       amendment: 'The applicant will need to create a new amendment to submit these changes again.',
-      revocation: 'The applicant will need to create a new revocation request for this licence to be revoked.'
+      revocation: 'The applicant will need to create a new revocation request for this licence to be revoked.',
+      transfer: 'The applicant will need to create a new transfer request.'
     },
     log: 'Rejected by'
   },
@@ -180,11 +199,13 @@ module.exports = {
     state: 'Resubmitted',
     action: {
       application: 'Edit and resubmit the application',
-      amendment: 'Edit and resubmit the amendment'
+      amendment: 'Edit and resubmit the amendment',
+      transfer: 'Edit and resubmit the transfer request'
     },
     hint: {
       application: 'Make changes to the application you previously submitted and respond to any comments.',
-      amendment: 'Make changes to the amendment you previously submitted and respond to any comments.'
+      amendment: 'Make changes to the amendment you previously submitted and respond to any comments.',
+      transfer: 'Make changes to the transfer request you previously submitted and respond to any comments.'
     },
     log: 'Submitted by'
   }
