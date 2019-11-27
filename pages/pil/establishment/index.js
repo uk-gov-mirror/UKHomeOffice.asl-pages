@@ -26,6 +26,10 @@ module.exports = settings => {
     configure: (req, res, next) => {
       req.form.schema = getSchema(req.user.profile.establishments, req.pil);
       next();
+    },
+    cancelEdit: (req, res, next) => {
+      req.session.form[req.pil.id].values.establishmentId = req.pil.establishmentId;
+      return res.redirect(req.buildRoute('pil.update'));
     }
   }));
 
