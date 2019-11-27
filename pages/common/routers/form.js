@@ -40,7 +40,7 @@ const getOptionReveals = (schema, values) => {
         ...o,
         ...(opt.reveal || {})
       };
-    }, {});
+    }, obj);
   }, {});
 };
 

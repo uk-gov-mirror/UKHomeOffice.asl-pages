@@ -367,8 +367,12 @@ describe('Form Router', () => {
           field2: 'type'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
@@ -398,8 +402,12 @@ describe('Form Router', () => {
           revealField: 'required'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         form({ schema })(req, res);
       });
@@ -433,18 +441,39 @@ describe('Form Router', () => {
                 }
               }
             ]
+          },
+          field2: {
+            options: [
+              {
+                value: 'yes',
+                reveal: {
+                  reveal4: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: 'no'
+              }
+            ]
           }
         };
         req.body = {
-          field1: ['first-val', 'third-val']
+          field1: ['first-val', 'third-val'],
+          field2: 'yes'
         };
         const expected = {
           reveal1: 'required',
-          reveal3: 'required'
+          reveal3: 'required',
+          reveal4: 'required'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         form({ schema })(req, res);
       });
@@ -455,8 +484,12 @@ describe('Form Router', () => {
           field2: 123
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].values).toEqual(req.body);
-          done();
+          try {
+            expect(req.session.form['test-model'].values).toEqual(req.body);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
@@ -472,8 +505,12 @@ describe('Form Router', () => {
           form: 'unchanged'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
@@ -490,8 +527,12 @@ describe('Form Router', () => {
           form: 'unchanged'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
