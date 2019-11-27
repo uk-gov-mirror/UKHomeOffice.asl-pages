@@ -112,7 +112,6 @@ module.exports = settings => {
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
       res.locals.static.canTransferPil = req.pil.status === 'active' && req.user.profile.id === req.profile.id; // can only transfer own (active) pil
 
-      // res.locals.static.canTransferPil = false; // PIL TRANSFER FEATURE FLAG (disables edit establishment link)
       next();
     }
   }));
