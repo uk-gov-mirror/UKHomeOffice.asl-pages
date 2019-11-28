@@ -1,6 +1,6 @@
 const { page } = require('@asl/service/ui');
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
-const { get, pick, omit, merge } = require('lodash');
+const { get, pick, omit, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
 const { success } = require('../../common/routers');
@@ -86,20 +86,8 @@ module.exports = settings => {
         exemptions: !!((req.profile.exemptions && req.profile.exemptions.length) || skipExemptions)
       };
 
-      if (!sectionComplete.procedures) {
-        return next({ validation: { procedures: 'incomplete' } });
-      }
-
-      if (!sectionComplete.species) {
-        return next({ validation: { species: 'incomplete' } });
-      }
-
-      if (!sectionComplete.training) {
-        return next({ validation: { training: 'incomplete' } });
-      }
-
-      if (!sectionComplete.exemptions) {
-        return next({ validation: { exemptions: 'incomplete' } });
+      if (!every(sectionComplete, Boolean)) {
+        return next({ validation: { form: 'incomplete' } });
       }
 
       next();
