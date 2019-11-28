@@ -37,7 +37,7 @@ module.exports = () => {
   const app = Router();
 
   app.get('/', (req, res, next) => {
-    const values = req.version.data;
+    const values = req.version.data || {};
     const sections = Object.values(schema[req.project.schemaVersion]());
 
     renderer(req.project, sections, values, updateImageDimensions)
