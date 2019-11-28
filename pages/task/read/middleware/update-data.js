@@ -26,6 +26,11 @@ module.exports = (req, res, next) => {
     });
   }
 
+  if (model === 'pil' && action === 'transfer') {
+    // use the owning establishment id not the receiving establishment id
+    params.establishmentId = get(req.task, 'data.data.establishment.from.id');
+  }
+
   if (model === 'project') {
     if (action === 'grant') {
       model = 'projectVersion';

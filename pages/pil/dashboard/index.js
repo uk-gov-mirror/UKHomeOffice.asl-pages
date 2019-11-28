@@ -98,7 +98,10 @@ module.exports = settings => {
       res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
-      res.locals.static.canTransferPil = req.pil.status === 'active' && req.user.profile.id === req.profile.id; // can only transfer own (active) pil
+
+      // can only transfer own pil if it's active and has no in-progress amendment
+      const hasOpenAmendment = req.pil.status === 'active' && get(req.model, 'openTasks[0].data.action') === 'grant';
+      res.locals.static.canTransferPil = req.pil.status === 'active' && req.user.profile.id === req.profile.id && !hasOpenAmendment;
 
       next();
     }
