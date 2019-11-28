@@ -69,17 +69,8 @@ module.exports = merge({}, baseContent, {
     declarations: {
       customValidate: 'Please confirm that you understand'
     },
-    procedures: {
-      incomplete: 'Please complete the procedures section'
-    },
-    species: {
-      incomplete: 'Please complete the animal types section'
-    },
-    training: {
-      incomplete: 'Please complete the training section'
-    },
-    exemptions: {
-      incomplete: 'Please complete the exemptions section'
+    form: {
+      incomplete: 'Please complete all sections before submitting'
     }
   },
   declarations: {
