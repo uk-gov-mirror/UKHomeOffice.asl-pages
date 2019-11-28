@@ -1,5 +1,8 @@
+const { merge } = require('lodash');
 const { page } = require('@asl/service/ui');
+const { BadRequestError } = require('@asl/service/errors');
 const datatable = require('../../common/routers/datatable');
+const content = require('./content');
 const schema = require('./schema');
 
 module.exports = settings => {
@@ -24,6 +27,28 @@ module.exports = settings => {
       next();
     }
   })({ schema }));
+
+  app.post('/:invitationId/:action', (req, res, next) => {
+    const allowedActions = ['delete', 'resend', 'cancel'];
+
+    if (!allowedActions.includes(req.params.action)) {
+      return next(new BadRequestError('Unrecognised action'));
+    }
+
+    const { invitationId, action } = req.params;
+    const isDeletion = action === 'delete';
+    const params = {
+      method: isDeletion ? 'DELETE' : 'PUT'
+    };
+    const suffix = isDeletion ? '' : `/${action}`;
+    res.locals.static.content = merge({}, res.locals.static.content, content);
+    req.api(`/establishment/${req.establishmentId}/invitations/${invitationId}${suffix}`, params)
+      .then(() => req.notification({ key: action }))
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.post('/:invitationId/:action', (req, res) => res.redirect(req.buildRoute('profile.invitations')));
 
   return app;
 };

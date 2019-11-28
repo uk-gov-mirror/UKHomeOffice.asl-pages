@@ -70,6 +70,7 @@ const People = ({
   formatters = peopleFormatters,
   showFilters = true,
   activeTab = 0,
+  Actions,
   ...props
 }) => (
   <Fragment>
@@ -85,7 +86,7 @@ const People = ({
     {
       showFilters && <Filters />
     }
-    <Datatable formatters={formatters} />
+    <Datatable formatters={formatters} Actions={Actions} />
   </Fragment>
 );
 

@@ -28,6 +28,7 @@ module.exports = {
   },
   invitations: {
     path: '/invitations',
+    permissions: 'profile.invite',
     router: invitations
   }
 };
