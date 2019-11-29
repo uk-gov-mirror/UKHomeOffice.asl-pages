@@ -12,7 +12,11 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     const modelId = `${req.profileId}-certificate`;
-    req.model = Object.assign({}, req.session.form[modelId], buildModel(schema));
+    const savedModel = get(req.session, `form.${modelId}`);
+    if (!savedModel) {
+      return res.redirect(req.buildRoute('pil.update'));
+    }
+    req.model = Object.assign({}, savedModel, buildModel(schema));
     req.model.id = modelId;
     next();
   });

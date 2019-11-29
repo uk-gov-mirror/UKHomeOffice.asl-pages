@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { get } = require('lodash');
 const form = require('../../../common/routers/form');
 const { species: schema } = require('../schema/');
 const { buildModel } = require('../../../../lib/utils');
@@ -9,7 +10,11 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     const modelId = `${req.profileId}-certificate`;
-    req.model = Object.assign({}, req.session.form[modelId], buildModel(schema));
+    const savedModel = get(req.session, `form.${modelId}`);
+    if (!savedModel) {
+      return res.redirect(req.buildRoute('pil.update'));
+    }
+    req.model = Object.assign({}, savedModel, buildModel(schema));
     req.model.id = modelId;
     next();
   });
