@@ -32,7 +32,7 @@ module.exports = settings => {
     const allowedActions = ['delete', 'resend', 'cancel'];
 
     if (!allowedActions.includes(req.params.action)) {
-      return next(new BadRequestError('Unrecognised action'));
+      return next(new NotFoundError());
     }
 
     const { invitationId, action } = req.params;
