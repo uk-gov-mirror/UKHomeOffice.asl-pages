@@ -1,6 +1,6 @@
 const { merge } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { BadRequestError } = require('@asl/service/errors');
+const { NotFoundError } = require('@asl/service/errors');
 const datatable = require('../../common/routers/datatable');
 const content = require('./content');
 const schema = require('./schema');
