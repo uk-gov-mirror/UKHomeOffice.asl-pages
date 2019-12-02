@@ -9,12 +9,13 @@ import {
 } from '@asl/components';
 
 const connectComponent = key => {
-  const mapStateToProps = ({ model, static: { schema } }) => {
+  const mapStateToProps = ({ model, static: { schema, errors } }) => {
     schema = schema.accreditingBody.options.find(body => body.value === key).reveal;
 
     return {
       model,
-      schema
+      schema,
+      errors
     };
   };
 

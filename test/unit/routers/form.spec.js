@@ -367,10 +367,115 @@ describe('Form Router', () => {
           field2: 'type'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
+      });
+
+      test('includes reveal fields', done => {
+        const schema = {
+          field1: {
+            options: [
+              {
+                value: true,
+                reveal: {
+                  revealField: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: false
+              }
+            ]
+          }
+        };
+        req.body = {
+          field1: true
+        };
+        const expected = {
+          revealField: 'required'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+        form({ schema })(req, res);
+      });
+
+      test('includes multiple reveal fields', done => {
+        const schema = {
+          field1: {
+            options: [
+              {
+                value: 'first-val',
+                reveal: {
+                  reveal1: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: 'second-val',
+                reveal: {
+                  reveal2: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: 'third-val',
+                reveal: {
+                  reveal3: {
+                    validate: 'required'
+                  }
+                }
+              }
+            ]
+          },
+          field2: {
+            options: [
+              {
+                value: 'yes',
+                reveal: {
+                  reveal4: {
+                    validate: 'required'
+                  }
+                }
+              },
+              {
+                value: 'no'
+              }
+            ]
+          }
+        };
+        req.body = {
+          field1: ['first-val', 'third-val'],
+          field2: 'yes'
+        };
+        const expected = {
+          reveal1: 'required',
+          reveal3: 'required',
+          reveal4: 'required'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+        form({ schema })(req, res);
       });
 
       test('persists form values to session', done => {
@@ -379,8 +484,12 @@ describe('Form Router', () => {
           field2: 123
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].values).toEqual(req.body);
-          done();
+          try {
+            expect(req.session.form['test-model'].values).toEqual(req.body);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
@@ -396,8 +505,12 @@ describe('Form Router', () => {
           form: 'unchanged'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
@@ -414,8 +527,12 @@ describe('Form Router', () => {
           form: 'unchanged'
         };
         res.redirect = jest.fn().mockImplementation(() => {
-          expect(req.session.form['test-model'].validationErrors).toEqual(expected);
-          done();
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
         });
         formRouter(req, res);
       });
