@@ -20,7 +20,7 @@ describe('Form Router', () => {
     describe('setup', () => {
       test('adds a form property to request containing values, schema and validationErrors', done => {
         const schema = {
-          field: { options: {} }
+          field: { options: [] }
         };
         const expected = {
           schema,

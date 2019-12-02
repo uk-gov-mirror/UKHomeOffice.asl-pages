@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import mapKeys from 'lodash/mapKeys';
 import { connect } from 'react-redux';
 import {
   Snippet,
@@ -21,7 +20,7 @@ const connectComponent = key => {
       model,
       errors,
       option: key,
-      schema: mapKeys(schema, (v, k) => `module-${normalise(key)}-${k}`),
+      schema,
       modulesThatRequireSpecies
     };
 
