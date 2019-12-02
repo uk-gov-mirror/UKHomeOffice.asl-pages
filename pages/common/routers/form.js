@@ -34,7 +34,12 @@ const getOptionReveals = (schema, values) => {
     if (!field.options) {
       return obj;
     }
-    const selectedOptions = field.options.filter(opt => castArray(values[key]).includes(opt.value));
+    const selectedOptions = field.options.filter(opt => {
+      if (!values) {
+        return true;
+      }
+      return castArray(values[key]).includes(opt.value);
+    });
     return selectedOptions.reduce((o, opt) => {
       return {
         ...o,
@@ -159,7 +164,13 @@ module.exports = ({
     req.form.values = cleanModel(req.form.values);
 
     const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
-    Object.assign(req.form.values, { ...pick(req.body, conditionalRevealKeys) });
+    const revealKeys = Object.keys(getOptionReveals(req.form.schema, req.body));
+    Object.assign(req.form.values, {
+      ...pick(req.body, [
+        ...conditionalRevealKeys,
+        ...revealKeys
+      ])
+    });
     return process(req, res, next);
   };
 
@@ -231,7 +242,8 @@ module.exports = ({
 
   const _getValidationErrors = (req, res, next) => {
     const fields = Object.keys(schemaWithReveals(req.form.schema));
-    req.form.validationErrors = pick(req.session.form[req.model.id].validationErrors, [ ...fields, 'form' ]);
+    const reveals = Object.keys(getOptionReveals(req.form.schema));
+    req.form.validationErrors = pick(req.session.form[req.model.id].validationErrors, [ ...fields, ...reveals, 'form' ]);
     return getValidationErrors(req, res, next);
   };
 

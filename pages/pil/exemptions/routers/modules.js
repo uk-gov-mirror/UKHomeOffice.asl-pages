@@ -1,13 +1,11 @@
 const { Router } = require('express');
-const { omit, castArray } = require('lodash');
+const { castArray } = require('lodash');
 
 const form = require('../../../common/routers/form');
 const { buildModel, normalise } = require('../../../../lib/utils');
 const { processSpecies } = require('../../helpers');
 const { modules: schema } = require('../schema');
 const { moduleCodes } = require('@asl/constants');
-const { species } = require('@asl/constants');
-const content = require('../content/modules');
 
 const { modulesThatRequireSpecies } = require('../../constants');
 
@@ -32,39 +30,20 @@ module.exports = () => {
     next();
   });
 
-  app.use('/', form({
-    configure: (req, res, next) => {
-      req.form.schema = {
-        ...schema,
-        ...schema.modules.options.reduce((obj, val) => {
-          const normalisedModule = normalise(val.value);
+  app.post('/', (req, res, next) => {
+    next();
+  });
 
-          const type = {
-            ...obj,
-            [`module-${normalisedModule}-reason`]: val.reveal.reason,
-            [`module-${normalisedModule}-species`]: {
-              inputType: 'select',
-              options: species,
-              label: content.fields.species.label
-            }
-          };
-          return type;
-        }, {})
+  app.use('/', form({
+    schema,
+    process: (req, res, next) => {
+      req.form.values = {
+        ...req.form.values,
+        ...processSpecies(req)
       };
       next();
     },
-    process: (req, res, next) => {
-      Object.assign(
-        (req.form.values = {
-          ...req.form.values,
-          ...processSpecies(req)
-        })
-      );
-      next();
-    },
     locals: (req, res, next) => {
-      const revealValues = moduleCodes.map(code => `module-${normalise(code)}-reason`).concat(moduleCodes.map(code => `module-${normalise(code)}-species`));
-      res.locals.static.schema = omit(req.form.schema, revealValues);
       res.locals.static.modulesThatRequireSpecies = modulesThatRequireSpecies;
       Object.assign(
         res.locals.static.content.errors,
@@ -73,7 +52,7 @@ module.exports = () => {
             return {
               ...obj,
               [`module-${normalise(code)}-reason`]: {
-                customValidate: `${res.locals.static.content.errors.reason.customValidate} ${code}`
+                required: `${res.locals.static.content.errors.reason.required} ${code}`
               }
             };
           }, {})

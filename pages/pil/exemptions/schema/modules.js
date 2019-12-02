@@ -1,22 +1,16 @@
 const { moduleCodes } = require('@asl/constants');
 const { toArray } = require('../../../../lib/utils');
 const content = require('../content/modules');
+const { normalise } = require('../../../../lib/utils');
 
 const options = moduleCodes.map(module => {
   return {
     label: module,
     value: module,
     reveal: {
-      reason: {
+      [`module-${normalise(module)}-reason`]: {
         inputType: 'textarea',
-        validate: [{
-          customValidate: (field, model) => {
-            if (model.modules && model.modules.includes(module)) {
-              return !!field;
-            }
-            return true;
-          }
-        }],
+        validate: 'required',
         label: content.fields.reason.label
       }
     }
