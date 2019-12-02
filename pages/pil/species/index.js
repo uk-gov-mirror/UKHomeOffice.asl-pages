@@ -11,7 +11,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = merge({ id: `${req.pilId}-species` },
-      pick(req.pil, 'species'),
+      pick(req.model, 'species'),
       buildModel(schema)
     );
     next();
