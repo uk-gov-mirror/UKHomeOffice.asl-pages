@@ -12,7 +12,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     req.model = merge({ id: `${req.pilId}-procedures` },
-      pick(req.pil, 'procedures', 'notesCatD', 'notesCatF'),
+      pick(req.model, 'procedures', 'notesCatD', 'notesCatF'),
       buildModel(schema)
     );
     next();
