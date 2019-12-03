@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { ApplicationConfirm, ControlBar, Diff, ErrorSummary, Field, Header, Snippet } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
 import { hasChanged } from '../../../../lib/utils';
 import formatters from '../../formatters';
 import Authorisations from './authorisations';
 
-const Confirm = ({ model, values, csrfToken }) => {
+const Confirm = ({ model, values, csrfToken, requiresDeclaration }) => {
   return (
     <Fragment>
       <div className="govuk-grid-row">
@@ -35,7 +36,11 @@ const Confirm = ({ model, values, csrfToken }) => {
 
           <form method="POST">
             <input type="hidden" name="_csrf" value={csrfToken} />
-            <ApplicationConfirm />
+            {
+              requiresDeclaration
+                ? <ApplicationConfirm />
+                : <Button><Snippet>buttons.submit</Snippet></Button>
+            }
           </form>
         </div>
       </div>
@@ -43,6 +48,6 @@ const Confirm = ({ model, values, csrfToken }) => {
   );
 };
 
-const mapStateToProps = ({ model, static: { values, csrfToken } }) => ({ model, values, csrfToken });
+const mapStateToProps = ({ model, static: { values, csrfToken, requiresDeclaration } }) => ({ model, values, csrfToken, requiresDeclaration });
 
 export default connect(mapStateToProps)(Confirm);

@@ -2,6 +2,18 @@ module.exports = {
   pel: {
     amendment: {
       resubmitted: {
+        licensing: {
+          title: 'Licence updated',
+          body: `The establishment licence has been amended.
+
+            The establishment has been notified of this change.`
+        },
+        inspector: {
+          title: 'Licence amendment submitted',
+          body: `This amendment has been submitted to a licensing officer to process. They will be in touch if they need any more information.
+
+            The establishment has been notified of this request, and will be notified once the licence has been updated.`
+        },
         title: 'Amendment submitted',
         body: `An inspector will review your changes and contact you if they need any more information.
 
