@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   ApplicationConfirm,
   ControlBar,
-  ErrorSummary,
+  FormLayout,
   Header,
   Link,
   Snippet
@@ -11,67 +11,57 @@ import {
 import namedRoles from '../content/named-roles';
 
 const Confirm = ({
-  declarations,
   establishment,
   profile,
-  model,
-  errors = {},
-  csrfToken,
   values,
+  requiresDeclaration,
   ...props
 }) => {
   const editPath = props.action === 'remove' ? 'delete' : 'create';
 
   return (
-    <Fragment>
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
-          <ErrorSummary />
-          <Header title={<Snippet>reviewRoleApplication</Snippet>}/>
+    <FormLayout submit={!requiresDeclaration}>
+      <Header title={<Snippet>reviewRoleApplication</Snippet>}/>
+      <h2><Snippet>applyingFor</Snippet></h2>
+      <p>{namedRoles[values.type]}</p>
 
-          <h2><Snippet>applyingFor</Snippet></h2>
-          <p>{namedRoles[values.type]}</p>
+      <h2><Snippet>onBehalfOf</Snippet></h2>
+      <p>{`${profile.firstName} ${profile.lastName}`}</p>
 
-          <h2><Snippet>onBehalfOf</Snippet></h2>
-          <p>{`${profile.firstName} ${profile.lastName}`}</p>
+      { values.rcvsNumber &&
+        <Fragment>
+          <h2><Snippet>rcvsNumber</Snippet></h2>
+          <p>{values.rcvsNumber}</p>
+        </Fragment>
+      }
 
-          { values.rcvsNumber &&
-            <Fragment>
-              <h2><Snippet>rcvsNumber</Snippet></h2>
-              <p>{values.rcvsNumber}</p>
-            </Fragment>
-          }
+      <h2><Snippet>explanation</Snippet></h2>
+      <p>{values.comment}</p>
 
-          <h2><Snippet>explanation</Snippet></h2>
-          <p>{values.comment}</p>
+      <ControlBar>
+        <Link page="role" path={editPath} label={<Snippet>buttons.edit</Snippet>} />
+        <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} />
+      </ControlBar>
 
-          <ControlBar>
-            <Link page="role" path={editPath} label={<Snippet>buttons.edit</Snippet>} />
-            <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} />
-          </ControlBar>
-
-          <form method="POST">
-            <input type="hidden" name="_csrf" value={csrfToken} />
-            <ApplicationConfirm />
-          </form>
-
-        </div>
-      </div>
-    </Fragment>
+      {
+        requiresDeclaration && <ApplicationConfirm />
+      }
+    </FormLayout>
   );
 };
 
 const mapStateToProps = ({
-  model,
-  static: { establishment, profile, declarations, errors, values, csrfToken }
+  static: {
+    establishment,
+    profile,
+    values,
+    requiresDeclaration
+  }
 }) => ({
   establishment,
   profile,
-  model,
-  declarations,
-  errors,
-  csrfToken,
-  values
+  values,
+  requiresDeclaration
 });
 
 export default connect(mapStateToProps)(Confirm);
