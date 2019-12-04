@@ -70,9 +70,29 @@ const clearSessionIfNotFromTask = () => (req, res, next) => {
   next();
 };
 
+const populateNamedPeople = (req, res, next) => {
+  if (req.establishment) {
+    const pelh = req.establishment.roles.find(r => r.type === 'pelh');
+    const nprc = req.establishment.roles.find(r => r.type === 'nprc');
+
+    if (pelh) {
+      req.establishment.pelh = pelh.profile;
+    }
+    if (nprc && (!pelh || nprc.profile.id !== pelh.profile.id)) {
+      req.establishment.nprc = nprc.profile;
+    }
+
+    ['holc', 'nacwo', 'nio', 'nvs', 'ntco'].map(roleName => {
+      req.establishment[roleName] = get(req.establishment.roles.find(r => r.type === roleName), 'profile');
+    });
+  }
+  next();
+};
+
 module.exports = {
   hydrate,
   updateDataFromTask,
   redirectToTaskIfOpen,
-  clearSessionIfNotFromTask
+  clearSessionIfNotFromTask,
+  populateNamedPeople
 };

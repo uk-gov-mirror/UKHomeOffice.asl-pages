@@ -1,5 +1,13 @@
 module.exports = {
   pel: {
+    application: {
+      'with-inspectorate': {
+        title: 'Application submitted',
+        body: `An inspector will review your application and contact you if they need any more information.
+
+          You will be notified by the Home Office when your application is approved or rejected.`
+      }
+    },
     amendment: {
       resubmitted: {
         title: 'Amendment submitted',

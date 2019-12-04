@@ -38,6 +38,7 @@ const Index = ({
 }) => {
   const inspectors = establishment.asru.filter(p => p.asruInspector);
   const spocs = establishment.asru.filter(p => p.asruLicensing);
+  const openApplication = establishment.openTasks.find(task => task.data.model === 'establishment' && task.data.action === 'grant');
 
   return (
     <Fragment>
@@ -49,11 +50,22 @@ const Index = ({
           <PanelList
             panels={links.filter(link => allowedActions.includes(link.permissions)).map((link, index) => <DashboardLink key={index} { ...link } />)}
           />
+          {
+            establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication &&
+              <Link page="establishment.apply" label={<Snippet>buttons.establishment.apply</Snippet>} className="govuk-button" />
+          }
+          {
+            allowedActions.includes('establishment.update') && openApplication &&
+              <Fragment>
+                <p><Snippet>applicationInProgress</Snippet></p>
+                <p><Link page="task.read" className="govuk-button button-secondary" taskId={openApplication.id} label="View task" /></p>
+              </Fragment>
+          }
         </div>
         <Sidebar>
           <dl>
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-            <dd>{ establishment.licenceNumber }</dd>
+            <dd>{ establishment.licenceNumber || '-' }</dd>
 
             {
               establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />

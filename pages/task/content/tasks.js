@@ -24,6 +24,7 @@ module.exports = {
     revoke: 'PPL revocation'
   },
   establishment: {
+    grant: 'Establishment application',
     update: 'Establishment amendment',
     revoke: 'PEL revocation',
     'update-conditions': 'Update conditions'

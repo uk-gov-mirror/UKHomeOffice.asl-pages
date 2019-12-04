@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { merge, set, unset, get } = require('lodash');
 
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
+const { populateNamedPeople } = require('../../../common/middleware');
 const form = require('../../../common/routers/form');
 const getSchema = require('../../schema/view');
 const { cleanModel } = require('../../../../lib/utils');
@@ -74,6 +75,8 @@ module.exports = () => {
     }
     next();
   });
+
+  app.use(populateNamedPeople);
 
   // get nacwo profile if place model
   app.use((req, res, next) => {
@@ -163,9 +166,16 @@ module.exports = () => {
     }
     if (model === 'role' || model === 'profile' || model === 'place') {
       req.task.type = 'amendment';
-    } else {
-      req.task.type = get(req.task, 'data.modelData.status') === 'active' ? 'amendment' : 'application';
+      return next();
     }
+
+    if (model === 'establishment' && req.task.data.action === 'update') {
+      req.task.type = 'amendment';
+      return next();
+    }
+
+    req.task.type = get(req.task, 'data.modelData.status') === 'active' ? 'amendment' : 'application';
+
     next();
   });
 

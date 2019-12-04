@@ -332,3 +332,15 @@ p.spoc {
     cursor: pointer;
   }
 }
+
+.establishment-apply {
+  section {
+    border-bottom: 1px solid govuk-colour('grey-1');
+    padding: $govuk-gutter 0;
+    overflow: auto;
+  }
+
+  .application-confirm {
+    margin-top: $govuk-gutter * 2;
+  }
+}
