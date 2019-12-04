@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import pick from 'lodash/pick';
 import { Header, Snippet, OpenTaskWarning, ErrorSummary, Link, Fieldset, ApplicationConfirm } from '@asl/components';
@@ -6,8 +6,6 @@ import LicensedToCarryOut from '../../components/licensed-to-carry-out';
 import NamedPeople from '../../components/named-people';
 
 const Index = ({ model, establishment, schema, csrfToken }) => {
-  console.log(establishment);
-
   return (
     <div className="govuk-grid-row establishment-apply">
       <div className="govuk-grid-column-three-quarters">

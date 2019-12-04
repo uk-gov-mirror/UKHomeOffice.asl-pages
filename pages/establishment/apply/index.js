@@ -30,8 +30,6 @@ module.exports = settings => {
       }
     };
 
-    console.log(opts);
-
     return req.api(`/establishment/${req.establishmentId}/grant`, opts)
       .then(() => delete req.session.form[req.model.id])
       .then(() => res.redirect(req.buildRoute('establishment.apply', { suffix: 'success' })))
