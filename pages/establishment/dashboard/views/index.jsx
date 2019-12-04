@@ -75,16 +75,21 @@ const Index = ({
               establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
             }
 
-            <dt><Snippet>holc</Snippet></dt>
-            <dd>
-              {
-                !!establishment.holc.length && establishment.holc.map(holc => (
-                  <p key={holc.id} className="holc">
-                    <Link page="globalProfile" profileId={holc.id} label={`${holc.firstName} ${holc.lastName}`} />
-                  </p>
-                ))
-              }
-            </dd>
+            {
+              !!establishment.holc.length &&
+                <Fragment>
+                  <dt><Snippet>holc</Snippet></dt>
+                  <dd>
+                    {
+                      establishment.holc.map(holc => (
+                        <p key={holc.id} className="holc">
+                          <Link page="globalProfile" profileId={holc.id} label={`${holc.firstName} ${holc.lastName}`} />
+                        </p>
+                      ))
+                    }
+                  </dd>
+                </Fragment>
+            }
 
             <dt><Snippet>inspectors</Snippet></dt>
             <dd>
