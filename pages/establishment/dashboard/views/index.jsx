@@ -39,6 +39,7 @@ const Index = ({
   const inspectors = establishment.asru.filter(p => p.asruInspector);
   const spocs = establishment.asru.filter(p => p.asruLicensing);
   const openApplication = establishment.openTasks.find(task => task.data.model === 'establishment' && task.data.action === 'grant');
+  const canApply = establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication;
 
   return (
     <Fragment>
@@ -51,7 +52,7 @@ const Index = ({
             panels={links.filter(link => allowedActions.includes(link.permissions)).map((link, index) => <DashboardLink key={index} { ...link } />)}
           />
           {
-            establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication &&
+            canApply &&
               <Link page="establishment.apply" label={<Snippet>buttons.establishment.apply</Snippet>} className="govuk-button" />
           }
           {
