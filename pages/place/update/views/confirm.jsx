@@ -10,6 +10,7 @@ import {
   ControlBar,
   ApplicationConfirm
 } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
 import LicenceHolder from '../../../common/components/licence-holder';
@@ -20,6 +21,7 @@ const Confirm = ({
   values,
   model,
   csrfToken,
+  requiresDeclaration,
   establishment: {
     name,
     licenceNumber,
@@ -89,7 +91,11 @@ const Confirm = ({
 
         <form method="POST">
           <input type="hidden" name="_csrf" value={csrfToken} />
-          <ApplicationConfirm />
+          {
+            requiresDeclaration
+              ? <ApplicationConfirm />
+              : <Button><Snippet>buttons.submit</Snippet></Button>
+          }
         </form>
 
       </div>
@@ -97,6 +103,6 @@ const Confirm = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ model, static: { establishment, errors, values, csrfToken } }) => ({ establishment, model, errors, csrfToken, values });
+const mapStateToProps = ({ model, static: { establishment, errors, values, csrfToken, requiresDeclaration } }) => ({ establishment, model, errors, csrfToken, values, requiresDeclaration });
 
 export default connect(mapStateToProps)(Confirm);

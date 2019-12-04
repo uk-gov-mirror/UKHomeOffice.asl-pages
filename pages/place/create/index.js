@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const schema = require('../schema');
+const { schema } = require('../schema');
 const { buildModel } = require('../../../lib/utils');
 const create = require('./routers/create');
 const confirm = require('./routers/confirm');

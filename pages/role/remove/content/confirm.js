@@ -12,7 +12,7 @@ module.exports = merge({}, baseContent, {
     declaration1: `Applicant authority, conflict of interests and PELh authority declaration text to go here`
   },
   buttons: {
-    submit: 'Submit to ASRU'
+    submit: 'Submit'
   },
   errors: {
     declarations: {

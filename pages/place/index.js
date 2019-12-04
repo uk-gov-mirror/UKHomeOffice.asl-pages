@@ -6,7 +6,10 @@ module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.param('placeId', (req, res, next, placeId) => {
-    return req.api(`/establishment/${req.establishmentId}/place/${placeId}`)
+    const params = req.path.match(/delete\/success$/)
+      ? { query: { withDeleted: true } }
+      : {};
+    return req.api(`/establishment/${req.establishmentId}/place/${placeId}`, params)
       .then(({ json: { data, meta } }) => {
         req.placeId = placeId;
         res.locals.static.establishment = meta.establishment;

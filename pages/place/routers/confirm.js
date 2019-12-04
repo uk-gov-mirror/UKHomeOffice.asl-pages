@@ -27,46 +27,53 @@ module.exports = settings => {
 
   app.post('/', updateDataFromTask(sendData));
 
-  app.use(form(Object.assign({
-    model: 'place',
-    schema: declarationsSchema,
-    saveValues: (req, res, next) => {
-      delete req.session.form[req.model.id].values.declarations;
-      next();
-    },
-    locals: (req, res, next) => {
-      Object.assign(res.locals, { model: req.model });
-      Promise.all([
-        getEstablishment(req),
-        getNacwoById(req, req.form.values.nacwo)
-      ])
-        .then(([establishment, nacwo]) => {
-          Object.assign(res.locals.static, {
-            establishment,
-            schema: Object.assign({}, schema, declarationsSchema),
-            values: {
-              ...req.session.form[req.model.id].values,
-              nacwo
-            }
-          });
-        })
-        .then(() => next())
-        .catch(next);
-    },
-    checkSession: (req, res, next) => {
-      if (req.session.form && req.session.form[req.model.id]) {
-        return next();
+  app.use(
+    form(Object.assign({
+      model: 'place',
+      configure(req, res, next) {
+        req.form.requiresDeclaration = !req.user.profile.asruUser;
+        req.form.schema = req.form.requiresDeclaration ? declarationsSchema : {};
+        next();
+      },
+      saveValues: (req, res, next) => {
+        delete req.session.form[req.model.id].values.declarations;
+        next();
+      },
+      locals: (req, res, next) => {
+        Object.assign(res.locals, { model: req.model });
+        Promise.all([
+          getEstablishment(req),
+          getNacwoById(req, req.form.values.nacwo)
+        ])
+          .then(([establishment, nacwo]) => {
+            Object.assign(res.locals.static, {
+              establishment,
+              schema: Object.assign({}, schema, req.form.requiresDeclaration ? declarationsSchema : {}),
+              requiresDeclaration: req.form.requiresDeclaration,
+              values: {
+                ...req.session.form[req.model.id].values,
+                nacwo
+              }
+            });
+          })
+          .then(() => next())
+          .catch(next);
+      },
+      checkSession: (req, res, next) => {
+        if (req.session.form && req.session.form[req.model.id]) {
+          return next();
+        }
+        return res.redirect(req.buildRoute(settings.page));
+      },
+      editAnswers: (req, res, next) => {
+        delete req.session.form[req.model.id].validationErrors;
+        return res.redirect(req.buildRoute(settings.page));
+      },
+      cancelEdit: (req, res, next) => {
+        return res.redirect(req.buildRoute('place.list'));
       }
-      return res.redirect(req.buildRoute(settings.page));
-    },
-    editAnswers: (req, res, next) => {
-      delete req.session.form[req.model.id].validationErrors;
-      return res.redirect(req.buildRoute(settings.page));
-    },
-    cancelEdit: (req, res, next) => {
-      return res.redirect(req.buildRoute('place.list'));
-    }
-  }, settings)));
+    }, settings))
+  );
 
   app.post('/', redirectToTaskIfOpen());
 
