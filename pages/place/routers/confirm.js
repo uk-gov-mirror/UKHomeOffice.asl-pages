@@ -27,16 +27,12 @@ module.exports = settings => {
 
   app.post('/', updateDataFromTask(sendData));
 
-  app.use((req, res, next) => {
-    req.requiresDeclaration = !req.user.profile.asruUser;
-    next();
-  });
-
   app.use(
     form(Object.assign({
       model: 'place',
       configure(req, res, next) {
-        req.form.schema = req.requiresDeclaration ? declarationsSchema : {};
+        req.form.requiresDeclaration = !req.user.profile.asruUser;
+        req.form.schema = req.form.requiresDeclaration ? declarationsSchema : {};
         next();
       },
       saveValues: (req, res, next) => {
@@ -52,8 +48,8 @@ module.exports = settings => {
           .then(([establishment, nacwo]) => {
             Object.assign(res.locals.static, {
               establishment,
-              schema: Object.assign({}, schema, req.requiresDeclaration ? declarationsSchema : {}),
-              requiresDeclaration: req.requiresDeclaration,
+              schema: Object.assign({}, schema, req.form.requiresDeclaration ? declarationsSchema : {}),
+              requiresDeclaration: req.form.requiresDeclaration,
               values: {
                 ...req.session.form[req.model.id].values,
                 nacwo

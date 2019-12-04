@@ -8,15 +8,11 @@ module.exports = settings => {
 
   app.post('/', updateDataFromTask(settings.sendData));
 
-  app.use((req, res, next) => {
-    req.requiresDeclaration = !req.user.profile.asruUser;
-    next();
-  });
-
   app.use('/', form({
     model: 'role-confirm',
     configure(req, res, next) {
-      req.form.schema = req.requiresDeclaration ? schema : {};
+      req.form.requiresDeclaration = !req.user.profile.asruUser;
+      req.form.schema = req.form.requiresDeclaration ? schema : {};
       next();
     },
     locals: (req, res, next) => {
@@ -26,7 +22,7 @@ module.exports = settings => {
         values: {
           ...req.session.form[req.model.id].values
         },
-        requiresDeclaration: req.requiresDeclaration
+        requiresDeclaration: req.form.requiresDeclaration
       });
       next();
     },
