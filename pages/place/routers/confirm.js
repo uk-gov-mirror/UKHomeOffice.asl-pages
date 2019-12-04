@@ -28,10 +28,17 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use((req, res, next) => {
-    const requiresDeclaration = !req.user.profile.asruUser;
+    req.requiresDeclaration = !req.user.profile.asruUser;
+    next();
+  });
+
+  app.use(
     form(Object.assign({
       model: 'place',
-      schema: requiresDeclaration ? declarationsSchema : {},
+      configure(req, res, next) {
+        req.form.schema = req.requiresDeclaration ? declarationsSchema : {};
+        next();
+      },
       saveValues: (req, res, next) => {
         delete req.session.form[req.model.id].values.declarations;
         next();
@@ -45,7 +52,8 @@ module.exports = settings => {
           .then(([establishment, nacwo]) => {
             Object.assign(res.locals.static, {
               establishment,
-              schema: Object.assign({}, schema, requiresDeclaration ? declarationsSchema : {}),
+              schema: Object.assign({}, schema, req.requiresDeclaration ? declarationsSchema : {}),
+              requiresDeclaration: req.requiresDeclaration,
               values: {
                 ...req.session.form[req.model.id].values,
                 nacwo
@@ -68,8 +76,8 @@ module.exports = settings => {
       cancelEdit: (req, res, next) => {
         return res.redirect(req.buildRoute('place.list'));
       }
-    }, settings))(req, res, next);
-  });
+    }, settings))
+  );
 
   app.post('/', redirectToTaskIfOpen());
 
