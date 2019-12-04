@@ -83,7 +83,7 @@ const populateNamedPeople = (req, res, next) => {
     }
 
     ['holc', 'nacwo', 'nio', 'nvs', 'ntco'].map(roleName => {
-      req.establishment[roleName] = get(req.establishment.roles.find(r => r.type === roleName), 'profile');
+      req.establishment[roleName] = req.establishment.roles.filter(r => r.type === roleName).map(r => r.profile);
     });
   }
   next();
