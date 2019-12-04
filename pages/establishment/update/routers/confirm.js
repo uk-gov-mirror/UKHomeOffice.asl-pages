@@ -31,15 +31,11 @@ module.exports = () => {
 
   app.post('/', updateDataFromTask(sendData));
 
-  app.use((req, res, next) => {
-    req.requiresDeclaration = !req.user.profile.asruUser;
-    next();
-  });
-
   app.use(form({
     model: 'establishment',
     configure(req, res, next) {
-      req.form.schema = req.requiresDeclaration ? declarationsSchema : {};
+      req.form.requiresDeclaration = !req.user.profile.asruUser;
+      req.form.schema = req.form.requiresDeclaration ? declarationsSchema : {};
       next();
     },
     saveValues: (req, res, next) => {
@@ -51,7 +47,7 @@ module.exports = () => {
       Object.assign(res.locals.static, {
         schema: Object.assign({}, schema, declarationsSchema),
         values: req.session.form[req.model.id].values,
-        requiresDeclaration: req.requiresDeclaration
+        requiresDeclaration: req.form.requiresDeclaration
       });
       next();
     },
