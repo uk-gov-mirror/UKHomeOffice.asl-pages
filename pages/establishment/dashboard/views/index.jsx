@@ -56,7 +56,7 @@ const Index = ({
               <Link page="establishment.apply" label={<Snippet>buttons.establishment.apply</Snippet>} className="govuk-button" />
           }
           {
-            allowedActions.includes('establishment.update') && openApplication &&
+            openApplication &&
               <Fragment>
                 <p><Snippet>applicationInProgress</Snippet></p>
                 <p><Link page="task.read" className="govuk-button button-secondary" taskId={openApplication.id} label="View task" /></p>
