@@ -49,11 +49,36 @@ const getOptionReveals = (schema, values) => {
   }, {});
 };
 
-const flattenNested = (data, schema) => {
+const getFormValues = (data, schema) => {
   return mapValues(data, (value, key) => {
     const accessor = get(schema, `${key}.accessor`);
+    if (typeof accessor === 'function') {
+      return accessor(data);
+    }
     return get(value, accessor, value);
   });
+};
+
+const getPseudoFields = (data, schema) => {
+  const keys = Object.keys(schema).filter(key => !Object.keys(data).includes(key));
+  return keys.reduce((obj, key) => {
+    const options = schema[key];
+    if (!options.getValue) {
+      return obj;
+    }
+
+    return {
+      ...obj,
+      [key]: options.getValue(data)
+    };
+  }, {});
+};
+
+const pickValues = (values, schema) => {
+  return {
+    ...getFormValues(values, schema),
+    ...getPseudoFields(values, schema)
+  };
 };
 
 const getConditionalRevealKeys = schema => chain(schema)
@@ -92,6 +117,7 @@ module.exports = ({
   process = defaultMiddleware,
   validate = defaultMiddleware,
   saveValues = defaultMiddleware,
+  requiresDeclaration = req => false,
   cancelEdit = (req, res, next) => {
     return res.redirect(cancelPath);
   },
@@ -107,6 +133,12 @@ module.exports = ({
     req.session.form = req.session.form || {};
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
     req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
+    if (requiresDeclaration(req)) {
+      req.form.schema.declaration = {
+        inputType: 'declaration',
+        validate: 'required'
+      };
+    }
     return configure(req, res, next);
   };
 
@@ -144,8 +176,8 @@ module.exports = ({
 
   const _getValues = (req, res, next) => {
     req.form.values = cleanModel(Object.assign(
-      flattenNested(req.model, req.form.schema),
-      req.session.form[req.model.id].values
+      pickValues(req.model, req.form.schema),
+      pickValues(req.session.form[req.model.id].values, req.form.schema)
     ));
     return getValues(req, res, next);
   };
@@ -158,7 +190,7 @@ module.exports = ({
     });
     req.form.values = mapValues(req.form.values, (value, key) => {
       const format = req.form.schema[key].format || identity;
-      return format(value);
+      return format(value, req.form.values);
     });
     req.form.values = mapValues(req.form.values, trim);
     req.form.values = cleanModel(req.form.values);

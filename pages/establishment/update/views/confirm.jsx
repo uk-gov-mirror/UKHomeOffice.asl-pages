@@ -1,53 +1,47 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { ApplicationConfirm, ControlBar, Diff, ErrorSummary, Field, Header, Snippet } from '@asl/components';
-import { Button } from '@ukhomeoffice/react-components';
+import { ControlBar, Diff, Field, Header, Snippet, FormLayout } from '@asl/components';
 import { hasChanged } from '../../../../lib/utils';
+import schema from '../schema';
 import formatters from '../../formatters';
 import Authorisations from './authorisations';
 
-const Confirm = ({ model, values, csrfToken, requiresDeclaration }) => {
+const Confirm = ({ before, after }) => {
   return (
-    <Fragment>
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
-          <ErrorSummary />
+    <FormLayout>
+      <Header
+        title={<Snippet>pages.establishment.confirm</Snippet>}
+        subtitle={<Snippet>subtitle</Snippet>}
+      />
 
-          <Header title={<Snippet>pages.establishment.confirm</Snippet>} />
-          <h2><Snippet>subtitle</Snippet></h2>
+      <Diff
+        schema={schema}
+        before={before}
+        after={after}
+        comparator={hasChanged}
+        formatters={formatters}
+      />
 
-          <Diff comparator={hasChanged} formatters={formatters} />
+      <Authorisations before={before} after={after} />
 
-          <Authorisations model={model} values={values} />
+      {
+        after && after.comments && (
+          <Field
+            title={<Snippet>fields.comments.label</Snippet>}
+            content={after.comments}
+          />
+        )
+      }
 
-          {
-            values && values.comments && (
-              <Field
-                title={<Snippet>fields.comments.label</Snippet>}
-                content={values.comments}
-              />
-            )
-          }
+      <ControlBar>
+        <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
+        <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
+      </ControlBar>
 
-          <ControlBar>
-            <a href="?edit=true"><Snippet>buttons.edit</Snippet></a>
-            <a href="?clear=true"><Snippet>buttons.cancel</Snippet></a>
-          </ControlBar>
-
-          <form method="POST">
-            <input type="hidden" name="_csrf" value={csrfToken} />
-            {
-              requiresDeclaration
-                ? <ApplicationConfirm />
-                : <Button><Snippet>buttons.submit</Snippet></Button>
-            }
-          </form>
-        </div>
-      </div>
-    </Fragment>
+    </FormLayout>
   );
 };
 
-const mapStateToProps = ({ model, static: { values, csrfToken, requiresDeclaration } }) => ({ model, values, csrfToken, requiresDeclaration });
+const mapStateToProps = ({ static: { before, after } }) => ({ before, after });
 
 export default connect(mapStateToProps)(Confirm);

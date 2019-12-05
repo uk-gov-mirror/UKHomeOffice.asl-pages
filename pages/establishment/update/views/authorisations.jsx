@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { Inset, Snippet } from '@asl/components';
 
-const Authorisations = ({model, values}) => {
-  const currentKillingAuthorisations = model.authorisations.filter(a => a.type === 'killing');
-  const currentRehomeAuthorisations = model.authorisations.filter(a => a.type === 'rehomes');
+const Authorisations = ({ before, after }) => {
+  const currentKillingAuthorisations = before.authorisations.filter(a => a.type === 'killing');
+  const currentRehomeAuthorisations = before.authorisations.filter(a => a.type === 'rehomes');
   const hasCurrentAuthorisations = currentKillingAuthorisations.length > 0 || currentRehomeAuthorisations.length > 0;
 
-  const proposedKillingAuthorisations = values.authorisations.filter(a => a.type === 'killing');
-  const proposedRehomeAuthorisations = values.authorisations.filter(a => a.type === 'rehomes');
+  const proposedKillingAuthorisations = after.authorisations.filter(a => a.type === 'killing');
+  const proposedRehomeAuthorisations = after.authorisations.filter(a => a.type === 'rehomes');
   const hasProposedAuthorisations = proposedKillingAuthorisations.length > 0 || proposedRehomeAuthorisations.length > 0;
 
   return (

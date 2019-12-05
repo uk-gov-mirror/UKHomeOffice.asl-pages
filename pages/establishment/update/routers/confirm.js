@@ -2,14 +2,12 @@ const { Router } = require('express');
 const { pick, merge } = require('lodash');
 const form = require('../../../common/routers/form');
 const schema = require('../schema');
-const declarationsSchema = require('../schema/declarations');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
-const { ungroupFlags } = require('../helpers');
 
 module.exports = () => {
 
   const sendData = (req, params = {}) => {
-    const values = ungroupFlags(req.session.form[req.model.id].values);
+    const values = req.session.form[req.model.id].values;
 
     values.authorisations = values.authorisations.map(authorisation => ({
       ...authorisation,
@@ -32,25 +30,7 @@ module.exports = () => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    model: 'establishment',
-    configure(req, res, next) {
-      req.form.requiresDeclaration = !req.user.profile.asruUser;
-      req.form.schema = req.form.requiresDeclaration ? declarationsSchema : {};
-      next();
-    },
-    saveValues: (req, res, next) => {
-      delete req.session.form[req.model.id].values.declarations;
-      next();
-    },
-    locals: (req, res, next) => {
-      Object.assign(res.locals, { model: req.model });
-      Object.assign(res.locals.static, {
-        schema: Object.assign({}, schema, declarationsSchema),
-        values: req.session.form[req.model.id].values,
-        requiresDeclaration: req.form.requiresDeclaration
-      });
-      next();
-    },
+    requiresDeclaration: req => !req.user.profile.isAsru,
     checkSession: (req, res, next) => {
       if (req.session.form && req.session.form[req.model.id]) {
         return next();
@@ -66,6 +46,15 @@ module.exports = () => {
       return res.redirect(req.buildRoute('establishment.read'));
     }
   }));
+
+  app.get('/', (req, res, next) => {
+    Object.assign(res.locals.static, {
+      diffSchema: schema,
+      before: req.model,
+      after: req.session.form[req.model.id].values
+    });
+    next();
+  });
 
   app.post('/', redirectToTaskIfOpen());
 

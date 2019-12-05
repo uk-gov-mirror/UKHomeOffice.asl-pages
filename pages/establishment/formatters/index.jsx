@@ -1,7 +1,7 @@
 import capitalize from 'lodash/capitalize';
 
 const listFormatter = list => {
-  if (list.length < 1) {
+  if (!list || list.length < 1) {
     return 'None selected';
   }
 

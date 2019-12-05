@@ -52,11 +52,9 @@ module.exports = merge({}, baseContent, {
       label: 'Procedure category'
     },
     declaration: {
-      yes: {
-        label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
-          1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
-          provide information which you know to be false or misleading.`
-      }
+      label: `The terms and conditions under which you may hold a licence under the Animals Scientific Procedure Act
+        1986, and that you may be guilty of an offence if for the purpose of obtaining a licence under this Act you
+        provide information which you know to be false or misleading.`
     },
     name: {
       label: 'Establishment name'
@@ -66,14 +64,14 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    declarations: {
+    declaration: {
       customValidate: 'Please confirm that you understand'
     },
     form: {
       incomplete: 'Please complete all sections before submitting'
     }
   },
-  declarations: {
+  declaration: {
     title: 'Please confirm that you understand'
   },
   buttons: {

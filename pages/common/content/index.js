@@ -136,12 +136,20 @@ module.exports = {
     cancel: 'Cancel',
     delete: 'Delete'
   },
+  fields: {
+    declaration: {
+      label: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
+    }
+  },
   errors: {
     heading: 'Please fix the following error',
     headingPlural: 'Please fix the following errors',
     form: {
       unchanged: 'No changes have been made',
       csrf: 'This form data has been changed somewhere else.'
+    },
+    declaration: {
+      required: 'Please confirm that you understand.'
     }
   },
   countdown: {

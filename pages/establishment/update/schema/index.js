@@ -1,4 +1,6 @@
 const content = require('../content');
+const { toArray } = require('../../../../lib/utils');
+const { uniq } = require('lodash');
 
 const licenceOptions = ['supplying', 'breeding', 'procedure'];
 const authorisationTypeOptions = ['killing', 'rehomes'];
@@ -32,6 +34,8 @@ module.exports = {
         definedValues: licenceOptions
       }
     ],
+    getValue: model => licenceOptions.filter(licence => model[licence]),
+    format: toArray,
     nullValue: []
   },
   authorisationTypes: {
@@ -46,7 +50,14 @@ module.exports = {
         definedValues: authorisationTypeOptions
       }
     ],
+    getValue: model => uniq((model.authorisations || []).map(authorisation => authorisation.type)),
+    format: toArray,
     nullValue: [],
+    showDiff: false
+  },
+  comments: {
+    inputType: 'textarea',
+    validate: 'required',
     showDiff: false
   }
 };

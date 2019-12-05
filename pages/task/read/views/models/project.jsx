@@ -143,7 +143,12 @@ export default function Project({ task, schema }) {
       task.data.action === 'update' && (
         <StickyNavAnchor id="licence-holder" key="licence-holder">
           <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
-          <Diff values={{ licenceHolder: task.data.licenceHolder }} model={project} schema={pick(projectSchema, 'licenceHolder')} formatters={formatters} />
+          <Diff
+            before={project}
+            after={{ licenceHolder: task.data.licenceHolder }}
+            schema={pick(projectSchema, 'licenceHolder')}
+            formatters={formatters}
+          />
         </StickyNavAnchor>
       )
     ),
