@@ -47,7 +47,7 @@ const Confirm = ({
       action === 'create' || action === 'delete'
         ? (
           <Fragment>
-            <ModelSummary formatters={formatters} />
+            <ModelSummary formatters={formatters} schema={schema} />
             <hr />
           </Fragment>
         )

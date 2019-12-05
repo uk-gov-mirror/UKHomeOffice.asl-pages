@@ -175,10 +175,10 @@ module.exports = ({
   };
 
   const _getValues = (req, res, next) => {
-    req.form.values = cleanModel(Object.assign(
-      pickValues(req.model, req.form.schema),
-      pickValues(req.session.form[req.model.id].values, req.form.schema)
-    ));
+    req.form.values = cleanModel(pickValues(req.model, req.form.schema));
+    if (req.session.form[req.model.id].values) {
+      Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].values, req.form.schema)));
+    }
     return getValues(req, res, next);
   };
 

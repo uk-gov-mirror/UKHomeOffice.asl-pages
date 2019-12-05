@@ -20,8 +20,5 @@ module.exports = {
   changesToRestrictions: {
     required: 'Describe the changes you would like to make to the restrictions.',
     customValidate: 'Describe the changes you would like to make to the restrictions.'
-  },
-  declaration: {
-    required: 'Please confirm that you understand'
   }
 };

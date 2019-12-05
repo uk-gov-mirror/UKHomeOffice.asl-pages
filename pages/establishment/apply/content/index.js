@@ -39,28 +39,15 @@ module.exports = {
       actions: {
         add: 'Add {{role}}'
       }
-    },
-    comments: {
-      title: 'Comments',
-      hint: 'Comments can be seen by inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task'
     }
   },
   fields: {
     comments: {
-      label: ''
+      label: 'Comments',
+      hint: 'Comments can be seen by inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task'
     },
     declaration: {
-      yes: {
-        label: 'By submitting this application, I confirm that the establishment will be responsible for the payment of fees for all relevant licences held at this establishment, should this application be successful.'
-      }
-    }
-  },
-  declarations: {
-    title: 'Please confirm that you understand'
-  },
-  errors: {
-    declarations: {
-      customValidate: 'Please confirm that you understand'
+      label: 'By submitting this application, I confirm that the establishment will be responsible for the payment of fees for all relevant licences held at this establishment, should this application be successful.'
     }
   }
 };

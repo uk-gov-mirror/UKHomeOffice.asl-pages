@@ -64,15 +64,9 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    declaration: {
-      customValidate: 'Please confirm that you understand'
-    },
     form: {
       incomplete: 'Please complete all sections before submitting'
     }
-  },
-  declaration: {
-    title: 'Please confirm that you understand'
   },
   buttons: {
     submit: 'Submit to NTCO',

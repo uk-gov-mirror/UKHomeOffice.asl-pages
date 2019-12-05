@@ -10,7 +10,7 @@ function ungroupFlags(values) {
   const flags = licenceOptions.reduce((obj, licence) => {
     return {
       ...obj,
-      [licence]: values.licences.includes(licence)
+      [licence]: (values.licences || []).includes(licence)
     };
   }, {});
   return {
@@ -68,7 +68,6 @@ module.exports = () => {
       req.session.form[req.model.id].values = ungroupFlags(req.session.form[req.model.id].values);
       // remove pseudoFields
       delete req.session.form[req.model.id].values.licences;
-      console.log(req.session.form[req.model.id].values);
       next();
     }
   }));

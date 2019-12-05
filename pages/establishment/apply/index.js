@@ -17,7 +17,10 @@ module.exports = settings => {
     next();
   });
 
-  app.use(form({schema}));
+  app.use(form({
+    schema,
+    requiresDeclaration: req => true
+  }));
 
   app.post('/', (req, res, next) => {
     const opts = {

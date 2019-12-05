@@ -25,9 +25,6 @@ module.exports = {
   nacwo: {
     label: 'NACWO'
   },
-  declaration: {
-    label: 'Declaration'
-  },
   restrictions: {
     label: 'Restrictions'
   },
