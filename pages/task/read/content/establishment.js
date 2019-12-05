@@ -2,7 +2,9 @@ const authorisations = require('../../../establishment/update/content/authorisat
 
 module.exports = {
   'sticky-nav': {
-    diff: 'Amendment requested'
+    diff: 'Amendment requested',
+    'approved-areas': 'Approved areas',
+    'named-people': 'Named people'
   },
   fields: {
     name: {
@@ -29,6 +31,9 @@ module.exports = {
     conditions: {
       label: 'Additional conditions'
     }
+  },
+  approvedAreas: {
+    total: 'Total approved areas'
   },
   authorisations
 };

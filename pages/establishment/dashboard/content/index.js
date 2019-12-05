@@ -20,5 +20,11 @@ module.exports = {
         subtitle: 'Projects with primary availability at this establishment.'
       }
     }
-  }
+  },
+  buttons: {
+    establishment: {
+      apply: 'Apply for an establishment licence'
+    }
+  },
+  applicationInProgress: 'An application for this establishment licence has been sent to the Home Office.'
 };

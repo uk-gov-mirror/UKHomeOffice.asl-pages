@@ -2,6 +2,7 @@ const read = require('./read');
 const pdf = require('./pdf');
 const update = require('./update');
 const dashboard = require('./dashboard');
+const apply = require('./apply');
 
 module.exports = {
   dashboard: {
@@ -22,6 +23,11 @@ module.exports = {
   update: {
     path: '/details/edit',
     router: update,
+    permissions: 'establishment.update'
+  },
+  apply: {
+    path: '/apply',
+    router: apply,
     permissions: 'establishment.update'
   }
 };

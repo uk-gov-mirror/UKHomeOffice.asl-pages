@@ -38,6 +38,8 @@ const Index = ({
 }) => {
   const inspectors = establishment.asru.filter(p => p.asruInspector);
   const spocs = establishment.asru.filter(p => p.asruLicensing);
+  const openApplication = establishment.openTasks.find(task => task.data.model === 'establishment' && allowedActions.includes('establishment.update') && task.data.action === 'grant');
+  const canApply = establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication;
 
   return (
     <Fragment>
@@ -49,11 +51,22 @@ const Index = ({
           <PanelList
             panels={links.filter(link => allowedActions.includes(link.permissions)).map((link, index) => <DashboardLink key={index} { ...link } />)}
           />
+          {
+            canApply &&
+              <Link page="establishment.apply" label={<Snippet>buttons.establishment.apply</Snippet>} className="govuk-button" />
+          }
+          {
+            openApplication &&
+              <Fragment>
+                <p><Snippet>applicationInProgress</Snippet></p>
+                <p><Link page="task.read" className="govuk-button button-secondary" taskId={openApplication.id} label="View task" /></p>
+              </Fragment>
+          }
         </div>
         <Sidebar>
           <dl>
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
-            <dd>{ establishment.licenceNumber }</dd>
+            <dd>{ establishment.licenceNumber || '-' }</dd>
 
             {
               establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
@@ -61,8 +74,21 @@ const Index = ({
             {
               establishment.nprc && <ProfileLink type="nprc" profile={establishment.nprc} />
             }
+
             {
-              establishment.holc && <ProfileLink type="holc" profile={establishment.holc} />
+              !!establishment.holc.length &&
+                <Fragment>
+                  <dt><Snippet>holc</Snippet></dt>
+                  <dd>
+                    {
+                      establishment.holc.map(holc => (
+                        <p key={holc.id} className="holc">
+                          <Link page="globalProfile" profileId={holc.id} label={`${holc.firstName} ${holc.lastName}`} />
+                        </p>
+                      ))
+                    }
+                  </dd>
+                </Fragment>
             }
 
             <dt><Snippet>inspectors</Snippet></dt>

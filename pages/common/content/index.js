@@ -8,7 +8,8 @@ module.exports = {
       list: 'Establishments',
       dashboard: '{{establishment.name}}',
       read: 'Details',
-      update: 'Amend establishment details'
+      update: 'Amend establishment details',
+      apply: 'Apply for licence'
     },
     pil: {
       read: 'View personal licence',
