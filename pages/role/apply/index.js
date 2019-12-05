@@ -56,7 +56,7 @@ module.exports = settings => {
   });
 
   app.use('/confirm', confirm({
-    type: 'create',
+    action: 'create',
     sendData
   }));
 
