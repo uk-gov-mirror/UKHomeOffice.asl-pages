@@ -2,12 +2,13 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
-  ApplicationConfirm,
   ErrorSummary,
   Header,
   SectionList,
-  OpenTaskWarning
+  OpenTaskWarning,
+  Form
 } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
 import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
 
@@ -27,6 +28,17 @@ function confirmDelete(e) {
   if (window.confirm('Are you sure you want to delete this draft PIL application?')) {
     e.target.submit();
   }
+}
+
+function SubmitPIL({ formFields, snippet }) {
+  return (
+    <Fragment>
+      {
+        formFields
+      }
+      <Button><Snippet>{ snippet }</Snippet></Button>
+    </Fragment>
+  );
 }
 
 const Index = ({ schema, establishment, certificates, exemptions, model, isAsru, isLicensing, canTransferPil, skipExemptions, skipTraining, csrfToken }) => {
@@ -163,14 +175,9 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
-          <form method="POST">
-            <input type="hidden" name="_csrf" value={csrfToken} />
-            {
-              schema.declarations
-                ? <ApplicationConfirm />
-                : <button className="govuk-button"><Snippet>{submitSnippet}</Snippet></button>
-            }
-          </form>
+          <Form detachFields submit={false}>
+            <SubmitPIL snippet={submitSnippet} />
+          </Form>
           {
             model.status === 'pending' && (
               <form

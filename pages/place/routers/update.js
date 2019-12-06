@@ -4,14 +4,13 @@ const form = require('../../common/routers/form');
 const { getSchemaWithNacwos, schema } = require('../schema');
 const { hydrate } = require('../../common/middleware');
 
-module.exports = settings => {
+module.exports = () => {
 
   const app = Router();
 
   app.get('/', hydrate());
 
-  app.use(form(Object.assign({
-    model: 'place',
+  app.use(form({
     checkChanged: true,
     configure: (req, res, next) => {
       getSchemaWithNacwos(req, schema)
@@ -31,7 +30,7 @@ module.exports = settings => {
     cancelEdit: (req, res, next) => {
       return res.redirect(req.buildRoute('place.list'));
     }
-  }, settings)));
+  }));
 
   return app;
 };

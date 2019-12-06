@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import {
   Header,
   Snippet,
-  ErrorSummary,
-  ApplicationConfirm,
+  FormLayout,
   Link
 } from '@asl/components';
 import ReviewFields from '@asl/projects/client/components/review-fields';
@@ -13,8 +12,7 @@ import ReviewFields from '@asl/projects/client/components/review-fields';
 const editLink = <Link page="project.updateLicenceHolder" label="Edit" />;
 
 const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) => (
-  <Fragment>
-    <ErrorSummary />
+  <FormLayout>
     <Header
       title={<Snippet>title</Snippet>}
       subtitle={project.title || 'Untitled project'}
@@ -53,11 +51,7 @@ const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) 
         </Fragment>
       )
     }
-    <form method="POST">
-      <input type="hidden" name="_csrf" value={csrfToken} />
-      <ApplicationConfirm />
-    </form>
-  </Fragment>
+  </FormLayout>
 );
 
 const mapStateToProps = ({ static: { project, fields, values, proposedLicenceHolder, csrfToken } }) => ({ values, project, fields, proposedLicenceHolder, csrfToken });

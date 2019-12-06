@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const { get, omit, merge } = require('lodash');
 const form = require('../../../common/routers/form');
-const schema = require('../schema/declaration');
 const experienceFields = require('../schema/experience-fields');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
 
@@ -13,7 +12,7 @@ const sendData = (req, params = {}) => {
       data: {
         licenceHolderId: values.licenceHolderId
       },
-      meta: omit(values, 'licenceHolderId', 'declaration-1')
+      meta: omit(values, 'licenceHolderId', 'declaration')
     }, params)
   };
 
@@ -26,7 +25,7 @@ module.exports = () => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    schema,
+    requiresDeclaration: req => !req.user.profile.isAsru,
     locals(req, res, next) {
       res.locals.static.fields = experienceFields.fields;
       res.locals.static.project = req.project;

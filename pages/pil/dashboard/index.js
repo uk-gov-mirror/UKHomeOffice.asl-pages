@@ -1,8 +1,7 @@
 const { page } = require('@asl/service/ui');
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
-const { get, pick, omit, merge, every } = require('lodash');
+const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
-const schema = require('./schema');
 const { success } = require('../../common/routers');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 
@@ -71,10 +70,7 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    configure: (req, res, next) => {
-      req.form.schema = req.user.profile.asruUser ? omit(schema, 'declarations') : schema;
-      next();
-    },
+    requiresDeclaration: req => !req.user.profile.isAsru,
     validate: (req, res, next) => {
       const skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
       const skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);

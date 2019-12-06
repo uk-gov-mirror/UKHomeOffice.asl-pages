@@ -2,7 +2,6 @@ const { page } = require('@asl/service/ui');
 const update = require('./routers/update');
 const confirm = require('./routers/confirm');
 const success = require('../../common/routers/success');
-const { groupFlags } = require('./helpers');
 
 module.exports = settings => {
   const app = page({
@@ -12,7 +11,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.model = groupFlags(req.establishment);
+    req.model = req.establishment;
     next();
   });
 

@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  ApplicationConfirm,
   ControlBar,
   FormLayout,
   Header,
@@ -14,13 +13,12 @@ const Confirm = ({
   establishment,
   profile,
   values,
-  requiresDeclaration,
   ...props
 }) => {
   const editPath = props.action === 'remove' ? 'delete' : 'create';
 
   return (
-    <FormLayout submit={!requiresDeclaration}>
+    <FormLayout>
       <Header title={<Snippet>reviewRoleApplication</Snippet>}/>
       <h2><Snippet>applyingFor</Snippet></h2>
       <p>{namedRoles[values.type]}</p>
@@ -43,9 +41,6 @@ const Confirm = ({
         <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} />
       </ControlBar>
 
-      {
-        requiresDeclaration && <ApplicationConfirm />
-      }
     </FormLayout>
   );
 };
@@ -54,14 +49,12 @@ const mapStateToProps = ({
   static: {
     establishment,
     profile,
-    values,
-    requiresDeclaration
+    values
   }
 }) => ({
   establishment,
   profile,
-  values,
-  requiresDeclaration
+  values
 });
 
 export default connect(mapStateToProps)(Confirm);

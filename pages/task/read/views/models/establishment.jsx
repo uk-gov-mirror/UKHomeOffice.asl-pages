@@ -13,7 +13,6 @@ import establishmentSchema from '../../../../establishment/update/schema';
 import LicensedToCarryOut from '../../../../establishment/components/licensed-to-carry-out';
 import NamedPeople from '../../../../establishment/components/named-people';
 import formatters from '../../../../establishment/formatters';
-import { groupFlags } from '../../../../establishment/update/helpers';
 import Authorisations from '../../../../establishment/update/views/authorisations';
 
 export default function Establishment({ task, values }) {
@@ -87,14 +86,14 @@ export default function Establishment({ task, values }) {
         <StickyNavAnchor id="diff" key="diff">
           <h2><Snippet>sticky-nav.diff</Snippet></h2>
           <Diff
-            values={groupFlags(task.data.data)}
-            model={groupFlags(values)}
+            before={values}
+            after={task.data.data}
             schema={establishmentSchema}
             formatters={formatters}
             comparator={hasChanged}
           />
 
-          <Authorisations model={values} values={task.data.data} />
+          <Authorisations before={values} after={task.data.data} />
         </StickyNavAnchor>
       )
     ),

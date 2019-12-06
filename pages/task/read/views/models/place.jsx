@@ -45,7 +45,13 @@ export default function Playback({ task, schema, values }) {
       task.data.action === 'update' && (
         <StickyNavAnchor id="diff" key="diff">
           <h2><Snippet>sticky-nav.diff</Snippet></h2>
-          <Diff values={task.data.data} model={values} schema={placeSchema} formatters={formatters} comparator={hasChanged} />
+          <Diff
+            after={task.data.data}
+            before={values}
+            schema={placeSchema}
+            formatters={formatters}
+            comparator={hasChanged}
+          />
         </StickyNavAnchor>
       )
     ),

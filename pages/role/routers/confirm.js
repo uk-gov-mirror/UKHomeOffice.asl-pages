@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const form = require('../../common/routers/form');
-const schema = require('../schema/declarations');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 
 module.exports = settings => {
@@ -9,20 +8,14 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(settings.sendData));
 
   app.use('/', form({
-    model: 'role-confirm',
-    configure(req, res, next) {
-      req.form.requiresDeclaration = !req.user.profile.asruUser;
-      req.form.schema = req.form.requiresDeclaration ? schema : {};
-      next();
-    },
+    requiresDeclaration: req => !req.user.profile.isAsru,
     locals: (req, res, next) => {
       Object.assign(res.locals, { model: req.model });
       Object.assign(res.locals.static, {
         profile: req.profile,
         values: {
           ...req.session.form[req.model.id].values
-        },
-        requiresDeclaration: req.form.requiresDeclaration
+        }
       });
       next();
     },

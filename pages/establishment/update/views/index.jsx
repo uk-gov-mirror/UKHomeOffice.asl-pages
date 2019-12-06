@@ -126,18 +126,18 @@ const formatters = {
   }
 };
 
-const Page = ({ model }) => {
-  if (model.openTasks.length && !get(model, 'openTasks[0].editable')) {
-    return <InProgressWarning task={model.openTasks[0]} />;
+const Page = ({ establishment }) => {
+  if (establishment.openTasks.length && !get(establishment, 'openTasks[0].editable')) {
+    return <InProgressWarning task={establishment.openTasks[0]} />;
   }
 
   return (
-    <FormLayout formatters={formatters}>
+    <FormLayout formatters={formatters} openTasks={establishment.openTasks}>
       <Header title={<Snippet>pages.establishment.edit</Snippet>} />
     </FormLayout>
   );
 };
 
-const mapStateToProps = ({ model }) => ({ model });
+const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
 
 export default connect(mapStateToProps)(Page);
