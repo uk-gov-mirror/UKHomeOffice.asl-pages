@@ -70,7 +70,7 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    requiresDeclaration: req => !req.user.profile.isAsru,
+    requiresDeclaration: req => !req.user.profile.asruUser,
     validate: (req, res, next) => {
       const skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
       const skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);

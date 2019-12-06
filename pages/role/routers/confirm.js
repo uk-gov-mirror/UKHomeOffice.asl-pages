@@ -8,7 +8,7 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(settings.sendData));
 
   app.use('/', form({
-    requiresDeclaration: req => !req.user.profile.isAsru,
+    requiresDeclaration: req => !req.user.profile.asruUser,
     locals: (req, res, next) => {
       Object.assign(res.locals, { model: req.model });
       Object.assign(res.locals.static, {

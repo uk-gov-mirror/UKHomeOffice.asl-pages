@@ -30,7 +30,7 @@ module.exports = () => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    requiresDeclaration: req => !req.user.profile.isAsru,
+    requiresDeclaration: req => !req.user.profile.asruUser,
     checkSession: (req, res, next) => {
       if (req.session.form && req.session.form[req.model.id]) {
         return next();
