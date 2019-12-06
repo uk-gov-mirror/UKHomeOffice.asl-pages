@@ -25,7 +25,7 @@ module.exports = () => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    requiresDeclaration: req => !req.user.profile.isAsru,
+    requiresDeclaration: req => !req.user.profile.asruUser,
     locals(req, res, next) {
       res.locals.static.fields = experienceFields.fields;
       res.locals.static.project = req.project;

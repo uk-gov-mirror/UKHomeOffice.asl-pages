@@ -27,7 +27,7 @@ module.exports = settings => {
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    requiresDeclaration: req => !req.user.profile.isAsru,
+    requiresDeclaration: req => !req.user.profile.asruUser,
     saveValues: (req, res, next) => {
       delete req.session.form[req.model.id].values.declaration;
       next();
