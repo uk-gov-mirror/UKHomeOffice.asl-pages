@@ -24,7 +24,7 @@ export default function NamedPeople({ establishment, showLinks = false }) {
         }
         {
           !establishment.pelh && (
-            establishment.nprc ? '-' : renderNames([], showLinks, 'pelh')
+            establishment.nprc || !showLinks ? '-' : <Link page="profile.list" label="Add PEL holder" />
           )
         }
       </dd>
@@ -36,7 +36,7 @@ export default function NamedPeople({ establishment, showLinks = false }) {
         }
         {
           !establishment.nprc && (
-            establishment.pelh ? '-' : renderNames([], showLinks, 'nprc')
+            establishment.pelh || !showLinks ? '-' : <Link page="profile.list" label="Add NPRC" />
           )
         }
       </dd>
