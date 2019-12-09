@@ -142,6 +142,61 @@ describe('Form Router', () => {
           done();
         });
       });
+
+      test('does not extend virtual props based on session value if session is empty', done => {
+        const schema = {
+          props: {
+            getValue: model => ['prop1', 'prop2'].filter(p => model[p])
+          }
+        };
+        req.model = {
+          prop1: true,
+          prop2: false
+        };
+        const expected = {
+          prop1: true,
+          prop2: false,
+          props: ['prop1']
+        };
+        form({ schema })(req, res, () => {
+          expect(req.form.values).toEqual(expected);
+          done();
+        });
+      });
+
+      test('extends virtual props based on session value if session is populated', done => {
+        const schema = {
+          props: {
+            getValue: model => ['prop1', 'prop2'].filter(p => model[p])
+          }
+        };
+        req.model = {
+          id: 'test',
+          prop1: true,
+          prop2: false
+        };
+        req.session = {
+          form: {
+            test: {
+              values: {
+                prop1: true,
+                prop2: true
+              }
+            }
+          }
+        };
+        const expected = {
+          id: 'test',
+          prop1: true,
+          prop2: true,
+          props: ['prop1', 'prop2']
+        };
+        form({ schema })(req, res, () => {
+          expect(req.form.values).toEqual(expected);
+          done();
+        });
+      });
+
     });
 
     describe('_getValidationErrors', () => {
