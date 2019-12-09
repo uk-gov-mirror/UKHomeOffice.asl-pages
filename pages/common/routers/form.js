@@ -7,6 +7,7 @@ const {
   map,
   size,
   get,
+  isEmpty,
   isUndefined,
   identity,
   pickBy,
@@ -176,7 +177,7 @@ module.exports = ({
 
   const _getValues = (req, res, next) => {
     req.form.values = cleanModel(pickValues(req.model, req.form.schema));
-    if (req.session.form[req.model.id].values) {
+    if (!isEmpty(req.session.form[req.model.id].values)) {
       Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].values, req.form.schema)));
     }
     return getValues(req, res, next);
