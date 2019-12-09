@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { pick, merge } = require('lodash');
+const { get, pick, merge, isEmpty } = require('lodash');
 const form = require('../../../common/routers/form');
 const schema = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
@@ -32,7 +32,8 @@ module.exports = () => {
   app.use(form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     checkSession: (req, res, next) => {
-      if (req.session.form && req.session.form[req.model.id]) {
+      const values = get(req.session, `form.${req.model.id}.values`);
+      if (!isEmpty(values)) {
         return next();
       }
       return res.redirect(req.buildRoute('establishment.update'));
