@@ -37,7 +37,7 @@ const Confirm = ({
       <p>{values.comment}</p>
 
       <ControlBar>
-        <Link page="role" path={editPath} label={<Snippet>buttons.edit</Snippet>} />
+        <Link page={`role.${editPath}`} label={<Snippet>buttons.edit</Snippet>} />
         <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} />
       </ControlBar>
 
