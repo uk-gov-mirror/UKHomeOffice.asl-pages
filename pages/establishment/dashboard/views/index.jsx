@@ -12,7 +12,7 @@ import ProfileLink from '../../components/profile-link';
 
 const links = [
   { page: 'establishment.read', permissions: 'establishment.read' },
-  { page: 'place.list', permissions: 'place.read' },
+  { page: 'place.list', permissions: 'place.list' },
   { page: 'profile.list', permissions: 'profile.read.basic' },
   { page: 'project.list', permissions: 'project.read.basic' }
 ];
