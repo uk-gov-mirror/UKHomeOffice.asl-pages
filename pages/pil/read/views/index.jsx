@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import omit from 'lodash/omit';
 import schema from '../schema';
 import {
   Link,
@@ -23,6 +24,8 @@ const PIL = ({
   correctEstablishment,
   currentPath
 }) => {
+  const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
+
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
   const backToProfile = <Link page="profile.read" label={<Snippet>action.backToProfile</Snippet>} />;
 
@@ -37,6 +40,9 @@ const PIL = ({
     },
     revocationDate: {
       format: revocationDate => formatDate(revocationDate, dateFormat.medium)
+    },
+    reviewDate: {
+      format: reviewDate => formatDate(reviewDate, dateFormat.medium)
     },
     species: {
       format: pilSpecies => {
@@ -111,7 +117,7 @@ const PIL = ({
         basename={currentPath}
       />
 
-      <ModelSummary model={pil} formatters={formatters} schema={schema} formatNullValue={true} />
+      <ModelSummary model={pil} formatters={formatters} schema={pilSchema} formatNullValue={true} />
 
       {
         canUpdate && (
