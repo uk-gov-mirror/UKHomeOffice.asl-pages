@@ -19,17 +19,11 @@ const PIL = ({ pil, content }) => {
 
       <ReactMarkdown className="legal-preamble">{content.legalPreamble}</ReactMarkdown>
 
-      {
-        pil.showEstablishment ? (
-          <section className="primary-establishment break">
-            <h2>Primary establishment</h2>
-            <p>{pil.establishment.name}</p>
-            <ReactMarkdown>{pil.establishment.address}</ReactMarkdown>
-          </section>
-        ) : (
-          <div className="break"></div>
-        )
-      }
+      <section className="primary-establishment break">
+        <h2>Primary establishment</h2>
+        <p>{pil.establishment.name}</p>
+        <ReactMarkdown>{pil.establishment.address}</ReactMarkdown>
+      </section>
 
       <section className="animal-types">
         <h2>Animal types</h2>

@@ -35,7 +35,7 @@ module.exports = {
   },
   pdf: {
     path: '/:pilId/pdf',
-    permissions: 'pil.read',
+    permissions: 'pil.pdf',
     router: pdf
   }
 };

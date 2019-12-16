@@ -13,9 +13,7 @@ module.exports = settings => {
   app.get('/', (req, res, next) => {
     const pil = {
       ...req.pil,
-      licenceHolder: req.profile,
-      showEstablishment: req.pil.establishmentId === req.establishment.id,
-      establishment: req.establishment
+      licenceHolder: req.profile
     };
 
     const html = renderToStaticMarkup(<Body pil={pil} nonce={res.locals.static.nonce} content={content} />);
