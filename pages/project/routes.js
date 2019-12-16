@@ -1,4 +1,3 @@
-const permissions = require('@asl/service/lib/middleware/permissions');
 const list = require('./list');
 const importProject = require('./import');
 const read = require('./read');
