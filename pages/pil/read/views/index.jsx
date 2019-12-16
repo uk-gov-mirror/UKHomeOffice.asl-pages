@@ -44,6 +44,9 @@ const PIL = ({
     reviewDate: {
       format: reviewDate => formatDate(reviewDate, dateFormat.medium)
     },
+    establishmentName: {
+      format: name => name || 'This licence is held at another establishment.'
+    },
     species: {
       format: pilSpecies => {
         if (!pilSpecies) {
