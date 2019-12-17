@@ -20,6 +20,7 @@ const PIL = ({
   profile,
   canUpdate,
   allowedActions,
+  canDownload,
   openTask,
   correctEstablishment,
   currentPath
@@ -116,7 +117,7 @@ const PIL = ({
         licenceType="pil"
         isGranted={pil.status === 'active'}
         showWord={false}
-        showPdf={true}
+        showPdf={canDownload}
         basename={currentPath}
       />
 
@@ -168,6 +169,7 @@ const mapStateToProps = ({
   static: {
     profile,
     canUpdate,
+    canDownload,
     pil,
     openTask,
     allowedActions,
@@ -178,6 +180,7 @@ const mapStateToProps = ({
   pil,
   profile,
   canUpdate,
+  canDownload,
   allowedActions,
   openTask,
   correctEstablishment,
