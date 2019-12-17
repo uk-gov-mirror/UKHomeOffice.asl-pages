@@ -17,13 +17,15 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     const params = {
-      id: req.pilId,
-      profileId: req.model.profileId,
-      establishment: req.establishment.id
+      pilId: req.pilId
     };
-    req.user.can('pil.update', params)
-      .then(can => {
-        res.locals.static.canUpdate = can;
+    Promise.all([
+      req.user.can('pil.update', params),
+      req.user.can('pil.pdf', params)
+    ])
+      .then(([canUpdate, canDownload]) => {
+        res.locals.static.canUpdate = canUpdate;
+        res.locals.static.canDownload = canDownload;
       })
       .then(() => next())
       .catch(next);
