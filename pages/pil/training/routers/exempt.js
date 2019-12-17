@@ -23,7 +23,7 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    delete req.session.form[req.pil.id].validationErrors;
+    delete req.session.form[req.model.id].validationErrors;
     if (req.form.values.exempt === 'Yes') {
       set(req.session, `${req.profileId}.skipTraining`, false);
       return res.redirect(req.buildRoute('pil.update.training.certificate'));
