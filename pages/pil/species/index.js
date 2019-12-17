@@ -23,7 +23,7 @@ module.exports = () => {
     const species = get(req.session, `form[${req.model.id}].values`);
     const savedValues = get(req.session, `form[${req.pil.id}].values`);
     req.session.form[req.pil.id].values = Object.assign({}, savedValues, species);
-    delete req.session.form[req.pil.id].validationErrors;
+    delete req.session.form[req.model.id].validationErrors;
     return res.redirect(req.buildRoute('pil.update'));
   });
 
