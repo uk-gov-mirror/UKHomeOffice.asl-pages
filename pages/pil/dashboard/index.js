@@ -39,18 +39,6 @@ module.exports = settings => {
     next();
   });
 
-  app.use('/', (req, res, next) => {
-    const params = {
-      id: req.pilId,
-      profileId: req.model.profileId,
-      establishment: req.model.establishmentId
-    };
-
-    req.user.can('pil.update', params)
-      .then(can => can ? next() : next(new Error('Unauthorised')))
-      .catch(next);
-  });
-
   app.use((req, res, next) => {
     const values = get(req.session, `form[${req.model.id}].values`);
     req.model = { ...req.model, ...values };
