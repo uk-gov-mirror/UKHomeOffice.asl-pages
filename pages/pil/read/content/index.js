@@ -5,7 +5,7 @@ module.exports = merge({}, baseContent, {
   title: 'Personal licence',
   fields: {
     licenceNumber: { label: 'Licence number' },
-    establishmentName: { label: 'Establishment' },
+    establishment: { label: 'Establishment' },
     status: { label: 'Status' },
     issueDate: { label: 'Issue date' },
     updatedAt: { label: 'Last amended' },
