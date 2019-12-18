@@ -1,6 +1,6 @@
 module.exports = {
   licenceNumber: { show: true },
-  establishmentName: { show: true },
+  establishment: { show: true },
   issueDate: { show: true },
   updatedAt: { show: true },
   reviewDate: { show: true },
