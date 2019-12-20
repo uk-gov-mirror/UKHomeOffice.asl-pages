@@ -47,7 +47,7 @@ module.exports = settings => {
           res.attachment(`${pil.licenceNumber}.pdf`);
           response.body.pipe(res);
         } else {
-          throw new Error('Error generating PDF');
+          throw new Error(`Error generating PDF - generator responded ${response.status}`);
         }
       })
       .catch(next);
