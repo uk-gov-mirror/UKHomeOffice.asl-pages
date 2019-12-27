@@ -28,6 +28,20 @@
   margin-bottom: $govuk-gutter;
 }
 
+table {
+  .pull-right {
+    width: 15%;
+  }
+}
+
+p.subtitle {
+  font-size: 1.1em;
+}
+
+.margin-bottom {
+  margin-bottom: $govuk-gutter;
+}
+
 .section-navigation {
   list-style-type: decimal;
 
@@ -324,13 +338,13 @@ p.spoc {
   }
 }
 
+details summary {
+  color: $blue;
+  cursor: pointer;
+}
+
 .pil-transfer details {
   margin-bottom: $govuk-gutter;
-
-  summary {
-    color: $blue;
-    cursor: pointer;
-  }
 }
 
 .establishment-apply {

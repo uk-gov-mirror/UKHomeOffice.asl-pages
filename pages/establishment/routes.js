@@ -3,6 +3,7 @@ const pdf = require('./pdf');
 const update = require('./update');
 const dashboard = require('./dashboard');
 const apply = require('./apply');
+const licenceFees = require('./licence-fees');
 
 module.exports = {
   dashboard: {
@@ -29,5 +30,10 @@ module.exports = {
     path: '/apply',
     router: apply,
     permissions: 'establishment.update'
+  },
+  fees: {
+    path: '/licence-fees/:year',
+    router: licenceFees,
+    permissions: 'establishment.licenceFees'
   }
 };

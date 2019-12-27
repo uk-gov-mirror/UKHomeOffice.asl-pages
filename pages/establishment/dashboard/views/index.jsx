@@ -9,12 +9,20 @@ import {
 } from '@asl/components';
 import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import ProfileLink from '../../components/profile-link';
+import { financialYears } from '../../licence-fees/constants';
+
+const years = Object.keys(financialYears);
 
 const links = [
   { page: 'establishment.read', permissions: 'establishment.read' },
   { page: 'place.list', permissions: 'place.list' },
   { page: 'profile.list', permissions: 'profile.read.basic' },
-  { page: 'project.list', permissions: 'project.read.basic' }
+  { page: 'project.list', permissions: 'project.read.basic' },
+  {
+    page: 'establishment.fees.overview',
+    permissions: 'establishment.licenceFees',
+    year: years[years.length - 1]
+  }
 ];
 
 function getContentKey(page, route) {
@@ -24,12 +32,18 @@ function getContentKey(page, route) {
   return page;
 }
 
-const DashboardLink = ({ page, route }) => (
-  <Fragment>
-    <Link page={page} label={<Snippet>{`pages.${getContentKey(page, route)}`}</Snippet>} />
-    <p><Snippet>{`dashboard.${getContentKey(page, route)}.subtitle`}</Snippet></p>
-  </Fragment>
-);
+function DashboardLink ({ page, route, ...params }) {
+  return (
+    <Fragment>
+      <Link
+        page={page}
+        label={<Snippet>{`pages.${getContentKey(page, route)}`}</Snippet>}
+        {...params}
+      />
+      <p><Snippet>{`dashboard.${getContentKey(page, route)}.subtitle`}</Snippet></p>
+    </Fragment>
+  );
+}
 
 const Index = ({
   establishment,

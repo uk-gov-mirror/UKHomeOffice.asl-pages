@@ -3,6 +3,11 @@ module.exports = {
     establishment: {
       read: {
         subtitle: 'Contact information for this establishment, as well as any conditions and authorisations.'
+      },
+      fees: {
+        overview: {
+          subtitle: 'Billable licences held at this establishment.'
+        }
       }
     },
     profile: {
