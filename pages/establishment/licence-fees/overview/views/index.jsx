@@ -4,7 +4,7 @@ import { Snippet } from '@asl/components';
 import Layout from '../../views';
 import { numberWithCommas } from '../../../../../lib/utils';
 
-function SummarySection({ rows, title }) {
+function SummarySection({ rows, title, currency }) {
   return (
     <table className="govuk-table">
       <thead>
@@ -17,7 +17,7 @@ function SummarySection({ rows, title }) {
           rows.map((row, index) => (
             <tr key={index}>
               <td><Snippet>{row.title}</Snippet></td>
-              <td className="pull-right">£{numberWithCommas(row.value)}</td>
+              <td className="pull-right">{row.currency && '£'}{numberWithCommas(row.value)}</td>
             </tr>
           ))
         }
@@ -36,7 +36,8 @@ export default function Overview() {
         rows={[
           {
             title: 'fees.overview.establishment.fee',
-            value: fees.establishment
+            value: fees.establishment,
+            currency: true
           }
         ]}
       />
@@ -49,11 +50,13 @@ export default function Overview() {
           },
           {
             title: 'fees.overview.personal.fee',
-            value: fees.personalFee
+            value: fees.personalFee,
+            currency: true
           },
           {
             title: 'fees.overview.personal.total',
-            value: fees.personal
+            value: fees.personal,
+            currency: true
           }
         ]}
       />
@@ -62,7 +65,8 @@ export default function Overview() {
         rows={[
           {
             title: 'fees.overview.total.fee',
-            value: fees.total
+            value: fees.total,
+            currency: true
           }
         ]}
       />

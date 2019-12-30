@@ -13,6 +13,7 @@ module.exports = settings => {
       const key = last(Object.keys(financialYears));
       financialYear = financialYears[key];
     }
+    req.year = year;
     req.financialYear = financialYear;
     next();
   });

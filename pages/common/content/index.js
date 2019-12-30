@@ -168,7 +168,7 @@ module.exports = {
     }
   },
   notifications: {
-    success: 'Changes saved!'
+    success: 'Changes saved.'
   },
   warnings: {
     openTask: 'This item is currently being edited'

@@ -18,7 +18,8 @@ Fees are not collected for personal licences.`
     },
     tabs: {
       overview: 'Licence fees overview',
-      personal: 'Billable personal licences'
+      personal: 'Billable personal licences',
+      allPersonal: 'All personal licences'
     }
   }
 };

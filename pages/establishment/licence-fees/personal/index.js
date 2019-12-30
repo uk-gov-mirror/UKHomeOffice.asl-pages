@@ -1,6 +1,6 @@
 const { page } = require('@asl/service/ui');
 const { datatable } = require('../../../common/routers');
-const schema = require('./schema');
+const getSchema = require('./schema');
 
 module.exports = settings => {
   const app = page({
@@ -8,9 +8,10 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.use(datatable({
+  app.use('/', datatable({
     configure: (req, res, next) => {
       req.datatable.sort = { column: 'licenceHolder', ascending: true };
+      req.datatable.schema = getSchema(req);
       next();
     },
     getApiPath: (req, res, next) => {
@@ -18,13 +19,14 @@ module.exports = settings => {
       const query = {
         filters: {
           startDate,
-          endDate
+          endDate,
+          onlyBillable: !req.user.profile.asruUser
         }
       };
       req.datatable.apiPath = [`/establishment/${req.establishmentId}/pils`, { query }];
       next();
     }
-  })({ schema, defaultRowCount: 30 }));
+  })({ defaultRowCount: 30 }));
 
   return app;
 };

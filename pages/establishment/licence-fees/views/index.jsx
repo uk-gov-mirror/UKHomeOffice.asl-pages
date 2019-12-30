@@ -6,7 +6,8 @@ import {
   WidthContainer,
   Tabs,
   Link,
-  Inset
+  Inset,
+  ErrorSummary
 } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
@@ -26,10 +27,12 @@ function Fee({ type }) {
 
 export default function Fees({ tab, children }) {
   const establishment = useSelector(state => state.static.establishment);
+  const allowedActions = useSelector(state => state.static.allowedActions);
   const fees = useSelector(state => state.static.fees);
   return (
     <Fragment>
       <WidthContainer>
+        <ErrorSummary />
         <Header
           title={<Snippet>fees.title</Snippet>}
           subtitle={establishment.name}
@@ -64,7 +67,7 @@ export default function Fees({ tab, children }) {
         </div>
         <Tabs active={tab}>
           <Link page="establishment.fees.overview" label={<Snippet>fees.tabs.overview</Snippet>} />
-          <Link page="establishment.fees.personal" label={<Snippet>fees.tabs.personal</Snippet>} />
+          <Link page="establishment.fees.personal" label={<Snippet>{`fees.tabs.${allowedActions.includes('pil.updateBillable') ? 'allPersonal' : 'personal'}`}</Snippet>} />
         </Tabs>
         { children }
       </Fragment>

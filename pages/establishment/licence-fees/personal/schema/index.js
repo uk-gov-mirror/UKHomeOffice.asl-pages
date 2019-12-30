@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = req => ({
   licenceHolder: {
     accessor: 'profile.name',
     show: true,
@@ -12,5 +12,8 @@ module.exports = {
   },
   revocationDate: {
     show: true
+  },
+  billable: {
+    show: req.user.profile.asruUser
   }
-};
+});

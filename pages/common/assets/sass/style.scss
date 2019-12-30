@@ -358,3 +358,29 @@ details summary {
     margin-top: $govuk-gutter * 2;
   }
 }
+
+.places-list .expanded-content a {
+  display: block;
+  margin-left: $govuk-gutter;
+  margin-bottom: 0.5em;
+}
+
+.licence-fees-pils {
+  .expanded-content {
+    .govuk-inset-text {
+      margin: 0 3px;
+
+      h2 {
+        margin-top: $govuk-gutter-half;
+      }
+
+      .govuk-grid-row {
+        margin-bottom: $govuk-gutter-half * 3;
+      }
+    }
+  }
+}
+
+.badge.blue {
+  background-color: $blue;
+}

@@ -4,11 +4,12 @@ const routes = require('./routes');
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
-  app.use((req, res, next) => {
+  app.use('/', (req, res, next) => {
     const query = {
       filters: {
         startDate: req.financialYear.startDate,
-        endDate: req.financialYear.endDate
+        endDate: req.financialYear.endDate,
+        onlyBillable: true
       }
     };
     req.api(`/establishment/${req.establishmentId}/pils`, { query })
