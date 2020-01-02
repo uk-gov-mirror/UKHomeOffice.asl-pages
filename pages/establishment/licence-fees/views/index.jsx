@@ -25,17 +25,31 @@ function Fee({ type }) {
   );
 }
 
-export default function Fees({ tab, children }) {
+export default function Fees({ tab, tabs, children, subtitle = '' }) {
   const establishment = useSelector(state => state.static.establishment);
   const allowedActions = useSelector(state => state.static.allowedActions);
   const fees = useSelector(state => state.static.fees);
+
+  tabs = tabs || [
+    {
+      page: 'establishment.fees.overview',
+      key: 'fees.tabs.overview'
+    },
+    {
+      page: 'establishment.fees.personal',
+      key: allowedActions.includes('pil.updateBillable')
+        ? 'fees.tabs.allPersonal'
+        : 'fees.tabs.personal'
+    }
+  ];
+
   return (
     <Fragment>
       <WidthContainer>
         <ErrorSummary />
         <Header
           title={<Snippet>fees.title</Snippet>}
-          subtitle={establishment.name}
+          subtitle={establishment ? establishment.name : subtitle}
         />
         <p className="subtitle">
           <Snippet
@@ -66,9 +80,11 @@ export default function Fees({ tab, children }) {
           </div>
         </div>
         <Tabs active={tab}>
-          <Link page="establishment.fees.overview" label={<Snippet>fees.tabs.overview</Snippet>} />
-          <Link page="establishment.fees.personal" label={<Snippet>{`fees.tabs.${allowedActions.includes('pil.updateBillable') ? 'allPersonal' : 'personal'}`}</Snippet>} />
+          {
+            tabs.map(({ page, key, ...props }, index) => <Link key={index} page={page} label={<Snippet>{key}</Snippet>} {...props} />)
+          }
         </Tabs>
+        <h2><Snippet>title</Snippet></h2>
         { children }
       </Fragment>
     </Fragment>

@@ -374,7 +374,7 @@ details summary {
         margin-top: $govuk-gutter-half;
       }
 
-      .govuk-grid-row {
+      .govuk-grid-row:not(:last-child) {
         margin-bottom: $govuk-gutter-half * 3;
       }
     }
