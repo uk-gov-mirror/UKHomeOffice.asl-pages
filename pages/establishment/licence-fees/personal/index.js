@@ -28,5 +28,10 @@ module.exports = settings => {
     }
   })({ defaultRowCount: 30 }));
 
+  app.use((req, res, next) => {
+    console.log(req.datatable.data);
+    next();
+  });
+
   return app;
 };

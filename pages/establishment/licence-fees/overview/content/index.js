@@ -12,6 +12,7 @@ module.exports = merge({}, baseContent, {
       personal: {
         title: 'Personal licences',
         count: 'Number of licences held',
+        transfers: 'Number of licences transferred',
         fee: 'Fee per licence',
         total: 'Fee for all personal licences'
       },

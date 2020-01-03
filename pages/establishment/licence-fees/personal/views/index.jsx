@@ -10,7 +10,12 @@ export default function PersonalLicences() {
 
   return (
     <Layout tab={1}>
-      <Datatable className="licence-fees-pils" formatters={formatters} Expandable={allowedActions.includes('pil.updateBillable') && ExpandableRow} />
+      <Datatable
+        className="licence-fees-pils"
+        formatters={formatters}
+        Expandable={allowedActions.includes('pil.updateBillable') && ExpandableRow}
+        expands={row => allowedActions.includes('pil.updateBillable') && !row.transfers.length}
+      />
     </Layout>
   );
 }

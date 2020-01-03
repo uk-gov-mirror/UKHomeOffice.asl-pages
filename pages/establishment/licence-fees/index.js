@@ -6,20 +6,23 @@ module.exports = settings => {
 
   app.use('/', (req, res, next) => {
     const query = {
-      filters: {
-        startDate: req.financialYear.startDate,
-        endDate: req.financialYear.endDate,
-        onlyBillable: true
-      }
+      startDate: req.financialYear.startDate,
+      endDate: req.financialYear.endDate
     };
-    req.api(`/establishment/${req.establishmentId}/pils`, { query })
-      .then(({ json: { meta } }) => {
-        const { count } = meta;
+    Promise.all([
+      req.api(`/establishment/${req.establishmentId}/pils/count`, { query }),
+      req.api(`/establishment/${req.establishmentId}/pils/transfers`, { query })
+    ])
+      .then(([numPils, numTransfers]) => {
+        numPils = parseInt(numPils.json.data, 10);
+        numTransfers = parseInt(numTransfers.json.data, 10);
+
         const { startDate, endDate, prices } = req.financialYear;
-        const personal = prices.personal * count;
+        const personal = prices.personal * (numPils + numTransfers);
         const establishment = prices.establishment;
         const fees = {
-          numPersonal: count,
+          numPils,
+          numTransfers,
           establishment,
           personal,
           personalFee: prices.personal,

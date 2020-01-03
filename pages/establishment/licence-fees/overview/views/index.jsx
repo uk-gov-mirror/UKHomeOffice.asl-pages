@@ -21,7 +21,11 @@ export default function Overview() {
       rows: [
         {
           title: 'fees.overview.personal.count',
-          value: fees.numPersonal
+          value: fees.numPils
+        },
+        {
+          title: 'fees.overview.personal.transfers',
+          value: fees.numTransfers
         },
         {
           title: 'fees.overview.personal.fee',
