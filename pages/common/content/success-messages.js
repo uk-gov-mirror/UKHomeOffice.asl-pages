@@ -299,7 +299,7 @@ module.exports = {
         title: 'Transfer request submitted',
         body: `An NTCO at the receiving establishment will review your transfer request and contact you if they need more information.
 
-          NTCO and administrators at the current establishment have also been notified.
+          NTCOs and administrators at the current establishment have also been notified.
 
           You will be notified by the Home Office when your transfer request is approved or rejected.`
       },
