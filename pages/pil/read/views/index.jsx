@@ -28,7 +28,6 @@ const PIL = ({
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
 
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
-  const backToProfile = <Link page="profile.read" label={<Snippet>action.backToProfile</Snippet>} />;
 
   const formatters = {
     issueDate: {
@@ -125,40 +124,53 @@ const PIL = ({
 
       {
         canUpdate && (
-          <Fragment>
+          <div className="pil-actions">
             {
-              correctEstablishment
-                ? (
-                  <div className="pil-actions">
-                    <section className="amend-licence">
-                      <Snippet>action.amend.summary</Snippet>
-                      <Link
-                        page="pil.update"
-                        className="govuk-button button-secondary"
-                        label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
-                      />
+              correctEstablishment &&
+              <Fragment>
+                {
+                  openTask &&
+                    <section className="open-task">
+                      <h2><Snippet>{`openTask.${openTask.type}.title`}</Snippet></h2>
+                      <p><Snippet>{`openTask.${openTask.type}.description`}</Snippet></p>
+                      <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
                     </section>
-                    {
-                      pil.status === 'active' &&
-                        <section className="revoke-licence">
-                          <Snippet>action.revoke.summary</Snippet>
-                          <Link
-                            page="pil.revoke"
-                            className="govuk-button button-warning"
-                            label={<Snippet>action.revoke.button</Snippet>}
-                          />
-                        </section>
-                    }
-                  </div>
-                )
-                : (
-                  <Fragment>
-                    <p className="clear"><Snippet>cantUpdate</Snippet></p>
-                    { backToProfile }
-                  </Fragment>
-                )
+                }
+
+                {
+                  !openTask &&
+                    <Fragment>
+                      <section className="amend-licence">
+                        <Snippet>action.amend.summary</Snippet>
+                        <Link
+                          page="pil.update"
+                          className="govuk-button button-secondary"
+                          label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
+                        />
+                      </section>
+                      {
+                        pil.status === 'active' &&
+                          <section className="revoke-licence">
+                            <Snippet>action.revoke.summary</Snippet>
+                            <Link
+                              page="pil.revoke"
+                              className="govuk-button button-warning"
+                              label={<Snippet>action.revoke.button</Snippet>}
+                            />
+                          </section>
+                      }
+                    </Fragment>
+                }
+              </Fragment>
             }
-          </Fragment>
+            {
+              !correctEstablishment &&
+                <section className="cant-amend">
+                  <p className="clear"><Snippet>cantUpdate</Snippet></p>
+                  <Link page="profile.read" label={<Snippet>action.backToProfile</Snippet>} />
+                </section>
+            }
+          </div>
         )
       }
     </Fragment>
