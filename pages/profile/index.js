@@ -32,6 +32,14 @@ module.exports = settings => {
         res.locals.static.profile = req.profile;
         res.locals.model = req.model;
       })
+      .then(() => {
+        if (req.profile.pil) {
+          return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.profile.pil.id}`)
+            .then(({ json: { meta } }) => {
+              req.model.pil.openTasks = meta.openTasks || [];
+            });
+        }
+      })
       .then(() => next())
       .catch(next);
   });
