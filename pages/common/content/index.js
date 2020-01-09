@@ -186,7 +186,7 @@ module.exports = {
     view: 'View granted licence'
   },
   updateInProgress: 'There is a pending change request to these conditions.',
-  'view-task': 'View open task',
+  'view-task': 'View task',
   openTask: {
     application: {
       title: 'Application in progress',
