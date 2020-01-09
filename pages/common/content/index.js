@@ -190,19 +190,19 @@ module.exports = {
   openTask: {
     application: {
       title: 'Application in progress',
-      description: 'An application has been submitted and is being reviewed. View the task to recall or discard the application.'
+      description: 'An application has been submitted and is being reviewed. You can view, recall or discard the application.'
     },
     amendment: {
       title: 'Amendment in progress',
-      description: 'An amendment to this licence has been submitted and is being reviewed. View the task to recall or discard the amendment.'
+      description: 'An amendment to this licence has been submitted and is being reviewed. You can view, recall or discard the amendment.'
     },
     revocation: {
       title: 'Revocation in progress',
-      description: 'A request to revoke this licence has been submitted and is being reviewed. View the task to recall or discard the revocation.'
+      description: 'A request to revoke this licence has been submitted and is being reviewed. You can view, recall or discard the revocation.'
     },
     transfer: {
       title: 'Transfer in progress',
-      description: 'A request to transfer this licence to another establishment has been submitted and is being reviewed. View the task to recall or discard the licence transfer.'
+      description: 'A request to transfer this licence to another establishment has been submitted and is being reviewed. You can view, recall or discard the licence transfer.'
     }
   }
 };
