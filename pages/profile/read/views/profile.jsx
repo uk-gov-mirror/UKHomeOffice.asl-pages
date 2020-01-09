@@ -32,7 +32,6 @@ class Profile extends React.Component {
 
     const profileRole = establishments.find(est => est.id === estId).role;
     const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
-    const pilHasOpenTask = pil && pil.openTasks && pil.openTasks.length > 0;
     const pilActive = pil && pil.status === 'active';
 
     const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
@@ -208,7 +207,7 @@ class Profile extends React.Component {
                 )
               }
               {
-                canApply && !pilHasOpenTask && (
+                canApply && (
                   <p className="control-panel">
                     <Link
                       page='pil.create'
@@ -216,18 +215,6 @@ class Profile extends React.Component {
                       profileId={id}
                       className='govuk-button button-secondary'
                       label={<Snippet>{`buttons.${pilIncomplete ? 'pilView' : 'pilApply'}`}</Snippet>}
-                    />
-                  </p>
-                )
-              }
-              {
-                canApply && pilHasOpenTask && (
-                  <p className="control-panel">
-                    <Link
-                      page='task.read'
-                      taskId={pil.openTasks[0].id}
-                      className='govuk-button button-secondary'
-                      label={<Snippet>view-task</Snippet>}
                     />
                   </p>
                 )
