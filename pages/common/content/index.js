@@ -9,7 +9,8 @@ module.exports = {
       dashboard: '{{establishment.name}}',
       read: 'Details',
       update: 'Amend establishment details',
-      apply: 'Apply for licence'
+      apply: 'Apply for licence',
+      fees: 'Projected licence fees'
     },
     pil: {
       read: 'View personal licence',
@@ -90,7 +91,10 @@ module.exports = {
       list: 'Establishments',
       read: 'Establishment details',
       edit: 'Amend establishment details',
-      confirm: 'Confirm changes'
+      confirm: 'Confirm changes',
+      fees: {
+        overview: 'Licence fees'
+      }
     },
     profile: {
       list: 'People',
@@ -164,7 +168,7 @@ module.exports = {
     }
   },
   notifications: {
-    success: 'Changes saved!'
+    success: 'Changes saved.'
   },
   warnings: {
     openTask: 'This item is currently being edited'

@@ -31,33 +31,30 @@ const pageFormatters = {
   }
 };
 
-const Places = ({
+function Places({
   establishment,
   establishment: { name },
   allowedActions,
   ...props
-}) => {
-  const expands = row => {
-    if (!allowedActions.includes('place.update') && !row.restrictions) {
-      return null;
-    }
-    return <ExpandableRow row={row} />;
-  };
+}) {
+  return (
+    <Fragment>
+      <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-  return <Fragment>
-    <LicenceStatusBanner licence={establishment} licenceType="pel" />
-
-    <Header
-      title={<Snippet>pages.place.list</Snippet>}
-      subtitle={name}
-    />
-    <FilterTable
-      formatters={Object.assign({}, formatters, pageFormatters)}
-      expands={expands}
-      createPath={allowedActions.includes('place.create') && 'place.create'}
-    />
-  </Fragment>;
-};
+      <Header
+        title={<Snippet>pages.place.list</Snippet>}
+        subtitle={name}
+      />
+      <FilterTable
+        formatters={Object.assign({}, formatters, pageFormatters)}
+        expands={row => allowedActions.includes('place.update') || row.restrictions}
+        Expandable={ExpandableRow}
+        createPath={allowedActions.includes('place.create') && 'place.create'}
+        className="places-list"
+      />
+    </Fragment>
+  );
+}
 
 const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
 

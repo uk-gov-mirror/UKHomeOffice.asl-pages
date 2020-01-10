@@ -7,21 +7,21 @@ import {
   Controls
 } from '@asl/components';
 
-const ExpandableRow = ({ row, schema, allowedActions }) => {
+const ExpandableRow = ({ model, schema, allowedActions }) => {
   return <div className="govuk-grid-row">
     <div className={classnames({
-      'govuk-grid-column-one-quarter': row.restrictions,
-      'govuk-grid-column-full': !row.restrictions
+      'govuk-grid-column-one-quarter': model.restrictions,
+      'govuk-grid-column-full': !model.restrictions
     })}>
       {
-        allowedActions.includes('place.update') && <Controls item={row.id} />
+        allowedActions.includes('place.update') && <Controls item={model.id} />
       }
     </div>
     {
-      row.restrictions && (
+      model.restrictions && (
         <div className="govuk-grid-column-two-thirds">
           <h3>{<Snippet>fields.restrictions.label</Snippet>}</h3>
-          <ReactMarkdown>{row.restrictions}</ReactMarkdown>
+          <ReactMarkdown>{model.restrictions}</ReactMarkdown>
         </div>
       )
     }

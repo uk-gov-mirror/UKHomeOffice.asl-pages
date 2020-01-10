@@ -1,0 +1,52 @@
+const { Router } = require('express');
+const routes = require('./routes');
+
+module.exports = settings => {
+  const app = Router({ mergeParams: true });
+
+  app.param('year', (req, res, next, year) => {
+    req.year = year;
+    next();
+  });
+
+  app.get('/', (req, res, next) => {
+    Promise.resolve()
+      .then(() => req.api(`/establishment/${req.establishmentId}/billing`))
+      .then(response => {
+        const year = response.json.meta.year;
+        res.redirect(req.buildRoute('establishment.fees.overview', { year }));
+      })
+      .catch(() => next);
+  });
+
+  app.use('/:year', (req, res, next) => {
+    const query = { year: req.year };
+    Promise.resolve()
+      .then(() => req.api(`/establishment/${req.establishmentId}/billing`, { query }))
+      .then(response => {
+        const startDate = response.json.meta.startDate;
+        const endDate = response.json.meta.endDate;
+        const numPils = response.json.data.numberOfPils;
+        const fees = response.json.data.fees;
+        const personal = response.json.data.pils;
+        const establishment = response.json.data.pel;
+        const total = response.json.data.total;
+
+        res.locals.static.fees = {
+          numPils,
+          fees,
+          establishment,
+          personal,
+          total,
+          startDate,
+          endDate
+        };
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
+  return app;
+};
+
+module.exports.routes = routes;
