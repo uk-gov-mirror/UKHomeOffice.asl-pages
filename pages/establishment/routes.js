@@ -32,7 +32,7 @@ module.exports = {
     permissions: 'establishment.update'
   },
   fees: {
-    path: '/licence-fees/:year',
+    path: '/licence-fees',
     router: licenceFees,
     permissions: 'establishment.licenceFees'
   }

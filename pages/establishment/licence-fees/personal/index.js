@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { datatable } = require('../../../common/routers');
 const getSchema = require('./schema');
@@ -15,21 +16,16 @@ module.exports = settings => {
       next();
     },
     getApiPath: (req, res, next) => {
-      const { startDate, endDate } = req.financialYear;
       const query = {
-        filters: {
-          startDate,
-          endDate,
-          onlyBillable: !req.user.profile.asruUser
-        }
+        year: req.year,
+        filter: get(req.query, 'filters.*')
       };
-      req.datatable.apiPath = [`/establishment/${req.establishmentId}/pils`, { query }];
+      req.datatable.apiPath = [`/establishment/${req.establishmentId}/billing/pils`, { query }];
       next();
     }
   })({ defaultRowCount: 30 }));
 
   app.use((req, res, next) => {
-    console.log(req.datatable.data);
     next();
   });
 

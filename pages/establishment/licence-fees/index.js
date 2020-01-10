@@ -4,33 +4,43 @@ const routes = require('./routes');
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
-  app.use('/', (req, res, next) => {
-    const query = {
-      startDate: req.financialYear.startDate,
-      endDate: req.financialYear.endDate
-    };
-    Promise.all([
-      req.api(`/establishment/${req.establishmentId}/pils/count`, { query }),
-      req.api(`/establishment/${req.establishmentId}/pils/transfers`, { query })
-    ])
-      .then(([numPils, numTransfers]) => {
-        numPils = parseInt(numPils.json.data, 10);
-        numTransfers = parseInt(numTransfers.json.data, 10);
+  app.param('year', (req, res, next, year) => {
+    req.year = year;
+    next();
+  });
 
-        const { startDate, endDate, prices } = req.financialYear;
-        const personal = prices.personal * (numPils + numTransfers);
-        const establishment = prices.establishment;
-        const fees = {
+  app.get('/', (req, res, next) => {
+    Promise.resolve()
+      .then(() => req.api(`/establishment/${req.establishmentId}/billing`))
+      .then(response => {
+        const year = response.json.meta.year;
+        res.redirect(req.buildRoute('establishment.fees.overview', { year }));
+      })
+      .catch(() => next);
+  });
+
+  app.use('/:year', (req, res, next) => {
+    const query = { year: req.year };
+    Promise.resolve()
+      .then(() => req.api(`/establishment/${req.establishmentId}/billing`, { query }))
+      .then(response => {
+        const startDate = response.json.meta.startDate;
+        const endDate = response.json.meta.endDate;
+        const numPils = response.json.data.numberOfPils;
+        const fees = response.json.data.fees;
+        const personal = response.json.data.pils;
+        const establishment = response.json.data.pel;
+        const total = response.json.data.total;
+
+        res.locals.static.fees = {
           numPils,
-          numTransfers,
+          fees,
           establishment,
           personal,
-          personalFee: prices.personal,
-          total: establishment + personal,
+          total,
           startDate,
           endDate
         };
-        res.locals.static.fees = fees;
       })
       .then(() => next())
       .catch(next);

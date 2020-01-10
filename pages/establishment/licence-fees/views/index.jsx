@@ -27,7 +27,6 @@ function Fee({ type }) {
 
 export default function Fees({ tab, tabs, children, subtitle = '' }) {
   const establishment = useSelector(state => state.static.establishment);
-  const allowedActions = useSelector(state => state.static.allowedActions);
   const fees = useSelector(state => state.static.fees);
 
   tabs = tabs || [
@@ -37,9 +36,7 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
     },
     {
       page: 'establishment.fees.personal',
-      key: allowedActions.includes('pil.updateBillable')
-        ? 'fees.tabs.allPersonal'
-        : 'fees.tabs.personal'
+      key: 'fees.tabs.personal'
     }
   ];
 

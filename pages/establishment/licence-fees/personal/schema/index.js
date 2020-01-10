@@ -1,19 +1,21 @@
 module.exports = req => ({
   licenceHolder: {
-    accessor: 'profile.name',
     show: true,
     sort: 'profile.lastName'
   },
   licenceNumber: {
     show: true
   },
-  issueDate: {
-    show: true
+  startDate: {
+    show: true,
+    sortable: false
   },
-  revocationDate: {
-    show: true
+  endDate: {
+    show: true,
+    sortable: false
   },
   billable: {
-    show: req.user.profile.asruUser
+    show: req.user.profile.asruUser,
+    sortable: false
   }
 });

@@ -9,7 +9,7 @@ module.exports = {
 
 Fees will also be collected for the establishment licence.
 
-Fees are not collected for personal licences.`
+Fees are not collected for project licences.`
     },
     summary: {
       establishment: 'Establishment licence',

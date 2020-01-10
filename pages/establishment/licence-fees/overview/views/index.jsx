@@ -11,7 +11,7 @@ export default function Overview() {
       rows: [
         {
           title: 'fees.overview.establishment.fee',
-          value: fees.establishment,
+          value: fees.fees.pel,
           currency: true
         }
       ]
@@ -24,12 +24,8 @@ export default function Overview() {
           value: fees.numPils
         },
         {
-          title: 'fees.overview.personal.transfers',
-          value: fees.numTransfers
-        },
-        {
           title: 'fees.overview.personal.fee',
-          value: fees.personalFee,
+          value: fees.fees.pil,
           currency: true
         },
         {

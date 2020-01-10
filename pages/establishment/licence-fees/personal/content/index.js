@@ -10,11 +10,11 @@ module.exports = merge({}, baseContent, {
     licenceNumber: {
       label: 'PIL number'
     },
-    issueDate: {
+    startDate: {
       label: 'Start date',
       tooltip: 'Start date, when the licence was granted at or transfered to this establishment'
     },
-    revocationDate: {
+    endDate: {
       label: 'End date',
       tooltip: 'End date, when the licence was revoked at or transfered away from this establishment'
     },

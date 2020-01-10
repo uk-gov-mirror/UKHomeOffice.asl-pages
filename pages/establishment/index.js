@@ -1,22 +1,9 @@
 const { Router } = require('express');
 const routes = require('./routes');
 const { populateNamedPeople } = require('../common/middleware');
-const { financialYears } = require('./licence-fees/constants');
-const { last } = require('lodash');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
-
-  app.param('year', (req, res, next, year) => {
-    let financialYear = financialYears[year];
-    if (!financialYear) {
-      const key = last(Object.keys(financialYears));
-      financialYear = financialYears[key];
-    }
-    req.year = year;
-    req.financialYear = financialYear;
-    next();
-  });
 
   app.use(
     (req, res, next) => {
