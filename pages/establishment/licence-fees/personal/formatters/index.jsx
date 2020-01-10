@@ -12,7 +12,7 @@ export default {
       if (!pil.profile.establishments.length) {
         return val;
       }
-      return <Link page="pil.read" pilId={pil.id} profileId={pil.profile.id} label={val} establishmentId={pil.establishmentId} />;
+      return <Link page="pil.read" pilId={pil.id} profileId={pil.profile.id} label={val} />;
     }
   },
   startDate: {
