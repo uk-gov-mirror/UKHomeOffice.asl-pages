@@ -126,7 +126,7 @@ module.exports = ({
   };
 
   const _locals = (req, res, next) => {
-    Object.assign(res.locals, { datatable: pick(req.datatable, ['data', 'pagination', 'sort', 'filters']) });
+    Object.assign(res.locals, { datatable: pick(req.datatable, ['data', 'pagination', 'sort', 'filters', 'schema']) });
     Object.assign(res.locals.static, { schema: req.datatable.schema });
     if (res.establishment) {
       Object.assign(res.locals.static, { establishment: res.establishment });
