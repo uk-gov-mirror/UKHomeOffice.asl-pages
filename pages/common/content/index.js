@@ -186,5 +186,23 @@ module.exports = {
     view: 'View granted licence'
   },
   updateInProgress: 'There is a pending change request to these conditions.',
-  'view-task': 'View open task'
+  'view-task': 'View task',
+  openTask: {
+    application: {
+      title: 'Application in progress',
+      description: 'An application has been submitted and is being reviewed. You can view or recall the application.'
+    },
+    amendment: {
+      title: 'Amendment in progress',
+      description: 'An amendment to this licence has been submitted and is being reviewed. You can view or recall the amendment.'
+    },
+    revocation: {
+      title: 'Revocation in progress',
+      description: 'A request to revoke this licence has been submitted and is being reviewed. You can view or recall the revocation.'
+    },
+    transfer: {
+      title: 'Transfer in progress',
+      description: 'A request to transfer this licence to another establishment has been submitted and is being reviewed. You can view or recall the licence transfer.'
+    }
+  }
 };

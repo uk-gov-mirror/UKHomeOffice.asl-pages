@@ -5,7 +5,6 @@ import {
   ErrorSummary,
   Header,
   SectionList,
-  OpenTaskWarning,
   Form
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
@@ -158,7 +157,6 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
     <Fragment>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <OpenTaskWarning />
           <ErrorSummary />
         </div>
       </div>

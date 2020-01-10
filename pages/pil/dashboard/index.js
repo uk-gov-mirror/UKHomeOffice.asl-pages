@@ -4,6 +4,7 @@ const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
 const { success } = require('../../common/routers');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
+const { canUpdateModel } = require('../../../lib/utils');
 
 module.exports = settings => {
   const sendData = (req, params = {}) => {
@@ -28,6 +29,13 @@ module.exports = settings => {
     ...settings,
     root: __dirname,
     paths: ['/success']
+  });
+
+  app.use((req, res, next) => {
+    if (!canUpdateModel(req.model)) {
+      return res.redirect(req.buildRoute('task.read', { taskId: req.model.openTasks[0].id }));
+    }
+    next();
   });
 
   app.get('/', hydrate());
