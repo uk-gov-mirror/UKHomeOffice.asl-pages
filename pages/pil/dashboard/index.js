@@ -31,7 +31,7 @@ module.exports = settings => {
     paths: ['/success']
   });
 
-  app.use((req, res, next) => {
+  app.get('/', (req, res, next) => {
     if (!canUpdateModel(req.model)) {
       return res.redirect(req.buildRoute('task.read', { taskId: req.model.openTasks[0].id }));
     }
