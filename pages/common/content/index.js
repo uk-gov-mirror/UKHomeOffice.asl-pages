@@ -133,6 +133,7 @@ module.exports = {
   holc: 'Home Office Liaison Contact (HOLC)',
   inspectors: 'Inspectors',
   spoc: 'Single Point of Contact (SPoC)',
+  sharedKey: 'Establishment SharedKey',
   establishment: 'Establishment',
   buttons: {
     submit: 'Submit',
