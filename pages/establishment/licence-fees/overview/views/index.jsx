@@ -11,7 +11,7 @@ export default function Overview() {
       rows: [
         {
           title: 'fees.overview.establishment.fee',
-          value: fees.fees.pel,
+          value: fees.establishment,
           currency: true
         }
       ]
