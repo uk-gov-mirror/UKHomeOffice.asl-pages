@@ -147,6 +147,14 @@ const Index = ({
                 <Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } />
               }
             </dd>
+
+            {
+              establishment.sharedKey &&
+                <Fragment>
+                  <dt><Snippet>sharedKey</Snippet></dt>
+                  <dd>{establishment.sharedKey}</dd>
+                </Fragment>
+            }
           </dl>
         </Sidebar>
       </div>
