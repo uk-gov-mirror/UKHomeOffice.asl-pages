@@ -41,6 +41,7 @@ function DashboardLink ({ page, route, ...params }) {
 const Index = ({
   establishment,
   allowedActions,
+  isAsru,
   asruAdmin
 }) => {
   const inspectors = establishment.asru.filter(p => p.asruInspector);
@@ -149,7 +150,7 @@ const Index = ({
             </dd>
 
             {
-              establishment.sharedKey &&
+              isAsru && establishment.sharedKey &&
                 <Fragment>
                   <dt><Snippet>sharedKey</Snippet></dt>
                   <dd>{establishment.sharedKey}</dd>
@@ -163,6 +164,6 @@ const Index = ({
   ;
 };
 
-const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruUser && profile.asruAdmin });
+const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruUser && profile.asruAdmin, isAsru: profile.asruUser });
 
 export default connect(mapStateToProps)(Index);
