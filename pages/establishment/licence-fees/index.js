@@ -16,7 +16,7 @@ module.exports = settings => {
         const year = response.json.meta.year;
         res.redirect(req.buildRoute('establishment.fees.overview', { year }));
       })
-      .catch(() => next);
+      .catch(next);
   });
 
   app.use('/:year', (req, res, next) => {
