@@ -1,21 +1,13 @@
 import React, { Fragment } from 'react';
-import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
 import { Header, Link, Snippet } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
+import formatters from '../../formatters';
 
-const getProjectDuration = model => {
-  if (!model.granted || isEmpty(model.granted.duration)) {
-    return '-';
-  }
-
-  const { years, months } = model.granted.duration;
-
-  return `${years} years ${months} months`;
-};
+const getProjectDuration = model => formatters.duration.format(model.granted);
 
 const confirmSubmission = message => e => {
   e.preventDefault();
@@ -235,7 +227,7 @@ function Actions({ model }) {
 }
 
 export default function ProjectLandingPage() {
-  const { establishment, canUpdate, openTask } = useSelector(state => state.static);
+  const { establishment, canUpdate, openTask, allowedActions } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
 
   const isEditable = model.status === 'active' || model.status === 'inactive';
@@ -274,7 +266,16 @@ export default function ProjectLandingPage() {
               <dd>{getProjectDuration(model)}</dd>
 
               <dt><Snippet>fields.issueDate.label</Snippet></dt>
-              <dd>{formatDate(model.issueDate, dateFormat.medium)}</dd>
+              <dd>
+                {formatDate(model.issueDate, dateFormat.medium)}
+                {
+                  allowedActions.includes('project.updateIssueDate') &&
+                    <Fragment>
+                      <br />
+                      <Link page="project.updateIssueDate" label="Change" />
+                    </Fragment>
+                }
+              </dd>
 
               {
                 model.amendedDate &&

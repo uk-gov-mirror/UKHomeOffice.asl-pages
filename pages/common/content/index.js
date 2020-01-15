@@ -48,6 +48,7 @@ module.exports = {
       list: 'Projects',
       read: '{{project.title}}',
       updateLicenceHolder: 'Update licence holder',
+      updateIssueDate: 'Change date granted',
       upload: 'Upload draft application',
       revoke: 'Revoke licence',
       import: 'Import project'
