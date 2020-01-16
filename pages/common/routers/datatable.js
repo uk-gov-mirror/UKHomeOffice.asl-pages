@@ -84,6 +84,9 @@ module.exports = ({
       }
     }
     let { rows = defaultRowCount, page } = req.query;
+    if (req.query.csv) {
+      rows = 1e6;
+    }
     page = parseInt(page, 10) - 1 || 0;
     const limit = getLimit(rows);
     req.datatable.pagination = {
@@ -133,12 +136,36 @@ module.exports = ({
     return locals(req, res, next);
   };
 
+  const _sendCSV = (req, res, next) => {
+    if (!req.query.csv) {
+      return next();
+    }
+    const schema = res.locals.datatable.schema;
+    const rows = []
+      .concat([Object.keys(schema)])
+      .concat(res.locals.datatable.data.rows.map(row => {
+        return Object.keys(schema)
+          .map(key => {
+            if (typeof schema[key].accessor === 'function') {
+              return schema[key].accessor(row[key], row);
+            }
+            if (typeof schema[key].accessor === 'string') {
+              return get(row, schema[key].accessor);
+            }
+            return row[key];
+          });
+      }));
+    res.attachment('data.csv');
+    return res.send(rows.map(r => r.join(',')).join('\n'));
+  };
+
   app.get('/',
     _configure,
     _getApiPath,
     _persistQuery,
     _getValues,
-    _locals
+    _locals,
+    _sendCSV
   );
 
   app.use(errorHandler);
