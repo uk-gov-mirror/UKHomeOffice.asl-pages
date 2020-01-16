@@ -272,7 +272,7 @@ export default function ProjectLandingPage() {
                   allowedActions.includes('project.updateIssueDate') &&
                     <Fragment>
                       <br />
-                      <Link page="projectUpdateIssueDate" label="Change" />
+                      <Link page="projectAsruActions.updateIssueDate" label="Change" />
                     </Fragment>
                 }
               </dd>
