@@ -4,16 +4,23 @@ import fetch from 'r2';
 import { Inset, Snippet, Form } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
+import Markdown from 'react-markdown';
 import { dateFormat } from '../../../../../constants';
 
-function UpdatingForm({ id, billable, onCancelClick, formFields }) {
+const schema = {
+  comment: {
+    inputType: 'textarea'
+  }
+};
+
+function UpdatingForm({ id, waived, onCancelClick, formFields }) {
   return (
     <Fragment>
       {
         formFields
       }
       <input type="hidden" name="pilId" value={id} />
-      <input type="hidden" name="billable" value={billable} />
+      <input type="hidden" name="waived" value={!waived} />
       <p className="control-panel">
         <Button>Update billable status</Button>
         <a href="#" onClick={onCancelClick}>Cancel</a>
@@ -22,44 +29,34 @@ function UpdatingForm({ id, billable, onCancelClick, formFields }) {
   );
 }
 
-function PreviousUpdate({ task }) {
-  const billable = task.data.data.billable;
-  const changedBy = task.data.changedBy.name;
-  const updatedAt = format(task.updatedAt, dateFormat.medium);
-  const comments = task.data.meta.comments;
+function Waiver({ waivedBy, updatedAt, comment }) {
+  const timestamp = format(updatedAt, dateFormat.medium);
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-three-quarters">
-        <p><strong>Marked {billable ? 'billable' : 'non-billable'} by: </strong>{changedBy}</p>
-        <p>{comments}</p>
+        <p><strong>Marked non-billable by: </strong>{waivedBy.firstName} {waivedBy.lastName}</p>
+        <Markdown>{comment}</Markdown>
       </div>
-      <div className="govuk-grid-column-one-quarters">{updatedAt}</div>
+      <div className="govuk-grid-column-one-quarters">{timestamp}</div>
     </div>
   );
 }
 
-function SummaryPanel({ toggleUpdating, previousUpdates }) {
+function SummaryPanel({ toggleUpdating, waiver }) {
   return (
     <Fragment>
-      <a href="#" onClick={toggleUpdating}><Snippet>change</Snippet></a>
       {
-        !!previousUpdates.length && (
-          <Fragment>
-            <h2>Previous changes to this billing status</h2>
-            {
-              previousUpdates.map(previousUpdate => <PreviousUpdate key={previousUpdate.id} task={previousUpdate} />)
-            }
-          </Fragment>
-        )
+        waiver && <Waiver {...waiver} />
       }
+      <a href="#" onClick={toggleUpdating}><Snippet>change</Snippet></a>
     </Fragment>
   );
 }
 
-function UpdatingPanel({ billable, id, onCancelClick }) {
+function UpdatingPanel({ waived, id, onCancelClick }) {
 
-  function getBillableLabel(isBillable) {
-    return isBillable ? 'Billable' : 'Non-billable';
+  function getBillableLabel(isWaived) {
+    return isWaived ? 'Not billable' : 'Billable';
   }
 
   return (
@@ -75,13 +72,13 @@ function UpdatingPanel({ billable, id, onCancelClick }) {
           </thead>
           <tbody>
             <tr>
-              <td>{ getBillableLabel(billable) }</td>
-              <td><span className="highlight">{ getBillableLabel(!billable) }</span></td>
+              <td>{ getBillableLabel(waived) }</td>
+              <td><span className="highlight">{ getBillableLabel(!waived) }</span></td>
             </tr>
           </tbody>
         </table>
-        <Form submit={false} detachFields>
-          <UpdatingForm id={id} billable={billable} onCancelClick={onCancelClick} />
+        <Form submit={false} schema={waived ? {} : schema} detachFields>
+          <UpdatingForm id={id} waived={waived} onCancelClick={onCancelClick} />
         </Form>
       </div>
     </div>
@@ -90,15 +87,18 @@ function UpdatingPanel({ billable, id, onCancelClick }) {
 
 export default function Row({ model }) {
   const [updating, setUpdating] = useState(false);
-  const [previousUpdates, setPreviousUpdates] = useState([]);
+  const [waiver, setWaiver] = useState(null);
   const url = useSelector(state => state.static.url);
-  const { billable, id } = model;
+  const { waived, id } = model;
 
   useEffect(() => {
-    fetch(`${url}/billing-history/${id}`).response
+    if (!waived) {
+      return;
+    }
+    fetch(`${url}/history?pilId=${id}`).response
       .then(response => response.json())
       .then(response => {
-        setPreviousUpdates(response);
+        setWaiver(response);
       });
   }, []);
 
@@ -115,8 +115,8 @@ export default function Row({ model }) {
     <Inset onClick={preventCollapse}>
       {
         updating
-          ? <UpdatingPanel billable={billable} id={id} onCancelClick={toggleUpdating} />
-          : <SummaryPanel id={id} toggleUpdating={toggleUpdating} previousUpdates={previousUpdates} />
+          ? <UpdatingPanel waived={waived} id={id} onCancelClick={toggleUpdating} />
+          : <SummaryPanel id={id} waiver={waiver} toggleUpdating={toggleUpdating} />
       }
     </Inset>
   );

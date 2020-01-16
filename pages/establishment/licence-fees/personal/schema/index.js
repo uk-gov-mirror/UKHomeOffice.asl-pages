@@ -14,8 +14,7 @@ module.exports = req => ({
     show: true,
     sortable: false
   },
-  billable: {
-    show: req.user.profile.asruUser,
-    sortable: false
+  waived: {
+    show: req.user.profile.asruUser
   }
 });

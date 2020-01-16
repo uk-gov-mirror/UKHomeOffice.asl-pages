@@ -1,4 +1,7 @@
 module.exports = {
+  notifications: {
+    'fee-waived-updated': 'Updated billable status'
+  },
   fees: {
     title: 'Projected licence fees',
     period: 'Covering the period {{start}} to {{end}}.',
