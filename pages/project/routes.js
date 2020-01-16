@@ -2,7 +2,6 @@ const list = require('./list');
 const importProject = require('./import');
 const read = require('./read');
 const updateLicenceHolder = require('./update-licence-holder');
-const updateIssueDate = require('./update-issue-date');
 const remove = require('./delete');
 const revoke = require('./revoke');
 
@@ -25,11 +24,6 @@ module.exports = {
     path: '/:projectId/update-licence-holder',
     permissions: 'project.update',
     router: updateLicenceHolder
-  },
-  updateIssueDate: {
-    path: '/:projectId/update-issue-date',
-    permissions: 'project.updateIssueDate',
-    router: updateIssueDate
   },
   delete: {
     path: '/:projectId/delete',
