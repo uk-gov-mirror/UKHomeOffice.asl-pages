@@ -18,10 +18,10 @@ module.exports = merge({}, baseContent, {
       label: 'End date',
       tooltip: 'End date, when the licence was revoked at or transfered away from this establishment'
     },
-    billable: {
+    waived: {
       label: 'Billable'
     },
-    comments: {
+    comment: {
       label: 'What is the reason for this change?'
     }
   },

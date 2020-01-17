@@ -21,7 +21,7 @@ export default {
   endDate: {
     format: val => val ? format(val, dateFormat.medium) : '-'
   },
-  billable: {
-    format: val => val !== false ? <label className="badge blue">Billable</label> : <label className="badge">Not billable</label>
+  waived: {
+    format: val => val === true ? <label className="badge">Not billable</label> : <label className="badge blue">Billable</label>
   }
 };
