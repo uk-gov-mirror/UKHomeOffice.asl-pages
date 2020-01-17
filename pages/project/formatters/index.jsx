@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { Link, ExpiryDate, Snippet } from '@asl/components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
+import isEmpty from 'lodash/isEmpty';
 
 const bad = ['expired'];
 const good = ['active'];
@@ -45,6 +46,17 @@ const formatters = {
   },
   submitted: {
     format: submitted => <Link page="projectVersion" versionId={submitted.id} label={<Snippet>fields.submitted.view</Snippet>} />
+  },
+  duration: {
+    format: granted => {
+      if (!granted || isEmpty(granted.duration)) {
+        return '-';
+      }
+
+      const { years, months } = granted.duration;
+
+      return `${years} years ${months} months`;
+    }
   }
 };
 
