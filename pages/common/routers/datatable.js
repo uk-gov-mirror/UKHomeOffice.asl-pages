@@ -1,6 +1,7 @@
-const { castArray, pick, merge, set, get, omit } = require('lodash');
+const { castArray, pick, merge, set, get, omit, mapValues } = require('lodash');
 const { Router } = require('express');
 const { parse, stringify } = require('qs');
+const csv = require('csv-stringify');
 const { cleanModel, removeQueryParams } = require('../../../lib/utils');
 
 const defaultMiddleware = (req, res, next) => next();
@@ -86,6 +87,7 @@ module.exports = ({
     let { rows = defaultRowCount, page } = req.query;
     if (req.query.csv) {
       rows = 1e6;
+      page = 1;
     }
     page = parseInt(page, 10) - 1 || 0;
     const limit = getLimit(rows);
@@ -140,23 +142,24 @@ module.exports = ({
     if (!req.query.csv) {
       return next();
     }
-    const schema = res.locals.datatable.schema;
-    const rows = []
-      .concat([Object.keys(schema)])
-      .concat(res.locals.datatable.data.rows.map(row => {
-        return Object.keys(schema)
-          .map(key => {
-            if (typeof schema[key].accessor === 'function') {
-              return schema[key].accessor(row[key], row);
-            }
-            if (typeof schema[key].accessor === 'string') {
-              return get(row, schema[key].accessor);
-            }
-            return row[key];
-          });
-      }));
     res.attachment('data.csv');
-    return res.send(rows.map(r => r.join(',')).join('\n'));
+    const schema = res.locals.datatable.schema;
+    const stringifier = csv({ header: true });
+    stringifier.pipe(res);
+    res.locals.datatable.data.rows
+      .map(row => {
+        return mapValues(schema, (opts, key) => {
+          if (typeof opts.accessor === 'function') {
+            return opts.accessor(row);
+          }
+          if (typeof opts.accessor === 'string') {
+            return get(row, opts.accessor);
+          }
+          return row[key];
+        });
+      })
+      .forEach(row => stringifier.write(row));
+    stringifier.end();
   };
 
   app.get('/',
