@@ -414,7 +414,7 @@ module.exports = {
         title: 'Application returned',
         body: `The applicant will review your comments and address any changes that need to be made.
 
-          They can then choose to discard the amendment, or submit it again.`
+          They can then choose to discard the application, or submit it again.`
       },
       resolved: {
         title: 'Licence granted',
