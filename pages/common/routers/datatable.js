@@ -149,13 +149,12 @@ module.exports = ({
     res.locals.datatable.data.rows
       .map(row => {
         return mapValues(schema, (opts, key) => {
-          if (typeof opts.accessor === 'function') {
-            return opts.accessor(row);
+          const accessor = opts.accessor || key;
+          const value = get(row, accessor);
+          if (typeof opts.toCSVString === 'function') {
+            return opts.toCSVString(value, row);
           }
-          if (typeof opts.accessor === 'string') {
-            return get(row, opts.accessor);
-          }
-          return row[key];
+          return value;
         });
       })
       .forEach(row => stringifier.write(row));

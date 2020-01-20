@@ -384,3 +384,14 @@ details summary {
 .badge.blue {
   background-color: $blue;
 }
+
+.tab-content {
+  position: relative;
+  @include govuk-media-query($from: tablet) {
+    .download {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}

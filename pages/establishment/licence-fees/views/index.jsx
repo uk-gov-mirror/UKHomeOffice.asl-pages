@@ -81,8 +81,10 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
             tabs.map(({ page, key, ...props }, index) => <Link key={index} page={page} label={<Snippet>{key}</Snippet>} {...props} />)
           }
         </Tabs>
-        <h2><Snippet>title</Snippet></h2>
-        { children }
+        <div className="tab-content">
+          <h2><Snippet>title</Snippet></h2>
+          { children }
+        </div>
       </Fragment>
     </Fragment>
   );
