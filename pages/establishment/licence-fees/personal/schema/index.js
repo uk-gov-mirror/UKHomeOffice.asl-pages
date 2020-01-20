@@ -2,7 +2,8 @@ module.exports = req => {
   const schema = {
     licenceHolder: {
       show: true,
-      sort: 'profile.lastName'
+      sort: 'profile.lastName',
+      toCSVString: (_, row) => `${row.profile.firstName} ${row.profile.lastName}`
     },
     licenceNumber: {
       show: true
@@ -18,7 +19,8 @@ module.exports = req => {
   };
   if (req.user.profile.asruUser) {
     schema.waived = {
-      show: true
+      show: true,
+      toCSVString: waived => waived ? 'Not billable' : 'Billable'
     };
   }
   return schema;
