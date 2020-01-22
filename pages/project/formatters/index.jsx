@@ -30,7 +30,12 @@ const formatters = {
       <Link page="profile.read" profileId={id} label={`${firstName} ${lastName}`} />
   },
   expiryDate: {
-    format: date => date ? <ExpiryDate date={date} showNotice={11} /> : '-'
+    format: (date, model) => {
+      if (!date) {
+        return '-';
+      }
+      return <ExpiryDate date={date} showNotice={model.status === 'active' ? 11 : false} />;
+    }
   },
   updatedAt: {
     format: date => formatDate(date, dateFormat.datetime)
