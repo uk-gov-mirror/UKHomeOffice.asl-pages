@@ -1,3 +1,5 @@
+import moment from 'moment';
+import sinon from 'sinon';
 import validators from '../../../lib/validation/validators';
 
 const doTest = (value, params, type, expected) => {
@@ -150,4 +152,80 @@ describe('validation', () => {
       values.forEach(value => doTest(value, true, 'required', false));
     });
   });
+
+  describe('dates', () => {
+
+    let clock;
+
+    beforeEach(() => {
+      clock = sinon.useFakeTimers({
+        now: moment('2020-01-20').valueOf()
+      });
+    });
+
+    afterEach(() => {
+      clock.restore();
+    });
+
+    describe('isDateBefore/isDateAfter', () => {
+
+      describe('can use a hardcoded date as a comparator', () => {
+        const before = [
+          '2019-01-01',
+          '2018-12-31'
+        ];
+        const after = [
+          '2019-01-03',
+          '2020-01-01'
+        ];
+        describe('before', () => {
+          before.forEach(value => doTest(value, '2019-01-02', 'dateIsBefore', true));
+          before.forEach(value => doTest(value, '2019-01-02', 'dateIsAfter', false));
+        });
+        describe('after', () => {
+          after.forEach(value => doTest(value, '2019-01-02', 'dateIsBefore', false));
+          after.forEach(value => doTest(value, '2019-01-02', 'dateIsAfter', true));
+        });
+      });
+
+      describe('can use a dynamic date as a comparator', () => {
+        // current date is mocked to 2010-01-20
+        const before = [
+          '2020-01-14'
+        ];
+        const after = [
+          '2020-01-16'
+        ];
+        describe('before', () => {
+          before.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsBefore', true));
+          before.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsAfter', false));
+        });
+        describe('after', () => {
+          after.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsBefore', false));
+          after.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsAfter', true));
+        });
+      });
+
+      describe('can use "now" as a shortcut to the current date as a comparator', () => {
+        // current date is mocked to 2010-01-20
+        const before = [
+          '2020-01-19'
+        ];
+        const after = [
+          '2020-01-21'
+        ];
+        describe('before', () => {
+          before.forEach(value => doTest(value, 'now', 'dateIsBefore', true));
+          before.forEach(value => doTest(value, 'now', 'dateIsAfter', false));
+        });
+        describe('after', () => {
+          after.forEach(value => doTest(value, 'now', 'dateIsBefore', false));
+          after.forEach(value => doTest(value, 'now', 'dateIsAfter', true));
+        });
+      });
+
+    });
+
+  });
+
 });

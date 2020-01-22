@@ -1,5 +1,3 @@
-const moment = require('moment');
-
 module.exports = {
   firstName: {
     inputType: 'inputText',
@@ -18,7 +16,7 @@ module.exports = {
     validate: [
       'required',
       'validDate',
-      { dateIsBefore: moment() }
+      { dateIsBefore: 'now' }
     ]
   },
   telephone: {
