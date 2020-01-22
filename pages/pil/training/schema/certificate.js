@@ -1,5 +1,4 @@
 const { accreditingBodies } = require('@asl/constants');
-const moment = require('moment');
 
 module.exports = {
   certificateNumber: {
@@ -37,7 +36,7 @@ module.exports = {
     validate: [
       'required',
       'validDate',
-      { dateIsBefore: moment() }
+      { dateIsBefore: 'now' }
     ]
   }
 };
