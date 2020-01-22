@@ -43,8 +43,8 @@ const Index = ({
   allowedActions,
   asruAdmin
 }) => {
-  const inspectors = establishment.asru.filter(p => p.asruInspector);
-  const spocs = establishment.asru.filter(p => p.asruLicensing);
+  const inspectors = establishment.asru.filter(p => p.asruUser && p.asruInspector);
+  const spocs = establishment.asru.filter(p => p.asruUser && p.asruLicensing);
   const openApplication = establishment.openTasks.find(task => task.data.model === 'establishment' && allowedActions.includes('establishment.update') && task.data.action === 'grant');
   const canApply = establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication;
 
