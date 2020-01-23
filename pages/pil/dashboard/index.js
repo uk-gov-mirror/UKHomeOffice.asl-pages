@@ -51,7 +51,7 @@ module.exports = settings => {
     const values = get(req.session, `form[${req.model.id}].values`);
     req.model = { ...req.model, ...values };
 
-    const establishmentTransfer = req.user.profile.establishments
+    const establishmentTransfer = req.profile.establishments
       .filter(e => e.id !== req.establishment.id)
       .find(e => e.id === get(req.model, 'establishmentId'));
 
@@ -91,11 +91,14 @@ module.exports = settings => {
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
 
-      // can only transfer own pil if it's active and has no in-progress amendment
-      const hasOpenAmendment = req.pil.status === 'active' && get(req.model, 'openTasks[0].data.action') === 'grant';
-      res.locals.static.canTransferPil = req.pil.status === 'active' && req.user.profile.id === req.profile.id && !hasOpenAmendment;
+      return req.user.can('pil.transfer', { pilId: req.pilId })
+        .then(canTransfer => {
+          const hasOpenAmendment = req.pil.status === 'active' && get(req.model, 'openTasks[0].data.action') === 'grant';
 
-      next();
+          res.locals.static.canTransferPil = req.pil.status === 'active' && !hasOpenAmendment && canTransfer;
+        })
+        .then(() => next())
+        .catch(next);
     }
   }));
 
@@ -103,6 +106,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
+      .then(() => delete req.session.form[req.model.id])
       .then(() => res.redirect(req.buildRoute('pil.update', { suffix: 'success' })))
       .catch(next);
   });
