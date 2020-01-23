@@ -39,7 +39,7 @@ const Establishment = ({ establishment, content }) => {
       <h1 className="establishment-name">{establishment.name}</h1>
       <ReactMarkdown>{establishment.address}</ReactMarkdown>
 
-      <h4>Licenced to carry out:</h4>
+      <h4>Licensed to carry out:</h4>
       <ul>
         {
           ['procedure', 'breeding', 'supplying'].filter(auth => establishment[auth]).map(auth =>
