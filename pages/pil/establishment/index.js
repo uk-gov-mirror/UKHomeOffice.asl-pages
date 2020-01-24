@@ -2,6 +2,7 @@ const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const getSchema = require('./schema');
+const { canTransferPil } = require('../../../lib/utils');
 
 module.exports = settings => {
   const app = page({
@@ -15,7 +16,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    return req.user.can('pil.transfer', { pilId: req.pilId })
+    return canTransferPil(req)
       .then(canTransfer => {
         if (!canTransfer) {
           return next(new Error('Only the PIL holder and ASRU can transfer this PIL'));

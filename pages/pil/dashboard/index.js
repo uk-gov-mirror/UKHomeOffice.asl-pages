@@ -4,7 +4,7 @@ const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
 const { success } = require('../../common/routers');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
-const { canUpdateModel } = require('../../../lib/utils');
+const { canUpdateModel, canTransferPil } = require('../../../lib/utils');
 
 module.exports = settings => {
   const sendData = (req, params = {}) => {
@@ -91,11 +91,9 @@ module.exports = settings => {
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
 
-      return req.user.can('pil.transfer', { pilId: req.pilId })
+      return canTransferPil(req)
         .then(canTransfer => {
-          const hasOpenAmendment = req.pil.status === 'active' && get(req.model, 'openTasks[0].data.action') === 'grant';
-
-          res.locals.static.canTransferPil = req.pil.status === 'active' && !hasOpenAmendment && canTransfer;
+          res.locals.static.canTransferPil = canTransfer;
         })
         .then(() => next())
         .catch(next);
