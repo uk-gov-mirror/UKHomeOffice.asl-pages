@@ -4,7 +4,7 @@ const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
 const { success } = require('../../common/routers');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
-const { canUpdateModel } = require('../../../lib/utils');
+const { canUpdateModel, canTransferPil } = require('../../../lib/utils');
 
 module.exports = settings => {
   const sendData = (req, params = {}) => {
@@ -51,7 +51,7 @@ module.exports = settings => {
     const values = get(req.session, `form[${req.model.id}].values`);
     req.model = { ...req.model, ...values };
 
-    const establishmentTransfer = req.user.profile.establishments
+    const establishmentTransfer = req.profile.establishments
       .filter(e => e.id !== req.establishment.id)
       .find(e => e.id === get(req.model, 'establishmentId'));
 
@@ -91,11 +91,12 @@ module.exports = settings => {
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
 
-      // can only transfer own pil if it's active and has no in-progress amendment
-      const hasOpenAmendment = req.pil.status === 'active' && get(req.model, 'openTasks[0].data.action') === 'grant';
-      res.locals.static.canTransferPil = req.pil.status === 'active' && req.user.profile.id === req.profile.id && !hasOpenAmendment;
-
-      next();
+      return canTransferPil(req)
+        .then(canTransfer => {
+          res.locals.static.canTransferPil = canTransfer;
+        })
+        .then(() => next())
+        .catch(next);
     }
   }));
 
@@ -103,6 +104,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
+      .then(() => delete req.session.form[req.model.id])
       .then(() => res.redirect(req.buildRoute('pil.update', { suffix: 'success' })))
       .catch(next);
   });

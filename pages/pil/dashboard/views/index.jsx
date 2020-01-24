@@ -147,7 +147,16 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
     }
   ];
 
-  const submitSnippet = isLicensing ? 'buttons.submitAsLicensing' : (isAsru ? 'buttons.submitAsAsru' : 'buttons.submit');
+  const isPilTransfer = !!model.establishment.to;
+  let submitSnippet = 'buttons.submit';
+
+  if (isAsru && !isPilTransfer) {
+    submitSnippet = 'buttons.submitAsAsru';
+
+    if (isLicensing) {
+      submitSnippet = 'buttons.submitAsLicensing';
+    }
+  }
 
   if (!canUpdateModel(model)) {
     return <InProgressWarning task={model.openTasks[0]} />;
