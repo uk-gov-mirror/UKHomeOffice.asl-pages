@@ -21,7 +21,11 @@ const getProfileLink = ({ id, name, establishmentId }) => {
   }
 };
 
-const getAuthor = ({ changedBy, event: { status } }, task) => {
+const getAuthor = ({ changedBy, eventName, event: { status } }, task) => {
+  if (eventName === 'status:deadline-extension') {
+    status = 'deadline-extension';
+  }
+
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
   const action = <Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet>;
   return (
