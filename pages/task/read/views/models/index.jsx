@@ -4,7 +4,9 @@ import {
   StickyNavPage,
   StickyNavAnchor,
   Snippet,
-  Field
+  Field,
+  Inset,
+  Link
 } from '@asl/components';
 import Establishment from './establishment';
 import PIL from './pil';
@@ -26,10 +28,28 @@ const models = {
 
 const selector = ({ static: { schema, values } }) => ({ schema, values });
 
+const AsruDiscard = ({ task }) => {
+  return (
+    <details className="asru-discard-task">
+      <summary><Snippet>asruDiscardTask.summary</Snippet></summary>
+      <Inset>
+        <p><Snippet>asruDiscardTask.details</Snippet></p>
+        <Link
+          page="task.read.discard"
+          taskId={task.id}
+          label={<Snippet>asruDiscardTask.action</Snippet>}
+          className="govuk-button button-warning"
+        />
+      </Inset>
+    </details>
+  );
+};
+
 export default function Model({ task, formFields }) {
   const { schema, values } = useSelector(selector, shallowEqual);
   const Model = models[task.data.model];
   const hasComments = task.data.meta && task.data.meta.comments;
+  const canBeDiscardedByAsru = task.nextSteps.find(step => step.id === 'discarded-by-asru');
 
   return (
     <StickyNavPage>
@@ -55,6 +75,9 @@ export default function Model({ task, formFields }) {
             <h2><Snippet>sticky-nav.status</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
             { formFields }
+            {
+              canBeDiscardedByAsru && <AsruDiscard task={task} />
+            }
           </StickyNavAnchor>
       }
     </StickyNavPage>

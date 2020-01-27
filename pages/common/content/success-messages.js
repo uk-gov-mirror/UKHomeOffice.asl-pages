@@ -70,6 +70,10 @@ module.exports = {
       'discarded-by-applicant': {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
+      'discarded-by-asru': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
     }
   },
@@ -90,6 +94,10 @@ module.exports = {
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
+        title: 'Revocation discarded',
+        body: 'You will need to create a new request if you want to revoke this licence in the future.'
+      },
+      'discarded-by-asru': {
         title: 'Revocation discarded',
         body: 'You will need to create a new request if you want to revoke this licence in the future.'
       }
@@ -194,6 +202,10 @@ module.exports = {
       'discarded-by-applicant': {
         title: 'Application discarded',
         body: 'You will need to create a new application if you want to apply for this type of licence again.'
+      },
+      'discarded-by-asru': {
+        title: 'Application discarded',
+        body: 'You will need to create a new application if you want to apply for this type of licence again.'
       }
     },
     amendment: {
@@ -281,6 +293,10 @@ module.exports = {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
       },
+      'discarded-by-asru': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
       'autoresolved': {
         title: 'Licence amended',
         body: `**This personal licence has been amended.**
@@ -354,6 +370,10 @@ module.exports = {
         body: 'You can now edit this transfer request and resubmit it, or discard it and start again.'
       },
       'discarded-by-applicant': {
+        title: 'Transfer discarded',
+        body: 'You will need to create a new transfer request if you want to submit these changes again.'
+      },
+      'discarded-by-asru': {
         title: 'Transfer discarded',
         body: 'You will need to create a new transfer request if you want to submit these changes again.'
       },
@@ -435,6 +455,10 @@ module.exports = {
       'discarded-by-applicant': {
         title: 'Application discarded',
         body: 'You will need to create a new application if you want to apply for this type of licence again.'
+      },
+      'discarded-by-asru': {
+        title: 'Application discarded',
+        body: 'You will need to create a new application if you want to apply for this type of licence again.'
       }
     },
     amendment: {
@@ -504,6 +528,10 @@ module.exports = {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
       },
+      'discarded-by-asru': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
       updated: {
         title: 'Amendment submitted',
         body: `An inspector will review your changes and contact you if they need any more information.
@@ -529,6 +557,10 @@ module.exports = {
         body: 'You can now edit this revocation request and resubmit it, or discard it.'
       },
       'discarded-by-applicant': {
+        title: 'Revocation discarded',
+        body: 'You will need to create a new revocation if you want to submit these changes again.'
+      },
+      'discarded-by-asru': {
         title: 'Revocation discarded',
         body: 'You will need to create a new revocation if you want to submit these changes again.'
       }
@@ -591,6 +623,10 @@ module.exports = {
       },
       // TODO: CONTENT
       'discarded-by-applicant': {
+        title: 'Amendment discarded',
+        body: 'You will need to create a new amendment if you want to submit these changes again.'
+      },
+      'discarded-by-asru': {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
