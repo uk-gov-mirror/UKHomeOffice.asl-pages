@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
+import classnames from 'classnames';
 import {
   StickyNavPage,
   StickyNavAnchor,
@@ -28,9 +29,9 @@ const models = {
 
 const selector = ({ static: { schema, values } }) => ({ schema, values });
 
-const AsruDiscard = ({ task }) => {
+const AsruDiscard = ({ task, showBorder }) => {
   return (
-    <details className="asru-discard-task">
+    <details className={classnames('asru-discard-task', { border: showBorder })}>
       <summary><Snippet>asruDiscardTask.summary</Snippet></summary>
       <Inset>
         <p><Snippet>asruDiscardTask.details</Snippet></p>
@@ -49,6 +50,9 @@ export default function Model({ task, formFields }) {
   const { schema, values } = useSelector(selector, shallowEqual);
   const Model = models[task.data.model];
   const hasComments = task.data.meta && task.data.meta.comments;
+
+  const hasNextSteps = task.nextSteps.length > 0;
+  const hasTaskOptions = schema.status.options.length > 0;
   const canBeDiscardedByAsru = task.nextSteps.find(step => step.id === 'discarded-by-asru');
 
   return (
@@ -70,13 +74,13 @@ export default function Model({ task, formFields }) {
         )
       }
       {
-        schema.status.options.length > 0 &&
+        hasNextSteps &&
           <StickyNavAnchor id="status">
             <h2><Snippet>sticky-nav.status</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
-            { formFields }
+            { hasTaskOptions && formFields }
             {
-              canBeDiscardedByAsru && <AsruDiscard task={task} />
+              canBeDiscardedByAsru && <AsruDiscard task={task} showBorder={hasTaskOptions} />
             }
           </StickyNavAnchor>
       }
