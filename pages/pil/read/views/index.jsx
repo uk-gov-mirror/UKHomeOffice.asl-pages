@@ -109,9 +109,9 @@ const PIL = ({
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
 
-      <h3 className="licence-holder-name">{`${profile.firstName} ${profile.lastName}`}</h3>
-
       <DownloadHeader
+        title={`${profile.firstName} ${profile.lastName}`}
+        subtitle="Personal licence"
         model={pil}
         licenceType="pil"
         isGranted={pil.status === 'active'}
