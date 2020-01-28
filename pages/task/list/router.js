@@ -1,4 +1,5 @@
 const { get } = require('lodash');
+const { NotFoundError } = require('@asl/service/errors');
 const defaultSchema = require('./schema');
 const datatable = require('../../common/routers/datatable');
 
@@ -6,7 +7,7 @@ const hasMyTasks = profile => {
   return profile.asruUser && profile.asru && profile.asru.length > 0;
 };
 
-const tabs = profile => {
+const getTabs = profile => {
   const options = ['outstanding', 'inProgress', 'completed'];
   return hasMyTasks(profile) ? ['myTasks', ...options] : options;
 };
@@ -16,7 +17,12 @@ module.exports = ({
   schema = defaultSchema
 } = {}) => datatable({
   getApiPath: (req, res, next) => {
-    const progress = req.query.progress || tabs(req.user.profile)[0];
+    const tabs = getTabs(req.user.profile);
+    const progress = req.query.progress || tabs[0];
+    if (!tabs.includes(progress)) {
+      return next(new NotFoundError());
+    }
+    res.locals.static.tabs = tabs;
     req.datatable.progress = progress;
     req.datatable.apiPath = [req.datatable.apiPath, { query: { ...req.query, progress } }];
     next();
@@ -33,11 +39,7 @@ module.exports = ({
     res.locals.static.progress = req.datatable.progress;
     res.locals.datatable.progress = req.datatable.progress;
 
-    res.locals.static.tabs = tabs(req.user.profile);
-
-    const progress = req.query.progress || tabs(req.user.profile)[0];
-
-    if (progress === 'completed') {
+    if (req.datatable.progress === 'completed') {
       res.locals.static.content.fields.updatedAt.label = 'Completed';
     }
 
