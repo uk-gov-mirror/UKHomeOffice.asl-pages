@@ -342,7 +342,10 @@ details {
   &.asru-discard-task {
     margin-top: $govuk-gutter-half;
     padding-top: $govuk-gutter;
-    border-top: 2px solid govuk-colour('grey-1');
+
+    &.border {
+      border-top: 2px solid govuk-colour('grey-1');
+    }
   }
 
   summary {
