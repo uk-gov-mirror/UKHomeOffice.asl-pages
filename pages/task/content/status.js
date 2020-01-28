@@ -208,5 +208,21 @@ module.exports = {
       transfer: 'Make changes to the transfer request you previously submitted and respond to any comments.'
     },
     log: 'Submitted by'
+  },
+  'discarded-by-asru': {
+    state: 'Discarded',
+    action: {
+      application: 'Discard application',
+      amendment: 'Discard amendment',
+      revocation: 'Discard revocation',
+      transfer: 'Discard transfer'
+    },
+    hint: {
+      application: 'You will need to create a new application to apply for this type of licence in the future.',
+      amendment: 'You will need to create a new amendment to submit these changes again.',
+      revocation: 'You will need to create a new revocation request for this licence to be revoked.',
+      transfer: 'You will need to start a new transfer request if you still wish to transfer this licence.'
+    },
+    log: 'Discarded by'
   }
 };

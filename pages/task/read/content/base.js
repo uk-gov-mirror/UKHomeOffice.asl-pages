@@ -47,6 +47,11 @@ module.exports = {
     change: 'Change',
     withdraw: 'Withdraw'
   },
+  asruDiscardTask: {
+    summary: 'Discard this task',
+    details: 'This task will be closed without any information being updated. This action cannot be undone.',
+    action: 'Discard task'
+  },
   errors: {
     status: {
       required: 'Please select an option from the list',

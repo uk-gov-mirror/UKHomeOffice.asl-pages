@@ -4,13 +4,15 @@ const getContent = require('../read/content');
 module.exports = task => {
   const content = getContent(task);
 
-  const options = task.nextSteps.map(option => {
-    return {
-      value: option.id,
-      label: get(content, `status.${option.id}.action.${task.type}`, get(content, `status.${option.id}.action`)),
-      hint: get(content, `status.${option.id}.hint.${task.type}`, get(content, `status.${option.id}.hint`))
-    };
-  });
+  const options = task.nextSteps
+    .filter(step => step.id !== 'discarded-by-asru') // don't display ASRU discard as an option (has separate UI)
+    .map(option => {
+      return {
+        value: option.id,
+        label: get(content, `status.${option.id}.action.${task.type}`, get(content, `status.${option.id}.action`)),
+        hint: get(content, `status.${option.id}.hint.${task.type}`, get(content, `status.${option.id}.hint`))
+      };
+    });
 
   return {
     status: {

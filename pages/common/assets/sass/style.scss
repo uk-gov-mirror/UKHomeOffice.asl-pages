@@ -338,9 +338,17 @@ p.spoc {
   }
 }
 
-details summary {
-  color: $blue;
-  cursor: pointer;
+details {
+  &.asru-discard-task {
+    margin-top: $govuk-gutter-half;
+    padding-top: $govuk-gutter;
+    border-top: 2px solid govuk-colour('grey-1');
+  }
+
+  summary {
+    color: $blue;
+    cursor: pointer;
+  }
 }
 
 .pil-transfer details {

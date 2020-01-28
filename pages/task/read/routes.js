@@ -1,9 +1,13 @@
-const { extend, confirm, success, read } = require('./routers');
+const { extend, confirm, success, read, discard } = require('./routers');
 
 module.exports = {
   root: {
     path: '',
     router: read
+  },
+  discard: {
+    path: '/discard',
+    router: discard
   },
   extend: {
     path: '/extend',
