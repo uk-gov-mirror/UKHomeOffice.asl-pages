@@ -112,7 +112,6 @@ const PIL = ({
       <DownloadHeader
         title={`${profile.firstName} ${profile.lastName}`}
         subtitle="Personal licence"
-        isGranted={pil.status === 'active'}
         showWord={false}
         showPdf={canDownload}
         basename={currentPath}
