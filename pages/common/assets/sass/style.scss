@@ -133,6 +133,13 @@ p.subtitle {
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
+
+  .expanding-panel {
+    border: none;
+    header {
+      background: none;
+    }
+  }
 }
 
 p.control-panel {
