@@ -31,6 +31,7 @@ const Index = ({
       <DownloadHeader
         title={establishment.name}
         subtitle="Establishment licence"
+        isGranted={establishment.status === 'active'}
         showWord={false}
         showPdf={canDownloadPDF}
         basename={currentPath}
