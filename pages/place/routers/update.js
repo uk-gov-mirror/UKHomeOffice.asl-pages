@@ -29,6 +29,10 @@ module.exports = () => {
     },
     cancelEdit: (req, res, next) => {
       return res.redirect(req.buildRoute('place.list'));
+    },
+    locals: (req, res, next) => {
+      res.locals.static.values = req.place;
+      next();
     }
   }));
 

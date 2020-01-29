@@ -7,7 +7,8 @@ import {
   FormLayout,
   Field,
   Header,
-  ControlBar
+  ControlBar,
+  RestrictionsField
 } from '@asl/components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
@@ -61,22 +62,7 @@ const Confirm = ({
           />
         )
     }
-    {
-      model && model.restrictions && (
-        <Field
-          title={<Snippet>fields.restrictions.label</Snippet>}
-          content={model.restrictions}
-        />
-      )
-    }
-    {
-      values && values.changesToRestrictions && (
-        <Field
-          title={<Snippet>fields.changesToRestrictions.label</Snippet>}
-          content={values.changesToRestrictions}
-        />
-      )
-    }
+    <RestrictionsField editable={false} model={model} value={values.restrictions} />
     {
       values && values.comments && (
         <Field

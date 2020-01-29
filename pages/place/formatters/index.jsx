@@ -11,6 +11,9 @@ export default {
     label: defineValue,
     mapOptions: labelFromCode
   },
+  restrictions: {
+    format: val => val || 'None'
+  },
   nacwo: {
     format: val => val && `${val.firstName} ${val.lastName}`,
     accessor: 'id'

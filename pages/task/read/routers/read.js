@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { merge, set, unset, get } = require('lodash');
+const { merge, set, get } = require('lodash');
 
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { populateNamedPeople } = require('../../../common/middleware');
@@ -205,8 +205,8 @@ module.exports = () => {
       next();
     },
     process: (req, res, next) => {
-      if (req.task.data.model === 'place' && !req.body.restrictions) {
-        unset(req.session, `form[${req.model.id}].values.restrictions`);
+      if (req.task.data.model === 'place' && req.body.restrictions === null) {
+        set(req.session, `form[${req.model.id}].values.restrictions`, null);
       }
       next();
     }
