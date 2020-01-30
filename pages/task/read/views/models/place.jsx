@@ -103,7 +103,7 @@ export default function Playback({ task, schema, values, allowSubmit }) {
           label={<Snippet>sticky-nav.restrictions</Snippet>}
           name="restrictions"
           format={val => val || 'None'}
-          original={values.restrictions}
+          original={values && values.restrictions}
           proposed={!isUndefined(model.restrictions) ? model.restrictions : task.data.data.restrictions}
           setDirty={setDirty}
         />

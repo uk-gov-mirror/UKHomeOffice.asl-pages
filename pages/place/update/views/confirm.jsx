@@ -62,7 +62,7 @@ const Confirm = ({
           />
         )
     }
-    <RestrictionsField editable={false} model={model} value={values.restrictions} />
+    <RestrictionsField editable={false} model={action === 'update' ? model : {}} value={values.restrictions} />
     {
       values && values.comments && (
         <Field
