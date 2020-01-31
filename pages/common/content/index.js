@@ -10,7 +10,7 @@ module.exports = {
       read: 'Details',
       update: 'Amend establishment details',
       apply: 'Apply for licence',
-      fees: 'Projected licence fees'
+      fees: 'Estimated licence fees'
     },
     pil: {
       read: 'View personal licence',
