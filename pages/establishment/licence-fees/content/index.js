@@ -3,7 +3,7 @@ module.exports = {
     'fee-waived-updated': 'Updated billable status'
   },
   fees: {
-    title: 'Projected licence fees',
+    title: 'Estimated licence fees',
     period: 'Covering the period {{start}} to {{end}}.',
     disclaimer: 'These projections are based on the number of billable licences held and may differ from the final numbers.',
     details: {
