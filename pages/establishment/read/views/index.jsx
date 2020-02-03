@@ -28,11 +28,9 @@ const Index = ({
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-      <h3 className="establishment-name">{establishment.name}</h3>
-
       <DownloadHeader
-        model={establishment}
-        licenceType="pel"
+        title={establishment.name}
+        subtitle="Establishment licence"
         isGranted={establishment.status === 'active'}
         showWord={false}
         showPdf={canDownloadPDF}

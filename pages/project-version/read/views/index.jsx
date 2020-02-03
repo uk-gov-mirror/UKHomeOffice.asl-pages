@@ -7,7 +7,6 @@ const Project = ({ isActionable, taskId, project, version, establishment }) => {
 
   return (
     <Fragment>
-      <h3 className="establishment-name">{establishment.name}</h3>
       <LicenceStatusBanner licence={project} version={version} licenceType="ppl" />
       <div id="ppl-drafting-tool"></div>
       {
