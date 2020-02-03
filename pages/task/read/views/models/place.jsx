@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import isUndefined from 'lodash/isUndefined';
 import { useSelector, shallowEqual } from 'react-redux';
 import {
   Diff,
   Snippet,
   Field,
+  EditableField,
   StickyNavAnchor,
   ModelSummary
 } from '@asl/components';
@@ -18,10 +20,25 @@ const LicenceHolder = ({ type, profile }) => (
   </Fragment>
 );
 
-const selector = ({ static: { establishment, isAsru } }) => ({ establishment, isAsru });
+const selector = ({ model, static: { establishment, isAsru } }) => ({ establishment, isAsru, model });
 
-export default function Playback({ task, schema, values }) {
-  const { establishment, isAsru } = useSelector(selector, shallowEqual);
+export default function Playback({ task, schema, values, allowSubmit }) {
+  const { model, establishment, isAsru } = useSelector(selector, shallowEqual);
+  const [dirty, setDirty] = useState(false);
+  const nopes = ['recalled-by-applicant', 'discarded-by-applicant'];
+  const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
+  const canEditRestictions = isAsru && !!actionableNextSteps.length;
+
+  useEffect(() => {
+    if (dirty && !allowSubmit) {
+      window.onbeforeunload = () => true;
+    } else {
+      window.onbeforeunload = null;
+    }
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, [dirty, allowSubmit]);
 
   return [
     <StickyNavAnchor id="details" key="details">
@@ -66,19 +83,6 @@ export default function Playback({ task, schema, values }) {
     ),
 
     (
-      values && values.restrictions && (
-        <StickyNavAnchor id="restrictions" key="restrictions">
-          <Field
-            editable={isAsru && !!task.nextSteps.length && !task.data.data.restrictions}
-            name="restrictions"
-            title={<Snippet>sticky-nav.restrictions</Snippet>}
-            content={values.restrictions}
-          />
-        </StickyNavAnchor>
-      )
-    ),
-
-    (
       (task.data.meta && task.data.meta.changesToRestrictions) && (
         <StickyNavAnchor id="changes-to-restrictions" key="changes-to-restrictions">
           <Field
@@ -90,16 +94,20 @@ export default function Playback({ task, schema, values }) {
     ),
 
     (
-      task.data.data.restrictions && (
-        <StickyNavAnchor id="new-restrictions" key="new-restrictions">
-          <Field
-            editable={isAsru && !!task.nextSteps.length}
-            name="restrictions"
-            title={<Snippet>sticky-nav.new-restrictions</Snippet>}
-            content={task.data.data.restrictions}
-          />
-        </StickyNavAnchor>
-      )
+      <StickyNavAnchor id="restrictions" key="restrictions">
+        <EditableField
+          currentLabel={<Snippet>fields.restrictions.currentLabel</Snippet>}
+          proposedLabel={<Snippet>fields.restrictions.proposedLabel</Snippet>}
+          deleteItemWarning="Are you sure you want to remove these restrictions?"
+          editable={canEditRestictions}
+          label={<Snippet>sticky-nav.restrictions</Snippet>}
+          name="restrictions"
+          format={val => val || 'None'}
+          original={values && values.restrictions}
+          proposed={!isUndefined(model.restrictions) ? model.restrictions : task.data.data.restrictions}
+          setDirty={setDirty}
+        />
+      </StickyNavAnchor>
     )
   ];
 }

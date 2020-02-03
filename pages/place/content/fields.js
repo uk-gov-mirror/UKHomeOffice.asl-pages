@@ -16,17 +16,13 @@ module.exports = {
   holding: {
     label: 'Holding'
   },
-  changeRestrictions: {
-    label: 'Do the restrictions for this area need to be changed?'
-  },
-  changesToRestrictions: {
-    label: 'Changes to restrictions'
-  },
   nacwo: {
     label: 'NACWO'
   },
   restrictions: {
-    label: 'Restrictions'
+    label: 'Restrictions',
+    currentLabel: 'Current restrictions',
+    proposedLabel: 'Proposed restrictions'
   },
   comments: {
     label: 'Why are you making this amendment?',

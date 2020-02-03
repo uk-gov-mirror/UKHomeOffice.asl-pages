@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   ErrorSummary,
@@ -8,11 +8,29 @@ import {
 } from '@asl/components';
 import Model from './models';
 
+let form;
+
 const Task = ({ task, project }) => {
+  const [allowSubmit, setAllowSubmit] = useState(false);
+
+  // wait until submit flag is set before submitting form
+  useEffect(() => {
+    if (allowSubmit) {
+      form.submit();
+    }
+  }, [allowSubmit]);
+
   let action = task.data.action;
   if (action === 'grant' && task.type === 'amendment') {
     action = 'update';
   }
+
+  function onFormSubmit(e) {
+    form = e.target;
+    e.preventDefault();
+    setAllowSubmit(true);
+  }
+
   return (
     <Fragment>
       <div className="govuk-grid-row">
@@ -31,8 +49,8 @@ const Task = ({ task, project }) => {
       {
         task.nextSteps.length > 0
           ? (
-            <Form detachFields>
-              <Model task={task} />
+            <Form detachFields onSubmit={onFormSubmit}>
+              <Model task={task} allowSubmit={allowSubmit} />
             </Form>
           )
           : <Model task={task} />

@@ -46,7 +46,7 @@ const AsruDiscard = ({ task, showBorder }) => {
   );
 };
 
-export default function Model({ task, formFields }) {
+export default function Model({ task, formFields, allowSubmit }) {
   const { schema, values } = useSelector(selector, shallowEqual);
   const Model = models[task.data.model];
   const hasComments = task.data.meta && task.data.meta.comments;
@@ -61,7 +61,7 @@ export default function Model({ task, formFields }) {
         <ActivityLog task={task} />
       </StickyNavAnchor>
       {
-        Model({ task, schema, values })
+        Model({ task, schema, values, allowSubmit })
       }
       {
         hasComments && (

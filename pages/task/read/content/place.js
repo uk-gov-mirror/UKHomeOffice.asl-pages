@@ -15,6 +15,10 @@ module.exports = merge({}, place, {
     changesToRestrictions: {
       label: 'Requested changes to restrictions'
     },
+    restrictions: {
+      currentLabel: 'Current restrictions',
+      proposedLabel: 'Proposed restrictions'
+    },
     comment: {
       label: 'Comments'
     }

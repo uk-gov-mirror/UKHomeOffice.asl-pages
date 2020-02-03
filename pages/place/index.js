@@ -13,7 +13,7 @@ module.exports = settings => {
       .then(({ json: { data, meta } }) => {
         req.placeId = placeId;
         res.locals.static.establishment = meta.establishment;
-        req.model = cleanModel(data);
+        req.model = req.place = cleanModel(data);
         req.model.openTasks = meta.openTasks || [];
       })
       .then(() => next())

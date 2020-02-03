@@ -51,22 +51,8 @@ const baseSchema = {
     accessor: 'id'
   },
   restrictions: {
-    inputType: 'text',
-    showDiff: false,
-    checkChanged: false
-  },
-  changeRestrictions: {
-    inputType: 'conditionalReveal',
-    showDiff: false,
-    checkChanged: false,
-    reveal: {
-      changesToRestrictions: {
-        inputType: 'textarea',
-        validate: [
-          'required'
-        ]
-      }
-    }
+    inputType: 'restrictionsField',
+    showDiff: false
   },
   comments: {
     inputType: 'textarea',
