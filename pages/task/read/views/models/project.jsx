@@ -27,6 +27,8 @@ export default function Project({ task, schema }) {
   const declarations = task.data.meta;
   const isAmendment = task.type === 'amendment';
 
+  const showDeclarations = declarations.authority || declarations.awerb;
+
   const formatters = {
     licenceHolder: {
       format: licenceHolder => {
@@ -79,7 +81,7 @@ export default function Project({ task, schema }) {
             />
           </p>
           {
-            task.status === 'with-inspectorate' && (
+            task.status === 'with-inspectorate' && showDeclarations && (
               <Fragment>
                 <p><strong><Snippet>declarations.pel-holder.question</Snippet></strong></p>
                 <p>{declarations.authority}</p>
@@ -108,7 +110,7 @@ export default function Project({ task, schema }) {
                 }
                 {
                   // we don't collect a reason for 'Not yet'
-                  declarations.awerb.toLowerCase() === 'no' &&
+                  declarations.awerb && declarations.awerb.toLowerCase() === 'no' &&
                     <Fragment>
                       <p>
                         <strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong>

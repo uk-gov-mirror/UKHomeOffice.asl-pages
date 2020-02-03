@@ -61,9 +61,13 @@ function CurrentVersion({ model }) {
 }
 
 function OpenTask({ model }) {
-  const { openTask, editable, canUpdate } = useSelector(state => state.static);
+  const { openTask, editable, canUpdate, asruUser } = useSelector(state => state.static);
 
   if (!openTask) {
+    return null;
+  }
+
+  if (openTask.data.initiatedByAsru && !asruUser) {
     return null;
   }
 
@@ -87,7 +91,7 @@ function OpenTask({ model }) {
     type = 'returned-draft';
   }
 
-  if (!canUpdate) {
+  if (!canUpdate || openTask.data.initiatedByAsru !== asruUser) {
     type = 'cannot-update';
   }
 
@@ -107,9 +111,13 @@ function OpenTask({ model }) {
 }
 
 function StartAmendment({ model }) {
-  const { confirmMessage, url, openTask, editable } = useSelector(state => state.static);
+  const { confirmMessage, url, openTask, editable, asruUser } = useSelector(state => state.static);
 
   if (!editable || model.status !== 'active') {
+    return null;
+  }
+
+  if (model.draft && (model.draft.asruVersion !== asruUser)) {
     return null;
   }
 
@@ -201,6 +209,19 @@ function RevokeLicence({ model }) {
   );
 }
 
+function UserCannotEdit({ model }) {
+  const { asruUser } = useSelector(state => state.static);
+
+  if (model.draft && (model.draft.asruVersion !== asruUser)) {
+    return <Section
+      title={<Snippet>{`start-amendment.title.continue`}</Snippet>}
+      content={<Snippet>{`start-amendment.description.${asruUser ? 'asruCannotContinue' : 'establishmentCannotContinue'}`}</Snippet>}
+    />;
+  }
+
+  return null;
+}
+
 function Actions({ model }) {
   const { canUpdate, canRevoke } = useSelector(state => state.static);
 
@@ -217,6 +238,7 @@ function Actions({ model }) {
       {
         canUpdate && (
           <Fragment>
+            <UserCannotEdit model={model} />
             <StartAmendment model={model} />
             <DiscardDraft model={model} />
           </Fragment>

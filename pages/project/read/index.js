@@ -37,6 +37,7 @@ module.exports = settings => {
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
         res.locals.static.canRevoke = canRevoke;
+        res.locals.static.asruUser = req.user.profile.asruUser;
       })
       .then(() => next())
       .catch(next);
