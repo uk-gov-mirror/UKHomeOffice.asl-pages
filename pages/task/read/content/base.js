@@ -18,7 +18,7 @@ module.exports = {
   'sticky-nav': {
     activity: 'Latest activity',
     establishment: 'Establishment details',
-    comments: 'Reason for amendment',
+    reason: 'Reason for amendment',
     revocation: 'Reason for revocation',
     status: 'What do you want to do?',
     conditions: 'Additional conditions'
@@ -56,9 +56,6 @@ module.exports = {
     status: {
       required: 'Please select an option from the list',
       definedValues: 'Please select an option from the list'
-    },
-    comment: {
-      customValidate: 'Please provide a reason'
     }
   },
   buttons: {
