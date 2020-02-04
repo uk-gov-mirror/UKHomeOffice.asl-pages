@@ -32,6 +32,9 @@ module.exports = settings => {
     const showComments = req.version.status !== 'granted' && !!openTask;
     const previousVersion = req.project.versions[1];
 
+    // can only update asru version if asru, and vice versa
+    res.locals.static.canUpdate = res.locals.static.canUpdate && req.version.asruVersion === req.user.profile.asruUser;
+
     res.locals.static.basename = req.buildRoute('projectVersion.update');
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.user = req.user.profile;

@@ -25,7 +25,8 @@ module.exports = settings => {
         'authority-endorsement-date',
         'awerb-review-date',
         'awerb-no-review-reason',
-        'comments'
+        'reason',
+        'comment'
       ]));
     }
     next();

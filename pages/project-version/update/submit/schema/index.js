@@ -9,7 +9,6 @@ const conditionalRequired = (field, expected = 'Yes') => (value, model) => {
 };
 
 const getSchema = (type, isAsru) => {
-
   const schema = {
     awerb: {
       inputType: 'radioGroup',
@@ -54,38 +53,40 @@ const getSchema = (type, isAsru) => {
       ],
       validate: ['required']
     },
-    comments: {
+    reason: {
       inputType: 'textarea',
       validate: ['required']
+    },
+    comment: {
+      inputType: 'textarea'
     }
   };
-
-  if (type === 'application') {
-    return omit(schema, 'comments');
-  }
 
   if (isAsru) {
-    return pick(schema, 'comments');
+    return pick(schema, 'reason', 'comment');
   }
 
-  const amendmentSchema = omit(schema, 'ready');
-  amendmentSchema.awerb.options[1] = {
-    label: 'No',
-    value: 'No',
-    reveal: {
-      'awerb-no-review-reason': {
-        label: content.fields['awerb-no-review-reason'].label,
-        inputType: 'textarea',
-        validate: [
-          {
-            customValidate: conditionalRequired('awerb', 'No')
-          }
-        ]
+  if (type === 'amendment') {
+    schema.awerb.options[1] = {
+      label: 'No',
+      value: 'No',
+      reveal: {
+        'awerb-no-review-reason': {
+          label: content.fields['awerb-no-review-reason'].label,
+          inputType: 'textarea',
+          validate: [
+            {
+              customValidate: conditionalRequired('awerb', 'No')
+            }
+          ]
+        }
       }
-    }
-  };
+    };
 
-  return amendmentSchema;
+    return omit(schema, 'ready');
+  }
+
+  return omit(schema, 'reason');
 };
 
 module.exports = getSchema;
