@@ -2,6 +2,7 @@ const { page } = require('@asl/service/ui');
 const bodyParser = require('body-parser');
 const { get } = require('lodash');
 const {
+  getVersion,
   canComment,
   getAllChanges,
   getProjectEstablishment,
@@ -14,14 +15,14 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.use(
+  app.get('/',
     canComment(),
     getAllChanges(),
     getProjectEstablishment(),
     getPreviousProtocols()
   );
 
-  app.use((req, res, next) => {
+  app.get('/', (req, res, next) => {
     const isAmendment = req.project.status !== 'inactive';
     if (isAmendment) {
       req.breadcrumb('projectVersion.update');
@@ -60,7 +61,7 @@ module.exports = settings => {
       }
     };
     req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.version.id}/patch`, opts)
-      .then(() => res.json({}))
+      .then(() => next())
       .catch(err => {
         // if trying to edit an uneditable version then redirect
         if (err.status === 400) {
@@ -68,6 +69,10 @@ module.exports = settings => {
         }
         next(err);
       });
+  });
+
+  app.put('/', getVersion(), getAllChanges(), (req, res) => {
+    res.json({ changes: res.locals.static.changes });
   });
 
   app.use((req, res, next) => res.sendResponse());
