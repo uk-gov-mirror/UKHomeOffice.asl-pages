@@ -49,7 +49,7 @@ const AsruDiscard = ({ task, showBorder }) => {
 export default function Model({ task, formFields, allowSubmit }) {
   const { schema, values } = useSelector(selector, shallowEqual);
   const Model = models[task.data.model];
-  const hasComments = task.data.meta && task.data.meta.comments;
+  const hasReason = task.data.meta && task.data.meta.reason;
 
   const hasNextSteps = task.nextSteps.length > 0;
   const hasTaskOptions = schema.status.options.length > 0;
@@ -64,11 +64,11 @@ export default function Model({ task, formFields, allowSubmit }) {
         Model({ task, schema, values, allowSubmit })
       }
       {
-        hasComments && (
-          <StickyNavAnchor id={task.data.action === 'revoke' ? 'revocation' : 'comments'}>
+        hasReason && (
+          <StickyNavAnchor id={task.data.action === 'revoke' ? 'revocation' : 'reason'}>
             <Field
-              title={<Snippet>{`sticky-nav.${task.data.action === 'revoke' ? 'revocation' : 'comments'}`}</Snippet>}
-              content={task.data.meta.comments}
+              title={<Snippet>{`sticky-nav.${task.data.action === 'revoke' ? 'revocation' : 'reason'}`}</Snippet>}
+              content={task.data.meta.reason}
             />
           </StickyNavAnchor>
         )
