@@ -18,7 +18,7 @@ module.exports = {
   'sticky-nav': {
     activity: 'Latest activity',
     establishment: 'Establishment details',
-    reason: 'Reason for amendment',
+    comments: 'Reason for amendment',
     revocation: 'Reason for revocation',
     status: 'What do you want to do?',
     conditions: 'Additional conditions'
