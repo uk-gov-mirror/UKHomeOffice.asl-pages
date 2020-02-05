@@ -28,7 +28,7 @@ module.exports = {
       label: 'Comments',
       hint: 'Comments can be seen by inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task.'
     },
-    reason: {
+    comments: {
       label: 'Why are you making this amendment?'
     }
   },
@@ -54,7 +54,7 @@ module.exports = {
     ready: {
       required: 'Select an option'
     },
-    reason: {
+    comments: {
       required: 'Please provide a reason'
     }
   },

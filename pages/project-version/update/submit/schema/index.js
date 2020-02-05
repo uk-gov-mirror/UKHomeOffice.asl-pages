@@ -53,7 +53,7 @@ const getSchema = (type, isAsru) => {
       ],
       validate: ['required']
     },
-    reason: {
+    comments: {
       inputType: 'textarea',
       validate: ['required']
     },
@@ -63,7 +63,7 @@ const getSchema = (type, isAsru) => {
   };
 
   if (isAsru) {
-    return pick(schema, 'reason', 'comment');
+    return pick(schema, 'comments', 'comment');
   }
 
   if (type === 'amendment') {
@@ -86,7 +86,7 @@ const getSchema = (type, isAsru) => {
     return omit(schema, 'ready');
   }
 
-  return omit(schema, 'reason');
+  return omit(schema, 'comments');
 };
 
 module.exports = getSchema;
