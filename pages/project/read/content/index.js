@@ -37,7 +37,11 @@ module.exports = merge({}, baseContent, {
     },
     description: {
       start: 'Start an amendment for this project licence.',
-      continue: 'An amendment to this licence was started on {{amendmentStartDate}}. You can either continue editing this amendment, or discard it.'
+      continue: 'An amendment to this licence was started on {{amendmentStartDate}}. You can either continue editing this amendment, or discard it.',
+      asruCannotContinue: 'This licence cannot be amended because the establishment has initiated an amendment to this project which hasn\'t yet been submitted.',
+      establishmentCannotContinue: `The Home Office has initiated an amendment to this project licence so you're unable to make any changes until that has been processed.
+
+      Contact your establishments Single Point of Contact for more information.`
     }
   },
   actions: {
