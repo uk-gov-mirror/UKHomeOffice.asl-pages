@@ -1,9 +1,9 @@
 const { Router } = require('express');
 const routes = require('./routes');
 
-const handleAmendmentReason = task => {
+const handlePplAmendmentReason = task => {
   // previously we used task.data.meta.comments for the amendment reason, now it has it's own property
-  if (task.type === 'amendment' && !task.data.meta.reason && task.data.meta.comments) {
+  if (task.data.model === 'project' && task.type === 'amendment' && !task.data.meta.reason && task.data.meta.comments) {
     task.data.meta.reason = task.data.meta.comments;
     delete task.data.meta.comments;
   }
@@ -18,7 +18,7 @@ module.exports = settings => {
       .then(response => {
         req.taskId = taskId;
         const task = response.json.data;
-        req.task = handleAmendmentReason(task);
+        req.task = handlePplAmendmentReason(task);
       })
       .then(() => next())
       .catch(next);
