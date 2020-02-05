@@ -56,6 +56,9 @@ module.exports = {
     status: {
       required: 'Please select an option from the list',
       definedValues: 'Please select an option from the list'
+    },
+    comment: {
+      customValidate: 'Please provide a reason'
     }
   },
   buttons: {
