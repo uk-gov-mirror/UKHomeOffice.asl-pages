@@ -7,8 +7,7 @@ const { cleanModel, removeQueryParams } = require('../../../lib/utils');
 const defaultMiddleware = (req, res, next) => next();
 
 const getLimit = (rows = 10) => {
-  rows = parseInt(rows, 10);
-  return rows < 1000 ? rows : 1000;
+  return parseInt(rows, 10);
 };
 
 const buildQuery = (req, schema) => {
