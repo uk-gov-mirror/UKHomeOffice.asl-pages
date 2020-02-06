@@ -8,9 +8,9 @@ import {
   Snippet,
   Header,
   Tabs,
-  Link
+  Link,
+  LicenceStatusBanner
 } from '@asl/components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 
 import formatters from '../../formatters';
 

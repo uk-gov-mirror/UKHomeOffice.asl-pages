@@ -7,9 +7,9 @@ import {
   Snippet,
   Conditions,
   Link,
-  DownloadHeader
+  DownloadHeader,
+  LicenceStatusBanner
 } from '@asl/components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import ProfileLink from '../../components/profile-link';
 
 const Index = ({

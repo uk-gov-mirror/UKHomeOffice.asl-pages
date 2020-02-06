@@ -4,9 +4,9 @@ import {
   FilterTable,
   Snippet,
   Link,
-  Header
+  Header,
+  LicenceStatusBanner
 } from '@asl/components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import formatters from '../../formatters';
 
 import ExpandableRow from './row';

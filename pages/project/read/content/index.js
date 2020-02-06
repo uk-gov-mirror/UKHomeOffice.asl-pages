@@ -75,6 +75,11 @@ module.exports = merge({}, baseContent, {
     title: 'Discard draft project',
     description: 'Any information in this draft will be deleted if it is discarded.'
   },
+  previousVersions: {
+    title: 'Previous versions of this licence',
+    description: 'View previous versions of the licence and their full applications.',
+    version: 'View the {{type}} granted on {{updatedAt}}.'
+  },
   revoke: {
     title: 'Revoke licence',
     description: 'Cancel this licence if it is no longer needed.'

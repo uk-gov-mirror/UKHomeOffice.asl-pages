@@ -176,17 +176,20 @@ module.exports = {
   },
   invalidLicence: {
     status: {
+      draft: 'Draft',
       inactive: 'Draft',
       pending: 'Draft',
       revoked: 'Revoked',
       expired: 'Expired',
-      active: 'Amendment in progress'
+      active: 'Amendment in progress',
+      superseeded: 'Superseeded'
     },
     summary: {
       pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.`,
       pil: `This licence is not active. The licence holder or applicant is not authorised to carry out regulated procedures in the categories stated in this licence/application.`,
       ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.`,
-      ppl_active: `This amendment has not been approved yet.`
+      ppl_active: `This amendment has not been approved yet.`,
+      superseeded: 'This licence is not active. The licence holder or aplicant is not authorised to carry out the programme as stated in this licence/application.'
     },
     view: 'View granted licence'
   },

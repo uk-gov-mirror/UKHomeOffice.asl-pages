@@ -10,9 +10,9 @@ import {
   Join,
   Link,
   Header,
-  Tabs
+  Tabs,
+  LicenceStatusBanner
 } from '@asl/components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
