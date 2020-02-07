@@ -5,9 +5,9 @@ import {
   Link,
   Sidebar,
   Header,
-  PanelList
+  PanelList,
+  LicenceStatusBanner
 } from '@asl/components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import ProfileLink from '../../components/profile-link';
 
 const links = [

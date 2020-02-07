@@ -10,9 +10,9 @@ import {
   Snippet,
   ModelSummary,
   Conditions,
-  DownloadHeader
+  DownloadHeader,
+  LicenceStatusBanner
 } from '@asl/components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import { Warning } from '@ukhomeoffice/react-components';
 
 const PIL = ({

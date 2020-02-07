@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Link, Snippet } from '@asl/components';
+import { Header, Link, Snippet, LicenceStatusBanner } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import formatters from '../../formatters';
@@ -252,6 +251,44 @@ function Actions({ model }) {
   );
 }
 
+function PreviousVersions({ model }) {
+  const versions = model.versions.filter(v => v.status === 'granted' && v.id !== model.granted.id);
+
+  if (!versions.length) {
+    return null;
+  }
+
+  return (
+    <Section
+      title={<Snippet>previousVersions.title</Snippet>}
+      content={<Snippet>previousVersions.description</Snippet>}
+    >
+      <ul>
+        {
+          versions.map((v, i) => {
+            const isFirstVersion = i === versions.length - 1;
+            const updatedAt = isFirstVersion
+              ? model.issueDate
+              : v.updatedAt;
+            const type = isFirstVersion
+              ? 'licence'
+              : 'amendment';
+            return (
+              <li key={i}>
+                <Link
+                  page="projectVersion"
+                  versionId={v.id}
+                  label={<Snippet type={type} updatedAt={formatDate(updatedAt, dateFormat.medium)}>previousVersions.version</Snippet>}
+                />
+              </li>
+            );
+          })
+        }
+      </ul>
+    </Section>
+  );
+}
+
 export default function ProjectLandingPage() {
   const { establishment, canUpdate, openTask, allowedActions } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
@@ -319,6 +356,7 @@ export default function ProjectLandingPage() {
       </dl>
       <CurrentVersion model={model} />
       <Actions model={model} />
+      <PreviousVersions model={model} />
       <RevokeLicence model={model} />
     </Fragment>
   );

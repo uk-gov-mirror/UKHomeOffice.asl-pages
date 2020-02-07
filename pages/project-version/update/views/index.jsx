@@ -1,11 +1,11 @@
 import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
-import LicenceStatusBanner from '../../../common/components/licence-status-banner';
+import LicenceStatusBanner from '../../components/status-banner';
 
 const Project = ({ project, version, establishment }) => {
   return (<Fragment>
     <h3 className="establishment-name">{establishment.name}</h3>
-    <LicenceStatusBanner licence={project} version={version} licenceType="ppl" />
+    <LicenceStatusBanner model={project} versionId={version} />
     <div id="ppl-drafting-tool"></div>
   </Fragment>
   );

@@ -13,10 +13,12 @@ start({
     id: state.model.id
   }),
   comments: state.static.comments,
-  changes: {
-    latest: (state.static.changes && state.static.changes.latest) || [],
-    granted: (state.static.changes && state.static.changes.granted) || []
-  },
+  changes: state.static.isGranted
+    ? {}
+    : {
+      latest: (state.static.changes && state.static.changes.latest) || [],
+      granted: (state.static.changes && state.static.changes.granted) || []
+    },
   application: {
     readonly: true,
     commentable: state.static.commentable,
