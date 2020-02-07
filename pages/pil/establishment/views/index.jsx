@@ -1,6 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Snippet, OpenTaskWarning, ErrorSummary, Header, Form, Link, ControlBar } from '@asl/components';
+import {
+  ControlBar,
+  Details,
+  ErrorSummary,
+  Form,
+  Header,
+  Link,
+  OpenTaskWarning,
+  Snippet
+} from '@asl/components';
 
 const currentEstablishment = establishment => {
   return (
@@ -13,10 +22,9 @@ const currentEstablishment = establishment => {
 
 const explainMissingEstablishments = () => {
   return (
-    <details>
-      <summary><Snippet>details.summary</Snippet></summary>
+    <Details summary={<Snippet>details.summary</Snippet>}>
       <p><Snippet>details.expand</Snippet></p>
-    </details>
+    </Details>
   );
 };
 

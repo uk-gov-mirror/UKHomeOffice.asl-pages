@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import {
+  Details,
   Header,
   Snippet,
   WidthContainer,
@@ -57,12 +58,14 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
           </Snippet>
         </p>
         <Warning><Snippet>fees.disclaimer</Snippet></Warning>
-        <details className="margin-bottom">
-          <summary><Snippet>fees.details.summary</Snippet></summary>
+        <Details
+          className="margin-bottom"
+          summary={<Snippet>fees.details.summary</Snippet>}
+        >
           <Inset>
             <Snippet>fees.details.content</Snippet>
           </Inset>
-        </details>
+        </Details>
       </WidthContainer>
       <Fragment>
         <div className="govuk-grid-row">
