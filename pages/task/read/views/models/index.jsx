@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import classnames from 'classnames';
 import {
+  Details,
   StickyNavPage,
   StickyNavAnchor,
   Snippet,
@@ -31,8 +32,10 @@ const selector = ({ static: { schema, values } }) => ({ schema, values });
 
 const AsruDiscard = ({ task, showBorder }) => {
   return (
-    <details className={classnames('asru-discard-task', { border: showBorder })}>
-      <summary><Snippet>asruDiscardTask.summary</Snippet></summary>
+    <Details
+      className={classnames('asru-discard-task', { border: showBorder })}
+      summary={<Snippet>asruDiscardTask.summary</Snippet>}
+    >
       <Inset>
         <p><Snippet>asruDiscardTask.details</Snippet></p>
         <Link
@@ -42,7 +45,7 @@ const AsruDiscard = ({ task, showBorder }) => {
           className="govuk-button button-warning"
         />
       </Inset>
-    </details>
+    </Details>
   );
 };
 
