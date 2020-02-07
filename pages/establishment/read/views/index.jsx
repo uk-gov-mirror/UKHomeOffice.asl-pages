@@ -23,6 +23,8 @@ const Index = ({
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
   const canAmendDetails = allowedActions.includes('establishment.update');
   const canDownloadPDF = allowedActions.includes('establishment.pdf');
+  const canSeeRevoke = allowedActions.includes('establishment.revoke') && establishment.status === 'active';
+  const canActionRevoke = canSeeRevoke && !establishment.hasActiveLicences;
 
   return (
     <Fragment>
@@ -137,18 +139,42 @@ const Index = ({
             }
           </Accordion>
 
-          {
-            canAmendDetails && (
-              <p className="control-panel">
-                <Link
-                  page="establishment.update"
-                  label={<Snippet>actions.amend</Snippet>}
-                  className="govuk-button"
-                />
-              </p>
-            )
-          }
         </div>
+      </div>
+
+      <div className="licence-actions">
+        {
+          canAmendDetails && (
+            <section className="amend-licence">
+              <Snippet>action.amend.summary</Snippet>
+              <Link
+                page="establishment.update"
+                label={<Snippet>{`action.${establishment.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
+                className="govuk-button button-secondary"
+              />
+            </section>
+          )
+        }
+        {
+          canSeeRevoke &&
+            <section className="revoke-licence">
+              <Snippet>action.revoke.summary</Snippet>
+
+              {
+                canActionRevoke &&
+                  <Link
+                    page="pil.revoke"
+                    className="govuk-button button-warning"
+                    label={<Snippet>action.revoke.button</Snippet>}
+                  />
+              }
+
+              {
+                !canActionRevoke &&
+                  <Snippet>action.revoke.unavailable</Snippet>
+              }
+            </section>
+        }
       </div>
     </Fragment>
   );

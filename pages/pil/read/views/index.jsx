@@ -122,7 +122,7 @@ const PIL = ({
 
       {
         canUpdate && (
-          <div className="pil-actions">
+          <div className="licence-actions">
             {
               correctEstablishment &&
               <Fragment>
