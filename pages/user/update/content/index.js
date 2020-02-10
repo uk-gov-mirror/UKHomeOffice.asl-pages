@@ -17,9 +17,5 @@ module.exports = merge({}, baseContent, {
   },
   buttons: {
     submit: 'Submit'
-  },
-  notifications: {
-    success: 'Changes submitted',
-    pending: 'Your details have been sent to the Home Office for review.'
   }
 });

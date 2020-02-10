@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Success, Snippet } from '@asl/components';
 
-const Index = ({ profile }) => (
+const Index = ({ profile = {} }) => (
   <div className="govuk-grid-row">
     <div className="govuk-grid-column-two-thirds">
       <Success
