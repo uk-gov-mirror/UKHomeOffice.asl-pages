@@ -12,18 +12,18 @@ export default function StatusBanner({ model, versionId }) {
     }
 
     const version = model.versions.find(v => v.id === versionId);
-    const superseeded = model.granted.createdAt > version.createdAt;
+    const superseded = model.granted.createdAt > version.createdAt;
     const versionIndex = model.versions.map(v => v.id).indexOf(versionId);
     const nextVersion = model.versions[versionIndex - 1];
     const isFirstVersion = versionIndex === model.versions.length - 1;
 
     return (
-      <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseeded ? 'superseeded' : 'draft'}`}</Snippet>} licence={model} colour={superseeded && 'red'}>
+      <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseded ? 'superseded' : 'draft'}`}</Snippet>} licence={model} colour={superseded && 'red'}>
         <Fragment>
           {
-            superseeded && <p><strong>This version was valid from {format(isFirstVersion ? model.issueDate : version.updatedAt, dateFormat.medium)} until {format(nextVersion.updatedAt, dateFormat.medium)}</strong></p>
+            superseded && <p><strong>This version was valid from {format(isFirstVersion ? model.issueDate : version.updatedAt, dateFormat.medium)} until {format(nextVersion.updatedAt, dateFormat.medium)}</strong></p>
           }
-          <p><Snippet>{`invalidLicence.summary.${superseeded ? 'superseeded' : 'ppl_active'}`}</Snippet></p>
+          <p><Snippet>{`invalidLicence.summary.${superseded ? 'superseded' : 'ppl_active'}`}</Snippet></p>
           <p><Link page="projectVersion" versionId={model.granted.id} label={<Snippet>{'invalidLicence.view'}</Snippet>} /></p>
         </Fragment>
       </LicenceStatusBanner>
