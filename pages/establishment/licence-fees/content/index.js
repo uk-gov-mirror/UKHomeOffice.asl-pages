@@ -22,7 +22,8 @@ Fees are not collected for project licences.`
     tabs: {
       overview: 'Licence fees overview',
       personal: 'Billable personal licences',
-      allPersonal: 'All personal licences'
+      allPersonal: 'All personal licences',
+      details: 'Contact information for billing'
     }
   }
 };

@@ -38,6 +38,10 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
     {
       page: 'establishment.fees.personal',
       key: 'fees.tabs.personal'
+    },
+    {
+      page: 'establishment.fees.details',
+      key: 'fees.tabs.details'
     }
   ];
 
