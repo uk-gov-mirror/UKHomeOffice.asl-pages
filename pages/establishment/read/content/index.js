@@ -45,7 +45,8 @@ module.exports = {
     revoke: {
       summary: `## Revoke licence
         Cancel this licence if it is no longer needed.`,
-      unavailable: `You can't revoke this licence as there are still personal or project licences held at this establishment.
+      unavailable: `## Revoke licence
+        You can't revoke this licence as there are still personal or project licences held at this establishment.
 
         The establishment will need to revoke them or transfer them to a new establishment first.`,
       button: 'Revoke licence'

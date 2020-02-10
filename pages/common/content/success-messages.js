@@ -75,6 +75,12 @@ module.exports = {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
+    },
+    revocation: {
+      resolved: {
+        title: 'Licence revoked',
+        body: 'This licence is no longer active. This establishment is no longer authorised to carry out any regulated procedures on protected animals.'
+      }
     }
   },
   pil: {

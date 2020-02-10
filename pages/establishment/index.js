@@ -7,10 +7,11 @@ module.exports = settings => {
 
   app.use(
     (req, res, next) => {
-      req.api(`/establishment/${req.establishmentId}`)
+      req.api(`/establishment/${req.establishmentId}?activeLicenceCounts=true`)
         .then(response => {
           req.establishment = response.json.data;
           req.establishment.openTasks = response.json.meta.openTasks || [];
+          req.establishment.hasActiveLicences = (req.establishment.activePilsCount + req.establishment.activeProjectsCount) > 0;
         })
         .then(() => next())
         .catch(next);

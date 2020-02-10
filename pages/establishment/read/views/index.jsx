@@ -158,15 +158,16 @@ const Index = ({
         {
           canSeeRevoke &&
             <section className="revoke-licence">
-              <Snippet>action.revoke.summary</Snippet>
-
               {
                 canActionRevoke &&
-                  <Link
-                    page="pil.revoke"
-                    className="govuk-button button-warning"
-                    label={<Snippet>action.revoke.button</Snippet>}
-                  />
+                  <Fragment>
+                    <Snippet>action.revoke.summary</Snippet>
+                    <Link
+                      page="revokeEstablishment"
+                      className="govuk-button button-warning"
+                      label={<Snippet>action.revoke.button</Snippet>}
+                    />
+                  </Fragment>
               }
 
               {
