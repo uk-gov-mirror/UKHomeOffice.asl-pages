@@ -75,6 +75,12 @@ module.exports = {
         title: 'Amendment discarded',
         body: 'You will need to create a new amendment if you want to submit these changes again.'
       }
+    },
+    revocation: {
+      resolved: {
+        title: 'Licence revoked',
+        body: 'This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.'
+      }
     }
   },
   pil: {

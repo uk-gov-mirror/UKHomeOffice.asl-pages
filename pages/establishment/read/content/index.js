@@ -33,7 +33,26 @@ module.exports = {
       label: ''
     }
   },
-  actions: {
-    amend: 'Amend'
+  action: {
+    amend: {
+      summary: `## Amend licence
+        You can amend this establishment licence if you want to:
+        * Change any of the licence details
+        * Add or remove authorisations
+      `,
+      button: 'Amend licence'
+    },
+    revoke: {
+      summary: `## Revoke licence
+        Cancel this licence if it is no longer needed.`,
+      unavailable: `## Revoke licence
+        You can't revoke this licence as there are still personal or project licences held at this establishment.
+
+        The establishment will need to revoke them or transfer them to a new establishment first.`,
+      button: 'Revoke licence'
+    },
+    reapply: {
+      button: 'Reapply for licence'
+    }
   }
 };

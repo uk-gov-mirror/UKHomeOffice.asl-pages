@@ -263,7 +263,9 @@ p.holc {
   }
 }
 
-.pil-actions {
+.licence-actions {
+  margin-top: 2 * $govuk-gutter;
+
   section {
     border-top: 1px solid govuk-colour('grey-2');
     padding: $govuk-gutter 0;
