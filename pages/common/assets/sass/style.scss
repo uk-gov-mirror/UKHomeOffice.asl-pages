@@ -340,3 +340,21 @@ details {
     }
   }
 }
+
+.download-options {
+  .back-to-licence {
+    border-left: 1px solid $mid-grey;
+    padding: 0 0 0 $govuk-gutter-half;
+  }
+}
+
+.project-download-links {
+  h3 {
+    margin-top: $govuk-gutter;
+    margin-bottom: $govuk-gutter-half;
+  }
+
+  p {
+    margin: 0;
+  }
+}
