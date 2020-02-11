@@ -1,4 +1,4 @@
-const { get, remove, isEqual, uniq } = require('lodash');
+const { get, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose } = require('@asl/projects/client/helpers');
@@ -70,7 +70,7 @@ const traverse = (node, key, keys = []) => {
       traverse(node[k], `${key ? `${key}.` : ''}${k}`, keys);
     });
   }
-  return keys;
+  return uniq(keys);
 };
 
 const getNode = (tree, path) => {
@@ -128,19 +128,37 @@ const getGrantedVersion = req => {
     .then(({ json: { data } }) => data);
 };
 
+const normaliseConditions = (versionData, { isSubmitted }) => {
+  return mapValues(versionData, (val, key) => {
+    if (key === 'protocols') {
+      return val.map(protocol => {
+        return {
+          ...protocol,
+          conditions: isSubmitted && sortBy(protocol.conditions, 'key')
+        };
+      });
+    }
+    if (key === 'conditions') {
+      return isSubmitted && sortBy(val, 'key');
+    }
+    return val;
+  });
+};
+
 const getChanges = (current, version) => {
   if (!current || !version) {
     return [];
   }
-
-  const cvKeys = traverse(current.data);
-  const pvKeys = traverse(version.data);
+  const before = normaliseConditions(version.data, { isSubmitted: current.status !== 'draft' });
+  const after = normaliseConditions(current.data, { isSubmitted: current.status !== 'draft' });
+  const cvKeys = traverse(after);
+  const pvKeys = traverse(before);
   const added = remove(cvKeys, k => !pvKeys.includes(k));
   const removed = remove(pvKeys, k => !cvKeys.includes(k));
   let changed = [];
   cvKeys.forEach(k => {
-    let cvNode = getNode(current.data, k);
-    let pvNode = getNode(version.data, k);
+    let cvNode = getNode(after, k);
+    let pvNode = getNode(before, k);
     if (!isEqual(cvNode, pvNode)) {
       changed.push(k);
     }
