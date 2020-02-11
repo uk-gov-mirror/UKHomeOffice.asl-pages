@@ -79,7 +79,7 @@ module.exports = {
     revocation: {
       resolved: {
         title: 'Licence revoked',
-        body: 'This licence is no longer active. This establishment is no longer authorised to carry out any regulated procedures on protected animals.'
+        body: 'This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.'
       }
     }
   },
