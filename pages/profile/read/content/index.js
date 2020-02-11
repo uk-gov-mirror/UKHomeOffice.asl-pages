@@ -14,7 +14,8 @@ module.exports = merge({}, baseContent, {
     licenceNumber: 'Licence number: {{licenceNumber}}',
     expiryDate: 'Expiry date: {{expiryDate}}',
     noProjects: 'None',
-    drafts: 'Draft projects'
+    drafts: 'Draft projects',
+    conversions: 'Project conversions'
   },
   contactDetails: {
     title: 'Contact details',
@@ -30,7 +31,8 @@ module.exports = merge({}, baseContent, {
     pplApply: 'Apply for project licence',
     pilApply: 'Apply for personal licence',
     roleApply: 'Assign named role',
-    pilView: 'View application'
+    pilView: 'View application',
+    convertExisting: 'Convert existing project'
   },
   pil: {
     title: 'Personal licence',
