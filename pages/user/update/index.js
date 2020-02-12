@@ -1,7 +1,7 @@
 const { get, merge, pick } = require('lodash');
 const moment = require('moment');
 const { page } = require('@asl/service/ui');
-const form = require('../../common/routers/form');
+const { success, form } = require('../../common/routers');
 const schema = require('./schema');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 
@@ -19,8 +19,11 @@ const sendData = (req, params = {}) => {
 
 module.exports = settings => {
   const app = page({
-    root: __dirname
+    root: __dirname,
+    paths: ['/success']
   });
+
+  app.use('/success', success({ licence: 'profile', type: 'amendment' }));
 
   app.get('/', hydrate());
 
@@ -50,8 +53,11 @@ module.exports = settings => {
     sendData(req)
       .then(response => {
         const status = get(response, 'json.data.status');
-        req.notification({ key: status === 'autoresolved' ? 'success' : 'pending' });
-        next();
+        if (status === 'autoresolved') {
+          req.notification({ key: 'success' });
+          return next();
+        }
+        res.redirect(`${req.buildRoute('account.update')}/success`);
       })
       .catch(next);
   });

@@ -588,6 +588,12 @@ module.exports = {
 
           You will be notified by the Home Office when your changes are approved or rejected.`
       },
+      'with-inspectorate': {
+        title: 'Request sent',
+        body: `Your changes need to be approved by the Home Office as you hold either a licence or a named role at an establishment.
+
+        We'll contact you if we need more information. Otherwise you'll be emailed when your details have been updated.`
+      },
       // TODO: CONTENT
       'inspector-recommended': {
         title: 'Recommendation sent',
