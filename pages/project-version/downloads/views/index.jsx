@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet } from '@asl/components';
+import { LicenceStatusBanner, Snippet } from '@asl/components';
 
 const ProjectDownloads = () => {
   const { project, basename } = useSelector(state => state.static);
 
   return (
     <Fragment>
+
+      <LicenceStatusBanner licence={project} licenceType="ppl" />
 
       <div className="download-header">
         <div className="page-title">
