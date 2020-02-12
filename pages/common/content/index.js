@@ -55,7 +55,8 @@ module.exports = {
     projectVersion: {
       read: 'View',
       update: 'Amend licence',
-      'update-draft': 'Edit draft'
+      'update-draft': 'Edit draft',
+      downloads: 'Downloads'
     },
     account: {
       menu: 'Your account',

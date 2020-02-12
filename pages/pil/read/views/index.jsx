@@ -113,7 +113,6 @@ const PIL = ({
         title={`${profile.firstName} ${profile.lastName}`}
         subtitle="Personal licence"
         licenceStatus={pil.status}
-        showWord={false}
         showPdf={canDownload}
         basename={currentPath}
       />

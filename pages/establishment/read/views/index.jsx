@@ -34,7 +34,6 @@ const Index = ({
         title={establishment.name}
         subtitle="Establishment licence"
         licenceStatus={establishment.status}
-        showWord={false}
         showPdf={canDownloadPDF}
         basename={currentPath}
       />
