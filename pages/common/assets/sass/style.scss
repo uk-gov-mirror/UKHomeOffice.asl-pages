@@ -341,7 +341,7 @@ details {
   }
 }
 
-.download-options {
+.download-header {
   .back-to-licence {
     border-left: 1px solid $mid-grey;
     padding: 0 0 0 $govuk-gutter-half;
@@ -349,6 +349,8 @@ details {
 }
 
 .project-download-links {
+  margin-bottom: $govuk-gutter;
+
   h3 {
     margin-top: $govuk-gutter;
     margin-bottom: $govuk-gutter-half;

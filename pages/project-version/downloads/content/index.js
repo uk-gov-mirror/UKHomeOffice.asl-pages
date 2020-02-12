@@ -3,19 +3,27 @@ module.exports = {
   licence: {
     inactive: {
       heading: 'Draft licence',
-      hint: 'Download a preview of how the licence will appear if granted. This doesn\'t include any restrictions the Home Office may add.'
+      link: 'Draft licence: {{title}} (.pdf)',
+      hint: 'Download a preview of how the licence will appear if granted. This doesn\'t include any restrictions the Home Office may add.',
+      back: 'Back to draft licence'
     },
     active: {
       heading: 'Licence',
-      hint: 'Download the official licence for this project.'
+      link: 'Licence: {{title}} (.pdf)',
+      hint: 'Download the official licence for this project.',
+      back: 'Back to licence'
     },
     expired: {
       heading: 'Expired licence',
-      hint: 'Download the official licence for this project.'
+      link: 'Expired licence: {{title}} (.pdf)',
+      hint: 'Download the expired licence for this project.',
+      back: 'Back to expired licence'
     },
     revoked: {
       heading: 'Revoked licence',
-      hint: 'Download the official licence for this project.'
+      link: 'Revoked licence: {{title}} (.pdf)',
+      hint: 'Download the revoked licence for this project.',
+      back: 'Back to revoked licence'
     }
   },
   application: {
