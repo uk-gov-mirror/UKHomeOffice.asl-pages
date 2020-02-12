@@ -22,7 +22,6 @@ const PIL = ({
   allowedActions,
   canDownload,
   openTask,
-  correctEstablishment,
   currentPath
 }) => {
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
@@ -122,51 +121,43 @@ const PIL = ({
       {
         canUpdate && (
           <div className="licence-actions">
-            {
-              correctEstablishment &&
-              <Fragment>
-                {
-                  openTask &&
-                    <section className="open-task">
-                      <h2><Snippet>{`openTask.${openTask.type}.title`}</Snippet></h2>
-                      <p><Snippet>{`openTask.${openTask.type}.description`}</Snippet></p>
-                      <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
-                    </section>
-                }
+            <Fragment>
+              {
+                openTask &&
+                  <section className="open-task">
+                    <h2><Snippet>{`openTask.${openTask.type}.title`}</Snippet></h2>
+                    <p><Snippet>{`openTask.${openTask.type}.description`}</Snippet></p>
+                    <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
+                  </section>
+              }
 
-                {
-                  !openTask &&
-                    <Fragment>
-                      <section className="amend-licence">
-                        <Snippet>action.amend.summary</Snippet>
-                        <Link
-                          page="pil.update"
-                          className="govuk-button button-secondary"
-                          label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
-                        />
-                      </section>
-                      {
-                        pil.status === 'active' &&
-                          <section className="revoke-licence">
-                            <Snippet>action.revoke.summary</Snippet>
-                            <Link
-                              page="pil.revoke"
-                              className="govuk-button button-warning"
-                              label={<Snippet>action.revoke.button</Snippet>}
-                            />
-                          </section>
-                      }
-                    </Fragment>
-                }
-              </Fragment>
-            }
-            {
-              !correctEstablishment &&
-                <section className="cant-amend">
-                  <p className="clear"><Snippet>cantUpdate</Snippet></p>
-                  <Link page="profile.read" label={<Snippet>action.backToProfile</Snippet>} />
-                </section>
-            }
+              {
+                !openTask &&
+                  <Fragment>
+                    <section className="amend-licence">
+                      <Snippet>action.amend.summary</Snippet>
+                      <Link
+                        page="pil.update"
+                        className="govuk-button button-secondary"
+                        establishmentId={pil.establishmentId}
+                        label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
+                      />
+                    </section>
+                    {
+                      pil.status === 'active' &&
+                        <section className="revoke-licence">
+                          <Snippet>action.revoke.summary</Snippet>
+                          <Link
+                            page="pil.revoke"
+                            className="govuk-button button-warning"
+                            establishmentId={pil.establishmentId}
+                            label={<Snippet>action.revoke.button</Snippet>}
+                          />
+                        </section>
+                    }
+                  </Fragment>
+              }
+            </Fragment>
           </div>
         )
       }
@@ -182,7 +173,6 @@ const mapStateToProps = ({
     pil,
     openTask,
     allowedActions,
-    correctEstablishment,
     currentPath
   }
 }) => ({
@@ -192,7 +182,6 @@ const mapStateToProps = ({
   canDownload,
   allowedActions,
   openTask,
-  correctEstablishment,
   currentPath
 });
 
