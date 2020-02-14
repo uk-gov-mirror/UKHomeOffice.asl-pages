@@ -31,6 +31,7 @@ start({
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
     isGranted: state.static.isGranted,
+    legacyGranted: state.static.legacyGranted,
     previousProtocols: state.static.previousProtocols
   },
   static: { urls: state.static.urls }
