@@ -13,7 +13,8 @@ module.exports = {
     hint: `This information is collected to ensure you are over 18 years old, and therefore eligible to hold a licence.  However, your date of birth will not be visible to other users in your establishment.`
   },
   email: {
-    label: 'Email address'
+    label: 'Email',
+    hint: 'They’ll use this to login, and get notifications such as updates on a licence application.'
   },
   address: {
     label: 'Address'
@@ -25,24 +26,27 @@ module.exports = {
     label: 'Telephone number'
   },
   role: {
-    label: 'What permission level should this user have?',
+    label: 'What permissions should this user have?',
     options: {
       basic: {
-        label: 'Basic',
-        hint: `* View details of all named people at the establishment.
-               * View and request amendments to the licences they hold.
-               * View their own project licences and applications.`
+        label: 'Personal',
+        hint: `* Manage own licences.
+               * View named people and Home Office liaison contacts (HOLCs).`
       },
       read: {
-        label: 'Intermediate',
-        hint: `* View details of all people and all licences at the establishment.
-               * View details of the establishment, including named people and licensed premises.
-               * Request amendments to the licences they hold.`
+        label: 'Overview',
+        hint: `* Manage own licences.
+               * View all people.
+               * View all licences.
+               * View the establishment’s approved areas.`
       },
       admin: {
         label: 'Admin',
-        hint: `* View and request amendments to all licences at the establishment.
-               * Manage user accounts and permissions at the establishment.`
+        hint: `* Manage all licences.
+               * Manage user accounts and permissions.
+               * Manage establishment details, approved areas and named roles.
+               * View annual licence fee information.
+               * Endorse project applications on behalf of applicants.`
       }
     }
   },

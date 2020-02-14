@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, Snippet, FormLayout, ApplyChanges, Header } from '@asl/components';
+import { Link, Snippet, Form, ErrorSummary, ApplyChanges, Header } from '@asl/components';
+import { Warning, Button } from '@ukhomeoffice/react-components';
 
 const formatters = {
   role: {
@@ -16,12 +17,29 @@ const formatters = {
   }
 };
 
-const Page = ({ url, isNamed }) => {
+function PermissionsForm({ formFields, profile }) {
   return (
     <Fragment>
-      <FormLayout formatters={formatters}>
-        <Header title={<Snippet>title</Snippet>}/>
-      </FormLayout>
+      {
+        formFields
+      }
+      <Warning><Snippet>adminWarning</Snippet></Warning>
+      <Button type="submit"><Snippet>buttons.submit</Snippet></Button>
+    </Fragment>
+  );
+}
+
+const Page = ({ url, isNamed, profile }) => {
+  return (
+    <Fragment>
+      <ErrorSummary />
+      <Header
+        title={<Snippet>title</Snippet>}
+        subtitle={profile.name}
+      />
+      <Form formatters={formatters} submit={false} detachFields>
+        <PermissionsForm />
+      </Form>
 
       <Fragment>
         <hr />
@@ -47,6 +65,6 @@ const Page = ({ url, isNamed }) => {
   );
 };
 
-const mapStateToProps = ({ static: { url, isNamed } }) => ({ url, isNamed });
+const mapStateToProps = ({ static: { url, isNamed, profile } }) => ({ url, isNamed, profile });
 
 export default connect(mapStateToProps)(Page);

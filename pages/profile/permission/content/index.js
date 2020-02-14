@@ -11,7 +11,7 @@ module.exports = merge({}, baseContent, {
     submit: 'Save',
     remove: 'Remove'
   },
-  title: 'Change permission level',
+  title: 'Update permissions',
   remove: {
     title: 'Remove permissions',
     warning: `If you remove this person from this establishment, they will no longer be able to view any of this
