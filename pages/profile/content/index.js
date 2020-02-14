@@ -24,6 +24,7 @@ module.exports = {
   notifications: {
     'invitation-sent': 'Invitation sent to {{email}}.'
   },
+  adminWarning: 'Admins will get notifications every time there’s a request for a new or amended licence, or when a decision has been made.',
   tabs: {
     active: 'Active',
     invited: 'Invited'

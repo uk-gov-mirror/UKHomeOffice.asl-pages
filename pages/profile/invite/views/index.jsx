@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
-  FormLayout,
-  Header
+  Form,
+  Header,
+  ErrorSummary
 } from '@asl/components';
+import { Warning, Button } from '@ukhomeoffice/react-components';
 
 const formatters = {
   role: {
@@ -18,13 +20,29 @@ const formatters = {
   }
 };
 
+function InviteForm({ formFields }) {
+  return (
+    <Fragment>
+      { formFields }
+      <Warning><Snippet>adminWarning</Snippet></Warning>
+      <Button type="submit"><Snippet>buttons.submit</Snippet></Button>
+    </Fragment>
+  );
+}
+
 const Page = ({ establishment }) => (
-  <FormLayout formatters={formatters}>
-    <Header
-      title={<Snippet>pages.profile.invite</Snippet>}
-      subtitle={establishment.name}
-    />
-  </FormLayout>
+  <div className="govuk-grid-row">
+    <div className="govuk-grid-column-two-thirds">
+      <ErrorSummary />
+      <Header
+        title={<Snippet>pages.profile.invite</Snippet>}
+        subtitle={establishment.name}
+      />
+      <Form formatters={formatters} detachFields submit={false}>
+        <InviteForm />
+      </Form>
+    </div>
+  </div>
 );
 
 const mapStateToProps = ({ static: { establishment } }) => ({ establishment });
