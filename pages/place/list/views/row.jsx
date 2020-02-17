@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import ReactMarkdown from 'react-markdown';
+import { Markdown } from '@asl/components';
 import {
   Snippet,
   Controls
@@ -21,7 +21,7 @@ const ExpandableRow = ({ model, schema, allowedActions }) => {
       model.restrictions && (
         <div className="govuk-grid-column-two-thirds">
           <h3>{<Snippet>fields.restrictions.label</Snippet>}</h3>
-          <ReactMarkdown>{model.restrictions}</ReactMarkdown>
+          <Markdown>{model.restrictions}</Markdown>
         </div>
       )
     }

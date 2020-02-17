@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import ReactMarkdown from 'react-markdown';
+import { Markdown } from '@asl/components';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
@@ -37,7 +37,7 @@ const Establishment = ({ establishment, content }) => {
       <h3 className="licence">ESTABLISHMENT LICENCE</h3>
 
       <h1 className="establishment-name">{establishment.name}</h1>
-      <ReactMarkdown>{establishment.address}</ReactMarkdown>
+      <Markdown>{establishment.address}</Markdown>
 
       <h4>Licensed to carry out:</h4>
       <ul>
@@ -87,7 +87,7 @@ const Establishment = ({ establishment, content }) => {
             <Fragment>
               <p>In addition to the standard conditions of Section 2C licences:</p>
               <div className="purple-inset">
-                <ReactMarkdown>{establishment.conditions}</ReactMarkdown>
+                <Markdown>{establishment.conditions}</Markdown>
               </div>
             </Fragment>
           ) : (

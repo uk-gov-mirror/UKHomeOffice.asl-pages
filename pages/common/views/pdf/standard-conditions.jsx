@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+import { Markdown } from '@asl/components';
 
 const StandardConditions = ({ conditions, className, title = 'Standard conditions' }) => (
   <section className={`section standard-conditions ${className}`}>
@@ -9,7 +9,7 @@ const StandardConditions = ({ conditions, className, title = 'Standard condition
         conditions.map((condition, index) => (
           <li key={index}>
             <div className="purple-inset">
-              <ReactMarkdown>{condition}</ReactMarkdown>
+              <Markdown>{condition}</Markdown>
             </div>
           </li>
         ))
