@@ -4,7 +4,7 @@ import { LicenceStatusBanner, Snippet, Link } from '@asl/components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
-export default function StatusBanner({ model, versionId }) {
+export default function ProjectStatusBanner({ model, versionId }) {
   if (model.status === 'active') {
     // viewing active version
     if (model.granted.id === versionId) {

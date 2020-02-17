@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from '@asl/components';
-import LicenceStatusBanner from '../../components/status-banner';
+import ProjectStatusBanner from '../../components/project-status-banner';
 
 const Project = ({ isActionable, taskId, project, version, establishment }) => {
 
   return (
     <Fragment>
-      <LicenceStatusBanner model={project} versionId={version} />
+      <ProjectStatusBanner model={project} versionId={version} />
       <div id="ppl-drafting-tool"></div>
       {
         isActionable && (
