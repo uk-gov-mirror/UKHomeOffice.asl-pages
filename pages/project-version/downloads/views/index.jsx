@@ -12,7 +12,7 @@ const ProjectDownloads = () => {
 
       <div className="download-header">
         <div className="page-title">
-          <h1>{version.title || 'Untitled project'}</h1>
+          <h1>{version.data.title || 'Untitled project'}</h1>
         </div>
 
         <div className="back-to-licence">
