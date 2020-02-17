@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Snippet } from '@asl/components';
-import LicenceStatusBanner from '../../components/status-banner';
+import ProjectStatusBanner from '../../components/status-banner';
 
 const ProjectDownloads = () => {
   const { project, version, basename } = useSelector(state => state.static);
@@ -12,7 +12,7 @@ const ProjectDownloads = () => {
   return (
     <Fragment>
 
-      <LicenceStatusBanner model={project} versionId={version.id} />
+      <ProjectStatusBanner model={project} versionId={version.id} />
 
       <div className="download-header">
         <div className="page-title">
