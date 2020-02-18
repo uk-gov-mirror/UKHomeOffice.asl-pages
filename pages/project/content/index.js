@@ -24,6 +24,9 @@ module.exports = {
     revocationDate: {
       label: 'Date revoked'
     },
+    raDate: {
+      label: 'Retrospective assessment due'
+    },
     submittedAt: {
       label: 'Submitted to ASRU'
     },

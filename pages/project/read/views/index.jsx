@@ -350,6 +350,15 @@ export default function ProjectLandingPage() {
 
               <dt><Snippet>fields.expiryDate.label</Snippet></dt>
               <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
+
+              {
+                model.raDate &&
+                <Fragment>
+                  <dt><Snippet>fields.raDate.label</Snippet></dt>
+                  <dd>{formatDate(model.raDate, dateFormat.medium)}</dd>
+                </Fragment>
+              }
+
             </Fragment>
           )
         }
