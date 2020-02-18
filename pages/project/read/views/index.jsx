@@ -293,6 +293,7 @@ export default function ProjectLandingPage() {
   const { establishment, canUpdate, openTask, allowedActions } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
 
+  const isRevoked = model.status === 'revoked';
   const isEditable = model.status === 'active' || model.status === 'inactive';
 
   return (
@@ -325,8 +326,13 @@ export default function ProjectLandingPage() {
         {
           model.granted && (
             <Fragment>
-              <dt><Snippet>fields.duration.label</Snippet></dt>
-              <dd>{getProjectDuration(model)}</dd>
+              {
+                !isRevoked &&
+                <Fragment>
+                  <dt><Snippet>fields.duration.label</Snippet></dt>
+                  <dd>{getProjectDuration(model)}</dd>
+                </Fragment>
+              }
 
               <dt><Snippet>fields.issueDate.label</Snippet></dt>
               <dd>
@@ -347,10 +353,13 @@ export default function ProjectLandingPage() {
                   <dd>{formatDate(model.amendedDate, dateFormat.medium)}</dd>
                 </Fragment>
               }
-
-              <dt><Snippet>fields.expiryDate.label</Snippet></dt>
-              <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
-
+              {
+                !isRevoked &&
+                <Fragment>
+                  <dt><Snippet>fields.expiryDate.label</Snippet></dt>
+                  <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
+                </Fragment>
+              }
               {
                 model.raDate &&
                 <Fragment>
