@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { Markdown } from '@asl/components';
 import {
   Snippet,
-  Controls
+  Controls,
+  Markdown
 } from '@asl/components';
 
 const ExpandableRow = ({ model, schema, allowedActions }) => {
