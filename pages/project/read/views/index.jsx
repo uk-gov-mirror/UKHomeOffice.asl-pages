@@ -361,6 +361,13 @@ export default function ProjectLandingPage() {
                 </Fragment>
               }
               {
+                isRevoked &&
+                <Fragment>
+                  <dt><Snippet>fields.revocationDate.label</Snippet></dt>
+                  <dd>{formatDate(model.revocationDate, dateFormat.medium)}</dd>
+                </Fragment>
+              }
+              {
                 model.raDate &&
                 <Fragment>
                   <dt><Snippet>fields.raDate.label</Snippet></dt>
