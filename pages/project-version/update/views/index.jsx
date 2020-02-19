@@ -4,7 +4,6 @@ import ProjectStatusBanner from '../../components/project-status-banner';
 
 const Project = ({ project, version, establishment }) => {
   return (<Fragment>
-    <h3 className="establishment-name">{establishment.name}</h3>
     <ProjectStatusBanner model={project} versionId={version} />
     <div id="ppl-drafting-tool"></div>
   </Fragment>

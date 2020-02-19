@@ -7,6 +7,7 @@ import { getProjectEstablishment } from '../middleware';
 import App from './views';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
+import content from '../../common/content';
 
 module.exports = settings => {
   const app = Router();
@@ -23,14 +24,18 @@ module.exports = settings => {
         isGranted: true,
         readonly: true,
         showConditions: true
+      },
+      static: {
+        content,
+        isPdf: true
       }
     };
     const store = createStore(initialState);
     const html = renderToStaticMarkup(<App store={store} nonce={res.locals.static.nonce} />);
-    const header = renderToStaticMarkup(<Header model={req.version.project} licenceType="ppl" nonce={res.locals.static.nonce} />);
+    const header = renderToStaticMarkup(<Header store={store} model={req.project} licenceType="ppl" nonce={res.locals.static.nonce} versionId={req.version.id} />);
     const footer = renderToStaticMarkup(<Footer />);
 
-    const hasStatusBanner = req.version.project.status !== 'active';
+    const hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
 
     const params = {
       method: 'POST',
@@ -54,7 +59,7 @@ module.exports = settings => {
       .response
       .then(response => {
         if (response.status < 300) {
-          res.attachment(`${req.project.title}.pdf`);
+          res.attachment(`${req.version.data.title}.pdf`);
           response.body.pipe(res);
         } else {
           throw new Error(`Error generating PDF - generator responded ${response.status}`);

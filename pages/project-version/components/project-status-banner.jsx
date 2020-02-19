@@ -4,7 +4,7 @@ import { LicenceStatusBanner, Snippet, Link } from '@asl/components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
-export default function ProjectStatusBanner({ model, versionId }) {
+export default function ProjectStatusBanner({ model, versionId, isPdf }) {
   if (model.status === 'active') {
     // viewing active version
     if (model.granted.id === versionId) {
@@ -18,7 +18,7 @@ export default function ProjectStatusBanner({ model, versionId }) {
     const isFirstVersion = versionIndex === model.versions.length - 1;
 
     return (
-      <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseded ? 'superseded' : 'draft'}`}</Snippet>} licence={model} colour={superseded && 'red'}>
+      <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseded ? 'superseded' : 'draft'}`}</Snippet>} licence={model} colour={superseded && 'red'} isPdf={isPdf}>
         <Fragment>
           {
             superseded && <p><strong>This version was valid from {format(isFirstVersion ? model.issueDate : version.updatedAt, dateFormat.medium)} until {format(nextVersion.updatedAt, dateFormat.medium)}</strong></p>
@@ -30,5 +30,5 @@ export default function ProjectStatusBanner({ model, versionId }) {
     );
   }
 
-  return <LicenceStatusBanner licence={model} licenceType="ppl" version={versionId} />;
+  return <LicenceStatusBanner licence={model} licenceType="ppl" version={versionId} isPdf={isPdf} />;
 }
