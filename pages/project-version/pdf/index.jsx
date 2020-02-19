@@ -35,7 +35,7 @@ module.exports = settings => {
     const header = renderToStaticMarkup(<Header store={store} model={req.project} licenceType="ppl" nonce={res.locals.static.nonce} versionId={req.version.id} />);
     const footer = renderToStaticMarkup(<Footer />);
 
-    const hasStatusBanner = !(req.project.status === 'active' && req.project.granted.id === req.version.id);
+    const hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
 
     const params = {
       method: 'POST',
@@ -54,8 +54,6 @@ module.exports = settings => {
         }
       }
     };
-
-    // return res.send(header + html + footer);
 
     fetch(`${settings.pdfService}/convert`, params)
       .response
