@@ -23,8 +23,11 @@ module.exports = settings => {
         project: req.project,
         isGranted: true,
         readonly: true,
-        showConditions: true,
-        content
+        showConditions: true
+      },
+      static: {
+        content,
+        isPdf: true
       }
     };
     const store = createStore(initialState);
@@ -51,6 +54,8 @@ module.exports = settings => {
         }
       }
     };
+
+    // return res.send(header + html + footer);
 
     fetch(`${settings.pdfService}/convert`, params)
       .response

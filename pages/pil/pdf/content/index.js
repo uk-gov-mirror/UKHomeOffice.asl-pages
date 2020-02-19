@@ -1,8 +1,9 @@
 const { merge } = require('lodash');
+const commonContent = require('../../../common/content');
 const baseContent = require('../../content');
 const standardConditions = require('./standard-conditions');
 
-module.exports = merge({}, baseContent, {
+module.exports = merge({}, commonContent, baseContent, {
   legalPreamble:
 `A personal licence on its own does not authorise you to perform regulated procedures on protected animals. You
 apply regulated procedures of the category or categories specified below to animals of the species or groups

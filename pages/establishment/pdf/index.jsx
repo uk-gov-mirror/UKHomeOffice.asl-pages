@@ -1,4 +1,5 @@
 import React from 'react';
+import { createStore } from 'redux';
 import fetch from 'r2';
 import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -18,6 +19,8 @@ const namedPeople = establishment => {
   return profiles;
 };
 
+const stateReducer = (state = {}) => state;
+
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
@@ -27,13 +30,21 @@ module.exports = settings => {
       namedPeople: namedPeople(req.establishment)
     };
 
+    const initialState = {
+      static: {
+        content,
+        isPdf: true
+      }
+    };
+
     req.api(`/establishment/${req.establishmentId}/places?limit=10000&sort=site`)
       .then(response => {
         establishment.places = groupBy(response.json.data, 'site');
       })
       .then(() => {
+        const store = createStore(stateReducer, initialState);
         const html = renderToStaticMarkup(<Body establishment={establishment} nonce={res.locals.static.nonce} content={content} />);
-        const header = renderToStaticMarkup(<Header model={establishment} licenceType="pel" nonce={res.locals.static.nonce} />);
+        const header = renderToStaticMarkup(<Header store={store} model={establishment} licenceType="pel" nonce={res.locals.static.nonce} />);
         const footer = renderToStaticMarkup(<Footer />);
 
         const hasStatusBanner = establishment.status !== 'active';
@@ -60,7 +71,7 @@ module.exports = settings => {
           .response
           .then(response => {
             if (response.status < 300) {
-              res.attachment(`${establishment.licenceNumber}.pdf`);
+              res.attachment(`${establishment.name}.pdf`);
               response.body.pipe(res);
             } else {
               throw new Error(`Error generating PDF - generator responded ${response.status}`);

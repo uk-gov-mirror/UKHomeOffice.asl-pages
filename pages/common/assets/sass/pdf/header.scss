@@ -1,6 +1,6 @@
 @import 'base';
 
-header {
+.pdf-header {
   font-family: Helvetica, Arial, sans-serif;
   border-bottom: 1px solid black;
   width: 100%;
@@ -8,11 +8,20 @@ header {
   margin-left: 25px;
   margin-right: 25px;
 
-  .status-banner {
+  .licence-status-banner {
     color: white;
     background-color: black;
     padding: 5px 10px;
     text-align: center;
+
+    header {
+      margin: 0;
+      padding: 0;
+    }
+
+    .toggle-switch {
+      display: none;
+    }
 
     .status {
       margin: 0;
@@ -21,8 +30,9 @@ header {
       font-size: 18px;
     }
 
-    .summary {
+    .status-details p {
       margin: 0;
+      padding: 0;
       font-size: 12px;
     }
   }
