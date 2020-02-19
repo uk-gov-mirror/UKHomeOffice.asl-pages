@@ -15,7 +15,10 @@ function SummarySection({ rows, title, currency }) {
           rows.map((row, index) => (
             <tr key={index}>
               <td><Snippet>{row.title}</Snippet></td>
-              <td className="pull-right">{row.currency && '£'}{numberWithCommas(row.value)}</td>
+              <td className="pull-right">
+                {row.currency && '£'}
+                <span>{numberWithCommas(row.value)}</span>
+              </td>
             </tr>
           ))
         }

@@ -21,7 +21,10 @@ function Fee({ type }) {
   return (
     <div>
       <h3><Snippet>{`fees.summary.${type}`}</Snippet></h3>
-      <h1>£{numberWithCommas(num)}</h1>
+      <h1>
+        {'£'}
+        <span>{ numberWithCommas(num) }</span>
+      </h1>
     </div>
   );
 }
