@@ -309,7 +309,7 @@ export default function ProjectLandingPage() {
 
         <dt><Snippet>fields.licenceHolder.label</Snippet></dt>
         <dd>
-          {model.licenceHolder.name}<br />
+          {`${model.licenceHolder.firstName} ${model.licenceHolder.lastName}`}<br />
           <Link page="profile.read" profileId={model.licenceHolder.id} label="View profile" />
           {
             canUpdate && !openTask && isEditable && (
