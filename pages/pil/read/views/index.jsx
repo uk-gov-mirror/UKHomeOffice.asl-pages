@@ -70,7 +70,9 @@ const PIL = ({
         return procedures.sort().map(procedure => {
           return (
             <p key={procedure}>
-              <strong>{procedure}</strong>: <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
+              <strong>{procedure}</strong>
+              {': '}
+              <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
               {
                 procedure === 'F' && (
                   <em>: {pil.notesCatF}</em>

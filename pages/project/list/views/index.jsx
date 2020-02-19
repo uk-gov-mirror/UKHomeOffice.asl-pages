@@ -35,12 +35,12 @@ const Projects = ({
     />
     {
       allowedActions.includes('project.apply') && (
-        <p className="control-panel projects-actions">
+        <div className="control-panel projects-actions">
           <form method="POST" action="projects/create">
             <Button><Snippet>buttons.create</Snippet></Button>
           </form>
           <Link page="project.import" className="govuk-button button-secondary" label={<Snippet>buttons.upload</Snippet>} />
-        </p>
+        </div>
       )
     }
     <Tabs active={tabs.indexOf(status)}>

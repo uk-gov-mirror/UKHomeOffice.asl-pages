@@ -27,10 +27,10 @@ const getAuthor = ({ changedBy, eventName, event: { status } }, task) => {
   }
 
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
-  const action = <Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet>;
   return (
     <p>
-      <strong>{action}: </strong>
+      <strong><Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet></strong>
+      <strong>: </strong>
       {
         changedBy.asruUser
           ? name
