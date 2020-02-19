@@ -28,8 +28,11 @@ module.exports = settings => {
 
   app.use('/', form({
     configure: (req, res, next) => {
+      const roles = req.profile.roles
+        .filter(role => role.establishmentId === req.establishmentId)
+        .map(role => role.type);
       req.form.schema = {
-        ...schema(req.profile.roles, 'remove')
+        ...schema(roles, 'remove')
       };
       next();
     },

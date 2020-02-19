@@ -38,7 +38,9 @@ module.exports = settings => {
 
   app.use('/', form({
     configure: (req, res, next) => {
-      const roles = req.profile.roles.map(role => role.type);
+      const roles = req.profile.roles
+        .filter(role => role.establishmentId === req.establishmentId)
+        .map(role => role.type);
       req.form.schema = {
         ...getSchema(roles),
         rcvsNumber: {}
