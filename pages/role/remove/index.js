@@ -1,6 +1,6 @@
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
-const schema = require('./schema');
+const getSchema = require('./schema');
 const confirm = require('../routers/confirm');
 const success = require('../routers/success');
 
@@ -28,8 +28,11 @@ module.exports = settings => {
 
   app.use('/', form({
     configure: (req, res, next) => {
+      const roles = req.profile.roles
+        .filter(role => role.establishmentId === req.establishmentId)
+        .map(role => role.type);
       req.form.schema = {
-        ...schema(req.profile.roles, 'remove')
+        ...getSchema(roles)
       };
       next();
     },

@@ -3,8 +3,8 @@ const namedRoles = require('../../content/named-roles');
 module.exports = roles => {
   const options = roles.map(role => {
     return {
-      value: role.type,
-      label: namedRoles[role.type]
+      value: role,
+      label: namedRoles[role]
     };
   });
 
@@ -14,7 +14,7 @@ module.exports = roles => {
       validate: [
         'required',
         {
-          definedValues: roles.map(r => r.type)
+          definedValues: roles
         }
       ],
       options,
