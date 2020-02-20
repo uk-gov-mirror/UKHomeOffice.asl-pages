@@ -1,8 +1,6 @@
 const { Router } = require('express');
 const { get } = require('lodash');
 const bodyParser = require('body-parser');
-const pdf = require('./pdf');
-const docx = require('./docx');
 const { getVersion, getComments, getChangedValues } = require('./middleware');
 const extractComments = require('./lib/extract-comments');
 const routes = require('./routes');
@@ -80,9 +78,6 @@ module.exports = settings => {
       .then(() => res.json({ id }))
       .catch(next);
   });
-
-  app.use('/docx', docx(settings));
-  app.use('/pdf', pdf(settings));
 
   return app;
 };

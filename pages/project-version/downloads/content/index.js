@@ -13,6 +13,11 @@ module.exports = {
       hint: 'Download the official licence for this project.',
       back: 'Back to licence'
     },
+    granted: { // Linking to the active licence when amend in progress
+      heading: 'Granted licence',
+      link: 'Granted licence: {{title}} (.pdf)',
+      hint: 'Download the official licence for this project.'
+    },
     expired: {
       heading: 'Expired licence',
       link: 'Expired licence: {{title}} (.pdf)',
