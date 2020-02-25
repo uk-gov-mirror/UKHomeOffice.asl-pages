@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
 import get from 'lodash/get';
 import pick from 'lodash/pick';
 import {
   Link,
   StickyNavAnchor,
   Snippet,
-  Diff
+  Diff,
+  Markdown
 } from '@asl/components';
 import ReviewFields from '@asl/projects/client/components/review-fields';
 import Deadline from '../components/deadline';
@@ -105,7 +105,7 @@ export default function Project({ task, schema }) {
                       <p>
                         <Snippet>declarations.awerb.review-date</Snippet>
                       </p>
-                      <ReactMarkdown>{declarations['awerb-review-date']}</ReactMarkdown>
+                      <Markdown>{declarations['awerb-review-date']}</Markdown>
                     </Fragment>
                 }
                 {
@@ -115,7 +115,7 @@ export default function Project({ task, schema }) {
                       <p>
                         <strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong>
                       </p>
-                      <ReactMarkdown>{declarations['awerb-no-review-reason']}</ReactMarkdown>
+                      <Markdown>{declarations['awerb-no-review-reason']}</Markdown>
                     </Fragment>
                 }
 

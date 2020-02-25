@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
-import ReactMarkdown from 'react-markdown';
+import { Markdown } from '@asl/components';
 
 const PIL = ({ pil, content }) => {
   const licenceHolder = pil.licenceHolder;
@@ -17,12 +17,12 @@ const PIL = ({ pil, content }) => {
 
       <h1 className="licence-holder">{`${licenceHolder.firstName} ${licenceHolder.lastName}`}</h1>
 
-      <ReactMarkdown className="legal-preamble">{content.legalPreamble}</ReactMarkdown>
+      <Markdown className="legal-preamble">{content.legalPreamble}</Markdown>
 
       <section className="primary-establishment break">
         <h2>Primary establishment</h2>
         <p>{pil.establishment.name}</p>
-        <ReactMarkdown>{pil.establishment.address}</ReactMarkdown>
+        <Markdown>{pil.establishment.address}</Markdown>
       </section>
 
       <section className="animal-types">
@@ -69,7 +69,7 @@ const PIL = ({ pil, content }) => {
             <Fragment>
               <p>In addition to the standard conditions:</p>
               <div className="purple-inset">
-                <ReactMarkdown>{pil.conditions}</ReactMarkdown>
+                <Markdown>{pil.conditions}</Markdown>
               </div>
             </Fragment>
           ) : (
