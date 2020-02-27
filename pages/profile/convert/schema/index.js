@@ -1,4 +1,8 @@
 module.exports = {
+  title: {
+    inputType: 'inputText',
+    validate: 'required'
+  },
   licenceNumber: {
     inputType: 'inputText',
     validate: 'required'
@@ -10,5 +14,9 @@ module.exports = {
       'validDate',
       'dateIsBefore'
     ]
+  },
+  duration: {
+    inputType: 'inputDuration',
+    validate: 'required'
   }
-}
+};

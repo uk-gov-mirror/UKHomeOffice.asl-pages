@@ -570,6 +570,12 @@ module.exports = {
         title: 'Revocation discarded',
         body: 'You will need to create a new revocation if you want to submit these changes again.'
       }
+    },
+    conversion: {
+      resolved: {
+        title: 'Licence converted',
+        body: 'The establishment can now view the full details of this licence, and make any amendments to it through the system.'
+      }
     }
   },
   profile: {

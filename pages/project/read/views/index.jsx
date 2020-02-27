@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Link, Snippet, LicenceStatusBanner } from '@asl/components';
+import { Header, Link, Snippet } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import formatters from '../../formatters';
+import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 
 const getProjectDuration = model => formatters.duration.format(model.granted);
 
@@ -46,7 +47,7 @@ function CurrentVersion({ model }) {
   const returned = openTask && editable && canUpdate;
 
   const labelKey = model.granted
-    ? `granted.${model.status}`
+    ? `granted.${model.isLegacyStub ? 'stub' : model.status}`
     : `draft.${returned ? 'returned' : status}`;
 
   return (
@@ -120,6 +121,10 @@ function StartAmendment({ model }) {
     return null;
   }
 
+  if (model.isLegacyStub) {
+    return null;
+  }
+
   // task is a pending revocation or licence holder change
   if (openTask && openTask.data.action !== 'grant') {
     return null;
@@ -175,12 +180,55 @@ function DiscardDraft({ model }) {
 
   return (
     <Section
-      title={<Snippet>discardDraft.title</Snippet>}
-      content={<Snippet>discardDraft.description</Snippet>}
+      title={<Snippet>discard.draft.title</Snippet>}
+      content={<Snippet>discard.draft.description</Snippet>}
     >
       <form method="POST" action={`${url}/delete/draft`} onSubmit={confirmSubmission(confirmMessage)}>
         <Button className="button-warning">
-          <Snippet>actions.discard.application</Snippet>
+          <Snippet>actions.discard.draft</Snippet>
+        </Button>
+      </form>
+    </Section>
+  );
+}
+
+function AmendStub({ model }) {
+  const { asruLicensing } = useSelector(state => state.static);
+
+  if (!model.isLegacyStub || !asruLicensing) {
+    return null;
+  }
+
+  return (
+    <Section
+      title={<Snippet>amendStub.title</Snippet>}
+      content={<Snippet>amendStub.description</Snippet>}
+    >
+      <form method="POST">
+        <Button className="button-secondary">
+          <Snippet>actions.amendStub</Snippet>
+        </Button>
+      </form>
+    </Section>
+  );
+}
+
+function DiscardStub({ model }) {
+  const { url, confirmMessage, asruLicensing } = useSelector(state => state.static);
+
+  // draft project without open task can be discarded by establishment
+  if (!model.isLegacyStub || !asruLicensing) {
+    return null;
+  }
+
+  return (
+    <Section
+      title={<Snippet>discard.stub.title</Snippet>}
+      content={<Snippet>discard.stub.description</Snippet>}
+    >
+      <form method="POST" action={`${url}/delete/draft`} onSubmit={confirmSubmission(confirmMessage)}>
+        <Button className="button-warning">
+          <Snippet>actions.discard.stub</Snippet>
         </Button>
       </form>
     </Section>
@@ -190,7 +238,7 @@ function DiscardDraft({ model }) {
 function RevokeLicence({ model }) {
   const { openTask, canRevoke } = useSelector(state => state.static);
 
-  if (openTask || !canRevoke || model.status !== 'active') {
+  if (openTask || !canRevoke || model.status !== 'active' || model.isLegacyStub) {
     return null;
   }
 
@@ -243,7 +291,9 @@ function Actions({ model }) {
           <Fragment>
             <UserCannotEdit model={model} />
             <StartAmendment model={model} />
+            <AmendStub model={model} />
             <DiscardDraft model={model} />
+            <DiscardStub model={model} />
           </Fragment>
         )
       }
@@ -298,7 +348,7 @@ export default function ProjectLandingPage() {
 
   return (
     <Fragment>
-      <LicenceStatusBanner licence={model} licenceType="ppl" />
+      <ProjectStatusBanner model={model} versionId={model.versions[0].id} />
 
       <Header
         subtitle={establishment.name}
@@ -324,16 +374,16 @@ export default function ProjectLandingPage() {
         </Fragment>
 
         {
-          model.granted && (
-            <Fragment>
-              {
-                !isRevoked &&
-                <Fragment>
-                  <dt><Snippet>fields.duration.label</Snippet></dt>
-                  <dd>{getProjectDuration(model)}</dd>
-                </Fragment>
-              }
+          model.granted && model.granted.duration && !isRevoked &&
+          <Fragment>
+            <dt><Snippet>fields.duration.label</Snippet></dt>
+            <dd>{getProjectDuration(model)}</dd>
+          </Fragment>
+        }
 
+        {
+          model.issueDate &&
+            <Fragment>
               <dt><Snippet>fields.issueDate.label</Snippet></dt>
               <dd>
                 {formatDate(model.issueDate, dateFormat.medium)}
@@ -345,7 +395,12 @@ export default function ProjectLandingPage() {
                     </Fragment>
                 }
               </dd>
+            </Fragment>
+        }
 
+        {
+          model.granted && (
+            <Fragment>
               {
                 model.amendedDate &&
                 <Fragment>
@@ -354,7 +409,7 @@ export default function ProjectLandingPage() {
                 </Fragment>
               }
               {
-                !isRevoked &&
+                model.expiryDate && !isRevoked &&
                 <Fragment>
                   <dt><Snippet>fields.expiryDate.label</Snippet></dt>
                   <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>

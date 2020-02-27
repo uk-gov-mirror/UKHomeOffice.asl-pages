@@ -104,17 +104,13 @@ class Profile extends React.Component {
                 )
               }
               {
-                allowedActions.includes('project.createLegacy') && (
-                  <Fragment>
-                    <h3><Snippet>projects.conversions</Snippet></h3>
-                    <Link
-                      className="govuk-button button-secondary"
-                      page="profile.convertLegacyProject"
-                      establishmentId={estId}
-                      label={<Snippet>buttons.convertExisting</Snippet>}
-                    />
-                  </Fragment>
-                )
+                allowedActions.includes('project.convertLegacy') &&
+                  <Link
+                    className="govuk-button button-secondary"
+                    page="profile.convertLegacyProject"
+                    establishmentId={estId}
+                    label={<Snippet>buttons.convertExisting</Snippet>}
+                  />
               }
               {
                 isOwnProfile && (

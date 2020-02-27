@@ -38,6 +38,7 @@ module.exports = settings => {
         res.locals.static.openTask = openTask;
         res.locals.static.canRevoke = canRevoke;
         res.locals.static.asruUser = req.user.profile.asruUser;
+        res.locals.static.asruLicensing = req.user.profile.asruLicensing;
       })
       .then(() => next())
       .catch(next);

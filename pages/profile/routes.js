@@ -11,11 +11,10 @@ module.exports = {
     path: '',
     router: list
   },
-  convertLegacyProject: {
-    path: '/:profileId/convert-existing',
-    permissions: 'project.createLegacy',
-    breadcrumb: false,
-    router: convert
+  read: {
+    path: '/:profileId',
+    permissions: 'profile.read.basic',
+    router: read
   },
   permission: {
     path: '/:profileId/permission',
@@ -23,10 +22,10 @@ module.exports = {
     before: allowed,
     router: permission
   },
-  read: {
-    path: '/:profileId',
-    permissions: 'profile.read.basic',
-    router: read
+  convertLegacyProject: {
+    path: '/:profileId/convert-legacy-project',
+    permissions: 'project.convertLegacy',
+    router: convert
   },
   invite: {
     path: '/invite',
