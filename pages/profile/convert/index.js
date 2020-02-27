@@ -49,6 +49,7 @@ module.exports = () => {
           title,
           licenceNumber,
           issueDate: new Date(issueDate).toISOString(),
+          isLegacyStub: true,
           version: {
             data: {
               title,
