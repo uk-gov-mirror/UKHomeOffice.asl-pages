@@ -52,5 +52,7 @@ module.exports = settings => {
     next();
   });
 
+  app.get('/', (req, res) => res.sendResponse());
+
   return app;
 };

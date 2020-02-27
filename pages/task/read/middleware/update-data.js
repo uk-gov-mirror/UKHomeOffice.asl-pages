@@ -32,9 +32,10 @@ module.exports = (req, res, next) => {
   }
 
   if (model === 'project') {
-    if (action === 'grant') {
+    if (action === 'grant' || action === 'transfer') {
       model = 'projectVersion';
       action = 'update';
+      params.establishmentId = req.project.establishmentId;
       params.versionId = req.project.draft.id;
     } else if (action === 'update') {
       action = 'updateLicenceHolder';

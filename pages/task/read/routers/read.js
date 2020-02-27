@@ -36,13 +36,21 @@ module.exports = () => {
   // get relevant versionId if task is for a project.
   app.use((req, res, next) => {
     const model = get(req.task, 'data.model');
+    const action = get(req.task, 'data.action');
 
     if (model === 'project') {
+      const versionId = get(req.task, 'data.meta.version');
+      const project = req.task.data.modelData;
+      const status = get(req.task, 'status');
+
       req.projectId = get(req.task, 'data.id');
-      req.establishmentId = get(req.task, 'data.data.establishmentId');
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { query: { withDeleted: true } })
+      req.establishmentId = action === 'transfer' && status === 'resolved'
+        ? get(req.task, 'data.data.establishmentId')
+        : project.establishmentId
+      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-versions/${versionId}`, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
-          req.project = data;
+          req.version = data;
+          req.project = data.project;
         })
         .then(() => next())
         .catch(next);
@@ -202,6 +210,7 @@ module.exports = () => {
       res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
+      res.locals.static.version = req.version;
       next();
     },
     process: (req, res, next) => {

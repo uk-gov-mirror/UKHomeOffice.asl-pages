@@ -4,7 +4,7 @@ import sortBy from 'lodash/sortBy';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
-export default function ProjectStatusBanner({ model, versionId, isPdf }) {
+export default function ProjectStatusBanner({ model, version, isPdf }) {
   if (model.status === 'active') {
     if (model.isLegacyStub) {
       return (
@@ -15,13 +15,14 @@ export default function ProjectStatusBanner({ model, versionId, isPdf }) {
     }
 
     // viewing active version
-    if (model.granted.id === versionId) {
+    if (model.granted && model.granted.id === version.id) {
       return null;
     }
+    model.versions = model.versions || [];
     const version = model.versions.find(v => v.id === versionId);
 
     const grantedVersions = sortBy(model.versions.filter(v => v.status === 'granted'), 'updatedAt');
-    const superseded = model.granted.createdAt > version.createdAt;
+    const superseded = version.status === 'granted' && model.granted.createdAt > version.createdAt;
     const versionIndex = grantedVersions.map(v => v.id).indexOf(versionId);
     const nextVersion = grantedVersions[versionIndex + 1];
     const isFirstVersion = versionIndex === 0;
@@ -39,5 +40,5 @@ export default function ProjectStatusBanner({ model, versionId, isPdf }) {
     );
   }
 
-  return <LicenceStatusBanner licence={model} licenceType="ppl" version={versionId} isPdf={isPdf} />;
+  return <LicenceStatusBanner licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} />;
 }

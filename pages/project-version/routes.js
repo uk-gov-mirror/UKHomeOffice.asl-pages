@@ -4,6 +4,7 @@ const downloads = require('./downloads');
 const pdf = require('./pdf');
 const docx = require('./docx');
 const convert = require('./convert');
+const transfer = require('./transfer');
 
 module.exports = {
   update: {
@@ -18,6 +19,11 @@ module.exports = {
   downloads: {
     path: '/downloads',
     router: downloads
+  },
+  transfer: {
+    path: '/transfer',
+    breadcrumb: false,
+    router: transfer
   },
   pdf: {
     path: '/pdf',

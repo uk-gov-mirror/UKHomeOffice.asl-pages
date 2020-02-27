@@ -20,6 +20,7 @@ module.exports = {
   },
   project: {
     grant: 'PPL application',
+    transfer: 'PPL transfer',
     update: 'PPL amendment',
     revoke: 'PPL revocation'
   },
