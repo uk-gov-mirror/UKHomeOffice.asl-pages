@@ -20,10 +20,10 @@ module.exports = settings => {
   }));
 
   app.use('/', (req, res, next) => {
-    const hasRoles = !!(req.profile.roles && req.profile.roles.length);
-    const hasPil = !!(req.profile.pil && req.profile.pil.status === 'active' && req.profile.pil.establishmentId === req.establishmentId);
-    const hasProjects = !!(req.profile.projects && req.profile.projects.length && some(req.profile.projects, project => project.status === 'active'));
-    res.locals.static.isNamed = hasRoles || hasPil || hasProjects;
+    const hasRoles = some(req.profile.roles, role => role.establishmentId === req.establishmentId);
+    const hasPil = req.profile.pil && req.profile.pil.status === 'active' && req.profile.pil.establishmentId === req.establishmentId;
+    const hasProjects = some(req.profile.projects, project => project.status === 'active' && project.establishmentId === req.establishmentId);
+    res.locals.static.isNamed = !!hasRoles || !!hasPil || !!hasProjects;
     next();
   });
 
