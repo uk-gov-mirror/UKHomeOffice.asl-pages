@@ -9,6 +9,11 @@ module.exports = () => {
 
   app.use(getVersion());
 
+  app.use(getComments());
+
+  app.use('/submit', submit());
+  app.use('/success', success());
+
   app.use((req, res, next) => {
     //move users away from edit route if not viewing a draft
     if (req.version.status !== 'draft') {
@@ -16,11 +21,6 @@ module.exports = () => {
     }
     next();
   });
-
-  app.use(getComments());
-
-  app.use('/submit', submit());
-  app.use('/success', success());
 
   // we always want to serve the same template and
   // scripts for any sub-routes under /edit
