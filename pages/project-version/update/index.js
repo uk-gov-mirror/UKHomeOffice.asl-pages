@@ -9,6 +9,14 @@ module.exports = () => {
 
   app.use(getVersion());
 
+  app.use((req, res, next) => {
+    //move users away from edit route if not viewing a draft
+    if (req.version.status !== 'draft') {
+      return res.redirect(req.buildRoute('projectVersion.read'));
+    }
+    next();
+  });
+
   app.use(getComments());
 
   app.use('/submit', submit());

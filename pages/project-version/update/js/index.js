@@ -28,5 +28,6 @@ start({
     schemaVersion: state.model.project.schemaVersion,
     newApplication: state.static.newApplication,
     previousProtocols: state.static.previousProtocols
-  }
+  },
+  static: { urls: state.static.urls }
 });
