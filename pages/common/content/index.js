@@ -186,7 +186,8 @@ module.exports = {
       expired: 'Expired',
       active: 'Amendment in progress',
       superseded: 'Superseded',
-      stub: 'Incomplete stub'
+      stub: 'Incomplete stub',
+      transferred: 'Transferred out'
     },
     summary: {
       pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.`,
@@ -194,7 +195,8 @@ module.exports = {
       ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.`,
       ppl_active: `This amendment has not been approved yet.`,
       superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
-      stub: 'This is not a complete record of this project\'s licence. To view the up-to-date granted licence, refer to paper records or contact the Home Office for more details.'
+      stub: 'This is not a complete record of this project\'s licence. To view the up-to-date granted licence, refer to paper records or contact the Home Office for more details.',
+      transferred: 'This licence has been transferred to another establishment and is not active here. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.'
     },
     view: 'View granted licence'
   },

@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
-import get from 'lodash/get';
 import pick from 'lodash/pick';
 import {
   Link,
@@ -64,7 +63,7 @@ export default function Project({ task, schema }) {
     ),
 
     (
-      task.data.action === 'grant' || task.data.action === 'transfer' && (
+      (task.data.action === 'grant' || task.data.action === 'transfer') && (
         <StickyNavAnchor id="submitted-version" key="submitted-version">
           <h2><Snippet>sticky-nav.submitted-version</Snippet></h2>
           <p><Snippet type={task.type}>versions.submitted.hint</Snippet></p>

@@ -8,8 +8,8 @@ const getVersion = () => (req, res, next) => {
     .then(({ json: { data, meta } }) => {
       req.project = {
         ...data.project,
-        versions: [],
         establishment: meta.establishment,
+        openTasks: meta.openTasks,
         ...req.project
       };
       req.version = data;
@@ -38,7 +38,7 @@ const hasEditPermission = (req) => {
   const params = {
     id: req.projectId,
     licenceHolderId: req.project.licenceHolderId,
-    establishment: req.establishment.id
+    establishment: req.establishmentId
   };
 
   return req.user.can('project.update', params);
@@ -124,9 +124,10 @@ const getPreviousVersion = req => {
   if (!previous) {
     return Promise.resolve();
   }
-
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
-    .then(({ json: { data } }) => data);
+    .then(({ json: { data } }) => data)
+    // eslint-disable-next-line handle-callback-err
+    .catch(err => {});
 };
 
 const getGrantedVersion = req => {
@@ -134,7 +135,9 @@ const getGrantedVersion = req => {
     return Promise.resolve();
   }
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
-    .then(({ json: { data } }) => data);
+    .then(({ json: { data } }) => data)
+    // eslint-disable-next-line handle-callback-err
+    .catch(err => {});
 };
 
 const normaliseConditions = (versionData, { isSubmitted }) => {

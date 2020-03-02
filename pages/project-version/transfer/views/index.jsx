@@ -6,5 +6,5 @@ export default function Transfer() {
     <FormLayout>
       <h1>Transfer</h1>
     </FormLayout>
-  )
+  );
 }

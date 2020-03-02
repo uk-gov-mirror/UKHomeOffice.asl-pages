@@ -36,18 +36,15 @@ module.exports = () => {
   // get relevant versionId if task is for a project.
   app.use((req, res, next) => {
     const model = get(req.task, 'data.model');
-    const action = get(req.task, 'data.action');
 
     if (model === 'project') {
-      const versionId = get(req.task, 'data.meta.version');
+      const versionId = get(req.task, 'data.data.version');
       const project = req.task.data.modelData;
-      const status = get(req.task, 'status');
 
       req.projectId = get(req.task, 'data.id');
-      req.establishmentId = action === 'transfer' && status === 'resolved'
-        ? get(req.task, 'data.data.establishmentId')
-        : project.establishmentId
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-versions/${versionId}`, { query: { withDeleted: true } })
+      req.establishmentId = project.establishmentId;
+
+      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`)
         .then(({ json: { data } }) => {
           req.version = data;
           req.project = data.project;

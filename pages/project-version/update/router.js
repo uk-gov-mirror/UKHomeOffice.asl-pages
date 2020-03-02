@@ -23,12 +23,16 @@ module.exports = settings => {
   );
 
   app.get('/', (req, res, next) => {
+    req.user.can('project.update', req.params)
+      .then(canUpdate => {
+        res.locals.static.canUpdate = canUpdate;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.get('/', (req, res, next) => {
     const isAmendment = req.project.status !== 'inactive';
-    if (isAmendment) {
-      req.breadcrumb('projectVersion.update');
-    } else {
-      req.breadcrumb('projectVersion.update-draft');
-    }
     const openTask = get(req.project, 'openTasks[0]');
     const showComments = req.version.status !== 'granted' && !!openTask;
     const previousVersion = req.project.versions[1];
@@ -44,8 +48,7 @@ module.exports = settings => {
 
     res.locals.static.newApplication = !isAmendment && (!previousVersion || previousVersion.status === 'withdrawn');
     res.locals.model = req.version;
-    res.locals.static.project = req.project;
-    res.locals.static.version = req.version.id;
+    res.locals.static.version = req.version;
     next();
   });
 

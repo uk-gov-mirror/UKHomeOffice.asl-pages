@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import get from 'lodash/get';
 import { Link, Snippet } from '@asl/components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 
@@ -8,15 +9,16 @@ const ProjectDownloads = () => {
 
   const thisVersionIsGranted = project.granted && project.granted.id === version.id;
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
+  const title = get(version, 'data.title', 'Untitled project');
 
   return (
     <Fragment>
 
-      <ProjectStatusBanner model={project} versionId={version.id} />
+      <ProjectStatusBanner model={project} version={version} />
 
       <div className="download-header">
         <div className="page-title">
-          <h1>{version.data.title || 'Untitled project'}</h1>
+          <h1>{title}</h1>
         </div>
 
         <div className="back-to-licence">
@@ -30,7 +32,7 @@ const ProjectDownloads = () => {
           <h1><Snippet>title</Snippet></h1>
 
           <h3><Snippet>{`licence.${licenceStatus}.heading`}</Snippet></h3>
-          <p><Link page="projectVersion.pdf" label={<Snippet title={version.data.title}>{`licence.${licenceStatus}.link`}</Snippet>} /></p>
+          <p><Link page="projectVersion.pdf" label={<Snippet title={title}>{`licence.${licenceStatus}.link`}</Snippet>} /></p>
           <p className="govuk-hint"><Snippet>{`licence.${licenceStatus}.hint`}</Snippet></p>
 
           {

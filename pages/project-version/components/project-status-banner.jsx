@@ -5,10 +5,21 @@ import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
 export default function ProjectStatusBanner({ model, version, isPdf }) {
+  if (model.status === 'transferred') {
+    return (
+      <LicenceStatusBanner title={<Snippet>invalidLicence.status.transferred</Snippet>} licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour="red">
+        <ul className="licence-dates">
+          <li><strong>Granted: </strong> <span>{ format(model.issueDate, dateFormat.medium) }</span></li>
+          <li><strong>Transferred out: </strong><span>{ format(model.updatedAt, dateFormat.medium) }</span></li>
+        </ul>
+        <p><Snippet>invalidLicence.summary.transferred</Snippet></p>
+      </LicenceStatusBanner>
+    );
+  }
   if (model.status === 'active') {
     if (model.isLegacyStub) {
       return (
-        <LicenceStatusBanner title={<Snippet>invalidLicence.status.stub</Snippet>} licence={model} licenceType="ppl" version={versionId} isPdf={isPdf}>
+        <LicenceStatusBanner title={<Snippet>invalidLicence.status.stub</Snippet>} licence={model} licenceType="ppl" version={version.id} isPdf={isPdf}>
           <p><Snippet>invalidLicence.summary.stub</Snippet></p>
         </LicenceStatusBanner>
       );
@@ -19,11 +30,10 @@ export default function ProjectStatusBanner({ model, version, isPdf }) {
       return null;
     }
     model.versions = model.versions || [];
-    const version = model.versions.find(v => v.id === versionId);
 
     const grantedVersions = sortBy(model.versions.filter(v => v.status === 'granted'), 'updatedAt');
     const superseded = version.status === 'granted' && model.granted.createdAt > version.createdAt;
-    const versionIndex = grantedVersions.map(v => v.id).indexOf(versionId);
+    const versionIndex = grantedVersions.map(v => v.id).indexOf(version.id);
     const nextVersion = grantedVersions[versionIndex + 1];
     const isFirstVersion = versionIndex === 0;
 
@@ -40,5 +50,5 @@ export default function ProjectStatusBanner({ model, version, isPdf }) {
     );
   }
 
-  return <LicenceStatusBanner licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} />;
+  return <LicenceStatusBanner licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour={model.status === 'transferred' && 'red'} />;
 }

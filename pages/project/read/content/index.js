@@ -54,7 +54,8 @@ module.exports = merge({}, baseContent, {
         active: 'View granted licence',
         revoked: 'View revoked licence',
         expired: 'View expired licence',
-        stub: 'Open stub'
+        stub: 'Open stub',
+        transferred: 'View transferred licence'
       },
       draft: {
         draft: 'Open draft',

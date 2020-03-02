@@ -4,4 +4,4 @@ module.exports = {
       label: 'Transfer to'
     }
   }
-}
+};
