@@ -213,28 +213,6 @@ function AmendStub({ model }) {
   );
 }
 
-function DiscardStub({ model }) {
-  const { url, confirmMessage, asruLicensing } = useSelector(state => state.static);
-
-  // draft project without open task can be discarded by establishment
-  if (!model.isLegacyStub || !asruLicensing) {
-    return null;
-  }
-
-  return (
-    <Section
-      title={<Snippet>discard.stub.title</Snippet>}
-      content={<Snippet>discard.stub.description</Snippet>}
-    >
-      <form method="POST" action={`${url}/delete/draft`} onSubmit={confirmSubmission(confirmMessage)}>
-        <Button className="button-warning">
-          <Snippet>actions.discard.stub</Snippet>
-        </Button>
-      </form>
-    </Section>
-  );
-}
-
 function RevokeLicence({ model }) {
   const { openTask, canRevoke } = useSelector(state => state.static);
 
@@ -293,7 +271,6 @@ function Actions({ model }) {
             <StartAmendment model={model} />
             <AmendStub model={model} />
             <DiscardDraft model={model} />
-            <DiscardStub model={model} />
           </Fragment>
         )
       }
