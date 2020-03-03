@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 
 module.exports = settings => {
@@ -52,8 +53,8 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
-      .then(({ json: { data } }) => {
-        req.versionId = data.data.id;
+      .then(({ json: { data: task } }) => {
+        req.versionId = get(task, 'data.data.versionId');
         res.redirect(req.buildRoute('projectVersion.update'));
       })
       .catch(next);
