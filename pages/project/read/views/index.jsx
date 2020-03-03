@@ -387,7 +387,7 @@ export default function ProjectLandingPage() {
                 </Fragment>
               }
               {
-                model.expiryDate && !isRevoked &&
+                !isRevoked &&
                 <Fragment>
                   <dt><Snippet>fields.expiryDate.label</Snippet></dt>
                   <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
