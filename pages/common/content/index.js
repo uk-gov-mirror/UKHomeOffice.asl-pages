@@ -36,7 +36,8 @@ module.exports = {
       read: '{{profile.firstName}} {{profile.lastName}}',
       invite: 'Invite user',
       invitations: 'Invitations',
-      permission: 'Change / remove permissions'
+      permission: 'Change / remove permissions',
+      convertLegacyProject: 'Convert legacy project'
     },
     role: {
       create: 'Assign named role',
@@ -56,7 +57,8 @@ module.exports = {
       read: 'View',
       update: 'Amend licence',
       'update-draft': 'Edit draft',
-      downloads: 'Downloads'
+      downloads: 'Downloads',
+      convert: 'Convert legacy licence'
     },
     account: {
       menu: 'Your account',
@@ -183,14 +185,16 @@ module.exports = {
       revoked: 'Revoked',
       expired: 'Expired',
       active: 'Amendment in progress',
-      superseded: 'Superseded'
+      superseded: 'Superseded',
+      stub: 'Stub'
     },
     summary: {
       pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.`,
       pil: `This licence is not active. The licence holder or applicant is not authorised to carry out regulated procedures in the categories stated in this licence/application.`,
       ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.`,
       ppl_active: `This amendment has not been approved yet.`,
-      superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.'
+      superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
+      stub: 'This is an incomplete record of this project licence. Refer to your paper records, or contact the Home Office for full details.'
     },
     view: 'View granted licence'
   },

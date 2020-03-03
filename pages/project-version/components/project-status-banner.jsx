@@ -6,6 +6,14 @@ import { dateFormat } from '../../../constants';
 
 export default function ProjectStatusBanner({ model, versionId, isPdf }) {
   if (model.status === 'active') {
+    if (model.isLegacyStub) {
+      return (
+        <LicenceStatusBanner title={<Snippet>invalidLicence.status.stub</Snippet>} licence={model} licenceType="ppl" version={versionId} isPdf={isPdf}>
+          <p><Snippet>invalidLicence.summary.stub</Snippet></p>
+        </LicenceStatusBanner>
+      );
+    }
+
     // viewing active version
     if (model.granted.id === versionId) {
       return null;

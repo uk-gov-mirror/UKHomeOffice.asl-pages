@@ -44,12 +44,17 @@ module.exports = merge({}, baseContent, {
       Contact your establishments Single Point of Contact for more information.`
     }
   },
+  amendStub: {
+    title: 'Continue adding details',
+    description: 'Add further details to this stub record of a project licence. Once all details have been added, you can convert it to a full licence.'
+  },
   actions: {
     view: {
       granted: {
         active: 'View granted licence',
         revoked: 'View revoked licence',
-        expired: 'View expired licence'
+        expired: 'View expired licence',
+        stub: 'Open stub'
       },
       draft: {
         draft: 'Open draft',
@@ -63,17 +68,25 @@ module.exports = merge({}, baseContent, {
     revoke: 'Revoke licence',
     discardTask: 'View task to discard',
     discard: {
-      application: 'Discard draft',
-      amendment: 'Discard this amendment'
-    }
+      draft: 'Discard draft',
+      amendment: 'Discard this amendment',
+      stub: 'Discard stub'
+    },
+    amendStub: 'Continue adding details'
   },
   confirm: {
     application: 'Are you sure you want to discard this draft project?',
     amendment: 'Are you sure you want to discard this amendment? Any changes you have made will be deleted.'
   },
-  discardDraft: {
-    title: 'Discard draft project',
-    description: 'Any information in this draft will be deleted if it is discarded.'
+  discard: {
+    draft: {
+      title: 'Discard draft project',
+      description: 'Any information in this draft will be deleted if it is discarded.'
+    },
+    stub: {
+      title: 'Discard stub project',
+      description: 'Any information in this stub will be deleted if it is discarded.'
+    }
   },
   previousVersions: {
     title: 'Previous versions of this licence',

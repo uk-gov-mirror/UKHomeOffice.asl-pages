@@ -86,7 +86,7 @@ class Profile extends React.Component {
               </h3>
               {
                 draftProjects.map(project => (
-                  <Fragment key={project.id}>
+                  <div key={project.id} className="project">
                     <p>
                       <Link
                         page='project.read'
@@ -95,13 +95,22 @@ class Profile extends React.Component {
                         establishmentId={project.establishmentId}
                       />
                     </p>
-                  </Fragment>
+                  </div>
                 ))
               }
               {
                 isEmpty(draftProjects) && (
                   <p><Snippet>projects.noProjects</Snippet></p>
                 )
+              }
+              {
+                allowedActions.includes('project.convertLegacy') &&
+                  <Link
+                    className="govuk-button button-secondary"
+                    page="profile.convertLegacyProject"
+                    establishmentId={estId}
+                    label={<Snippet>buttons.convertExisting</Snippet>}
+                  />
               }
               {
                 isOwnProfile && (

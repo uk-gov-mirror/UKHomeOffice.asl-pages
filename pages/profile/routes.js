@@ -3,6 +3,7 @@ const invite = require('./invite');
 const invitations = require('./invitations');
 const read = require('./read');
 const list = require('./list');
+const convert = require('./convert');
 const { allowed } = require('../../lib/middleware');
 
 module.exports = {
@@ -10,16 +11,21 @@ module.exports = {
     path: '',
     router: list
   },
+  read: {
+    path: '/:profileId',
+    permissions: 'profile.read.basic',
+    router: read
+  },
   permission: {
     path: '/:profileId/permission',
     permissions: 'profile.permissions',
     before: allowed,
     router: permission
   },
-  read: {
-    path: '/:profileId',
-    permissions: 'profile.read.basic',
-    router: read
+  convertLegacyProject: {
+    path: '/:profileId/convert-legacy-project',
+    permissions: 'project.convertLegacy',
+    router: convert
   },
   invite: {
     path: '/invite',
