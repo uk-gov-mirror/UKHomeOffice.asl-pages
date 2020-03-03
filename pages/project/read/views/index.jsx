@@ -39,7 +39,8 @@ function CurrentVersion({ model }) {
     ? 'projectVersion.update'
     : 'projectVersion';
 
-  const versionId = model.granted
+  // always link to the latest version if a stub
+  const versionId = model.granted && !model.isLegacyStub
     ? model.granted.id
     : model.versions[0].id;
 
