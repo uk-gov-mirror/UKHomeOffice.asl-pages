@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { LicenceStatusBanner, Snippet, Link } from '@asl/components';
-
+import sortBy from 'lodash/sortBy';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
@@ -18,12 +18,13 @@ export default function ProjectStatusBanner({ model, versionId, isPdf }) {
     if (model.granted.id === versionId) {
       return null;
     }
-
     const version = model.versions.find(v => v.id === versionId);
+
+    const grantedVersions = sortBy(model.versions.filter(v => v.status === 'granted'), 'updatedAt');
     const superseded = model.granted.createdAt > version.createdAt;
-    const versionIndex = model.versions.map(v => v.id).indexOf(versionId);
-    const nextVersion = model.versions[versionIndex - 1];
-    const isFirstVersion = versionIndex === model.versions.length - 1;
+    const versionIndex = grantedVersions.map(v => v.id).indexOf(versionId);
+    const nextVersion = grantedVersions[versionIndex + 1];
+    const isFirstVersion = versionIndex === 0;
 
     return (
       <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseded ? 'superseded' : 'draft'}`}</Snippet>} licence={model} colour={superseded && 'red'} isPdf={isPdf}>
