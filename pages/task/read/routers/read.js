@@ -44,7 +44,7 @@ module.exports = () => {
       req.projectId = get(req.task, 'data.id');
       req.establishmentId = project.establishmentId;
 
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`)
+      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           req.version = data;
           req.project = data.project;
