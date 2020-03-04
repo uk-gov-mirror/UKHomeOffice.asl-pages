@@ -76,7 +76,8 @@ module.exports = merge({}, baseContent, {
   },
   confirm: {
     application: 'Are you sure you want to discard this draft project?',
-    amendment: 'Are you sure you want to discard this amendment? Any changes you have made will be deleted.'
+    amendment: 'Are you sure you want to discard this amendment? Any changes you have made will be deleted.',
+    stub: 'Are you sure you want to discard this project stub? Any changes you have made will be deleted.'
   },
   discard: {
     draft: {
