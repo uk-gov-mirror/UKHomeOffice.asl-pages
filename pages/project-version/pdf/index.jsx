@@ -60,7 +60,7 @@ module.exports = settings => {
       .response
       .then(response => {
         if (response.status < 300) {
-          const title = get(req.version, 'data.title', 'Untitled project');
+          const title = get(req.version, 'data.title') || 'Untitled project';
           res.attachment(`${title}.pdf`);
           response.body.pipe(res);
         } else {
