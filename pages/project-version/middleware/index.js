@@ -126,6 +126,7 @@ const getPreviousVersion = req => {
   }
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
     .then(({ json: { data } }) => data)
+    // swallow error as this will return 403 for receiving establishment viewing a project transfer version
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
 };
@@ -136,6 +137,7 @@ const getGrantedVersion = req => {
   }
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
     .then(({ json: { data } }) => data)
+    // swallow error as this will return 403 for receiving establishment viewing a project transfer
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
 };
