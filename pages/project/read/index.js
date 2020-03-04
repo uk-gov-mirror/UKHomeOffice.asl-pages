@@ -53,8 +53,10 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
-      .then(({ json: { data: task } }) => {
-        req.versionId = get(task, 'data.data.versionId');
+      .then(response => {
+        // bc - we previously used the modelId, which is now the project, not the version.
+        const modelId = get(response, 'json.data.data.id');
+        req.versionId = get(response, 'json.data.data.data.versionId', modelId);
         res.redirect(req.buildRoute('projectVersion.update'));
       })
       .catch(next);
