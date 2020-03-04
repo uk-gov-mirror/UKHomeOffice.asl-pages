@@ -372,7 +372,16 @@ export default function ProjectLandingPage() {
 
         <Fragment>
           <dt><Snippet>fields.licenceNumber.label</Snippet></dt>
-          <dd>{model.licenceNumber ? model.licenceNumber : '-'}</dd>
+          <dd>
+            {model.licenceNumber ? model.licenceNumber : '-'}
+            {
+              model.isLegacyStub && allowedActions.includes('project.updateLicenceNumber') &&
+              <Fragment>
+                <br />
+                <Link page="projectAsruActions.updateLicenceNumber" label="Change" />
+              </Fragment>
+            }
+          </dd>
         </Fragment>
 
         {
