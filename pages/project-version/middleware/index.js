@@ -224,6 +224,7 @@ const getProjectEstablishment = () => (req, res, next) => {
     })
     .then(() => next())
     .catch(() => {
+      // if project cannot be loaded then set licence holder details to a placeholder
       req.project.establishment.licenceHolder = {
         firstName: 'Unknown',
         lastName: 'User'
