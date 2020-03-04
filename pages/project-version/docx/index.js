@@ -42,7 +42,7 @@ module.exports = () => {
 
     const application = {
       ...req.project,
-      establishment: req.establishment
+      establishment: req.project.establishment
     };
 
     renderer(application, sections, values, updateImageDimensions)

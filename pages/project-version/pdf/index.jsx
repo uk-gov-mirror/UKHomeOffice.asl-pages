@@ -1,5 +1,6 @@
 import React from 'react';
 import fetch from 'r2';
+import { get } from 'lodash';
 import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
 import createStore from '@asl/projects/client/store';
@@ -32,7 +33,7 @@ module.exports = settings => {
     };
     const store = createStore(initialState);
     const html = renderToStaticMarkup(<App store={store} nonce={res.locals.static.nonce} />);
-    const header = renderToStaticMarkup(<Header store={store} model={req.project} licenceType="ppl" nonce={res.locals.static.nonce} versionId={req.version.id} />);
+    const header = renderToStaticMarkup(<Header store={store} model={req.project} licenceType="ppl" nonce={res.locals.static.nonce} version={req.version} />);
     const footer = renderToStaticMarkup(<Footer />);
 
     const hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
@@ -59,7 +60,8 @@ module.exports = settings => {
       .response
       .then(response => {
         if (response.status < 300) {
-          res.attachment(`${req.version.data.title}.pdf`);
+          const title = get(req.version, 'data.title') || 'Untitled project';
+          res.attachment(`${title}.pdf`);
           response.body.pipe(res);
         } else {
           throw new Error(`Error generating PDF - generator responded ${response.status}`);

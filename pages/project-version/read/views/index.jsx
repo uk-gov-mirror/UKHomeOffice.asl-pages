@@ -7,7 +7,7 @@ const Project = ({ isActionable, taskId, project, version, establishment }) => {
 
   return (
     <Fragment>
-      <ProjectStatusBanner model={project} versionId={version} />
+      <ProjectStatusBanner model={project} version={version} />
       <div id="ppl-drafting-tool"></div>
       {
         isActionable && (
@@ -27,6 +27,6 @@ const Project = ({ isActionable, taskId, project, version, establishment }) => {
   ;
 };
 
-const mapStateToProps = ({ static: { isActionable, taskId, project, version, establishment } }) => ({ isActionable, taskId, project, version, establishment });
+const mapStateToProps = ({ model, static: { isActionable, taskId, project, version, establishment } }) => ({ isActionable, taskId, project, version: model, establishment });
 
 export default connect(mapStateToProps)(Project);

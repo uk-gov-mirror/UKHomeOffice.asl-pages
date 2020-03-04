@@ -5,7 +5,13 @@ const { mapSpecies, mapPermissiblePurpose } = require('@asl/projects/client/help
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
-    .then(({ json: { data } }) => {
+    .then(({ json: { data, meta } }) => {
+      req.project = {
+        ...data.project,
+        establishment: meta.establishment,
+        openTasks: meta.openTasks,
+        ...req.project
+      };
       req.version = data;
     })
     .then(() => next())
@@ -13,7 +19,7 @@ const getVersion = () => (req, res, next) => {
 };
 
 const getComments = () => (req, res, next) => {
-  if (!req.project.openTasks.length) {
+  if (!req.project || !req.project.openTasks || !req.project.openTasks.length) {
     return next();
   }
   req.api(`/tasks/${req.project.openTasks[0].id}`)
@@ -32,7 +38,7 @@ const hasEditPermission = (req) => {
   const params = {
     id: req.projectId,
     licenceHolderId: req.project.licenceHolderId,
-    establishment: req.establishment.id
+    establishment: req.establishmentId
   };
 
   return req.user.can('project.update', params);
@@ -99,6 +105,9 @@ const getNode = (tree, path) => {
 };
 
 const getPreviousVersion = req => {
+  if (!req.project) {
+    return Promise.resolve();
+  }
   const previous = req.project.versions
     // only get versions created after last granted, if granted
     .filter(version => {
@@ -115,17 +124,22 @@ const getPreviousVersion = req => {
   if (!previous) {
     return Promise.resolve();
   }
-
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
-    .then(({ json: { data } }) => data);
+    .then(({ json: { data } }) => data)
+    // swallow error as this will return 403 for receiving establishment viewing a project transfer version
+    // eslint-disable-next-line handle-callback-err
+    .catch(err => {});
 };
 
 const getGrantedVersion = req => {
-  if (!req.project.granted) {
+  if (!req.project || !req.project.granted) {
     return Promise.resolve();
   }
   return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
-    .then(({ json: { data } }) => data);
+    .then(({ json: { data } }) => data)
+    // swallow error as this will return 403 for receiving establishment viewing a project transfer
+    // eslint-disable-next-line handle-callback-err
+    .catch(err => {});
 };
 
 const normaliseConditions = (versionData, { isSubmitted }) => {
@@ -202,13 +216,23 @@ const getChangedValues = (question, req) => {
 };
 
 const getProjectEstablishment = () => (req, res, next) => {
+  if (!req.project) {
+    return next();
+  }
   req.api(`/establishment/${req.project.establishmentId}`)
     .then(({ json: { data } }) => {
       req.project.establishment = data;
       req.project.establishment.licenceHolder = (data.roles.find(r => r.type === 'pelh' || r.type === 'nprc') || {}).profile;
     })
     .then(() => next())
-    .catch(next);
+    .catch(() => {
+      // if project cannot be loaded then set licence holder details to a placeholder
+      req.project.establishment.licenceHolder = {
+        firstName: 'Unknown',
+        lastName: 'User'
+      };
+      next();
+    });
 };
 
 const getPreviousProtocols = () => (req, res, next) => {

@@ -38,11 +38,16 @@ module.exports = () => {
     const model = get(req.task, 'data.model');
 
     if (model === 'project') {
+      const versionId = get(req.task, 'data.data.version');
+      const project = req.task.data.modelData;
+
       req.projectId = get(req.task, 'data.id');
-      req.establishmentId = get(req.task, 'data.data.establishmentId');
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}`, { query: { withDeleted: true } })
+      req.establishmentId = project.establishmentId;
+
+      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
-          req.project = data;
+          req.version = data;
+          req.project = data.project;
         })
         .then(() => next())
         .catch(next);
@@ -202,6 +207,7 @@ module.exports = () => {
       res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
+      res.locals.static.version = req.version;
       next();
     },
     process: (req, res, next) => {

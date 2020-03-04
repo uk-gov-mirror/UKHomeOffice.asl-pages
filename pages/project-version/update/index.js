@@ -2,14 +2,19 @@ const { Router } = require('express');
 const update = require('./router');
 const submit = require('./submit');
 const success = require('./success');
-const { getVersion, getComments } = require('../middleware');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
-  app.use(getVersion());
-
-  app.use(getComments());
+  app.use((req, res, next) => {
+    const isAmendment = req.project.status !== 'inactive';
+    if (isAmendment) {
+      req.breadcrumb('projectVersion.update');
+    } else {
+      req.breadcrumb('projectVersion.update-draft');
+    }
+    next();
+  });
 
   app.use('/submit', submit());
   app.use('/success', success());

@@ -348,7 +348,7 @@ export default function ProjectLandingPage() {
 
   return (
     <Fragment>
-      <ProjectStatusBanner model={model} versionId={model.versions[0].id} />
+      <ProjectStatusBanner model={model} version={model.versions[0]} />
 
       <Header
         subtitle={establishment.name}
@@ -428,6 +428,14 @@ export default function ProjectLandingPage() {
                   <dt><Snippet>fields.raDate.label</Snippet></dt>
                   <dd>{formatDate(model.raDate, dateFormat.medium)}</dd>
                 </Fragment>
+              }
+              {
+                model.status === 'transferred' && (
+                  <Fragment>
+                    <dt><Snippet>fields.transferred.label</Snippet></dt>
+                    <dd>{formatDate(model.updatedAt, dateFormat.medium)}</dd>
+                  </Fragment>
+                )
               }
 
             </Fragment>

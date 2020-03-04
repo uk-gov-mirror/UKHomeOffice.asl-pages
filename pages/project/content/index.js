@@ -27,6 +27,9 @@ module.exports = {
     raDate: {
       label: 'Retrospective assessment due'
     },
+    transferred: {
+      label: 'Transferred out'
+    },
     submittedAt: {
       label: 'Submitted to ASRU'
     },
