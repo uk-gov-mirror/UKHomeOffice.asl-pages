@@ -9,7 +9,7 @@ const ProjectDownloads = () => {
 
   const thisVersionIsGranted = project.granted && project.granted.id === version.id;
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
-  const title = get(version, 'data.title', 'Untitled project');
+  const title = get(version, 'data.title') || 'Untitled project';
 
   return (
     <Fragment>
