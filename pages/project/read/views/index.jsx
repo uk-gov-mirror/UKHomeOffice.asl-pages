@@ -279,8 +279,10 @@ function Actions({ model }) {
   // project can be edited if it is active or a draft.
   const isEditable = model.status === 'inactive' || model.status === 'active';
 
-  if ((!canUpdate && !canRevoke) || !isEditable) {
-    return null;
+  if (!model.isLegacyStub) {
+    if ((!canUpdate && !canRevoke) || !isEditable) {
+      return null;
+    }
   }
 
   return (
