@@ -26,5 +26,14 @@ module.exports = () => {
       .catch(next);
   });
 
+  app.post('/stub', (req, res, next) => {
+    res.locals.static.content = content;
+
+    return req.api(`/project/${req.projectId}`, { method: 'DELETE' })
+      .then(() => req.notification({ key: 'stubDiscarded' }))
+      .then(() => res.redirect(req.buildRoute('project.list')))
+      .catch(next);
+  });
+
   return app;
 };

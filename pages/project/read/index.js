@@ -48,6 +48,10 @@ module.exports = settings => {
     res.locals.static.confirmMessage = req.project.status === 'active'
       ? res.locals.static.content.confirm.amendment
       : res.locals.static.content.confirm.application;
+
+    res.locals.static.confirmMessage = req.project.isLegacyStub
+      ? res.locals.static.content.confirm.stub
+      : res.locals.static.confirmMessage;
     next();
   });
 
