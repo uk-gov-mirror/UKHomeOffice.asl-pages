@@ -39,17 +39,16 @@ module.exports = () => {
 
     if (model === 'project') {
       let url;
-      const action = get(req.task, 'data.action');
       const versionId = get(req.task, 'data.data.version');
       const project = get(req.task, 'data.modelData');
 
       req.projectId = get(req.task, 'data.id');
       req.establishmentId = project.establishmentId;
 
-      if (action === 'update') {
-        url = `/establishment/${req.establishmentId}/project/${req.projectId}/`;
-      } else {
+      if (versionId) {
         url = `/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`;
+      } else {
+        url = `/establishment/${req.establishmentId}/project/${req.projectId}/`;
       }
 
       return req.api(url, { query: { withDeleted: true } })
