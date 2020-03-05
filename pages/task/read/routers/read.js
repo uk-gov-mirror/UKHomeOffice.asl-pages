@@ -38,16 +38,24 @@ module.exports = () => {
     const model = get(req.task, 'data.model');
 
     if (model === 'project') {
+      let url;
+      const action = get(req.task, 'data.action');
       const versionId = get(req.task, 'data.data.version');
-      const project = req.task.data.modelData;
+      const project = get(req.task, 'data.modelData');
 
       req.projectId = get(req.task, 'data.id');
       req.establishmentId = project.establishmentId;
 
-      return req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`, { query: { withDeleted: true } })
+      if (action === 'update') {
+        url = `/establishment/${req.establishmentId}/project/${req.projectId}/`;
+      } else {
+        url = `/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`;
+      }
+
+      return req.api(url, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
+          req.project = data.project || data;
           req.version = data;
-          req.project = data.project;
         })
         .then(() => next())
         .catch(next);
