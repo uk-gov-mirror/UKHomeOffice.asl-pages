@@ -347,10 +347,11 @@ export default function ProjectLandingPage() {
 
   const isRevoked = model.status === 'revoked';
   const isEditable = model.status === 'active' || model.status === 'inactive';
+  const grantedVersion = model.versions.find(v => v.status === 'granted');
 
   return (
     <Fragment>
-      <ProjectStatusBanner model={model} version={model.versions[0]} />
+      <ProjectStatusBanner model={model} version={grantedVersion || model.versions[0]} />
 
       <Header
         subtitle={establishment.name}
