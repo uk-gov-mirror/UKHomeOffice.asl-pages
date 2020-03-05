@@ -32,6 +32,9 @@ const schema = {
   },
   submitted: {
     show: true
+  },
+  transferredOutDate: {
+    show: true
   }
 };
 

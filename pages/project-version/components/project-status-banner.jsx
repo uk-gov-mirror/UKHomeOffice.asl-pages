@@ -1,18 +1,23 @@
 import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import { LicenceStatusBanner, Snippet, Link } from '@asl/components';
 import sortBy from 'lodash/sortBy';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
 export default function ProjectStatusBanner({ model, version, isPdf }) {
+  const { canViewTransferredProject } = useSelector(state => state.static);
   if (model.status === 'transferred') {
     return (
       <LicenceStatusBanner title={<Snippet>invalidLicence.status.transferred</Snippet>} licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour="red">
         <ul className="licence-dates">
           <li><strong>Granted: </strong> <span>{ format(model.issueDate, dateFormat.medium) }</span></li>
-          <li><strong>Transferred out: </strong><span>{ format(model.updatedAt, dateFormat.medium) }</span></li>
+          <li><strong>Transferred out: </strong><span>{ format(model.transferredOutDate, dateFormat.medium) }</span></li>
         </ul>
         <p><Snippet>invalidLicence.summary.transferred</Snippet></p>
+        {
+          canViewTransferredProject && <Link page="project.read" projectId={model.transferProjectId} establishmentId={model.transferEstablishmentId} label={<Snippet>invalidLicence.viewTransferred</Snippet>} />
+        }
       </LicenceStatusBanner>
     );
   }

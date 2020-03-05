@@ -24,22 +24,23 @@ module.exports = ({
   model = 'model',
   licence,
   type,
-  status
+  status,
+  refModel
 } = {}) => {
   const app = Router();
 
   app.use((req, res, next) => {
     const user = getUserType(req);
     if (!status) {
-      status = get(req.model, 'openTasks[0].status');
+      status = get(refModel || req.model, 'openTasks[0].status');
     }
     if (!licence || !status) {
       return next();
     }
     if (!type) {
-      if (get(req.model, 'openTasks[0].data.action') === 'transfer') {
+      if (get(refModel || req.model, 'openTasks[0].data.action') === 'transfer') {
         type = 'transfer';
-      } else if (get(req.model, 'status') === 'active') {
+      } else if (get(refModel || req.model, 'status') === 'active') {
         type = 'amendment';
       } else {
         type = 'application';

@@ -26,7 +26,8 @@ module.exports = () => {
       ? 'pel'
       : req.task.data.model;
     const taskType = req.task.data.action === 'transfer' ? 'transfer' : req.task.type;
-    const content = get(successContent, `${model}.${taskType}.${req.status}`, successContent.fallback);
+    const endStatus = req.task.status;
+    const content = get(successContent, `${model}.${taskType}.${req.status}.${endStatus}`, get(successContent, `${model}.${taskType}.${req.status}`, successContent.fallback));
     merge(res.locals.static.content, { success: content });
     next();
   });

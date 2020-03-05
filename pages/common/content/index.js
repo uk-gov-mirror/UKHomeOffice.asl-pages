@@ -196,9 +196,10 @@ module.exports = {
       ppl_active: `This amendment has not been approved yet.`,
       superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
       stub: 'This is not a complete record of this project\'s licence. To view the up-to-date granted licence, refer to paper records or contact the Home Office for more details.',
-      transferred: 'This licence has been transferred to another establishment and is not active here. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.'
+      transferred: 'This licence has been transferred to another establishment.'
     },
-    view: 'View granted licence'
+    view: 'View granted licence',
+    viewTransferred: 'View the latest version of this licence'
   },
   updateInProgress: 'There is a pending change request to these conditions.',
   'view-task': 'View task',

@@ -32,7 +32,8 @@ start({
     editConditions: state.static.editConditions,
     isGranted: state.static.isGranted,
     legacyGranted: state.static.legacyGranted,
-    previousProtocols: state.static.previousProtocols
+    previousProtocols: state.static.previousProtocols,
+    establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name }))
   },
   static: { urls: state.static.urls }
 });

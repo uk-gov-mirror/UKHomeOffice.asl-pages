@@ -40,6 +40,12 @@ const formatters = {
   updatedAt: {
     format: date => formatDate(date, dateFormat.datetime)
   },
+  transferredInDate: {
+    format: date => formatDate(date, dateFormat.datetime)
+  },
+  transferredOutDate: {
+    format: date => formatDate(date, dateFormat.datetime)
+  },
   granted: {
     format: (granted, model) => {
       const key = hasExpired(model) ? 'expired' : 'view';

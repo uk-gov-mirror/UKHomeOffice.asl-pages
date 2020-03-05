@@ -27,7 +27,10 @@ start({
     project: state.static.project,
     schemaVersion: state.model.project.schemaVersion,
     newApplication: state.static.newApplication,
-    previousProtocols: state.static.previousProtocols
+    previousProtocols: state.static.previousProtocols,
+    canTransfer: state.static.canTransfer,
+    transferInProgress: state.static.transferInProgress,
+    establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name }))
   },
   static: { urls: state.static.urls }
 });

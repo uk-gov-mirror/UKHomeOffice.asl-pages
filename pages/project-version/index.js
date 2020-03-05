@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { get, set } = require('lodash');
 const bodyParser = require('body-parser');
 const { getVersion, getComments, getChangedValues } = require('./middleware');
+const { canViewTransferredProject } = require('../project/middleware');
 const extractComments = require('./lib/extract-comments');
 const routes = require('./routes');
 
@@ -18,6 +19,8 @@ module.exports = settings => {
     };
     next();
   });
+
+  app.use(canViewTransferredProject);
 
   app.use((req, res, next) => {
     req.breadcrumb('dashboard');
