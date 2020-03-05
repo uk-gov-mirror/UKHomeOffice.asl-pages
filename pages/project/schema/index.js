@@ -39,8 +39,8 @@ const getSchema = status => {
   switch (status) {
     case 'inactive':
       return pick(schema, 'id', 'title', 'licenceHolder', 'updatedAt');
-    case 'revoked':
-      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber');
+    case 'inactive-statuses':
+      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status');
     default:
       return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'expiryDate');
   }

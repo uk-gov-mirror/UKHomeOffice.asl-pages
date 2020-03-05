@@ -5,7 +5,7 @@ import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import isEmpty from 'lodash/isEmpty';
 
-const bad = ['expired'];
+const bad = ['expired', 'transferred', 'revoked'];
 const good = ['active'];
 
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
