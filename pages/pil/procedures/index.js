@@ -1,4 +1,4 @@
-const { get, pick, merge } = require('lodash');
+const { get, set, pick, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const schema = require('./schema');
@@ -33,7 +33,7 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     const procedures = get(req.session, `form[${req.model.id}].values`);
     const savedValues = get(req.session, `form[${req.pil.id}].values`);
-    req.session.form[req.pil.id].values = Object.assign({}, savedValues, procedures);
+    set(req.session, `form[${req.pil.id}].values`, Object.assign({}, savedValues, procedures));
     delete req.session.form[req.model.id].validationErrors;
     return res.redirect(req.buildRoute('pil.update'));
   });
