@@ -37,6 +37,7 @@ module.exports = settings => {
     res.locals.static.profile = req.profile;
     res.locals.static.correctEstablishment = req.model.establishmentId === req.establishment.id;
     res.locals.static.currentPath = req.originalUrl;
+    res.locals.static.isLicenceHolder = req.user.profile.id === req.profileId;
     next();
   });
 

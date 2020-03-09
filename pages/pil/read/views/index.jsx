@@ -22,7 +22,8 @@ const PIL = ({
   allowedActions,
   canDownload,
   openTask,
-  currentPath
+  currentPath,
+  isLicenceHolder
 }) => {
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
 
@@ -106,6 +107,12 @@ const PIL = ({
     }
   };
 
+  let amendButtonSnippet = 'action.reapply.button';
+
+  if (pil.status === 'active') {
+    amendButtonSnippet = `action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.button`;
+  }
+
   return (
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
@@ -137,12 +144,12 @@ const PIL = ({
                 !openTask &&
                   <Fragment>
                     <section className="amend-licence">
-                      <Snippet>action.amend.summary</Snippet>
+                      <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
                       <Link
                         page="pil.update"
                         className="govuk-button button-secondary"
                         establishmentId={pil.establishmentId}
-                        label={<Snippet>{`action.${pil.status === 'active' ? 'amend' : 'reapply'}.button`}</Snippet>}
+                        label={<Snippet>{amendButtonSnippet}</Snippet>}
                       />
                     </section>
                     {
@@ -175,7 +182,8 @@ const mapStateToProps = ({
     pil,
     openTask,
     allowedActions,
-    currentPath
+    currentPath,
+    isLicenceHolder
   }
 }) => ({
   pil,
@@ -184,7 +192,8 @@ const mapStateToProps = ({
   canDownload,
   allowedActions,
   openTask,
-  currentPath
+  currentPath,
+  isLicenceHolder
 });
 
 export default connect(mapStateToProps)(PIL);
