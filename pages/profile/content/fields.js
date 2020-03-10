@@ -29,19 +29,19 @@ module.exports = {
     label: 'What permissions should this user have?',
     options: {
       basic: {
-        label: 'Personal',
+        label: 'Personal (Basic access)',
         hint: `* Manage own licences.
                * View named people and Home Office liaison contacts (HOLCs).`
       },
       read: {
-        label: 'Overview',
+        label: 'Overview (Intermediate access)',
         hint: `* Manage own licences.
                * View all people.
                * View all licences.
                * View the establishment’s approved areas.`
       },
       admin: {
-        label: 'Admin',
+        label: 'Admin (PEL holder delegate)',
         hint: `* Manage all licences.
                * Manage user accounts and permissions.
                * Manage establishment details, approved areas and named roles.
