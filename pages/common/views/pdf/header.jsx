@@ -36,6 +36,10 @@ const Header = ({ store, model, licenceType, nonce, version }) => (
             <Fragment> | Amended: <strong>{format(model.amendedDate)}</strong></Fragment>
           }
 
+          { licenceType === 'pil' && model.status === 'active' &&
+            <Fragment> | 5 year review: <strong>{format(model.reviewDate)}</strong></Fragment>
+          }
+
           { licenceType === 'ppl' && model.issueDate && model.status !== 'expired' && model.status !== 'revoked' &&
             <Fragment> | Expires: <strong>{format(model.expiryDate)}</strong></Fragment>
           }
