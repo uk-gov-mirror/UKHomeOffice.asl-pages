@@ -40,6 +40,8 @@ module.exports = (req, res, next) => {
     } else if (action === 'update') {
       action = 'updateLicenceHolder';
     }
+  } else if (model === 'pil' && action === 'update-conditions') {
+    action = 'read';
   } else if (action === 'grant' || action === 'transfer') {
     action = 'update';
   }

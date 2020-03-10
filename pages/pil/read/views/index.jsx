@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { dateFormat } from '../../../../constants';
-import { formatDate } from '../../../../lib/utils';
+import { formatDate, canUpdateModel } from '../../../../lib/utils';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import omit from 'lodash/omit';
 import schema from '../schema';
@@ -88,7 +88,7 @@ const PIL = ({
         return (
           <Conditions
             conditions={conditions}
-            canUpdate={canUpdateConditions && !openTask}
+            canUpdate={canUpdateConditions && canUpdateModel(pil)}
             label={<Snippet>conditions.hasConditions</Snippet>}
             noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
           >
