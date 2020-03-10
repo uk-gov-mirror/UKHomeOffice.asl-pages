@@ -27,12 +27,16 @@ module.exports = merge({}, baseContent, {
       button: 'Reapply for licence'
     },
     amend: {
-      summary: `## Amend licence
-        You can amend this personal licence if you want to:
-        * Change any of the licence details
-        * Transfer the licence to another establishment
-      `,
-      button: 'Amend licence'
+      licenceHolder: {
+        summary: `## Amend or transfer licence
+          Ask for your licence to be amended, or transferred if you’re moving to a new establishment.`,
+        button: 'Amend or transfer licence'
+      },
+      other: {
+        summary: `## Amend or transfer licence
+          You can ask for this licence to be amended but only the licence-holder can transfer it.`,
+        button: 'Amend licence'
+      }
     }
   },
   conditions: {
