@@ -170,7 +170,7 @@ export default function Project({ task, schema }) {
     ),
 
     (
-      task.data.action === 'update' && (
+      task.data.action === 'update' && project.granted && (
         <StickyNavAnchor id="granted" key="granted">
           <h2><Snippet>sticky-nav.granted</Snippet></h2>
           <p><Snippet>versions.granted.info</Snippet></p>
