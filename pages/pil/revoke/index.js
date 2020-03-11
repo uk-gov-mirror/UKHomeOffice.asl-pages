@@ -16,13 +16,11 @@ module.exports = () => {
 
   app.use('/', update());
   app.use('/confirm', confirm());
-  app.use('/success', (req, res, next) => {
-    success({
-      licence: 'pil',
-      status: req.user.profile.asruUser ? 'resolved' : 'resubmitted',
-      type: 'revocation'
-    })(req, res, next);
-  });
+  app.use('/success', success({
+    licence: 'pil',
+    getStatus: req => req.user.profile.asruUser ? 'resolved' : 'resubmitted',
+    type: 'revocation'
+  }));
 
   return app;
 };

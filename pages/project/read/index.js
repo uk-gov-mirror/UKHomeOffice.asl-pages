@@ -1,5 +1,6 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
+const { canViewTransferredProject } = require('../middleware');
 
 module.exports = settings => {
   const app = page({
@@ -19,6 +20,8 @@ module.exports = settings => {
     res.locals.static.establishment = req.establishment;
     next();
   });
+
+  app.use(canViewTransferredProject);
 
   app.use((req, res, next) => {
     const params = {

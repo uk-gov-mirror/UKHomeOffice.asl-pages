@@ -33,6 +33,10 @@ function Section({
 }
 
 function CurrentVersion({ model }) {
+  if (model.status === 'transferred') {
+    return null;
+  }
+
   const { openTask, editable, canUpdate, asruUser } = useSelector(state => state.static);
   const showEditLink = model.status === 'inactive' && model.draft && canUpdate && !asruUser;
   const page = showEditLink
@@ -306,6 +310,10 @@ function Actions({ model }) {
 function PreviousVersions({ model }) {
   const versions = model.versions.filter(v => v.status === 'granted' && v.id !== model.granted.id);
 
+  if (model.status === 'transferred') {
+    versions.unshift(model.granted);
+  }
+
   if (!versions.length) {
     return null;
   }
@@ -442,10 +450,18 @@ export default function ProjectLandingPage() {
                 </Fragment>
               }
               {
-                model.status === 'transferred' && (
+                model.transferredInDate && (
                   <Fragment>
-                    <dt><Snippet>fields.transferred.label</Snippet></dt>
-                    <dd>{formatDate(model.updatedAt, dateFormat.medium)}</dd>
+                    <dt><Snippet>fields.transferredInDate.label</Snippet></dt>
+                    <dd>{formatDate(model.transferredInDate, dateFormat.medium)}</dd>
+                  </Fragment>
+                )
+              }
+              {
+                model.transferredOutDate && (
+                  <Fragment>
+                    <dt><Snippet>fields.transferredOutDate.label</Snippet></dt>
+                    <dd>{formatDate(model.transferredOutDate, dateFormat.medium)}</dd>
                   </Fragment>
                 )
               }

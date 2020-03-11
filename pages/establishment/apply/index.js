@@ -40,13 +40,10 @@ module.exports = settings => {
   });
 
   app.get('/success',
-    (req, res, next) => {
-      req.model = req.establishment;
-      next();
-    },
     success({
       model: 'establishment',
-      licence: 'pel'
+      licence: 'pel',
+      getModel: req => req.establishment
     })
   );
 

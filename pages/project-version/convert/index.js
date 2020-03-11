@@ -24,11 +24,11 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.get('/success', (req, res, next) => success({
+  app.get('/success', success({
     licence: 'project',
     status: 'resolved',
     type: 'conversion'
-  })(req, res, next));
+  }));
 
   app.use((req, res) => res.sendResponse());
 
