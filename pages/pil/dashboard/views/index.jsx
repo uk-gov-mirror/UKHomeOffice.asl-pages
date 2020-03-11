@@ -130,6 +130,7 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       name: 'exemptions',
       page: 'pil.update.exemptions.exempt',
       models: exemptions,
+      modelTitle: index => <p><strong>Exemption {index + 1}</strong></p>,
       schema: {
         module: {},
         species: {},
