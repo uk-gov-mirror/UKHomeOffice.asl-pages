@@ -16,12 +16,10 @@ module.exports = () => {
 
   app.use('/', update());
   app.use('/confirm', confirm());
-  app.use('/success', (req, res, next) => {
-    success({
-      licence: 'project',
-      status: req.project.status === 'inactive' ? 'licenceHolderUpdated' : null
-    })(req, res, next);
-  });
+  app.use('/success', success({
+    licence: 'project',
+    getStatus: req => req.project.status === 'inactive' ? 'licenceHolderUpdated' : null
+  }));
 
   return app;
 };
