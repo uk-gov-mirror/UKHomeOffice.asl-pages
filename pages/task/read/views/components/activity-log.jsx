@@ -68,7 +68,7 @@ const LogItem = ({ log, task }) => {
       {
         task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} />
       }
-      <Markdown className="comment" links={true}>{log.comment}</Markdown>
+      <Markdown className="comment">{log.comment}</Markdown>
     </div>
   );
 };
