@@ -1,12 +1,15 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
+const { hydrate } = require('../../common/middleware');
 
 module.exports = settings => {
   const app = page({
     root: __dirname,
     ...settings
   });
+
+  app.get('/', hydrate());
 
   app.get('/', (req, res, next) => {
     if (['pending', 'inactive'].includes(req.model.status)) {
