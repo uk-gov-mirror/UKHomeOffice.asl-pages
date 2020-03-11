@@ -240,6 +240,15 @@ p.holc {
   }
 }
 
+.section-item.training,
+.section-item.exemptions {
+  dl.model-summary.section-data {
+    margin-left: $govuk-gutter-half;
+    padding-left: $govuk-gutter-half;
+    border-left: 6px solid govuk-colour('grey-2');
+  }
+}
+
 .licence-actions {
   margin-top: 2 * $govuk-gutter;
 
