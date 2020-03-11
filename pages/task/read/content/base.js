@@ -58,6 +58,7 @@ module.exports = {
       definedValues: 'Please select an option from the list'
     },
     comment: {
+      required: 'Please provide a reason',
       customValidate: 'Please provide a reason'
     }
   },
