@@ -1,9 +1,10 @@
 import React from 'react';
 import classnames from 'classnames';
+import isEmpty from 'lodash/isEmpty';
 import { Link, ExpiryDate, Snippet } from '@asl/components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
-import isEmpty from 'lodash/isEmpty';
+import { projectTitle } from '../../common/formatters';
 
 const bad = ['expired'];
 const good = ['active'];
@@ -12,8 +13,8 @@ const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Da
 
 const formatters = {
   title: {
-    format: (title, { id }) => {
-      return <Link page="project.read" projectId={id} label={title || 'Untitled project'} />;
+    format: (title, model) => {
+      return <Link page="project.read" projectId={model.id} label={projectTitle(model)} />;
     }
   },
   status: {
