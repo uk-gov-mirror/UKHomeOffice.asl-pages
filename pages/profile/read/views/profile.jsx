@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import differenceInYears from 'date-fns/difference_in_years';
 import { formatDate } from '../../../../lib/utils';
-import { defineValue } from '../../../common/formatters';
+import { defineValue, projectTitle } from '../../../common/formatters';
 import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import { dateFormat } from '../../../../constants';
@@ -56,7 +56,7 @@ class Profile extends React.Component {
                     <p>
                       <Link
                         page='project.read'
-                        label={project.title}
+                        label={projectTitle(project)}
                         projectId={project.id}
                         establishmentId={project.establishmentId}
                       />
@@ -90,7 +90,7 @@ class Profile extends React.Component {
                     <p>
                       <Link
                         page='project.read'
-                        label={project.title ? project.title : 'Untitled project'}
+                        label={projectTitle(project)}
                         projectId={project.id}
                         establishmentId={project.establishmentId}
                       />
