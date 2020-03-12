@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import { Link, Snippet } from '@asl/components';
+import { Link, Snippet, Markdown } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
 
@@ -68,7 +68,7 @@ const LogItem = ({ log, task }) => {
       {
         task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} />
       }
-      <p className="comment">{log.comment}</p>
+      <Markdown className="comment">{log.comment}</Markdown>
     </div>
   );
 };

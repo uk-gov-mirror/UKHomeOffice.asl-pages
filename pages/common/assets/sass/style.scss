@@ -88,11 +88,12 @@ p.subtitle {
 }
 
 .activity-log {
-  ul {
+  &>ul,
+  ul.task-activity {
     list-style: none;
     padding-left: 0;
 
-    li {
+    &>li {
       margin-bottom: $govuk-gutter-half;
 
       &:not(:last-child) {
@@ -102,6 +103,10 @@ p.subtitle {
   }
 
   .log-item {
+
+    .comment {
+      padding-bottom: $govuk-gutter-half;
+    }
 
     .role {
       font-weight: bold;
