@@ -427,6 +427,13 @@ module.exports = {
 
           The Home Office will review this application and your endorsement. They will contact you or the applicant if they need any more information.`
       },
+      // TODO: content
+      'referred-to-inspector': {
+        title: 'Application referred',
+        body: `**The procedures applied for in this application cannot be carried out until the licence is granted.**
+
+          An Inspector will review this application and will contact you if they need any more information.`
+      },
       'inspector-recommended': {
         title: 'Recommendation sent',
         body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
@@ -493,6 +500,13 @@ module.exports = {
         body: `An inspector will review these changes and contact you if they need any more information.
 
           The applicant will be notified by the Home Office when these changes are approved or rejected.`
+      },
+      // TODO: content
+      'referred-to-inspector': {
+        title: 'Amendment referred',
+        body: `**The procedures applied for in this amendment cannot be carried out until the licence is granted.**
+
+          An Inspector will review this amendment and will contact you if they need any more information.`
       },
       'inspector-recommended': {
         title: 'Recommendation sent',
@@ -577,6 +591,11 @@ module.exports = {
 
             You will be notified by the Home Office when your changes are approved.`
         }
+      },
+      // TODO: content
+      'referred-to-inspector': {
+        title: 'Amendment referred',
+        body: 'An Inspector will review this amendment and will contact you if they need any more information.'
       },
       'inspector-recommended': {
         title: 'Recommendation made',

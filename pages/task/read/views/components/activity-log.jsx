@@ -21,15 +21,12 @@ const getProfileLink = ({ id, name, establishmentId }) => {
   }
 };
 
-const getAuthor = ({ changedBy, eventName, event: { status } }, task) => {
-  if (eventName === 'status:deadline-extension') {
-    status = 'deadline-extension';
-  }
+const getAuthor = (changedBy, action, status, task) => {
 
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
   return (
     <p>
-      <strong><Snippet fallback={`status.${status}.log`}>{`status.${status}.log.${task.type}`}</Snippet></strong>
+      <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${status}`}</Snippet></strong>
       <strong>: </strong>
       {
         changedBy.asruUser
@@ -57,13 +54,13 @@ const ExtraProjectMeta = ({ item, task }) => {
 };
 
 const LogItem = ({ log, task }) => {
-  const status = log.eventName.split(':').pop();
+  const { action, status } = log;
 
   return (
     <div className="log-item">
       <span className="date">{format(log.createdAt, dateFormat.medium)}</span>
       {getStatusBadge(status)}
-      {getAuthor(log, task)}
+      {getAuthor(log.changedBy, action, status, task)}
       {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}
       {
         task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} />
