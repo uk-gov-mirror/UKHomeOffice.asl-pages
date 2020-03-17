@@ -31,28 +31,31 @@ module.exports = ({
   const app = Router();
 
   app.use((req, res, next) => {
+    let typeOfChange = type;
+    let statusChange = status;
+    const typeOfLicence = licence;
     const refModel = getModel(req, res);
     const user = getUserType(req);
     if (typeof getStatus === 'function') {
-      status = getStatus(req, res);
+      statusChange = getStatus(req, res);
     }
-    if (!status) {
-      status = get(refModel, 'openTasks[0].status');
+    if (!statusChange) {
+      statusChange = get(refModel, 'openTasks[0].status');
     }
-    if (!licence || !status) {
+    if (!typeOfLicence || !statusChange) {
       return next();
     }
-    if (!type) {
+    if (!typeOfChange) {
       if (get(refModel, 'openTasks[0].data.action') === 'transfer') {
-        type = 'transfer';
+        typeOfChange = 'transfer';
       } else if (get(refModel, 'status') === 'active') {
-        type = 'amendment';
+        typeOfChange = 'amendment';
       } else {
-        type = 'application';
+        typeOfChange = 'application';
       }
     }
     // try and lookup a user type specific content block
-    const success = get(successContent, `${licence}.${type}.${status}.${user}`, get(successContent, `${licence}.${type}.${status}`));
+    const success = get(successContent, `${typeOfLicence}.${typeOfChange}.${statusChange}.${user}`, get(successContent, `${typeOfLicence}.${typeOfChange}.${statusChange}`));
     merge(res.locals.static.content, { success });
     res.locals.static.profile = res.locals.static.profile || req.user.profile;
     next();
