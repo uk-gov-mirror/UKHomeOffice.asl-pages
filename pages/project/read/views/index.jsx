@@ -37,6 +37,10 @@ function CurrentVersion({ model }) {
     return null;
   }
 
+  if (model.isLegacyStub) {
+    return null;
+  }
+
   const { openTask, editable, canUpdate, asruUser } = useSelector(state => state.static);
   const showEditLink = model.status === 'inactive' && model.draft && canUpdate && !asruUser;
   const page = showEditLink
@@ -240,9 +244,13 @@ function DiscardStub({ model }) {
 }
 
 function RevokeLicence({ model }) {
-  const { openTask, canRevoke } = useSelector(state => state.static);
+  const { openTask, canRevoke, asruUser } = useSelector(state => state.static);
 
-  if (openTask || !canRevoke || model.status !== 'active' || model.isLegacyStub) {
+  if (openTask || !canRevoke || model.status !== 'active') {
+    return null;
+  }
+
+  if (model.isLegacyStub && !asruUser) {
     return null;
   }
 

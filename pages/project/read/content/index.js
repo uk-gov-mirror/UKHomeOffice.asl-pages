@@ -46,7 +46,7 @@ module.exports = merge({}, baseContent, {
   },
   amendStub: {
     title: 'Continue adding details',
-    description: 'Add further details to this stub record of a project licence. Once all details have been added, you can convert it to a full licence.'
+    description: 'Add further details to this partial record of a project licence. Once all details have been added, you can convert it to a full licence.'
   },
   actions: {
     view: {
@@ -71,9 +71,9 @@ module.exports = merge({}, baseContent, {
     discard: {
       draft: 'Discard draft',
       amendment: 'Discard this amendment',
-      stub: 'Discard stub'
+      stub: 'Cancel licence conversion'
     },
-    amendStub: 'Continue adding details'
+    amendStub: 'Edit record'
   },
   confirm: {
     application: 'Are you sure you want to discard this draft project?',
@@ -86,8 +86,8 @@ module.exports = merge({}, baseContent, {
       description: 'Any information in this draft will be deleted if it is discarded.'
     },
     stub: {
-      title: 'Discard stub project',
-      description: 'Any information in this stub will be deleted if it is discarded.'
+      title: 'Cancel conversion',
+      description: 'Any information that has been added to the partial record for this licence will be deleted.'
     }
   },
   previousVersions: {

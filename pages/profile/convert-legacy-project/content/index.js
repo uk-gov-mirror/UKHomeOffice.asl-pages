@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Convert existing project',
-  description: 'Add the details from the licence being converted.',
+  title: 'Convert existing licence',
+  description: 'Convert an existing project licence to a digital version that can be managed in ASPeL.',
   fields: {
     title: {
       label: 'Project title'
@@ -38,6 +38,7 @@ module.exports = {
     }
   },
   buttons: {
-    submit: 'Create stub licence'
+    submit: 'Continue',
+    cancel: 'Cancel'
   }
 };

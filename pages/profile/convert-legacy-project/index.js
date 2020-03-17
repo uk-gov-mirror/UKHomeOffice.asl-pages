@@ -1,12 +1,14 @@
-const { get, isInteger } = require('lodash');
+const { isInteger } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { NotFoundError } = require('@asl/service/errors');
 const { form } = require('../../common/routers');
+const confirm = require('./routers/confirm');
 const schema = require('./schema');
 
 module.exports = () => {
   const app = page({
-    root: __dirname
+    root: __dirname,
+    paths: ['/confirm']
   });
 
   app.use((req, res, next) => {
@@ -47,36 +49,10 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    const { title, licenceNumber, issueDate, duration } = req.session.form[req.model.id].values;
-
-    const params = {
-      method: 'POST',
-      json: {
-        data: {
-          establishmentId: req.establishmentId,
-          licenceHolderId: req.profile.id,
-          title,
-          licenceNumber,
-          issueDate: new Date(issueDate).toISOString(),
-          isLegacyStub: true,
-          version: {
-            data: {
-              title,
-              duration
-            }
-          }
-        }
-      }
-    };
-
-    return req.api(`/project/create-stub`, params)
-      .then(response => {
-        const projectId = get(response, 'json.data.data.id');
-        delete req.session.form[req.model.id];
-        return res.redirect(req.buildRoute('project.read', { projectId }));
-      })
-      .catch(next);
+    return res.redirect(req.buildRoute('profile.convertLegacyProject', { suffix: 'confirm' }));
   });
+
+  app.use('/confirm', confirm());
 
   return app;
 };

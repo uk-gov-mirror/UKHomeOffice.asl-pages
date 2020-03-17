@@ -3,7 +3,7 @@ const invite = require('./invite');
 const invitations = require('./invitations');
 const read = require('./read');
 const list = require('./list');
-const convert = require('./convert');
+const convertLegacyProject = require('./convert-legacy-project');
 const { allowed } = require('../../lib/middleware');
 
 module.exports = {
@@ -25,7 +25,7 @@ module.exports = {
   convertLegacyProject: {
     path: '/:profileId/convert-legacy-project',
     permissions: 'project.convertLegacy',
-    router: convert
+    router: convertLegacyProject
   },
   invite: {
     path: '/invite',
