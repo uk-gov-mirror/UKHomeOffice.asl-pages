@@ -22,11 +22,11 @@ const getProfileLink = ({ id, name, establishmentId }) => {
 };
 
 const getAuthor = (changedBy, action, status, task) => {
-
+  const type = task.type;
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
   return (
     <p>
-      <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${status}`}</Snippet></strong>
+      <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
       <strong>: </strong>
       {
         changedBy.asruUser
