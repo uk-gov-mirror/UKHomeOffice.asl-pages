@@ -10,26 +10,6 @@ const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 const updateData = require('../middleware/update-data');
 
-const getRelevantActivity = activityLog => activityLog.filter(log => {
-  const [type, previous] = log.eventName.split(':');
-  if (get(log, 'event.meta.payload.data.extended')) {
-    log.eventName = 'status:deadline-extension';
-    return true;
-  }
-
-  if (log.eventName === 'status:updated:resubmitted' ||
-    log.eventName === 'status:endorsed:with-inspectorate' ||
-    log.eventName === 'status:endorsed:with-licensing') {
-    return false;
-  }
-
-  if (type !== 'status' || previous === 'ntco-endorsed' || previous === 'resubmitted') {
-    return false;
-  }
-
-  return true;
-});
-
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
@@ -64,10 +44,6 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = { id: req.task.id };
-
-    if (req.task.activityLog) {
-      req.task.activityLog = getRelevantActivity(req.task.activityLog);
-    }
 
     next();
   });

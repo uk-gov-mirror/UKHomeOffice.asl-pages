@@ -2,8 +2,7 @@ const { chain } = require('lodash');
 
 module.exports = task => {
   const statusChanges = task.activityLog.filter(e => e.eventName.match(/^status:/));
-  return chain(task.activityLog)
-    .filter(e => e.eventName === 'comment')
+  return chain(task.comments)
     .map(activity => {
       const { id, deleted, comment, createdAt, isNew, isMine, changedBy: { firstName, lastName } } = activity;
       return {
