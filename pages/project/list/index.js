@@ -1,6 +1,5 @@
 const { set } = require('lodash');
 const { page } = require('@asl/service/ui');
-const format = require('date-fns/format');
 const datatable = require('../../common/routers/datatable');
 const schema = require('../schema');
 
@@ -18,7 +17,7 @@ module.exports = settings => {
         case 'inactive':
           req.datatable.sort = { column: 'updatedAt', ascending: false };
           break;
-        case 'revoked':
+        case 'inactive-statuses':
           req.datatable.sort = { column: 'title', ascending: true };
           break;
         default:
@@ -34,11 +33,7 @@ module.exports = settings => {
       next();
     },
     getApiPath: (req, res, next) => {
-      const today = format(new Date(), 'YYYY-MM-DD');
       const query = {
-        expiryDate: {
-          $gte: today
-        },
         status: req.query.status || 'active'
       };
       req.datatable.apiPath = [`/establishment/${req.establishmentId}/projects`, { query }];

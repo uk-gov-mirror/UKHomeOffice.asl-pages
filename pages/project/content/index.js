@@ -58,8 +58,10 @@ module.exports = {
   },
   status: {
     active: 'Active',
+    'inactive-statuses': 'Inactive',
+    inactive: 'Drafts',
+    transferred: 'Transferred',
     expired: 'Expired',
-    revoked: 'Revoked',
-    inactive: 'Drafts'
+    revoked: 'Revoked'
   }
 };
