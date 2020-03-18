@@ -54,7 +54,6 @@ module.exports = merge({}, baseContent, {
         active: 'View granted licence',
         revoked: 'View revoked licence',
         expired: 'View expired licence',
-        stub: 'Open stub',
         transferred: 'View transferred licence'
       },
       draft: {
@@ -78,7 +77,7 @@ module.exports = merge({}, baseContent, {
   confirm: {
     application: 'Are you sure you want to discard this draft project?',
     amendment: 'Are you sure you want to discard this amendment? Any changes you have made will be deleted.',
-    stub: 'Are you sure you want to discard this project stub? Any changes you have made will be deleted.'
+    stub: 'Are you sure you want to discard this partial project record? Any changes you have made will be deleted.'
   },
   discard: {
     draft: {

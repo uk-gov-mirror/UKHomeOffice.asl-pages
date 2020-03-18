@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { Link, ExpiryDate, Snippet } from '@asl/components';
@@ -14,7 +14,12 @@ const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Da
 const formatters = {
   title: {
     format: (title, model) => {
-      return <Link page="project.read" projectId={model.id} label={projectTitle(model)} />;
+      return (
+        <Fragment>
+          <Link page="project.read" projectId={model.id} label={projectTitle(model)} />
+          { model.isLegacyStub ? ' - Partial record' : '' }
+        </Fragment>
+      );
     }
   },
   status: {
