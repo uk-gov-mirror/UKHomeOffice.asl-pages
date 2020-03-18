@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Convert licence',
-  description: 'By continuing, this stub record will be converted into an active licence record.',
+  title: 'Finish converting licence',
+  description: 'The partial record will be converted to a full granted licence that can be managed in ASPeL.',
   buttons: {
     submit: 'Convert licence'
   }

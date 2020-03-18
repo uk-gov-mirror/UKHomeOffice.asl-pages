@@ -26,6 +26,7 @@ module.exports = settings => {
 
     res.locals.static.taskId = task ? task.id : null;
     res.locals.static.basename = req.buildRoute('projectVersion');
+    res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.version') === req.versionId;
     res.locals.static.user = req.user.profile;

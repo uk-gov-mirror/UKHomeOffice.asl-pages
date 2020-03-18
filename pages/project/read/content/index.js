@@ -46,7 +46,7 @@ module.exports = merge({}, baseContent, {
   },
   amendStub: {
     title: 'Continue adding details',
-    description: 'Add further details to this partial record of a project licence. Once all details have been added, you can convert it to a full licence.'
+    description: 'Continue filling in the licence details. Changes will only be visible to the ASRU licensing team until the licence has been fully converted.'
   },
   actions: {
     view: {

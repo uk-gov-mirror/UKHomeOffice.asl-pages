@@ -24,6 +24,7 @@ start({
     readonly: state.model.status !== 'draft' || !state.static.canUpdate,
     user: `${state.static.user.firstName} ${state.static.user.lastName}`,
     basename: state.static.basename,
+    projectUrl: state.static.projectUrl,
     project: state.static.project,
     schemaVersion: state.model.project.schemaVersion,
     newApplication: state.static.newApplication,
