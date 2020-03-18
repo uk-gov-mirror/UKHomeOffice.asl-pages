@@ -24,6 +24,5 @@ export const define = arr => (
 );
 
 export const projectTitle = project => {
-  const title = project.title || 'Untitled project';
-  return project.isLegacyStub ? `${title} - Stub` : title;
+  return project.title || 'Untitled project';
 };

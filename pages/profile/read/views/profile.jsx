@@ -60,6 +60,7 @@ class Profile extends React.Component {
                         projectId={project.id}
                         establishmentId={project.establishmentId}
                       />
+                      { project.isLegacyStub ? ' - Partial record' : '' }
                     </p>
                     <p>
                       <span>
@@ -94,6 +95,7 @@ class Profile extends React.Component {
                         projectId={project.id}
                         establishmentId={project.establishmentId}
                       />
+                      { project.isLegacyStub ? ' - Partial record' : '' }
                     </p>
                   </div>
                 ))
