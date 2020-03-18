@@ -651,7 +651,7 @@ module.exports = {
     conversion: {
       resolved: {
         title: 'Licence converted',
-        body: 'The establishment can now view the full details of this licence, and make any amendments to it through the system.'
+        body: 'The establishment can now view and amend this granted licence from within ASPeL.'
       }
     }
   },
