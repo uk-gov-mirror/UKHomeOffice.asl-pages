@@ -19,6 +19,26 @@ const selector = ({ static: { project, establishment, version } }) => ({ project
 // declarations can be 'Yes', 'No', or 'Not yet'
 const declarationConfirmed = declaration => declaration && declaration.toLowerCase() === 'yes';
 
+function EstablishmentDiff({ task }) {
+  const { to, from } = task.data.meta.establishment;
+  return (
+    <table className="govuk-table compare">
+      <thead>
+        <tr>
+          <th><Snippet>establishment.current</Snippet></th>
+          <th><Snippet>establishment.proposed</Snippet></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{from.name}</td>
+          <td><span className="highlight">{to.name}</span></td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
 export default function Project({ task, schema }) {
   const { project, establishment, version } = useSelector(selector, shallowEqual);
   const declarations = task.data.meta;
@@ -58,6 +78,14 @@ export default function Project({ task, schema }) {
               label={`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}
             />
           </p>
+        </StickyNavAnchor>
+      )
+    ),
+
+    (
+      task.data.action === 'transfer' && (
+        <StickyNavAnchor id="establishment" key="establishment">
+          <EstablishmentDiff task={task} />
         </StickyNavAnchor>
       )
     ),

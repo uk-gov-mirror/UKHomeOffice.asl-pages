@@ -30,6 +30,10 @@ module.exports = {
       hint: 'This is the {{type}} that has been submitted for approval.'
     }
   },
+  establishment: {
+    current: 'Current establishment',
+    proposed: 'Proposed establishment'
+  },
   declarations: {
     'pel-holder': {
       question: 'Does this application have the endorsement of your primary establishment\'s PEL holder?',

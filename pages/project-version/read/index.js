@@ -1,4 +1,4 @@
-const { get } = require('lodash');
+const { get, pick } = require('lodash');
 const { page } = require('@asl/service/ui');
 const {
   canComment,
@@ -49,6 +49,13 @@ module.exports = settings => {
     const isGranted = req.project.status === 'active' && req.version.status === 'granted';
     res.locals.static.isGranted = isGranted && req.project.schemaVersion > 0;
     res.locals.static.legacyGranted = isGranted && req.project.schemaVersion === 0;
+    if (task && task.data.action === 'transfer') {
+      const establishments = task.data.meta.establishment;
+      res.locals.static.establishments = [
+        pick(establishments.to, 'id', 'name'),
+        pick(establishments.from, 'id', 'name')
+      ];
+    }
     next();
   });
 

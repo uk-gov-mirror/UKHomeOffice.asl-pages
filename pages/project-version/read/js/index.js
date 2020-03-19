@@ -33,7 +33,7 @@ start({
     isGranted: state.static.isGranted,
     legacyGranted: state.static.legacyGranted,
     previousProtocols: state.static.previousProtocols,
-    establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name }))
+    establishments: state.static.establishments || []
   },
   static: { urls: state.static.urls }
 });
