@@ -119,7 +119,8 @@ function OpenTask({ model }) {
 }
 
 function StartAmendment({ model }) {
-  const { confirmMessage, url, openTask, editable, asruUser } = useSelector(state => state.static);
+  const { confirmMessage, url, openTask, editable, asruUser, canTransfer } = useSelector(state => state.static);
+  let startAmendmentDescriptionKey = 'start';
 
   if (!editable || model.status !== 'active') {
     return null;
@@ -141,10 +142,16 @@ function StartAmendment({ model }) {
   const firstAmendment = model.versions[model.versions.findIndex(v => v.status === 'granted') - 1];
   const amendmentStartDate = firstAmendment && formatDate(firstAmendment.createdAt, dateFormat.short);
 
+  if (model.draft) {
+    startAmendmentDescriptionKey = 'continue';
+  } else if (canTransfer) {
+    startAmendmentDescriptionKey = 'transfer';
+  }
+
   return (
     <Section
       title={<Snippet>{`start-amendment.title.${model.draft ? 'continue' : 'start'}`}</Snippet>}
-      content={<Snippet amendmentStartDate={amendmentStartDate}>{`start-amendment.description.${model.draft ? 'continue' : 'start'}`}</Snippet>}
+      content={<Snippet amendmentStartDate={amendmentStartDate}>{`start-amendment.description.${startAmendmentDescriptionKey}`}</Snippet>}
     >
       <form method="POST">
         <Button className="button-secondary">

@@ -31,12 +31,14 @@ module.exports = settings => {
     };
     Promise.all([
       req.user.can('project.update', params),
-      req.user.can('project.revoke', params)
+      req.user.can('project.revoke', params),
+      req.user.can('project.transfer', params)
     ])
-      .then(([canUpdate, canRevoke]) => {
+      .then(([canUpdate, canRevoke, canTransfer]) => {
         const openTask = req.project.openTasks[0];
         const editable = (!openTask || (openTask && openTask.editable));
 
+        res.locals.static.canTransfer = canTransfer;
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
