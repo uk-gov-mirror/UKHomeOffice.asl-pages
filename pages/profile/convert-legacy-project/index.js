@@ -1,6 +1,5 @@
 const { isInteger } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { NotFoundError } = require('@asl/service/errors');
 const { form } = require('../../common/routers');
 const confirm = require('./routers/confirm');
 const schema = require('./schema');
@@ -9,14 +8,6 @@ module.exports = () => {
   const app = page({
     root: __dirname,
     paths: ['/confirm']
-  });
-
-  app.use((req, res, next) => {
-    // feature switch
-    if (process.env.ENABLE_PPL_CONVERSION) {
-      return next();
-    }
-    next(new NotFoundError());
   });
 
   app.use((req, res, next) => {
