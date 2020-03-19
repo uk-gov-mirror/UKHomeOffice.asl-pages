@@ -49,6 +49,9 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
+    if (req.task.data.action === 'transfer' && req.task.data.model === 'project') {
+      return next();
+    }
     const establishmentId = get(req.task, 'data.model') === 'establishment'
       ? get(req.task, 'data.id')
       : get(req.task, 'data.establishmentId');
