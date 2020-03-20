@@ -17,5 +17,8 @@ module.exports = {
       definedValues: 'Select a licence holder from the list',
       customValidate: 'Select a new PPL holder'
     }
+  },
+  notifications: {
+    success: 'Licence holder updated'
   }
 };

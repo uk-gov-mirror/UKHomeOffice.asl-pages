@@ -15,10 +15,14 @@ module.exports = () => {
       req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
         .then(({ json: { data } }) => {
           req.form.schema = {
-            ...getSchema(data),
-            ...experienceFields.fieldNames.reduce((obj, field) => ({ ...obj, [field]: {} }), {})
+            ...getSchema(data)
           };
-          if (req.project.granted) {
+
+          if (!req.project.isLegacyStub) {
+            req.form.schema.experienceFields = experienceFields.fieldNames.reduce((obj, field) => ({ ...obj, [field]: {} }), {});
+          }
+
+          if (req.project.granted && !req.project.isLegacyStub) {
             req.form.schema.comments = {};
           }
         })
@@ -33,7 +37,7 @@ module.exports = () => {
     },
     locals(req, res, next) {
       res.locals.static.schema = omit(req.form.schema, [ ...experienceFields.fieldNames, 'comments' ]);
-      res.locals.static.fields = experienceFields.fields;
+      res.locals.static.fields = req.project.isLegacyStub ? [] : experienceFields.fields;
       res.locals.static.project = req.project;
       next();
     }

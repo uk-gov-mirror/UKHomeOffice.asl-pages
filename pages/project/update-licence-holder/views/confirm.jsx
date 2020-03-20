@@ -39,7 +39,7 @@ const Confirm = ({ project, fields, values, proposedLicenceHolder, csrfToken }) 
       />
     </StaticRouter>
     {
-      project.status === 'active' && (
+      project.status === 'active' && !project.isLegacyStub && (
         <Fragment>
           <h3><Snippet>fields.comments.label</Snippet></h3>
           <p>

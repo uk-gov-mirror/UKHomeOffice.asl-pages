@@ -27,7 +27,7 @@ module.exports = () => {
   app.use(form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     locals(req, res, next) {
-      res.locals.static.fields = experienceFields.fields;
+      res.locals.static.fields = req.project.isLegacyStub ? [] : experienceFields.fields;
       res.locals.static.project = req.project;
       res.locals.static.values = get(req.session, `form.${req.model.id}.values`);
       req.api(`/establishment/${req.establishmentId}/profiles/${res.locals.static.values.licenceHolderId}`)
@@ -44,6 +44,13 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     sendData(req)
       .then(() => {
+        delete req.session.form[req.model.id];
+
+        if (req.project.isLegacyStub) {
+          req.notification({ key: 'success' });
+          return res.redirect(req.buildRoute('project.read'));
+        }
+
         res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'success' }));
       })
       .catch(next);
