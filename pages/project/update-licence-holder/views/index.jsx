@@ -39,7 +39,7 @@ const FormBody = ({ fields, values, formFields, setValue, submit, project }) => 
       ))
     }
     {
-      project.status === 'active' && <Fieldset model={values} schema={commentsSchema} />
+      project.status === 'active' && !project.isLegacyStub && <Fieldset model={values} schema={commentsSchema} />
     }
     <Button>
       <Snippet>buttons.submit</Snippet>
