@@ -323,7 +323,7 @@ function Actions({ model }) {
 }
 
 function PreviousVersions({ model }) {
-  const versions = model.versions.filter(v => v.status === 'granted' && v.id !== model.granted.id);
+  const versions = model.versions.filter(v => v.status === 'granted' && v.id !== model.granted.id && !v.isLegacyStub);
 
   if (model.status === 'transferred') {
     versions.unshift(model.granted);
