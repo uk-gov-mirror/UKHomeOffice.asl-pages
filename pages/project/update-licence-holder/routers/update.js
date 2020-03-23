@@ -14,12 +14,13 @@ module.exports = () => {
     configure(req, res, next) {
       req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
         .then(({ json: { data } }) => {
-          req.form.schema = {
-            ...getSchema(data)
-          };
+          req.form.schema = getSchema(data);
 
           if (!req.project.isLegacyStub) {
-            req.form.schema.experienceFields = experienceFields.fieldNames.reduce((obj, field) => ({ ...obj, [field]: {} }), {});
+            req.form.schema = {
+              ...req.form.schema,
+              ...experienceFields.fieldNames.reduce((obj, field) => ({ ...obj, [field]: {} }), {})
+            };
           }
 
           if (req.project.granted && !req.project.isLegacyStub) {
