@@ -31,7 +31,9 @@ start({
     previousProtocols: state.static.previousProtocols,
     canTransfer: state.static.canTransfer,
     transferInProgress: state.static.transferInProgress,
-    establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name }))
+    establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
+    showConditions: state.static.showConditions,
+    editConditions: state.static.editConditions
   },
   static: { urls: state.static.urls }
 });

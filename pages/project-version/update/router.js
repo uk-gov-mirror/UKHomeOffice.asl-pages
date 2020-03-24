@@ -52,6 +52,9 @@ module.exports = settings => {
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && res.locals.static.isCommentable;
 
+    res.locals.static.showConditions = req.version.data.isLegacyStub;
+    res.locals.static.editConditions = req.version.data.isLegacyStub;
+
     res.locals.static.newApplication = !isAmendment && (!previousVersion || previousVersion.status === 'withdrawn');
     res.locals.model = req.version;
     res.locals.static.version = req.version;
