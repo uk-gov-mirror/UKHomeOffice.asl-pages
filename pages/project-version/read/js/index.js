@@ -27,6 +27,7 @@ start({
     basename: state.static.basename,
     schemaVersion: state.model.project.schemaVersion,
     project: state.static.project,
+    projectUrl: state.static.projectUrl,
     establishment: state.static.establishment,
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
