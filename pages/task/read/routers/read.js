@@ -145,31 +145,6 @@ module.exports = () => {
     next();
   });
 
-  app.use((req, res, next) => {
-    const model = req.task.data.model;
-    if (req.task.data.action === 'revoke') {
-      req.task.type = 'revocation';
-      return next();
-    }
-    if (req.task.data.action === 'transfer') {
-      req.task.type = 'transfer';
-      return next();
-    }
-    if (model === 'role' || model === 'profile' || model === 'place') {
-      req.task.type = 'amendment';
-      return next();
-    }
-
-    if (model === 'establishment' && req.task.data.action === 'update') {
-      req.task.type = 'amendment';
-      return next();
-    }
-
-    req.task.type = get(req.task, 'data.modelData.status') === 'active' ? 'amendment' : 'application';
-
-    next();
-  });
-
   app.use(form(Object.assign({
     configure: (req, res, next) => {
       res.locals.static.content = merge({}, res.locals.static.content, getContent(req.task));
@@ -194,6 +169,7 @@ module.exports = () => {
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
       res.locals.static.version = req.version;
+      console.log(res.locals.static.content['sticky-nav']);
       next();
     },
     process: (req, res, next) => {

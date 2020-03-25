@@ -1,4 +1,5 @@
 const { get } = require('lodash');
+const moment = require('moment');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const { hydrate } = require('../../common/middleware');
@@ -18,6 +19,18 @@ module.exports = settings => {
     next();
   });
 
+  app.get('/', (req, res, next) => {
+    const needsReview = moment(req.pil.reviewDate).isBefore(moment().add(3, 'months'));
+    if (needsReview) {
+      res.locals.static.pilReviewRequired = {
+        reviewUrl: req.buildRoute('pil.review'),
+        overdue: moment(req.pil.reviewDate).isBefore(moment())
+      };
+    }
+
+    next();
+  });
+
   app.use((req, res, next) => {
     const params = {
       pilId: req.pilId
@@ -34,7 +47,7 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.get('/', (req, res, next) => {
+  app.use((req, res, next) => {
     res.locals.static.pil = req.model;
     res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;

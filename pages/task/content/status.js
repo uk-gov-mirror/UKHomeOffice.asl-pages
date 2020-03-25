@@ -35,7 +35,8 @@ module.exports = {
       application: 'The application will be returned to the applicant with your comments.',
       amendment: 'The amendment will be returned to the applicant with your comments.',
       revocation: 'The revocation request will be returned to the applicant with your comments.',
-      transfer: 'The transfer request will be returned to the applicant with your comments.'
+      transfer: 'The transfer request will be returned to the applicant with your comments.',
+      review: 'The review request will be returned to the applicant with your comments.'
     },
     log: 'Returned by'
   },
@@ -45,9 +46,12 @@ module.exports = {
       application: 'Recall application',
       amendment: 'Recall amendment',
       revocation: 'Recall revocation',
-      transfer: 'Recall transfer'
+      transfer: 'Recall transfer',
+      review: 'Recall review'
     },
-    hint: 'The task will be returned and can be edited.',
+    hint: {
+      default: 'The task will be returned and can be edited.'
+    },
     log: 'Recalled by'
   },
   'discarded-by-applicant': {
@@ -56,13 +60,15 @@ module.exports = {
       application: 'Discard application',
       amendment: 'Discard amendment',
       revocation: 'Discard revocation',
-      transfer: 'Discard transfer'
+      transfer: 'Discard transfer',
+      review: 'Discard review'
     },
     hint: {
       application: 'You will need to create a new application to apply for this type of licence in the future.',
       amendment: 'You will need to create a new amendment to submit these changes again.',
       revocation: 'You will need to create a new revocation request for this licence to be revoked.',
-      transfer: 'You will need to start a new transfer request if you still wish to transfer this licence.'
+      transfer: 'You will need to start a new transfer request if you still wish to transfer this licence.',
+      review: 'You’ll need to start again if your licence is still due its 5 year review.'
     },
     log: 'Discarded by'
   },
@@ -111,7 +117,8 @@ module.exports = {
     action: {
       application: 'Endorse application',
       amendment: 'Endorse amendment',
-      transfer: 'Endorse transfer request'
+      transfer: 'Endorse transfer request',
+      review: 'Endorse licence'
     }
   },
   'inspector-recommended': {
@@ -144,7 +151,8 @@ module.exports = {
       application: 'Submit application',
       amendment: 'Submit amendment',
       revocation: 'Submit revocation',
-      transfer: 'Submit transfer'
+      transfer: 'Submit transfer',
+      review: 'Submit review'
     },
     hint: {
       application: 'Your application will be sent to the Home Office for review.',
@@ -172,7 +180,8 @@ module.exports = {
       application: 'Granted by',
       amendment: 'Approved by',
       revocation: 'Revoked by',
-      transfer: 'Approved by'
+      transfer: 'Approved by',
+      review: 'Reviewed by'
     }
   },
   rejected: {
@@ -200,12 +209,14 @@ module.exports = {
     action: {
       application: 'Edit and resubmit the application',
       amendment: 'Edit and resubmit the amendment',
-      transfer: 'Edit and resubmit the transfer request'
+      transfer: 'Edit and resubmit the transfer request',
+      review: 'Edit and resubmit the review request'
     },
     hint: {
       application: 'Make changes to the application you previously submitted and respond to any comments.',
       amendment: 'Make changes to the amendment you previously submitted and respond to any comments.',
-      transfer: 'Make changes to the transfer request you previously submitted and respond to any comments.'
+      transfer: 'Make changes to the transfer request you previously submitted and respond to any comments.',
+      review: 'Make changes to the review request you previously submitted and respond to any comments.'
     },
     log: 'Submitted by'
   },

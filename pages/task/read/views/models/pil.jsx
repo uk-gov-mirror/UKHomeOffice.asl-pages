@@ -14,11 +14,16 @@ import Modules from '../../../../profile/read/views/modules';
 export default function PIL({ task, values }) {
   const profile = useSelector(state => state.static.profile);
   const establishment = useSelector(state => state.static.establishment);
-  const pil = task.data.action === 'update-conditions' ? values : task.data.data;
+  let pil = task.data.action === 'update-conditions' ? values : task.data.data;
   const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
-  const isTransfer = task.data.action === 'transfer';
+  const isTransfer = task.type === 'transfer';
+  const isReview = task.type === 'review';
 
-  const applicantKey = `applicant.${task.type}`;
+  if (isReview) {
+    pil = task.data.modelData;
+  }
+
+  const applicantKey = `applicant.${task.type === 'application' ? 'application' : 'other'}`;
 
   return [
     <StickyNavAnchor id="establishment" key="establishment">
@@ -125,44 +130,52 @@ export default function PIL({ task, values }) {
       }
     </StickyNavAnchor>,
 
-    <StickyNavAnchor id="training" key="training">
-      <h2><Snippet>sticky-nav.training</Snippet></h2>
-      {
-        profile.certificates && profile.certificates.length > 0
-          ? <Modules certificates={profile.certificates} />
-          : <p><em><Snippet>pil.training.none</Snippet></em></p>
-      }
-    </StickyNavAnchor>,
+    (
+      (!isReview || profile.certificates.length > 0) && (
+        <StickyNavAnchor id="training" key="training">
+          <h2><Snippet>sticky-nav.training</Snippet></h2>
+          {
+            profile.certificates && profile.certificates.length > 0
+              ? <Modules certificates={profile.certificates} />
+              : <p><em><Snippet>pil.training.none</Snippet></em></p>
+          }
+        </StickyNavAnchor>
+      )
+    ),
 
-    <StickyNavAnchor id="exemptions" key="exemptions">
-      <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
-      {
-        profile.exemptions && profile.exemptions.length > 0
-          ? profile.exemptions.map((exemption, index) => (
-            <div key={index}>
-              <dl>
-                <dt><Snippet>pil.exemptions.module</Snippet><span>:</span></dt>
-                <dd>{exemption.module}
-                  {
-                    exemption.species && exemption.species.length > 0 &&
-                      (
-                        <Fragment>
-                          { exemption.species.map((s, index) => (
-                            <p key={index}>{s}</p>
-                          ))}
-                        </Fragment>
-                      )
+    (
+      (!isReview || profile.certificates.length > 0) && (
+        <StickyNavAnchor id="exemptions" key="exemptions">
+          <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
+          {
+            profile.exemptions && profile.exemptions.length > 0
+              ? profile.exemptions.map((exemption, index) => (
+                <div key={index}>
+                  <dl>
+                    <dt><Snippet>pil.exemptions.module</Snippet><span>:</span></dt>
+                    <dd>{exemption.module}
+                      {
+                        exemption.species && exemption.species.length > 0 &&
+                          (
+                            <Fragment>
+                              { exemption.species.map((s, index) => (
+                                <p key={index}>{s}</p>
+                              ))}
+                            </Fragment>
+                          )
 
-                  }</dd>
+                      }</dd>
 
-                <dt><Snippet>pil.exemptions.reason</Snippet><span>:</span></dt>
-                <dd>{exemption.description}</dd>
-              </dl>
-            </div>
-          ))
-          : <p><em><Snippet>pil.exemptions.none</Snippet></em></p>
-      }
-    </StickyNavAnchor>,
+                    <dt><Snippet>pil.exemptions.reason</Snippet><span>:</span></dt>
+                    <dd>{exemption.description}</dd>
+                  </dl>
+                </div>
+              ))
+              : <p><em><Snippet>pil.exemptions.none</Snippet></em></p>
+          }
+        </StickyNavAnchor>
+      )
+    ),
 
     (
       task.data.action === 'update-conditions' && (

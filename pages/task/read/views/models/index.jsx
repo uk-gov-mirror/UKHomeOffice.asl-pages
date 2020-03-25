@@ -68,9 +68,9 @@ export default function Model({ task, formFields, allowSubmit }) {
       }
       {
         hasComments && (
-          <StickyNavAnchor id={task.data.action === 'revoke' ? 'revocation' : 'comments'}>
+          <StickyNavAnchor id={`comments.${task.type}`}>
             <Field
-              title={<Snippet>{`sticky-nav.${task.data.action === 'revoke' ? 'revocation' : 'comments'}`}</Snippet>}
+              title={<Snippet fallback="sticky-nav.comments.default">{`sticky-nav.comments.${task.type}`}</Snippet>}
               content={task.data.meta.comments}
             />
           </StickyNavAnchor>

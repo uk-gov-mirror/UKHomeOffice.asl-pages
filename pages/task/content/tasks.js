@@ -13,7 +13,8 @@ module.exports = {
     update: 'PIL amendment',
     revoke: 'PIL revocation',
     'update-conditions': 'Update conditions',
-    transfer: 'PIL transfer'
+    transfer: 'PIL transfer',
+    review: 'PIL review'
   },
   profile: {
     update: 'Profile amendment'

@@ -4,7 +4,9 @@ const tasks = require('../../content/tasks');
 module.exports = {
   status,
   tasks,
-  title: 'Review {{type}}',
+  title: {
+    default: 'Review {{type}}'
+  },
   currentStatus: 'Current status',
   fields: {
     status: {
@@ -18,8 +20,11 @@ module.exports = {
   'sticky-nav': {
     activity: 'Latest activity',
     establishment: 'Establishment details',
-    comments: 'Reason for amendment',
-    revocation: 'Reason for revocation',
+    comments: {
+      amendment: 'Reason for amendment',
+      revocation: 'Reason for revocation',
+      review: 'Comments'
+    },
     status: 'What do you want to do?',
     conditions: 'Additional conditions'
   },
