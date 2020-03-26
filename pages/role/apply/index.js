@@ -38,13 +38,26 @@ module.exports = settings => {
 
   app.use('/', form({
     configure: (req, res, next) => {
-      const roles = req.profile.roles
+      const rolesHeld = req.profile.roles
         .filter(role => role.establishmentId === req.establishmentId)
         .map(role => role.type);
+
+      const addRoleTasks = req.profile.openTasks
+        .filter(task => task.data.model === 'role' && task.data.action === 'create')
+        .map(task => ({
+          id: task.id,
+          type: task.data.data.type
+        }));
+
+      const rolesRequested = addRoleTasks.map(task => task.type);
+
       req.form.schema = {
-        ...getSchema(roles),
+        ...getSchema(rolesHeld.concat(rolesRequested)),
         rcvsNumber: {}
       };
+
+      res.locals.static.addRoleTasks = addRoleTasks;
+
       next();
     },
     locals: (req, res, next) => {

@@ -1,3 +1,4 @@
+const { difference } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const getSchema = require('./schema');
@@ -28,12 +29,25 @@ module.exports = settings => {
 
   app.use('/', form({
     configure: (req, res, next) => {
-      const roles = req.profile.roles
+      const rolesHeld = req.profile.roles
         .filter(role => role.establishmentId === req.establishmentId)
         .map(role => role.type);
+
+      const removeRoleTasks = req.profile.openTasks
+        .filter(task => task.data.model === 'role' && task.data.action === 'delete')
+        .map(task => ({
+          id: task.id,
+          type: task.data.modelData.type
+        }));
+
+      const rolesBeingRemoved = removeRoleTasks.map(task => task.type);
+
       req.form.schema = {
-        ...getSchema(roles)
+        ...getSchema(difference(rolesHeld, rolesBeingRemoved))
       };
+
+      res.locals.static.removeRoleTasks = removeRoleTasks;
+
       next();
     },
     locals: (req, res, next) => {

@@ -2,13 +2,21 @@ const { merge } = require('lodash');
 const baseContent = require('../../../profile/content');
 
 module.exports = merge({}, baseContent, {
-  title: 'Remove named role',
+  title: 'Remove role',
+  openTasks: {
+    title: 'Role removals in progress',
+    description: {
+      single: 'There is already a request to remove the following role:',
+      multiple: 'There are already requests to remove the following roles:'
+    },
+    link: 'View task'
+  },
   fields: {
     type: {
-      label: 'Which named role do you want to remove?'
+      label: 'Confirm the role you want to remove'
     },
     comment: {
-      label: 'Why are you removing this named role from this person?'
+      label: 'Why are you removing this role?'
     }
   },
   buttons: {
@@ -16,7 +24,7 @@ module.exports = merge({}, baseContent, {
   },
   errors: {
     type: {
-      required: 'Please select a named role'
+      required: 'Please select a role'
     }
   }
 });
