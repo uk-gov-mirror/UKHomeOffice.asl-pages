@@ -29,7 +29,7 @@
     "@asl/components": "^7.1.1",
     "@asl/constants": "^0.3.2",
     "@asl/dictionary": "^1.1.4",
-    "@asl/projects": "^6.0.1",
+    "@asl/projects": "^6.1.0",
     "@asl/service": "^7.18.0",
     "@joefitter/docx": "^4.7.0",
     "@ukhomeoffice/frontend-toolkit": "^2.11.0",
