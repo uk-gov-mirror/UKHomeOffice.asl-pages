@@ -23,7 +23,9 @@ const PIL = ({
   canDownload,
   openTask,
   currentPath,
-  isLicenceHolder
+  isLicenceHolder,
+  pilReviewRequired,
+  reviewUrl
 }) => {
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
 
@@ -116,6 +118,19 @@ const PIL = ({
   return (
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
+      {
+        pilReviewRequired && (
+          <Warning className="info">
+            <Snippet
+              reviewUrl={reviewUrl}
+              openTask={openTask}
+              overdue={pil.reviewOverdue}
+            >
+              warnings.pilReviewRequired
+            </Snippet>
+          </Warning>
+        )
+      }
 
       <DownloadHeader
         title={`${profile.firstName} ${profile.lastName}`}
@@ -183,7 +198,9 @@ const mapStateToProps = ({
     openTask,
     allowedActions,
     currentPath,
-    isLicenceHolder
+    isLicenceHolder,
+    pilReviewRequired,
+    reviewUrl
   }
 }) => ({
   pil,
@@ -193,7 +210,9 @@ const mapStateToProps = ({
   allowedActions,
   openTask,
   currentPath,
-  isLicenceHolder
+  isLicenceHolder,
+  pilReviewRequired,
+  reviewUrl
 });
 
 export default connect(mapStateToProps)(PIL);

@@ -9,7 +9,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
     action = 'update';
   }
   const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
-  const requiresDeclaration = (task.data.model === 'pil' || task.data.model === 'project') && values.status === 'endorsed';
+  const requiresDeclaration = (task.data.model === 'pil' || task.data.model === 'project') && values.status === 'endorsed' && action !== 'review';
   return (
     <Fragment>
       <Header

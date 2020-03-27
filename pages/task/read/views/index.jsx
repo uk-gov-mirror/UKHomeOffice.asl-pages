@@ -40,7 +40,7 @@ const Task = ({ task, project }) => {
       </div>
 
       <Header
-        title={<Snippet type={task.type}>title</Snippet>}
+        title={<Snippet type={task.type} fallback="title.default">{`title.${task.type}`}</Snippet>}
         subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
       />
       {

@@ -18,6 +18,19 @@ module.exports = settings => {
     next();
   });
 
+  app.get('/', (req, res, next) => {
+    if (!process.env['ENABLE_PIL_REVIEW']) {
+      return next();
+    }
+
+    if (req.pil.reviewDue) {
+      res.locals.static.pilReviewRequired = true;
+      res.locals.static.reviewUrl = req.buildRoute('pil.review');
+    }
+
+    next();
+  });
+
   app.use((req, res, next) => {
     const params = {
       pilId: req.pilId

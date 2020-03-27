@@ -47,5 +47,15 @@ module.exports = merge({}, baseContent, {
   notifications: {
     'conditions-updated': 'The conditions on this licence have been updated.',
     'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
+  },
+  warnings: {
+    pilReviewRequired: `**This personal licence is {{#overdue}}overdue{{/overdue}}{{^overdue}}due{{/overdue}} a 5 year review**
+
+    {{#openTask}}
+      Someone has checked the licence to verify that it’s up to date, but it’s still waiting to be approved.
+    {{/openTask}}
+    {{^openTask}}
+      It needs to be [confirmed as up to date and in use]({{reviewUrl}}), or amended to remove procedures or animal types that aren’t being used.
+    {{/openTask}}`
   }
 });

@@ -4,11 +4,12 @@ const remove = require('./delete');
 const pdf = require('./pdf');
 const read = require('./read');
 const create = require('./create');
+const review = require('./review');
 
 module.exports = {
   read: {
     path: '/:pilId',
-    permisions: 'pil.read',
+    permissions: 'pil.read',
     router: read
   },
   create: {
@@ -27,6 +28,11 @@ module.exports = {
     permissions: 'pil.update',
     breadcrumb: false,
     router: update
+  },
+  review: {
+    path: '/:pilId/review',
+    breadcrumb: false,
+    router: review
   },
   delete: {
     path: '/:pilId/delete',

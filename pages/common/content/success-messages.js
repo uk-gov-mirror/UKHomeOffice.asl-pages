@@ -393,6 +393,45 @@ module.exports = {
         title: 'Transfer request submitted',
         body: `The Home Office will review your transfer request and will contact you if they need any more information.`
       }
+    },
+    review: {
+      'awaiting-endorsement': {
+        title: 'Confirmation sent',
+        body: 'Your establishment’s named training and competency officer (NTCO) will be asked to review and endorse your licence. Once complete, your personal licence will be valid for another 5 years.'
+      },
+      resubmitted: {
+        title: 'Confirmation sent',
+        body: 'Your establishment’s named training and competency officer (NTCO) will be asked to review and endorse your licence. Once complete, your personal licence will be valid for another 5 years.'
+      },
+      resolved: {
+        title: 'Review complete',
+        body: `This licence’s 5 year review is complete. The licence will be valid for another 5 years.
+
+          The licence-holder has been notified.`
+      },
+      endorsed: {
+        title: 'Review complete',
+        body: `This licence’s 5 year review is complete. The licence will be valid for another 5 years.
+
+          The licence-holder has been notified.`
+      },
+      // TODO: content
+      'returned-to-applicant': {
+        title: 'Review request returned',
+        body: `The person who submitted this review request will review your comments.
+
+          They can then choose to discard the review request, or make changes based on your comments.`
+      },
+      // TODO: content
+      'recalled-by-applicant': {
+        title: 'Review request recalled',
+        body: 'The review request will need to be resubmitted to be reviewed by an NTCO at your establishment.'
+      },
+      // TODO: content
+      'discarded-by-applicant': {
+        title: 'Review request discarded',
+        body: 'You will need to create a new review request if you want to submit these changes again.'
+      }
     }
   },
   project: {

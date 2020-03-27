@@ -1,12 +1,27 @@
 module.exports = {
+  title: {
+    review: 'Endorse personal licence review'
+  },
   status: {
     'returned-to-applicant': {
-      'with-ntco': 'No'
+      'with-ntco': 'No',
+      hint: {
+        review: 'You will be able to add comments explaining what needs to happen next.'
+      }
     },
     'resubmitted': {
+      action: {
+        review: 'Resubmit review'
+      },
       hint: {
         application: 'Your application will be sent to an NTCO for endorsement',
-        amendment: 'Your amendment will be sent to an NTCO for endorsement'
+        amendment: 'Your amendment will be sent to an NTCO for endorsement',
+        review: 'Your request will be reviewed by a named training and competency officer'
+      }
+    },
+    'recalled-by-applicant': {
+      hint: {
+        review: 'You will be able to add any comments and resubmit your request for review.'
       }
     },
     endorsed: {
@@ -14,7 +29,8 @@ module.exports = {
       hint: {
         application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
         amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.',
-        transfer: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this transfer request.'
+        transfer: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this transfer request.',
+        review: 'Confirm the licence is in use and only includes relevant animal types and procedures.'
       },
       log: 'Endorsed by'
     }
@@ -30,9 +46,7 @@ module.exports = {
   'sticky-nav': {
     applicant: {
       application: 'Applicant',
-      amendment: 'Licence holder',
-      revocation: 'Licence holder',
-      transfer: 'Licence holder'
+      other: 'Licence holder'
     },
     training: 'Training',
     exemptions: 'Exemptions',

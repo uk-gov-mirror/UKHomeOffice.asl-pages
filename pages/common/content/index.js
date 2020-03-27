@@ -219,6 +219,10 @@ module.exports = {
     transfer: {
       title: 'Transfer in progress',
       description: 'A request to transfer this licence to another establishment has been submitted and is being reviewed. You can view or recall the licence transfer.'
+    },
+    review: {
+      title: 'Review in progress',
+      description: 'A request to review this licence has been submitted and is being reviewed. You can view or recall the review request.'
     }
   }
 };
