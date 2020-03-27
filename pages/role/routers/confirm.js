@@ -10,6 +10,8 @@ module.exports = settings => {
   app.use('/', form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     locals: (req, res, next) => {
+      req.model.openTasks = []; // hide the open tasks warning on role forms as it is not applicable
+
       Object.assign(res.locals, { model: req.model });
       Object.assign(res.locals.static, {
         profile: req.profile,

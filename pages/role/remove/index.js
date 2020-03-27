@@ -47,6 +47,7 @@ module.exports = settings => {
       };
 
       res.locals.static.removeRoleTasks = removeRoleTasks;
+      req.model.openTasks = []; // hide the open tasks warning on role forms as it is not applicable
 
       next();
     },
