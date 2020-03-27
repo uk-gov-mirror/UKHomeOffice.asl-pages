@@ -7,6 +7,7 @@ module.exports = merge({}, baseContent, {
   onBehalfOf: 'From:',
   rcvsNumber: 'RCVS number:',
   explanation: 'Why are you removing this role?',
+  nacwoWarning: 'This NACWO will also automatically be removed from any areas assigned to them in the schedule of premises.',
   buttons: {
     submit: 'Submit'
   }

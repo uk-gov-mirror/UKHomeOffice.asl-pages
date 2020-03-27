@@ -7,12 +7,14 @@ import {
   Link,
   Snippet
 } from '@asl/components';
+import { Warning } from '@ukhomeoffice/react-components';
 import namedRoles from '../content/named-roles';
 
 const Confirm = ({
   establishment,
   profile,
   values,
+  children,
   ...props
 }) => {
   const editPath = props.action === 'remove' ? 'delete' : 'create';
@@ -35,6 +37,11 @@ const Confirm = ({
 
       <h2><Snippet>explanation</Snippet></h2>
       <p>{values.comment}</p>
+
+      {
+        props.action === 'remove' && values.type === 'nacwo' &&
+          <Warning><Snippet>nacwoWarning</Snippet></Warning>
+      }
 
       <ControlBar>
         <Link page={`role.${editPath}`} label={<Snippet>buttons.edit</Snippet>} />
