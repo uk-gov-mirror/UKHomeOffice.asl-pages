@@ -7,8 +7,7 @@ module.exports = {
   },
   fields: {
     comments: {
-      label: 'Comments',
-      hint: 'Comments can be seen by establishment users, as well as inspectors and Home Office team members. They will be added to the ‘Latest activity log’ of this task.'
+      label: 'Comments'
     }
   }
 };
