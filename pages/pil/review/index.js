@@ -1,6 +1,6 @@
 const { page } = require('@asl/service/ui');
 const { get } = require('lodash');
-const { UnauthorisedError, NotFoundError } = require('@asl/service/errors');
+const { UnauthorisedError } = require('@asl/service/errors');
 const { form, success } = require('../../common/routers');
 const schema = require('./schema');
 
@@ -8,13 +8,6 @@ module.exports = () => {
   const app = page({
     root: __dirname,
     paths: ['/success']
-  });
-
-  app.use((req, res, next) => {
-    if (process.env['ENABLE_PIL_REVIEW']) {
-      return next();
-    }
-    return next(new NotFoundError());
   });
 
   app.get('/', (req, res, next) => {
