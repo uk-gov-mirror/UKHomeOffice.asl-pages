@@ -20,6 +20,9 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
+    if (!process.env['ENABLE_PIL_REVIEW']) {
+      return next();
+    }
     const needsReview = moment(req.pil.reviewDate).isBefore(moment().add(3, 'months'));
     if (needsReview) {
       res.locals.static.pilReviewRequired = {

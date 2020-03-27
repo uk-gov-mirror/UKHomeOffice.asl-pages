@@ -169,7 +169,6 @@ module.exports = () => {
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
       res.locals.static.version = req.version;
-      console.log(res.locals.static.content['sticky-nav']);
       next();
     },
     process: (req, res, next) => {
