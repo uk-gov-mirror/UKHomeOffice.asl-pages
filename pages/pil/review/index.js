@@ -29,6 +29,7 @@ module.exports = () => {
         }
         res.locals.static.canReview = canReview;
         if (canReview) {
+          // change the button text if the user can complete the review without approval
           res.locals.static.content.buttons.submit = res.locals.static.content.buttons.canReviewSubmit;
         }
       })
