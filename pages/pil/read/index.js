@@ -1,5 +1,4 @@
 const { get } = require('lodash');
-const moment = require('moment');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const { hydrate } = require('../../common/middleware');
@@ -23,12 +22,10 @@ module.exports = settings => {
     if (!process.env['ENABLE_PIL_REVIEW']) {
       return next();
     }
-    const needsReview = moment(req.pil.reviewDate).isBefore(moment().add(3, 'months'));
-    if (needsReview) {
-      res.locals.static.pilReviewRequired = {
-        reviewUrl: req.buildRoute('pil.review'),
-        overdue: moment(req.pil.reviewDate).isBefore(moment())
-      };
+
+    if (req.pil.reviewDue) {
+      res.locals.static.pilReviewRequired = true;
+      res.locals.static.reviewUrl = req.buildRoute('pil.review');
     }
 
     next();

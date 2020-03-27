@@ -25,9 +25,7 @@ const PIL = ({
   currentPath,
   isLicenceHolder,
   pilReviewRequired,
-  reviewUrl,
-  openReviewTask,
-  overdue
+  reviewUrl
 }) => {
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
 
@@ -124,8 +122,9 @@ const PIL = ({
         pilReviewRequired && (
           <Warning className="info">
             <Snippet
-              {...pilReviewRequired}
+              reviewUrl={reviewUrl}
               openTask={openTask}
+              overdue={pil.reviewOverdue}
             >
               warnings.pilReviewRequired
             </Snippet>
@@ -200,7 +199,8 @@ const mapStateToProps = ({
     allowedActions,
     currentPath,
     isLicenceHolder,
-    pilReviewRequired
+    pilReviewRequired,
+    reviewUrl
   }
 }) => ({
   pil,
@@ -211,7 +211,8 @@ const mapStateToProps = ({
   openTask,
   currentPath,
   isLicenceHolder,
-  pilReviewRequired
+  pilReviewRequired,
+  reviewUrl
 });
 
 export default connect(mapStateToProps)(PIL);

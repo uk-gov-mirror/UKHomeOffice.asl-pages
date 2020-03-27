@@ -14,11 +14,12 @@ import Modules from '../../../../profile/read/views/modules';
 export default function PIL({ task, values }) {
   const profile = useSelector(state => state.static.profile);
   const establishment = useSelector(state => state.static.establishment);
-  let pil = task.data.action === 'update-conditions' ? values : task.data.data;
   const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
   const isTransfer = task.type === 'transfer';
   const isReview = task.type === 'review';
+  const showTraining = !isReview || profile.certificates.length > 0;
 
+  let pil = task.data.action === 'update-conditions' ? values : task.data.data;
   if (isReview) {
     pil = task.data.modelData;
   }
@@ -131,7 +132,7 @@ export default function PIL({ task, values }) {
     </StickyNavAnchor>,
 
     (
-      (!isReview || profile.certificates.length > 0) && (
+      showTraining && (
         <StickyNavAnchor id="training" key="training">
           <h2><Snippet>sticky-nav.training</Snippet></h2>
           {
@@ -144,7 +145,7 @@ export default function PIL({ task, values }) {
     ),
 
     (
-      (!isReview || profile.certificates.length > 0) && (
+      showTraining && (
         <StickyNavAnchor id="exemptions" key="exemptions">
           <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
           {
