@@ -3,7 +3,7 @@ const baseContent = require('../../../profile/content');
 
 module.exports = merge({}, baseContent, {
   reviewRoleApplication: 'Add role',
-  applyingFor: 'You are assigning the role of:',
+  applyingFor: 'You are assigning:',
   onBehalfOf: 'To:',
   rcvsNumber: 'RCVS number:',
   explanation: 'Why is this person suitable for this role?',
