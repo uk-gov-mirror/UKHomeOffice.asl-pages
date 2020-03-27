@@ -24,6 +24,7 @@ module.exports = settings => {
     return req.api(`/establishment/${req.establishmentId}/profile/${profileId}`)
       .then(({ json: { data, meta } }) => {
         const model = cleanModel(data);
+        model.openTasks = meta.openTasks;
         req.model = model;
         req.profile = model;
         req.profileId = profileId;

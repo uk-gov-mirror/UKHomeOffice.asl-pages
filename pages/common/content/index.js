@@ -40,8 +40,8 @@ module.exports = {
       convertLegacyProject: 'Convert legacy project'
     },
     role: {
-      create: 'Assign named role',
-      delete: 'Remove named role',
+      create: 'Add role',
+      delete: 'Remove role',
       confirm: 'Confirm',
       success: 'Success'
     },

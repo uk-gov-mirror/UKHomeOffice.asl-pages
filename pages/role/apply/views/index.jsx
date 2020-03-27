@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, Snippet, FormLayout, Fieldset, Inset, Header } from '@asl/components';
+import OpenTasks from '../../component/open-tasks';
 
 const connectComponent = key => {
   const mapStateToProps = ({ model, static: { schema } }) => {
@@ -27,11 +28,24 @@ const formatters = {
   }
 };
 
-const Page = () => {
+const Page = ({ addRoleTasks, schema }) => {
+  if (schema.type.options.length === 0) {
+    return (
+      <Fragment>
+        <Header title={<Snippet>title</Snippet>}/>
+        <OpenTasks roleTasks={addRoleTasks} />
+        <p>
+          <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} className="govuk-button" />
+        </p>
+      </Fragment>
+    );
+  }
+
   return (
     <Fragment>
       <FormLayout formatters={formatters}>
         <Header title={<Snippet>title</Snippet>}/>
+        <OpenTasks roleTasks={addRoleTasks} />
       </FormLayout>
 
       <p>
@@ -41,4 +55,5 @@ const Page = () => {
   );
 };
 
-export default Page;
+const mapStateToProps = ({ static: { addRoleTasks, schema } }) => ({ addRoleTasks, schema });
+export default connect(mapStateToProps)(Page);

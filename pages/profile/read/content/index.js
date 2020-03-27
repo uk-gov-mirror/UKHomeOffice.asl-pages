@@ -4,9 +4,9 @@ const baseContent = require('../../content');
 module.exports = merge({}, baseContent, {
   profile: 'Profile',
   responsibilities: {
-    title: 'Named roles',
+    title: 'Roles at this establishment',
     noRoles: 'None',
-    roleApply: 'Assign named role',
+    roleApply: 'Add role',
     roleRemove: 'Remove role'
   },
   projects: {
@@ -30,7 +30,7 @@ module.exports = merge({}, baseContent, {
     continue: 'Continue',
     pplApply: 'Apply for project licence',
     pilApply: 'Apply for personal licence',
-    roleApply: 'Assign named role',
+    roleApply: 'Add role',
     pilView: 'View application',
     convertExisting: 'Convert existing project'
   },
