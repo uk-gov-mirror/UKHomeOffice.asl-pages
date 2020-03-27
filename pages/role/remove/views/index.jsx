@@ -4,7 +4,7 @@ import { Link, Snippet, FormLayout, Header } from '@asl/components';
 import OpenTasks from '../../component/open-tasks';
 
 const Page = ({ removeRoleTasks, schema }) => {
-  if (schema.type.options < 1) {
+  if (schema.type.options.length === 0) {
     return (
       <Fragment>
         <Header title={<Snippet>title</Snippet>}/>

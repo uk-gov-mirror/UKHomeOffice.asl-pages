@@ -29,7 +29,7 @@ const formatters = {
 };
 
 const Page = ({ addRoleTasks, schema }) => {
-  if (schema.type.options < 1) {
+  if (schema.type.options.length === 0) {
     return (
       <Fragment>
         <Header title={<Snippet>title</Snippet>}/>
