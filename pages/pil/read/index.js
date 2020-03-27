@@ -50,7 +50,7 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use((req, res, next) => {
+  app.get('/', (req, res, next) => {
     res.locals.static.pil = req.model;
     res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;

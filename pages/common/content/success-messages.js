@@ -430,7 +430,7 @@ module.exports = {
       // TODO: content
       'discarded-by-applicant': {
         title: 'Review request discarded',
-        body: 'You will need to create a new transfer request if you want to submit these changes again.'
+        body: 'You will need to create a new review request if you want to submit these changes again.'
       }
     }
   },
