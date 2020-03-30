@@ -25,6 +25,7 @@ module.exports = {
       },
       revoke: 'Revoke personal licence'
     },
+    pils: 'Personal licences',
     place: {
       list: 'Approved areas',
       create: 'Create approved area',
@@ -125,6 +126,7 @@ module.exports = {
       categoryAToF: 'Categories A,B,C,D and F',
       categoryE: 'Category E'
     },
+    pils: 'Personal licences',
     edit: 'Edit'
   },
   licenceNumber: 'Licence number',

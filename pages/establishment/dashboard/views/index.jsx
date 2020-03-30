@@ -14,6 +14,7 @@ const links = [
   { page: 'establishment.read', permissions: 'establishment.read' },
   { page: 'place.list', permissions: 'place.list' },
   { page: 'profile.list', permissions: 'profile.read.basic' },
+  { page: 'pils', permissions: 'pil.list' },
   { page: 'project.list', permissions: 'project.read.basic' },
   { page: 'establishment.fees.overview', permissions: 'establishment.licenceFees' }
 ];

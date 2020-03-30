@@ -7,6 +7,7 @@ module.exports = {
   project: require('./project'),
   projectVersion: require('./project-version'),
   pil: require('./pil'),
+  pils: require('./pil/list'),
   task: require('./task'),
   user: require('./user')
 };
