@@ -1,4 +1,5 @@
 const namedRoles = require('../../content/named-roles');
+const hintText = require('../../content/hint-text');
 
 module.exports = roles => {
   roles = Object.keys(namedRoles).filter(r => !roles.includes(r));
@@ -7,6 +8,7 @@ module.exports = roles => {
     return {
       value: role,
       label: namedRoles[role],
+      hint: hintText[role],
       reveal: role === 'nvs'
         ? { rcvsNumber: { inputType: 'inputText' } }
         : null
