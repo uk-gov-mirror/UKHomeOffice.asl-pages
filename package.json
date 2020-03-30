@@ -27,8 +27,8 @@
   "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
     "@asl/components": "^7.2.0",
-    "@asl/constants": "^0.3.2",
-    "@asl/dictionary": "^1.1.4",
+    "@asl/constants": "^0.6.2",
+    "@asl/dictionary": "^1.1.5",
     "@asl/projects": "^6.1.0",
     "@asl/service": "^7.18.0",
     "@joefitter/docx": "^4.7.0",
