@@ -2,6 +2,9 @@ const profile = require('../../../user/update/content');
 const { merge } = require('lodash');
 
 module.exports = merge({}, profile, {
+  title: {
+    amendment: 'Review amendment'
+  },
   'sticky-nav': {
     changes: 'Amendment requested',
     comments: 'Why are you making this amendment?'
