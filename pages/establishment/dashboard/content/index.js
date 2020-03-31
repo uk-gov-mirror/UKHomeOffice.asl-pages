@@ -15,6 +15,9 @@ module.exports = {
         subtitle: 'Named people, licence holders, and the Home Office Liaison Contact.'
       }
     },
+    pils: {
+      subtitle: 'All personal licences held at this establishment.'
+    },
     place: {
       list: {
         subtitle: 'Approved areas in this establishment where animals may be used.'
