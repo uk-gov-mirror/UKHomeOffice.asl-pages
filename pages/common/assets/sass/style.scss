@@ -321,7 +321,7 @@ details {
   background-color: $blue;
 }
 
-.tab-content {
+.table-wrapper {
   position: relative;
   @include govuk-media-query($from: tablet) {
     .download {
