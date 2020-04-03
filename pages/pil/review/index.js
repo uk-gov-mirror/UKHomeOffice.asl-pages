@@ -30,6 +30,11 @@ module.exports = () => {
       .catch(next);
   });
 
+  app.use((req, res, next) => {
+    req.model.id = `${req.pil.id}-review`;
+    next();
+  });
+
   app.use(form({ schema }));
 
   app.post('/', (req, res, next) => {
