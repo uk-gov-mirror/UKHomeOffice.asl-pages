@@ -7,7 +7,9 @@ module.exports = merge({}, profile, {
   },
   'sticky-nav': {
     changes: 'Amendment requested',
-    comments: 'Why are you making this amendment?'
+    comments: {
+      amendment: 'Why are you making this amendment?'
+    }
   },
   'no-comments': 'No reason provided'
 });
