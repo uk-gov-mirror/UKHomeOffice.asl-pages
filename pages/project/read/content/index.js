@@ -101,5 +101,10 @@ module.exports = merge({}, baseContent, {
   revoke: {
     title: 'Revoke licence',
     description: 'Cancel this licence if it is no longer needed.'
+  },
+  manageAccess: {
+    title: 'Guest access',
+    content: 'Allow colleagues to view this project. Administrative staff will have access by default.',
+    action: 'Grant access'
   }
 });

@@ -4,6 +4,8 @@ const read = require('./read');
 const updateLicenceHolder = require('./update-licence-holder');
 const remove = require('./delete');
 const revoke = require('./revoke');
+const addUser = require('./add-user');
+const removeUser = require('./remove-user');
 
 module.exports = {
   list: {
@@ -19,6 +21,16 @@ module.exports = {
     path: '/:projectId',
     permissions: 'project.read.single',
     router: read
+  },
+  addUser: {
+    path: '/:projectId/add-user',
+    permissions: 'project.update',
+    router: addUser
+  },
+  removeUser: {
+    path: '/:projectId/remove-user',
+    permissions: 'project.update',
+    router: removeUser
   },
   updateLicenceHolder: {
     path: '/:projectId/update-licence-holder',

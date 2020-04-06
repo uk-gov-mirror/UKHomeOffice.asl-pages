@@ -52,7 +52,8 @@ module.exports = {
       updateLicenceHolder: 'Update licence holder',
       upload: 'Upload draft application',
       revoke: 'Revoke licence',
-      import: 'Import project'
+      import: 'Import project',
+      addUser: 'Give access to this PPL'
     },
     projectVersion: {
       read: 'View',

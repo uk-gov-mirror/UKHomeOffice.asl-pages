@@ -6,6 +6,8 @@ import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import formatters from '../../formatters';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
+import Section from './components/section';
+import ManageAccess from './components/manage-access';
 
 const getProjectDuration = model => formatters.duration.format(model.granted);
 
@@ -16,21 +18,6 @@ const confirmSubmission = message => e => {
     e.target.submit();
   }
 };
-
-function Section({
-  title,
-  content,
-  children
-}) {
-  return (
-    <Fragment>
-      <hr />
-      <h2>{ title }</h2>
-      <p>{ content }</p>
-      { children }
-    </Fragment>
-  );
-}
 
 function CurrentVersion({ model }) {
   if (model.status === 'transferred') {
@@ -491,6 +478,7 @@ export default function ProjectLandingPage() {
       <Actions model={model} />
       <PreviousVersions model={model} />
       <RevokeLicence model={model} />
+      <ManageAccess model={model} />
     </Fragment>
   );
 }
