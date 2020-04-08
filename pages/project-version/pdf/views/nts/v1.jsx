@@ -1,21 +1,13 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { uniq, concat, flatten, values } from 'lodash';
-import RAContent from '@asl/projects/client/constants/retrospective-assessment';
-import raApplies from '@asl/projects/client/helpers/retrospective-assessment';
+import { concat, flatten, values } from 'lodash';
 import RichText from '@asl/projects/client/components/editor';
 import ReviewField from '@asl/projects/client/components/review-field';
 import schemaV1 from '@asl/projects/client/schema/v1';
 import { projectSpecies as SPECIES } from '@asl/constants';
-
-const renderDuration = duration => {
-  if (!duration) {
-    return;
-  }
-  let yearsLabel = duration.years === 1 ? 'Year' : 'Years';
-  let monthsLabel = duration.months === 1 ? 'Month' : 'Months';
-  return `${duration.years} ${yearsLabel} ${duration.months} ${monthsLabel}`;
-};
+import Duration from './components/duration';
+import SpeciesTable from './components/species-table';
+import RetrospectiveAssessment from './components/retrospective-assessment';
 
 const getPermissiblePurposeOptions = () => {
   return schemaV1().introduction.subsections.introduction.fields.find(field => field.name === 'permissible-purpose').options;
@@ -23,53 +15,6 @@ const getPermissiblePurposeOptions = () => {
 
 const getFateOfAnimalsOptions = () => {
   return schemaV1().protocols.subsections['fate-of-animals'].fields.find(field => field.name === 'fate-of-animals').options;
-};
-
-const renderRetrospectiveAssessment = project => {
-  return raApplies(project) ? RAContent.required : RAContent.notRequired;
-};
-
-const groupSpeciesDetails = version => {
-  return (version.protocols || []).reduce((species, protocol) => {
-    if (protocol && protocol.speciesDetails && protocol.speciesDetails.length > 0) {
-      protocol.speciesDetails.map(details => {
-        const existingSpecies = species.find(s => s.value === details.value);
-
-        if (existingSpecies) {
-          existingSpecies.maximumAnimals += parseInt(details['maximum-animals'], 10);
-          existingSpecies.lifeStages = uniq(concat(existingSpecies.lifeStages, details['life-stages']));
-        } else {
-          species.push({
-            value: details.value,
-            name: details.name,
-            lifeStages: details['life-stages'],
-            maximumAnimals: parseInt(details['maximum-animals'], 10)
-          });
-        }
-      });
-    }
-    return species;
-  }, []);
-};
-
-const renderSpeciesTable = version => {
-  const speciesDetails = groupSpeciesDetails(version);
-  return (
-    <table className="animal-types">
-      <tr>
-        <th>Animal types</th>
-        <th>Life stages</th>
-      </tr>
-      {
-        speciesDetails.map(species => (
-          <tr key={species.value}>
-            <td>{species.name}</td>
-            <td>{species.lifeStages.join(', ')}</td>
-          </tr>
-        ))
-      }
-    </table>
-  );
 };
 
 const speciesLabels = flatten(values(SPECIES));
@@ -81,7 +26,7 @@ const getSpeciesLabel = speciesKey => {
 
 const getSpeciesCount = (speciesKey, version) => version[`reduction-quantities-${speciesKey}`] || 'No answer provided';
 
-const renderSpecies = version => {
+function SpeciesCount({ version }) {
   const speciesUsed = concat([], version.species, version['species-other']).filter(Boolean);
 
   if (speciesUsed.length < 1) {
@@ -99,7 +44,7 @@ const renderSpecies = version => {
       }
     </ul>
   );
-};
+}
 
 export default function SchemaV1() {
   const project = useSelector(state => state.application.project);
@@ -112,7 +57,7 @@ export default function SchemaV1() {
       <h1 className="project-title">{version.title}</h1>
 
       <h3>Project duration</h3>
-      <p>{ renderDuration(version.duration) }</p>
+      <Duration version={version} />
 
       <h3>Project purpose</h3>
       <ReviewField
@@ -125,10 +70,10 @@ export default function SchemaV1() {
       <h3>Key words</h3>
       <p>No answer provided.</p>
 
-      { renderSpeciesTable(version) }
+      <SpeciesTable version={version} />
 
       <h2>Retrospective asessment</h2>
-      <p>{ renderRetrospectiveAssessment(project) }</p>
+      <RetrospectiveAssessment project={project} />
 
       <h2>Objectives and benefits</h2>
       <h3>Description of the project’s objectives, for example the scientific unknowns or clinical or scientific needs it’s addressing.</h3>
@@ -158,7 +103,7 @@ export default function SchemaV1() {
       <RichText value={version['benefit-maximise-outputs']} readOnly={true} />
 
       <h3>Species and numbers of animals expected to be used</h3>
-      <p>{ renderSpecies(version) }</p>
+      <SpeciesCount version={version} />
 
       <h2>Predicted harms</h2>
       <h3>
