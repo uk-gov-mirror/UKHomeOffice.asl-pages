@@ -45,9 +45,16 @@ const ProjectDownloads = () => {
           }
 
           <h3><Snippet>application.heading</Snippet></h3>
-          <p><Link page="projectVersion.docx" label={<Snippet>application.link</Snippet>} /></p>
-          <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
 
+          <div>
+            <p><Link page="projectVersion.docx" label={<Snippet>application.link</Snippet>} /></p>
+            <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
+          </div>
+
+          <div>
+            <p><Link page="projectVersion.ntsPdf" label={<Snippet>nts.link</Snippet>} /></p>
+            <p className="govuk-hint"><Snippet>nts.hint</Snippet></p>
+          </div>
         </div>
       </div>
 

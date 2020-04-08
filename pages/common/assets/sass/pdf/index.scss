@@ -334,12 +334,7 @@ section.authorisations {
 
 section.approved-areas {
   table {
-    width: 100%;
-    border-collapse: collapse;
-
     th {
-      text-align: left;
-      font-weight: bold;
       background-color: $light-grey;
       padding: 10px;
       border: 1px solid $mid-grey;

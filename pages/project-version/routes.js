@@ -23,6 +23,10 @@ module.exports = {
     path: '/pdf',
     router: pdf
   },
+  ntsPdf: {
+    path: '/pdf/nts',
+    router: pdf
+  },
   docx: {
     path: '/docx',
     router: docx

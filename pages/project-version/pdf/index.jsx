@@ -5,7 +5,8 @@ import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
 import createStore from '@asl/projects/client/store';
 import { getProjectEstablishment } from '../middleware';
-import App from './views';
+import Licence from './views';
+import NTS from './views/nts';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
 import content from '../../common/content';
@@ -15,7 +16,7 @@ module.exports = settings => {
 
   app.use(getProjectEstablishment());
 
-  app.get('/', (req, res, next) => {
+  const setupPdf = (req, res, next) => {
     const initialState = {
       project: req.version.data || { title: 'Untitled project' },
       application: {
@@ -31,23 +32,30 @@ module.exports = settings => {
         isPdf: true
       }
     };
-    const store = createStore(initialState);
-    const html = renderToStaticMarkup(<App store={store} nonce={res.locals.static.nonce} />);
-    const header = renderToStaticMarkup(<Header store={store} model={req.project} licenceType="ppl" nonce={res.locals.static.nonce} version={req.version} />);
-    const footer = renderToStaticMarkup(<Footer />);
 
-    const hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
+    req.pdf = {};
 
+    req.pdf.store = createStore(initialState);
+    req.pdf.nonce = res.locals.static.nonce;
+
+    req.pdf.header = renderToStaticMarkup(<Header store={req.pdf.store} model={req.project} licenceType="ppl" nonce={req.pdf.nonce} version={req.version} />);
+    req.pdf.footer = renderToStaticMarkup(<Footer />);
+    req.pdf.hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
+
+    next();
+  };
+
+  const convertToPdf = (req, res, next) => {
     const params = {
       method: 'POST',
       json: {
-        template: html,
+        template: req.pdf.body,
         pdfOptions: {
           displayHeaderFooter: true,
-          headerTemplate: header,
-          footerTemplate: footer,
+          headerTemplate: req.pdf.header,
+          footerTemplate: req.pdf.footer,
           margin: {
-            top: hasStatusBanner ? 180 : 100,
+            top: req.pdf.hasStatusBanner ? 180 : 100,
             left: 25,
             right: 25,
             bottom: 125
@@ -56,7 +64,7 @@ module.exports = settings => {
       }
     };
 
-    fetch(`${settings.pdfService}/convert`, params)
+    return fetch(`${settings.pdfService}/convert`, params)
       .response
       .then(response => {
         if (response.status < 300) {
@@ -68,7 +76,29 @@ module.exports = settings => {
         }
       })
       .catch(next);
-  });
+  };
+
+  const renderLicence = (req, res, next) => {
+    req.pdf.body = renderToStaticMarkup(<Licence store={req.pdf.store} nonce={req.pdf.nonce} />);
+    next();
+  };
+
+  const renderNts = (req, res, next) => {
+    req.pdf.body = renderToStaticMarkup(<NTS store={req.pdf.store} nonce={req.pdf.nonce} schemaVersion={req.project.schemaVersion} />);
+    next();
+  };
+
+  app.get('/',
+    setupPdf,
+    renderLicence,
+    convertToPdf
+  );
+
+  app.get('/nts',
+    setupPdf,
+    renderNts,
+    convertToPdf
+  );
 
   return app;
 };

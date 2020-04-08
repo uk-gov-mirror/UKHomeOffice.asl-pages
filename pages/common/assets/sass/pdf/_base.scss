@@ -23,6 +23,10 @@ h2 {
 }
 
 h3 {
+  font-size: 19px;
+}
+
+h4 {
   font-size: 15px;
 }
 
@@ -54,4 +58,28 @@ body {
   text-rendering: optimizeLegibility;
   line-height: 1.2;
   color: $text;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding: 10px 0;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px 0;
+    text-align: left;
+  }
+
+  tr:last-of-type {
+    td {
+      border-bottom: none;
+    }
+  }
 }

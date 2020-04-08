@@ -35,5 +35,9 @@ module.exports = {
     heading: 'Application',
     link: 'Full application (.docx)',
     hint: 'Download the full application, including background information and justification not detailed in the licence.'
+  },
+  nts: {
+    link: 'Non-technical summary (.pdf)',
+    hint: 'Download the project\'s non-technical summary.'
   }
 };
