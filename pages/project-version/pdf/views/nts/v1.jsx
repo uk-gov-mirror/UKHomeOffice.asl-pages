@@ -131,7 +131,7 @@ export default function SchemaV1() {
       <p>{ renderRetrospectiveAssessment(project) }</p>
 
       <h2>Objectives and benefits</h2>
-      <h3>Description of the project’s objectives, for example the scientific unknowns or clinical or scientific needs it&apos;s addressing.</h3>
+      <h3>Description of the project’s objectives, for example the scientific unknowns or clinical or scientific needs it’s addressing.</h3>
 
       <h4>What is the aim of this project?</h4>
       <RichText value={version['project-aim']} readOnly={true} />
@@ -245,7 +245,7 @@ export default function SchemaV1() {
       <RichText value={version['refinement-models']} readOnly={true} />
 
       <h4>
-        Why can&apos;t you use a less sentient animal, (for example at an immature stage, a less sentient species or using
+        Why can’t you use a less sentient animal, (for example at an immature stage, a less sentient species or using
         terminally anaesthetised animals)?
       </h4>
       <RichText value={version['refinement-less-sentient']} readOnly={true} />
