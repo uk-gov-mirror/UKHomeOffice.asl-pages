@@ -9,9 +9,7 @@ function RemoveUser({ id }) {
 
   function submitForm(e) {
     e.preventDefault();
-    if (window.confirm('Are you sure you want to remove this collaborator?')) {
-      formRef.current.submit();
-    }
+    formRef.current.submit();
   }
 
   return (

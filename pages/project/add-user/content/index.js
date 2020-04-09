@@ -10,6 +10,6 @@ module.exports = merge({}, baseContent, {
     }
   },
   notifications: {
-    success: 'Access granted. The user has been notified.'
+    success: 'Access granted. Your colleague has been notified.'
   }
 });
