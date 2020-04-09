@@ -1,8 +1,9 @@
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import fetch from 'r2';
 import { get } from 'lodash';
+import filenamify from 'filenamify';
 import { Router } from 'express';
-import { renderToStaticMarkup } from 'react-dom/server';
 import createStore from '@asl/projects/client/store';
 import { getProjectEstablishment } from '../middleware';
 import Licence from './views';
@@ -68,8 +69,8 @@ module.exports = settings => {
       .response
       .then(response => {
         if (response.status < 300) {
-          const title = get(req.version, 'data.title') || 'Untitled project';
-          res.attachment(`${title}.pdf`);
+          const filename = filenamify(req.pdf.filename || get(req.version, 'data.title') || 'Untitled project');
+          res.attachment(`${filename}.pdf`);
           response.body.pipe(res);
         } else {
           throw new Error(`Error generating PDF - generator responded ${response.status}`);
@@ -85,6 +86,7 @@ module.exports = settings => {
 
   const renderNts = (req, res, next) => {
     req.pdf.body = renderToStaticMarkup(<NTS store={req.pdf.store} nonce={req.pdf.nonce} schemaVersion={req.project.schemaVersion} />);
+    req.pdf.filename = `${get(req.version, 'data.title')} NTS`;
     next();
   };
 
