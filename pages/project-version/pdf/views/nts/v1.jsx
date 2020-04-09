@@ -90,7 +90,7 @@ export default function SchemaV1() {
       <h4>Why is it important to undertake this work?</h4>
       <RichText value={version['project-importance']} readOnly={true} />
 
-      <h3>What outputs do you think you will see at the end of this project?</h3>
+      <h4>What outputs do you think you will see at the end of this project?</h4>
       <RichText value={version['benefit-outputs']} readOnly={true} />
 
       <h4>
