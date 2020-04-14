@@ -5,7 +5,7 @@ import { Link, Snippet } from '@asl/components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 
 const ProjectDownloads = () => {
-  const { project, version, basename } = useSelector(state => state.static);
+  const { project, version, basename, isAsru } = useSelector(state => state.static);
 
   const thisVersionIsGranted = project.granted && project.granted.id === version.id;
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
@@ -47,6 +47,14 @@ const ProjectDownloads = () => {
           <h3><Snippet>application.heading</Snippet></h3>
           <p><Link page="projectVersion.docx" label={<Snippet>application.link</Snippet>} /></p>
           <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
+
+          {
+            isAsru &&
+              <Fragment>
+                <p><Link page="projectVersion.ntsPdf" label={<Snippet>nts.link</Snippet>} /></p>
+                <p className="govuk-hint"><Snippet>nts.hint</Snippet></p>
+              </Fragment>
+          }
 
         </div>
       </div>
