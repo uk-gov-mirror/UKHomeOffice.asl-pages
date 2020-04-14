@@ -1,4 +1,5 @@
 const { stringify } = require('qs');
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const getSchema = require('./schema');
@@ -42,7 +43,9 @@ module.exports = () => {
     const id = req.model.id;
     delete req.session.form[id];
 
-    req.notification({ key: 'success' });
+    const name = get(req.form, 'schema.profile.options', []).find(p => p.value === req.form.values.profile).label;
+
+    req.notification({ key: 'success', name });
     res.redirect(req.buildRoute('project.addUser'));
   });
 
