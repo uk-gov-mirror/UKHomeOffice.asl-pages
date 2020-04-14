@@ -6,7 +6,7 @@ import Collaborators from '../../components/collaborators';
 export default function AddUser() {
   const project = useSelector(state => state.static.project);
   return (
-    <FormLayout>
+    <FormLayout cancelLink="project.read">
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={project.title}
