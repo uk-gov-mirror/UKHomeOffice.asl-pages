@@ -1,21 +1,15 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Snippet } from '@asl/components';
 
 function RemoveUser({ id }) {
   const removeUserUrl = useSelector(state => state.static.removeUserUrl);
   const url = useSelector(state => state.static.url);
-  const formRef = useRef(null);
-
-  function submitForm(e) {
-    e.preventDefault();
-    formRef.current.submit();
-  }
 
   return (
-    <form action={`${removeUserUrl}?referrer=${url}`} method="post" ref={formRef}>
+    <form action={`${removeUserUrl}?referrer=${url}`} method="post">
       <input type="hidden" name="profileId" value={id} />
-      <a href="#" onClick={submitForm}><Snippet>collaborators.action</Snippet></a>
+      <button className="link"><Snippet>collaborators.action</Snippet></button>
     </form>
   );
 }
