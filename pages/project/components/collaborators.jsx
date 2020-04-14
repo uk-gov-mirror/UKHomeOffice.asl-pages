@@ -2,13 +2,14 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Snippet } from '@asl/components';
 
-function RemoveUser({ id }) {
+function RemoveUser({ id, name }) {
   const removeUserUrl = useSelector(state => state.static.removeUserUrl);
   const url = useSelector(state => state.static.url);
 
   return (
     <form action={`${removeUserUrl}?referrer=${url}`} method="post">
       <input type="hidden" name="profileId" value={id} />
+      <input type="hidden" name="profileName" value={name} />
       <button className="link"><Snippet>collaborators.action</Snippet></button>
     </form>
   );
@@ -34,13 +35,16 @@ export default function Collaborators() {
         </thead>
         <tbody>
           {
-            collaborators.map(profile => (
-              <tr key={profile.id}>
-                <td>{`${profile.firstName} ${profile.lastName}`}</td>
-                <td>{profile.email}</td>
-                <td className="actions"><RemoveUser id={profile.id} /></td>
-              </tr>
-            ))
+            collaborators.map(profile => {
+              const name = `${profile.firstName} ${profile.lastName}`;
+              return (
+                <tr key={profile.id}>
+                  <td>{name}</td>
+                  <td>{profile.email}</td>
+                  <td className="actions"><RemoveUser id={profile.id} name={name} /></td>
+                </tr>
+              );
+            })
           }
         </tbody>
       </table>

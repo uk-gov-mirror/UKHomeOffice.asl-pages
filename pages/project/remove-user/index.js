@@ -22,7 +22,7 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     res.locals.static.content = merge(res.locals.static.content, content);
-    req.notification({ key: 'success' });
+    req.notification({ key: 'success', name: req.body.profileName });
     res.redirect(req.query.referrer);
   });
 
