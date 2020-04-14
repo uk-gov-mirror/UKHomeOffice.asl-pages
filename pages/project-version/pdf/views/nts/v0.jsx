@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import ReviewField from '@asl/projects/client/components/review-field';
 import RichText from '@asl/projects/client/components/editor';
 import schemaV0 from '@asl/projects/client/schema/v0';
-import Duration from './components/duration';
 
 const getPurposeOptions = () => {
   return schemaV0().programmeOfWork.subsections.purpose.fields.find(field => field.name === 'purpose').options;
@@ -20,7 +19,10 @@ export default function SchemaV0() {
       <h1 className="project-title">{project.title}</h1>
 
       <h3>Project duration</h3>
-      <Duration version={version} />
+      <ReviewField
+        type="duration"
+        value={version['duration']}
+      />
 
       <h3>Project purpose</h3>
       <ReviewField

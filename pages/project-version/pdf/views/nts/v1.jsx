@@ -5,7 +5,6 @@ import RichText from '@asl/projects/client/components/editor';
 import ReviewField from '@asl/projects/client/components/review-field';
 import schemaV1 from '@asl/projects/client/schema/v1';
 import { projectSpecies as SPECIES } from '@asl/constants';
-import Duration from './components/duration';
 import SpeciesTable from './components/species-table';
 import RetrospectiveAssessment from './components/retrospective-assessment';
 
@@ -57,7 +56,10 @@ export default function SchemaV1() {
       <h1 className="project-title">{version.title}</h1>
 
       <h3>Project duration</h3>
-      <Duration version={version} />
+      <ReviewField
+        type="duration"
+        value={version['duration']}
+      />
 
       <h3>Project purpose</h3>
       <ReviewField
