@@ -63,5 +63,14 @@ module.exports = {
     transferred: 'Transferred',
     expired: 'Expired',
     revoked: 'Revoked'
+  },
+  collaborators: {
+    title: 'Colleagues granted access',
+    fields: {
+      name: 'Name',
+      email: 'Email',
+      action: ''
+    },
+    action: 'Remove access'
   }
 };
