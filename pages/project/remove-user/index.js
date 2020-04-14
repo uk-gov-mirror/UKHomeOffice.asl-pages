@@ -6,6 +6,13 @@ const content = require('./content');
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
+  app.get('/', (req, res) => {
+    if (req.query.referrer) {
+      return res.redirect(req.query.referrer);
+    }
+    res.redirect(req.buildRoute('project.read'));
+  });
+
   app.post('/', bodyParser.urlencoded({ extended: true }), (req, res, next) => {
     const { profileId } = req.body;
     req.api(`/establishment/${req.establishmentId}/project/${req.project.id}/collaborators/${profileId}`, { method: 'DELETE' })
