@@ -1,5 +1,5 @@
 module.exports = {
   notifications: {
-    success: 'Access removed.'
+    success: '{{name}} has been removed from this project.'
   }
 };
