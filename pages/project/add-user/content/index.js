@@ -11,5 +11,10 @@ module.exports = merge({}, baseContent, {
   },
   notifications: {
     success: 'Access granted. {{name}} has been notified.'
+  },
+  errors: {
+    profile: {
+      required: 'Select a user.'
+    }
   }
 });
