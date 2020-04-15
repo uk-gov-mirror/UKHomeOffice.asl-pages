@@ -1,4 +1,4 @@
-import fetch from 'r2';
+const fetch = require('r2');
 
 module.exports = settings => ({ body, header, footer, hasStatusBanner }) => {
 
