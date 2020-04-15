@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStore } from 'redux';
-import fetch from 'r2';
 import { Router } from 'express';
 import { renderToStaticMarkup } from 'react-dom/server';
 import groupBy from 'lodash/groupBy';
@@ -8,6 +7,7 @@ import Body from './views';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
 import content from './content';
+import PDF from '../../common/helpers/pdf';
 
 const namedPeople = establishment => {
   const profiles = {};
@@ -23,6 +23,7 @@ const stateReducer = (state = {}) => state;
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
+  const pdf = PDF(settings);
 
   app.get('/', (req, res, next) => {
     const establishment = {
@@ -43,39 +44,16 @@ module.exports = settings => {
       })
       .then(() => {
         const store = createStore(stateReducer, initialState);
-        const html = renderToStaticMarkup(<Body establishment={establishment} nonce={res.locals.static.nonce} content={content} />);
+        const body = renderToStaticMarkup(<Body establishment={establishment} nonce={res.locals.static.nonce} content={content} />);
         const header = renderToStaticMarkup(<Header store={store} model={establishment} licenceType="pel" nonce={res.locals.static.nonce} />);
         const footer = renderToStaticMarkup(<Footer />);
 
         const hasStatusBanner = establishment.status !== 'active';
 
-        const params = {
-          method: 'POST',
-          json: {
-            template: html,
-            pdfOptions: {
-              displayHeaderFooter: true,
-              headerTemplate: header,
-              footerTemplate: footer,
-              margin: {
-                top: hasStatusBanner ? 180 : 100,
-                left: 25,
-                right: 25,
-                bottom: 125
-              }
-            }
-          }
-        };
-
-        fetch(`${settings.pdfService}/convert`, params)
-          .response
+        pdf({ body, header, footer, hasStatusBanner })
           .then(response => {
-            if (response.status < 300) {
-              res.attachment(`${establishment.name}.pdf`);
-              response.body.pipe(res);
-            } else {
-              throw new Error(`Error generating PDF - generator responded ${response.status}`);
-            }
+            res.attachment(`${establishment.name}.pdf`);
+            response.body.pipe(res);
           })
           .catch(next);
       })

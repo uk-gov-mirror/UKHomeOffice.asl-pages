@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import fetch from 'r2';
 import { get } from 'lodash';
 import filenamify from 'filenamify';
 import { Router } from 'express';
@@ -11,9 +10,11 @@ import NTS from './views/nts';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
 import content from '../../common/content';
+import PDF from '../../common/helpers/pdf';
 
 module.exports = settings => {
   const app = Router();
+  const pdf = PDF(settings);
 
   app.use(getProjectEstablishment());
 
@@ -47,34 +48,11 @@ module.exports = settings => {
   };
 
   const convertToPdf = (req, res, next) => {
-    const params = {
-      method: 'POST',
-      json: {
-        template: req.pdf.body,
-        pdfOptions: {
-          displayHeaderFooter: true,
-          headerTemplate: req.pdf.header,
-          footerTemplate: req.pdf.footer,
-          margin: {
-            top: req.pdf.hasStatusBanner ? 180 : 100,
-            left: 25,
-            right: 25,
-            bottom: 125
-          }
-        }
-      }
-    };
-
-    return fetch(`${settings.pdfService}/convert`, params)
-      .response
+    return pdf(res.pdf)
       .then(response => {
-        if (response.status < 300) {
-          const filename = filenamify(req.pdf.filename || get(req.version, 'data.title') || 'Untitled project');
-          res.attachment(`${filename}.pdf`);
-          response.body.pipe(res);
-        } else {
-          throw new Error(`Error generating PDF - generator responded ${response.status}`);
-        }
+        const filename = filenamify(req.pdf.filename || get(req.version, 'data.title') || 'Untitled project');
+        res.attachment(`${filename}.pdf`);
+        response.body.pipe(res);
       })
       .catch(next);
   };
