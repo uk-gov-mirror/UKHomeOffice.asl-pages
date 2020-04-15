@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStore } from 'redux';
 import { Router } from 'express';
+import filenamify from 'filenamify';
 import { renderToStaticMarkup } from 'react-dom/server';
 import groupBy from 'lodash/groupBy';
 import Body from './views';
@@ -52,7 +53,7 @@ module.exports = settings => {
 
         pdf({ body, header, footer, hasStatusBanner })
           .then(response => {
-            res.attachment(`${establishment.name}.pdf`);
+            res.attachment(`${filenamify(establishment.name)}.pdf`);
             response.body.pipe(res);
           })
           .catch(next);
