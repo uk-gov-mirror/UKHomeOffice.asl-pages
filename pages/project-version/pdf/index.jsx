@@ -48,7 +48,7 @@ module.exports = settings => {
   };
 
   const convertToPdf = (req, res, next) => {
-    return pdf(res.pdf)
+    return pdf(req.pdf)
       .then(response => {
         const filename = filenamify(req.pdf.filename || get(req.version, 'data.title') || 'Untitled project');
         res.attachment(`${filename}.pdf`);
