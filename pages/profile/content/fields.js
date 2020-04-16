@@ -50,7 +50,7 @@ module.exports = {
       },
       blocked: {
         label: 'Blocked',
-        hint: `* Cannot view own licences.
+        hint: `* Cannot view any licences.
                * Cannot view named people and Home Office liaison contacts (HOLCs).
                * Cannot view any other establishment details.`
       }
