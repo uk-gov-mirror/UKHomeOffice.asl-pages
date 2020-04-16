@@ -47,6 +47,12 @@ module.exports = {
                * Manage establishment details, approved areas and named roles.
                * View annual licence fee information.
                * Endorse project applications on behalf of applicants.`
+      },
+      blocked: {
+        label: 'Blocked',
+        hint: `* Cannot view own licences.
+               * Cannot view named people and Home Office liaison contacts (HOLCs).
+               * Cannot view any other establishment details.`
       }
     }
   },
