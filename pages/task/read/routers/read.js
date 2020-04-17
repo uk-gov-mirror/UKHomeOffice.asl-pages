@@ -10,6 +10,10 @@ const getContent = require('../content');
 const { getNacwoById, getEstablishment } = require('../../../common/helpers');
 const updateData = require('../middleware/update-data');
 
+const endorsingOwnPil = (task, profile) => {
+  return task.data.model === 'pil' && task.status === 'awaiting-endorsement' && profile.id === get(task, 'data.subject.id');
+};
+
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
@@ -166,6 +170,7 @@ module.exports = () => {
       res.locals.static.profile = req.profile;
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
+      res.locals.static.endorsingOwnPil = endorsingOwnPil(req.task, req.user.profile);
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
       res.locals.static.version = req.version;

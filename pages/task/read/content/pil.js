@@ -93,6 +93,11 @@ module.exports = {
       proposed: 'Proposed establishment'
     }
   },
+  warning: {
+    ntcoOwnPil: `You can’t endorse your own application for a personal licence.
+
+      A second NTCO is required to endorse your application.`
+  },
   errors: {
     permissions: `You do not currently have permission to view all people at this establishment. Please contact an
     establishment administrator to increase your permissions level.`

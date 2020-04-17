@@ -10,6 +10,7 @@ import {
   Inset,
   Link
 } from '@asl/components';
+import { Warning } from '@ukhomeoffice/react-components';
 import Establishment from './establishment';
 import PIL from './pil';
 import Place from './place';
@@ -51,6 +52,7 @@ const AsruDiscard = ({ task, showBorder }) => {
 
 export default function Model({ task, formFields, allowSubmit }) {
   const { schema, values } = useSelector(selector, shallowEqual);
+  const endorsingOwnPil = useSelector(state => state.static.endorsingOwnPil);
   const Model = models[task.data.model];
   const hasComments = task.data.meta && task.data.meta.comments;
 
@@ -81,6 +83,9 @@ export default function Model({ task, formFields, allowSubmit }) {
           <StickyNavAnchor id="status">
             <h2><Snippet>sticky-nav.status</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
+            {
+              endorsingOwnPil && <Warning><Snippet>warning.ntcoOwnPil</Snippet></Warning>
+            }
             { hasTaskOptions && formFields }
             {
               canBeDiscardedByAsru && <AsruDiscard task={task} showBorder={hasTaskOptions} />
