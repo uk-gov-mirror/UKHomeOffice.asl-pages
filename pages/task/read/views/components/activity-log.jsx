@@ -54,7 +54,13 @@ const ExtraProjectMeta = ({ item, task }) => {
 };
 
 const LogItem = ({ log, task }) => {
-  const { action, status } = log;
+  const isExtension = get(log, 'event.meta.payload.data.extended');
+  let { action, status } = log;
+
+  if (action === 'update' && isExtension) {
+    status = 'deadline-extended';
+    action = 'deadline-extended';
+  }
 
   return (
     <div className="log-item">

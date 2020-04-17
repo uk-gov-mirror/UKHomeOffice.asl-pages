@@ -3,11 +3,15 @@ module.exports = {
     state: 'Incomplete'
   },
   create: {
-    state: 'Case opened'
+    state: 'Task opened'
   },
   update: {
-    state: 'Case updated',
+    state: 'Task updated',
     log: 'Updated by'
+  },
+  'deadline-extended': {
+    state: 'Deadline extended',
+    log: 'Extended by'
   },
   'with-licensing': {
     state: 'Awaiting review',
