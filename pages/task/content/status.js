@@ -7,7 +7,7 @@ module.exports = {
   },
   update: {
     state: 'Case updated',
-    log: 'Case updated'
+    log: 'Updated by'
   },
   'with-licensing': {
     state: 'Awaiting review',
