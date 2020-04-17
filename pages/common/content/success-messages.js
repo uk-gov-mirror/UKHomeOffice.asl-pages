@@ -609,9 +609,9 @@ module.exports = {
     transfer: {
       'awaiting-endorsement': {
         title: 'Amendment submitted',
-        body: `Administrators at your current and proposed establishment will need to endorse your project licence transfer request. They will contact you if they need any more information otherwise it will be submitted to the Home Office.
+        body: `Both establishments will be asked to endorse the transfer before it can be approved.
 
-          The Home Office may contact you to discuss the timing of this transfer and any other details.`
+          You may be contacted by either establishment or the Home Office, for example to discuss timings or request further information.`
       },
       'with-inspectorate': {
         title: 'Amendment submitted',
@@ -628,15 +628,15 @@ module.exports = {
       endorsed: {
         'awaiting-endorsement': {
           title: 'Amendment endorsed',
-          body: `You've approved this amendment. If the other establishment also approves this request, it shall be passed onto the Home Office for approval.
+          body: `The other establishment needs to endorse the transfer, after which it will be sent to the Home Office for approval.
 
-            You will be notified by the Home Office when your changes are approved.`
+            You will be notified when the transfer has been approved.`
         },
         'with-inspectorate': {
           title: 'Amendment endorsed',
-          body: `An Inspector will review this amendment and will contact you if they need any more information.
+          body: `The Home Office will review the proposed transfer and contact you if they need more information.
 
-            You will be notified by the Home Office when your changes are approved.`
+            You will be notified when the transfer has been approved.`
         }
       },
       // TODO: content
@@ -646,11 +646,11 @@ module.exports = {
       },
       'inspector-recommended': {
         title: 'Recommendation made',
-        body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
+        body: 'A licensing officer has been sent your recommendation. They will contact you if they need more information.'
       },
       'inspector-rejected': {
         title: 'Recommendation made',
-        body: 'A Licensing Officer will review your recommendation and contact you if they need any more information.'
+        body: 'A licensing officer has been sent your recommendation. They will contact you if they need more information.'
       },
       'returned-to-applicant': {
         title: 'Amendment returned',
@@ -664,9 +664,9 @@ module.exports = {
       },
       resolved: {
         title: 'Amendment granted',
-        body: `The licence has been moved to a new establishment.
+        body: `The project has been transferred to the new establishment.
 
-          The previous primary establishment of this licence will no longer be able to view it.`
+          The establishment who previously held this licence will no longer be able to view it.`
       }
     },
     revocation: {
