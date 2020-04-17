@@ -187,6 +187,14 @@ module.exports = {
         title: 'Licence granted',
         body: 'The applicant now holds a personal licence that authorises them to carry out the procedures detailed in their application.'
       },
+      autoresolved: {
+        title: 'Licence granted',
+        body: 'The applicant now holds a personal licence that authorises them to carry out the procedures detailed in their application.'
+      },
+      'with-licensing': {
+        title: 'Application submitted',
+        body: 'A Licensing Officer will review your recommendation and will contact you if they need any more information.'
+      },
       rejected: {
         title: 'Application rejected',
         body: `**An applicant is not licensed to carry out any new or additional procedures mentioned in this application until it has been granted by the Home Office.**
