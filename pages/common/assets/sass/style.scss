@@ -359,3 +359,13 @@ details {
 .open-role-tasks {
   margin-bottom: $govuk-gutter * 2;
 }
+
+.sticky-nav-anchor {
+  .govuk-warning-text {
+    margin-bottom: 0;
+  }
+
+  .control-panel {
+    margin-top: 0;
+  }
+}
