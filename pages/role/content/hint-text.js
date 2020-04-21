@@ -5,6 +5,6 @@ module.exports = {
   nio: 'Responsible for providing information on species and procedures.',
   nvs: 'Responsible for advising on the health and treatment of animals.',
   sqp: 'Not a qualified vet, but they have the right experience and there are no vets who can fulfil the role.',
-  ntco: 'Responsible for overseeing the training and supervision of personal licence-holders. NTCOs can view everyone at the establishment.',
-  nprc: 'Only applicable if the licence-holder is a corporation.'
+  ntco: 'Responsible for overseeing the training and supervision of personal licence holders. NTCOs can view everyone at the establishment.',
+  nprc: 'Only applicable if the licence holder is a corporation.'
 };

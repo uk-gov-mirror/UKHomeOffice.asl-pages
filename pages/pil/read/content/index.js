@@ -34,7 +34,7 @@ module.exports = merge({}, baseContent, {
       },
       other: {
         summary: `## Amend or transfer licence
-          You can ask for this licence to be amended but only the licence-holder can transfer it.`,
+          You can ask for this licence to be amended but only the licence holder can transfer it.`,
         button: 'Amend licence'
       }
     }
