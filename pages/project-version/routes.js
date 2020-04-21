@@ -4,6 +4,7 @@ const downloads = require('./downloads');
 const pdf = require('./pdf');
 const docx = require('./docx');
 const convert = require('./convert');
+const ppl = require('./ppl');
 
 module.exports = {
   update: {
@@ -30,6 +31,10 @@ module.exports = {
   docx: {
     path: '/docx',
     router: docx
+  },
+  ppl: {
+    path: '/ppl',
+    router: ppl
   },
   read: {
     path: '/*',

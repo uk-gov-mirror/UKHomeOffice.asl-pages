@@ -36,6 +36,11 @@ module.exports = {
     link: 'Full application (.docx)',
     hint: 'Download the full application, including background information and justification not detailed in the licence.'
   },
+  template: {
+    heading: 'Template',
+    link: 'Template (.ppl)',
+    hint: 'Download a copy of the application data that can be used as a template for similar projects. The file can be uploaded to avoid creating new applications from scratch.'
+  },
   nts: {
     link: 'Non-technical summary (.pdf)',
     hint: 'Download the project\'s non-technical summary.'

@@ -48,6 +48,10 @@ const ProjectDownloads = () => {
           <p><Link page="projectVersion.docx" label={<Snippet>application.link</Snippet>} /></p>
           <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
 
+          <h3><Snippet>template.heading</Snippet></h3>
+          <p><Link page="projectVersion.ppl" label={<Snippet>template.link</Snippet>} /></p>
+          <p className="govuk-hint"><Snippet>template.hint</Snippet></p>
+
           {
             isAsru &&
               <Fragment>
