@@ -55,27 +55,35 @@ export default function SchemaV1() {
       <h3 className="licence">Non-technical Summary</h3>
       <h1 className="project-title">{version.title}</h1>
 
-      <h3>Project duration</h3>
-      <ReviewField
-        type="duration"
-        value={version['duration']}
-      />
+      <div className="q-and-a">
+        <h3>Project duration</h3>
+        <ReviewField
+          type="duration"
+          value={version['duration']}
+        />
+      </div>
 
-      <h3>Project purpose</h3>
-      <ReviewField
-        type="permissible-purpose"
-        value={version['permissible-purpose']}
-        project={version}
-        options={getPermissiblePurposeOptions()}
-      />
+      <div className="q-and-a">
+        <h3>Project purpose</h3>
+        <ReviewField
+          type="permissible-purpose"
+          value={version['permissible-purpose']}
+          project={version}
+          options={getPermissiblePurposeOptions()}
+        />
+      </div>
 
-      <h3>Key words</h3>
-      <p>No answer provided.</p>
+      <div className="q-and-a">
+        <h3>Key words</h3>
+        <p>No answer provided.</p>
+      </div>
 
       <SpeciesTable version={version} />
 
-      <h2>Retrospective asessment</h2>
-      <RetrospectiveAssessment project={project} />
+      <div className="q-and-a">
+        <h2>Retrospective asessment</h2>
+        <RetrospectiveAssessment project={project} />
+      </div>
 
       <h2>Objectives and benefits</h2>
       <h3>Description of the project’s objectives, for example the scientific unknowns or clinical or scientific needs it’s addressing.</h3>
@@ -89,23 +97,33 @@ export default function SchemaV1() {
         or long-term benefits that accrue after the project has finished.
       </h3>
 
-      <h4>Why is it important to undertake this work?</h4>
-      <RichText value={version['project-importance']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>Why is it important to undertake this work?</h4>
+        <RichText value={version['project-importance']} readOnly={true} />
+      </div>
 
-      <h4>What outputs do you think you will see at the end of this project?</h4>
-      <RichText value={version['benefit-outputs']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>What outputs do you think you will see at the end of this project?</h4>
+        <RichText value={version['benefit-outputs']} readOnly={true} />
+      </div>
 
-      <h4>
-        What will be the impact of this proposed work on humans / animals / the environment in the short-term (within the
-        duration of the project), in the medium-term and the long-term (which may accrue after the project is finished)?
-      </h4>
-      <RichText value={version['benefit-who']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>
+          What will be the impact of this proposed work on humans / animals / the environment in the short-term (within the
+          duration of the project), in the medium-term and the long-term (which may accrue after the project is finished)?
+        </h4>
+        <RichText value={version['benefit-who']} readOnly={true} />
+      </div>
 
-      <h4>How will you maximise the outputs of your work?</h4>
-      <RichText value={version['benefit-maximise-outputs']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>How will you maximise the outputs of your work?</h4>
+        <RichText value={version['benefit-maximise-outputs']} readOnly={true} />
+      </div>
 
-      <h3>Species and numbers of animals expected to be used</h3>
-      <SpeciesCount version={version} />
+      <div className="q-and-a">
+        <h3>Species and numbers of animals expected to be used</h3>
+        <SpeciesCount version={version} />
+      </div>
 
       <h2>Predicted harms</h2>
       <h3>
@@ -113,30 +131,38 @@ export default function SchemaV1() {
         experiment and number of procedures.
       </h3>
 
-      <h4>
-        Describe, in general terms, the procedures animals will undergo, eg injections, surgical procedures. Include the
-        typical number of procedures individual animals will undergo and the likely duration of suffering.
-      </h4>
-      <RichText value={version['project-harms-summary']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>
+          Describe, in general terms, the procedures animals will undergo, eg injections, surgical procedures. Include the
+          typical number of procedures individual animals will undergo and the likely duration of suffering.
+        </h4>
+        <RichText value={version['project-harms-summary']} readOnly={true} />
+      </div>
 
-      <h3>
-        Expected impacts or adverse effects on the animals - for example, pain, weight loss, inactivity or lameness,
-        stress, or abnormal behaviour - and how long those effects are expected to last.
-      </h3>
-      <RichText value={version['project-harms-effects']} readOnly={true} />
+      <div className="q-and-a">
+        <h3>
+          Expected impacts or adverse effects on the animals - for example, pain, weight loss, inactivity or lameness,
+          stress, or abnormal behaviour - and how long those effects are expected to last.
+        </h3>
+        <RichText value={version['project-harms-effects']} readOnly={true} />
+      </div>
 
       <h3>Expected severity categories and the proportion of animals in each category, per species.</h3>
 
-      <h4>What are the expected severities and the proportion of animals in each category (per species)?</h4>
-      <RichText value={version['project-harms-severity']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>What are the expected severities and the proportion of animals in each category (per species)?</h4>
+        <RichText value={version['project-harms-severity']} readOnly={true} />
+      </div>
 
-      <h4>What will happen to the animals at the end of the study?</h4>
-      <ReviewField
-        type="checkbox"
-        value={version['fate-of-animals']}
-        project={version}
-        options={getFateOfAnimalsOptions()}
-      />
+      <div className="q-and-a">
+        <h4>What will happen to the animals at the end of the study?</h4>
+        <ReviewField
+          type="checkbox"
+          value={version['fate-of-animals']}
+          project={version}
+          options={getFateOfAnimalsOptions()}
+        />
+      </div>
 
       <h2>Application of the three Rs</h2>
       <h3>1. Replacement</h3>
@@ -147,14 +173,20 @@ export default function SchemaV1() {
         </em>
       </p>
 
-      <h4>Why do you need to use animals to achieve the aim of your project?</h4>
-      <RichText value={version['replacement-why']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>Why do you need to use animals to achieve the aim of your project?</h4>
+        <RichText value={version['replacement-why']} readOnly={true} />
+      </div>
 
-      <h4>What was your strategy for searching for non-animal alternatives?</h4>
-      <RichText value={version['replacement-alternatives']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>What was your strategy for searching for non-animal alternatives?</h4>
+        <RichText value={version['replacement-alternatives']} readOnly={true} />
+      </div>
 
-      <h4>Why were they not suitable?</h4>
-      <RichText value={version['replacement-justification']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>Why were they not suitable?</h4>
+        <RichText value={version['replacement-justification']} readOnly={true} />
+      </div>
 
       <h3>2. Reduction</h3>
       <p>
@@ -166,14 +198,20 @@ export default function SchemaV1() {
         </em>
       </p>
 
-      <h4>How have you estimated the numbers of animals you will use?</h4>
-      <RichText value={version['reduction-estimation']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>How have you estimated the numbers of animals you will use?</h4>
+        <RichText value={version['reduction-estimation']} readOnly={true} />
+      </div>
 
-      <h4>What steps will you take to reduce animal numbers? Where applicable, what principles will you use to design experiments?</h4>
-      <RichText value={version['reduction-steps']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>What steps will you take to reduce animal numbers? Where applicable, what principles will you use to design experiments?</h4>
+        <RichText value={version['reduction-steps']} readOnly={true} />
+      </div>
 
-      <h4>What other measures apart from good experimental design will you use to minimise numbers?</h4>
-      <RichText value={version['reduction-review']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>What other measures apart from good experimental design will you use to minimise numbers?</h4>
+        <RichText value={version['reduction-review']} readOnly={true} />
+      </div>
 
       <h3>3. Refinement</h3>
       <p>
@@ -185,32 +223,44 @@ export default function SchemaV1() {
         </em>
       </p>
 
-      <h4>
-        Why are the animals, models and methods you will use the best to meet your objectives? Why will your approach
-        cause the least pain, suffering, distress or lasting harm?
-      </h4>
-      <RichText value={version['refinement-models']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>
+          Why are the animals, models and methods you will use the best to meet your objectives? Why will your approach
+          cause the least pain, suffering, distress or lasting harm?
+        </h4>
+        <RichText value={version['refinement-models']} readOnly={true} />
+      </div>
 
-      <h4>
-        Why can’t you use a less sentient animal, (for example at an immature stage, a less sentient species or using
-        terminally anaesthetised animals)?
-      </h4>
-      <RichText value={version['refinement-less-sentient']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>
+          Why can’t you use a less sentient animal, (for example at an immature stage, a less sentient species or using
+          terminally anaesthetised animals)?
+        </h4>
+        <RichText value={version['refinement-less-sentient']} readOnly={true} />
+      </div>
 
-      <h4>
-        What are you going to do to refine the procedures (for example increased monitoring, post-operative care, pain
-        management, training of animals) to minimise the welfare costs (harms) to the animals?
-      </h4>
-      <RichText value={version['refinement-explaination']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>
+          What are you going to do to refine the procedures (for example increased monitoring, post-operative care, pain
+          management, training of animals) to minimise the welfare costs (harms) to the animals?
+        </h4>
+        <RichText value={version['refinement-explaination']} readOnly={true} />
+      </div>
 
-      <h4>What published best practice guidance will be followed to ensure experiments are conducted in most refined way?</h4>
-      <RichText value={version['refinement-published-guidance']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>What published best practice guidance will be followed to ensure experiments are conducted in most refined way?</h4>
+        <RichText value={version['refinement-published-guidance']} readOnly={true} />
+      </div>
 
-      <h4>How will you ensure you continue to use the most refined methods during the lifetime of this project?</h4>
-      <RichText value={version['refinement-3rs-advances']} readOnly={true} />
+      <div className="q-and-a">
+        <h4>How will you ensure you continue to use the most refined methods during the lifetime of this project?</h4>
+        <RichText value={version['refinement-3rs-advances']} readOnly={true} />
+      </div>
 
-      <h3>Explain the choice of species and the related life stages</h3>
-      <RichText value={version['project-harms-animals']} readOnly={true} />
+      <div className="q-and-a">
+        <h3>Explain the choice of species and the related life stages</h3>
+        <RichText value={version['project-harms-animals']} readOnly={true} />
+      </div>
 
     </Fragment>
   );
