@@ -415,13 +415,13 @@ module.exports = {
         title: 'Review complete',
         body: `This licence’s 5 year review is complete. The licence will be valid for another 5 years.
 
-          The licence-holder has been notified.`
+          The licence holder has been notified.`
       },
       endorsed: {
         title: 'Review complete',
         body: `This licence’s 5 year review is complete. The licence will be valid for another 5 years.
 
-          The licence-holder has been notified.`
+          The licence holder has been notified.`
       },
       // TODO: content
       'returned-to-applicant': {
