@@ -21,6 +21,7 @@ module.exports = {
     activity: 'Latest activity',
     establishment: 'Establishment details',
     comments: {
+      application: 'Comments',
       amendment: 'Reason for amendment',
       revocation: 'Reason for revocation',
       review: 'Comments'
