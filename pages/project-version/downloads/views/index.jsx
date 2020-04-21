@@ -10,6 +10,7 @@ const ProjectDownloads = () => {
   const thisVersionIsGranted = project.granted && project.granted.id === version.id;
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
   const title = get(version, 'data.title') || 'Untitled project';
+  const isLegacy = project.schemaVersion === 0;
 
   return (
     <Fragment>
@@ -48,9 +49,13 @@ const ProjectDownloads = () => {
           <p><Link page="projectVersion.docx" label={<Snippet>application.link</Snippet>} /></p>
           <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
 
-          <h3><Snippet>template.heading</Snippet></h3>
-          <p><Link page="projectVersion.ppl" label={<Snippet>template.link</Snippet>} /></p>
-          <p className="govuk-hint"><Snippet>template.hint</Snippet></p>
+          {
+            !isLegacy && (
+              <h3><Snippet>template.heading</Snippet></h3>
+              <p><Link page="projectVersion.ppl" label={<Snippet>template.link</Snippet>} /></p>
+              <p className="govuk-hint"><Snippet>template.hint</Snippet></p>
+            )
+          }
 
           {
             isAsru &&
