@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { get, pick } = require('lodash');
 const { Packer } = require('@joefitter/docx');
 const imageSize = require('image-size');
 const renderer = require('@asl/projects/client/components/download-link/renderers/docx-renderer').default;
@@ -42,8 +43,18 @@ module.exports = () => {
 
     const application = {
       ...req.project,
-      establishment: req.project.establishment
+      establishment: req.project.establishment,
+      establishments: [
+        pick(req.project.establishment, 'id', 'name')
+      ]
     };
+
+    const task = get(req.project, 'openTasks[0]');
+
+    if (task && task.data.action === 'transfer') {
+      const receivingEstablishment = get(task, 'data.meta.establishment.to');
+      application.establishments.push(pick(receivingEstablishment, 'id', 'name'));
+    }
 
     renderer(application, sections, values, updateImageDimensions)
       .then(pack)
