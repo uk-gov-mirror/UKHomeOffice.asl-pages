@@ -29,6 +29,12 @@ module.exports = {
       link: 'Revoked licence: {{title}} (.pdf)',
       hint: 'Download the revoked licence for this project.',
       back: 'Back to revoked licence'
+    },
+    transferred: {
+      heading: 'Transferred licence',
+      link: 'Transferred licence: {{title}} (.pdf)',
+      hint: 'Download the transferred licence for this project.',
+      back: 'Back to transferred licence'
     }
   },
   application: {
