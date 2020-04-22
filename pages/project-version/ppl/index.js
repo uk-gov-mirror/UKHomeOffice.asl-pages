@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const filenamify = require('filenamify');
 const { omit } = require('lodash');
+const { NotFoundError } = require('@asl/service/errors');
 
 function clean(data) {
   data.protocols = (data.protocols || [])
@@ -15,6 +16,10 @@ module.exports = () => {
   const app = Router();
 
   app.get('/', (req, res, next) => {
+    if (req.project.schemaVersion === 0) {
+      return next(new NotFoundError());
+    }
+
     const values = req.version.data || {};
     res.attachment(`${filenamify(values.title || 'Untitled project')}.ppl`);
     res.end(JSON.stringify(clean(values)));
