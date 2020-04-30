@@ -11,6 +11,10 @@ import ManageAccess from './components/manage-access';
 
 const getProjectDuration = model => formatters.duration.format(model.granted);
 
+const getUngrantedVersion = model => {
+  return ['draft', 'submitted'].includes(model.versions[0].status) ? model.versions[0] : null;
+};
+
 const confirmSubmission = message => e => {
   e.preventDefault();
 
@@ -113,7 +117,9 @@ function StartAmendment({ model }) {
     return null;
   }
 
-  if (model.draft && (model.draft.asruVersion !== asruUser)) {
+  const ungrantedVersion = getUngrantedVersion(model);
+
+  if (ungrantedVersion && (ungrantedVersion.asruVersion !== asruUser)) {
     return null;
   }
 
@@ -269,7 +275,7 @@ function UserCannotEdit({ model }) {
     return null;
   }
 
-  const ungrantedVersion = ['draft', 'submitted'].includes(model.versions[0].status) ? model.versions[0] : null;
+  const ungrantedVersion = getUngrantedVersion(model);
 
   if (ungrantedVersion && (ungrantedVersion.asruVersion !== asruUser)) {
     return <Section
