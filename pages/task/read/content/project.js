@@ -4,7 +4,13 @@ module.exports = {
     granted: 'Granted licence',
     'licence-holder': 'PPL holder',
     experience: 'PPL holder experience',
-    deadline: 'Statutory target deadline'
+    deadline: 'Statutory target deadline',
+    continuation: 'Project continuation'
+  },
+  continuation: {
+    title: 'This is a project continuation',
+    licence: 'From the licence',
+    expiry: 'Expiry'
   },
   fields: {
     status: {

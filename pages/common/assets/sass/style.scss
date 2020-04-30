@@ -34,6 +34,14 @@ table {
   }
 }
 
+dl.continuation {
+  margin-bottom: $govuk-gutter;
+
+  dd {
+    margin-bottom: 5px;
+  }
+}
+
 p.subtitle {
   font-size: 1.1em;
 }

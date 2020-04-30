@@ -10,6 +10,8 @@ import {
   Markdown
 } from '@asl/components';
 import ReviewFields from '@asl/projects/client/components/review-fields';
+import format from 'date-fns/format';
+import { dateFormat } from '../../../../../constants';
 import Deadline from '../components/deadline';
 import { fields } from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
@@ -43,6 +45,7 @@ export default function Project({ task, schema }) {
   const { project, establishment, version } = useSelector(selector, shallowEqual);
   const declarations = task.data.meta;
   const isAmendment = task.type === 'amendment';
+  const continuation = task.data.continuation;
 
   const showDeclarations = declarations.authority || declarations.awerb;
 
@@ -153,6 +156,36 @@ export default function Project({ task, schema }) {
                 }
               </Fragment>
             )
+          }
+        </StickyNavAnchor>
+      )
+    ),
+
+    (
+      continuation && (
+        <StickyNavAnchor id="continuation" key="continuation">
+          <h2><Snippet>continuation.title</Snippet></h2>
+          {
+            continuation.map((item, index) => (
+              <dl className="inline continuation" key={index}>
+                <dt><Snippet>continuation.licence</Snippet></dt>
+                <dd>
+                  {
+                    item['licence-number']
+                      ? item['licence-number']
+                      : <em>No answer provided</em>
+                  }
+                </dd>
+                <dt><Snippet>continuation.expiry</Snippet></dt>
+                <dd>
+                  {
+                    item['expiry-date']
+                      ? format(item['expiry-date'], dateFormat.medium)
+                      : <em>No answer provided</em>
+                  }
+                </dd>
+              </dl>
+            ))
           }
         </StickyNavAnchor>
       )
