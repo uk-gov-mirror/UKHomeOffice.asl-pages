@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
+import isValid from 'date-fns/is_valid';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 import {
@@ -54,7 +55,7 @@ const formatters = {
           }
           {
             continuation && (
-              firstExpiry
+              firstExpiry && isValid(firstExpiry)
                 ? <Countdown expiry={firstExpiry} unit="day" showUrgent={9} suffix={<Snippet>continuation</Snippet>} />
                 : <span className="notice"><Snippet>continuation-fallback</Snippet></span>
             )
