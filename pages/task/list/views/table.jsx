@@ -37,12 +37,27 @@ const formatters = {
   status: {
     format: (status, model) => {
       const deadline = get(model, 'deadline');
+      const continuation = get(model, 'data.continuation');
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
+      let firstExpiry;
+
+      if (continuation) {
+        firstExpiry = new Date(
+          Math.min.apply(null, continuation.filter(c => c['expiry-date']).map(c => new Date(c['expiry-date'])))
+        );
+      }
       return (
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
           {
-            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} />
+            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} suffix={<Snippet>statutory</Snippet>}/>
+          }
+          {
+            continuation && (
+              firstExpiry
+                ? <Countdown expiry={firstExpiry} unit="day" showUrgent={9} suffix={<Snippet>continuation</Snippet>} />
+                : <span className="notice"><Snippet>continuation-fallback</Snippet></span>
+            )
           }
         </Fragment>
       );
