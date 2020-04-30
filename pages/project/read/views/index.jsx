@@ -269,7 +269,9 @@ function UserCannotEdit({ model }) {
     return null;
   }
 
-  if (model.draft && (model.draft.asruVersion !== asruUser)) {
+  const ungrantedVersion = ['draft', 'submitted'].includes(model.versions[0].status) ? model.versions[0] : null;
+
+  if (ungrantedVersion && (ungrantedVersion.asruVersion !== asruUser)) {
     return <Section
       title={<Snippet>{`start-amendment.title.continue`}</Snippet>}
       content={<Snippet>{`start-amendment.description.${asruUser ? 'asruCannotContinue' : 'establishmentCannotContinue'}`}</Snippet>}
