@@ -67,7 +67,7 @@ module.exports = settings => {
       .then(response => {
         // bc - we previously used the modelId, which is now the project, not the version.
         const modelId = get(response, 'json.data.data.id');
-        req.versionId = get(response, 'json.data.data.data.versionId', modelId);
+        req.versionId = get(response, 'json.data.data.data.version', modelId);
         res.redirect(req.buildRoute('projectVersion.update'));
       })
       .catch(next);
