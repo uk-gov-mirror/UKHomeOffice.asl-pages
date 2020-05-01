@@ -28,11 +28,14 @@ const formatters = {
   }
 };
 
-const Page = ({ addRoleTasks, schema }) => {
+const Page = ({ addRoleTasks, schema, profile }) => {
   if (schema.type.options.length === 0) {
     return (
       <Fragment>
-        <Header title={<Snippet>title</Snippet>}/>
+        <Header
+          title={<Snippet>title</Snippet>}
+          subtitle={`${profile.firstName} ${profile.lastName}`}
+        />
         <OpenTasks roleTasks={addRoleTasks} />
         <p>
           <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} className="govuk-button" />
@@ -44,7 +47,10 @@ const Page = ({ addRoleTasks, schema }) => {
   return (
     <Fragment>
       <FormLayout formatters={formatters}>
-        <Header title={<Snippet>title</Snippet>}/>
+        <Header
+          title={<Snippet>title</Snippet>}
+          subtitle={`${profile.firstName} ${profile.lastName}`}
+        />
         <OpenTasks roleTasks={addRoleTasks} />
       </FormLayout>
 
@@ -55,5 +61,5 @@ const Page = ({ addRoleTasks, schema }) => {
   );
 };
 
-const mapStateToProps = ({ static: { addRoleTasks, schema } }) => ({ addRoleTasks, schema });
+const mapStateToProps = ({ static: { addRoleTasks, schema, profile } }) => ({ addRoleTasks, schema, profile });
 export default connect(mapStateToProps)(Page);

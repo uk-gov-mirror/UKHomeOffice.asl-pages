@@ -1,13 +1,14 @@
 const dictionary = require('@asl/dictionary');
 
 const roles = [
-  'holc',
   'nacwo',
   'nio',
+  'ntco',
   'nvs',
   'sqp',
-  'ntco',
-  'nprc'
+  'pelh',
+  'nprc',
+  'holc'
 ];
 
 module.exports = roles.reduce((map, role) => {
@@ -15,6 +16,4 @@ module.exports = roles.reduce((map, role) => {
     ...map,
     [role]: `${dictionary[role.toUpperCase()]} (${role.toUpperCase()})`
   };
-}, {
-  pelh: 'Establishment Licence Holder'
-});
+}, {});
