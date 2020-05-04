@@ -37,13 +37,17 @@ const formatters = {
   status: {
     format: (status, model) => {
       const deadline = get(model, 'deadline');
+      const continuation = get(model, 'data.continuation');
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
 
       return (
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
           {
-            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9}/>
+            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} suffix={<Snippet>statutory</Snippet>}/>
+          }
+          {
+            continuation && <span className="notice"><Snippet>continuation</Snippet></span>
           }
         </Fragment>
       );

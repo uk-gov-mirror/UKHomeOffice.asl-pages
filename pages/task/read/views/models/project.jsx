@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
 import pick from 'lodash/pick';
+import get from 'lodash/get';
 import {
   Link,
   StickyNavAnchor,
@@ -46,6 +47,7 @@ export default function Project({ task, schema }) {
   const declarations = task.data.meta;
   const isAmendment = task.type === 'amendment';
   const continuation = task.data.continuation;
+  const continuationRTE = get(version, 'data.expiring-yes');
 
   const showDeclarations = declarations.authority || declarations.awerb;
 
@@ -186,6 +188,25 @@ export default function Project({ task, schema }) {
                 </dd>
               </dl>
             ))
+          }
+          {
+            continuationRTE && (
+              <Fragment>
+                <h3><Snippet>continuation.rte</Snippet></h3>
+                <label className="govuk-hint"><Snippet>continuation.label</Snippet></label>
+                <ReviewFields
+                  fields={[{
+                    name: 'expiring-yes',
+                    type: 'texteditor'
+                  }]}
+                  values={{
+                    'expiring-yes': continuationRTE
+                  }}
+                  readonly={true}
+                  noComments
+                />
+              </Fragment>
+            )
           }
         </StickyNavAnchor>
       )
