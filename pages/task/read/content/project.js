@@ -10,7 +10,9 @@ module.exports = {
   continuation: {
     title: 'This is a project continuation',
     licence: 'From the licence',
-    expiry: 'Expiry'
+    expiry: 'Expiry',
+    rte: 'Original input',
+    label: 'Please state the licence number and expiry date of all these licences.'
   },
   fields: {
     status: {

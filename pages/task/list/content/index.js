@@ -26,7 +26,5 @@ module.exports = {
     myTasks: 'There are no tasks assigned to you'
   },
   'tasklist-unavailable': 'Task list unavailable',
-  statutory: 'Statutory',
-  continuation: 'Continuation',
-  'continuation-fallback': 'Includes project continuation'
+  continuation: 'Includes project continuation'
 };
