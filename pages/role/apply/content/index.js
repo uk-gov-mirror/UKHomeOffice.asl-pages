@@ -13,14 +13,14 @@ module.exports = merge({}, baseContent, {
   },
   fields: {
     type: {
-      label: 'Which role do you want adding?'
+      label: 'Which role do you want to add?'
     },
     rcvsNumber: {
-      label: 'RCVS number'
+      label: 'RCVS membership number'
     },
     comment: {
-      label: 'Why is this person suitable for this role?',
-      hint: 'Include any relevant training in your answer, or explain why this training is not necessary.'
+      label: 'Why {{^ownProfile}}is this person{{/ownProfile}}{{#ownProfile}}are you{{/ownProfile}} suitable for this role?',
+      hint: 'Where applicable, include any relevant training or explain why training isn’t necessary.'
     }
   },
   buttons: {
