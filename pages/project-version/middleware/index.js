@@ -1,4 +1,4 @@
-const { get, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
+const { get, set, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose } = require('@asl/projects/client/helpers');
@@ -124,8 +124,7 @@ const getPreviousVersion = req => {
   if (!previous) {
     return Promise.resolve();
   }
-  return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
-    .then(({ json: { data } }) => data)
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer version
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
@@ -135,11 +134,23 @@ const getGrantedVersion = req => {
   if (!req.project || !req.project.granted) {
     return Promise.resolve();
   }
-  return req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
-    .then(({ json: { data } }) => data)
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
+};
+
+const getCacheableVersion = (req, url) => {
+  const hit = get(req.session, `projectCache.${url}`);
+  if (hit) {
+    return Promise.resolve(hit);
+  }
+  return req.api(url)
+    .then(({ json: { data } }) => data)
+    .then(data => {
+      set(req.session, `projectCache.${url}`, data);
+      return data;
+    });
 };
 
 const normaliseConditions = (versionData, { isSubmitted }) => {
