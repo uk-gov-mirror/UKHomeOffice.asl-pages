@@ -195,7 +195,7 @@ const PIL = ({
                       </section>
                     }
                     {
-                      pil.status === 'revoked' && !canReapply &&
+                      pil.status === 'revoked' && !canReapply && profile.over18 &&
                       <section className="apply-licence">
                         <Snippet>{`action.reapply.summary`}</Snippet>
                         <Link
