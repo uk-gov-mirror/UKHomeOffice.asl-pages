@@ -44,6 +44,10 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
+    if (req.model.status === 'revoked' && res.locals.static.canUpdate) {
+      // users can't reactivate a PIL if they're no longer at the establishment that holds it
+      res.locals.static.canReapply = !!req.profile.establishments.find(e => e.id === req.model.establishmentId);
+    }
     res.locals.static.pil = req.model;
     res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;
