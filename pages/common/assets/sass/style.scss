@@ -2,6 +2,14 @@
 @import '@ukhomeoffice/react-components';
 @import '@asl/components';
 
+.block {
+  display: block;
+}
+
+.smaller {
+  font-size: 0.9em;
+}
+
 .profile-section {
   border-top: 1px solid #333;
   padding-top: $govuk-gutter;

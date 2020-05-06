@@ -21,12 +21,22 @@ const formatters = {
     format: (establishment, model) => establishment || '-'
   },
   licence: {
-    format: licence => {
+    format: (licence, task) => {
       if (licence === 'pil') {
-        return 'PIL';
+        return (
+          <Fragment>
+            <span>PIL</span>
+            <span className="block smaller">{task.data.modelData.licenceNumber}</span>
+          </Fragment>
+        );
       }
       if (licence === 'project') {
-        return 'PPL';
+        return (
+          <Fragment>
+            <span>PPL</span>
+            <span className="block smaller">{task.data.modelData.licenceNumber}</span>
+          </Fragment>
+        );
       }
       if (licence === 'place' || licence === 'role' || licence === 'establishment') {
         return 'PEL';
@@ -98,11 +108,7 @@ const formatters = {
             label={<Snippet optional>{`tasks.${licence}.${type}`}</Snippet>}
           />
           {
-            contextLabel &&
-              <Fragment>
-                <br />
-                <span>{contextLabel}</span>
-              </Fragment>
+            contextLabel && <span className="block smaller">{contextLabel}</span>
           }
         </div>
       );
