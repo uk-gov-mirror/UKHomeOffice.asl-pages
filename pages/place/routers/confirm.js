@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const { omit, pick, merge } = require('lodash');
 const form = require('../../common/routers/form');
-const { getEstablishment, getNacwoById } = require('../../common/helpers');
 const { schema } = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 
@@ -9,10 +8,11 @@ module.exports = settings => {
 
   const sendData = (req, params = {}) => {
     const values = req.session.form[req.model.id].values;
+    values.roles = values.nacwos;
     const opts = {
       method: settings.method,
       json: merge({
-        data: omit(values, 'comments', 'comment', 'establishmentId', 'changesToRestrictions'),
+        data: omit(values, 'comments', 'comment', 'establishmentId', 'changesToRestrictions', 'nacwos'),
         meta: {
           ...pick(values, 'comments', 'changesToRestrictions')
         }
@@ -33,23 +33,26 @@ module.exports = settings => {
       next();
     },
     locals: (req, res, next) => {
-      Object.assign(res.locals, { model: req.model });
-      Promise.all([
-        getEstablishment(req),
-        getNacwoById(req, req.form.values.nacwo)
-      ])
-        .then(([establishment, nacwo]) => {
-          Object.assign(res.locals.static, {
-            establishment,
-            diffSchema: schema,
-            values: {
-              ...req.session.form[req.model.id].values,
-              nacwo
-            }
-          });
-        })
-        .then(() => next())
-        .catch(next);
+      const existingNacwoIds = req.model.nacwos;
+      const selectedNacwoIds = req.session.form[req.model.id].values.nacwos;
+
+      Object.assign(res.locals, {
+        model: {
+          ...req.model,
+          nacwos: req.establishment.nacwo.filter(r => existingNacwoIds.includes(r.id))
+        }
+      });
+
+      Object.assign(res.locals.static, {
+        establishment: req.establishment,
+        diffSchema: schema,
+        values: {
+          ...req.session.form[req.model.id].values,
+          nacwos: req.establishment.nacwo.filter(r => selectedNacwoIds.includes(r.id))
+        }
+      });
+
+      next();
     },
     checkSession: (req, res, next) => {
       if (req.session.form && req.session.form[req.model.id]) {

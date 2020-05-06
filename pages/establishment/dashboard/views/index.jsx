@@ -91,7 +91,7 @@ const Index = ({
                     {
                       establishment.holc.map(holc => (
                         <p key={holc.id} className="holc">
-                          <Link page="profile.read" profileId={holc.id} label={`${holc.firstName} ${holc.lastName}`} />
+                          <Link page="profile.read" profileId={holc.profile.id} label={`${holc.profile.firstName} ${holc.profile.lastName}`} />
                         </p>
                       ))
                     }

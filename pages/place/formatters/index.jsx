@@ -14,8 +14,10 @@ export default {
   restrictions: {
     format: val => val || 'None'
   },
-  nacwo: {
-    format: val => val && `${val.firstName} ${val.lastName}`,
+  nacwos: {
+    format: nacwos => {
+      return nacwos && nacwos.map(r => `${r.profile.firstName} ${r.profile.lastName}`).join(', ');
+    },
     accessor: 'id'
   }
 };

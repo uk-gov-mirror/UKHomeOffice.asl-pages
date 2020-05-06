@@ -23,6 +23,9 @@ const LicenceHolder = ({ type, profile }) => (
 const selector = ({ model, static: { establishment, isAsru } }) => ({ establishment, isAsru, model });
 
 export default function Playback({ task, schema, values, allowSubmit }) {
+
+  console.log(values);
+
   const { model, establishment, isAsru } = useSelector(selector, shallowEqual);
   const [dirty, setDirty] = useState(false);
   const nopes = ['recalled-by-applicant', 'discarded-by-applicant'];

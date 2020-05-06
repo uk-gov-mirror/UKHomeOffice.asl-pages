@@ -7,7 +7,7 @@ const form = require('../../../common/routers/form');
 const getSchema = require('../../schema/view');
 const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
-const { getNacwoById, getEstablishment } = require('../../../common/helpers');
+const { getEstablishment } = require('../../../common/helpers');
 const updateData = require('../middleware/update-data');
 
 const endorsingOwnPil = (task, profile) => {
@@ -73,19 +73,6 @@ module.exports = () => {
 
   app.use(populateNamedPeople);
 
-  // get nacwo profile if place model
-  app.use((req, res, next) => {
-    if (req.task.data.model === 'place') {
-      return getNacwoById(req, req.task.data.data.nacwo)
-        .then(nacwo => {
-          set(req.task, 'data.data.nacwo', nacwo);
-        })
-        .then(() => next())
-        .catch(next);
-    }
-    next();
-  });
-
   app.use((req, res, next) => {
     const profileId = get(req.task, 'data.data.profileId');
     const establishmentId = get(req.task, 'data.data.establishmentId');
@@ -146,6 +133,15 @@ module.exports = () => {
         .catch(next);
     }
 
+    next();
+  });
+
+  app.use((req, res, next) => {
+    if (req.task.data.model === 'place') {
+      const roleIds = req.task.data.data.roles || [];
+      set(req.task, 'data.data.nacwos', req.establishment.nacwo.filter(r => roleIds.includes(r.id)));
+      res.locals.static.values.nacwos = res.locals.static.values.roles.filter(r => r.type === 'nacwo');
+    }
     next();
   });
 
