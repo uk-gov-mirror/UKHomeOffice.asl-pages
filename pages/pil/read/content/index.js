@@ -24,6 +24,7 @@ module.exports = merge({}, baseContent, {
       button: 'Revoke licence'
     },
     reapply: {
+      summary: `## Apply for a new licence`,
       button: 'Reapply for licence'
     },
     amend: {

@@ -1,5 +1,6 @@
 const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
+const differenceInYears = require('date-fns/difference_in_years');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
 
@@ -25,6 +26,7 @@ module.exports = settings => {
       .then(({ json: { data, meta } }) => {
         const model = cleanModel(data);
         model.openTasks = meta.openTasks;
+        model.over18 = model.dob && differenceInYears(new Date(), new Date(model.dob)) >= 18;
         req.model = model;
         req.profile = model;
         req.profileId = profileId;

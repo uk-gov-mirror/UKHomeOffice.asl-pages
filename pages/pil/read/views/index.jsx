@@ -19,6 +19,7 @@ const PIL = ({
   pil,
   profile,
   canUpdate,
+  canReapply,
   allowedActions,
   canDownload,
   openTask,
@@ -158,17 +159,18 @@ const PIL = ({
               {
                 !openTask &&
                   <Fragment>
-                    <section className="amend-licence">
-                      <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
-                      <Link
-                        page="pil.update"
-                        className="govuk-button button-secondary"
-                        establishmentId={pil.establishmentId}
-                        label={<Snippet>{amendButtonSnippet}</Snippet>}
-                      />
-                    </section>
                     {
                       pil.status === 'active' &&
+                      <Fragment>
+                        <section className="amend-licence">
+                          <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
+                          <Link
+                            page="pil.update"
+                            className="govuk-button button-secondary"
+                            establishmentId={pil.establishmentId}
+                            label={<Snippet>{amendButtonSnippet}</Snippet>}
+                          />
+                        </section>
                         <section className="revoke-licence">
                           <Snippet>action.revoke.summary</Snippet>
                           <Link
@@ -178,6 +180,30 @@ const PIL = ({
                             label={<Snippet>action.revoke.button</Snippet>}
                           />
                         </section>
+                      </Fragment>
+                    }
+                    {
+                      pil.status === 'revoked' && canReapply &&
+                      <section className="amend-licence">
+                        <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
+                        <Link
+                          page="pil.update"
+                          className="govuk-button button-secondary"
+                          establishmentId={pil.establishmentId}
+                          label={<Snippet>action.reapply.button</Snippet>}
+                        />
+                      </section>
+                    }
+                    {
+                      pil.status === 'revoked' && !canReapply && profile.over18 &&
+                      <section className="apply-licence">
+                        <Snippet>{`action.reapply.summary`}</Snippet>
+                        <Link
+                          page="pil.create"
+                          className="govuk-button button-secondary"
+                          label={<Snippet>action.reapply.button</Snippet>}
+                        />
+                      </section>
                     }
                   </Fragment>
               }
@@ -193,6 +219,7 @@ const mapStateToProps = ({
   static: {
     profile,
     canUpdate,
+    canReapply,
     canDownload,
     pil,
     openTask,
@@ -206,6 +233,7 @@ const mapStateToProps = ({
   pil,
   profile,
   canUpdate,
+  canReapply,
   canDownload,
   allowedActions,
   openTask,
