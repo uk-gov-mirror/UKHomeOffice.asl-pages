@@ -120,7 +120,7 @@ const PIL = ({
       <LicenceStatusBanner licence={pil} licenceType="pil" />
       {
         pilReviewRequired && (
-          <Warning className="info">
+          <Warning className="info pil-review">
             <Snippet
               reviewUrl={reviewUrl}
               openTask={openTask}
