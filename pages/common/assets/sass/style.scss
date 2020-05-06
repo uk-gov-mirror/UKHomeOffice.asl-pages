@@ -385,3 +385,9 @@ details {
     margin-top: 0;
   }
 }
+
+.govuk-checkboxes__item {
+  .govuk-hint {
+    padding-left: $govuk-gutter-half;
+  }
+}

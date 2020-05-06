@@ -36,7 +36,13 @@ const baseSchema = {
   },
   holding: {
     inputType: 'checkboxGroup',
-    options: holdingCodes,
+    options: holdingCodes.map(c => {
+      return {
+        value: c,
+        label: c,
+        hint: c === 'STH' && 'Animals will be held for no more than 48 hours'
+      };
+    }),
     format: toArray,
     nullValue: [],
     validate: [
