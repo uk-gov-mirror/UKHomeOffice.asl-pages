@@ -19,7 +19,7 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    if (req.pil.reviewDue) {
+    if (req.pil.reviewDue && req.pil.status === 'active') {
       res.locals.static.pilReviewRequired = true;
       res.locals.static.reviewUrl = req.buildRoute('pil.review');
     }
