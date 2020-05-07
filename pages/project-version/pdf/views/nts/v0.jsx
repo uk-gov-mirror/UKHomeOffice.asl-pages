@@ -77,28 +77,26 @@ export default function SchemaV0() {
       </div>
 
       <h2>Application of the three Rs</h2>
-      <h3>1. Replacement</h3>
 
       <div className="q-and-a">
+        <h3>1. Replacement</h3>
         <h4>State why you need to use animals and why you cannot use non-animal alternatives.</h4>
         <RichText value={version['nts-replacement']} readOnly={true} />
       </div>
 
-      <h3>2. Reduction</h3>
-
       <div className="q-and-a">
+        <h3>2. Reduction</h3>
         <h4>Explain how you will assure the use of minimum numbers of animals.</h4>
         <RichText value={version['nts-reduction']} readOnly={true} />
       </div>
 
-      <h3>3. Refinement</h3>
-
       <div className="q-and-a">
+        <h3>3. Refinement</h3>
         <h4>
           Explain the choice of species and why the animal model(s) you will use are the most refined, having regard to
           the objectives. Explain the general measures you will take to minimise welfare costs (harms) to the animals.
         </h4>
-        <RichText value={version['nts-reduction']} readOnly={true} />
+        <RichText value={version['nts-refinement']} readOnly={true} />
       </div>
 
     </Fragment>
