@@ -2,7 +2,6 @@ const { page } = require('@asl/service/ui');
 const bodyParser = require('body-parser');
 const { get } = require('lodash');
 const {
-  getVersion,
   canComment,
   getAllChanges,
   getProjectEstablishment,
@@ -73,6 +72,9 @@ module.exports = settings => {
       }
     };
     req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.version.id}/patch`, opts)
+      .then(({ json: { data } }) => {
+        req.version.data = data.data;
+      })
       .then(() => next())
       .catch(err => {
         // if trying to edit an uneditable version then redirect
@@ -83,7 +85,7 @@ module.exports = settings => {
       });
   });
 
-  app.put('/', getVersion(), getAllChanges(), (req, res) => {
+  app.put('/', getAllChanges(), (req, res) => {
     res.json({ changes: res.locals.static.changes });
   });
 
