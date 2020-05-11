@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { get } = require('lodash');
+const { get, uniq } = require('lodash');
 const form = require('../../common/routers/form');
 const { getSchemaWithNacwos, schema } = require('../schema');
 const { hydrate } = require('../../common/middleware');
@@ -17,10 +17,8 @@ module.exports = () => {
       next();
     },
     process: (req, res, next) => {
-      const nacwos = get(req.body, 'nacwos');
-      Object.assign(req.form.values, {
-        nacwos: nacwos ? (Array.isArray(nacwos) ? nacwos : [nacwos]) : []
-      });
+      let nacwos = get(req.body, 'nacwos');
+      req.form.values.nacwos = uniq(Array.isArray(nacwos) ? nacwos : [nacwos]);
       next();
     },
     cancelEdit: (req, res, next) => {
