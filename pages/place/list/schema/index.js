@@ -22,5 +22,9 @@ module.exports = {
     comparator: 'AND',
     exact: true
   },
+  nacwos: {
+    show: true,
+    sortable: false
+  },
   updatedAt: {}
 };
