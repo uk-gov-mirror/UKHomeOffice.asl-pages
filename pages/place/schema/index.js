@@ -52,7 +52,9 @@ const baseSchema = {
     ]
   },
   nacwos: {
-    inputType: 'selectMany'
+    inputType: 'selectMany',
+    addAnotherLabel: 'Add another NACWO',
+    removeLabel: 'Remove NACWO'
   },
   restrictions: {
     inputType: 'restrictionsField',
