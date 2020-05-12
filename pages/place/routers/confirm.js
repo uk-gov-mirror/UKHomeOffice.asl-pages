@@ -74,6 +74,7 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     sendData(req)
       .then(response => {
+        delete req.session.form[req.model.id];
         const status = get(response, 'json.data.status');
         if (status === 'autoresolved') {
           req.notification({ key: 'success' });
