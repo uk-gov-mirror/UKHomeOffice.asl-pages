@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { omit, pick, merge } = require('lodash');
+const { omit, pick, merge, get } = require('lodash');
 const form = require('../../common/routers/form');
 const { schema } = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
@@ -73,7 +73,14 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => next())
+      .then(response => {
+        const status = get(response, 'json.data.status');
+        if (status === 'autoresolved') {
+          req.notification({ key: 'success' });
+          return res.redirect(req.buildRoute('place.list'));
+        }
+        return next();
+      })
       .catch(next);
   });
 
