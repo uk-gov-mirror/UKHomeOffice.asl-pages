@@ -13,9 +13,13 @@ module.exports = {
     required: 'Select at least one suitability code.',
     definedValues: 'Invalid option, select from the list of available suitability codes.'
   },
-  nacwo: {
+  nacwos: {
     required: 'Select a NACWO.',
     definedValues: 'Invalid option, select from the list of available NACWOs.'
+  },
+  nvssqps: {
+    required: 'Select an NVS / SQP.',
+    definedValues: 'Invalid option, select from the list of available NVS / SQPs.'
   },
   changesToRestrictions: {
     required: 'Describe the changes you would like to make to the restrictions.',

@@ -12,12 +12,14 @@ module.exports = settings => {
     const params = req.path.match(/delete\/success$/)
       ? { query: { withDeleted: true } }
       : {};
+
     return req.api(`/establishment/${req.establishmentId}/place/${placeId}`, params)
       .then(({ json: { data, meta } }) => {
         req.placeId = placeId;
         res.locals.static.establishment = meta.establishment;
         req.place = cleanModel(data);
         req.place.nacwos = req.place.roles.filter(r => r.type === 'nacwo').map(r => r.id);
+        req.place.nvssqps = req.place.roles.filter(r => ['nvs', 'sqp'].includes(r.type)).map(r => r.id);
         req.model = req.place;
         req.model.openTasks = meta.openTasks || [];
       })

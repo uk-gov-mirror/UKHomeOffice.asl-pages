@@ -21,6 +21,9 @@ module.exports = {
   nacwos: {
     label: `${dictionary.NACWO}s (NACWOs)`
   },
+  nvssqps: {
+    label: 'Named Veterinary Surgeon (NVS) or Suitably Qualified Person (SQP)'
+  },
   restrictions: {
     label: 'Restrictions',
     currentLabel: 'Current restrictions',

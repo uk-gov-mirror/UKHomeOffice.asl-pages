@@ -1,4 +1,4 @@
-const { merge } = require('lodash');
+const { merge, concat } = require('lodash');
 const { suitabilityCodes, holdingCodes } = require('@asl/constants');
 const { toArray } = require('../../../lib/utils');
 
@@ -56,6 +56,11 @@ const baseSchema = {
     addAnotherLabel: 'Add another NACWO',
     removeLabel: 'Remove NACWO'
   },
+  nvssqps: {
+    inputType: 'selectMany',
+    addAnotherLabel: 'Add another NVS / SQP',
+    removeLabel: 'Remove NVS / SQP'
+  },
   restrictions: {
     inputType: 'restrictionsField',
     showDiff: false
@@ -67,24 +72,32 @@ const baseSchema = {
   }
 };
 
-const mapSchema = (nacwos, schema) => {
-  const options = nacwos.map(({ id, profile: { firstName, lastName } }) => ({
-    label: `${firstName} ${lastName}`,
-    value: id
-  }));
-  return merge({}, schema, {
+const getSchema = establishment => {
+  const getOption = role => ({
+    label: `${role.profile.firstName} ${role.profile.lastName}`,
+    value: role.id
+  });
+
+  const nacwoOptions = establishment.nacwo.map(getOption);
+  const nvsSqpOptions = concat([], establishment.nvs, establishment.sqp).map(getOption);
+
+  return merge({}, baseSchema, {
     nacwos: {
-      options,
+      options: nacwoOptions,
       validate: [
-        { definedValues: options.map(option => option.value).concat(['']) }
+        { definedValues: nacwoOptions.map(option => option.value).concat(['']) }
+      ]
+    },
+    nvssqps: {
+      options: nvsSqpOptions,
+      validate: [
+        { definedValues: nvsSqpOptions.map(option => option.value).concat(['']) }
       ]
     }
   });
 };
 
-const getSchemaWithNacwos = (req, schema) => mapSchema(req.establishment.nacwo, schema);
-
 module.exports = {
   schema: baseSchema,
-  getSchemaWithNacwos
+  getSchema
 };

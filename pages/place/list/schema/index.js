@@ -26,5 +26,9 @@ module.exports = {
     show: true,
     sortable: false
   },
+  nvssqps: {
+    show: true,
+    sortable: false
+  },
   updatedAt: {}
 };

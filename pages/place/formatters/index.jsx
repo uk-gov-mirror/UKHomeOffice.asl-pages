@@ -19,5 +19,11 @@ export default {
       return nacwos && nacwos.map(r => `${r.profile.firstName} ${r.profile.lastName}`).join(', ');
     },
     accessor: 'id'
+  },
+  nvssqps: {
+    format: nvssqps => {
+      return nvssqps && nvssqps.map(r => `${r.profile.firstName} ${r.profile.lastName}`).join(', ');
+    },
+    accessor: 'id'
   }
 };
