@@ -6,6 +6,7 @@ import { Router } from 'express';
 import createStore from '@asl/projects/client/store';
 import { getProjectEstablishment } from '../middleware';
 import Licence from './views';
+import Protocols from './views/protocols';
 import NTS from './views/nts';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
@@ -18,7 +19,7 @@ module.exports = settings => {
 
   app.use(getProjectEstablishment());
 
-  const setupPdf = (req, res, next) => {
+  const setupPdf = (opts = {}) => (req, res, next) => {
     const initialState = {
       project: req.version.data || { title: 'Untitled project' },
       application: {
@@ -35,7 +36,7 @@ module.exports = settings => {
       }
     };
 
-    req.pdf = {};
+    req.pdf = opts;
 
     req.pdf.store = createStore(initialState);
     req.pdf.nonce = res.locals.static.nonce;
@@ -48,6 +49,7 @@ module.exports = settings => {
   };
 
   const convertToPdf = (req, res, next) => {
+    // return res.send(req.pdf.body);
     return pdf(req.pdf)
       .then(response => {
         const filename = filenamify(req.pdf.filename || get(req.version, 'data.title') || 'Untitled project');
@@ -64,19 +66,31 @@ module.exports = settings => {
 
   const renderNts = (req, res, next) => {
     req.pdf.body = renderToStaticMarkup(<NTS store={req.pdf.store} nonce={req.pdf.nonce} schemaVersion={req.project.schemaVersion} />);
-    req.pdf.filename = `${get(req.version, 'data.title')} NTS`;
+    req.pdf.filename = `${get(req.version, 'data.title', 'Untitled project')} NTS`;
     next();
   };
 
-  app.get('/',
-    setupPdf,
-    renderLicence,
+  const renderProtocols = (req, res, next) => {
+    req.pdf.body = renderToStaticMarkup(<Protocols store={req.pdf.store} nonce={req.pdf.nonce} />);
+    req.pdf.filename = `Summary table of steps and adverse effects - ${get(req.version, 'data.title', 'Untitled project')}`;
+    next();
+  };
+
+  app.get('/nts',
+    setupPdf(),
+    renderNts,
     convertToPdf
   );
 
-  app.get('/nts',
-    setupPdf,
-    renderNts,
+  app.get('/protocols',
+    setupPdf({ landscape: true }),
+    renderProtocols,
+    convertToPdf
+  );
+
+  app.get('/',
+    setupPdf(),
+    renderLicence,
     convertToPdf
   );
 

@@ -11,6 +11,7 @@ const ProjectDownloads = () => {
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
   const title = get(version, 'data.title') || 'Untitled project';
   const isLegacy = project.schemaVersion === 0;
+  const showProtocols = project.status === 'active' && !isLegacy;
 
   return (
     <Fragment>
@@ -65,6 +66,16 @@ const ProjectDownloads = () => {
                 <p><Link page="projectVersion.ntsPdf" label={<Snippet>nts.link</Snippet>} /></p>
                 <p className="govuk-hint"><Snippet>nts.hint</Snippet></p>
               </Fragment>
+          }
+
+          {
+            showProtocols && (
+              <Fragment>
+                <h3><Snippet>protocols.heading</Snippet></h3>
+                <p><Link page="projectVersion.protocolsPdf" label={<Snippet>protocols.link</Snippet>} /></p>
+                <p className="govuk-hint"><Snippet>protocols.hint</Snippet></p>
+              </Fragment>
+            )
           }
 
         </div>
