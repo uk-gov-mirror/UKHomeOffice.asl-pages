@@ -67,6 +67,16 @@ const ProjectDownloads = () => {
               </Fragment>
           }
 
+          {
+            !isLegacy && (
+              <Fragment>
+                <h3><Snippet>protocols.heading</Snippet></h3>
+                <p><Link page="projectVersion.protocolsPdf" label={<Snippet>protocols.link</Snippet>} /></p>
+                <p className="govuk-hint"><Snippet>protocols.hint</Snippet></p>
+              </Fragment>
+            )
+          }
+
         </div>
       </div>
 

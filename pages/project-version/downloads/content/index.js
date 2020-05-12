@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Download options',
+  title: 'Downloads',
   licence: {
     inactive: {
       heading: 'Draft licence',
@@ -50,5 +50,10 @@ module.exports = {
   nts: {
     link: 'Non-technical summary (.pdf)',
     hint: 'Download the project\'s non-technical summary.'
+  },
+  protocols: {
+    heading: 'Protocols',
+    link: 'Steps and adverse effects (.pdf)',
+    hint: 'Download a table of each protocol’s steps, adverse effects, controls and limitations, and humane endpoints.'
   }
 };

@@ -1,6 +1,6 @@
 const fetch = require('r2');
 
-module.exports = settings => ({ body, header, footer, hasStatusBanner }) => {
+module.exports = settings => ({ body, header, footer, hasStatusBanner, landscape = false }) => {
 
   const params = {
     method: 'POST',
@@ -8,11 +8,12 @@ module.exports = settings => ({ body, header, footer, hasStatusBanner }) => {
       template: body,
       noRender: true,
       pdfOptions: {
+        landscape,
         displayHeaderFooter: true,
         headerTemplate: header,
         footerTemplate: footer,
         margin: {
-          top: hasStatusBanner ? 180 : 100,
+          top: hasStatusBanner ? 150 : 100,
           left: 25,
           right: 25,
           bottom: 125
