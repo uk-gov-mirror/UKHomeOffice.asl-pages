@@ -54,7 +54,7 @@ const formatters = {
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
           {
-            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} suffix={<Snippet>statutory</Snippet>}/>
+            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} />
           }
           {
             continuation && <span className="notice"><Snippet>continuation</Snippet></span>
