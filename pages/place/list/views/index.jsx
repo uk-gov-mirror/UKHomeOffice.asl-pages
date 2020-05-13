@@ -42,7 +42,7 @@ const pageFormatters = {
   nvssqps: {
     format: nvssqps => {
       return nvssqps && nvssqps.map(role => (
-        <p key={role.profile.id}>
+        <p key={role.profile.id} className="no-margins">
           <Link
             page="profile.read"
             profileId={role.profile.id}
