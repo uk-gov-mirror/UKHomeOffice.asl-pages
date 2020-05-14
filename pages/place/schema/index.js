@@ -78,8 +78,12 @@ const getSchema = establishment => {
     value: role.id
   });
 
-  const nacwoOptions = establishment.nacwo.map(getOption);
-  const nvsSqpOptions = concat([], establishment.nvs, establishment.sqp).map(getOption);
+  const byLastName = (roleA, roleB) => {
+    return roleA.profile.lastName < roleB.profile.lastName ? -1 : 1;
+  };
+
+  const nacwoOptions = establishment.nacwo.sort(byLastName).map(getOption);
+  const nvsSqpOptions = concat([], establishment.nvs, establishment.sqp).sort(byLastName).map(getOption);
 
   return merge({}, baseSchema, {
     nacwos: {
