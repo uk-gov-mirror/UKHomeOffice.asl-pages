@@ -1,6 +1,5 @@
 const { merge } = require('lodash');
 const { suitabilityCodes, holdingCodes } = require('@asl/constants');
-const { getNacwos } = require('../../common/helpers');
 const { toArray } = require('../../../lib/utils');
 
 const baseSchema = {
@@ -52,9 +51,10 @@ const baseSchema = {
       }
     ]
   },
-  nacwo: {
-    inputType: 'select',
-    accessor: 'id'
+  nacwos: {
+    inputType: 'selectMany',
+    addAnotherLabel: 'Add another NACWO',
+    removeLabel: 'Remove NACWO'
   },
   restrictions: {
     inputType: 'restrictionsField',
@@ -68,27 +68,21 @@ const baseSchema = {
 };
 
 const mapSchema = (nacwos, schema) => {
-  const options = nacwos.map(({ profile: { firstName, lastName, id } }) => ({
+  const options = nacwos.map(({ id, profile: { firstName, lastName } }) => ({
     label: `${firstName} ${lastName}`,
     value: id
   }));
   return merge({}, schema, {
-    nacwo: {
+    nacwos: {
       options,
       validate: [
-        ...(schema.nacwo.validate || []),
-        {
-          definedValues: options.map(option => option.value).concat([''])
-        }
+        { definedValues: options.map(option => option.value).concat(['']) }
       ]
     }
   });
 };
 
-const getSchemaWithNacwos = (req, schema) =>
-  getNacwos(req)
-    .then(nacwos => Promise.resolve(mapSchema(nacwos, schema)))
-    .catch(err => Promise.reject(err));
+const getSchemaWithNacwos = (req, schema) => mapSchema(req.establishment.nacwo, schema);
 
 module.exports = {
   schema: baseSchema,

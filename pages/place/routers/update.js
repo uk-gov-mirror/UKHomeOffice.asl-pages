@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { get, set } = require('lodash');
+const { get, uniq } = require('lodash');
 const form = require('../../common/routers/form');
 const { getSchemaWithNacwos, schema } = require('../schema');
 const { hydrate } = require('../../common/middleware');
@@ -13,18 +13,12 @@ module.exports = () => {
   app.use(form({
     checkChanged: true,
     configure: (req, res, next) => {
-      getSchemaWithNacwos(req, schema)
-        .then(mappedSchema => {
-          req.form.schema = mappedSchema;
-        })
-        .then(() => next())
-        .catch(next);
+      req.form.schema = getSchemaWithNacwos(req, schema);
+      next();
     },
-    getValues: (req, res, next) => {
-      const nacwo = get(req.form, 'values.nacwo');
-      if (nacwo && typeof nacwo === 'object') {
-        set(req.form, 'values.nacwo', nacwo.id);
-      }
+    process: (req, res, next) => {
+      let nacwos = get(req.body, 'nacwos');
+      req.form.values.nacwos = uniq(Array.isArray(nacwos) ? nacwos : [nacwos]);
       next();
     },
     cancelEdit: (req, res, next) => {

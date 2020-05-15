@@ -391,3 +391,9 @@ details {
     padding-left: $govuk-gutter-half;
   }
 }
+
+.govuk-table {
+  p.no-margins {
+    margin: 0;
+  }
+}

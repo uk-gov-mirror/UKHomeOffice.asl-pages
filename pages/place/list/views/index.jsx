@@ -26,8 +26,18 @@ const pageFormatters = {
       );
     }
   },
-  nacwo: {
-    format: nacwo => nacwo && <Link page="profile.read" profileId={nacwo.id} label={`${nacwo.firstName} ${nacwo.lastName}`} />
+  nacwos: {
+    format: nacwos => {
+      return nacwos && nacwos.map(nacwo => (
+        <p key={nacwo.profile.id} className="no-margins">
+          <Link
+            page="profile.read"
+            profileId={nacwo.profile.id}
+            label={`${nacwo.profile.firstName} ${nacwo.profile.lastName}`}
+          />
+        </p>
+      ));
+    }
   }
 };
 

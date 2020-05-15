@@ -1,3 +1,5 @@
+const dictionary = require('@asl/dictionary');
+
 module.exports = {
   site: {
     label: 'Site'
@@ -16,8 +18,8 @@ module.exports = {
   holding: {
     label: 'Holding'
   },
-  nacwo: {
-    label: 'NACWO'
+  nacwos: {
+    label: `${dictionary.NACWO}s (NACWOs)`
   },
   restrictions: {
     label: 'Restrictions',

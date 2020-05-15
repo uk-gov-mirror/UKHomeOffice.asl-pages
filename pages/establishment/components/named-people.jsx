@@ -2,9 +2,12 @@ import React, { Fragment } from 'react';
 import { Link } from '@asl/components';
 import content from './content';
 
-const renderNames = (profiles, showLinks, role) => {
-  if (profiles.length) {
-    return profiles.map(profile => `${profile.firstName} ${profile.lastName}`).join(', ');
+const renderNames = (roles, showLinks, role) => {
+  if (roles.length) {
+    return roles.map(r => {
+      // roles is sometimes an array of roles with profile prop, sometimes array of profiles
+      return `${r.firstName || r.profile.firstName} ${r.lastName || r.profile.lastName}`;
+    }).join(', ');
   }
 
   if (!showLinks) {

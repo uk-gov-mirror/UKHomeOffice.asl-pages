@@ -1,9 +1,12 @@
 const { Router } = require('express');
 const { cleanModel } = require('../../lib/utils');
+const { populateNamedPeople } = require('../common/middleware');
 const routes = require('./routes');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
+
+  app.use(populateNamedPeople);
 
   app.param('placeId', (req, res, next, placeId) => {
     const params = req.path.match(/delete\/success$/)
@@ -13,7 +16,9 @@ module.exports = settings => {
       .then(({ json: { data, meta } }) => {
         req.placeId = placeId;
         res.locals.static.establishment = meta.establishment;
-        req.model = req.place = cleanModel(data);
+        req.place = cleanModel(data);
+        req.place.nacwos = req.place.roles.filter(r => r.type === 'nacwo').map(r => r.id);
+        req.model = req.place;
         req.model.openTasks = meta.openTasks || [];
       })
       .then(() => next())
