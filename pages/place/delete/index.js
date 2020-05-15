@@ -1,4 +1,4 @@
-const { pick } = require('lodash');
+const { pick, concat } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { schema } = require('../schema');
 const confirm = require('../routers/confirm');
@@ -23,6 +23,14 @@ module.exports = settings => {
       res.locals.model = pick(req.model, Object.keys(schema), 'tasks');
       res.locals.static = res.locals.static || {};
       res.locals.static.schema = schema;
+
+      const allNacwos = req.establishment.nacwo;
+      const allNvsSqps = concat(req.establishment.nvs, req.establishment.sqp);
+
+      // convert role ids into role objects with profile for the model summary
+      res.locals.model.nacwos = allNacwos.filter(r => res.locals.model.nacwos.includes(r.id));
+      res.locals.model.nvssqps = allNvsSqps.filter(r => res.locals.model.nvssqps.includes(r.id));
+
       return next();
     },
     cancelEdit: (req, res, next) => {

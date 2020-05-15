@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const confirm = require('../../routers/confirm');
-const { getNacwoById } = require('../../../common/helpers');
 
 module.exports = () => {
   const app = Router();
@@ -14,17 +13,14 @@ module.exports = () => {
   });
 
   app.get('/', (req, res, next) => {
-    return getNacwoById(req, req.form.values.nacwo)
-      .then(nacwo => {
-        Object.assign(res.locals.model, { ...req.form.values, nacwo });
-      })
-      .then(() => next())
-      .catch(next);
+    res.locals.model = res.locals.static.values;
+    return next();
   });
 
   app.get('/', (req, res) => res.sendResponse());
 
   app.post('/', (req, res, next) => {
+    delete req.session.form[req.model.id];
     return res.redirect(req.buildRoute('place.create', { suffix: 'success' }));
   });
 
