@@ -136,7 +136,7 @@ module.exports = () => {
     next();
   });
 
-  app.use(async (req, res, next) => {
+  app.use((req, res, next) => {
     if (req.task.data.model === 'place') {
       const roleIds = req.task.data.data.roles || [];
       const nacwoProfileId = get(req.task, 'data.data.nacwo'); // handle legacy tasks before multiple nacwos
@@ -151,8 +151,11 @@ module.exports = () => {
 
       set(req.task, 'data.data.nacwos', allNacwos.filter(r => roleIds.includes(r.id)));
       set(req.task, 'data.data.nvssqps', allNvsSqps.filter(r => roleIds.includes(r.id)));
-      res.locals.static.values.nacwos = res.locals.static.values.roles.filter(r => r.type === 'nacwo');
-      res.locals.static.values.nvssqps = res.locals.static.values.roles.filter(r => ['nvs', 'sqp'].includes(r.type));
+
+      if (req.task.data.action !== 'create') {
+        res.locals.static.values.nacwos = res.locals.static.values.roles.filter(r => r.type === 'nacwo');
+        res.locals.static.values.nvssqps = res.locals.static.values.roles.filter(r => ['nvs', 'sqp'].includes(r.type));
+      }
     }
     next();
   });

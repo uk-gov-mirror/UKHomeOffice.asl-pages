@@ -8,7 +8,6 @@ module.exports = settings => {
 
   const sendData = (req, params = {}) => {
     const values = req.session.form[req.model.id].values;
-    values.roles = concat([], values.nacwos, values.nvssqps);
     const opts = {
       method: settings.method,
       json: merge({
@@ -18,7 +17,6 @@ module.exports = settings => {
         }
       }, params)
     };
-
     return req.api(settings.apiUrl, opts);
   };
 
@@ -34,10 +32,7 @@ module.exports = settings => {
     },
     locals: (req, res, next) => {
       const existingNacwoIds = req.model.nacwos;
-      const selectedNacwoIds = req.session.form[req.model.id].values.nacwos;
-
       const existingNvsSqpIds = req.model.nvssqps;
-      const selectedNvsSqpIds = req.session.form[req.model.id].values.nvssqps;
 
       Object.assign(res.locals, {
         model: {
@@ -47,6 +42,13 @@ module.exports = settings => {
           nvssqps: req.establishment.roles.filter(r => ['nvs', 'sqp'].includes(r.type) && existingNvsSqpIds.includes(r.id))
         }
       });
+
+      const selectedNacwoIds = req.session.form[req.model.id].values.nacwos
+        ? req.session.form[req.model.id].values.nacwos.filter(Boolean)
+        : [];
+      const selectedNvsSqpIds = req.session.form[req.model.id].values.nvssqps
+        ? req.session.form[req.model.id].values.nvssqps.filter(Boolean)
+        : [];
 
       Object.assign(res.locals.static, {
         establishment: req.establishment,
@@ -59,7 +61,16 @@ module.exports = settings => {
         }
       });
 
-      next();
+      return next();
+    },
+    process: (req, res, next) => {
+      if (settings.method !== 'DELETE') {
+        req.session.form[req.model.id].values.roles = concat(
+          req.session.form[req.model.id].values.nacwos,
+          req.session.form[req.model.id].values.nvssqps
+        ).filter(Boolean);
+      }
+      return next();
     },
     checkSession: (req, res, next) => {
       if (req.session.form && req.session.form[req.model.id]) {
