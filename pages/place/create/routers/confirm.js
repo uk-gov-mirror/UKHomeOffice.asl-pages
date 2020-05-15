@@ -20,6 +20,7 @@ module.exports = () => {
   app.get('/', (req, res) => res.sendResponse());
 
   app.post('/', (req, res, next) => {
+    delete req.session.form[req.model.id];
     return res.redirect(req.buildRoute('place.create', { suffix: 'success' }));
   });
 

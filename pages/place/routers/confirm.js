@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { omit, pick, merge, get, concat } = require('lodash');
+const { omit, pick, merge, get, set, concat } = require('lodash');
 const form = require('../../common/routers/form');
 const { schema } = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
@@ -43,12 +43,8 @@ module.exports = settings => {
         }
       });
 
-      const selectedNacwoIds = req.session.form[req.model.id].values.nacwos
-        ? req.session.form[req.model.id].values.nacwos.filter(Boolean)
-        : [];
-      const selectedNvsSqpIds = req.session.form[req.model.id].values.nvssqps
-        ? req.session.form[req.model.id].values.nvssqps.filter(Boolean)
-        : [];
+      const selectedNacwoIds = get(req.session.form[req.model.id], 'values.nacwos', []).filter(Boolean);
+      const selectedNvsSqpIds = get(req.session.form[req.model.id], 'values.nvssqps', []).filter(Boolean);
 
       Object.assign(res.locals.static, {
         establishment: req.establishment,
@@ -65,10 +61,9 @@ module.exports = settings => {
     },
     process: (req, res, next) => {
       if (settings.method !== 'DELETE') {
-        req.session.form[req.model.id].values.roles = concat(
-          req.session.form[req.model.id].values.nacwos,
-          req.session.form[req.model.id].values.nvssqps
-        ).filter(Boolean);
+        const selectedNacwoIds = get(req.session.form[req.model.id], 'values.nacwos', []);
+        const selectedNvsSqpIds = get(req.session.form[req.model.id], 'values.nvssqps', []);
+        set(req.session.form[req.model.id], 'values.roles', concat(selectedNacwoIds, selectedNvsSqpIds).filter(Boolean));
       }
       return next();
     },
