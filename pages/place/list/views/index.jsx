@@ -29,7 +29,7 @@ const pageFormatters = {
   nacwos: {
     format: nacwos => {
       return nacwos && nacwos.map(nacwo => (
-        <p key={nacwo.profile.id}>
+        <p key={nacwo.profile.id} className="no-margins">
           <Link
             page="profile.read"
             profileId={nacwo.profile.id}
