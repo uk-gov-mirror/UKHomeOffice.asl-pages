@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { merge, set, get } = require('lodash');
+const { merge, set, get, concat } = require('lodash');
 
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { populateNamedPeople } = require('../../../common/middleware');
@@ -146,8 +146,13 @@ module.exports = () => {
         roleIds.push(nacwoRole.id);
       }
 
-      set(req.task, 'data.data.nacwos', req.establishment.nacwo.filter(r => roleIds.includes(r.id)));
+      const allNacwos = req.establishment.nacwo;
+      const allNvsSqps = concat(req.establishment.nvs, req.establishment.sqp);
+
+      set(req.task, 'data.data.nacwos', allNacwos.filter(r => roleIds.includes(r.id)));
+      set(req.task, 'data.data.nvssqps', allNvsSqps.filter(r => roleIds.includes(r.id)));
       res.locals.static.values.nacwos = res.locals.static.values.roles.filter(r => r.type === 'nacwo');
+      res.locals.static.values.nvssqps = res.locals.static.values.roles.filter(r => ['nvs', 'sqp'].includes(r.type));
     }
     next();
   });

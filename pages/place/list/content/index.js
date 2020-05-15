@@ -14,6 +14,9 @@ module.exports = merge({}, commonContent, {
   fields: {
     nacwos: {
       label: 'NACWOs'
+    },
+    nvssqps: {
+      label: 'NVSs / SQPs'
     }
   }
 });

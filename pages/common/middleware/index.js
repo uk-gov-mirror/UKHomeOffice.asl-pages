@@ -82,7 +82,7 @@ const populateNamedPeople = (req, res, next) => {
       req.establishment.nprc = nprc.profile;
     }
 
-    ['holc', 'nacwo', 'nio', 'nvs', 'ntco'].map(roleName => {
+    ['holc', 'nacwo', 'nio', 'nvs', 'ntco', 'sqp'].map(roleName => {
       req.establishment[roleName] = req.establishment.roles.filter(r => r.type === roleName);
     });
   }

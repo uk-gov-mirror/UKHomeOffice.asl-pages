@@ -38,6 +38,19 @@ const pageFormatters = {
         </p>
       ));
     }
+  },
+  nvssqps: {
+    format: nvssqps => {
+      return nvssqps && nvssqps.map(role => (
+        <p key={role.profile.id} className="no-margins">
+          <Link
+            page="profile.read"
+            profileId={role.profile.id}
+            label={`${role.profile.firstName} ${role.profile.lastName}`}
+          />
+        </p>
+      ));
+    }
   }
 };
 

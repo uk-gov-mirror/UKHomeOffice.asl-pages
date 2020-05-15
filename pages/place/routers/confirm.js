@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { omit, pick, merge, get } = require('lodash');
+const { omit, pick, merge, get, concat } = require('lodash');
 const form = require('../../common/routers/form');
 const { schema } = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
@@ -8,11 +8,11 @@ module.exports = settings => {
 
   const sendData = (req, params = {}) => {
     const values = req.session.form[req.model.id].values;
-    values.roles = values.nacwos;
+    values.roles = concat([], values.nacwos, values.nvssqps);
     const opts = {
       method: settings.method,
       json: merge({
-        data: omit(values, 'comments', 'comment', 'establishmentId', 'changesToRestrictions', 'nacwos'),
+        data: omit(values, 'comments', 'comment', 'establishmentId', 'changesToRestrictions', 'nacwos', 'nvssqps'),
         meta: {
           ...pick(values, 'comments', 'changesToRestrictions')
         }
@@ -36,10 +36,15 @@ module.exports = settings => {
       const existingNacwoIds = req.model.nacwos;
       const selectedNacwoIds = req.session.form[req.model.id].values.nacwos;
 
+      const existingNvsSqpIds = req.model.nvssqps;
+      const selectedNvsSqpIds = req.session.form[req.model.id].values.nvssqps;
+
       Object.assign(res.locals, {
         model: {
           ...req.model,
-          nacwos: req.establishment.nacwo.filter(r => existingNacwoIds.includes(r.id))
+          // provide the existing roles for rendering profile names in the lhs of diff
+          nacwos: req.establishment.nacwo.filter(r => existingNacwoIds.includes(r.id)),
+          nvssqps: req.establishment.roles.filter(r => ['nvs', 'sqp'].includes(r.type) && existingNvsSqpIds.includes(r.id))
         }
       });
 
@@ -48,7 +53,9 @@ module.exports = settings => {
         diffSchema: schema,
         values: {
           ...req.session.form[req.model.id].values,
-          nacwos: req.establishment.nacwo.filter(r => selectedNacwoIds.includes(r.id))
+          // provide the selected roles for rendering profile names in the rhs of diff
+          nacwos: req.establishment.nacwo.filter(r => selectedNacwoIds.includes(r.id)),
+          nvssqps: req.establishment.roles.filter(r => ['nvs', 'sqp'].includes(r.type) && selectedNvsSqpIds.includes(r.id))
         }
       });
 
