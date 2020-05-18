@@ -90,7 +90,8 @@ module.exports = settings => {
         delete req.session.form[req.model.id];
         const status = get(response, 'json.data.status');
         if (status === 'autoresolved') {
-          req.notification({ key: 'success' });
+          const successMessageKey = get(req.user, 'profile.asruUser') ? 'success' : 'roleChangeSuccess';
+          req.notification({ key: successMessageKey });
           return res.redirect(req.buildRoute('place.list'));
         }
         return next();
