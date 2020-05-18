@@ -47,6 +47,7 @@ const ProjectDownloads = () => {
 
           <h3><Snippet>application.heading</Snippet></h3>
           <p><Link page="projectVersion.docx" label={<Snippet>application.link</Snippet>} /></p>
+          <p><Link page="projectVersion.pdf" query={{ application: true }} label={<Snippet>application.pdf-link</Snippet>} /></p>
           <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
 
           {

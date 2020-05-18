@@ -20,6 +20,7 @@ module.exports = settings => {
   app.use(getProjectEstablishment());
 
   const setupPdf = (opts = {}) => (req, res, next) => {
+    const isFullApplication = !!req.query.application;
     const initialState = {
       project: req.version.data || { title: 'Untitled project' },
       application: {
@@ -28,7 +29,8 @@ module.exports = settings => {
         project: req.project,
         isGranted: true,
         readonly: true,
-        showConditions: true
+        showConditions: !isFullApplication,
+        isFullApplication
       },
       static: {
         content,
