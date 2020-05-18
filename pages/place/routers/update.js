@@ -19,8 +19,8 @@ module.exports = () => {
     process: (req, res, next) => {
       let nacwos = get(req.body, 'nacwos');
       let nvssqps = get(req.body, 'nvssqps');
-      req.form.values.nacwos = uniq(Array.isArray(nacwos) ? nacwos : [nacwos]);
-      req.form.values.nvssqps = uniq(Array.isArray(nvssqps) ? nvssqps : [nvssqps]);
+      req.form.values.nacwos = uniq(Array.isArray(nacwos) ? nacwos : [nacwos]).filter(Boolean);
+      req.form.values.nvssqps = uniq(Array.isArray(nvssqps) ? nvssqps : [nvssqps]).filter(Boolean);
       next();
     },
     cancelEdit: (req, res, next) => {
