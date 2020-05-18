@@ -2,6 +2,7 @@ module.exports = {
   fields: require('./fields'),
   errors: require('./errors'),
   notifications: {
-    success: 'Named people updated.'
+    success: 'Licence updated',
+    roleChangeSuccess: 'Named people updated'
   }
 };
