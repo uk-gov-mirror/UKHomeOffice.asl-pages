@@ -96,6 +96,13 @@ const schemaWithReveals = schema => reduce(schema, (obj, value, key) => {
   };
 }, {});
 
+const filterFieldProps = schema => reduce(schema, (obj, value, key) => {
+  return {
+    ...obj,
+    [key]: omit(value, ['checkChanged', 'showDiff'])
+  };
+}, {});
+
 const trim = value => {
   if (typeof value === 'string') {
     // split input into lines, trim each one, and then rejoin
@@ -283,7 +290,7 @@ module.exports = ({
   const _locals = (req, res, next) => {
     const { values, validationErrors, schema } = req.form;
     Object.assign(res.locals.static, {
-      schema,
+      schema: filterFieldProps(schema),
       errors: validationErrors,
       csrfToken: req.csrfToken
     });
