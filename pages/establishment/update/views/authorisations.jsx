@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Inset, Snippet } from '@asl/components';
 
-const Authorisations = ({ before, after }) => {
+const Authorisations = ({ before, after, currentTitle, proposedTitle }) => {
   const currentKillingAuthorisations = before.authorisations.filter(a => a.type === 'killing');
   const currentRehomeAuthorisations = before.authorisations.filter(a => a.type === 'rehomes');
   const hasCurrentAuthorisations = currentKillingAuthorisations.length > 0 || currentRehomeAuthorisations.length > 0;
@@ -12,7 +12,11 @@ const Authorisations = ({ before, after }) => {
 
   return (
     <div>
-      <h2><Snippet>authorisations.current.title</Snippet></h2>
+      <h2>
+        {
+          currentTitle || <Snippet>authorisations.current.title</Snippet>
+        }
+      </h2>
       {
         !hasCurrentAuthorisations && <p><Snippet>authorisations.none</Snippet></p>
       }
@@ -59,7 +63,11 @@ const Authorisations = ({ before, after }) => {
           </Fragment>
       }
 
-      <h2><Snippet>authorisations.proposed.title</Snippet></h2>
+      <h2>
+        {
+          proposedTitle || <Snippet>authorisations.proposed.title</Snippet>
+        }
+      </h2>
       {
         !hasProposedAuthorisations && <p><Snippet>authorisations.none</Snippet></p>
       }

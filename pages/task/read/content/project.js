@@ -40,7 +40,9 @@ module.exports = {
   },
   establishment: {
     current: 'Current establishment',
-    proposed: 'Proposed establishment'
+    proposed: 'Proposed establishment',
+    previous: 'Previous establishment',
+    new: 'New establishment'
   },
   declarations: {
     'pel-holder': {

@@ -17,19 +17,31 @@ import Deadline from '../components/deadline';
 import { fields } from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
 
-const selector = ({ static: { project, establishment, version } }) => ({ project, establishment, version });
+const selector = ({ static: { project, establishment, version, values } }) => ({ project, establishment, version, values });
 
 // declarations can be 'Yes', 'No', or 'Not yet'
 const declarationConfirmed = declaration => declaration && declaration.toLowerCase() === 'yes';
 
-function EstablishmentDiff({ task }) {
+function EstablishmentDiff({ task, isComplete }) {
   const { to, from } = task.data.meta.establishment;
   return (
     <table className="govuk-table compare">
       <thead>
         <tr>
-          <th><Snippet>establishment.current</Snippet></th>
-          <th><Snippet>establishment.proposed</Snippet></th>
+          <th>
+            {
+              isComplete
+                ? <Snippet>establishment.previous</Snippet>
+                : <Snippet>establishment.current</Snippet>
+            }
+          </th>
+          <th>
+            {
+              isComplete
+                ? <Snippet>establishment.new</Snippet>
+                : <Snippet>establishment.proposed</Snippet>
+            }
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -43,11 +55,13 @@ function EstablishmentDiff({ task }) {
 }
 
 export default function Project({ task, schema }) {
-  const { project, establishment, version } = useSelector(selector, shallowEqual);
+  const { project, establishment, version, values } = useSelector(selector, shallowEqual);
   const declarations = task.data.meta;
   const isAmendment = task.type === 'amendment';
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
+
+  const isComplete = task.status === 'resolved';
 
   const showDeclarations = declarations.authority || declarations.awerb;
 
@@ -90,7 +104,7 @@ export default function Project({ task, schema }) {
     (
       task.data.action === 'transfer' && (
         <StickyNavAnchor id="establishment" key="establishment">
-          <EstablishmentDiff task={task} />
+          <EstablishmentDiff task={task} isComplete={isComplete} />
         </StickyNavAnchor>
       )
     ),
@@ -225,10 +239,12 @@ export default function Project({ task, schema }) {
         <StickyNavAnchor id="licence-holder" key="licence-holder">
           <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
           <Diff
-            before={project}
+            before={values}
             after={{ licenceHolder: task.data.licenceHolder }}
             schema={pick(projectSchema, 'licenceHolder')}
             formatters={formatters}
+            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
+            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
           />
         </StickyNavAnchor>
       )

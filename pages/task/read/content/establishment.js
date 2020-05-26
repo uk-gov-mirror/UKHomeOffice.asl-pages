@@ -35,5 +35,9 @@ module.exports = {
   approvedAreas: {
     total: 'Total approved areas'
   },
-  authorisations
+  authorisations: {
+    ...authorisations,
+    previous: 'Previous authorisations',
+    new: 'New authorisations'
+  }
 };

@@ -19,6 +19,8 @@ export default function Establishment({ task, values }) {
   const establishment = useSelector(state => state.static.establishment);
   const showNprc = establishment.nprc && (!establishment.pelh || establishment.pelh.id !== establishment.nprc.id);
 
+  const isComplete = task.status === 'resolved';
+
   return [
     (
       task.type === 'amendment' && (
@@ -91,9 +93,16 @@ export default function Establishment({ task, values }) {
             schema={establishmentSchema}
             formatters={formatters}
             comparator={hasChanged}
+            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
+            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
           />
 
-          <Authorisations before={values} after={task.data.data} />
+          <Authorisations
+            before={values}
+            after={task.data.data}
+            currentTitle={isComplete && <Snippet>authorisations.previous</Snippet>}
+            proposedTitle={isComplete && <Snippet>authorisations.new</Snippet>}
+          />
         </StickyNavAnchor>
       )
     ),
@@ -102,7 +111,12 @@ export default function Establishment({ task, values }) {
       task.data.action === 'update-conditions' && (
         <StickyNavAnchor id="conditions" key="conditions">
           <h2><Snippet>sticky-nav.conditions</Snippet></h2>
-          <DiffText oldValue={establishment.conditions} newValue={task.data.data.conditions} />
+          <DiffText
+            oldValue={establishment.conditions}
+            newValue={task.data.data.conditions}
+            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
+            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
+          />
         </StickyNavAnchor>
       )
     )

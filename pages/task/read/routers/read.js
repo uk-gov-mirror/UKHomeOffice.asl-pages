@@ -114,6 +114,12 @@ module.exports = () => {
         return next();
       }
 
+      // if task is resolved, get previous values from task
+      if (req.task.status === 'resolved') {
+        res.locals.static.values = get(req.task, 'activityLog[0].event.data.modelData');
+        return next();
+      }
+
       let est = '';
       if (model !== 'profile') {
         est = `/establishment/${req.task.data.data.establishmentId}`;

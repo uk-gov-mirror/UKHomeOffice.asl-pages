@@ -19,6 +19,8 @@ export default function PIL({ task, values }) {
   const isReview = task.type === 'review';
   const showTraining = !isReview || profile.certificates.length > 0;
 
+  const isComplete = task.status === 'resolved';
+
   let pil = task.data.action === 'update-conditions' ? values : task.data.data;
   if (isReview) {
     pil = task.data.modelData;
@@ -182,7 +184,12 @@ export default function PIL({ task, values }) {
       task.data.action === 'update-conditions' && (
         <StickyNavAnchor id="conditions" key="conditions">
           <h2><Snippet>sticky-nav.conditions</Snippet></h2>
-          <DiffText oldValue={pil.conditions} newValue={task.data.data.conditions} />
+          <DiffText
+            oldValue={pil.conditions}
+            newValue={task.data.data.conditions}
+            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
+            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
+          />
         </StickyNavAnchor>
       )
     )

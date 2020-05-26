@@ -29,6 +29,8 @@ export default function Playback({ task, schema, values, allowSubmit }) {
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
 
+  const isComplete = task.status === 'resolved';
+
   useEffect(() => {
     if (dirty && !allowSubmit) {
       window.onbeforeunload = () => true;
@@ -68,6 +70,8 @@ export default function Playback({ task, schema, values, allowSubmit }) {
             schema={placeSchema}
             formatters={formatters}
             comparator={hasChanged}
+            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
+            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
           />
         </StickyNavAnchor>
       )
@@ -96,8 +100,16 @@ export default function Playback({ task, schema, values, allowSubmit }) {
     (
       <StickyNavAnchor id="restrictions" key="restrictions">
         <EditableField
-          currentLabel={<Snippet>fields.restrictions.currentLabel</Snippet>}
-          proposedLabel={<Snippet>fields.restrictions.proposedLabel</Snippet>}
+          currentLabel={
+            isComplete
+              ? <Snippet>fields.restrictions.previousLabel</Snippet>
+              : <Snippet>fields.restrictions.currentLabel</Snippet>
+          }
+          proposedLabel={
+            isComplete
+              ? <Snippet>fields.restrictions.newLabel</Snippet>
+              : <Snippet>fields.restrictions.proposedLabel</Snippet>
+          }
           deleteItemWarning="Are you sure you want to remove these restrictions?"
           editable={canEditRestictions}
           label={<Snippet>sticky-nav.restrictions</Snippet>}
