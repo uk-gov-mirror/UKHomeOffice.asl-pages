@@ -16,6 +16,8 @@ $sectionSeparator: 50px;
 .editor {
   img {
     max-width: 100%;
+    page-break-inside: avoid;
+    max-height: 100vh;
   }
 }
 
@@ -187,7 +189,7 @@ dl dd {
   &:not(.adverse-effects) {
     page-break-before: always;
   }
-  
+
   page-break-after: always;
 
   .field {
