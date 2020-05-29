@@ -8,6 +8,7 @@ import formatters from '../../formatters';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Section from './components/section';
 import ManageAccess from './components/manage-access';
+import RelatedTasks from '../../../task/list/views/related-tasks';
 
 const getProjectDuration = model => formatters.duration.format(model.granted);
 
@@ -369,6 +370,8 @@ export default function ProjectLandingPage() {
 
   const canChangeLicenceHolder = canUpdate && !openTask && isEditable && (!model.isLegacyStub || (model.isLegacyStub && asruLicensing));
 
+  const showRelatedTasks = canUpdate;
+
   return (
     <Fragment>
       <ProjectStatusBanner model={model} version={grantedVersion || model.versions[0]} />
@@ -487,6 +490,8 @@ export default function ProjectLandingPage() {
       <PreviousVersions model={model} />
       <RevokeLicence model={model} />
       <ManageAccess model={model} />
+
+      { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
 }

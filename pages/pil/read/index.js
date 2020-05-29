@@ -2,6 +2,7 @@ const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const { hydrate } = require('../../common/middleware');
+const relatedTasks = require('../../common/middleware/related-tasks');
 
 module.exports = settings => {
   const app = page({
@@ -56,6 +57,12 @@ module.exports = settings => {
     res.locals.static.isLicenceHolder = req.user.profile.id === req.profileId;
     next();
   });
+
+  app.get('/', (req, res, next) => relatedTasks({
+    model: 'pil',
+    modelId: req.pilId,
+    establishmentId: req.establishmentId
+  })(req, res, next));
 
   app.use(form({
     schema: {

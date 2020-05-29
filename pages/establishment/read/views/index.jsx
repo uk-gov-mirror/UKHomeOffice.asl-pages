@@ -11,6 +11,7 @@ import {
   LicenceStatusBanner
 } from '@asl/components';
 import ProfileLink from '../../components/profile-link';
+import RelatedTasks from '../../../task/list/views/related-tasks';
 
 const Index = ({
   establishment,
@@ -22,6 +23,7 @@ const Index = ({
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
   const canAmendDetails = allowedActions.includes('establishment.update');
+  const showRelatedTasks = allowedActions.includes('establishment.update');
   const canDownloadPDF = allowedActions.includes('establishment.pdf');
   const canSeeRevoke = allowedActions.includes('establishment.revoke') && establishment.status === 'active';
   const canActionRevoke = canSeeRevoke && !establishment.hasActiveLicences;
@@ -176,6 +178,7 @@ const Index = ({
             </section>
         }
       </div>
+      { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
 };

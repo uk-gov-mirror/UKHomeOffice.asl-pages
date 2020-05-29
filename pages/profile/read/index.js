@@ -1,4 +1,10 @@
 const { page } = require('@asl/service/ui');
+const relatedTasks = require('../../common/middleware/related-tasks');
+
+const isEstablishmentAdmin = (profile, establishmentId) => {
+  const currentEstablishment = profile.establishments.find(e => e.id === establishmentId);
+  return currentEstablishment && currentEstablishment.role === 'admin';
+};
 
 module.exports = settings => {
   const app = page({
@@ -7,9 +13,19 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    res.locals.static.isOwnProfile = req.user.profile.id === req.profileId;
+    const isOwnProfile = req.user.profile.id === req.profileId;
+    res.locals.static.isOwnProfile = isOwnProfile;
+    res.locals.static.showRelatedTasks = isOwnProfile ||
+      isEstablishmentAdmin(req.user.profile, req.establishmentId) ||
+      req.user.profile.asruUser;
     next();
   });
+
+  app.get('/', (req, res, next) => relatedTasks({
+    modelId: req.profileId,
+    model: 'profile-touched',
+    establishmentId: req.establishmentId
+  })(req, res, next));
 
   return app;
 };

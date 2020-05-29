@@ -1,4 +1,5 @@
 const { page } = require('@asl/service/ui');
+const relatedTasks = require('../../common/middleware/related-tasks');
 
 module.exports = settings => {
   const app = page({
@@ -21,6 +22,11 @@ module.exports = settings => {
     res.locals.static.profile = req.user.profile;
     next();
   });
+
+  app.get('/', (req, res, next) => relatedTasks({
+    model: 'profile',
+    modelId: req.user.profile.id
+  })(req, res, next));
 
   return app;
 };

@@ -2,6 +2,7 @@ const { page } = require('@asl/service/ui');
 const { get } = require('lodash');
 const { form } = require('../../common/routers');
 const schema = require('./schema');
+const relatedTasks = require('../../common/middleware/related-tasks');
 
 module.exports = settings => {
   const app = page({
@@ -16,6 +17,11 @@ module.exports = settings => {
   });
 
   app.use(form({ schema }));
+
+  app.get('/', (req, res, next) => relatedTasks({
+    model: 'establishment',
+    modelId: req.model.id
+  })(req, res, next));
 
   app.post('/', (req, res, next) => {
     const conditions = get(req.form, 'values.conditions');

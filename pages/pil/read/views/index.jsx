@@ -14,6 +14,7 @@ import {
   LicenceStatusBanner
 } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
+import RelatedTasks from '../../../task/list/views/related-tasks';
 
 const PIL = ({
   pil,
@@ -31,6 +32,7 @@ const PIL = ({
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
 
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
+  const showRelatedTasks = canUpdate;
 
   const formatters = {
     issueDate: {
@@ -211,6 +213,7 @@ const PIL = ({
           </div>
         )
       }
+      { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
 };
