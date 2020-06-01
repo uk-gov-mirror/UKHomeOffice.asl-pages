@@ -68,6 +68,10 @@ export default function Project({ task, schema }) {
   const formatters = {
     licenceHolder: {
       format: licenceHolder => {
+        if (!licenceHolder) {
+          return '-';
+        }
+
         return (
           <Fragment>
             <Link

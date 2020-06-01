@@ -104,19 +104,22 @@ module.exports = () => {
   app.use((req, res, next) => {
     const action = req.task.data.action;
     const model = req.task.data.model;
-    if (model === 'establishment') {
-      res.locals.static.values = req.establishment;
-      return next();
-    }
     if (action === 'update' || action === 'delete' || action === 'update-conditions') {
-      if (model === 'profile' && req.user.profile.id === req.task.data.id) {
-        res.locals.static.values = req.user.profile;
-        return next();
-      }
-
       // if task is resolved, get previous values from task
       if (req.task.status === 'resolved') {
         res.locals.static.values = get(req.task, 'activityLog[0].event.data.modelData');
+
+        if (model === 'establishment') {
+          if (!res.locals.static.values.authorisations) {
+            res.locals.static.values.authorisations = [];
+          }
+        }
+
+        return next();
+      }
+
+      if (model === 'profile' && req.user.profile.id === req.task.data.id) {
+        res.locals.static.values = req.user.profile;
         return next();
       }
 
@@ -159,8 +162,8 @@ module.exports = () => {
       set(req.task, 'data.data.nvssqps', allNvsSqps.filter(r => roleIds.includes(r.id)));
 
       if (req.task.data.action !== 'create') {
-        res.locals.static.values.nacwos = res.locals.static.values.roles.filter(r => r.type === 'nacwo');
-        res.locals.static.values.nvssqps = res.locals.static.values.roles.filter(r => ['nvs', 'sqp'].includes(r.type));
+        res.locals.static.values.nacwos = (res.locals.static.values.roles || []).filter(r => r.type === 'nacwo');
+        res.locals.static.values.nvssqps = (res.locals.static.values.roles || []).filter(r => ['nvs', 'sqp'].includes(r.type));
       }
     }
     next();
