@@ -123,18 +123,23 @@ module.exports = () => {
         return next();
       }
 
-      let est = '';
-      if (model !== 'profile') {
-        est = `/establishment/${req.task.data.data.establishmentId}`;
-
-        if (model === 'pil') {
-          est = `${est}/profile/${req.task.data.data.profileId}`;
+      const getUrl = () => {
+        const modelId = req.task.data.id;
+        switch (model) {
+          case 'establishment':
+            return `/establishment/${modelId}`;
+          case 'profile':
+            return `/profile/${modelId}`;
+          case 'pil':
+            const estId = req.task.data.data.establishmentId;
+            const profileId = req.task.data.data.profileId;
+            return `/establishment/${estId}/profile/${profileId}/pil/${modelId}`;
+          default:
+            return `/establishment/${estId}/${model}/${modelId}`;
         }
-      }
-      const id = req.task.data.id;
-      const url = `/${model}/${id}`;
+      };
 
-      return req.api(`${est}${url}`, { query: { withDeleted: true } })
+      return req.api(getUrl(), { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           res.locals.static.values = data;
         })
