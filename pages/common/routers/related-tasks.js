@@ -1,10 +1,37 @@
 const { Router } = require('express');
 const { merge } = require('lodash');
-const datatable = require('../routers/datatable');
+const datatable = require('./datatable');
 const taskListSchema = require('../../task/list/schema');
 
 module.exports = getQuery => {
   const app = Router();
+
+  const permsCheck = (user, query) => {
+    let { model, modelId } = query;
+    model = model === 'profile-touched' ? 'profile' : model;
+
+    const params = {
+      id: modelId,
+      establishment: model === 'establishment' ? modelId : query.establishmentId
+    };
+
+    return user.can(`${model}.relatedTasks`, params);
+  };
+
+  app.use((req, res, next) => {
+    let query = getQuery(req);
+
+    return Promise.resolve()
+      .then(() => permsCheck(req.user, query))
+      .then(showRelatedTasks => {
+        res.locals.static.showRelatedTasks = showRelatedTasks;
+        if (!showRelatedTasks) {
+          return next('router');
+        }
+        return next();
+      })
+      .catch(next);
+  });
 
   app.use((req, res, next) => {
     if (!res.locals.static.showRelatedTasks) {

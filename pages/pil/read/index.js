@@ -1,8 +1,7 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { form } = require('../../common/routers');
+const { form, relatedTasks } = require('../../common/routers');
 const { hydrate } = require('../../common/middleware');
-const relatedTasks = require('../../common/middleware/related-tasks');
 
 module.exports = settings => {
   const app = page({
@@ -34,13 +33,11 @@ module.exports = settings => {
     };
     Promise.all([
       req.user.can('pil.update', params),
-      req.user.can('pil.pdf', params),
-      req.user.can('pil.relatedTasks', params)
+      req.user.can('pil.pdf', params)
     ])
-      .then(([canUpdate, canDownload, showRelatedTasks]) => {
+      .then(([canUpdate, canDownload]) => {
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.canDownload = canDownload;
-        res.locals.static.showRelatedTasks = showRelatedTasks;
       })
       .then(() => next())
       .catch(next);

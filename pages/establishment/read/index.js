@@ -1,8 +1,7 @@
 const { page } = require('@asl/service/ui');
 const { get } = require('lodash');
-const { form } = require('../../common/routers');
+const { form, relatedTasks } = require('../../common/routers');
 const schema = require('./schema');
-const relatedTasks = require('../../common/middleware/related-tasks');
 
 module.exports = settings => {
   const app = page({

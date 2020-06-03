@@ -1,7 +1,7 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canViewTransferredProject } = require('../middleware');
-const relatedTasks = require('../../common/middleware/related-tasks');
+const { relatedTasks } = require('../../common/routers');
 
 module.exports = settings => {
   const app = page({
@@ -33,16 +33,14 @@ module.exports = settings => {
     Promise.all([
       req.user.can('project.update', params),
       req.user.can('project.revoke', params),
-      req.user.can('project.transfer', params),
-      req.user.can('project.relatedTasks', params)
+      req.user.can('project.transfer', params)
     ])
-      .then(([canUpdate, canRevoke, canTransfer, showRelatedTasks]) => {
+      .then(([canUpdate, canRevoke, canTransfer]) => {
         const openTask = req.project.openTasks[0];
         const editable = (!openTask || (openTask && openTask.editable));
 
         res.locals.static.canTransfer = canTransfer;
         res.locals.static.canUpdate = canUpdate;
-        res.locals.static.showRelatedTasks = showRelatedTasks;
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
         res.locals.static.canRevoke = canRevoke;

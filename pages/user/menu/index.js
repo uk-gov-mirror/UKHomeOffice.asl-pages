@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const relatedTasks = require('../../common/middleware/related-tasks');
+const { relatedTasks } = require('../../common/routers');
 
 module.exports = settings => {
   const app = page({

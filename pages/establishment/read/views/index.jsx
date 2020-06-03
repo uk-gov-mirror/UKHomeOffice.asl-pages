@@ -17,13 +17,13 @@ const Index = ({
   establishment,
   allowedActions,
   openTask,
-  currentPath
+  currentPath,
+  showRelatedTasks
 }) => {
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
   const canAmendDetails = allowedActions.includes('establishment.update');
-  const showRelatedTasks = allowedActions.includes('establishment.relatedTasks');
   const canDownloadPDF = allowedActions.includes('establishment.pdf');
   const canSeeRevoke = allowedActions.includes('establishment.revoke') && establishment.status === 'active';
   const canActionRevoke = canSeeRevoke && !establishment.hasActiveLicences;
@@ -183,6 +183,20 @@ const Index = ({
   );
 };
 
-const mapStateToProps = ({ static: { establishment, allowedActions, openTask, currentPath } }) => ({ establishment, allowedActions, openTask, currentPath });
+const mapStateToProps = ({
+  static: {
+    establishment,
+    allowedActions,
+    openTask,
+    currentPath,
+    showRelatedTasks
+  }
+}) => ({
+  establishment,
+  allowedActions,
+  openTask,
+  currentPath,
+  showRelatedTasks
+});
 
 export default connect(mapStateToProps)(Index);
