@@ -16,7 +16,7 @@ const formatters = {
 };
 
 export default function Profile({ task, values, schema }) {
-  const isComplete = task.status === 'resolved';
+  const isComplete = !task.isOpen;
   return (
     <StickyNavAnchor id="changes">
       <h2><Snippet>sticky-nav.changes</Snippet></h2>

@@ -19,7 +19,7 @@ export default function Establishment({ task, values }) {
   const establishment = useSelector(state => state.static.establishment);
   const showNprc = establishment.nprc && (!establishment.pelh || establishment.pelh.id !== establishment.nprc.id);
 
-  const isComplete = task.status === 'resolved';
+  const isComplete = !task.isOpen;
 
   return [
     (

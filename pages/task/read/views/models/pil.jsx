@@ -19,7 +19,7 @@ export default function PIL({ task, values }) {
   const isReview = task.type === 'review';
   const showTraining = !isReview || profile.certificates.length > 0;
 
-  const isComplete = task.status === 'resolved';
+  const isComplete = !task.isOpen;
 
   let pil = task.data.action === 'update-conditions' ? values : task.data.data;
   if (isReview) {

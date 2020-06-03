@@ -29,7 +29,7 @@ export default function Playback({ task, schema, values, allowSubmit }) {
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
 
-  const isComplete = task.status === 'resolved';
+  const isComplete = !task.isOpen;
 
   useEffect(() => {
     if (dirty && !allowSubmit) {

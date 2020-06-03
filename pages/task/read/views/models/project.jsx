@@ -22,7 +22,8 @@ const selector = ({ static: { project, establishment, version, values } }) => ({
 // declarations can be 'Yes', 'No', or 'Not yet'
 const declarationConfirmed = declaration => declaration && declaration.toLowerCase() === 'yes';
 
-function EstablishmentDiff({ task, isComplete }) {
+function EstablishmentDiff({ task }) {
+  const isComplete = !task.isOpen;
   const { to, from } = task.data.meta.establishment;
   return (
     <table className="govuk-table compare">
@@ -61,7 +62,7 @@ export default function Project({ task, schema }) {
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
 
-  const isComplete = task.status === 'resolved';
+  const isComplete = !task.isOpen;
 
   const showDeclarations = declarations.authority || declarations.awerb;
 
@@ -108,7 +109,7 @@ export default function Project({ task, schema }) {
     (
       task.data.action === 'transfer' && (
         <StickyNavAnchor id="establishment" key="establishment">
-          <EstablishmentDiff task={task} isComplete={isComplete} />
+          <EstablishmentDiff task={task} />
         </StickyNavAnchor>
       )
     ),

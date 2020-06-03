@@ -105,8 +105,8 @@ module.exports = () => {
     const action = req.task.data.action;
     const model = req.task.data.model;
     if (action === 'update' || action === 'delete' || action === 'update-conditions') {
-      // if task is resolved, get previous values from task
-      if (req.task.status === 'resolved') {
+      // if task is closed, get previous values from task
+      if (!req.task.isOpen) {
         res.locals.static.values = get(req.task, 'activityLog[0].event.data.modelData');
 
         if (model === 'establishment') {
