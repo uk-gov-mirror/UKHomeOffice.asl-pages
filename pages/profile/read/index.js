@@ -21,11 +21,13 @@ module.exports = settings => {
     next();
   });
 
-  app.get('/', (req, res, next) => relatedTasks({
-    modelId: req.profileId,
-    model: 'profile-touched',
-    establishmentId: req.establishmentId
-  })(req, res, next));
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'profile-touched',
+      modelId: req.profileId,
+      establishmentId: req.establishmentId
+    };
+  }));
 
   return app;
 };

@@ -63,11 +63,13 @@ module.exports = settings => {
     next();
   });
 
-  app.get('/', (req, res, next) => relatedTasks({
-    model: 'project',
-    modelId: req.projectId,
-    establishmentId: req.establishmentId
-  })(req, res, next));
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'project',
+      modelId: req.projectId,
+      establishmentId: req.establishmentId
+    };
+  }));
 
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })

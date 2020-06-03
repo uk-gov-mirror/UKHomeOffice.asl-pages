@@ -23,10 +23,12 @@ module.exports = settings => {
     next();
   });
 
-  app.get('/', (req, res, next) => relatedTasks({
-    model: 'profile',
-    modelId: req.user.profile.id
-  })(req, res, next));
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'profile',
+      modelId: req.user.profile.id
+    };
+  }));
 
   return app;
 };

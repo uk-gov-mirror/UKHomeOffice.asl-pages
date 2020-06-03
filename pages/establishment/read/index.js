@@ -18,10 +18,12 @@ module.exports = settings => {
 
   app.use(form({ schema }));
 
-  app.get('/', (req, res, next) => relatedTasks({
-    model: 'establishment',
-    modelId: req.model.id
-  })(req, res, next));
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'establishment',
+      modelId: req.model.id
+    };
+  }));
 
   app.post('/', (req, res, next) => {
     const conditions = get(req.form, 'values.conditions');

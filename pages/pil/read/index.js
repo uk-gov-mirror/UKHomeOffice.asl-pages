@@ -58,11 +58,13 @@ module.exports = settings => {
     next();
   });
 
-  app.get('/', (req, res, next) => relatedTasks({
-    model: 'pil',
-    modelId: req.pilId,
-    establishmentId: req.establishmentId
-  })(req, res, next));
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'pil',
+      modelId: req.pilId,
+      establishmentId: req.establishmentId
+    };
+  }));
 
   app.use(form({
     schema: {
