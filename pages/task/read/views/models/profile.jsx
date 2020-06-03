@@ -16,6 +16,7 @@ const formatters = {
 };
 
 export default function Profile({ task, values, schema }) {
+  const isComplete = !task.isOpen;
   return (
     <StickyNavAnchor id="changes">
       <h2><Snippet>sticky-nav.changes</Snippet></h2>
@@ -24,6 +25,8 @@ export default function Profile({ task, values, schema }) {
         after={task.data.data}
         schema={omit(userSchema, 'comments')}
         formatters={formatters}
+        currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
+        proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
       />
     </StickyNavAnchor>
   );

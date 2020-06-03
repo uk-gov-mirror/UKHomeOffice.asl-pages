@@ -17,7 +17,9 @@ module.exports = merge({}, place, {
     },
     restrictions: {
       currentLabel: 'Current restrictions',
-      proposedLabel: 'Proposed restrictions'
+      proposedLabel: 'Proposed restrictions',
+      previousLabel: 'Previous restrictions',
+      newLabel: 'New restrictions'
     },
     comment: {
       label: 'Comments'

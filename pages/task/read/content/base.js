@@ -70,5 +70,9 @@ module.exports = {
   },
   buttons: {
     submit: 'Continue'
+  },
+  diff: {
+    previous: 'Previous',
+    'changed-to': 'Changed to'
   }
 };
