@@ -124,15 +124,15 @@ module.exports = () => {
       }
 
       const getUrl = () => {
-        const modelId = req.task.data.id;
+        const modelId = get(req.task.data, 'id');
+        const estId = get(req.task.data, 'data.establishmentId');
+        const profileId = get(req.task.data, 'data.profileId');
         switch (model) {
           case 'establishment':
             return `/establishment/${modelId}`;
           case 'profile':
             return `/profile/${modelId}`;
           case 'pil':
-            const estId = req.task.data.data.establishmentId;
-            const profileId = req.task.data.data.profileId;
             return `/establishment/${estId}/profile/${profileId}/pil/${modelId}`;
           default:
             return `/establishment/${estId}/${model}/${modelId}`;
