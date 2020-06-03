@@ -2,10 +2,10 @@ const { merge } = require('lodash');
 const datatable = require('../routers/datatable');
 const taskListSchema = require('../../task/list/schema');
 
-module.exports = getParams => {
+module.exports = getQuery => {
   return datatable({
     getApiPath: (req, res, next) => {
-      let query = getParams(req);
+      let query = getQuery(req);
       query = merge(query, req.query);
       req.datatable.apiPath = ['/tasks/related', { query }];
       next();

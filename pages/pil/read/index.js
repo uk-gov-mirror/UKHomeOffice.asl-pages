@@ -34,11 +34,13 @@ module.exports = settings => {
     };
     Promise.all([
       req.user.can('pil.update', params),
-      req.user.can('pil.pdf', params)
+      req.user.can('pil.pdf', params),
+      req.user.can('pil.relatedTasks', params)
     ])
-      .then(([canUpdate, canDownload]) => {
+      .then(([canUpdate, canDownload, showRelatedTasks]) => {
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.canDownload = canDownload;
+        res.locals.static.showRelatedTasks = showRelatedTasks;
       })
       .then(() => next())
       .catch(next);
@@ -95,6 +97,8 @@ module.exports = settings => {
     delete req.session.form[id];
     res.redirect(req.buildRoute('pil.read'));
   });
+
+  app.get('/', (req, res) => res.sendResponse());
 
   return app;
 };

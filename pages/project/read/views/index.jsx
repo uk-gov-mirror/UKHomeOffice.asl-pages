@@ -361,7 +361,7 @@ function PreviousVersions({ model }) {
 }
 
 export default function ProjectLandingPage() {
-  const { establishment, canUpdate, openTask, allowedActions, asruLicensing } = useSelector(state => state.static);
+  const { establishment, canUpdate, openTask, allowedActions, asruLicensing, showRelatedTasks } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
 
   const isRevoked = model.status === 'revoked';
@@ -369,8 +369,6 @@ export default function ProjectLandingPage() {
   const grantedVersion = model.versions.find(v => v.status === 'granted');
 
   const canChangeLicenceHolder = canUpdate && !openTask && isEditable && (!model.isLegacyStub || (model.isLegacyStub && asruLicensing));
-
-  const showRelatedTasks = canUpdate;
 
   return (
     <Fragment>

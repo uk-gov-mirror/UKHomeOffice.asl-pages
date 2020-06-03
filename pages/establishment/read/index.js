@@ -47,5 +47,7 @@ module.exports = settings => {
     res.redirect(req.buildRoute('establishment.read'));
   });
 
+  app.get('/', (req, res) => res.sendResponse());
+
   return app;
 };

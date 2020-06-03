@@ -27,12 +27,11 @@ const PIL = ({
   currentPath,
   isLicenceHolder,
   pilReviewRequired,
-  reviewUrl
+  reviewUrl,
+  showRelatedTasks
 }) => {
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
-
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
-  const showRelatedTasks = canUpdate;
 
   const formatters = {
     issueDate: {
@@ -230,7 +229,8 @@ const mapStateToProps = ({
     currentPath,
     isLicenceHolder,
     pilReviewRequired,
-    reviewUrl
+    reviewUrl,
+    showRelatedTasks
   }
 }) => ({
   pil,
@@ -243,7 +243,8 @@ const mapStateToProps = ({
   currentPath,
   isLicenceHolder,
   pilReviewRequired,
-  reviewUrl
+  reviewUrl,
+  showRelatedTasks
 });
 
 export default connect(mapStateToProps)(PIL);

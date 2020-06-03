@@ -1,11 +1,6 @@
 const { page } = require('@asl/service/ui');
 const relatedTasks = require('../../common/middleware/related-tasks');
 
-const isEstablishmentAdmin = (profile, establishmentId) => {
-  const currentEstablishment = profile.establishments.find(e => e.id === establishmentId);
-  return currentEstablishment && currentEstablishment.role === 'admin';
-};
-
 module.exports = settings => {
   const app = page({
     ...settings,
@@ -13,12 +8,14 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    const isOwnProfile = req.user.profile.id === req.profileId;
-    res.locals.static.isOwnProfile = isOwnProfile;
-    res.locals.static.showRelatedTasks = isOwnProfile ||
-      isEstablishmentAdmin(req.user.profile, req.establishmentId) ||
-      req.user.profile.asruUser;
-    next();
+    res.locals.static.isOwnProfile = req.user.profile.id === req.profileId;
+
+    return req.user.can('profile.relatedTasks', { id: req.profile.id, establishment: req.establishmentId })
+      .then(showRelatedTasks => {
+        res.locals.static.showRelatedTasks = showRelatedTasks;
+      })
+      .then(() => next())
+      .catch(next);
   });
 
   app.get('/', relatedTasks(req => {
@@ -28,6 +25,8 @@ module.exports = settings => {
       establishmentId: req.establishmentId
     };
   }));
+
+  app.get('/', (req, res) => res.sendResponse());
 
   return app;
 };

@@ -23,7 +23,7 @@ const Index = ({
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
   const canAmendDetails = allowedActions.includes('establishment.update');
-  const showRelatedTasks = allowedActions.includes('establishment.update');
+  const showRelatedTasks = allowedActions.includes('establishment.relatedTasks');
   const canDownloadPDF = allowedActions.includes('establishment.pdf');
   const canSeeRevoke = allowedActions.includes('establishment.revoke') && establishment.status === 'active';
   const canActionRevoke = canSeeRevoke && !establishment.hasActiveLicences;
