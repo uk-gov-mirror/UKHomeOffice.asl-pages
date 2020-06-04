@@ -214,7 +214,8 @@ module.exports = {
     action: {
       application: 'Edit and resubmit the application',
       amendment: 'Edit and resubmit the amendment',
-      transfer: 'Edit and resubmit the transfer request'
+      transfer: 'Edit and resubmit the transfer request',
+      review: 'Edit and resubmit the review'
     },
     hint: {
       application: 'Make changes to the application you previously submitted and respond to any comments.',
