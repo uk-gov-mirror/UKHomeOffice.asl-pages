@@ -19,7 +19,7 @@ module.exports = getQuery => {
   };
 
   app.use((req, res, next) => {
-    let query = getQuery(req);
+    const query = getQuery(req);
 
     return Promise.resolve()
       .then(() => permsCheck(req.user, query))
