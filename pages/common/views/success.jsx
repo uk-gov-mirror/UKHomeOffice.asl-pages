@@ -4,7 +4,7 @@ import { Panel, Snippet, Link } from '@asl/components';
 
 const Index = ({ onwardLink }) => {
   const profile = useSelector(state => state.static.profile);
-  const subtitle = <Snippet optional email={profile.email}>{`success.subtitle`}</Snippet>;
+  const subtitle = <Snippet optional email={profile && profile.email}>{`success.subtitle`}</Snippet>;
   const nextSteps = <Snippet optional>{`success.body`}</Snippet>;
 
   return <div className="govuk-grid-row">
