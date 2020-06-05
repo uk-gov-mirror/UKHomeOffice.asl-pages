@@ -1,6 +1,7 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canViewTransferredProject } = require('../middleware');
+const { relatedTasks } = require('../../common/routers');
 
 module.exports = settings => {
   const app = page({
@@ -61,6 +62,14 @@ module.exports = settings => {
       : res.locals.static.confirmMessage;
     next();
   });
+
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'project',
+      modelId: req.projectId,
+      establishmentId: req.establishmentId
+    };
+  }));
 
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })

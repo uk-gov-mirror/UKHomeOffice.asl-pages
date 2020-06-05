@@ -26,7 +26,7 @@ const formatters = {
         return (
           <Fragment>
             <span>PIL</span>
-            <span className="block smaller">{task.data.modelData.licenceNumber}</span>
+            <span className="block smaller">{get(task, 'data.modelData.licenceNumber')}</span>
           </Fragment>
         );
       }
@@ -34,7 +34,7 @@ const formatters = {
         return (
           <Fragment>
             <span>PPL</span>
-            <span className="block smaller">{task.data.modelData.licenceNumber}</span>
+            <span className="block smaller">{get(task, 'data.modelData.licenceNumber')}</span>
           </Fragment>
         );
       }

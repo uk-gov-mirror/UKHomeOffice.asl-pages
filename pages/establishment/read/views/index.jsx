@@ -11,12 +11,14 @@ import {
   LicenceStatusBanner
 } from '@asl/components';
 import ProfileLink from '../../components/profile-link';
+import RelatedTasks from '../../../task/list/views/related-tasks';
 
 const Index = ({
   establishment,
   allowedActions,
   openTask,
-  currentPath
+  currentPath,
+  showRelatedTasks
 }) => {
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
@@ -176,10 +178,25 @@ const Index = ({
             </section>
         }
       </div>
+      { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
 };
 
-const mapStateToProps = ({ static: { establishment, allowedActions, openTask, currentPath } }) => ({ establishment, allowedActions, openTask, currentPath });
+const mapStateToProps = ({
+  static: {
+    establishment,
+    allowedActions,
+    openTask,
+    currentPath,
+    showRelatedTasks
+  }
+}) => ({
+  establishment,
+  allowedActions,
+  openTask,
+  currentPath,
+  showRelatedTasks
+});
 
 export default connect(mapStateToProps)(Index);

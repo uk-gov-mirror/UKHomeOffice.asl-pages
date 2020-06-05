@@ -1,6 +1,6 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { form } = require('../../common/routers');
+const { form, relatedTasks } = require('../../common/routers');
 const { hydrate } = require('../../common/middleware');
 
 module.exports = settings => {
@@ -57,6 +57,14 @@ module.exports = settings => {
     next();
   });
 
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'pil',
+      modelId: req.pilId,
+      establishmentId: req.establishmentId
+    };
+  }));
+
   app.use(form({
     schema: {
       conditions: {
@@ -86,6 +94,8 @@ module.exports = settings => {
     delete req.session.form[id];
     res.redirect(req.buildRoute('pil.read'));
   });
+
+  app.get('/', (req, res) => res.sendResponse());
 
   return app;
 };

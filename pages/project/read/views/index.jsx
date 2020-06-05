@@ -8,6 +8,7 @@ import formatters from '../../formatters';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Section from './components/section';
 import ManageAccess from './components/manage-access';
+import RelatedTasks from '../../../task/list/views/related-tasks';
 
 const getProjectDuration = model => formatters.duration.format(model.granted);
 
@@ -360,7 +361,7 @@ function PreviousVersions({ model }) {
 }
 
 export default function ProjectLandingPage() {
-  const { establishment, canUpdate, openTask, allowedActions, asruLicensing } = useSelector(state => state.static);
+  const { establishment, canUpdate, openTask, allowedActions, asruLicensing, showRelatedTasks } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
 
   const isRevoked = model.status === 'revoked';
@@ -487,6 +488,8 @@ export default function ProjectLandingPage() {
       <PreviousVersions model={model} />
       <RevokeLicence model={model} />
       <ManageAccess model={model} />
+
+      { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
 }

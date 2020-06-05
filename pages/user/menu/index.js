@@ -1,4 +1,5 @@
 const { page } = require('@asl/service/ui');
+const { relatedTasks } = require('../../common/routers');
 
 module.exports = settings => {
   const app = page({
@@ -21,6 +22,15 @@ module.exports = settings => {
     res.locals.static.profile = req.user.profile;
     next();
   });
+
+  app.get('/', relatedTasks(req => {
+    return {
+      model: 'profile',
+      modelId: req.user.profile.id
+    };
+  }));
+
+  app.get('/', (req, res) => res.sendResponse());
 
   return app;
 };

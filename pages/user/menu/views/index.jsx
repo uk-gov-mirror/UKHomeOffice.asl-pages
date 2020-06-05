@@ -4,6 +4,7 @@ import {
   Snippet,
   Header
 } from '@asl/components';
+import RelatedTasks from '../../../task/list/views/related-tasks';
 
 const Index = () => {
   return <Fragment>
@@ -20,6 +21,7 @@ const Index = () => {
         </ul>
       </div>
     </div>
+    <RelatedTasks />
   </Fragment>;
 };
 
