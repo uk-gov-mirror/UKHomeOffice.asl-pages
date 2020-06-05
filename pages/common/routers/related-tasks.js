@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { merge } = require('lodash');
 const datatable = require('./datatable');
+const content = require('../../task/list/content');
 const taskListSchema = require('../../task/list/schema');
 
 module.exports = getQuery => {
@@ -45,6 +46,10 @@ module.exports = getQuery => {
       let query = getQuery(req);
       query = merge(query, req.query);
       req.datatable.apiPath = ['/tasks/related', { query }];
+      next();
+    },
+    locals: (req, res, next) => {
+      res.locals.static.content = merge({}, res.locals.static.content, content);
       next();
     },
     errorHandler: (err, req, res, next) => {

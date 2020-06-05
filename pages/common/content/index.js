@@ -1,7 +1,3 @@
-const taskListFields = require('../../task/list/content/fields');
-const taskStatus = require('../../task/content/status');
-const tasks = require('../../task/content/tasks');
-
 module.exports = {
   siteTitle: 'Research and testing using animals',
   beta: 'This is a new service - your [feedback](mailto:ASPELQueries@homeoffice.gov.uk) will help us to improve it.',
@@ -154,8 +150,7 @@ module.exports = {
   fields: {
     declaration: {
       label: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
-    },
-    ...taskListFields
+    }
   },
   errors: {
     heading: 'Please fix the following error',
@@ -236,11 +231,5 @@ module.exports = {
   relatedTasks: {
     unavailable: 'Related tasks unavailable',
     noTasks: 'There are no related tasks.'
-  },
-  status: {
-    ...taskStatus
-  },
-  tasks: {
-    ...tasks
   }
 };
