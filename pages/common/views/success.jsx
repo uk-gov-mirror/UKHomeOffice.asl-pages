@@ -9,7 +9,7 @@ const Index = ({ onwardLink }) => {
 
   return <div className="govuk-grid-row">
     <div className="govuk-grid-column-two-thirds">
-      <Panel title={<Snippet>{`success.title`}</Snippet>} className="green-bg">
+      <Panel title={<Snippet>{`success.title`}</Snippet>} className="green-bg success">
         {
           subtitle && <h2>{ subtitle }</h2>
         }
