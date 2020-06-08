@@ -112,7 +112,7 @@ export default function Establishment({ task, values }) {
         <StickyNavAnchor id="conditions" key="conditions">
           <h2><Snippet>sticky-nav.conditions</Snippet></h2>
           <DiffText
-            oldValue={establishment.conditions}
+            oldValue={values.conditions}
             newValue={task.data.data.conditions}
             currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
             proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
