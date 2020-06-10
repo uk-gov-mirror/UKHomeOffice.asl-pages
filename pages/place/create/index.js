@@ -29,5 +29,8 @@ module.exports = settings => {
 
   app.use('/', create());
 
+  // prevent fallthrough to place.read router
+  app.get('/', (req, res) => res.sendResponse());
+
   return app;
 };

@@ -9,18 +9,14 @@ import {
 } from '@asl/components';
 import formatters from '../../formatters';
 
-import ExpandableRow from './row';
-
 const pageFormatters = {
   name: {
-    format: (val, row) => {
+    format: (name, place) => {
       return (
         <Fragment>
+          <Link page="place.read" label={name} placeId={place.id} />
           {
-            val
-          }
-          {
-            row.restrictions && <i className="icon icon-information" />
+            place.restrictions && <i className="icon icon-information" />
           }
         </Fragment>
       );
@@ -54,24 +50,16 @@ const pageFormatters = {
   }
 };
 
-function Places({
-  establishment,
-  establishment: { name },
-  allowedActions,
-  ...props
-}) {
+function Places({ establishment, allowedActions }) {
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
-
       <Header
         title={<Snippet>pages.place.list</Snippet>}
-        subtitle={name}
+        subtitle={establishment.name}
       />
       <FilterTable
         formatters={Object.assign({}, formatters, pageFormatters)}
-        expands={row => allowedActions.includes('place.update') || row.restrictions}
-        Expandable={ExpandableRow}
         createPath={allowedActions.includes('place.create') && 'place.create'}
         className="places-list"
       />

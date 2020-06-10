@@ -27,6 +27,7 @@ module.exports = {
     },
     pils: 'Personal licences',
     place: {
+      read: '{{place.name}}',
       list: 'Approved areas',
       create: 'Create approved area',
       update: 'Amend approved area',

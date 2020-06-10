@@ -1,13 +1,13 @@
 module.exports = {
   id: {},
+  name: {
+    show: true
+  },
   site: {
     show: true,
     filter: true
   },
   area: {
-    show: true
-  },
-  name: {
     show: true
   },
   suitability: {
