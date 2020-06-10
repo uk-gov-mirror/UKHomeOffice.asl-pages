@@ -69,5 +69,7 @@ module.exports = ({
     next();
   });
 
+  app.get('/', (req, res) => res.sendResponse());
+
   return app;
 };

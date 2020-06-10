@@ -30,7 +30,6 @@ module.exports = settings => {
   app.use('/', create());
 
   // prevent fallthrough to place.read router
-  app.get('/success', (req, res) => res.sendResponse());
   app.get('/', (req, res) => res.sendResponse());
 
   return app;
