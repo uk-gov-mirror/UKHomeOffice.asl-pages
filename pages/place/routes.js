@@ -1,3 +1,4 @@
+const read = require('./read');
 const update = require('./update');
 const remove = require('./delete');
 const create = require('./create');
@@ -8,6 +9,11 @@ module.exports = {
     path: '',
     permissions: 'place.list',
     router: list
+  },
+  read: {
+    path: '/:placeId',
+    permissions: 'place.read',
+    router: read
   },
   update: {
     path: '/:placeId/edit',

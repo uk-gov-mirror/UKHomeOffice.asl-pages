@@ -22,6 +22,7 @@ module.exports = settings => {
         req.place.nvssqps = req.place.roles.filter(r => ['nvs', 'sqp'].includes(r.type)).map(r => r.id);
         req.model = req.place;
         req.model.openTasks = meta.openTasks || [];
+        res.locals.static.place = req.place; // used by breadcrumb for place.name
       })
       .then(() => next())
       .catch(next);
