@@ -10,11 +10,6 @@ module.exports = {
     permissions: 'place.list',
     router: list
   },
-  read: {
-    path: '/:placeId',
-    permissions: 'place.read',
-    router: read
-  },
   update: {
     path: '/:placeId/edit',
     permissions: 'place.update',
@@ -29,5 +24,10 @@ module.exports = {
     path: '/create',
     permissions: 'place.create',
     router: create
+  },
+  read: {
+    path: '/:placeId',
+    permissions: 'place.read',
+    router: read
   }
 };
