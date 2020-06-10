@@ -66,7 +66,7 @@ function RemoveArea() {
 
 const Place = function () {
   const model = useSelector(state => state.model);
-  const { establishment, summarySchema } = useSelector(state => state.static);
+  const { establishment, summarySchema, showRelatedTasks } = useSelector(state => state.static);
 
   return (
     <div className="approved-area">
@@ -86,7 +86,7 @@ const Place = function () {
         <RemoveArea />
       </div>
 
-      <RelatedTasks />
+      { showRelatedTasks && <RelatedTasks /> }
     </div>
   );
 };
