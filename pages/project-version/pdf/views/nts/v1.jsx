@@ -46,7 +46,6 @@ function SpeciesCount({ version }) {
 }
 
 export default function SchemaV1() {
-  const project = useSelector(state => state.application.project);
   const version = useSelector(state => state.project);
 
   return (
@@ -81,8 +80,8 @@ export default function SchemaV1() {
       <SpeciesTable version={version} />
 
       <div className="q-and-a">
-        <h2>Retrospective asessment</h2>
-        <RetrospectiveAssessment project={project} />
+        <h2>Retrospective assessment</h2>
+        <RetrospectiveAssessment version={version} />
       </div>
 
       <h2>Objectives and benefits</h2>

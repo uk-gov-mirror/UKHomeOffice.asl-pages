@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import ReviewField from '@asl/projects/client/components/review-field';
 import RichText from '@asl/projects/client/components/editor';
 import schemaV0 from '@asl/projects/client/schema/v0';
+import RetrospectiveAssessment from './components/retrospective-assessment';
 
 const getPurposeOptions = () => {
   return schemaV0().programmeOfWork.subsections.purpose.fields.find(field => field.name === 'purpose').options;
@@ -34,6 +35,11 @@ export default function SchemaV0() {
           project={version}
           options={getPurposeOptions()}
         />
+      </div>
+
+      <div className="q-and-a">
+        <h2>Retrospective assessment</h2>
+        <RetrospectiveAssessment version={version} />
       </div>
 
       <h2>Objectives and benefits</h2>
