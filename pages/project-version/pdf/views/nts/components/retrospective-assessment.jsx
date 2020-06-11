@@ -1,6 +1,6 @@
 import React from 'react';
 import RAContent from '@asl/projects/client/constants/retrospective-assessment';
 
-export default function RetrospectiveAssessment({ project }) {
-  return <p>{ project.retrospectiveAssessmentRequired ? RAContent.required : RAContent.notRequired }</p>;
+export default function RetrospectiveAssessment({ version }) {
+  return <p>{ version.retrospectiveAssessment ? RAContent.required : RAContent.notRequired }</p>;
 }
