@@ -18,8 +18,5 @@ module.exports = task => {
       };
     })
     .groupBy(comment => comment.field)
-    .mapValues(comments => {
-      return comments.reverse();
-    })
     .value();
 };
