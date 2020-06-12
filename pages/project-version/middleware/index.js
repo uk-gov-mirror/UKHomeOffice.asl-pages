@@ -1,4 +1,4 @@
-const { get, set, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
+const { get, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose } = require('@asl/projects/client/helpers');
@@ -141,14 +141,9 @@ const getGrantedVersion = req => {
 };
 
 const getCacheableVersion = (req, url) => {
-  const hit = get(req.session, `projectCache.${url}`);
-  if (hit) {
-    return Promise.resolve(hit);
-  }
-  return req.api(url)
+  return req.api(url, { maxAge: 300 })
     .then(({ json: { data } }) => data)
     .then(data => {
-      set(req.session, `projectCache.${url}`, data);
       return data;
     });
 };
