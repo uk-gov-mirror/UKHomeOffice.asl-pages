@@ -16,6 +16,7 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
     }
   },
   asru: {
+    title: 'ASRU',
     roles: {
       title: 'Roles',
       asruLicensing: 'Licensing officer',

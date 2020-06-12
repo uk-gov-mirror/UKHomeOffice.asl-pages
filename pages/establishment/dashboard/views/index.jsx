@@ -106,13 +106,7 @@ const Index = ({
               }
 
               {
-                !asruAdmin && inspectors.map(inspector => (
-                  <p key={`${inspector.id}`} className="inspector">{`${inspector.firstName} ${inspector.lastName}`}</p>
-                ))
-              }
-
-              {
-                asruAdmin && inspectors.map(inspector => (
+                inspectors.map(inspector => (
                   <p key={`${inspector.id}`} className="inspector">
                     <Link page="globalProfile" profileId={inspector.id} label={`${inspector.firstName} ${inspector.lastName}`} />
                   </p>
@@ -131,13 +125,7 @@ const Index = ({
               }
 
               {
-                !asruAdmin && spocs.map(spoc => (
-                  <p key={`${spoc.id}`} className="spoc">{`${spoc.firstName} ${spoc.lastName}`}</p>
-                ))
-              }
-
-              {
-                asruAdmin && spocs.map(spoc => (
+                spocs.map(spoc => (
                   <p key={`${spoc.id}`} className="spoc">
                     <Link page="globalProfile" profileId={spoc.id} label={`${spoc.firstName} ${spoc.lastName}`} />
                   </p>

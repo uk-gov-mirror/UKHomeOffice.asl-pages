@@ -150,6 +150,17 @@ p.subtitle {
   }
 }
 
+.asru-roles {
+  h3 {
+    margin-top: $govuk-gutter;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
 .panel-list li {
   font-size: inherit;
   font-weight: inherit;

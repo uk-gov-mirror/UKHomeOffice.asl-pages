@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import sortBy from 'lodash/sortBy';
 import { Header, PanelList, Link, ExpandingPanel, Snippet } from '@asl/components';
 
@@ -11,22 +11,46 @@ import Modules from '../../profile/read/views/modules';
 import RelatedTasks from '../../task/list/views/related-tasks';
 import AsruRoles from '../components/asru-roles';
 
+const selector = ({
+  model,
+  static: {
+    allowedActions,
+    asruUser,
+    isOwnProfile
+  }
+}) => ({
+  model,
+  allowedActions,
+  asruUser,
+  isOwnProfile
+});
+
 const formatDate = (date, format) => (date ? dateFormatter(date, format) : '-');
 
-class Index extends React.Component {
+export default function Index({ dedupe, AsruRolesComponent, children }) {
+  const { model, allowedActions, asruUser, isOwnProfile } = useSelector(selector, shallowEqual);
+  const hasEstablishments = !!(model.establishments || []).length;
 
-  render () {
+  const showEmail = asruUser || model.asruLicensing || isOwnProfile;
+  const showDob = (asruUser || isOwnProfile) && model.dob;
 
-    const model = this.props.model;
-    const isOwnProfile = this.props.isOwnProfile;
-    const hasEstablishments = !!(model.establishments || []).length;
+  function getAsruRoles() {
+    return AsruRolesComponent
+      ? <AsruRolesComponent />
+      : (
+        <ul className="panel-list">
+          <li>
+            <h2><Snippet>asru.title</Snippet></h2>
+            <AsruRoles />
+          </li>
+        </ul>
+      );
+  }
 
-    const showEmail = this.props.asruUser || model.asruLicensing || this.props.isOwnProfile;
-    const showDob = (this.props.asruUser || this.props.isOwnProfile) && model.dob;
-
-    return <Fragment>
+  return (
+    <Fragment>
       <Header title={`${model.firstName} ${model.lastName}`} />
-      { this.props.dedupe }
+      { dedupe }
       <dl>
         {
           showEmail && (
@@ -81,7 +105,7 @@ class Index extends React.Component {
           )
         }
         {
-          this.props.asruUser && (
+          asruUser && (
             <Fragment>
               <dt>Has login:</dt>
               <dd>{ model.userId ? 'Yes' : 'No' }</dd>
@@ -103,7 +127,7 @@ class Index extends React.Component {
       }
 
       {
-        model.asruUser && <AsruRoles />
+        model.asruUser && getAsruRoles()
       }
 
       {
@@ -115,21 +139,16 @@ class Index extends React.Component {
                 <p>
                   <Link page="establishment.dashboard" establishmentId={establishment.id} label={<Snippet>establishment.link</Snippet>} />
                 </p>
-                <Profile establishment={establishment} profile={model} allowedActions={this.props.allowedActions} />
+                <Profile establishment={establishment} profile={model} allowedActions={allowedActions} />
               </ExpandingPanel>
             );
           })} />
         </Fragment>
       }
-      { this.props.children }
+      { children }
       {
         !model.asruUser && <RelatedTasks />
       }
-    </Fragment>;
-  }
-
+    </Fragment>
+  );
 }
-
-const mapStateToProps = ({ model, static: { allowedActions, asruUser, isOwnProfile } }) => ({ model, allowedActions, asruUser, isOwnProfile });
-
-export default connect(mapStateToProps)(Index);
