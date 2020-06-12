@@ -13,8 +13,8 @@ const getStatusBadge = status => {
   return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
 };
 
-const getProfileLink = ({ id, name, establishmentId }) => {
-  if (establishmentId) {
+const getProfileLink = ({ id, name, establishmentId, asruUser }) => {
+  if (establishmentId && !asruUser) {
     return <Link page="profile.read" profileId={id} establishmentId={establishmentId} label={name} />;
   } else {
     return <Link page="globalProfile" profileId={id} label={name} />;
@@ -29,9 +29,7 @@ const getAuthor = (changedBy, action, status, task) => {
       <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
       <strong>: </strong>
       {
-        changedBy.asruUser
-          ? name
-          : getProfileLink({ id: changedBy.id, name, establishmentId: task.data.establishmentId })
+        getProfileLink({ id: changedBy.id, name, establishmentId: task.data.establishmentId, asruUser: changedBy.asruUser })
       }
     </p>
   );
