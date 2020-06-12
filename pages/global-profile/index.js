@@ -1,5 +1,6 @@
 const { page } = require('@asl/service/ui');
 const { relatedTasks } = require('../common/routers');
+const { omit } = require('lodash');
 
 module.exports = settings => {
   const app = page({
@@ -19,8 +20,7 @@ module.exports = settings => {
 
     return req.api(`/asru-profile/${req.profileId}`)
       .then(({ json: { data } }) => {
-        res.locals.model = data;
-        res.locals.static.profile = data;
+        res.locals.model = omit(data, 'dob');
       })
       .then(() => next())
       .catch(next);

@@ -32,7 +32,6 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
   const hasEstablishments = !!(model.establishments || []).length;
 
   const showEmail = asruUser || model.asruLicensing || isOwnProfile;
-  const showDob = (asruUser || isOwnProfile) && model.dob;
 
   function getAsruRoles() {
     return AsruRolesComponent
@@ -87,7 +86,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
           </Fragment>
         }
         {
-          showDob && (
+          model.dob && (
             <Fragment>
               <dt>Date of birth:</dt>
               <dd>
