@@ -1,4 +1,4 @@
-const { difference } = require('lodash');
+const { difference, get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const getSchema = require('./schema');
@@ -35,6 +35,7 @@ module.exports = settings => {
 
       const removeRoleTasks = req.profile.openTasks
         .filter(task => task.data.model === 'role' && task.data.action === 'delete')
+        .filter(task => get(task, 'data.modelData.type'))
         .map(task => ({
           id: task.id,
           type: task.data.modelData.type
