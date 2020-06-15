@@ -7,9 +7,6 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
   establishment: {
     link: 'About this establishment'
   },
-  notifications: {
-    success: 'Changes saved!'
-  },
   pil: {
     training: {
       title: 'Training'
