@@ -9,15 +9,15 @@ import { dateFormat } from '../../../../constants';
 
 class Profile extends React.Component {
   render() {
-    const { id: estId } = this.props.establishment;
+    const { id: estId } = this.props.establishment || {};
     const isOwnProfile = this.props.isOwnProfile || false;
     const pil = this.props.profile.pil;
     const correctEstablishment = pil && pil.establishmentId === estId;
 
     const {
-      roles,
+      roles = [],
       projects = [],
-      establishments,
+      establishments = [],
       id,
       dob
     } = this.props.profile;
@@ -30,7 +30,7 @@ class Profile extends React.Component {
 
     const canSeeProjects = isOwnProfile || allowedActions.includes('project.read.all');
 
-    const profileRole = establishments.find(est => est.id === estId).role;
+    const profileRole = (establishments.find(est => est.id === estId) || {}).role;
     const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
     const pilActive = pil && pil.status === 'active';
 
