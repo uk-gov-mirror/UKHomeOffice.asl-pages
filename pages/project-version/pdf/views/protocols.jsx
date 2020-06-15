@@ -36,7 +36,7 @@ function Step({ step, number }) {
 function Protocols() {
   const project = useSelector(state => state.project);
   const licenceNumber = useSelector(state => state.application.project.licenceNumber);
-  const protocols = project.protocols || [];
+  const protocols = (project.protocols || []).filter(p => !p.deleted);
 
   let title = [project.title || 'Untitled project'];
 
