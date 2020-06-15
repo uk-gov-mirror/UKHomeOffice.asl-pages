@@ -35,7 +35,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
 
   function getAsruRoles() {
     if (AsruRolesComponent) {
-      return AsruRolesComponent;
+      return <AsruRolesComponent />;
     }
     
     if (!model.asruUser) {
