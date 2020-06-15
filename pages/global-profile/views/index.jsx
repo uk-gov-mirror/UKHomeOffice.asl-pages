@@ -126,7 +126,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
       }
 
       {
-        model.asruUser && getAsruRoles()
+        getAsruRoles()
       }
 
       {
