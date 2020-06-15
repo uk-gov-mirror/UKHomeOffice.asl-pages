@@ -34,16 +34,22 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
   const showEmail = asruUser || model.asruLicensing || isOwnProfile;
 
   function getAsruRoles() {
-    return AsruRolesComponent
-      ? <AsruRolesComponent />
-      : (
-        <ul className="panel-list">
-          <li>
-            <h2><Snippet>asru.title</Snippet></h2>
-            <AsruRoles />
-          </li>
-        </ul>
-      );
+    if (AsruRolesComponent) {
+      return <AsruRolesComponent />;
+    }
+
+    if (!model.asruUser) {
+      return null;
+    }
+
+    return (
+      <ul className="panel-list">
+        <li>
+          <h2><Snippet>asru.title</Snippet></h2>
+          <AsruRoles />
+        </li>
+      </ul>
+    );
   }
 
   return (
