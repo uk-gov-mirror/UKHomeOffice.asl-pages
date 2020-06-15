@@ -36,7 +36,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
   function getAsruRoles() {
     return AsruRolesComponent
       ? <AsruRolesComponent />
-      : (
+      : model.asruUser && (
         <ul className="panel-list">
           <li>
             <h2><Snippet>asru.title</Snippet></h2>
