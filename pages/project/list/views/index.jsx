@@ -9,7 +9,9 @@ import {
   Header,
   Tabs,
   Link,
-  LicenceStatusBanner
+  LicenceStatusBanner,
+  Details,
+  Inset
 } from '@asl/components';
 
 import formatters from '../../formatters';
@@ -23,7 +25,9 @@ const tabs = [
 const Projects = ({
   establishment,
   status,
-  allowedActions
+  allowedActions,
+  isBasicUser,
+  adminListUrl
 }) => (
   <Fragment>
     <LicenceStatusBanner licence={establishment} licenceType="pel" />
@@ -32,6 +36,21 @@ const Projects = ({
       title={<Snippet>pages.project.list</Snippet>}
       subtitle={establishment.name}
     />
+
+    {
+      isBasicUser &&
+        <Fragment>
+          <Details
+            className="margin-bottom"
+            summary={<Snippet>details.summary</Snippet>}
+          >
+            <Inset>
+              <Snippet adminListUrl={adminListUrl}>details.content</Snippet>
+            </Inset>
+          </Details>
+        </Fragment>
+    }
+
     {
       allowedActions.includes('project.apply') && (
         <div className="control-panel projects-actions">
@@ -55,6 +74,14 @@ const Projects = ({
   </Fragment>
 );
 
-const mapStateToProps = ({ static: { establishment, status, allowedActions } }) => ({ establishment, status, allowedActions });
+const mapStateToProps = ({
+  static: {
+    establishment,
+    status,
+    allowedActions,
+    isBasicUser,
+    adminListUrl
+  }
+}) => ({ establishment, status, allowedActions, isBasicUser, adminListUrl });
 
 export default connect(mapStateToProps)(Projects);

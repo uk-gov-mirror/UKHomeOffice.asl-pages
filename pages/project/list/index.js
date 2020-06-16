@@ -29,7 +29,10 @@ module.exports = settings => {
       next();
     },
     locals: (req, res, next) => {
+      const establishment = req.user.profile.establishments.find(e => e.id === req.establishmentId);
       set(res.locals, 'static.status', req.query.status || 'active');
+      set(res.locals, 'static.isBasicUser', !!(establishment && establishment.role === 'basic'));
+      set(res.locals, 'static.adminListUrl', req.buildRoute('profile.list', { suffix: '?filters[roles][0]=admin' }));
       next();
     },
     getApiPath: (req, res, next) => {
