@@ -10,7 +10,7 @@ const sendData = (req, params = {}) => {
   const opts = {
     method: 'PUT',
     json: merge({
-      data: pick(values, ['firstName', 'lastName', 'dob', 'telephone']),
+      data: pick(values, ['firstName', 'lastName', 'dob', 'telephone', 'telephoneAlt']),
       meta: { comments: values.comments }
     }, params)
   };

@@ -92,6 +92,22 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
           </Fragment>
         }
         {
+          model.telephoneAlt && <Fragment>
+            <dt>Alt. telephone:</dt>
+            <dd>
+              { model.telephoneAlt }
+              {
+                isOwnProfile && (
+                  <Fragment>
+                    {' | '}
+                    <Link page="account.update" label="Edit" />
+                  </Fragment>
+                )
+              }
+            </dd>
+          </Fragment>
+        }
+        {
           model.dob && (
             <Fragment>
               <dt>Date of birth:</dt>

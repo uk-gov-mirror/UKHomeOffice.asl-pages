@@ -21,6 +21,7 @@ module.exports = merge({}, baseContent, {
     title: 'Contact details',
     professionalAddress: 'Professional address',
     telephone: 'Phone:',
+    telephoneAlt: 'Alt. phone:',
     email: 'Email address:'
   },
   permissionLevel: {
