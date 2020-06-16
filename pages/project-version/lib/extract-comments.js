@@ -12,6 +12,7 @@ module.exports = task => {
         deleted,
         // we want to show the date of the following status change, not the comment submission.
         createdAt: ([...statusChanges].reverse().find(s => s.createdAt > createdAt) || {}).createdAt,
+        timestamp: createdAt,
         author: `${firstName} ${lastName}`,
         isNew,
         isMine
@@ -19,7 +20,7 @@ module.exports = task => {
     })
     .groupBy(comment => comment.field)
     .mapValues(comments => {
-      return comments.reverse();
+      return comments.sort((a, b) => a.timestamp >= b.timestamp ? -1 : 1);
     })
     .value();
 };
