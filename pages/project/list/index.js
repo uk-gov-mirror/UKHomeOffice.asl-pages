@@ -30,6 +30,7 @@ module.exports = settings => {
     },
     locals: (req, res, next) => {
       set(res.locals, 'static.status', req.query.status || 'active');
+      set(res.locals, 'static.adminListUrl', req.buildRoute('profile.list', { suffix: '?filters[roles][0]=admin' }));
       next();
     },
     getApiPath: (req, res, next) => {
