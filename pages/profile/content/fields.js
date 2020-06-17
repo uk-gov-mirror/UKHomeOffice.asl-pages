@@ -25,6 +25,9 @@ module.exports = {
   telephone: {
     label: 'Telephone number'
   },
+  telephoneAlt: {
+    label: 'Alternative telephone number'
+  },
   role: {
     label: 'What permissions should this user have?',
     options: {

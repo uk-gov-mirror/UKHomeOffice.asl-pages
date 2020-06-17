@@ -22,6 +22,9 @@ module.exports = {
   telephone: {
     inputType: 'inputText'
   },
+  telephoneAlt: {
+    inputType: 'inputText'
+  },
   comments: {
     inputType: 'textarea'
   }

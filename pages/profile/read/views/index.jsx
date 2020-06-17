@@ -33,6 +33,12 @@ const Index = ({
                 </Fragment>
               }
               {
+                model.telephoneAlt && <Fragment>
+                  <dt>Alternative telephone:</dt>
+                  <dd>{ model.telephoneAlt }</dd>
+                </Fragment>
+              }
+              {
                 model.dob && isOwnProfile && <Fragment>
                   <dt>Date of birth:</dt>
                   <dd>{ formatDate(model.dob, dateFormat.medium) }</dd>
