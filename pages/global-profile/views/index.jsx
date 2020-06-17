@@ -93,7 +93,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
         }
         {
           model.telephoneAlt && <Fragment>
-            <dt>Alt. telephone:</dt>
+            <dt>Alternative telephone:</dt>
             <dd>
               { model.telephoneAlt }
               {
