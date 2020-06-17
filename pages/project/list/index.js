@@ -1,4 +1,4 @@
-const { get, set } = require('lodash');
+const { set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const datatable = require('../../common/routers/datatable');
 const schema = require('../schema');
@@ -30,8 +30,6 @@ module.exports = settings => {
     },
     locals: (req, res, next) => {
       set(res.locals, 'static.status', req.query.status || 'active');
-      const allowedActions = get(req.user, `profile.allowedActions[${req.establishmentId}]`, []);
-      set(res.locals, 'static.canSeeAllProjects', allowedActions.includes('project.read.all'));
       set(res.locals, 'static.adminListUrl', req.buildRoute('profile.list', { suffix: '?filters[roles][0]=admin' }));
       next();
     },

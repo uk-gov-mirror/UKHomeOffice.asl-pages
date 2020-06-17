@@ -26,7 +26,6 @@ const Projects = ({
   establishment,
   status,
   allowedActions,
-  canSeeAllProjects,
   adminListUrl
 }) => (
   <Fragment>
@@ -38,7 +37,7 @@ const Projects = ({
     />
 
     {
-      !canSeeAllProjects &&
+      !allowedActions.includes('project.read.all') &&
         <Fragment>
           <Details
             className="margin-bottom"
@@ -79,9 +78,8 @@ const mapStateToProps = ({
     establishment,
     status,
     allowedActions,
-    canSeeAllProjects,
     adminListUrl
   }
-}) => ({ establishment, status, allowedActions, canSeeAllProjects, adminListUrl });
+}) => ({ establishment, status, allowedActions, adminListUrl });
 
 export default connect(mapStateToProps)(Projects);
