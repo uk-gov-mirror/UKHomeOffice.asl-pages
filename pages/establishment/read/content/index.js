@@ -48,7 +48,7 @@ module.exports = {
       unavailable: `## Revoke licence
         You can't revoke this licence as there are still personal or project licences held at this establishment.
 
-        The establishment will need to revoke them or transfer them to a new establishment first.`,
+        The establishment will need to revoke them or transfer them to another establishment first.`,
       button: 'Revoke licence'
     },
     reapply: {
