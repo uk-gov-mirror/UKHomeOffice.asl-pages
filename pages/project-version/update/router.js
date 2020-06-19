@@ -1,5 +1,7 @@
 const { page } = require('@asl/service/ui');
+const { dependencies } = require('../../../package.json');
 const bodyParser = require('body-parser');
+const semver = require('semver');
 const { get } = require('lodash');
 const {
   canComment,
@@ -61,6 +63,16 @@ module.exports = settings => {
   });
 
   app.put('/', bodyParser.json({ limit: '5mb' }));
+
+  app.put('/', (req, res, next) => {
+    const clientVersion = req.get('x-projects-version');
+    const requiredVersion = dependencies['@asl/projects'];
+    if (!semver.satisfies(clientVersion, requiredVersion)) {
+      res.status(400);
+      return res.json({ message: 'Update required', code: 'UPDATE_REQUIRED' });
+    }
+    next();
+  });
 
   app.put('/', (req, res, next) => {
     const opts = {
