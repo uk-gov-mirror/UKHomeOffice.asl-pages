@@ -84,7 +84,8 @@ module.exports = settings => {
       }
     };
     req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.version.id}/patch`, opts)
-      .then(({ json: { data } }) => {
+      .then(({ json: { data, meta } }) => {
+        req.version.checksum = meta.checksum;
         req.version.data = data.data;
       })
       .then(() => next())
@@ -98,7 +99,7 @@ module.exports = settings => {
   });
 
   app.put('/', getAllChanges(), (req, res) => {
-    res.json({ changes: res.locals.static.changes });
+    res.json({ changes: res.locals.static.changes, checksum: req.version.checksum });
   });
 
   app.use((req, res, next) => res.sendResponse());
