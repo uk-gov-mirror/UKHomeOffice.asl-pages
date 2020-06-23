@@ -24,11 +24,13 @@ module.exports = {
   },
   nacwos: {
     show: true,
-    sortable: false
+    sortable: false,
+    filter: true
   },
   nvssqps: {
     show: true,
-    sortable: false
+    sortable: false,
+    filter: true
   },
   updatedAt: {}
 };
