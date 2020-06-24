@@ -30,8 +30,21 @@ $sectionSeparator: 50px;
   margin-bottom: $sectionSeparator;
 }
 
-.granted-section {
+.review {
   page-break-inside: avoid;
+}
+
+.granted-licence {
+  .hint {
+    display: none;
+  }
+}
+
+.granted-section, .section {
+
+  .review {
+    border-bottom: 1px solid $dark-grey;
+  }
 }
 
 h1.project-title,
@@ -58,12 +71,19 @@ section.continuedreuse .review {
   }
 }
 
-.hint {
-  display: none;
+section > h2 {
+  border-bottom: 1px solid $dark-grey;
+  padding-bottom: $govuk-gutter / 2;
 }
 
 .protocol-content .expanding-panel header h3 {
-  display: none;
+  @extend h2;
+}
+
+.condition,
+.conditions > div,
+.protocol-conditions > div {
+  page-break-inside: avoid;
 }
 
 .purple-inset, .condition {
@@ -127,29 +147,22 @@ dl dd {
   > h3:first-of-type {
     display: none;
   }
+}
 
-  .objective-review {
-    h3 {
-      display: none;
-    }
-
-    h2 {
-      @extend h3;
-      display: block;
-    }
+.objective-review {
+  h2 {
+    @extend h3;
+    display: block;
   }
 }
 
 .protocol {
-  .protocol-purpose h3,
-  .locations h3 {
-    @extend h2;
-  }
-
   h2.group {
     display: none;
   }
 }
+
+
 
 .granted-step {
   .header {
@@ -163,15 +176,19 @@ dl dd {
     @include tab;
   }
 
+  .container {
+    border: 2px solid $dark-grey;
+    padding: $govuk-gutter;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 16px;
 
     thead {
-      display: table-header-group;
 
       th {
-        background-color: $mid-grey;
         text-align: left;
         vertical-align: top;
       }
@@ -179,13 +196,29 @@ dl dd {
 
 
     th, td {
-      padding: 20px 15px;
-      border: 2px solid $mid-grey;
+      padding: 10px 7px;
+      border-bottom: 1px solid $dark-grey;
+
+      &.is-last-row {
+        border-bottom: 1px solid $dark-grey;
+      }
     }
   }
 }
 
+h3.steps {
+  @extend h2;
+  border-bottom: 0 !important;
+  margin-bottom: 0;
+}
+
+.larger-font {
+  font-size: 19px;
+}
+
 .protocol {
+  margin-bottom: $govuk-gutter;
+
   &:not(.adverse-effects) {
     page-break-before: always;
   }
@@ -196,8 +229,92 @@ dl dd {
     page-break-during: avoid;
   }
 
-  .protocol-number {
+  .protocol-number-wrapper {
+    margin-bottom: $govuk-gutter;
+    border-bottom: 2px solid $dark-grey;
+
+    .protocol-number {
+      @include tab;
+      margin-top: 0;
+    }
+
+    .protocol-number-continued {
+      @include tab;
+      margin-top: 0;
+      float: right;
+    }
+  }
+
+  .content, .granted-steps {
+    > h2 {
+      display: none;
+    }
+  }
+
+  .review-children > .review {
+    border-bottom: 0;
+  }
+
+  .animals h3.title {
+    @extend h2;
+  }
+
+  > thead {
+    display:table-header-group;
+
+    th {
+      padding: 0;
+    }
+  }
+
+  > tbody > tr > td {
+    border: 0;
+    padding: 0;
+    position: relative;
+    display: block;
+  }
+
+  .border-extension {
+    height: $govuk-gutter;
+    border-left: 2px solid $dark-grey;
+    border-right: 2px solid $dark-grey;
+    margin-top: -30px;
+  }
+
+  .hide-protocol-number-continued {
     @include tab;
+    right: 0;
+    margin-top: 0;
+    background-color: white;
+    position: absolute;
+    top: -36px;
+  }
+
+  .container {
+    padding: 0 $govuk-gutter $govuk-gutter $govuk-gutter;
+    top: -30px;
+    border: 2px solid $dark-grey;
+    border-top: 0;
+
+    h2.protocol-title {
+      margin-top: 0;
+    }
+
+    h2:not(.protocol-title) {
+      border-bottom: 1px solid $dark-grey;
+      padding-bottom: $govuk-gutter / 2;
+    }
+
+    table.species-summary {
+      th, td {
+        font-size: 19px;
+        border-bottom: 1px solid $dark-grey;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+    }
   }
 
   &.adverse-effects {
@@ -208,57 +325,13 @@ dl dd {
     }
   }
 
-  .protocol-panel {
-    padding: 10px;
-    border: 1px solid $dark-grey;
-
-    &.white-bg {
-      background-color: white;
-    }
-
-    h2 {
-      font-weight: normal;
-      margin: 10px 0 0 10px;
-    }
-
-    > p {
-      margin-left: 10px;
-      margin-top: 0;
-    }
-
-    .wrapper {
-      padding: 10px;
-    }
-
-    .questions-grid {
-      display: grid;
-      grid-template-columns: 1fr 3fr;
-      grid-gap: 15px;
-    }
+  .questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 0 15px;
 
     ul {
       padding-left: 1em;
-    }
-
-    table {
-      width: 100%;
-      border:none;
-      border-collapse: collapse;
-
-      td, th {
-        border: 0;
-        padding: 5px 10px;
-      }
-
-      th {
-        text-align: left;
-        padding-top: 20px;
-        border-bottom: 1px solid $dark-grey;
-      }
-
-      tr:last-child td {
-        padding-bottom: 20px;
-      }
     }
   }
 
@@ -271,18 +344,7 @@ dl dd {
 
     .granted-steps {
       h2.step-number {
-        @include tab;
-        background-color: $dark-purple;
-        font-size: 15px;
-        font-weight: bold;
-      }
-
-      .header {
-        .review {
-          border: 1px solid $dark-purple;
-          background-color: $lighter-grey;
-          padding: 0 15px;
-        }
+        @extend h2;
       }
     }
   }

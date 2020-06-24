@@ -40,6 +40,7 @@ module.exports = {
   application: {
     heading: 'Application',
     link: 'Full application (.docx)',
+    'pdf-link': 'Full application (.pdf)',
     hint: 'Download the full application, including background information and justification not detailed in the licence.'
   },
   template: {

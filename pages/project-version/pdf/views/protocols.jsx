@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Provider, useSelector } from 'react-redux';
 import { Protocol } from '@asl/projects/client/pages/sections/granted/pdf-protocols';
 import Review from '@asl/projects/client/components/review-field';
@@ -6,30 +6,26 @@ import Wrapper from '../../../common/views/pdf/wrapper';
 
 function Step({ step, number }) {
   return (
-    <Fragment>
-      <thead>
-        <tr>
-          <th>{`Step ${number} (${step.optional ? 'optional' : 'mandatory'})`}</th>
-          <th>Adverse effects</th>
-          <th>Controls and limitations</th>
-          <th>Humane endpoints</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><Review value={step.title} type="texteditor" /></td>
-          <td>
-            {
-              step.adverse
-                ? <Review value={step['adverse-effects']} type="texteditor" />
-                : <p>None</p>
-            }
-          </td>
-          <td>{ step.adverse && <Review value={step['prevent-adverse-effects']} type="texteditor" /> }</td>
-          <td>{ step.adverse && <Review value={step.endpoints} type="texteditor" /> }</td>
-        </tr>
-      </tbody>
-    </Fragment>
+    <tbody>
+      <tr>
+        <th>{`Step ${number} (${step.optional ? 'optional' : 'mandatory'})`}</th>
+        <th>Adverse effects</th>
+        <th>Controls and limitations</th>
+        <th>Humane endpoints</th>
+      </tr>
+      <tr>
+        <td><Review value={step.title} type="texteditor" /></td>
+        <td>
+          {
+            step.adverse
+              ? <Review value={step['adverse-effects']} type="texteditor" />
+              : <p>None</p>
+          }
+        </td>
+        <td>{ step.adverse && <Review value={step['prevent-adverse-effects']} type="texteditor" /> }</td>
+        <td>{ step.adverse && <Review value={step.endpoints} type="texteditor" /> }</td>
+      </tr>
+    </tbody>
   );
 }
 
@@ -81,7 +77,7 @@ function Protocols() {
                 </div>
               </div>
 
-              <h3>Protocol steps</h3>
+              <h3 className="steps">Protocol steps</h3>
             </div>
             {
               protocol.steps && protocol.steps.length
