@@ -152,7 +152,7 @@ const Establishment = ({ establishment, content }) => {
                   <table>
                     <thead>
                       <tr>
-                        <th className="site" colSpan="6">{siteName}</th>
+                        <th className="site" colSpan="7">{siteName}</th>
                       </tr>
                       <tr>
                         <th>Area</th>
@@ -160,6 +160,7 @@ const Establishment = ({ establishment, content }) => {
                         <th>Suitability</th>
                         <th>Holding</th>
                         <th>NACWO</th>
+                        <th>NVS/SQP</th>
                         <th>Restrictions</th>
                       </tr>
                     </thead>
@@ -171,7 +172,16 @@ const Establishment = ({ establishment, content }) => {
                             <td>{place.name}</td>
                             <td>{place.suitability.join(', ')}</td>
                             <td>{place.holding.join(', ')}</td>
-                            <td>{place.nacwo ? `${place.nacwo.firstName} ${place.nacwo.lastName}` : ''}</td>
+                            <td>
+                              {
+                                place.nacwos.map(nacwo => `${nacwo.profile.firstName} ${nacwo.profile.lastName}`).join(', ')
+                              }
+                            </td>
+                            <td>
+                              {
+                                place.nvssqps.map(nvs => `${nvs.profile.firstName} ${nvs.profile.lastName}`).join(', ')
+                              }
+                            </td>
                             <td>{place.restrictions}</td>
                           </tr>
                         ))
