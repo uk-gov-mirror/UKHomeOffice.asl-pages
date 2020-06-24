@@ -17,7 +17,9 @@ export default function PIL({ task, values }) {
   const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
   const isTransfer = task.type === 'transfer';
   const isReview = task.type === 'review';
-  const showTraining = !isReview || profile.certificates.length > 0;
+  const certificates = task.data.certificates;
+  const exemptions = task.data.exemptions;
+  const showTraining = !isReview || certificates.length > 0;
 
   const isComplete = !task.isOpen;
 
@@ -138,8 +140,8 @@ export default function PIL({ task, values }) {
         <StickyNavAnchor id="training" key="training">
           <h2><Snippet>sticky-nav.training</Snippet></h2>
           {
-            profile.certificates && profile.certificates.length > 0
-              ? <Modules certificates={profile.certificates} />
+            certificates && certificates.length > 0
+              ? <Modules certificates={certificates} />
               : <p><em><Snippet>pil.training.none</Snippet></em></p>
           }
         </StickyNavAnchor>
@@ -151,8 +153,8 @@ export default function PIL({ task, values }) {
         <StickyNavAnchor id="exemptions" key="exemptions">
           <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
           {
-            profile.exemptions && profile.exemptions.length > 0
-              ? profile.exemptions.map((exemption, index) => (
+            exemptions && exemptions.length > 0
+              ? exemptions.map((exemption, index) => (
                 <div key={index}>
                   <dl>
                     <dt><Snippet>pil.exemptions.module</Snippet><span>:</span></dt>
