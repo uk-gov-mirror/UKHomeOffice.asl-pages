@@ -17,7 +17,7 @@ export default function PIL({ task, values }) {
   const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
   const isTransfer = task.type === 'transfer';
   const isReview = task.type === 'review';
-  const certificates = task.data.certificates;
+  const certificates = task.data.certificates || [];
   const exemptions = task.data.exemptions;
   const showTraining = !isReview || certificates.length > 0;
 
