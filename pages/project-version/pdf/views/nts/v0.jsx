@@ -41,7 +41,7 @@ export default function SchemaV0() {
         <h3>Key words</h3>
         <p>{
           (version.keywords || []).length
-            ? (version.keywords || []).join(', ')
+            ? version.keywords.join(', ')
             : 'No answer provided'
         }</p>
       </div>
