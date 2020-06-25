@@ -17,7 +17,7 @@ module.exports = ({
   schema = defaultSchema
 } = {}) => datatable({
   configure: (req, res, next) => {
-    req.query.rows = req.query.rows || req.user.profile.asruUser ? 20 : 10;
+    req.query.rows = req.query.rows || (req.user.profile.asruUser ? 20 : 10);
     next();
   },
   getApiPath: (req, res, next) => {
