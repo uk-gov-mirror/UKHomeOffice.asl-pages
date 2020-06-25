@@ -74,7 +74,11 @@ export default function SchemaV1() {
 
       <div className="q-and-a">
         <h3>Key words</h3>
-        <p>No answer provided.</p>
+        <p>{
+          (version.keywords || []).length
+            ? version.keywords.join(', ')
+            : 'No answer provided'
+        }</p>
       </div>
 
       <SpeciesTable version={version} />
