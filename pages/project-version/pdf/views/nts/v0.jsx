@@ -38,6 +38,15 @@ export default function SchemaV0() {
       </div>
 
       <div className="q-and-a">
+        <h3>Key words</h3>
+        <p>{
+          (version.keywords || []).length
+            ? (version.keywords || []).join(', ')
+            : 'No answer provided'
+        }</p>
+      </div>
+
+      <div className="q-and-a">
         <h2>Retrospective assessment</h2>
         <RetrospectiveAssessment version={version} />
       </div>
