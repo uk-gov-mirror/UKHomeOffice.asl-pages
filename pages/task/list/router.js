@@ -16,6 +16,10 @@ module.exports = ({
   apiPath = '/tasks',
   schema = defaultSchema
 } = {}) => datatable({
+  configure: (req, res, next) => {
+    req.query.rows = req.query.rows || req.user.profile.asruUser ? 20 : 10;
+    next();
+  },
   getApiPath: (req, res, next) => {
     const tabs = getTabs(req.user.profile);
     const progress = req.query.progress || tabs[0];
