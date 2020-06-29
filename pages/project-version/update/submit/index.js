@@ -40,8 +40,8 @@ module.exports = settings => {
   app.use(
     form({
       configure: (req, res, next) => {
-        const hasOpenTask = !!get(req.project, 'openTasks', []).length;
-        const schema = getSchema(req.version.type, req.user.profile.asruUser, hasOpenTask);
+        const hasAuthority = get(req.project, 'openTasks[0].data.meta.authority') === 'Yes';
+        const schema = getSchema(req.version.type, req.user.profile.asruUser, hasAuthority);
         req.form.schema = schema;
         next();
       },
