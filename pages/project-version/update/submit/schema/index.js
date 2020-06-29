@@ -8,7 +8,7 @@ const conditionalRequired = (field, expected = 'Yes') => (value, model) => {
   return true;
 };
 
-const getSchema = (type, isAsru) => {
+const getSchema = (type, isAsru, includeReady) => {
   const schema = {
     awerb: {
       inputType: 'radioGroup',
@@ -84,6 +84,10 @@ const getSchema = (type, isAsru) => {
     };
 
     return omit(schema, 'ready');
+  }
+
+  if (!includeReady) {
+    return omit(schema, 'comments', 'ready');
   }
 
   return omit(schema, 'comments');

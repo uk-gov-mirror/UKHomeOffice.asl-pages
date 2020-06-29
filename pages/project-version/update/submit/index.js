@@ -40,7 +40,9 @@ module.exports = settings => {
   app.use(
     form({
       configure: (req, res, next) => {
-        const schema = getSchema(req.version.type, req.user.profile.asruUser);
+        // if application has previously been approved then this is a resubmission and we can show the inspector ready question
+        const hasAuthority = get(req.project, 'openTasks[0].data.meta.authority') === 'Yes';
+        const schema = getSchema(req.version.type, req.user.profile.asruUser, hasAuthority);
         req.form.schema = schema;
         next();
       },
