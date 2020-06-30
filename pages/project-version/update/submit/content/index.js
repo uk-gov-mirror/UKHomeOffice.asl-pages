@@ -1,6 +1,10 @@
 module.exports = {
   title: 'Send {{model.type}}',
-  warning: 'Project licence applications need to be reviewed by an AWERB and endorsed by the primary establishment\'s PEL holder before a licence can be granted.',
+  warning: 'Project licence applications need to be reviewed by an AWERB {{^canEndorse}}and endorsed by the primary establishment\'s PEL holder {{/canEndorse}}before a licence can be granted.',
+  declaration: {
+    title: 'Declaration',
+    content: 'You confirm the establishment licence holder consents to you endorsing this application on their behalf.'
+  },
   fields: {
     authority: {
       label: 'Does this {{model.type}} have the endorsement of your primary establishment\'s PEL holder?',
@@ -60,7 +64,7 @@ module.exports = {
   },
   buttons: {
     submit: {
-      application: 'Submit PPL application',
+      application: 'Submit {{#canEndorse}}to Home Office{{/canEndorse}}{{^canEndorse}}PPL application{{/canEndorse}}',
       amendment: 'Submit PPL amendment'
     }
   }
