@@ -15,6 +15,19 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
+    const params = {
+      projectId: req.project.id,
+      establishmentId: req.establishmentId
+    };
+    req.user.can('project.endorse', params)
+      .then(canEndorse => {
+        res.locals.static.canEndorse = canEndorse;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.use((req, res, next) => {
     const declarations = get(req.project, 'openTasks[0].data.meta');
     if (declarations) {
       Object.assign(req.version, pick(declarations, [
