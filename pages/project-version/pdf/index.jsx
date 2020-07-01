@@ -43,8 +43,17 @@ module.exports = settings => {
     req.pdf.store = createStore(initialState);
     req.pdf.nonce = res.locals.static.nonce;
 
-    req.pdf.header = renderToStaticMarkup(<Header store={req.pdf.store} model={req.project} licenceType="ppl" nonce={req.pdf.nonce} version={req.version} />);
-    req.pdf.footer = renderToStaticMarkup(<Footer />);
+    req.pdf.header = renderToStaticMarkup(<Header
+      store={req.pdf.store}
+      model={req.project}
+      licenceType="ppl"
+      nonce={req.pdf.nonce}
+      version={req.version}
+      officialSensitive={req.pdf.officialSensitive}
+    />);
+    req.pdf.footer = renderToStaticMarkup(<Footer
+      officialSensitive={req.pdf.officialSensitive}
+    />);
     req.pdf.hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
 
     next();
@@ -78,7 +87,7 @@ module.exports = settings => {
   };
 
   app.get('/nts',
-    setupPdf(),
+    setupPdf({ officialSensitive: false }),
     renderNts,
     convertToPdf
   );
