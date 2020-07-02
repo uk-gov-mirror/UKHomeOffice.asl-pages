@@ -1,7 +1,7 @@
 module.exports = profiles => {
   return {
     licenceHolderId: {
-      inputType: 'select',
+      inputType: 'autoComplete',
       validate: [
         'required',
         { definedValues: profiles.map(p => p.id) },
