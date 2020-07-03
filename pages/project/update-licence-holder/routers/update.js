@@ -12,6 +12,7 @@ module.exports = () => {
 
   app.use(form({
     configure(req, res, next) {
+      req.model.licenceHolderId = '';
       req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
         .then(({ json: { data } }) => {
           req.form.schema = getSchema(data);
