@@ -11,6 +11,13 @@ export default function LeaveEstablishment({ establishment, profile }) {
 
   const canLeave = !hasRoles && !hasPil && !hasProjects;
 
+  function confirmLeave(e) {
+    if (window.confirm('Are you sure you want to leave this establishment?')) {
+      return true;
+    }
+    e.preventDefault();
+  }
+
   return (
     <Fragment>
       <h2><Snippet>leaveEstablishment.title</Snippet></h2>
@@ -18,7 +25,7 @@ export default function LeaveEstablishment({ establishment, profile }) {
       {
         canLeave && (
           <ApplyChanges type="form" method="POST" action={leaveUrl}>
-            <button className="govuk-button button-warning">
+            <button onClick={confirmLeave} className="govuk-button button-warning">
               <Snippet>leaveEstablishment.button</Snippet>
             </button>
           </ApplyChanges>
