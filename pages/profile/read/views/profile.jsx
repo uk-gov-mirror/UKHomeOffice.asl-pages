@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import differenceInYears from 'date-fns/difference_in_years';
+import { Button } from '@ukhomeoffice/react-components';
+import { Snippet, Link } from '@asl/components';
 import { formatDate } from '../../../../lib/utils';
 import { defineValue, projectTitle } from '../../../common/formatters';
-import { Snippet, Link } from '@asl/components';
-import { Button } from '@ukhomeoffice/react-components';
+import LeaveEstablishment from './leave-establishment';
 import { dateFormat } from '../../../../constants';
 
 class Profile extends React.Component {
@@ -253,6 +254,17 @@ class Profile extends React.Component {
                 }
               </p>
             </section>
+          )
+        }
+        {
+          isOwnProfile && (
+            <Fragment>
+              <hr />
+              <LeaveEstablishment
+                profile={this.props.profile}
+                establishment={this.props.establishment}
+              />
+            </Fragment>
           )
         }
       </Fragment>
