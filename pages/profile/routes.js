@@ -4,6 +4,7 @@ const invitations = require('./invitations');
 const read = require('./read');
 const list = require('./list');
 const convertLegacyProject = require('./convert-legacy-project');
+const remove = require('./remove');
 const { allowed } = require('../../lib/middleware');
 
 module.exports = {
@@ -15,6 +16,10 @@ module.exports = {
     path: '/:profileId',
     permissions: 'profile.read.basic',
     router: read
+  },
+  remove: {
+    path: '/:profileId/remove',
+    router: remove
   },
   permission: {
     path: '/:profileId/permission',
