@@ -13,11 +13,18 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
     }
   },
   asru: {
-    title: 'ASRU',
+    title: 'Animals in Science Regulation Unit',
     roles: {
       title: 'Roles',
-      asruLicensing: 'Licensing officer',
-      asruInspector: 'Inspector'
+      asruLicensing: {
+        label: 'Licensing officer',
+        hint: 'Grant, amend and revoke licences'
+      },
+      asruInspector: {
+        label: 'Inspector',
+        hint: 'Specify additional conditions and authorisations and make licence recommendations'
+      },
+      none: '{{name}} hasn’t been assigned any roles.'
     }
   }
 });

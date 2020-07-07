@@ -8,10 +8,15 @@ export default function Roles({ roles = ['asruLicensing', 'asruInspector'] }) {
 
   return (
     <div className="asru-roles">
-      <h3><Snippet>asru.roles.title</Snippet></h3>
+      <h3><Snippet>asru.roles.title.list</Snippet></h3>
       <ul>
         {
-          userRoles.map(role => <li key={ role }><Snippet>{ `asru.roles.${role}` }</Snippet></li>)
+          userRoles.length > 0 &&
+            userRoles.map(role => <li key={ role }><Snippet>{ `asru.roles.${role}.label` }</Snippet></li>)
+        }
+        {
+          userRoles.length === 0 &&
+            <Snippet name={`${model.firstName} ${model.lastName}`}>asru.roles.none</Snippet>
         }
       </ul>
     </div>
