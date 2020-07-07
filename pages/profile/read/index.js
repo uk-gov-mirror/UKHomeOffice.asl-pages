@@ -8,7 +8,6 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    res.locals.static.leaveUrl = req.buildRoute('profile.remove');
     res.locals.static.isOwnProfile = req.user.profile.id === req.profileId;
     next();
   });
