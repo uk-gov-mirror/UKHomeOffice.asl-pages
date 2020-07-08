@@ -98,7 +98,7 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       schema: { ...certificatesSchema, ...modulesSchema, ...speciesSchema },
       formatters: {
         passDate: {
-          format: date => formatDate(date, dateFormat.medium)
+          format: date => formatDate(date, dateFormat.long)
         },
         modules: {
           format: modules => (

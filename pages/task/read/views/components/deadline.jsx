@@ -12,7 +12,7 @@ class Deadline extends Component {
       <div className="deadline">
         <h2><Snippet>sticky-nav.deadline</Snippet></h2>
 
-        <h3>{ formatDate(task.deadline, dateFormat.medium) }</h3>
+        <h3>{ formatDate(task.deadline, dateFormat.long) }</h3>
 
         { this.props.isInspector && task.isExtendable &&
           <Fragment>

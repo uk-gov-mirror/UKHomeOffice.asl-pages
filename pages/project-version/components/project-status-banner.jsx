@@ -11,8 +11,8 @@ export default function ProjectStatusBanner({ model, version, isPdf }) {
     return (
       <LicenceStatusBanner title={<Snippet>invalidLicence.status.transferred</Snippet>} licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour="red">
         <ul className="licence-dates">
-          <li><strong>Granted: </strong> <span>{ format(model.issueDate, dateFormat.medium) }</span></li>
-          <li><strong>Transferred out: </strong><span>{ format(model.transferredOutDate, dateFormat.medium) }</span></li>
+          <li><strong>Granted: </strong> <span>{ format(model.issueDate, dateFormat.long) }</span></li>
+          <li><strong>Transferred out: </strong><span>{ format(model.transferredOutDate, dateFormat.long) }</span></li>
         </ul>
         <p><Snippet>invalidLicence.summary.transferred</Snippet></p>
         {
@@ -46,7 +46,7 @@ export default function ProjectStatusBanner({ model, version, isPdf }) {
       <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseded ? 'superseded' : 'draft'}`}</Snippet>} licence={model} colour={superseded && 'red'} isPdf={isPdf}>
         <Fragment>
           {
-            superseded && <p><strong>This version was valid from {format(isFirstVersion ? model.issueDate : version.updatedAt, dateFormat.medium)} until {format(nextVersion.updatedAt, dateFormat.medium)}</strong></p>
+            superseded && <p><strong>This version was valid from {format(isFirstVersion ? model.issueDate : version.updatedAt, dateFormat.long)} until {format(nextVersion.updatedAt, dateFormat.long)}</strong></p>
           }
           <p><Snippet>{`invalidLicence.summary.${superseded ? 'superseded' : 'ppl_active'}`}</Snippet></p>
           <p><Link page="projectVersion" versionId={model.granted.id} label={<Snippet>{'invalidLicence.view'}</Snippet>} /></p>

@@ -31,6 +31,7 @@ const formatters = {
         return (
           <ExpiryDate
             date={date}
+            dateFormat={dateFormat.medium}
             expiry={addDays(date, 7)}
             showNotice={7}
             showUrgent={3}

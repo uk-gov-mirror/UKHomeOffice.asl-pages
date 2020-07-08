@@ -7,7 +7,7 @@ import { formatDate } from '../../../../lib/utils';
 
 const formatters = {
   issueDate: {
-    format: issueDate => formatDate(issueDate, dateFormat.medium)
+    format: issueDate => formatDate(issueDate, dateFormat.long)
   },
   duration: {
     format: duration => {

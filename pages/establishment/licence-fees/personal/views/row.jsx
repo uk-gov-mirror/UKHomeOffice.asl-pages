@@ -30,7 +30,7 @@ function UpdatingForm({ id, waived, onCancelClick, formFields }) {
 }
 
 function Waiver({ waivedBy, updatedAt, comment }) {
-  const timestamp = format(updatedAt, dateFormat.medium);
+  const timestamp = format(updatedAt, dateFormat.long);
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-three-quarters">
