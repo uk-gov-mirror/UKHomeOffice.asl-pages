@@ -419,7 +419,7 @@ export default function ProjectLandingPage() {
             <Fragment>
               <dt><Snippet>fields.issueDate.label</Snippet></dt>
               <dd>
-                {formatDate(model.issueDate, dateFormat.medium)}
+                {formatDate(model.issueDate, dateFormat.long)}
                 {
                   allowedActions.includes('project.updateIssueDate') &&
                     <Fragment>
@@ -438,35 +438,35 @@ export default function ProjectLandingPage() {
                 model.amendedDate &&
                 <Fragment>
                   <dt><Snippet>fields.amendedDate.label</Snippet></dt>
-                  <dd>{formatDate(model.amendedDate, dateFormat.medium)}</dd>
+                  <dd>{formatDate(model.amendedDate, dateFormat.long)}</dd>
                 </Fragment>
               }
               {
                 !isRevoked &&
                 <Fragment>
                   <dt><Snippet>fields.expiryDate.label</Snippet></dt>
-                  <dd>{formatDate(model.expiryDate, dateFormat.medium)}</dd>
+                  <dd>{formatDate(model.expiryDate, dateFormat.long)}</dd>
                 </Fragment>
               }
               {
                 isRevoked &&
                 <Fragment>
                   <dt><Snippet>fields.revocationDate.label</Snippet></dt>
-                  <dd>{formatDate(model.revocationDate, dateFormat.medium)}</dd>
+                  <dd>{formatDate(model.revocationDate, dateFormat.long)}</dd>
                 </Fragment>
               }
               {
                 model.raDate &&
                 <Fragment>
                   <dt><Snippet>fields.raDate.label</Snippet></dt>
-                  <dd>{formatDate(model.raDate, dateFormat.medium)}</dd>
+                  <dd>{formatDate(model.raDate, dateFormat.long)}</dd>
                 </Fragment>
               }
               {
                 model.transferredInDate && (
                   <Fragment>
                     <dt><Snippet>fields.transferredInDate.label</Snippet></dt>
-                    <dd>{formatDate(model.transferredInDate, dateFormat.medium)}</dd>
+                    <dd>{formatDate(model.transferredInDate, dateFormat.long)}</dd>
                   </Fragment>
                 )
               }
@@ -474,7 +474,7 @@ export default function ProjectLandingPage() {
                 model.transferredOutDate && (
                   <Fragment>
                     <dt><Snippet>fields.transferredOutDate.label</Snippet></dt>
-                    <dd>{formatDate(model.transferredOutDate, dateFormat.medium)}</dd>
+                    <dd>{formatDate(model.transferredOutDate, dateFormat.long)}</dd>
                   </Fragment>
                 )
               }
