@@ -15,7 +15,9 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
   asru: {
     title: 'Animals in Science Regulation Unit',
     roles: {
-      title: 'Roles',
+      title: {
+        list: 'Roles'
+      },
       asruLicensing: {
         label: 'Licensing officer',
         hint: 'Grant, amend and revoke licences'
