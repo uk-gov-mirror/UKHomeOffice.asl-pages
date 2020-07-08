@@ -112,6 +112,18 @@ dl dd {
   text-indent: 5px;
 }
 
+.break {
+  page-break-after: always;
+}
+
+.section:not(.legacy-pdf .section) {
+  page-break-after: always;
+}
+
+.section.protocols {
+  page-break-before: always;
+}
+
 .conditions h2 {
   font-size: 15px !important;
 }
@@ -183,6 +195,12 @@ h3.steps {
 
 .protocol {
   margin-bottom: $govuk-gutter;
+
+  &:not(.adverse-effects) {
+    page-break-before: always;
+  }
+
+  page-break-after: always;
 
   .protocol-number-wrapper {
     margin-bottom: $govuk-gutter;
