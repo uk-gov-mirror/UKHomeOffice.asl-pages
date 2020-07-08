@@ -30,10 +30,6 @@ $sectionSeparator: 50px;
   margin-bottom: $sectionSeparator;
 }
 
-.review {
-  page-break-inside: avoid;
-}
-
 .granted-licence {
   .hint {
     display: none;
@@ -80,12 +76,6 @@ section > h2 {
   @extend h2;
 }
 
-.condition,
-.conditions > div,
-.protocol-conditions > div {
-  page-break-inside: avoid;
-}
-
 .purple-inset, .condition {
   border-left: 4px solid $purple;
   padding-left: 10px;
@@ -122,25 +112,8 @@ dl dd {
   text-indent: 5px;
 }
 
-.break {
-  page-break-after: always;
-}
-
-.section:not(.legacy-pdf .section) {
-  page-break-after: always;
-}
-
-.section.protocols {
-  page-break-before: always;
-}
-
 .conditions h2 {
   font-size: 15px !important;
-}
-
-.granted-condition,
-.granted-authorisation {
-  page-break-inside: avoid;
 }
 
 .granted-page.action-plan {
@@ -159,14 +132,6 @@ dl dd {
 .protocol {
   h2.group {
     display: none;
-  }
-}
-
-
-
-.granted-step {
-  .header {
-    page-break-inside: avoid;
   }
 }
 
@@ -218,16 +183,6 @@ h3.steps {
 
 .protocol {
   margin-bottom: $govuk-gutter;
-
-  &:not(.adverse-effects) {
-    page-break-before: always;
-  }
-
-  page-break-after: always;
-
-  .field {
-    page-break-during: avoid;
-  }
 
   .protocol-number-wrapper {
     margin-bottom: $govuk-gutter;
