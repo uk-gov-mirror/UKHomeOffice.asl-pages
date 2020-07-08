@@ -62,7 +62,7 @@ const LogItem = ({ log, task }) => {
 
   return (
     <div className="log-item">
-      <span className="date">{format(log.createdAt, dateFormat.medium)}</span>
+      <span className="date">{format(log.createdAt, dateFormat.long)}</span>
       {getStatusBadge(status)}
       {getAuthor(log.changedBy, action, status, task)}
       {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}

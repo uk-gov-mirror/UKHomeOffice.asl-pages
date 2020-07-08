@@ -190,7 +190,7 @@ export default function Project({ task, schema }) {
                 <dd>
                   {
                     item['expiry-date']
-                      ? format(item['expiry-date'], dateFormat.medium)
+                      ? format(item['expiry-date'], dateFormat.long)
                       : <em>No answer provided</em>
                   }
                 </dd>

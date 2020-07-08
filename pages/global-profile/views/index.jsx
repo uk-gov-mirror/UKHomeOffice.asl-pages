@@ -112,7 +112,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
             <Fragment>
               <dt>Date of birth:</dt>
               <dd>
-                { formatDate(model.dob, dateFormat.medium) }
+                { formatDate(model.dob, dateFormat.long) }
                 {
                   isOwnProfile && (
                     <Fragment>

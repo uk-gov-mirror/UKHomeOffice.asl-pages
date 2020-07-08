@@ -35,18 +35,18 @@ const PIL = ({
 
   const formatters = {
     issueDate: {
-      format: issueDate => formatDate(issueDate, dateFormat.medium)
+      format: issueDate => formatDate(issueDate, dateFormat.long)
     },
     updatedAt: {
       format: (updatedAt, pil) => differenceInCalendarDays(updatedAt, pil.issueDate) > 0
-        ? formatDate(updatedAt, dateFormat.medium)
+        ? formatDate(updatedAt, dateFormat.long)
         : '-'
     },
     revocationDate: {
-      format: revocationDate => formatDate(revocationDate, dateFormat.medium)
+      format: revocationDate => formatDate(revocationDate, dateFormat.long)
     },
     reviewDate: {
-      format: reviewDate => formatDate(reviewDate, dateFormat.medium)
+      format: reviewDate => formatDate(reviewDate, dateFormat.long)
     },
     establishment: {
       format: e => e && e.name ? e.name : 'This licence is held at another establishment.'

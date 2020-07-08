@@ -58,8 +58,8 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
         />
         <p className="subtitle">
           <Snippet
-            start={format(fees.startDate, dateFormat.medium)}
-            end={format(fees.endDate, dateFormat.medium)}
+            start={format(fees.startDate, dateFormat.long)}
+            end={format(fees.endDate, dateFormat.long)}
           >
             fees.period
           </Snippet>

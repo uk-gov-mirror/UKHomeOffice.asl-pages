@@ -67,7 +67,7 @@ class Profile extends React.Component {
                         <Snippet
                           expiryDate={formatDate(
                             project.expiryDate,
-                            dateFormat.medium
+                            dateFormat.long
                           )}
                         >
                           projects.expiryDate

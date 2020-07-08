@@ -349,7 +349,7 @@ function PreviousVersions({ model }) {
                 <Link
                   page="projectVersion"
                   versionId={v.id}
-                  label={<Snippet type={type} updatedAt={formatDate(updatedAt, dateFormat.medium)}>previousVersions.version</Snippet>}
+                  label={<Snippet type={type} updatedAt={formatDate(updatedAt, dateFormat.long)}>previousVersions.version</Snippet>}
                 />
               </li>
             );

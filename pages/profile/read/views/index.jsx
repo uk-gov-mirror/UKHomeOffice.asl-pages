@@ -41,7 +41,7 @@ const Index = ({
               {
                 model.dob && isOwnProfile && <Fragment>
                   <dt>Date of birth:</dt>
-                  <dd>{ formatDate(model.dob, dateFormat.medium) }</dd>
+                  <dd>{ formatDate(model.dob, dateFormat.long) }</dd>
                 </Fragment>
               }
             </dl>
