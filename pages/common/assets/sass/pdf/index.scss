@@ -30,10 +30,6 @@ $sectionSeparator: 50px;
   margin-bottom: $sectionSeparator;
 }
 
-.review {
-  page-break-inside: avoid;
-}
-
 .granted-licence {
   .hint {
     display: none;
@@ -78,12 +74,6 @@ section > h2 {
 
 .protocol-content .expanding-panel header h3 {
   @extend h2;
-}
-
-.condition,
-.conditions > div,
-.protocol-conditions > div {
-  page-break-inside: avoid;
 }
 
 .purple-inset, .condition {
@@ -138,11 +128,6 @@ dl dd {
   font-size: 15px !important;
 }
 
-.granted-condition,
-.granted-authorisation {
-  page-break-inside: avoid;
-}
-
 .granted-page.action-plan {
   > h3:first-of-type {
     display: none;
@@ -159,14 +144,6 @@ dl dd {
 .protocol {
   h2.group {
     display: none;
-  }
-}
-
-
-
-.granted-step {
-  .header {
-    page-break-inside: avoid;
   }
 }
 
@@ -224,10 +201,6 @@ h3.steps {
   }
 
   page-break-after: always;
-
-  .field {
-    page-break-during: avoid;
-  }
 
   .protocol-number-wrapper {
     margin-bottom: $govuk-gutter;
