@@ -18,6 +18,9 @@ const Index = () => {
           <li>
             <Link page="account.updateEmail" label={ <Snippet>pages.account.updateEmail.base</Snippet> } />
           </li>
+          <li>
+            <Link page="account.updatePassword" label={ <Snippet>pages.account.updatePassword.base</Snippet> } />
+          </li>
         </ul>
       </div>
     </div>
