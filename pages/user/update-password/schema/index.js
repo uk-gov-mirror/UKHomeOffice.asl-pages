@@ -1,7 +1,12 @@
-const hasAtLeast10Chars = password => password.length >= 10;
-const hasAtLeast1Uppercase = password => (password.match(/[A-Z]/g) || []).length >= 1;
-const hasAtLeast1Lowercase = password => (password.match(/[a-z]/g) || []).length >= 1;
-const hasAtLeast1Digit = password => (password.match(/\d/g) || []).length >= 1;
+const MIN_CHARS = 10;
+const MIN_UPPER = 1;
+const MIN_LOWER = 1;
+const MIN_DIGIT = 1;
+
+const hasAtLeastMinChars = password => password.length >= MIN_CHARS;
+const hasAtLeastMinUppercase = password => (password.match(/[A-Z]/g) || []).length >= MIN_UPPER;
+const hasAtLeastMinLowercase = password => (password.match(/[a-z]/g) || []).length >= MIN_LOWER;
+const hasAtLeastMinDigits = password => (password.match(/\d/g) || []).length >= MIN_DIGIT;
 
 module.exports = {
   oldPassword: {
@@ -13,11 +18,12 @@ module.exports = {
     validate: [
       'required',
       {
-        customValidate: (password) => {
-          return hasAtLeast10Chars(password) &&
-            hasAtLeast1Uppercase(password) &&
-            hasAtLeast1Lowercase(password) &&
-            hasAtLeast1Digit(password);
+        customValidate: (password, formValues) => {
+          return hasAtLeastMinChars(password) &&
+            hasAtLeastMinUppercase(password) &&
+            hasAtLeastMinLowercase(password) &&
+            hasAtLeastMinDigits(password) &&
+            formValues.password === formValues.passwordConfirm; // duplicate comparison here so that field highlights on mismatch
         }
       }
     ]
