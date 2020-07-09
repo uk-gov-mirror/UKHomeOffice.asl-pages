@@ -30,7 +30,7 @@ module.exports = merge({}, baseContent, {
     },
     passwordConfirm: {
       required: 'Please confirm your new password',
-      customValidate: 'Please confirm your new password is correct'
+      customValidate: 'Your new passwords must match'
     }
   },
   buttons: {
