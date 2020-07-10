@@ -66,7 +66,8 @@ module.exports = {
     account: {
       menu: 'Your account',
       update: 'Edit your details',
-      updateEmail: 'Change your email address'
+      updateEmail: 'Change your email address',
+      updatePassword: 'Change your password'
     },
     feedback: 'Feedback',
     task: {
@@ -86,6 +87,9 @@ module.exports = {
       updateEmail: {
         base: 'Change your email address',
         confirm: 'Confirm changes'
+      },
+      updatePassword: {
+        base: 'Change your password'
       }
     },
     dashboard: {
