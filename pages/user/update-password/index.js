@@ -29,6 +29,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
+    // verify old password first
     const opts = {
       method: 'POST',
       json: {
@@ -37,35 +38,34 @@ module.exports = settings => {
       }
     };
 
-    // verify old password first
     req.api('/me/verify', opts)
+      .then(() => next())
       .catch(err => {
         if (err.status === 403) {
           set(req.session.form[req.model.id], 'validationErrors.oldPassword', 'invalid');
           return res.redirect(req.buildRoute('account.updatePassword'));
         }
         next(err);
-      })
-      .then(() => {
-        // update password
-        const opts = {
-          method: 'PUT',
-          json: {
-            data: {
-              ...pick(req.session.form[req.model.id].values, 'password')
-            }
-          }
-        };
-        return req.api('/me/password', opts);
-      })
+      });
+  });
+
+  app.post('/', (req, res, next) => {
+    // update password
+    const opts = {
+      method: 'PUT',
+      json: {
+        data: {
+          ...pick(req.session.form[req.model.id].values, 'password')
+        }
+      }
+    };
+    return req.api('/me/password', opts)
       .then(() => {
         delete req.session.form[req.model.id];
         req.notification({ key: 'success' });
         return res.redirect(req.buildRoute('account.menu'));
       })
-      .catch(err => {
-        next(err);
-      });
+      .catch(next);
   });
 
   return app;
