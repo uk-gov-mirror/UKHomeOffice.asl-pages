@@ -64,7 +64,7 @@ export default function Role({ task, values, schema }) {
           <p><Snippet>{`namedRoles.${values.type}`}</Snippet></p>
 
           {
-            (remainingRoles || []).length > 0 &&
+            remainingRoles !== 'BC_NO_DATA' && (remainingRoles || []).length > 0 &&
               <Fragment>
                 <p><strong><Snippet>remaining.some</Snippet></strong></p>
                 <ul>
@@ -77,7 +77,8 @@ export default function Role({ task, values, schema }) {
               </Fragment>
           }
           {
-            (remainingRoles || []).length === 0 && <Warning><Snippet>remaining.none</Snippet></Warning>
+            remainingRoles !== 'BC_NO_DATA' && (remainingRoles || []).length === 0 &&
+              <Warning><Snippet>remaining.none</Snippet></Warning>
           }
         </StickyNavAnchor>
       )

@@ -116,7 +116,8 @@ module.exports = () => {
         }
 
         if (model === 'role' && action === 'delete') {
-          res.locals.static.remainingRoles = get(req.task, 'data.meta.remainingRoles');
+          // if the task doesn't have the remainingRoles data, flag it so we can hide the list
+          res.locals.static.remainingRoles = get(req.task, 'data.meta.remainingRoles', 'BC_NO_DATA');
         }
 
         return next();
