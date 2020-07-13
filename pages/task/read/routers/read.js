@@ -115,12 +115,25 @@ module.exports = () => {
           }
         }
 
+        if (model === 'role' && action === 'delete') {
+          res.locals.static.remainingRoles = get(req.task, 'data.meta.remainingRoles');
+        }
+
         return next();
       }
 
       if (model === 'profile' && req.user.profile.id === req.task.data.id) {
         res.locals.static.values = req.user.profile;
         return next();
+      }
+
+      if (model === 'role' && action === 'delete') {
+        const removedRoleId = get(req.task, 'data.id');
+        const roleType = get(req.task, 'data.modelData.type');
+        const remainingRoles = req.establishment.roles
+          .filter(role => role.type === roleType && role.id !== removedRoleId)
+          .sort((a, b) => a.profile.lastName <= b.profile.lastName ? -1 : 1);
+        res.locals.static.remainingRoles = remainingRoles;
       }
 
       const getUrl = () => {

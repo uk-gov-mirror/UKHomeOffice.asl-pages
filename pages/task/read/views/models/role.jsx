@@ -5,12 +5,13 @@ import {
   Snippet,
   Link
 } from '@asl/components';
+import { Warning } from '@ukhomeoffice/react-components';
 import LicenceHolder from '../../../../common/components/licence-holder';
 
-const selector = ({ static: { establishment, profile } }) => ({ establishment, profile });
+const selector = ({ static: { establishment, profile, remainingRoles } }) => ({ establishment, profile, remainingRoles });
 
 export default function Role({ task, values, schema }) {
-  const { establishment, profile } = useSelector(selector, shallowEqual);
+  const { establishment, profile, remainingRoles } = useSelector(selector, shallowEqual);
 
   return [
     <StickyNavAnchor id="establishment" key="establishment">
@@ -59,10 +60,25 @@ export default function Role({ task, values, schema }) {
       task.data.action === 'delete' && (
         <StickyNavAnchor id="role" key="role">
           <h2><Snippet>sticky-nav.role</Snippet></h2>
-          <dl>
-            <dt><Snippet>fields.role.label</Snippet></dt>
-            <dd><Snippet>{`namedRoles.${values.type}`}</Snippet></dd>
-          </dl>
+          <p><strong><Snippet>fields.role.label</Snippet></strong></p>
+          <p><Snippet>{`namedRoles.${values.type}`}</Snippet></p>
+
+          {
+            (remainingRoles || []).length > 0 &&
+              <Fragment>
+                <p><strong><Snippet>remaining.some</Snippet></strong></p>
+                <ul>
+                  {
+                    remainingRoles.map(role => (
+                      <li key={role.id}>{`${role.profile.firstName} ${role.profile.lastName}`}</li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+          }
+          {
+            (remainingRoles || []).length === 0 && <Warning><Snippet>remaining.none</Snippet></Warning>
+          }
         </StickyNavAnchor>
       )
     )

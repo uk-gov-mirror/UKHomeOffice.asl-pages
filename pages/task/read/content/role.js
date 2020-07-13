@@ -13,5 +13,9 @@ module.exports = {
     rcvsNumber: {
       label: 'RCVS number'
     }
+  },
+  remaining: {
+    some: 'Remaining users with this role at this establishment',
+    none: 'There are no other users at this establishment currently holding this role'
   }
 };
