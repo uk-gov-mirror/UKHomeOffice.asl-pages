@@ -34,7 +34,8 @@ start({
     isGranted: state.static.isGranted,
     legacyGranted: state.static.legacyGranted,
     previousProtocols: state.static.previousProtocols,
-    establishments: state.static.establishments || []
+    establishments: state.static.establishments || [],
+    raCompulsory: state.model.raCompulsory
   },
   static: { urls: state.static.urls }
 });
