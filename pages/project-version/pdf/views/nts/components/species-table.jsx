@@ -36,7 +36,7 @@ export default function SpeciesTable({ version }) {
         speciesDetails.map(species => (
           <tr key={species.value}>
             <td>{species.name}</td>
-            <td>{species.lifeStages.join(', ')}</td>
+            <td>{(species.lifeStages || []).join(', ')}</td>
           </tr>
         ))
       }
