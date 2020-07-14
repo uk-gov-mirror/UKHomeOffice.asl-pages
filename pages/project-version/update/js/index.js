@@ -33,7 +33,8 @@ start({
     transferInProgress: state.static.transferInProgress,
     establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
     showConditions: state.static.showConditions,
-    editConditions: state.static.editConditions
+    editConditions: state.static.editConditions,
+    raCompulsory: state.model.raCompulsory
   },
   static: { urls: state.static.urls }
 });
