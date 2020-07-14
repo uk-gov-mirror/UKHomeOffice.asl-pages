@@ -6,7 +6,8 @@ module.exports = merge({}, baseContent, {
   fields: {
     email: {
       label: 'Your new email address',
-      current: 'Your current email address'
+      current: 'Your current email address',
+      hint: ''
     },
     emailConfirm: {
       label: 'Confirm your new email address'
@@ -15,6 +16,7 @@ module.exports = merge({}, baseContent, {
       label: 'Please enter your current password to authorise the change'
     }
   },
+  'email-guidance': 'This will update the email you use to login and get notifications, for example if an application gets approved.',
   errors: {
     email: {
       required: 'Please enter a new email address',
