@@ -28,7 +28,14 @@ const formatters = {
         status = 'expired';
       }
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
-      return <span className={ className }><Snippet>{ `status.${status}` }</Snippet></span>;
+      return (
+        <Fragment>
+          <span className={ className }><Snippet>{ `status.${status}` }</Snippet></span>
+          {
+            model.raDate && <p className="ra-label"><Snippet>ra-required</Snippet></p>
+          }
+        </Fragment>
+      );
     }
   },
   licenceHolder: {
