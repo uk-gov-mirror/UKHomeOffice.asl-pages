@@ -6,7 +6,7 @@ import ReviewField from '@asl/projects/client/components/review-field';
 import schemaV1 from '@asl/projects/client/schema/v1';
 import { projectSpecies as SPECIES } from '@asl/constants';
 import SpeciesTable from './components/species-table';
-import RetrospectiveAssessment from './components/retrospective-assessment';
+import RetrospectiveAssessment from '@asl/projects/client/components/retrospective-assessment';
 
 const getPermissiblePurposeOptions = () => {
   return schemaV1().introduction.subsections.introduction.fields.find(field => field.name === 'permissible-purpose').options;
@@ -85,7 +85,7 @@ export default function SchemaV1() {
 
       <div className="q-and-a">
         <h2>Retrospective assessment</h2>
-        <RetrospectiveAssessment version={version} />
+        <RetrospectiveAssessment showTitle={false} />
       </div>
 
       <h2>Objectives and benefits</h2>

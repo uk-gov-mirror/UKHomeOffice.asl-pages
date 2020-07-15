@@ -30,7 +30,8 @@ module.exports = settings => {
         isGranted: true,
         readonly: true,
         showConditions: !isFullApplication,
-        isFullApplication: isFullApplication && req.project.schemaVersion > 0
+        isFullApplication: isFullApplication && req.project.schemaVersion > 0,
+        raCompulsory: req.version.raCompulsory
       },
       static: {
         content,
