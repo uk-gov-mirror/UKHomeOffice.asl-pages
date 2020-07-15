@@ -6,6 +6,7 @@ const remove = require('./delete');
 const revoke = require('./revoke');
 const addUser = require('./add-user');
 const removeUser = require('./remove-user');
+const transferDraft = require('./transfer-draft');
 
 module.exports = {
   list: {
@@ -46,5 +47,10 @@ module.exports = {
     path: '/:projectId/revoke',
     permissions: 'project.revoke',
     router: revoke
+  },
+  transferDraft: {
+    path: '/:projectId/transfer-draft',
+    permissions: 'project.transfer',
+    router: transferDraft
   }
 };
