@@ -1,36 +1,48 @@
-const { Router } = require('express');
-const { get } = require('lodash');
-const { BadRequestError } = require('@asl/service/errors');
+const { page } = require('@asl/service/ui');
+const { NotFoundError } = require('@asl/service/errors');
+const confirm = require('./routers/confirm');
+const form = require('../../common/routers/form');
+const getSchema = require('./schema');
 
 module.exports = () => {
-  const app = Router();
-
-  app.put('/transfer-draft', (req, res, next) => {
-    const openTasks = get(req.project, 'openTasks');
-
-    if (openTasks.length > 0) {
-      throw new BadRequestError('cannot transfer a draft with an open task');
-    }
-
-    const params = {
-      method: 'PUT',
-      json: {
-        data: {
-          targetEstablishmentId: get(req.body, 'targetEstablishmentId')
-        }
-      }
-    };
-
-    console.log('sending params to api', params);
-
-    req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/transfer-draft`, params)
-      .then(response => {
-        const project = response.json.data;
-        const newProjectUrl = `/establishments/${project.establishmentId}/projects/${project.id}`;
-        res.json({ url: newProjectUrl });
-      })
-      .catch(next);
+  const app = page({
+    root: __dirname,
+    paths: ['/confirm']
   });
+
+  app.use((req, res, next) => {
+    // prevent non-drafts or submitted drafts from using this route
+    if (req.project.status !== 'inactive' || req.project.openTasks.length > 0) {
+      return next(new NotFoundError());
+    }
+    next();
+  });
+
+  app.use((req, res, next) => {
+    req.model = {
+      id: `${req.projectId}-transfer-draft`,
+      primaryEstablishment: req.establishment.id.toString()
+    };
+    res.locals.static.project = req.project;
+    next();
+  });
+
+  app.use(form({
+    configure(req, res, next) {
+      req.form.schema = getSchema(req.user.profile.establishments);
+      next();
+    },
+    cancelEdit: (req, res, next) => {
+      delete req.session.form[req.model.id];
+      return res.redirect(req.buildRoute('project.read'));
+    }
+  }));
+
+  app.post('/', (req, res, next) => {
+    res.redirect(req.buildRoute('project.transferDraft', { suffix: 'confirm' }));
+  });
+
+  app.use('/confirm', confirm());
 
   return app;
 };

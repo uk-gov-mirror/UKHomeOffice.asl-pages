@@ -30,6 +30,7 @@ start({
     newApplication: state.static.newApplication,
     previousProtocols: state.static.previousProtocols,
     canTransfer: state.static.canTransfer,
+    canTransferDraft: state.static.canTransferDraft,
     transferInProgress: state.static.transferInProgress,
     establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
     showConditions: state.static.showConditions,
