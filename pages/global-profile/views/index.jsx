@@ -143,6 +143,9 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
                 ? <Modules certificates={model.certificates} />
                 : <p><em><Snippet>pil.training.none</Snippet></em></p>
             }
+            {
+              isOwnProfile && <Link page="training.dashboard" label={<Snippet>manage-training</Snippet>}/>
+            }
           </Fragment>
         )
       }

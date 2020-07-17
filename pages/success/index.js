@@ -98,6 +98,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     const taskId = get(req.session, 'success.taskId');
+    console.log('HERE', taskId)
 
     if (!taskId || !isUUID(taskId)) {
       return next(new NotFoundError());

@@ -10,5 +10,6 @@ module.exports = {
   pil: require('./pil'),
   pils: require('./pil/list'),
   task: require('./task'),
+  training: require('./training'),
   user: require('./user')
 };

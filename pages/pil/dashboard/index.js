@@ -68,14 +68,11 @@ module.exports = settings => {
   app.use(form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     validate: (req, res, next) => {
-      const skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
-      const skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
-
+      const update = get(req.session, `form[${req.model.id}].values.update`);
       const sectionComplete = {
         procedures: !!(req.model.procedures && req.model.procedures.length),
         species: !!(req.model.species && req.model.species.length),
-        training: !!((req.profile.certificates && req.profile.certificates.length) || skipTraining),
-        exemptions: !!((req.profile.exemptions && req.profile.exemptions.length) || skipExemptions)
+        training: !!((req.profile.certificates && req.profile.certificates.length) || update === false),
       };
 
       if (!every(sectionComplete, Boolean)) {

@@ -134,6 +134,10 @@ p.subtitle {
   }
 }
 
+.preserve-whitespace {
+  white-space: pre-wrap;
+}
+
 .badge {
   padding: 3px 6px;
   background: #999;
@@ -152,6 +156,27 @@ p.subtitle {
 
 p.ra-label {
   margin: 0;
+}
+
+table.training tbody {
+  vertical-align: top;
+
+  p, ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul li {
+    margin-left: 1em;
+  }
+}
+
+.section-item .training {
+  margin-top: $govuk-gutter;
+}
+
+.training-links {
+  margin-bottom: $govuk-gutter;
 }
 
 .asru-roles {

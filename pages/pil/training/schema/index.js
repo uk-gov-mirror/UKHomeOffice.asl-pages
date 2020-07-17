@@ -1,6 +1,19 @@
+const { toBoolean } = require('../../../../lib/utils');
+
 module.exports = {
-  certificate: require('./certificate'),
-  modules: require('./modules'),
-  species: require('./species'),
-  exempt: require('../../exemptions/schema/exempt')
+  update: {
+    inputType: 'radioGroup',
+    format: toBoolean,
+    options: [
+      {
+        label: 'Yes, I need to update it',
+        value: true
+      },
+      {
+        label: 'No, that looks fine',
+        value: false
+      }
+    ],
+    validate: ['required']
+  }
 };

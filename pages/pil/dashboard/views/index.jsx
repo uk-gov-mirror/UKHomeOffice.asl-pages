@@ -5,19 +5,13 @@ import {
   ErrorSummary,
   Header,
   SectionList,
-  Form
+  Form,
+  TrainingSummary
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import { dateFormat } from '../../../../constants';
-import { formatDate, canUpdateModel } from '../../../../lib/utils';
+import { canUpdateModel } from '../../../../lib/utils';
 
 import InProgressWarning from '../../../common/components/in-progress-warning';
-
-import {
-  certificate as certificatesSchema,
-  modules as modulesSchema,
-  species as speciesSchema
-} from '../../training/schema';
 
 import SectionDetails from './section-details';
 import ProceduresDiff from '../../procedures/views/diff';
@@ -33,12 +27,14 @@ function confirmDelete(e) {
 
 function SubmitPIL({ formFields, snippet }) {
   return (
-    <Fragment>
-      {
-        formFields
-      }
-      <Button><Snippet>{ snippet }</Snippet></Button>
-    </Fragment>
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        {
+          formFields
+        }
+        <Button><Snippet>{ snippet }</Snippet></Button>
+      </div>
+    </div>
   );
 }
 
@@ -54,6 +50,8 @@ const Index = ({
   skipExemptions,
   skipTraining
 }) => {
+
+  const upToDate = model.update === false;
 
   const sections = [
     {
@@ -88,59 +86,13 @@ const Index = ({
     },
     {
       name: 'training',
-      page: 'pil.update.training.exempt',
-      models: certificates,
-      modelTitle: index => <p><strong>Certificate {index + 1}</strong></p>,
-      schema: { ...certificatesSchema, ...modulesSchema, ...speciesSchema },
-      formatters: {
-        passDate: {
-          format: date => formatDate(date, dateFormat.long)
-        },
-        modules: {
-          format: modules => (
-            <ul>
-              {
-                modules.map(({ module, species }, index) =>
-                  <li key={index}>
-                    { module }
-                  </li>
-                )
-              }
-            </ul>
-          )
-        },
-        species: {
-          format: species => species && species.length
-            ? <ul>
-              {
-                species.map((s, index) => <li key={index}>{s}</li>)
-              }
-            </ul>
-            : '-'
-        }
-      },
-      addLink: <Snippet>actions.add-certificate</Snippet>,
-      completed: certificates.length > 0 || skipTraining
-    },
-    {
-      name: 'exemptions',
-      page: 'pil.update.exemptions.exempt',
-      models: exemptions,
-      modelTitle: index => <p><strong>Exemption {index + 1}</strong></p>,
-      schema: {
-        module: {},
-        species: {},
-        description: {}
-      },
-      formatters: {
-        species: {
-          format: species => (
-            <ul>{ (species || []).map((type, index) => <li key={index}>{type}</li>) }</ul>
-          )
-        }
-      },
-      addOrEdit: 'edit',
-      completed: exemptions.length > 0 || skipExemptions
+      page: 'pil.update.training',
+      completed: upToDate,
+      template: upToDate && (
+        certificates && certificates.length > 0
+          ? <TrainingSummary certificates={certificates} />
+          : <em>No training added</em>
+      )
     }
   ];
 
@@ -176,25 +128,21 @@ const Index = ({
         subtitle={establishment.name}
       />
       <p><Snippet>pil.summary</Snippet></p>
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
-          <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
-          <Form detachFields submit={false}>
-            <SubmitPIL snippet={submitSnippet} />
-          </Form>
-          {
-            model.status === 'pending' && (
-              <form
-                action="delete"
-                method="POST"
-                onSubmit={confirmDelete}
-              >
-                <button className="link"><span>Discard draft application</span></button>
-              </form>
-            )
-          }
-        </div>
-      </div>
+      <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
+      <Form detachFields submit={false}>
+        <SubmitPIL snippet={submitSnippet} />
+      </Form>
+      {
+        model.status === 'pending' && (
+          <form
+            action="delete"
+            method="POST"
+            onSubmit={confirmDelete}
+          >
+            <button className="link"><span>Discard draft application</span></button>
+          </form>
+        )
+      }
     </Fragment>
   );
 };

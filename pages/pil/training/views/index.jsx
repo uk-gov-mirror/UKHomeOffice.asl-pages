@@ -1,43 +1,31 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Snippet,
-  FormLayout,
-  Inset,
-  Fieldset,
-  Header
+  Form,
+  ErrorSummary,
+  Header,
+  TrainingSummary
 } from '@asl/components';
 
-const connectComponent = key => {
-  const mapStateToProps = ({ model, static: { schema, errors } }) => {
-    schema = schema.accreditingBody.options.find(body => body.value === key).reveal;
-
-    return {
-      model,
-      schema,
-      errors
-    };
-  };
-
-  return connect(mapStateToProps)(Fieldset);
-};
-
-const formatters = {
-  accreditingBody: {
-    mapOptions: option => {
-      const ConnectedComponent = connectComponent(option.value);
-      return {
-        ...option,
-        reveal: option.reveal ? <Inset><ConnectedComponent /></Inset> : null
-      };
-    }
-  }
-};
-
-const Page = () => (
-  <FormLayout formatters={formatters}>
-    <Header title={<Snippet>title</Snippet>} />
-  </FormLayout>
-);
-
-export default Page;
+export default function Page() {
+  const profile = useSelector(state => state.static.profile);
+  return (
+    <Fragment>
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <ErrorSummary />
+          <Header title={<Snippet>title</Snippet>} />
+          <p><Snippet>intro</Snippet></p>
+        </div>
+      </div>
+      <h3><Snippet>current-modules</Snippet></h3>
+      <TrainingSummary certificates={profile.certificates} />
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <Form />
+        </div>
+      </div>
+    </Fragment>
+  );
+}

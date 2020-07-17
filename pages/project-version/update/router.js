@@ -24,6 +24,16 @@ module.exports = settings => {
   );
 
   app.get('/', (req, res, next) => {
+    const { licenceHolderId } = req.project;
+    req.api(`/establishment/${req.establishmentId}/profile/${licenceHolderId}/certificates`)
+      .then(response => {
+        res.locals.static.training = response.json.data;
+        next();
+      })
+      .catch(next);
+  });
+
+  app.get('/', (req, res, next) => {
     Promise.all([
       req.user.can('project.update', req.params),
       req.user.can('project.transfer', req.params)
