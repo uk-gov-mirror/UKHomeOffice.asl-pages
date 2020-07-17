@@ -1,4 +1,6 @@
+const isUUID = require('uuid-validate');
 const { get, set } = require('lodash');
+const { NotFoundError } = require('@asl/service/errors');
 
 const hydrate = () => (req, res, next) => {
   const task = get(req.model, 'openTasks[0]');
@@ -89,10 +91,18 @@ const populateNamedPeople = (req, res, next) => {
   next();
 };
 
+const validateUuidParam = () => (req, res, next, param) => {
+  if (!isUUID(param)) {
+    return next(new NotFoundError());
+  }
+  next();
+};
+
 module.exports = {
   hydrate,
   updateDataFromTask,
   redirectToTaskIfOpen,
   clearSessionIfNotFromTask,
-  populateNamedPeople
+  populateNamedPeople,
+  validateUuidParam
 };

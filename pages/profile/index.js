@@ -3,6 +3,7 @@ const { Router } = require('express');
 const differenceInYears = require('date-fns/difference_in_years');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
+const { validateUuidParam } = require('../common/middleware');
 
 const routes = require('./routes');
 
@@ -21,7 +22,11 @@ module.exports = settings => {
       req.model.id = 'new-profile';
       return next('route');
     }
+    next();
+  });
 
+  app.param('profileId', validateUuidParam());
+  app.param('profileId', (req, res, next, profileId) => {
     return req.api(`/establishment/${req.establishmentId}/profile/${profileId}`)
       .then(({ json: { data, meta } }) => {
         const model = cleanModel(data);
