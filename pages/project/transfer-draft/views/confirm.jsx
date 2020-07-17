@@ -13,10 +13,10 @@ const Confirm = () => {
           <p><Snippet>summary</Snippet></p>
 
           <h3><Snippet>fields.primaryEstablishment.current.label</Snippet></h3>
-          <p>{establishment.name}</p>
+          <p className="current-establishment">{establishment.name}</p>
 
           <h3><Snippet>fields.primaryEstablishment.new.label</Snippet></h3>
-          <p>{targetEstablishment.name}</p>
+          <p className="new-establishment">{targetEstablishment.name}</p>
 
           <form method="POST">
             <ControlBar>
