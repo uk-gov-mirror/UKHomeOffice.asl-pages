@@ -2,12 +2,14 @@ const { Router } = require('express');
 const { cleanModel } = require('../../lib/utils');
 const { populateNamedPeople } = require('../common/middleware');
 const routes = require('./routes');
+const { validateUuidParam } = require('../common/middleware');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.use(populateNamedPeople);
 
+  app.param('placeId', validateUuidParam());
   app.param('placeId', (req, res, next, placeId) => {
     const params = req.path.match(/delete\/success$/)
       ? { query: { withDeleted: true } }

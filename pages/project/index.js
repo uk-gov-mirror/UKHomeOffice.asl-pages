@@ -1,7 +1,6 @@
 const { Router } = require('express');
-const isUUID = require('uuid-validate');
-const { NotFoundError } = require('@asl/service/errors');
 const routes = require('./routes');
+const { validateUuidParam } = require('../common/middleware');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -10,9 +9,11 @@ module.exports = settings => {
     if (projectId === 'create' || projectId === 'import') {
       return next('route');
     }
-    if (!isUUID(projectId)) {
-      return next(new NotFoundError());
-    }
+    next();
+  });
+
+  app.param('projectId', validateUuidParam());
+  app.param('projectId', (req, res, next, projectId) => {
     req.projectId = projectId;
     return req.api(`/establishment/${req.establishmentId}/projects/${projectId}`)
       .then(({ json: { data, meta } }) => {
