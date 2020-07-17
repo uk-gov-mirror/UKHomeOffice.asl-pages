@@ -10,6 +10,9 @@ module.exports = (establishments) => {
         'required',
         {
           definedValues: establishments.map(e => e.id.toString())
+        },
+        {
+          customValidate: (field, values, model) => field !== model.primaryEstablishment
         }
       ]
     }
