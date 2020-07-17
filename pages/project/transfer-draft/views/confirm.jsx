@@ -3,22 +3,20 @@ import { useSelector } from 'react-redux';
 import { ControlBar, Header, Snippet } from '@asl/components';
 
 const Confirm = () => {
-  const { project, establishment, targetEstablishment, csrfToken } = useSelector(state => state.static);
+  const { establishment, targetEstablishment, csrfToken } = useSelector(state => state.static);
 
   return (
     <Fragment>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <Header title={<Snippet>title</Snippet>} />
+          <p><Snippet>summary</Snippet></p>
 
-          <p>Changing the primary establishment will immediately transfer the draft project</p>
-          <h3>{project.title}</h3>
+          <h3><Snippet>fields.primaryEstablishment.current.label</Snippet></h3>
+          <p>{establishment.name}</p>
 
-          <p>to</p>
-          <h2>{targetEstablishment.name}</h2>
-
-          <p>removing it from</p>
-          <h2>{establishment.name}</h2>
+          <h3><Snippet>fields.primaryEstablishment.new.label</Snippet></h3>
+          <p>{targetEstablishment.name}</p>
 
           <form method="POST">
             <ControlBar>
