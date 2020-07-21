@@ -54,7 +54,8 @@ module.exports = {
       upload: 'Upload draft application',
       revoke: 'Revoke licence',
       import: 'Import project',
-      addUser: 'Give access to this PPL'
+      addUser: 'Give access to this PPL',
+      transferDraft: 'Transfer draft project'
     },
     projectVersion: {
       read: 'View',

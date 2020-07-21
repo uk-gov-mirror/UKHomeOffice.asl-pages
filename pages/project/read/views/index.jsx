@@ -63,7 +63,7 @@ function CurrentVersion({ model }) {
 function OpenTask({ model }) {
   const { openTask, editable, canUpdate, asruUser } = useSelector(state => state.static);
 
-  if (!openTask) {
+  if (!openTask || !openTask.data) {
     return null;
   }
 

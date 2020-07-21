@@ -31,6 +31,7 @@ module.exports = settings => {
       .then(([canUpdate, canTransfer]) => {
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.canTransfer = canTransfer;
+        res.locals.static.canTransferDraft = canTransfer && get(req.project, 'openTasks').length === 0 && req.user.profile.establishments.length > 1;
         res.locals.static.transferInProgress = get(req.project, 'openTasks[0].data.action') === 'transfer';
       })
       .then(() => next())
