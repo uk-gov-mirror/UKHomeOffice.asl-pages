@@ -4,12 +4,13 @@ import { concat, flatten, values } from 'lodash';
 import RichText from '@asl/projects/client/components/editor';
 import ReviewField from '@asl/projects/client/components/review-field';
 import schemaV1 from '@asl/projects/client/schema/v1';
+import permissiblePurpose from '@asl/projects/client/schema/v1/permissible-purpose';
 import { projectSpecies as SPECIES } from '@asl/constants';
 import SpeciesTable from './components/species-table';
 import RetrospectiveAssessment from '@asl/projects/client/components/retrospective-assessment';
 
 const getPermissiblePurposeOptions = () => {
-  return schemaV1().introduction.subsections.introduction.fields.find(field => field.name === 'permissible-purpose').options;
+  return permissiblePurpose.options;
 };
 
 const getFateOfAnimalsOptions = () => {
@@ -64,12 +65,16 @@ export default function SchemaV1() {
 
       <div className="q-and-a">
         <h3>Project purpose</h3>
-        <ReviewField
-          type="permissible-purpose"
-          value={version['permissible-purpose']}
-          project={version}
-          options={getPermissiblePurposeOptions()}
-        />
+        {
+          version['training-licence']
+            ? <p>(f) Higher education and training</p>
+            : <ReviewField
+              type="permissible-purpose"
+              value={version['permissible-purpose']}
+              project={version}
+              options={getPermissiblePurposeOptions()}
+            />
+        }
       </div>
 
       <div className="q-and-a">
