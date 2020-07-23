@@ -23,8 +23,6 @@ module.exports = settings => {
     paths: ['/success']
   });
 
-  app.use('/success', success({ licence: 'profile', type: 'amendment' }));
-
   app.get('/', hydrate());
 
   app.post('/', updateDataFromTask(sendData));
@@ -52,24 +50,25 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     sendData(req)
       .then(response => {
-        const status = get(response, 'json.data.status');
-        if (status === 'autoresolved') {
+        delete req.session.form[req.model.id];
+        const task = get(response, 'json.data');
+
+        if (task.status === 'autoresolved') {
+          delete req.session.profile;
           req.notification({ key: 'success' });
-          return next();
+          return res.redirect(req.buildRoute('account.update'));
         }
-        res.redirect(`${req.buildRoute('account.update')}/success`);
+
+        req.session.success = {
+          taskId: task.id
+        };
+
+        return res.redirect(req.buildRoute('account.update', { suffix: 'success' }));
       })
       .catch(next);
   });
 
-  app.post('/', (req, res, next) => {
-    const id = req.model.id;
-
-    delete req.session.form[id];
-    delete req.session.profile;
-
-    return res.redirect(req.buildRoute('account.update'));
-  });
+  app.get('/success', success());
 
   return app;
 };

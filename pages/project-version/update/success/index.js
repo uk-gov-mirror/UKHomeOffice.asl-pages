@@ -12,10 +12,7 @@ module.exports = settings => {
     next();
   });
 
-  app.use(success({
-    licence: 'project',
-    getModel: req => req.project
-  }));
+  app.use(success());
 
   app.use((req, res, next) => res.sendResponse());
 

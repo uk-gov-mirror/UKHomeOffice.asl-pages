@@ -61,12 +61,14 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => next())
+      .then(response => {
+        delete req.session.form[req.model.id];
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+        return res.redirect(req.buildRoute('establishment.update', { suffix: 'success' }));
+      })
       .catch(next);
-  });
-
-  app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('establishment.update', { suffix: 'success' }));
   });
 
   app.get('/', (req, res) => res.sendResponse());

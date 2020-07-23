@@ -20,15 +20,7 @@ module.exports = () => {
 
   app.use('/confirm', confirm());
 
-  app.use('/success', success({
-    licence: 'project',
-    getStatus: req => {
-      return req.user.profile.asruUser
-        ? req.user.profile.asruLicensing ? 'resolved' : 'inspector-recommended'
-        : 'resubmitted';
-    },
-    type: 'revocation'
-  }));
+  app.use('/success', success());
 
   return app;
 };

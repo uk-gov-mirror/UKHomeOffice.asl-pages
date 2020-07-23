@@ -2,6 +2,5 @@ module.exports = {
   read: require('./read'),
   extend: require('./extend'),
   discard: require('./discard'),
-  confirm: require('./confirm'),
-  success: require('./success')
+  confirm: require('./confirm')
 };

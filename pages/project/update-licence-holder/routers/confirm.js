@@ -43,7 +43,7 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => {
+      .then(response => {
         delete req.session.form[req.model.id];
 
         if (req.project.isLegacyStub) {
@@ -51,7 +51,11 @@ module.exports = () => {
           return res.redirect(req.buildRoute('project.read'));
         }
 
-        res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'success' }));
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+
+        return res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'success' }));
       })
       .catch(next);
   });

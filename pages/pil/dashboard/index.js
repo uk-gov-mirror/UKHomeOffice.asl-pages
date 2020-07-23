@@ -104,17 +104,17 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => delete req.session.form[req.model.id])
-      .then(() => res.redirect(req.buildRoute('pil.update', { suffix: 'success' })))
+      .then(response => {
+        delete req.session.form[req.model.id];
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+        return res.redirect(req.buildRoute('pil.update', { suffix: 'success' }));
+      })
       .catch(next);
   });
 
-  app.get('/success', (req, res, next) => {
-    success({
-      licence: 'pil',
-      status: get(req.model, 'openTasks[0].status', 'autoresolved')
-    })(req, res, next);
-  });
+  app.get('/success', success());
 
   app.get((req, res) => res.sendResponse());
 

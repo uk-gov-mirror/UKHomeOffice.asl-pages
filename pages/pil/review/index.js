@@ -44,22 +44,17 @@ module.exports = () => {
       json: { meta: { comments } }
     };
     req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/review`, params)
-      .then(() => next())
+      .then(response => {
+        delete req.session.form[req.model.id];
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+        return res.redirect(req.buildRoute('pil.review', { suffix: 'success' }));
+      })
       .catch(next);
   });
 
-  app.post('/', (req, res) => {
-    res.redirect(`${req.buildRoute('pil.review')}/success`);
-  });
-
-  app.use('/success', success({
-    licence: 'pil',
-    type: 'review',
-    getStatus: req => {
-      const status = get(req.pil, 'openTasks[0].status');
-      return status || 'resolved';
-    }
-  }));
+  app.get('/success', success());
 
   return app;
 };

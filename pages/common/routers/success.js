@@ -1,71 +1,121 @@
-const { merge, get } = require('lodash');
+const isUUID = require('uuid-validate');
+const { merge, get, upperFirst } = require('lodash');
 const { Router } = require('express');
-const successContent = require('../content/success-messages');
+const { NotFoundError } = require('@asl/service/errors');
+const successMessages = require('../content/success-messages');
 
-function getUserType(req) {
-  const profile = req.user.profile;
+const getTaskLabel = task => {
+  const taskType = get(task, 'type');
+  const action = get(task, 'data.action');
+  const model = get(task, 'data.model');
 
-  if (!profile.asruUser) {
-    return 'external';
+  switch (model) {
+    case 'role':
+      if (action === 'create') {
+        return 'Add named person';
+      }
+      if (action === 'delete') {
+        return 'Remove named person';
+      }
+      return `Establishment ${taskType}`;
+
+    case 'place':
+      if (action === 'create') {
+        return 'New approved area';
+      }
+      if (action === 'delete') {
+        return 'Area removal';
+      }
+      return `Area ${taskType}`;
+
+    case 'pil':
+      return `Personal licence ${taskType}`;
+
+    default:
+      return `${upperFirst(model)} ${taskType}`;
+  }
+};
+
+const getSuccessType = task => {
+  const latestActivity = get(task, 'activityLog[0]');
+
+  // ignore the auto-endorsement for PPL transfers submitted by admins
+  if (task.status !== 'awaiting-endorsement' && latestActivity && latestActivity.action === 'endorsed') {
+    return 'endorsed';
   }
 
-  if (profile.asruLicensing) {
-    return 'licensing';
+  if (task.status === 'resolved' && get(task, 'data.action') === 'revoke') {
+    return 'revoked';
   }
 
-  if (profile.asruInspector) {
-    return 'inspector';
+  if (['awaiting-endorsement', 'with-inspectorate', 'with-licensing'].includes(task.status)) {
+    return 'submitted';
   }
 
-  return 'internal';
-}
+  if (['inspector-recommended', 'inspector-rejected'].includes(task.status)) {
+    return 'inspector-recommendation';
+  }
 
-module.exports = ({
-  model = 'model',
-  licence,
-  type,
-  status,
-  getStatus,
-  getModel = req => req.model
-} = {}) => {
+  if (['discarded-by-applicant', 'discarded-by-asru'].includes(task.status)) {
+    return 'discarded';
+  }
+
+  return task.status;
+};
+
+const getAdditionalInfo = task => {
+  const model = get(task, 'data.model');
+
+  switch (model) {
+    case 'pil':
+      return get(task, 'data.modelData.profile.name');
+
+    case 'role':
+      const profile = get(task, 'data.profile', {});
+      return `${profile.firstName} ${profile.lastName}`;
+
+    case 'place':
+      return get(task, 'data.modelData.name');
+
+    case 'project':
+      return get(task, 'data.modelData.title');
+
+    case 'profile':
+      return get(task, 'data.modelData.name');
+  }
+};
+
+module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
-    let typeOfChange = type;
-    let statusChange = status;
-    const typeOfLicence = licence;
-    const refModel = getModel(req, res);
-    const user = getUserType(req);
-    if (typeof getStatus === 'function') {
-      statusChange = getStatus(req, res);
+    const taskId = get(req.session, 'success.taskId');
+
+    if (!taskId || !isUUID(taskId)) {
+      return next(new NotFoundError());
     }
-    if (!statusChange) {
-      statusChange = get(refModel, 'openTasks[0].status');
-    }
-    if (!typeOfLicence || !statusChange) {
-      return next();
-    }
-    if (!typeOfChange) {
-      if (get(refModel, 'openTasks[0].data.action') === 'transfer') {
-        typeOfChange = 'transfer';
-      } else if (get(refModel, 'status') === 'active') {
-        typeOfChange = 'amendment';
-      } else {
-        typeOfChange = 'application';
-      }
-    }
-    // try and lookup a user type specific content block
-    const success = get(successContent, `${typeOfLicence}.${typeOfChange}.${statusChange}.${user}`, get(successContent, `${typeOfLicence}.${typeOfChange}.${statusChange}`));
-    merge(res.locals.static.content, { success });
-    res.locals.static.profile = res.locals.static.profile || req.user.profile;
-    next();
+
+    return req.api(`/tasks/${taskId}`)
+      .then(response => {
+        req.taskId = taskId;
+        req.task = response.json.data;
+      })
+      .then(() => next())
+      .catch(next);
   });
 
-  app.get('/', (req, res, next) => {
-    const id = (req.model && req.model.id) || `new-${model}`;
-    if (req.session.form && req.session.form[id]) {
-      delete req.session.form[id];
-    }
+  app.use((req, res, next) => {
+    const successType = getSuccessType(req.task);
+    const success = merge({}, successMessages.default, get(successMessages, successType));
+
+    merge(res.locals.static.content, { success });
+    res.locals.static.taskId = req.taskId;
+    res.locals.static.taskLabel = getTaskLabel(req.task);
+    res.locals.static.establishment = get(req.task, 'data.establishment');
+    res.locals.static.taskIsOpen = get(req.task, 'isOpen');
+    res.locals.static.isAsruUser = req.user.profile.asruUser;
+    res.locals.static.additionalInfo = getAdditionalInfo(req.task);
+
     next();
   });
 

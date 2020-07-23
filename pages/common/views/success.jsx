@@ -1,34 +1,50 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Panel, Snippet, Link } from '@asl/components';
+import { Header, Panel, Snippet, Link } from '@asl/components';
 
 const Index = ({ onwardLink }) => {
-  const profile = useSelector(state => state.static.profile);
-  const subtitle = <Snippet optional email={profile && profile.email}>{`success.subtitle`}</Snippet>;
-  const nextSteps = <Snippet optional>{`success.body`}</Snippet>;
+  const {
+    establishment,
+    taskLabel,
+    taskId,
+    taskIsOpen,
+    isAsruUser,
+    additionalInfo
+  } = useSelector(state => state.static);
 
-  return <div className="govuk-grid-row">
-    <div className="govuk-grid-column-two-thirds">
-      <Panel title={<Snippet>{`success.title`}</Snippet>} className="green-bg success">
+  return (
+    <div className="govuk-grid-row success">
+      <div className="govuk-grid-column-two-thirds">
+        <Header
+          title={taskLabel}
+          subtitle={establishment.name}
+        />
+
         {
-          subtitle && <h2>{ subtitle }</h2>
+          additionalInfo && <h2 className="additional-info">{additionalInfo}</h2>
         }
-      </Panel>
 
-      {
-        nextSteps && (
-          <div className="what-next">
-            <h2><Snippet>success.whatNext.title</Snippet></h2>
-            <p>{ nextSteps }</p>
-          </div>
-        )
-      }
+        <Panel title={<Snippet>success.panel.title</Snippet>} className="green-bg success" />
 
-      {
-        onwardLink || <Link page="dashboard" label={<Snippet>breadcrumbs.dashboard</Snippet>} />
-      }
+        <div className="what-next">
+          <h2><Snippet>success.whatNext.title</Snippet></h2>
+          <p><Snippet optional>success.whatNext.body</Snippet></p>
+          <p><Snippet optional>{`success.whatNext.${isAsruUser ? 'internal' : 'external'}`}</Snippet></p>
+
+          {
+            taskIsOpen &&
+              <p>
+                <Snippet>success.taskLink.before</Snippet> <Link page="task.read" label={<Snippet>success.taskLink.linkText</Snippet>} taskId={taskId} />
+              </p>
+          }
+        </div>
+
+        {
+          onwardLink || <Link page="dashboard" label={<Snippet>breadcrumbs.dashboard</Snippet>} />
+        }
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default Index;

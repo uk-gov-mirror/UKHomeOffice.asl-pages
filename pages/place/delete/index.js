@@ -53,12 +53,7 @@ module.exports = settings => {
     return res.redirect(req.buildRoute('place.delete', { suffix: 'success' }));
   });
 
-  app.use('/success', success({
-    model: 'place',
-    licence: 'pel',
-    type: 'amendment',
-    status: 'resubmitted'
-  }));
+  app.use('/success', success());
 
   return app;
 };

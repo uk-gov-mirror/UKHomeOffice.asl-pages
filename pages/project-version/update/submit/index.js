@@ -76,7 +76,13 @@ module.exports = settings => {
     };
     Promise.resolve()
       .then(() => req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/grant`, { method: 'POST', json }))
-      .then(() => res.redirect(req.buildRoute('projectVersion.update', { suffix: 'success' })))
+      .then(response => {
+        delete req.session.form[req.model.id];
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+        return res.redirect(req.buildRoute('projectVersion.update', { suffix: 'success' }));
+      })
       .catch(next);
   });
 

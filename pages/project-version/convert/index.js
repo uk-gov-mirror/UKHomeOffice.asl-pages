@@ -1,11 +1,9 @@
 const { page } = require('@asl/service/ui');
-const success = require('../../common/routers/success');
 
 module.exports = settings => {
   const app = page({
     ...settings,
-    root: __dirname,
-    paths: ['/success']
+    root: __dirname
   });
 
   app.post('/', (req, res, next) => {
@@ -20,15 +18,12 @@ module.exports = settings => {
 
     return Promise.resolve()
       .then(() => req.api(`/project/${req.projectId}/convert-stub`, params))
-      .then(() => res.redirect(req.buildRoute('projectVersion.convert', { suffix: 'success' })))
+      .then(() => {
+        req.notification({ key: 'conversionSuccess' });
+        return res.redirect(req.buildRoute('project.read'));
+      })
       .catch(next);
   });
-
-  app.get('/success', success({
-    licence: 'project',
-    status: 'resolved',
-    type: 'conversion'
-  }));
 
   app.use((req, res) => res.sendResponse());
 

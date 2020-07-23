@@ -1,4 +1,4 @@
-const { pick } = require('lodash');
+const { get, pick } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const success = require('../../common/routers/success');
@@ -34,18 +34,17 @@ module.exports = settings => {
     };
 
     return req.api(`/establishment/${req.establishmentId}/grant`, opts)
-      .then(() => delete req.session.form[req.model.id])
-      .then(() => res.redirect(req.buildRoute('establishment.apply', { suffix: 'success' })))
+      .then(response => {
+        delete req.session.form[req.model.id];
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+        return res.redirect(req.buildRoute('establishment.apply', { suffix: 'success' }));
+      })
       .catch(next);
   });
 
-  app.get('/success',
-    success({
-      model: 'establishment',
-      licence: 'pel',
-      getModel: req => req.establishment
-    })
-  );
+  app.get('/success', success());
 
   return app;
 };

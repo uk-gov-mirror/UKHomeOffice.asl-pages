@@ -1,4 +1,4 @@
-const { omit, merge } = require('lodash');
+const { get, omit, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const { clearSessionIfNotFromTask } = require('../../common/middleware');
@@ -79,7 +79,13 @@ module.exports = settings => {
 
   app.post('/confirm', (req, res, next) => {
     sendData(req)
-      .then(() => res.redirect(req.buildRoute('role.create', { suffix: 'success' })))
+      .then(response => {
+        delete req.session.form[req.model.id];
+        req.session.success = {
+          taskId: get(response, 'json.data.id')
+        };
+        return res.redirect(req.buildRoute('role.create', { suffix: 'success' }));
+      })
       .catch(next);
   });
 

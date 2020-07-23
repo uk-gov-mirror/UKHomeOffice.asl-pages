@@ -17,12 +17,7 @@ module.exports = settings => {
 
   app.use('/confirm', confirm());
 
-  app.use('/success', success({
-    model: 'establishment',
-    licence: 'pel',
-    type: 'amendment',
-    status: 'resubmitted'
-  }));
+  app.use('/success', success());
 
   app.use('/', update());
 
