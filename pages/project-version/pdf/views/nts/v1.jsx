@@ -67,7 +67,9 @@ export default function SchemaV1() {
         <h3>Project purpose</h3>
         {
           version['training-licence']
-            ? <p>(f) Higher education and training</p>
+            ? <ul>
+              <li>(f) Higher education and training</li>
+            </ul>
             : <ReviewField
               type="permissible-purpose"
               value={version['permissible-purpose']}
