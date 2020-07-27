@@ -57,6 +57,15 @@ module.exports = {
       body: `This request has been endorsed.`
     }
   },
+  'complete': {
+    panel: {
+      title: 'Complete'
+    },
+    whatNext: {
+      body: `This PIL review is complete.`,
+      internal: 'The licence holder has been emailed.'
+    }
+  },
   'inspector-recommendation': {
     panel: {
       title: 'Recommendation made'
