@@ -63,7 +63,7 @@ module.exports = {
     },
     whatNext: {
       body: `This PIL review is complete.`,
-      internal: 'The licence holder has been emailed.'
+      external: 'The licence holder has been emailed.'
     }
   },
   'inspector-recommendation': {

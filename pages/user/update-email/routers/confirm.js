@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { get, pick, set } = require('lodash');
+const { pick, set } = require('lodash');
 
 module.exports = () => {
   const app = Router();
@@ -34,10 +34,8 @@ module.exports = () => {
     req.api('/me/email', opts)
       .then(response => {
         delete req.session.form[req.model.id];
-        req.session.success = {
-          taskId: get(response, 'json.data.id')
-        };
-        return res.redirect(req.buildRoute('account.updateEmail', { suffix: 'success' }));
+        req.notification({ key: 'success' });
+        return res.redirect(req.buildRoute('account.menu'));
       })
       .catch(err => {
         if (err.message === 'Email address is already in use') {

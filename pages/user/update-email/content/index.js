@@ -34,5 +34,8 @@ module.exports = merge({}, baseContent, {
   },
   buttons: {
     submit: 'Continue'
+  },
+  notifications: {
+    success: 'Email address updated'
   }
 });
