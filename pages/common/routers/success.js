@@ -41,7 +41,10 @@ const getSuccessType = task => {
   const action = get(task, 'data.action');
   const latestActivity = get(task, 'activityLog[0]');
 
-  if (model === 'project' && latestActivity && latestActivity.action === 'endorsed') {
+  if (latestActivity && latestActivity.action === 'endorsed') {
+    if (latestActivity.eventName === 'status:new:endorsed') {
+      return 'submitted'; // ppl auto-endorsed by admin, show as submitted
+    }
     return 'endorsed';
   }
 
