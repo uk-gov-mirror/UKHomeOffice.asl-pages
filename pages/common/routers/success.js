@@ -41,15 +41,15 @@ const getSuccessType = task => {
   const action = get(task, 'data.action');
   const latestActivity = get(task, 'activityLog[0]');
 
+  if (task.status === 'resolved' && model === 'pil' && action === 'review') {
+    return 'review-complete';
+  }
+
   if (latestActivity && latestActivity.action === 'endorsed') {
     if (latestActivity.eventName === 'status:new:endorsed') {
       return 'submitted'; // ppl auto-endorsed by admin, show as submitted
     }
     return 'endorsed';
-  }
-
-  if (task.status === 'resolved' && model === 'pil' && action === 'review') {
-    return 'review-complete';
   }
 
   if (task.status === 'resolved' && action === 'revoke') {
@@ -113,7 +113,6 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    console.log(req.task);
     const successType = getSuccessType(req.task);
     const success = merge({}, successMessages.default, get(successMessages, successType));
 
