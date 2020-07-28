@@ -41,11 +41,11 @@ const schema = {
 const getSchema = status => {
   switch (status) {
     case 'inactive':
-      return pick(schema, 'id', 'title', 'licenceHolder', 'updatedAt');
+      return pick(schema, 'id', 'title', 'licenceHolder', 'status', 'updatedAt');
     case 'inactive-statuses':
       return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status');
     default:
-      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'expiryDate');
+      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status', 'expiryDate');
   }
 };
 

@@ -63,7 +63,7 @@ const Projects = ({
     <Tabs active={tabs.indexOf(status)}>
       {
         tabs.map((tab, index) =>
-          <a key={index} href={`?status=${tab}`}><Snippet>{ `status.${tab}` }</Snippet></a>
+          <a key={index} href={`?status=${tab}`}><Snippet fallback={`status.${tab}`}>{`tabs.${tab}`}</Snippet></a>
         )
       }
     </Tabs>

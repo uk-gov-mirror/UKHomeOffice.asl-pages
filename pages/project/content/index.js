@@ -56,13 +56,17 @@ module.exports = {
       label: 'Project duration'
     }
   },
+  'ra-required': 'Requires RA',
   status: {
     active: 'Active',
     'inactive-statuses': 'Inactive',
-    inactive: 'Drafts',
+    inactive: 'Draft',
     transferred: 'Transferred',
     expired: 'Expired',
     revoked: 'Revoked'
+  },
+  tabs: {
+    inactive: 'Drafts'
   },
   collaborators: {
     title: 'Colleagues granted access',
