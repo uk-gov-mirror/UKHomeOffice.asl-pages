@@ -111,19 +111,42 @@ export default function SchemaV1() {
         <h4>Why is it important to undertake this work?</h4>
         <RichText value={version['project-importance']} readOnly={true} />
       </div>
+      {
+        !version['training-licence'] && <Fragment>
+          <div className="q-and-a">
+            <h4>What outputs do you think you will see at the end of this project?</h4>
+            <RichText value={version['benefit-outputs']} readOnly={true} />
+          </div>
 
-      <div className="q-and-a">
-        <h4>What outputs do you think you will see at the end of this project?</h4>
-        <RichText value={version['benefit-outputs']} readOnly={true} />
-      </div>
-
-      <div className="q-and-a">
-        <h4>
-          What will be the impact of this proposed work on humans / animals / the environment in the short-term (within the
-          duration of the project), in the medium-term and the long-term (which may accrue after the project is finished)?
-        </h4>
-        <RichText value={version['benefit-who']} readOnly={true} />
-      </div>
+          <div className="q-and-a">
+            <h4>
+              What will be the impact of this proposed work on humans / animals / the environment in the short-term (within the
+              duration of the project), in the medium-term and the long-term (which may accrue after the project is finished)?
+            </h4>
+            <RichText value={version['benefit-who']} readOnly={true} />
+          </div>
+        </Fragment>
+      }
+      {
+        version['training-licence'] && <Fragment>
+          <div className="q-and-a">
+            <h4>How will course attendees use their knowledge or skills in their future careers?</h4>
+            <RichText value={version['training-benefit-future-careers']} readOnly={true} />
+          </div>
+          <div className="q-and-a">
+            <h4>What are the principal learning outcomes from the course?</h4>
+            <RichText value={version['training-benefit-principle-learning-outcomes']} readOnly={true} />
+          </div>
+          <div className="q-and-a">
+            <h4>How are these learning outcomes important to the people on the course?</h4>
+            <RichText value={version['training-benefit-learning-outcomes-important']} readOnly={true} />
+          </div>
+          <div className="q-and-a">
+            <h4>Who or what will benefit from the transfer of knowledge, or acquisition of skills that this course will deliver?</h4>
+            <RichText value={version['training-benefit-transfer-of-knowledge']} readOnly={true} />
+          </div>
+        </Fragment>
+      }
 
       <div className="q-and-a">
         <h4>How will you maximise the outputs of your work?</h4>
@@ -187,16 +210,27 @@ export default function SchemaV1() {
         <h4>Why do you need to use animals to achieve the aim of your project?</h4>
         <RichText value={version['replacement-why']} readOnly={true} />
       </div>
+      {
+        !version['training-licence'] && <Fragment>
+          <div className="q-and-a">
+            <h4>What was your strategy for searching for non-animal alternatives?</h4>
+            <RichText value={version['replacement-alternatives']} readOnly={true} />
+          </div>
 
-      <div className="q-and-a">
-        <h4>What was your strategy for searching for non-animal alternatives?</h4>
-        <RichText value={version['replacement-alternatives']} readOnly={true} />
-      </div>
-
-      <div className="q-and-a">
-        <h4>Why were they not suitable?</h4>
-        <RichText value={version['replacement-justification']} readOnly={true} />
-      </div>
+          <div className="q-and-a">
+            <h4>Why were they not suitable?</h4>
+            <RichText value={version['replacement-justification']} readOnly={true} />
+          </div>
+        </Fragment>
+      }
+      {
+        version['training-licence'] && <Fragment>
+          <div className="q-and-a">
+            <h4>Why can’t your aim be met by observing or by participating in ongoing research or clinical procedures?</h4>
+            <RichText value={version['training-replacement-observation']} readOnly={true} />
+          </div>
+        </Fragment>
+      }
 
       <h3>2. Reduction</h3>
       <p>
@@ -212,16 +246,37 @@ export default function SchemaV1() {
         <h4>How have you estimated the numbers of animals you will use?</h4>
         <RichText value={version['reduction-estimation']} readOnly={true} />
       </div>
+      {
+        !version['training-licence'] && <Fragment>
+          <div className="q-and-a">
+            <h4>What steps will you take to reduce animal numbers? Where applicable, what principles will you use to design experiments?</h4>
+            <RichText value={version['reduction-steps']} readOnly={true} />
+          </div>
 
-      <div className="q-and-a">
-        <h4>What steps will you take to reduce animal numbers? Where applicable, what principles will you use to design experiments?</h4>
-        <RichText value={version['reduction-steps']} readOnly={true} />
-      </div>
+          <div className="q-and-a">
+            <h4>What other measures apart from good experimental design will you use to minimise numbers?</h4>
+            <RichText value={version['reduction-review']} readOnly={true} />
+          </div>
+        </Fragment>
+      }
+      {
+        version['training-licence'] && <Fragment>
+          <div className="q-and-a">
+            <h4>What in silico or ex vivo techniques will you use during training?</h4>
+            <RichText value={version['training-reduction-techniques']} readOnly={true} />
+          </div>
 
-      <div className="q-and-a">
-        <h4>What other measures apart from good experimental design will you use to minimise numbers?</h4>
-        <RichText value={version['reduction-review']} readOnly={true} />
-      </div>
+          <div className="q-and-a">
+            <h4>Will these techniques reduce animal numbers? If so, how?</h4>
+            <RichText value={version['training-reduction-animal-numbers']} readOnly={true} />
+          </div>
+
+          <div className="q-and-a">
+            <h4>What other measures will you use to minimise the number of animals you plan to use in your project?</h4>
+            <RichText value={version['training-reduction-other-measures']} readOnly={true} />
+          </div>
+        </Fragment>
+      }
 
       <h3>3. Refinement</h3>
       <p>
