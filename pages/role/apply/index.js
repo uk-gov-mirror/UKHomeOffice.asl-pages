@@ -1,7 +1,8 @@
-const { get, omit, merge } = require('lodash');
+const { omit, merge } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const { clearSessionIfNotFromTask } = require('../../common/middleware');
+const { saveTaskIdToSession } = require('../../common/helpers');
 const getSchema = require('./schema');
 const confirm = require('../routers/confirm');
 const success = require('../routers/success');
@@ -79,11 +80,9 @@ module.exports = settings => {
 
   app.post('/confirm', (req, res, next) => {
     sendData(req)
-      .then(response => {
+      .then(saveTaskIdToSession(req.session))
+      .then(() => {
         delete req.session.form[req.model.id];
-        req.session.success = {
-          taskId: get(response, 'json.data.id')
-        };
         return res.redirect(req.buildRoute('role.create', { suffix: 'success' }));
       })
       .catch(next);

@@ -4,6 +4,7 @@ const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
 const { success } = require('../../common/routers');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
+const { saveTaskIdToSession } = require('../../common/helpers');
 const { canUpdateModel, canTransferPil } = require('../../../lib/utils');
 
 module.exports = settings => {
@@ -22,7 +23,8 @@ module.exports = settings => {
       opts.json.data.establishment = req.model.establishment;
     }
 
-    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/${action}`, opts);
+    return req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/${action}`, opts)
+      .then(saveTaskIdToSession(req.session));
   };
 
   const app = page({
@@ -104,11 +106,8 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(response => {
+      .then(() => {
         delete req.session.form[req.model.id];
-        req.session.success = {
-          taskId: get(response, 'json.data.id')
-        };
         return res.redirect(req.buildRoute('pil.update', { suffix: 'success' }));
       })
       .catch(next);

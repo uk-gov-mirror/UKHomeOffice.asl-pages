@@ -1,7 +1,8 @@
-const { get, pick } = require('lodash');
+const { pick } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const success = require('../../common/routers/success');
+const { saveTaskIdToSession } = require('../../common/helpers');
 const schema = require('./schema');
 
 module.exports = settings => {
@@ -34,11 +35,9 @@ module.exports = settings => {
     };
 
     return req.api(`/establishment/${req.establishmentId}/grant`, opts)
-      .then(response => {
+      .then(saveTaskIdToSession(req.session))
+      .then(() => {
         delete req.session.form[req.model.id];
-        req.session.success = {
-          taskId: get(response, 'json.data.id')
-        };
         return res.redirect(req.buildRoute('establishment.apply', { suffix: 'success' }));
       })
       .catch(next);

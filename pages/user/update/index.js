@@ -4,6 +4,7 @@ const { page } = require('@asl/service/ui');
 const { success, form } = require('../../common/routers');
 const schema = require('./schema');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
+const { saveTaskIdToSession } = require('../../common/helpers');
 
 const sendData = (req, params = {}) => {
   const values = req.session.form[req.model.id].values;
@@ -14,7 +15,8 @@ const sendData = (req, params = {}) => {
       meta: { comments: values.comments }
     }, params)
   };
-  return req.api(`/me`, opts);
+  return req.api(`/me`, opts)
+    .then(saveTaskIdToSession(req.session));
 };
 
 module.exports = settings => {
@@ -58,10 +60,6 @@ module.exports = settings => {
           req.notification({ key: 'success' });
           return res.redirect(req.buildRoute('account.update'));
         }
-
-        req.session.success = {
-          taskId: task.id
-        };
 
         return res.redirect(req.buildRoute('account.update', { suffix: 'success' }));
       })

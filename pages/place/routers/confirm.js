@@ -3,6 +3,7 @@ const { omit, pick, merge, get, set, concat } = require('lodash');
 const form = require('../../common/routers/form');
 const { schema } = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
+const { saveTaskIdToSession } = require('../../common/helpers');
 
 module.exports = settings => {
 
@@ -17,7 +18,8 @@ module.exports = settings => {
         }
       }, params)
     };
-    return req.api(settings.apiUrl, opts);
+    return req.api(settings.apiUrl, opts)
+      .then(saveTaskIdToSession(req.session));
   };
 
   const app = Router();
@@ -94,9 +96,6 @@ module.exports = settings => {
           req.notification({ key: successMessageKey });
           return res.redirect(req.buildRoute('place.list'));
         }
-        req.session.success = {
-          taskId: task.id
-        };
         return next();
       })
       .catch(next);
