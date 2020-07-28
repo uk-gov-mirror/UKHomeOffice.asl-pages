@@ -57,7 +57,7 @@ module.exports = {
       body: `This request has been endorsed.`
     }
   },
-  'complete': {
+  'review-complete': {
     panel: {
       title: 'Complete'
     },

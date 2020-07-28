@@ -37,14 +37,19 @@ const getTaskLabel = task => {
 };
 
 const getSuccessType = task => {
+  const model = get(task, 'data.model');
+  const action = get(task, 'data.action');
   const latestActivity = get(task, 'activityLog[0]');
 
-  // ignore the auto-endorsement for PPL transfers submitted by admins
-  if (task.status !== 'awaiting-endorsement' && latestActivity && latestActivity.action === 'endorsed') {
+  if (model === 'project' && latestActivity && latestActivity.action === 'endorsed') {
     return 'endorsed';
   }
 
-  if (task.status === 'resolved' && get(task, 'data.action') === 'revoke') {
+  if (task.status === 'resolved' && model === 'pil' && action === 'review') {
+    return 'review-complete';
+  }
+
+  if (task.status === 'resolved' && action === 'revoke') {
     return 'revoked';
   }
 
@@ -105,6 +110,7 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
+    console.log(req.task);
     const successType = getSuccessType(req.task);
     const success = merge({}, successMessages.default, get(successMessages, successType));
 
