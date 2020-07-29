@@ -3,6 +3,7 @@ import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
 import pick from 'lodash/pick';
 import get from 'lodash/get';
+import isUndefined from 'lodash/isUndefined';
 import {
   Link,
   StickyNavAnchor,
@@ -158,7 +159,7 @@ export default function Project({ task, schema }) {
                 }
 
                 {
-                  !isAmendment &&
+                  !isAmendment && !isUndefined(declarations.ready) &&
                     <Fragment>
                       <p><strong><Snippet>declarations.ready-for-inspector.question</Snippet></strong></p>
                       <p>{declarations.ready}</p>
