@@ -16,16 +16,8 @@ const getNacwoById = (req, id) =>
     .then(nacwo => nacwo && nacwo.profile)
     .catch(err => Promise.reject(err));
 
-const saveTaskIdToSession = session => response => {
-  session.success = {
-    taskId: get(response, 'json.data.id')
-  };
-  return response;
-};
-
 module.exports = {
   getNacwos,
   getNacwoById,
-  getEstablishment,
-  saveTaskIdToSession
+  getEstablishment
 };

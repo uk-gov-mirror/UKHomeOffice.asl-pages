@@ -2,7 +2,6 @@ const form = require('../../../common/routers/form');
 const { Router } = require('express');
 const { set, get, pick } = require('lodash');
 const getSchema = require('../../schema/confirm');
-const { saveTaskIdToSession } = require('../../../common/helpers');
 
 module.exports = () => {
   const app = Router();
@@ -62,8 +61,8 @@ module.exports = () => {
     };
 
     return req.api(`/tasks/${req.task.id}/status`, opts)
-      .then(saveTaskIdToSession(req.session))
-      .then(() => {
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
         return res.redirect('success');
       })

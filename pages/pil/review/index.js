@@ -1,8 +1,8 @@
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { UnauthorisedError } = require('@asl/service/errors');
 const { form } = require('../../common/routers');
 const success = require('../../success');
-const { saveTaskIdToSession } = require('../../common/helpers');
 const schema = require('./schema');
 
 module.exports = () => {
@@ -45,8 +45,8 @@ module.exports = () => {
       json: { meta: { comments } }
     };
     req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/review`, params)
-      .then(saveTaskIdToSession(req.session))
-      .then(() => {
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
         return res.redirect(req.buildRoute('pil.review', { suffix: 'success' }));
       })

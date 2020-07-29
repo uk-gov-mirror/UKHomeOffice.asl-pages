@@ -3,7 +3,6 @@ const { get, omit, merge } = require('lodash');
 const form = require('../../../common/routers/form');
 const experienceFields = require('../schema/experience-fields');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
-const { saveTaskIdToSession } = require('../../../common/helpers');
 
 const sendData = (req, params = {}) => {
   const values = get(req.session, `form.${req.model.id}.values`);
@@ -17,8 +16,7 @@ const sendData = (req, params = {}) => {
     }, params)
   };
 
-  return req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/update-licence-holder`, opts)
-    .then(saveTaskIdToSession(req.session));
+  return req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/update-licence-holder`, opts);
 };
 
 module.exports = () => {
@@ -45,7 +43,8 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => {
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
 
         if (req.project.isLegacyStub) {

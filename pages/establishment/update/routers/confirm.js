@@ -3,7 +3,6 @@ const { get, pick, merge, isEmpty } = require('lodash');
 const form = require('../../../common/routers/form');
 const schema = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
-const { saveTaskIdToSession } = require('../../../common/helpers');
 
 module.exports = () => {
 
@@ -23,8 +22,7 @@ module.exports = () => {
       }, params)
     };
 
-    return req.api(`/establishment/${req.establishmentId}`, opts)
-      .then(saveTaskIdToSession(req.session));
+    return req.api(`/establishment/${req.establishmentId}`, opts);
   };
 
   const app = Router();
@@ -63,7 +61,8 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => {
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
         return res.redirect(req.buildRoute('establishment.update', { suffix: 'success' }));
       })

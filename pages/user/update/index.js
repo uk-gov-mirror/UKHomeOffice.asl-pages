@@ -5,7 +5,6 @@ const { form } = require('../../common/routers');
 const success = require('../../success');
 const schema = require('./schema');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
-const { saveTaskIdToSession } = require('../../common/helpers');
 
 const sendData = (req, params = {}) => {
   const values = req.session.form[req.model.id].values;
@@ -16,8 +15,7 @@ const sendData = (req, params = {}) => {
       meta: { comments: values.comments }
     }, params)
   };
-  return req.api(`/me`, opts)
-    .then(saveTaskIdToSession(req.session));
+  return req.api(`/me`, opts);
 };
 
 module.exports = settings => {
@@ -55,6 +53,7 @@ module.exports = settings => {
       .then(response => {
         delete req.session.form[req.model.id];
         const task = get(response, 'json.data');
+        req.session.success = { taskId: task.id };
 
         if (task.status === 'autoresolved') {
           delete req.session.profile;

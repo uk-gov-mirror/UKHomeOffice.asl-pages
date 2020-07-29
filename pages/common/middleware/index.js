@@ -34,8 +34,11 @@ const updateDataFromTask = updateModel => (req, res, next) => {
     delete taskValues.returnTo;
     const comment = get(taskValues, 'values.comment');
     return updateModel(req, { status: 'updated', taskId, meta: { comment } })
-      .then(() => delete req.session.form[req.model.id])
-      .then(() => res.redirect(req.buildRoute('task.read', { taskId, suffix: 'success' })))
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        return res.redirect(req.buildRoute('task.read', { taskId, suffix: 'success' }));
+      })
       .catch(next);
   }
   next();

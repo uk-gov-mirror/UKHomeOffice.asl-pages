@@ -1,7 +1,6 @@
 const { pick, get, set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
-const { saveTaskIdToSession } = require('../../../common/helpers');
 const getSchema = require('./schema');
 
 module.exports = settings => {
@@ -77,8 +76,8 @@ module.exports = settings => {
     };
     Promise.resolve()
       .then(() => req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/grant`, { method: 'POST', json }))
-      .then(saveTaskIdToSession(req.session))
-      .then(() => {
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
         return res.redirect(req.buildRoute('projectVersion.update', { suffix: 'success' }));
       })

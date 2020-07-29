@@ -1,7 +1,6 @@
 const { difference, get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
-const { saveTaskIdToSession } = require('../../common/helpers');
 const getSchema = require('./schema');
 const confirm = require('../routers/confirm');
 const success = require('../routers/success');
@@ -18,8 +17,7 @@ const sendData = (req) => {
     }
   };
 
-  return req.api(`/establishment/${req.establishmentId}/role/${roleId}`, opts)
-    .then(saveTaskIdToSession(req.session));
+  return req.api(`/establishment/${req.establishmentId}/role/${roleId}`, opts);
 };
 
 module.exports = settings => {
@@ -71,7 +69,8 @@ module.exports = settings => {
 
   app.post('/confirm', (req, res, next) => {
     sendData(req)
-      .then(() => {
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
         return res.redirect(req.buildRoute('role.delete', { suffix: 'success' }));
       })
