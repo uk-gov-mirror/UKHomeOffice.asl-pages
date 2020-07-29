@@ -3,7 +3,7 @@ const { schema } = require('../schema');
 const { buildModel } = require('../../../lib/utils');
 const create = require('./routers/create');
 const confirm = require('./routers/confirm');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 
 module.exports = settings => {
   const app = page({

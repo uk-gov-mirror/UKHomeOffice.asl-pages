@@ -3,7 +3,7 @@ const { page } = require('@asl/service/ui');
 const { schema } = require('../schema');
 const confirm = require('../routers/confirm');
 const form = require('../../common/routers/form');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 
 module.exports = settings => {
   const app = page({

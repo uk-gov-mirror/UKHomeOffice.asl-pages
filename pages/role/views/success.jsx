@@ -1,3 +1,3 @@
-import Success from '../../common/views/success';
+import Success from '../../success/views';
 
 export default Success;

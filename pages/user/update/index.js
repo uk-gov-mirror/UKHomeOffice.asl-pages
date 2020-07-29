@@ -1,7 +1,8 @@
 const { get, merge, pick } = require('lodash');
 const moment = require('moment');
 const { page } = require('@asl/service/ui');
-const { success, form } = require('../../common/routers');
+const { form } = require('../../common/routers');
+const success = require('../../success');
 const schema = require('./schema');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 const { saveTaskIdToSession } = require('../../common/helpers');

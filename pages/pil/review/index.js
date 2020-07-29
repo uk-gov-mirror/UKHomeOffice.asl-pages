@@ -1,6 +1,7 @@
 const { page } = require('@asl/service/ui');
 const { UnauthorisedError } = require('@asl/service/errors');
-const { form, success } = require('../../common/routers');
+const { form } = require('../../common/routers');
+const success = require('../../success');
 const { saveTaskIdToSession } = require('../../common/helpers');
 const schema = require('./schema');
 

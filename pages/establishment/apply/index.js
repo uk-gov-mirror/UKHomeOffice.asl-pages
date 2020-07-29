@@ -1,7 +1,7 @@
 const { pick } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 const { saveTaskIdToSession } = require('../../common/helpers');
 const schema = require('./schema');
 

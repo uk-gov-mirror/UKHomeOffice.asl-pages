@@ -1,6 +1,6 @@
 const { page } = require('@asl/service/ui');
 const confirm = require('./routers/confirm');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 const revoke = require('./routers/revoke');
 
 module.exports = () => {

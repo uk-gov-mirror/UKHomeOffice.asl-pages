@@ -2,7 +2,7 @@ const isUUID = require('uuid-validate');
 const { merge, get, upperFirst } = require('lodash');
 const { Router } = require('express');
 const { NotFoundError } = require('@asl/service/errors');
-const successMessages = require('../content/success-messages');
+const successMessages = require('./content');
 
 const getTaskLabel = task => {
   const taskType = get(task, 'type');

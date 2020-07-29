@@ -1,7 +1,7 @@
 const { page } = require('@asl/service/ui');
 const update = require('./routers/update');
 const confirm = require('./routers/confirm');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 
 module.exports = () => {
   const app = page({

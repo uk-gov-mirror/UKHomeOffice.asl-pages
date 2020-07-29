@@ -1,5 +1,5 @@
 const page = require('@asl/service/ui/page');
-const success = require('../../../common/routers/success');
+const success = require('../../../success');
 
 module.exports = settings => {
   const app = page({
