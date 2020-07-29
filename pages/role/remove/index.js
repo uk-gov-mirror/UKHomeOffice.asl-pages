@@ -69,7 +69,11 @@ module.exports = settings => {
 
   app.post('/confirm', (req, res, next) => {
     sendData(req)
-      .then(() => res.redirect(req.buildRoute('role.delete', { suffix: 'success' })))
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        return res.redirect(req.buildRoute('role.delete', { suffix: 'success' }));
+      })
       .catch(next);
   });
 

@@ -61,12 +61,12 @@ module.exports = () => {
     };
 
     return req.api(`/tasks/${req.task.id}/status`, opts)
-      .then(() => next())
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        return res.redirect('success');
+      })
       .catch(next);
-  });
-
-  app.post('/', (req, res, next) => {
-    return res.redirect('success');
   });
 
   return app;

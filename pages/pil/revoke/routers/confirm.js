@@ -23,12 +23,12 @@ module.exports = () => {
       }
     };
     req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil/${req.pilId}/revoke`, params)
-      .then(() => next())
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        return res.redirect(req.buildRoute('pil.revoke', { suffix: 'success' }));
+      })
       .catch(next);
-  });
-
-  app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('pil.revoke', { suffix: 'success' }));
   });
 
   return app;

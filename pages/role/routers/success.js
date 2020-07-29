@@ -1,14 +1,10 @@
 const { Router } = require('express');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 
 module.exports = () => {
   const app = Router();
 
-  app.use(success({
-    licence: 'pel',
-    type: 'amendment',
-    status: 'resubmitted'
-  }));
+  app.use(success());
 
   return app;
 };

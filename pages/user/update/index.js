@@ -1,7 +1,8 @@
 const { get, merge, pick } = require('lodash');
 const moment = require('moment');
 const { page } = require('@asl/service/ui');
-const { success, form } = require('../../common/routers');
+const { form } = require('../../common/routers');
+const success = require('../../success');
 const schema = require('./schema');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 
@@ -22,8 +23,6 @@ module.exports = settings => {
     root: __dirname,
     paths: ['/success']
   });
-
-  app.use('/success', success({ licence: 'profile', type: 'amendment' }));
 
   app.get('/', hydrate());
 
@@ -52,24 +51,22 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     sendData(req)
       .then(response => {
-        const status = get(response, 'json.data.status');
-        if (status === 'autoresolved') {
+        delete req.session.form[req.model.id];
+        const task = get(response, 'json.data');
+        req.session.success = { taskId: task.id };
+
+        if (task.status === 'autoresolved') {
+          delete req.session.profile;
           req.notification({ key: 'success' });
-          return next();
+          return res.redirect(req.buildRoute('account.update'));
         }
-        res.redirect(`${req.buildRoute('account.update')}/success`);
+
+        return res.redirect(req.buildRoute('account.update', { suffix: 'success' }));
       })
       .catch(next);
   });
 
-  app.post('/', (req, res, next) => {
-    const id = req.model.id;
-
-    delete req.session.form[id];
-    delete req.session.profile;
-
-    return res.redirect(req.buildRoute('account.update'));
-  });
+  app.get('/success', success());
 
   return app;
 };

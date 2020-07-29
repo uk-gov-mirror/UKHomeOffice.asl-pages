@@ -3,7 +3,7 @@ const { page } = require('@asl/service/ui');
 const { schema } = require('../schema');
 const confirm = require('../routers/confirm');
 const form = require('../../common/routers/form');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 
 module.exports = settings => {
   const app = page({
@@ -53,12 +53,7 @@ module.exports = settings => {
     return res.redirect(req.buildRoute('place.delete', { suffix: 'success' }));
   });
 
-  app.use('/success', success({
-    model: 'place',
-    licence: 'pel',
-    type: 'amendment',
-    status: 'resubmitted'
-  }));
+  app.use('/success', success());
 
   return app;
 };

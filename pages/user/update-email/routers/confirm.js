@@ -32,10 +32,11 @@ module.exports = () => {
     };
 
     req.api('/me/email', opts)
-      .then(() => {
+      .then(response => {
         delete req.session.form[req.model.id];
+        req.notification({ key: 'success' });
+        return res.redirect(req.buildRoute('account.menu'));
       })
-      .then(() => res.redirect(req.buildRoute('account.updateEmail', { suffix: 'success' })))
       .catch(err => {
         if (err.message === 'Email address is already in use') {
           set(req.session.form[req.model.id], 'validationErrors.email', 'inUse');

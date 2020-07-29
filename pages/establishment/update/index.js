@@ -1,7 +1,7 @@
 const { page } = require('@asl/service/ui');
 const update = require('./routers/update');
 const confirm = require('./routers/confirm');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 
 module.exports = settings => {
   const app = page({
@@ -17,12 +17,7 @@ module.exports = settings => {
 
   app.use('/confirm', confirm());
 
-  app.use('/success', success({
-    model: 'establishment',
-    licence: 'pel',
-    type: 'amendment',
-    status: 'resubmitted'
-  }));
+  app.use('/success', success());
 
   app.use('/', update());
 

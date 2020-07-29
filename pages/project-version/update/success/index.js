@@ -1,5 +1,5 @@
 const page = require('@asl/service/ui/page');
-const success = require('../../../common/routers/success');
+const success = require('../../../success');
 
 module.exports = settings => {
   const app = page({
@@ -12,10 +12,7 @@ module.exports = settings => {
     next();
   });
 
-  app.use(success({
-    licence: 'project',
-    getModel: req => req.project
-  }));
+  app.use(success());
 
   app.use((req, res, next) => res.sendResponse());
 

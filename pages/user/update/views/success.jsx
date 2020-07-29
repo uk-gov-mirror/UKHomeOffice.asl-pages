@@ -1,5 +1,5 @@
 import React from 'react';
-import Success from '../../../common/views/success';
+import Success from '../../../success/views';
 
 export default function SuccessPage() {
   return <Success />;

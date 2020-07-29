@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Snippet } from '@asl/components';
-import Success from '../../../common/views/success';
+import Success from '../../../success/views';
 
 export default (...props) => {
   const allowedActions = useSelector(state => state.static.allowedActions);

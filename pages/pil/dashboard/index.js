@@ -2,7 +2,7 @@ const { page } = require('@asl/service/ui');
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
-const { success } = require('../../common/routers');
+const success = require('../../success');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 const { canUpdateModel, canTransferPil } = require('../../../lib/utils');
 
@@ -104,17 +104,15 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     sendData(req)
-      .then(() => delete req.session.form[req.model.id])
-      .then(() => res.redirect(req.buildRoute('pil.update', { suffix: 'success' })))
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        return res.redirect(req.buildRoute('pil.update', { suffix: 'success' }));
+      })
       .catch(next);
   });
 
-  app.get('/success', (req, res, next) => {
-    success({
-      licence: 'pil',
-      status: get(req.model, 'openTasks[0].status', 'autoresolved')
-    })(req, res, next);
-  });
+  app.get('/success', success());
 
   app.get((req, res) => res.sendResponse());
 

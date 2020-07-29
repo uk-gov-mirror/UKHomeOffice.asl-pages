@@ -88,12 +88,13 @@ module.exports = settings => {
     sendData(req)
       .then(response => {
         delete req.session.form[req.model.id];
-        const status = get(response, 'json.data.status');
-        if (status === 'autoresolved') {
+        const task = get(response, 'json.data');
+        if (task.status === 'autoresolved') {
           const successMessageKey = get(req.user, 'profile.asruUser') ? 'success' : 'roleChangeSuccess';
           req.notification({ key: successMessageKey });
           return res.redirect(req.buildRoute('place.list'));
         }
+        req.session.success = { taskId: task.id };
         return next();
       })
       .catch(next);

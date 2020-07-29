@@ -1,6 +1,6 @@
 const { page } = require('@asl/service/ui');
 const confirm = require('./routers/confirm');
-const success = require('../../common/routers/success');
+const success = require('../../success');
 const update = require('./routers/update');
 
 module.exports = () => {
@@ -16,10 +16,7 @@ module.exports = () => {
 
   app.use('/', update());
   app.use('/confirm', confirm());
-  app.use('/success', success({
-    licence: 'project',
-    getStatus: req => req.project.status === 'inactive' ? 'licenceHolderUpdated' : null
-  }));
+  app.use('/success', success());
 
   return app;
 };

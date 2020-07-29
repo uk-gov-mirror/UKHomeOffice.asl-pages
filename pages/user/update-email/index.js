@@ -1,14 +1,13 @@
 const { page } = require('@asl/service/ui');
 const { set } = require('lodash');
 const form = require('../../common/routers/form');
-const success = require('../../common/routers/success');
 const confirm = require('./routers/confirm');
 const schema = require('./schema');
 
 module.exports = settings => {
   const app = page({
     root: __dirname,
-    paths: ['/confirm', '/success'],
+    paths: ['/confirm'],
     ...settings
   });
 
@@ -57,12 +56,6 @@ module.exports = settings => {
   });
 
   app.use('/confirm', confirm());
-
-  app.use('/success', success({
-    model: 'profile',
-    type: 'amendment',
-    status: 'resubmitted'
-  }));
 
   return app;
 };

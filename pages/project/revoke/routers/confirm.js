@@ -24,12 +24,12 @@ module.exports = () => {
       }
     };
     req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/revoke`, params)
-      .then(() => next())
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        return res.redirect(req.buildRoute('project.revoke', { suffix: 'success' }));
+      })
       .catch(next);
-  });
-
-  app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('project.revoke', { suffix: 'success' }));
   });
 
   return app;
