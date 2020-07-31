@@ -90,6 +90,7 @@ module.exports = settings => {
       res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isLicensing = req.user.profile.asruLicensing;
+      res.locals.static.pil = req.pil;
 
       return canTransferPil(req)
         .then(canTransfer => {

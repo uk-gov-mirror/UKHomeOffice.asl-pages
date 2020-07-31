@@ -1,4 +1,7 @@
-module.exports = {
+const { merge } = require('lodash');
+const baseContent = require('../../../pil/content');
+
+module.exports = merge({}, baseContent, {
   title: {
     review: 'Endorse personal licence review'
   },
@@ -102,4 +105,4 @@ module.exports = {
     permissions: `You do not currently have permission to view all people at this establishment. Please contact an
     establishment administrator to increase your permissions level.`
   }
-};
+});
