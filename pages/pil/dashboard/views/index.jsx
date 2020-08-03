@@ -73,7 +73,7 @@ const Index = ({
       name: 'procedures',
       page: 'pil.update.procedures',
       removeLink: false,
-      models: model.procedures,
+      models: model.procedures || [],
       template: <ProceduresDiff before={pil} after={model} />,
       addOrEdit: 'edit',
       completed: model.procedures && model.procedures.length > 0
