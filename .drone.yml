@@ -1,7 +1,7 @@
 pipeline:
 
   test:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     commands:
@@ -11,7 +11,7 @@ pipeline:
       event: [push, pull_request, tag]
 
   build:
-    image: node:10
+    image: node:12
     commands:
       - npm run build
     when:
@@ -20,7 +20,7 @@ pipeline:
       - npm_auth_token
 
   publish:
-    image: node:10
+    image: node:12
     secrets:
       - npm_auth_token
     commands:
