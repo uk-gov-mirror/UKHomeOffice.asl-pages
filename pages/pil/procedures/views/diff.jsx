@@ -72,7 +72,7 @@ export default function ProceduresDiff({ before, after }) {
         <tbody>
           <tr>
             <td>
-              <ul>
+              <ul className="current">
                 {
                   proceduresBefore.map(procedure =>
                     <Item
@@ -88,7 +88,7 @@ export default function ProceduresDiff({ before, after }) {
               </ul>
             </td>
             <td>
-              <ul>
+              <ul className="proposed">
                 {
                   proceduresAfter.map(procedure =>
                     <Item
