@@ -43,7 +43,7 @@ export default function SpeciesDiff({ before, after }) {
         <tbody>
           <tr>
             <td>
-              <ul>
+              <ul className="current">
                 {
                   speciesBefore.map(species =>
                     <Item
@@ -58,7 +58,7 @@ export default function SpeciesDiff({ before, after }) {
               </ul>
             </td>
             <td>
-              <ul>
+              <ul className="proposed">
                 {
                   speciesAfter.map(species =>
                     <Item
