@@ -271,8 +271,7 @@ p.holc {
 
 .section-item.species {
   ul {
-    margin-top: $govuk-gutter;
-    margin-bottom: $govuk-gutter;
+    margin: 0;
     list-style-type: disc;
     padding-left: 1em;
   }
@@ -440,5 +439,46 @@ details {
 .success {
   h2.additional-info {
     font-weight: normal;
+  }
+}
+
+.diff {
+  border-bottom: 3px solid #47ff47;
+  background-color: #d3ffd3;
+
+  &.removed {
+    text-decoration: line-through;
+    border-bottom: 3px solid #ff4747;
+    background-color: #ffd3d3;
+  }
+}
+
+.procedures-diff {
+  margin: $govuk-gutter 0;
+
+  td {
+    vertical-align: top;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: $govuk-gutter-half;
+
+      .govuk-inset-text {
+        margin: 10px 0;
+      }
+    }
+  }
+}
+
+.species-diff {
+  margin: $govuk-gutter 0;
+
+  td {
+    vertical-align: top;
   }
 }

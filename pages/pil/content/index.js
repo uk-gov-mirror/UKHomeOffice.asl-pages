@@ -41,5 +41,15 @@ module.exports = {
       add: 'Add another',
       remove: 'Remove'
     }
+  },
+  diff: {
+    procedures: {
+      current: 'Current categories',
+      proposed: 'Proposed categories'
+    },
+    species: {
+      current: 'Current animal types',
+      proposed: 'Proposed animal types'
+    }
   }
 };

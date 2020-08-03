@@ -20,6 +20,8 @@ import {
 } from '../../training/schema';
 
 import SectionDetails from './section-details';
+import ProceduresDiff from '../../procedures/views/diff';
+import SpeciesDiff from '../../species/views/diff';
 
 function confirmDelete(e) {
   e.preventDefault();
@@ -40,7 +42,18 @@ function SubmitPIL({ formFields, snippet }) {
   );
 }
 
-const Index = ({ schema, establishment, certificates, exemptions, model, isAsru, isLicensing, canTransferPil, skipExemptions, skipTraining, csrfToken }) => {
+const Index = ({
+  pil,
+  establishment,
+  certificates,
+  exemptions,
+  model,
+  isAsru,
+  isLicensing,
+  canTransferPil,
+  skipExemptions,
+  skipTraining
+}) => {
 
   const sections = [
     {
@@ -60,17 +73,8 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       name: 'procedures',
       page: 'pil.update.procedures',
       removeLink: false,
-      schema: {},
-      models: (model.procedures || []).map(procedure => {
-        const rtn = { procedures: procedure };
-        if (procedure === 'D') {
-          rtn.notesCatD = model.notesCatD;
-        }
-        if (procedure === 'F') {
-          rtn.notesCatF = model.notesCatF;
-        }
-        return rtn;
-      }),
+      models: model.procedures,
+      template: <ProceduresDiff before={pil} after={model} />,
       addOrEdit: 'edit',
       completed: model.procedures && model.procedures.length > 0
     },
@@ -78,17 +82,9 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
       name: 'species',
       page: 'pil.update.species',
       models: model.species || [],
+      template: <SpeciesDiff before={pil} after={model} />,
       addOrEdit: 'edit',
-      completed: model.species && model.species.length > 0,
-      template: model.species && model.species.length && (
-        <ul>
-          {
-            (model.species || []).map((s, i) => (
-              <li key={i}><strong>{s}</strong></li>
-            ))
-          }
-        </ul>
-      )
+      completed: model.species && model.species.length > 0
     },
     {
       name: 'training',
@@ -206,7 +202,7 @@ const Index = ({ schema, establishment, certificates, exemptions, model, isAsru,
 const mapStateToProps = ({
   model,
   static: {
-    schema,
+    pil,
     establishment,
     profile: {
       exemptions,
@@ -216,11 +212,10 @@ const mapStateToProps = ({
     isLicensing,
     canTransferPil,
     skipExemptions,
-    skipTraining,
-    csrfToken
+    skipTraining
   }
 }) => ({
-  schema,
+  pil,
   establishment,
   exemptions,
   certificates,
@@ -229,8 +224,7 @@ const mapStateToProps = ({
   isLicensing,
   canTransferPil,
   skipExemptions,
-  skipTraining,
-  csrfToken
+  skipTraining
 });
 
 export default connect(mapStateToProps)(Index);
