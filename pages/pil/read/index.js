@@ -29,7 +29,8 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     const params = {
-      pilId: req.pilId
+      pilId: req.pilId,
+      establishment: req.establishmentId
     };
     Promise.all([
       req.user.can('pil.update', params),

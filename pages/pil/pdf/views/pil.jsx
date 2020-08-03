@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
 import { Markdown } from '@asl/components';
 
-const PIL = ({ pil, content }) => {
+const PIL = ({ pil, content, canReadHoldingEstablishment }) => {
   const licenceHolder = pil.licenceHolder;
 
   const hasSpecies = pil.species && pil.species.length > 0;
@@ -21,8 +21,16 @@ const PIL = ({ pil, content }) => {
 
       <section className="primary-establishment break">
         <h2>Primary establishment</h2>
-        <p>{pil.establishment.name}</p>
-        <Markdown>{pil.establishment.address}</Markdown>
+        {
+          canReadHoldingEstablishment &&
+            <Fragment>
+              <p>{pil.establishment.name}</p>
+              <Markdown>{pil.establishment.address}</Markdown>
+            </Fragment>
+        }
+        {
+          !canReadHoldingEstablishment && <p>This licence is held at another establishment.</p>
+        }
       </section>
 
       <section className="animal-types">
