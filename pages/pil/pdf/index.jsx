@@ -20,9 +20,6 @@ module.exports = settings => {
       licenceHolder: req.profile
     };
 
-    const holdingEstablishmentId = req.pil.establishmentId;
-    const canReadHoldingEstablishment = !!req.user.profile.establishments.find(e => e.id === holdingEstablishmentId);
-
     const initialState = {
       static: {
         content,
@@ -31,7 +28,7 @@ module.exports = settings => {
     };
 
     const store = createStore(stateReducer, initialState);
-    const body = renderToStaticMarkup(<Body pil={pil} nonce={res.locals.static.nonce} content={content} canReadHoldingEstablishment={canReadHoldingEstablishment} />);
+    const body = renderToStaticMarkup(<Body pil={pil} nonce={res.locals.static.nonce} content={content} />);
     const header = renderToStaticMarkup(<Header store={store} model={pil} licenceType="pil" nonce={res.locals.static.nonce} />);
     const footer = renderToStaticMarkup(<Footer />);
 
