@@ -21,8 +21,17 @@ const PIL = ({ pil, content }) => {
 
       <section className="primary-establishment break">
         <h2>Primary establishment</h2>
-        <p>{pil.establishment.name}</p>
-        <Markdown>{pil.establishment.address}</Markdown>
+        {
+          pil.establishment &&
+            <Fragment>
+              <p>{pil.establishment.name}</p>
+              <Markdown>{pil.establishment.address}</Markdown>
+            </Fragment>
+        }
+        {
+          // pil.establishment is not hydrated when user is not at the holding establishment
+          !pil.establishment && <p>This licence is held at another establishment.</p>
+        }
       </section>
 
       <section className="animal-types">
