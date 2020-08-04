@@ -40,6 +40,7 @@ module.exports = merge({}, baseContent, {
   },
   fields: {
     status: {
+      label: '',
       'with-ntco': ''
     },
     comment: {
