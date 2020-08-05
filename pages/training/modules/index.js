@@ -13,19 +13,17 @@ const SPECIES_MODULES = [
 module.exports = () => {
   const app = page({ root: __dirname });
 
-  app.use((req, res, next) => {
-    form({
-      configure(req, res, next) {
-        const isExemption = get(req.session, `form[${req.model.id}].values.isExemption`);
-        req.form.schema = getSchema(isExemption);
-        next();
-      },
-      locals(req, res, next) {
-        res.locals.static.isExemption = get(req.session, `form[${req.model.id}].values.isExemption`);
-        next();
-      }
-    })(req, res, next);
-  });
+  app.use(form({
+    configure(req, res, next) {
+      const isExemption = get(req.session, `form[${req.model.id}].values.isExemption`);
+      req.form.schema = getSchema(isExemption);
+      next();
+    },
+    locals(req, res, next) {
+      res.locals.static.isExemption = get(req.session, `form[${req.model.id}].values.isExemption`);
+      next();
+    }
+  }));
 
   app.post('/', (req, res, next) => {
     const { modules } = req.form.values;
