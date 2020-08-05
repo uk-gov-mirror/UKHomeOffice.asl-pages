@@ -54,9 +54,7 @@ const Index = ({
         allowedActions.includes('training.read') && (
           <section className="profile-section">
             <h3><Snippet>training</Snippet></h3>
-            {
-              !!certificates.length && <TrainingSummary certificates={certificates} />
-            }
+            <TrainingSummary certificates={certificates} />
             {
               allowedActions.includes('training.update') && <Link page="training.dashboard" label="Manage training" />
             }
