@@ -1,15 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import differenceInYears from 'date-fns/difference_in_years';
 import {
   Snippet,
   StickyNavAnchor,
   Link,
-  Inset,
   DiffText,
   TrainingSummary
 } from '@asl/components';
-import Modules from '../../../../profile/read/views/modules';
 import ProceduresDiff from '../../../../pil/procedures/views/diff';
 import SpeciesDiff from '../../../../pil/species/views/diff';
 

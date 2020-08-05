@@ -72,7 +72,7 @@ module.exports = settings => {
       const sectionComplete = {
         procedures: !!(req.model.procedures && req.model.procedures.length),
         species: !!(req.model.species && req.model.species.length),
-        training: !!((req.profile.certificates && req.profile.certificates.length) || update === false),
+        training: !!((req.profile.certificates && req.profile.certificates.length) || update === false)
       };
 
       if (!every(sectionComplete, Boolean)) {
