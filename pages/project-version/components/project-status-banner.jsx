@@ -5,7 +5,7 @@ import sortBy from 'lodash/sortBy';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
-export default function ProjectStatusBanner({ model, version, isPdf }) {
+export default function ProjectStatusBanner({ model = {}, version = {}, isPdf }) {
   const { canViewTransferredProject } = useSelector(state => state.static);
   if (model.status === 'transferred') {
     return (

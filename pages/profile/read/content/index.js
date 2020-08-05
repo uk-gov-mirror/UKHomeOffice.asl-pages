@@ -9,6 +9,7 @@ module.exports = merge({}, baseContent, {
     roleApply: 'Add role',
     roleRemove: 'Remove role'
   },
+  training: 'Training record',
   projects: {
     title: 'Active projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',

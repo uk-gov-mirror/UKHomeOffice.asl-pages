@@ -2,24 +2,21 @@ const { merge } = require('lodash');
 const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
-  title: 'Enter training details',
+  title: 'Training',
+  intro: 'Applicants must confirm training requirements have been met. This could be through completed training modules or professional experience that makes training unnecessary.',
+  'current-modules': 'Training record',
   buttons: {
-    submit: 'Continue'
+    submit: 'Continue',
+    back: 'List of sections'
+  },
+  fields: {
+    update: {
+      label: 'Do you need to update this training record?'
+    }
   },
   errors: {
-    certificateNumber: {
-      required: 'You need to enter a certificate number'
-    },
-    accreditingBody: {
-      required: 'You need to choose an accreditation body.'
-    },
-    otherAccreditingBody: {
-      required: 'Please specify which accrediting body'
-    },
-    passDate: {
-      required: 'You need to enter the date when the certificate was awarded.',
-      validDate: 'Date awarded must be a valid date.',
-      dateIsBefore: 'Date awarded must be in the past.'
+    upToDate: {
+      required: 'You need to confirm if your training modules are up to date.'
     }
   }
 });

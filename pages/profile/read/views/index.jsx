@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { formatDate } from '../../../../lib/utils';
-import { Header } from '@asl/components';
+import { Header, Link, Snippet, TrainingSummary } from '@asl/components';
 import Profile from './profile';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import { dateFormat } from '../../../../constants';
@@ -13,7 +13,7 @@ const Index = ({
   isOwnProfile,
   showRelatedTasks
 }) => {
-
+  const certificates = model.certificates || [];
   return (
     <Fragment>
       <div className="govuk-grid-row">
@@ -50,6 +50,18 @@ const Index = ({
           <Profile profile={model} establishment={establishment} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />
         </div>
       </div>
+      {
+        allowedActions.includes('training.read') && (
+          <section className="profile-section">
+            <h3><Snippet>training</Snippet></h3>
+            <TrainingSummary certificates={certificates} />
+            {
+              allowedActions.includes('training.update') && <Link page="training.dashboard" label="Manage training" />
+            }
+          </section>
+        )
+      }
+
       {
         showRelatedTasks && <RelatedTasks />
       }

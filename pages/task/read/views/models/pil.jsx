@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import differenceInYears from 'date-fns/difference_in_years';
 import {
   Snippet,
   StickyNavAnchor,
   Link,
-  DiffText
+  DiffText,
+  TrainingSummary
 } from '@asl/components';
-import Modules from '../../../../profile/read/views/modules';
 import ProceduresDiff from '../../../../pil/procedures/views/diff';
 import SpeciesDiff from '../../../../pil/species/views/diff';
 
@@ -18,7 +18,6 @@ export default function PIL({ task, values }) {
   const isTransfer = task.type === 'transfer';
   const isReview = task.type === 'review';
   const certificates = task.data.certificates || [];
-  const exemptions = task.data.exemptions;
   const showTraining = !isReview || certificates.length > 0;
 
   const isComplete = !task.isOpen;
@@ -82,45 +81,7 @@ export default function PIL({ task, values }) {
       showTraining && (
         <StickyNavAnchor id="training" key="training">
           <h2><Snippet>sticky-nav.training</Snippet></h2>
-          {
-            certificates && certificates.length > 0
-              ? <Modules certificates={certificates} />
-              : <p><em><Snippet>pil.training.none</Snippet></em></p>
-          }
-        </StickyNavAnchor>
-      )
-    ),
-
-    (
-      showTraining && (
-        <StickyNavAnchor id="exemptions" key="exemptions">
-          <h2><Snippet>sticky-nav.exemptions</Snippet></h2>
-          {
-            exemptions && exemptions.length > 0
-              ? exemptions.map((exemption, index) => (
-                <div key={index}>
-                  <dl>
-                    <dt><Snippet>pil.exemptions.module</Snippet><span>:</span></dt>
-                    <dd>{exemption.module}
-                      {
-                        exemption.species && exemption.species.length > 0 &&
-                          (
-                            <Fragment>
-                              { exemption.species.map((s, index) => (
-                                <p key={index}>{s}</p>
-                              ))}
-                            </Fragment>
-                          )
-
-                      }</dd>
-
-                    <dt><Snippet>pil.exemptions.reason</Snippet><span>:</span></dt>
-                    <dd>{exemption.description}</dd>
-                  </dl>
-                </div>
-              ))
-              : <p><em><Snippet>pil.exemptions.none</Snippet></em></p>
-          }
+          <TrainingSummary certificates={certificates} />
         </StickyNavAnchor>
       )
     ),

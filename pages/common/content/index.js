@@ -25,6 +25,7 @@ module.exports = {
       },
       revoke: 'Revoke personal licence'
     },
+    globalProfile: 'Profile',
     pils: 'Personal licences',
     place: {
       read: '{{place.name}}',
@@ -79,6 +80,13 @@ module.exports = {
         confirm: 'Confirm',
         success: 'Success'
       }
+    },
+    training: {
+      dashboard: 'Training',
+      type: 'Type',
+      certificate: 'Certificate',
+      modules: 'Modules',
+      species: 'Species'
     }
   },
   pages: {

@@ -1,10 +1,20 @@
 const { Router } = require('express');
+const { set } = require('lodash');
 const update = require('./router');
 const submit = require('./submit');
 const success = require('./success');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
+
+  app.post('/update-training', (req, res, next) => {
+    const type = req.project.status === 'inactive' ? 'application' : 'amendment';
+    set(req.session, 'training-referrer', {
+      target: `${req.buildRoute('projectVersion.update')}/training`,
+      label: `PPL ${type}`
+    });
+    res.redirect(req.buildRoute('training.dashboard', { profileId: req.project.licenceHolderId }));
+  });
 
   app.use((req, res, next) => {
     const isAmendment = req.project.status !== 'inactive';

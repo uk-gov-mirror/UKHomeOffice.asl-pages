@@ -35,7 +35,8 @@ start({
     establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
-    raCompulsory: state.model.raCompulsory
+    raCompulsory: state.model.raCompulsory,
+    training: state.static.training
   },
   static: { urls: state.static.urls }
 });

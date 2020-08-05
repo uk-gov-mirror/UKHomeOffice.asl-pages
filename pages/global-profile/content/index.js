@@ -12,6 +12,7 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
       title: 'Training'
     }
   },
+  'manage-training': 'Manage training',
   asru: {
     title: 'Animals in Science Regulation Unit',
     roles: {
