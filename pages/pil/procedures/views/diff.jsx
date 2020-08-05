@@ -23,16 +23,16 @@ const Item = ({procedure, model, before, after, diffClassName = 'diff'}) => {
   );
 };
 
-export default function ProceduresDiff({ before, after }) {
+export default function ProceduresDiff({ before, after, isReview }) {
   // old tasks might have null procedures
   before.procedures = before.procedures || [];
   after.procedures = after.procedures || [];
 
   const isApplication = before.status === 'pending';
   const proceduresBefore = before.procedures.sort();
-  const proceduresAfter = after.procedures.sort();
+  const proceduresAfter = isReview ? before.procedures.sort() : after.procedures.sort();
 
-  if (isApplication) {
+  if (isApplication || isReview) {
     if (proceduresAfter.length === 0) {
       return null;
     }

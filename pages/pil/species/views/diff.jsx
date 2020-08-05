@@ -6,16 +6,16 @@ const Item = ({species, before, after, diffClassName = 'diff'}) => {
   return <li><span className={speciesChanged ? diffClassName : ''}>{species}</span></li>;
 };
 
-export default function SpeciesDiff({ before, after }) {
+export default function SpeciesDiff({ before, after, isReview }) {
   // old tasks might have null species
   before.species = before.species || [];
   after.species = after.species || [];
 
   const isApplication = before.status === 'pending';
   const speciesBefore = before.species.sort();
-  const speciesAfter = after.species.sort();
+  const speciesAfter = isReview ? before.species.sort() : after.species.sort();
 
-  if (isApplication) {
+  if (isApplication || isReview) {
     if (speciesAfter.length === 0) {
       return null;
     }
