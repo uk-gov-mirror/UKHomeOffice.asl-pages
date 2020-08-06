@@ -6,30 +6,32 @@ const Item = ({species, before, after, diffClassName = 'diff'}) => {
   return <li><span className={speciesChanged ? diffClassName : ''}>{species}</span></li>;
 };
 
-export default function SpeciesDiff({ before, after }) {
+export default function SpeciesDiff({ before, after, taskType }) {
   // old tasks might have null species
   before.species = before.species || [];
   after.species = after.species || [];
 
-  const isApplication = before.status === 'pending';
-  const speciesBefore = before.species.sort();
-  const speciesAfter = after.species.sort();
+  const displayData = taskType === 'application' ? after : before;
+  displayData.species.sort();
 
-  if (isApplication) {
-    if (speciesAfter.length === 0) {
-      return null;
+  if (taskType !== 'amendment') {
+    if (displayData.species.length === 0) {
+      return <p>No animal types selected.</p>;
     }
 
     return (
       <div className="species-diff">
         <ul>
           {
-            speciesAfter.map(species => <li key={species}>{species}</li>)
+            displayData.species.map(species => <li key={species}>{species}</li>)
           }
         </ul>
       </div>
     );
   }
+
+  const speciesBefore = before.species.sort();
+  const speciesAfter = after.species.sort();
 
   return (
     <div className="species-diff">

@@ -69,12 +69,12 @@ export default function PIL({ task, values }) {
 
     <StickyNavAnchor id="procedures" key="procedures">
       <h2><Snippet>sticky-nav.procedures</Snippet></h2>
-      <ProceduresDiff before={task.data.modelData} after={task.data.data} />
+      <ProceduresDiff before={task.data.modelData} after={task.data.data} taskType={task.type} />
     </StickyNavAnchor>,
 
     <StickyNavAnchor id="species" key="species">
       <h2><Snippet>sticky-nav.species</Snippet></h2>
-      <SpeciesDiff before={task.data.modelData} after={task.data.data} />
+      <SpeciesDiff before={task.data.modelData} after={task.data.data} taskType={task.type} />
     </StickyNavAnchor>,
 
     (
