@@ -23,17 +23,16 @@ const Item = ({procedure, model, before, after, diffClassName = 'diff'}) => {
   );
 };
 
-export default function ProceduresDiff({ before, after, isReview }) {
+export default function ProceduresDiff({ before, after, taskType }) {
   // old tasks might have null procedures
   before.procedures = before.procedures || [];
   after.procedures = after.procedures || [];
 
-  const isApplication = before.status === 'pending';
-  const proceduresBefore = before.procedures.sort();
-  const proceduresAfter = isReview ? before.procedures.sort() : after.procedures.sort();
+  const displayData = taskType === 'application' ? after : before;
+  displayData.procedures.sort();
 
-  if (isApplication || isReview) {
-    if (proceduresAfter.length === 0) {
+  if (taskType !== 'amendment') {
+    if (displayData.procedures.length === 0) {
       return null;
     }
 
@@ -42,14 +41,14 @@ export default function ProceduresDiff({ before, after, isReview }) {
         <h4>Categories</h4>
         <ul>
           {
-            proceduresAfter.map(procedure =>
+            displayData.procedures.map(procedure =>
               <li key={procedure}>
                 {`${procedure}. `}<Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
                 {
                   ['D', 'F'].includes(procedure) &&
                     <Inset>
                       <p><strong><Snippet>{`fields.notesCat${procedure}.label`}</Snippet></strong></p>
-                      {after[`notesCat${procedure}`]}
+                      {displayData[`notesCat${procedure}`]}
                     </Inset>
                 }
               </li>
@@ -59,6 +58,9 @@ export default function ProceduresDiff({ before, after, isReview }) {
       </div>
     );
   }
+
+  const proceduresBefore = before.procedures.sort();
+  const proceduresAfter = after.procedures.sort();
 
   return (
     <div className="procedures-diff">
