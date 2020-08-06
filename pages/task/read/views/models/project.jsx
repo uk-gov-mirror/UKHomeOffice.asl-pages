@@ -142,7 +142,7 @@ export default function Project({ task, schema }) {
                   declarationConfirmed(declarations.awerb) &&
                     <Fragment>
                       <p>
-                        <Snippet>declarations.awerb.review-date</Snippet>
+                        <strong><Snippet>declarations.awerb.review-date</Snippet></strong>
                       </p>
                       <Markdown>{declarations['awerb-review-date']}</Markdown>
                     </Fragment>

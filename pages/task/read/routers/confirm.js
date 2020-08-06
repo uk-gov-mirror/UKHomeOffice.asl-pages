@@ -55,7 +55,7 @@ module.exports = () => {
         data: values.data,
         meta: {
           ...values.meta,
-          ...pick(values, 'comment', 'restrictions')
+          ...pick(values, 'comment', 'restrictions', 'awerb', 'awerb-review-date', 'awerb-no-review-reason')
         }
       }
     };

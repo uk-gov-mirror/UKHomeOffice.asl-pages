@@ -52,7 +52,7 @@ const Submit = ({ model, canEndorse }) => {
       />
       {isApplication && (
         <Warning>
-          <Snippet canEndorse={canEndorse}>warning</Snippet>
+          <Snippet>{`warning.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
         </Warning>
       )}
     </FormLayout>
