@@ -14,7 +14,7 @@ export default function SpeciesDiff({ before, after, taskType }) {
   const displayData = taskType === 'application' ? after : before;
   displayData.species.sort();
 
-  if (taskType !== 'amendment') {
+  if (taskType !== 'amendment' && taskType !== 'transfer') {
     if (displayData.species.length === 0) {
       return <p>No animal types selected.</p>;
     }

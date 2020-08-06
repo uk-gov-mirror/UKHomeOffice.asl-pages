@@ -31,7 +31,7 @@ export default function ProceduresDiff({ before, after, taskType }) {
   const displayData = taskType === 'application' ? after : before;
   displayData.procedures.sort();
 
-  if (taskType !== 'amendment') {
+  if (taskType !== 'amendment' && taskType !== 'transfer') {
     if (displayData.procedures.length === 0) {
       return <p>No procedures selected.</p>;
     }

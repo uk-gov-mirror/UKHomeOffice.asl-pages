@@ -52,6 +52,7 @@ const Index = ({
 }) => {
 
   const upToDate = model.update === false;
+  const taskType = model.status === 'pending' ? 'application' : 'amendment';
 
   const sections = [
     {
@@ -72,7 +73,7 @@ const Index = ({
       page: 'pil.update.procedures',
       removeLink: false,
       models: model.procedures || [],
-      template: <ProceduresDiff before={pil} after={model} />,
+      template: <ProceduresDiff before={pil} after={model} taskType={taskType} />,
       addOrEdit: 'edit',
       completed: model.procedures && model.procedures.length > 0
     },
@@ -80,7 +81,7 @@ const Index = ({
       name: 'species',
       page: 'pil.update.species',
       models: model.species || [],
-      template: <SpeciesDiff before={pil} after={model} />,
+      template: <SpeciesDiff before={pil} after={model} taskType={taskType} />,
       addOrEdit: 'edit',
       completed: model.species && model.species.length > 0
     },
