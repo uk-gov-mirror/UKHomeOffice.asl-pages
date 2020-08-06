@@ -33,7 +33,7 @@ export default function ProceduresDiff({ before, after, taskType }) {
 
   if (taskType !== 'amendment') {
     if (displayData.procedures.length === 0) {
-      return null;
+      return <p>No procedures selected.</p>;
     }
 
     return (

@@ -16,7 +16,7 @@ export default function SpeciesDiff({ before, after, taskType }) {
 
   if (taskType !== 'amendment') {
     if (displayData.species.length === 0) {
-      return null;
+      return <p>No animal types selected.</p>;
     }
 
     return (
