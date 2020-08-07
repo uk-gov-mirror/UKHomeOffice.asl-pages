@@ -78,7 +78,7 @@ module.exports = settings => {
   app.put('/', (req, res, next) => {
     const clientVersion = req.get('x-projects-version');
     const requiredVersion = dependencies['@asl/projects'];
-    if (!semver.satisfies(clientVersion, requiredVersion)) {
+    if (semver.major(clientVersion) !== semver.major(requiredVersion)) {
       res.status(400);
       return res.json({ message: 'Update required', code: 'UPDATE_REQUIRED' });
     }
