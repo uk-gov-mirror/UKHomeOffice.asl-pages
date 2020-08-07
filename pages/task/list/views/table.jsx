@@ -47,7 +47,7 @@ const formatters = {
   status: {
     format: (status, model) => {
       const deadline = get(model, 'deadline');
-      const continuation = get(model, 'data.continuation');
+      const continuation = get(model, 'data.continuation') && get(model, 'data.modelData.status') === 'inactive';
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
 
       return (
