@@ -1,10 +1,19 @@
 const { set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
+const { buildModel } = require('../../../lib/utils');
 const schema = require('./schema');
 
 module.exports = settings => {
   const app = page({ root: __dirname });
+
+  app.use((req, res, next) => {
+    req.model = {
+      id: `${req.pilId}-training`,
+      ...buildModel(schema)
+    };
+    next();
+  });
 
   app.use(form({ schema }));
 

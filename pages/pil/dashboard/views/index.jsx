@@ -47,11 +47,9 @@ const Index = ({
   isAsru,
   isLicensing,
   canTransferPil,
-  skipExemptions,
-  skipTraining
+  trainingUpToDate
 }) => {
 
-  const upToDate = model.update === false;
   const taskType = model.status === 'pending' ? 'application' : 'amendment';
 
   const sections = [
@@ -88,8 +86,8 @@ const Index = ({
     {
       name: 'training',
       page: 'pil.update.training',
-      completed: upToDate,
-      template: upToDate && (
+      completed: trainingUpToDate,
+      template: trainingUpToDate && (
         certificates && certificates.length > 0
           ? <TrainingSummary certificates={certificates} />
           : <em>No training added</em>
@@ -160,8 +158,7 @@ const mapStateToProps = ({
     isAsru,
     isLicensing,
     canTransferPil,
-    skipExemptions,
-    skipTraining
+    trainingUpToDate
   }
 }) => ({
   pil,
@@ -172,8 +169,7 @@ const mapStateToProps = ({
   isAsru,
   isLicensing,
   canTransferPil,
-  skipExemptions,
-  skipTraining
+  trainingUpToDate
 });
 
 export default connect(mapStateToProps)(Index);
