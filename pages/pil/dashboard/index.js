@@ -55,6 +55,9 @@ module.exports = settings => {
       .filter(e => e.id !== req.establishment.id)
       .find(e => e.id === get(req.model, 'establishmentId'));
 
+    const trainingUpToDate = get(req.session, `form[${req.model.id}-training].values.update`) === false;
+    res.locals.static.trainingUpToDate = trainingUpToDate;
+
     req.model.establishment = {
       from: pick(req.establishment, ['id', 'name']),
       to: establishmentTransfer ? pick(establishmentTransfer, ['id', 'name']) : null
@@ -68,7 +71,7 @@ module.exports = settings => {
   app.use(form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     validate: (req, res, next) => {
-      const update = get(req.session, `form[${req.model.id}].values.update`);
+      const update = get(req.session, `form[${req.model.id}-training].values.update`);
       const sectionComplete = {
         procedures: !!(req.model.procedures && req.model.procedures.length),
         species: !!(req.model.species && req.model.species.length),
