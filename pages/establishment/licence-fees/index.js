@@ -6,6 +6,7 @@ module.exports = settings => {
 
   app.param('year', (req, res, next, year) => {
     req.year = year;
+    res.locals.static.year = year;
     next();
   });
 
