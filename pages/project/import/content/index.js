@@ -1,10 +1,13 @@
 module.exports = {
-  title: 'Upload draft application',
-  hint: 'You can upload a project created on the drafting tool.',
+  title: 'Upload project template',
+  hint: 'Upload data from another project to use in your application. You need to have downloaded the application in a .ppl file.',
   fields: {
     upload: {
-      label: 'Choose the .ppl file of the project you want to upload.'
+      label: 'Choose .ppl file'
     }
+  },
+  buttons: {
+    submit: 'Continue'
   },
   errors: {
     upload: {
