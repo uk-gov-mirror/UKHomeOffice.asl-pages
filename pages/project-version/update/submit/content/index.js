@@ -1,6 +1,9 @@
 module.exports = {
   title: 'Send {{model.type}}',
-  warning: 'Project licence applications need to be reviewed by an AWERB {{^canEndorse}}and endorsed by the primary establishment\'s PEL holder {{/canEndorse}}before a licence can be granted.',
+  warning: {
+    canEndorse: `This application needs to be endorsed by the establishment licence holder, and reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
+    cantEndorse: `The primary establishment will need to endorse your application, and confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
+  },
   declaration: {
     title: 'Declaration',
     content: 'You confirm the establishment licence holder consents to you endorsing this application on their behalf.'

@@ -1,6 +1,7 @@
-const { merge } = require('lodash');
+const { merge, pick } = require('lodash');
 const baseContent = require('./base');
 const tasks = require('../../content/tasks');
+const versionContent = require('../../../project-version/update/submit/content');
 
 module.exports = merge({}, baseContent, {
   tasks,
@@ -14,7 +15,8 @@ module.exports = merge({}, baseContent, {
     },
     restrictions: {
       label: 'Restrictions'
-    }
+    },
+    ...pick(versionContent.fields, ['awerb', 'awerb-review-date', 'awerb-no-review-reason'])
   },
   declaration: {
     title: 'Declaration',

@@ -1,7 +1,7 @@
 const { pick, get, set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
-const getSchema = require('./schema');
+const { getSchema } = require('./schema');
 
 module.exports = settings => {
   const app = page({
@@ -55,8 +55,10 @@ module.exports = settings => {
       configure: (req, res, next) => {
         // if application has previously been approved then this is a resubmission and we can show the inspector ready question
         const hasAuthority = get(req.project, 'openTasks[0].data.meta.authority') === 'Yes';
-        const schema = getSchema(req.version.type, req.user.profile.asruUser, hasAuthority);
-        req.form.schema = schema;
+        const isAmendment = req.version.type === 'amendment';
+        const includeReady = hasAuthority && !isAmendment;
+        const includeAwerb = res.locals.static.canEndorse;
+        req.form.schema = getSchema(isAmendment, req.user.profile.asruUser, includeReady, includeAwerb);
         next();
       },
       locals: (req, res, next) => {
