@@ -10,7 +10,7 @@ module.exports = {
         value: true
       },
       {
-        label: 'No, that looks fine',
+        label: 'No, this training record is up to date',
         value: false
       }
     ],
