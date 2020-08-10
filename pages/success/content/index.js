@@ -88,7 +88,8 @@ module.exports = {
     },
     whatNext: {
       body: `This request has been approved.`,
-      internal: 'The relevant people have been emailed.'
+      internal: 'The relevant people have been emailed.',
+      external: ''
     }
   },
   'rejected': {
