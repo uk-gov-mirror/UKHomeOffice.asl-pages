@@ -1,13 +1,19 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import sortBy from 'lodash/sortBy';
-import { Header, PanelList, Link, ExpandingPanel, Snippet } from '@asl/components';
+import {
+  Header,
+  PanelList,
+  Link,
+  ExpandingPanel,
+  Snippet,
+  TrainingSummary
+} from '@asl/components';
 
 import dateFormatter from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
 import Profile from '../../profile/read/views/profile';
-import Modules from '../../profile/read/views/modules';
 import RelatedTasks from '../../task/list/views/related-tasks';
 import AsruRoles from '../components/asru-roles';
 
@@ -138,14 +144,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
         !model.asruUser && (
           <Fragment>
             <h2><Snippet>pil.training.title</Snippet></h2>
-            {
-              model.certificates && model.certificates.length > 0
-                ? <Modules certificates={model.certificates} />
-                : <p><em><Snippet>pil.training.none</Snippet></em></p>
-            }
-            {
-              isOwnProfile && <Link page="training.dashboard" label={<Snippet>manage-training</Snippet>}/>
-            }
+            <TrainingSummary certificates={model.certificates} />
           </Fragment>
         )
       }
