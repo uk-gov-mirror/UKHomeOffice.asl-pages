@@ -1,38 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Snippet, Header, FormLayout, Fieldset, Inset } from '@asl/components';
+import { Snippet, Header, FormLayout } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
-
-const connectComponent = (field, key) => {
-  const mapStateToProps = ({ model, static: { schema, errors } }) => {
-    schema = schema[field].options.find(body => body.value === key).reveal;
-
-    return {
-      model,
-      schema,
-      errors
-    };
-  };
-
-  return connect(mapStateToProps)(Fieldset);
-};
-
-const mapOptions = (field, option) => {
-  const ConnectedComponent = connectComponent(field, option.value);
-  return {
-    ...option,
-    reveal: option.reveal ? <Inset><ConnectedComponent /></Inset> : null
-  };
-};
-
-const formatters = {
-  authority: {
-    mapOptions: option => mapOptions('authority', option)
-  },
-  awerb: {
-    mapOptions: option => mapOptions('awerb', option)
-  }
-};
 
 const Submit = ({ model, canEndorse }) => {
   const isApplication = model.type === 'application';
@@ -45,7 +14,7 @@ const Submit = ({ model, canEndorse }) => {
   );
 
   return (
-    <FormLayout formatters={formatters} declaration={canEndorse && declaration}>
+    <FormLayout declaration={canEndorse && declaration}>
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={model.data.title || 'Untitled project'}

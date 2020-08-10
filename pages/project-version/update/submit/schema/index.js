@@ -13,6 +13,7 @@ const getAwerbQuestion = isAmendment => {
     inputType: 'radioGroup',
     inline: true,
     className: 'smaller',
+    automapReveals: true,
     options: [
       {
         value: 'Yes',

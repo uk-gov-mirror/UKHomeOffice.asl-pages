@@ -30,10 +30,7 @@ module.exports = (task, chosenStatus) => {
 
   if (awerbRequired(task)) {
     schema = {
-      awerb: {
-        ...getAwerbQuestion(isAmendment),
-        automapReveals: true
-      },
+      awerb: getAwerbQuestion(isAmendment),
       ...schema
     };
   }
