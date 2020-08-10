@@ -4,6 +4,7 @@ const form = require('../../../common/routers/form');
 const getSchema = require('../schema');
 const experienceFields = require('../schema/experience-fields');
 const { hydrate } = require('../../../common/middleware');
+const { getGrantedVersion } = require('../../../project-version/middleware');
 
 module.exports = () => {
   const app = Router();
@@ -12,15 +13,19 @@ module.exports = () => {
 
   app.use(form({
     configure(req, res, next) {
+      const getProfiles = () => {
+        return req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
+          .then(({ json: { data } }) => data);
+      };
       req.model.licenceHolderId = '';
-      req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
-        .then(({ json: { data } }) => {
-          req.form.schema = getSchema(data);
-
+      Promise.all([getProfiles(), getGrantedVersion(req)])
+        .then(([profiles, version]) => {
+          req.form.schema = getSchema(profiles);
+          req.form.experienceFields = experienceFields(version);
           if (!req.project.isLegacyStub) {
             req.form.schema = {
               ...req.form.schema,
-              ...experienceFields.fieldNames.reduce((obj, field) => ({ ...obj, [field]: {} }), {})
+              ...req.form.experienceFields.fieldNames.reduce((obj, field) => ({ ...obj, [field]: {} }), {})
             };
           }
 
@@ -38,8 +43,8 @@ module.exports = () => {
       next();
     },
     locals(req, res, next) {
-      res.locals.static.schema = omit(req.form.schema, [ ...experienceFields.fieldNames, 'comments' ]);
-      res.locals.static.fields = req.project.isLegacyStub ? [] : experienceFields.fields;
+      res.locals.static.schema = omit(req.form.schema, [ ...req.form.experienceFields.fieldNames, 'comments' ]);
+      res.locals.static.fields = req.project.isLegacyStub ? [] : req.form.experienceFields.fields;
       res.locals.static.project = req.project;
       next();
     }
