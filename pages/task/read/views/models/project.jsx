@@ -11,7 +11,9 @@ import {
   Diff,
   Markdown
 } from '@asl/components';
-import ReviewFields from '@asl/projects/client/components/review-fields';
+
+// need unconnected ReviewFields component and not default
+import { ReviewFields } from '@asl/projects/client/components/review-fields';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 import Deadline from '../components/deadline';
@@ -251,8 +253,9 @@ export default function Project({ task, schema }) {
           <h2><Snippet>sticky-nav.experience</Snippet></h2>
           <StaticRouter>
             <ReviewFields
-              fields={experience(values)}
+              fields={experience(version).fields}
               values={task.data.meta}
+              project={version.data}
               readonly={true}
               noComments
               altLabels
