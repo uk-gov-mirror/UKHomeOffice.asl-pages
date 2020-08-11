@@ -16,7 +16,6 @@ import format from 'date-fns/format';
 import isFuture from 'date-fns/is_future';
 import { dateFormat } from '../../../../constants';
 import { numberWithCommas } from '../../../../lib/utils';
-import { fees as feeSettings } from '@asl/constants';
 
 function Fee({ type }) {
   const fees = useSelector(state => state.static.fees);
@@ -34,21 +33,21 @@ function Fee({ type }) {
 
 export default function Fees({ tab, tabs, children, subtitle = '' }) {
   const { establishment, year } = useSelector(state => state.static, shallowEqual);
+  const { years } = useSelector(state => state.static.fees);
 
-  // sort years descending
-  const years = Object.keys(feeSettings).sort((a, b) => b - a);
-
-  const options = years.map(year => {
-    year = parseInt(year, 10);
-    const date = `${year}-04-06`;
-    const endDate = `${year + 1}-04-05`;
-    const start = format(date, dateFormat.long);
-    const end = format(endDate, dateFormat.long);
-    return {
-      value: year,
-      label: `${start} to ${end}${isFuture(endDate) ? ' (projection)' : ''}`
-    };
-  });
+  const options = years
+    .sort((a, b) => b - a)
+    .map(year => {
+      year = parseInt(year, 10);
+      const date = `${year}-04-06`;
+      const endDate = `${year + 1}-04-05`;
+      const start = format(date, dateFormat.long);
+      const end = format(endDate, dateFormat.long);
+      return {
+        value: year,
+        label: `${start} to ${end}${isFuture(endDate) ? ' (projection)' : ''}`
+      };
+    });
 
   tabs = tabs || [
     {

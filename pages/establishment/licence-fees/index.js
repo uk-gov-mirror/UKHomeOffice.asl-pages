@@ -29,6 +29,7 @@ module.exports = settings => {
     Promise.resolve()
       .then(() => req.api(`/establishment/${req.establishmentId}/billing`, { query }))
       .then(response => {
+        const years = response.json.meta.years;
         const startDate = response.json.meta.startDate;
         const endDate = response.json.meta.endDate;
         const numPils = response.json.data.numberOfPils;
@@ -38,6 +39,7 @@ module.exports = settings => {
         const total = response.json.data.total;
 
         res.locals.static.fees = {
+          years,
           numPils,
           fees,
           establishment,
