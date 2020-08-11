@@ -50,7 +50,12 @@ dl.continuation {
   }
 }
 
-p.subtitle {
+.govuk-form-group.inline {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.subtitle {
   font-size: 1.1em;
 }
 

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import {
   Details,
   Header,
@@ -10,10 +10,13 @@ import {
   Inset,
   ErrorSummary
 } from '@asl/components';
-import { Warning } from '@ukhomeoffice/react-components';
+import { Warning, Select } from '@ukhomeoffice/react-components';
+import { getUrl } from '@asl/components/src/link';
 import format from 'date-fns/format';
+import isFuture from 'date-fns/is_future';
 import { dateFormat } from '../../../../constants';
 import { numberWithCommas } from '../../../../lib/utils';
+import { fees as feeSettings } from '@asl/constants';
 
 function Fee({ type }) {
   const fees = useSelector(state => state.static.fees);
@@ -30,8 +33,22 @@ function Fee({ type }) {
 }
 
 export default function Fees({ tab, tabs, children, subtitle = '' }) {
-  const establishment = useSelector(state => state.static.establishment);
-  const fees = useSelector(state => state.static.fees);
+  const { establishment, year } = useSelector(state => state.static, shallowEqual);
+
+  // sort years descending
+  const years = Object.keys(feeSettings).sort((a, b) => b - a);
+
+  const options = years.map(year => {
+    year = parseInt(year, 10);
+    const date = `${year}-04-06`;
+    const endDate = `${year + 1}-04-05`;
+    const start = format(date, dateFormat.long);
+    const end = format(endDate, dateFormat.long);
+    return {
+      value: year,
+      label: `${start} to ${end}${isFuture(endDate) ? ' (projection)' : ''}`
+    };
+  });
 
   tabs = tabs || [
     {
@@ -48,6 +65,18 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
     }
   ];
 
+  const targets = years.reduce((obj, year) => {
+    return {
+      ...obj,
+      [year]: getUrl({ page: tabs[tab].page, year })
+    };
+  }, {});
+
+  function onYearSelect(e) {
+    const year = e.target.value;
+    window.location.href = targets[year];
+  }
+
   return (
     <Fragment>
       <WidthContainer>
@@ -56,14 +85,18 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
           title={<Snippet>fees.title</Snippet>}
           subtitle={establishment ? establishment.name : subtitle}
         />
-        <p className="subtitle">
-          <Snippet
-            start={format(fees.startDate, dateFormat.long)}
-            end={format(fees.endDate, dateFormat.long)}
-          >
-            fees.period
-          </Snippet>
-        </p>
+        <div className="subtitle">
+          <Snippet>fees.period</Snippet>
+          <Select
+            name="year"
+            label=""
+            options={options}
+            className="inline"
+            onChange={onYearSelect}
+            value={year}
+            nullOption={false}
+          />
+        </div>
         <Warning><Snippet>fees.disclaimer</Snippet></Warning>
         <Details
           className="margin-bottom"
