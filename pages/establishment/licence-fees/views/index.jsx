@@ -36,7 +36,8 @@ function Fee({ type }) {
 export default function Fees({ tab, tabs, children, subtitle = '' }) {
   const { establishment, year } = useSelector(state => state.static, shallowEqual);
 
-  const years = Object.keys(feeSettings).reverse();
+  // sort years descending
+  const years = Object.keys(feeSettings).sort((a, b) => b - a);
 
   const options = years.map(year => {
     const date = `${year}-04-06`;
