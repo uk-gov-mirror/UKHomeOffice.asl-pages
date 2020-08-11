@@ -1,10 +1,14 @@
 const { Router } = require('express');
-const { pick, set } = require('lodash');
+const { pick, get, set } = require('lodash');
 
 module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
+    if (!get(req.session, `form[${req.model.id}].values`)) {
+      return res.redirect(req.buildRoute('account.updateEmail'));
+    }
+
     if (req.query.edit) {
       return res.redirect(req.buildRoute('account.updateEmail'));
     }
