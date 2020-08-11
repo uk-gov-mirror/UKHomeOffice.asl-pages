@@ -46,7 +46,7 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
     const end = format(endDate, dateFormat.long);
     return {
       value: year,
-      label: `6th April ${start} to ${end}${isFuture(endDate) ? ' (projection)' : ''}`
+      label: `${start} to ${end}${isFuture(endDate) ? ' (projection)' : ''}`
     };
   });
 
