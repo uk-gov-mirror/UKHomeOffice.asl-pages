@@ -13,7 +13,6 @@ import {
 import { Warning, Select } from '@ukhomeoffice/react-components';
 import { getUrl } from '@asl/components/src/link';
 import format from 'date-fns/format';
-import addYears from 'date-fns/add_years';
 import isFuture from 'date-fns/is_future';
 import { dateFormat } from '../../../../constants';
 import { numberWithCommas } from '../../../../lib/utils';
@@ -40,8 +39,9 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
   const years = Object.keys(feeSettings).sort((a, b) => b - a);
 
   const options = years.map(year => {
+    year = parseInt(year, 10);
     const date = `${year}-04-06`;
-    const endDate = addYears(date, 1);
+    const endDate = `${year + 1}-04-05`;
     const start = format(date, dateFormat.long);
     const end = format(endDate, dateFormat.long);
     return {
