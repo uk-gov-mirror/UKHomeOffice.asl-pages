@@ -41,10 +41,9 @@ module.exports = () => {
             versionId = req.project.granted.id;
           }
           if (versionId) {
-            return req.api(`${url}/project-version/${versionId}`)
+            return req.api(`${url}/project-version/${versionId}`, { query: { withDeleted: true } })
               .then(({ json: { data } }) => {
                 req.version = data;
-
               });
           }
         })
