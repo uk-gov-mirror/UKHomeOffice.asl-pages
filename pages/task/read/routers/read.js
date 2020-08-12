@@ -20,25 +20,33 @@ module.exports = () => {
   // get relevant versionId if task is for a project.
   app.use((req, res, next) => {
     const model = get(req.task, 'data.model');
+    const action = get(req.task, 'data.action');
 
     if (model === 'project') {
       let url;
-      const versionId = get(req.task, 'data.data.version');
+      let versionId = get(req.task, 'data.data.version');
       const project = get(req.task, 'data.modelData');
 
       req.projectId = get(req.task, 'data.id');
       req.establishmentId = project.establishmentId;
 
-      if (versionId) {
-        url = `/establishment/${req.establishmentId}/project/${req.projectId}/project-version/${versionId}`;
-      } else {
-        url = `/establishment/${req.establishmentId}/project/${req.projectId}/`;
-      }
-
+      url = `/establishment/${req.establishmentId}/project/${req.projectId}`;
       return req.api(url, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
-          req.project = data.project || data;
-          req.version = data;
+          req.project = data;
+        })
+        .then(() => {
+          // if task is a change of PPL holder then load granted version
+          if (action === 'update' && req.project.granted) {
+            versionId = req.project.granted.id;
+          }
+          if (versionId) {
+            return req.api(`${url}/project-version/${versionId}`)
+              .then(({ json: { data } }) => {
+                req.version = data;
+
+              });
+          }
         })
         .then(() => next())
         .catch(next);

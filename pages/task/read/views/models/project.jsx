@@ -11,11 +11,13 @@ import {
   Diff,
   Markdown
 } from '@asl/components';
-import ReviewFields from '@asl/projects/client/components/review-fields';
+
+// need unconnected ReviewFields component and not default
+import { ReviewFields } from '@asl/projects/client/components/review-fields';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 import Deadline from '../components/deadline';
-import { fields } from '../../../../project/update-licence-holder/schema/experience-fields';
+import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
 
 const selector = ({ static: { project, establishment, version, values } }) => ({ project, establishment, version, values });
@@ -251,8 +253,9 @@ export default function Project({ task, schema }) {
           <h2><Snippet>sticky-nav.experience</Snippet></h2>
           <StaticRouter>
             <ReviewFields
-              fields={fields}
+              fields={experience(version).fields}
               values={task.data.meta}
+              project={version.data}
               readonly={true}
               noComments
               altLabels
