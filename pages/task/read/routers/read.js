@@ -31,6 +31,19 @@ module.exports = () => {
       req.establishmentId = project.establishmentId;
 
       url = `/establishment/${req.establishmentId}/project/${req.projectId}`;
+
+      if (action === 'transfer') {
+        // transfers need to fetch only the specific version because the top-level project
+        // may not be visible to the receiving establishment and so may 404
+        return req.api(`${url}/project-version/${versionId}`, { query: { withDeleted: true } })
+          .then(({ json: { data } }) => {
+            req.version = data;
+            req.project = data.project;
+          })
+          .then(() => next())
+          .catch(next);
+      }
+
       return req.api(url, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           req.project = data;
