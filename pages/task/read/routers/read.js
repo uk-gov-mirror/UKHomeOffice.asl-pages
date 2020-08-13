@@ -125,23 +125,6 @@ module.exports = () => {
     const action = req.task.data.action;
     const model = req.task.data.model;
     if (action === 'update' || action === 'delete' || action === 'update-conditions') {
-      // if task is closed, get previous values from task
-      if (!req.task.isOpen) {
-        res.locals.static.values = get(req.task, 'activityLog[0].event.data.modelData');
-
-        if (model === 'establishment') {
-          if (!res.locals.static.values.authorisations) {
-            res.locals.static.values.authorisations = [];
-          }
-        }
-
-        if (model === 'role' && action === 'delete') {
-          // if the task doesn't have the remainingRoles data, flag it so we can hide the list
-          res.locals.static.remainingRoles = get(req.task, 'data.meta.remainingRoles', 'BC_NO_DATA');
-        }
-
-        return next();
-      }
 
       if (model === 'profile' && req.user.profile.id === req.task.data.id) {
         res.locals.static.values = req.user.profile;
@@ -182,6 +165,29 @@ module.exports = () => {
     }
 
     next();
+  });
+
+  app.use((req, res, next) => {
+    const action = req.task.data.action;
+    const model = req.task.data.model;
+    if (action === 'update' || action === 'delete' || action === 'update-conditions') {
+      // if task is closed, get previous values from task
+      if (!req.task.isOpen) {
+        res.locals.static.values = get(req.task, 'activityLog[0].event.data.modelData');
+
+        if (model === 'establishment') {
+          if (!res.locals.static.values.authorisations) {
+            res.locals.static.values.authorisations = [];
+          }
+        }
+
+        if (model === 'role' && action === 'delete') {
+          // if the task doesn't have the remainingRoles data, flag it so we can hide the list
+          res.locals.static.remainingRoles = get(req.task, 'data.meta.remainingRoles', 'BC_NO_DATA');
+        }
+        return next();
+      }
+    }
   });
 
   app.use((req, res, next) => {
