@@ -24,6 +24,19 @@ module.exports = merge({}, baseContent, {
       label: 'Project licence title'
     }
   },
+  errors: {
+    title: {
+      required: 'Enter a course title'
+    },
+    startDate: {
+      required: 'Enter the course start date',
+      validDate: 'Enter a valid date',
+      dateIsAfter: 'Course start date must be in the future.'
+    },
+    projectId: {
+      required: 'Enter the licence number of the training project.'
+    }
+  },
   buttons: {
     cancel: 'Edit'
   }

@@ -6,11 +6,19 @@ module.exports = {
   },
   title: {
     inputType: 'inputText',
-    show: true
+    show: true,
+    validate: [
+      'required'
+    ]
   },
   startDate: {
     inputType: 'inputDate',
-    show: true
+    show: true,
+    validate: [
+      'required',
+      'validDate',
+      { dateIsAfter: 'now' }
+    ]
   },
   species: {
     inputType: 'speciesSelector',
@@ -21,6 +29,9 @@ module.exports = {
     inputType: 'autoComplete',
     accessor: 'project.id',
     options: [],
-    apiPath: 'pils.courses.autocomplete-projects'
+    apiPath: 'pils.courses.autocomplete-projects',
+    validate: [
+      'required'
+    ]
   }
 };
