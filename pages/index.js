@@ -8,7 +8,7 @@ module.exports = {
   project: require('./project'),
   projectVersion: require('./project-version'),
   pil: require('./pil'),
-  pils: require('./pil/list'),
+  unscopedPils: require('./pil/unscoped'),
   task: require('./task'),
   training: require('./training'),
   user: require('./user')

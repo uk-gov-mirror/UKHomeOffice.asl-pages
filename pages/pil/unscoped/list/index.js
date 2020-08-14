@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const { datatable } = require('../../common/routers');
+const { datatable } = require('../../../common/routers');
 const schema = require('./schema');
 
 module.exports = () => {

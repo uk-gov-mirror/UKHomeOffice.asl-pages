@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import classnames from 'classnames';
 import {
   Link,
@@ -7,12 +6,12 @@ import {
   Snippet,
   FilterSummary,
   Datatable,
-  Header,
   Details,
   Inset
 } from '@asl/components';
+import Page from '../../components/page';
 import format from 'date-fns/format';
-import { dateFormat } from '../../../../constants';
+import { dateFormat } from '../../../../../constants';
 
 const formatters = {
   profile: {
@@ -44,13 +43,8 @@ const formatters = {
 };
 
 export default function PilList() {
-  const establishment = useSelector(state => state.static.establishment);
   return (
-    <Fragment>
-      <Header
-        title={<Snippet>title</Snippet>}
-        subtitle={establishment.name}
-      />
+    <Page activeTab="list">
       <Details
         className="margin-bottom"
         summary={<Snippet>details.summary</Snippet>}
@@ -62,6 +56,6 @@ export default function PilList() {
       <Search label={<Snippet>search</Snippet>} />
       <FilterSummary />
       <Datatable formatters={formatters} />
-    </Fragment>
+    </Page>
   );
 }

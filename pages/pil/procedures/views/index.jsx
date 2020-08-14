@@ -37,6 +37,7 @@ const formatters = {
 const Page = () => (
   <FormLayout formatters={formatters}>
     <Header title={<Snippet>pil.procedures.title</Snippet>} />
+    <Inset><Snippet>cat-e</Snippet></Inset>
   </FormLayout>
 );
 

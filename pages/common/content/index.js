@@ -26,7 +26,15 @@ module.exports = {
       revoke: 'Revoke personal licence'
     },
     globalProfile: 'Profile',
-    pils: 'Personal licences',
+    pils: {
+      list: 'Personal licences',
+      courses: {
+        list: 'Training courses',
+        create: 'New training course',
+        read: '{{model.title}}',
+        update: 'Update'
+      }
+    },
     place: {
       read: '{{place.name}}',
       list: 'Approved areas',
