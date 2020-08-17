@@ -33,6 +33,9 @@ module.exports = merge({}, baseContent, {
       validDate: 'Enter a valid date',
       dateIsAfter: 'Course start date must be in the future.'
     },
+    species: {
+      required: 'Please select at least one animal type.'
+    },
     projectId: {
       required: 'Enter the licence number of the training project.'
     }

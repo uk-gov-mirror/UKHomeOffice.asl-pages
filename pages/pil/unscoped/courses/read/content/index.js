@@ -5,6 +5,10 @@ module.exports = merge({}, baseContent, {
   title: 'Manage course participants',
   warning: 'Once you have applied for licences for this course, you will no longer be able to change these details.',
   buttons: {
-    edit: 'Edit'
+    edit: 'Edit',
+    delete: 'Delete'
+  },
+  notifications: {
+    deleted: 'Training course deleted successfully.'
   }
 });

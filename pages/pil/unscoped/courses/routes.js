@@ -3,6 +3,7 @@ const read = require('./read');
 const update = require('./update');
 const list = require('./list');
 const getAutocompleteProjects = require('./routers/get-autocomplete-projects');
+const deleteTrainingCourse = require('./routers/delete-training-course');
 
 module.exports = {
   'autocomplete-projects': {
@@ -20,6 +21,10 @@ module.exports = {
   read: {
     path: '/:trainingCourseId',
     router: read
+  },
+  delete: {
+    path: '/:trainingCourseId/delete',
+    router: deleteTrainingCourse
   },
   update: {
     path: '/:trainingCourseId/edit',

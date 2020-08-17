@@ -22,8 +22,12 @@ module.exports = {
   },
   species: {
     inputType: 'speciesSelector',
+    formatNullValue: true,
     format: toArray,
-    nullValue: []
+    nullValue: [],
+    validate: [
+      'required'
+    ]
   },
   projectId: {
     inputType: 'autoComplete',

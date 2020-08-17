@@ -11,7 +11,7 @@ export default {
   },
   species: {
     format: species => {
-      if (species.length === 0) {
+      if (!species.length === 0) {
         return '-';
       }
       if (species.length === 1) {
