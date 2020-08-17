@@ -15,7 +15,7 @@ module.exports = {
   },
   import: {
     path: '/import',
-    permissions: 'project.apply',
+    permissions: 'project.import',
     router: importProject
   },
   read: {
