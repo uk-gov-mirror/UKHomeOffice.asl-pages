@@ -1,10 +1,12 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
+const trainingFields = require('../../unscoped/courses/content/fields');
 
 module.exports = merge({}, baseContent, {
   title: 'Personal licence',
   pageTitle: 'Personal licence',
   fields: {
+    ...trainingFields,
     licenceNumber: { label: 'Licence number' },
     establishment: { label: 'Establishment' },
     status: { label: 'Status' },
@@ -21,7 +23,7 @@ module.exports = merge({}, baseContent, {
     backToProfile: 'Back to profile',
     revoke: {
       summary: `## Revoke licence
-        Cancel this licence if it is no longer needed.`,
+        Cancel this licence if it is no longer needed. If the licence includes category E, this can be removed by viewing the relevant training course.`,
       button: 'Revoke licence'
     },
     reapply: {
@@ -37,6 +39,16 @@ module.exports = merge({}, baseContent, {
       other: {
         summary: `## Amend or transfer licence
           You can ask for this licence to be amended but only the licence holder can transfer it.`,
+        button: 'Amend licence'
+      },
+      apply: {
+        summary: `## Amend licence
+         You can apply to add categories A, B, C, D, or F to this personal licence`,
+        button: 'Amend licence'
+      },
+      update: {
+        summary: `## Amend licence
+         You add or remove categories A, B, C, D, or F from this personal licence`,
         button: 'Amend licence'
       }
     }

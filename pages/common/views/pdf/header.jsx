@@ -37,7 +37,7 @@ const Header = ({ store, model, licenceType, nonce, version, officialSensitive =
             <Fragment> | Amended: <strong>{format(model.amendedDate)}</strong></Fragment>
           }
 
-          { licenceType === 'pil' && model.status === 'active' &&
+          { licenceType === 'pil' && model.status === 'active' && !model.onlyCatE &&
             <Fragment> | 5 year review: <strong>{format(model.reviewDate)}</strong></Fragment>
           }
 

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
+import ProceduresDiff from '../../procedures/views/diff';
 import { Markdown } from '@asl/components';
 
 const PIL = ({ pil, content }) => {
@@ -19,20 +20,26 @@ const PIL = ({ pil, content }) => {
 
       <Markdown className="legal-preamble">{content.legalPreamble}</Markdown>
 
-      <section className="primary-establishment break">
-        <h2>Primary establishment</h2>
-        {
-          pil.establishment &&
-            <Fragment>
-              <p>{pil.establishment.name}</p>
-              <Markdown>{pil.establishment.address}</Markdown>
-            </Fragment>
-        }
-        {
-          // pil.establishment is not hydrated when user is not at the holding establishment
-          !pil.establishment && <p>This licence is held at another establishment.</p>
-        }
-      </section>
+      {
+        !pil.multipleEstablishments && (
+          <section className="primary-establishment break">
+            <h2>Primary establishment</h2>
+            {
+              pil.establishment &&
+                <Fragment>
+                  <p>{pil.establishment.name}</p>
+                  <Markdown>{pil.establishment.address}</Markdown>
+                </Fragment>
+            }
+            {
+              // pil.establishment is not hydrated when user is not at the holding establishment
+              !pil.establishment && (
+                <p>This licence is held at another establishment.</p>
+              )
+            }
+          </section>
+        )
+      }
 
       <section className="animal-types">
         <h2>Animal types</h2>
@@ -53,18 +60,7 @@ const PIL = ({ pil, content }) => {
         <h2>Procedures</h2>
         {
           hasProcedures ? (
-            pil.procedures.map(procedureCode => (
-              <Fragment key={procedureCode}>
-                <h3 className="procedure-code">{procedureCode}</h3>
-                <p>{content.procedureDefinitions[procedureCode]}</p>
-                { procedureCode === 'F' &&
-                  <Fragment>
-                    <p><strong>Type of regulated procedure:</strong></p>
-                    <p>{pil.notesCatF}</p>
-                  </Fragment>
-                }
-              </Fragment>
-            ))
+            <ProceduresDiff after={pil.procedures} afterPil={pil} />
           ) : (
             <p>None.</p>
           )

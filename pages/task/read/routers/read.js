@@ -73,7 +73,12 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
-    if (req.task.data.action === 'transfer' && req.task.data.model === 'project') {
+    const action = get(req.task, 'data.action');
+    const model = get(req.task, 'data.model');
+    if (action === 'transfer' && model === 'project') {
+      return next();
+    }
+    if (model === 'trainingPil') {
       return next();
     }
     const establishmentId = get(req.task, 'data.model') === 'establishment'

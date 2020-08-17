@@ -2,6 +2,7 @@ const create = require('./create');
 const read = require('./read');
 const update = require('./update');
 const list = require('./list');
+const participants = require('./participants');
 const getAutocompleteProjects = require('./routers/get-autocomplete-projects');
 const deleteTrainingCourse = require('./routers/delete-training-course');
 
@@ -21,6 +22,11 @@ module.exports = {
   read: {
     path: '/:trainingCourseId',
     router: read
+  },
+  participants: {
+    path: '/:trainingCourseId/participants',
+    breadcrumb: false,
+    router: participants
   },
   delete: {
     path: '/:trainingCourseId/delete',

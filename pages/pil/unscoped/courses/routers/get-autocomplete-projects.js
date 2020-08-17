@@ -7,7 +7,6 @@ module.exports = () => {
     const { search } = req.query;
     const query = {
       status: 'active',
-      limit: false,
       search
     };
     req.api(`/establishment/${req.establishmentId}/projects`, { query })

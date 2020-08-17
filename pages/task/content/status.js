@@ -135,7 +135,8 @@ module.exports = {
       amendment: 'Endorse amendment',
       transfer: 'Endorse transfer request',
       review: 'Endorse licence'
-    }
+    },
+    log: 'Endorsed by'
   },
   'inspector-recommended': {
     state: 'Recommendation made',

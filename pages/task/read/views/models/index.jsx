@@ -17,6 +17,7 @@ import Place from './place';
 import Profile from './profile';
 import Project from './project';
 import Role from './role';
+import TrainingPil from './training-pil';
 
 import TaskStatus from '../components/task-status';
 import ActivityLog from '../components/activity-log';
@@ -27,7 +28,8 @@ const models = {
   place: Place,
   profile: Profile,
   project: Project,
-  role: Role
+  role: Role,
+  trainingPil: TrainingPil
 };
 
 const selector = ({ static: { schema, values } }) => ({ schema, values });

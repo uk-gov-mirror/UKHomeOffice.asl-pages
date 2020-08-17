@@ -16,6 +16,10 @@ module.exports = {
     transfer: 'PIL transfer',
     review: 'PIL review'
   },
+  trainingPil: {
+    grant: 'Training PIL application',
+    revoke: 'Training PIL revocation'
+  },
   profile: {
     update: 'Profile amendment'
   },

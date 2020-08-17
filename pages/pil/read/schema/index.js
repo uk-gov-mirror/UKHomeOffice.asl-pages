@@ -1,5 +1,5 @@
 module.exports = {
-  licenceNumber: { show: true },
+  licenceNumber: { show: true, formatNullValue: true },
   establishment: { show: true },
   issueDate: { show: true },
   updatedAt: { show: true },
@@ -7,5 +7,5 @@ module.exports = {
   revocationDate: { show: true },
   species: { show: true },
   procedures: { show: true },
-  conditions: { show: true }
+  conditions: { show: true, formatNullValue: true }
 };

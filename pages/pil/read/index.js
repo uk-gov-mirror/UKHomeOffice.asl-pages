@@ -21,22 +21,25 @@ module.exports = settings => {
   app.get('/', (req, res, next) => {
     if (req.pil.reviewDue && req.pil.status === 'active') {
       res.locals.static.pilReviewRequired = true;
-      res.locals.static.reviewUrl = req.buildRoute('pil.review');
+      res.locals.static.reviewUrl = req.buildRoute('pil.review', { pilId: req.pil.id });
     }
 
     next();
   });
 
-  app.use((req, res, next) => {
+  app.get('/', (req, res, next) => {
     const params = {
-      pilId: req.pilId,
+      pilId: req.pil.id,
+      profileId: req.profileId,
       establishment: req.establishmentId
     };
     Promise.all([
+      req.user.can('pil.create', params),
       req.user.can('pil.update', params),
       req.user.can('pil.pdf', params)
     ])
-      .then(([canUpdate, canDownload]) => {
+      .then(([canApply, canUpdate, canDownload]) => {
+        res.locals.static.canApply = !req.pil.id && canApply;
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.canDownload = canDownload;
       })
@@ -50,7 +53,6 @@ module.exports = settings => {
       res.locals.static.canReapply = !!req.profile.establishments.find(e => e.id === req.model.establishmentId);
     }
     res.locals.static.pil = req.model;
-    res.locals.static.openTask = req.model.openTasks[0];
     res.locals.static.profile = req.profile;
     res.locals.static.currentPath = req.originalUrl;
     res.locals.static.isLicenceHolder = req.user.profile.id === req.profileId;
@@ -60,7 +62,7 @@ module.exports = settings => {
   app.get('/', relatedTasks(req => {
     return {
       model: 'pil',
-      modelId: req.pilId,
+      modelId: req.pil.id,
       establishmentId: req.establishmentId
     };
   }));
@@ -81,7 +83,7 @@ module.exports = settings => {
         data: { conditions }
       }
     };
-    req.api(`/profile/${req.profileId}/pil/${req.pilId}/conditions`, params)
+    req.api(`/profile/${req.profileId}/pil/${req.pil.id}/conditions`, params)
       .then(() => next())
       .catch(next);
   });

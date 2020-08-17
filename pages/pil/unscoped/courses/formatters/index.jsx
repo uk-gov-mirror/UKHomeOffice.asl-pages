@@ -2,16 +2,26 @@ import React from 'react';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 
+const formatDate = date => format(date, dateFormat.long);
+
 export default {
   startDate: {
-    format: date => format(date, dateFormat.long)
+    format: formatDate
+  },
+  expiryDate: {
+    format: formatDate
+  },
+  issueDate: {
+    format: formatDate
   },
   projectId: {
-    format: (id, values) => values.project.licenceNumber
+    format: (id, values) => {
+      return values.project && values.project.licenceNumber;
+    }
   },
   species: {
     format: species => {
-      if (!species.length === 0) {
+      if (!species || species.length === 0) {
         return '-';
       }
       if (species.length === 1) {

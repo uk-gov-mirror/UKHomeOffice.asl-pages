@@ -484,6 +484,10 @@ details {
   }
 }
 
+dl.inline dd .procedures-diff ul {
+  padding: 0;
+}
+
 .procedures-diff {
   margin: $govuk-gutter 0;
 

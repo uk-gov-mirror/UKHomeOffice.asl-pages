@@ -52,6 +52,9 @@ const Index = ({
 
   const taskType = model.status === 'pending' ? 'application' : 'amendment';
 
+  const beforeProcs = pil.procedures.map(p => ({ key: p }));
+  const afterProcs = model.procedures.map(p => ({ key: p }));
+
   const sections = [
     {
       name: 'details',
@@ -71,7 +74,7 @@ const Index = ({
       page: 'pil.update.procedures',
       removeLink: false,
       models: model.procedures || [],
-      template: <ProceduresDiff before={pil} after={model} taskType={taskType} />,
+      template: <ProceduresDiff before={beforeProcs} after={afterProcs} taskType={taskType} beforePil={pil} afterPil={model} />,
       addOrEdit: 'edit',
       completed: model.procedures && model.procedures.length > 0
     },
