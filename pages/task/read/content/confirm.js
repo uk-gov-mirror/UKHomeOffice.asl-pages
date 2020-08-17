@@ -26,5 +26,16 @@ module.exports = merge({}, baseContent, {
          have financial responsibility for this personal licence if granted.`,
       project: 'By endorsing this application, I confirm that I have the consent of the Establishment Licence holder'
     }
+  },
+  errors: {
+    awerb: {
+      required: 'Select an option'
+    },
+    'awerb-review-date': {
+      customValidate: 'Please provide the AWERB review date(s)'
+    },
+    'awerb-no-review-reason': {
+      customValidate: 'Please explain why there was no AWERB review'
+    }
   }
 });
