@@ -25,5 +25,6 @@ module.exports = {
   },
   buttons: {
     submit: 'Continue'
-  }
+  },
+  'cat-e': 'To apply for category E, contact the course provider.'
 };

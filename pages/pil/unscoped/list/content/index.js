@@ -1,5 +1,7 @@
-module.exports = {
-  title: 'Personal licences',
+const { merge } = require('lodash');
+const baseContent = require('../../content');
+
+module.exports = merge({}, baseContent, {
   details: {
     summary: 'Personal licence reviews',
     content: `Personal licences must be reviewed every 5 years to confirm they are still in use and up to date. The licence holder or an admin can complete a review.
@@ -24,4 +26,4 @@ module.exports = {
       label: 'Review status'
     }
   }
-};
+});

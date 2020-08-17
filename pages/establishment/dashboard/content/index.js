@@ -16,7 +16,8 @@ module.exports = {
       }
     },
     pils: {
-      subtitle: 'All personal licences held at this establishment.'
+      subtitle: 'All personal licences held at this establishment.',
+      'training-subtitle': 'Apply for category E licences for course participants and view all other personal licences held at this establishment.'
     },
     place: {
       list: {
