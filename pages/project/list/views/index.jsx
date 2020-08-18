@@ -51,7 +51,7 @@ const Projects = ({
     }
 
     {
-      allowedActions.includes('project.apply') && (
+      allowedActions.includes('project.import') && (
         <div className="control-panel projects-actions">
           <form method="POST" action="projects/create">
             <Button><Snippet>buttons.create</Snippet></Button>

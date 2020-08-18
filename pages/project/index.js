@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const { get } = require('lodash');
+const bodyParser = require('body-parser');
 const routes = require('./routes');
 const { validateUuidParam } = require('../common/middleware');
 
@@ -26,8 +28,19 @@ module.exports = settings => {
       .catch(next);
   });
 
+  app.post('/create', bodyParser.urlencoded({ extended: true }));
+
   app.post('/create', (req, res, next) => {
-    req.api(`/establishment/${req.establishmentId}/projects`, { method: 'POST' })
+    const opts = {
+      method: 'POST',
+      json: {
+        data: {
+          licenceHolderId: get(req.body, 'licenceHolderId', req.user.profile.id)
+        }
+      }
+    };
+
+    req.api(`/establishment/${req.establishmentId}/projects`, opts)
       .then(({ json: { data } }) => {
         req.projectId = data.data.id;
 

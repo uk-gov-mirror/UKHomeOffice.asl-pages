@@ -116,8 +116,9 @@ class Profile extends React.Component {
                   />
               }
               {
-                isOwnProfile && (
+                (isOwnProfile || allowedActions.includes('project.create')) && (
                   <form method='POST' action={`/establishments/${estId}/projects/create`}>
+                    <input type="hidden" name="licenceHolderId" value={id} />
                     <p className="control-panel">
                       <Button className='govuk-button button-secondary add-margin'>
                         <Snippet>buttons.pplApply</Snippet>
