@@ -28,7 +28,7 @@ module.exports = merge({}, baseContent, {
       }
     },
     endorsed: {
-      state: 'Awaiting review',
+      state: 'Awaiting decision',
       hint: {
         application: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this application.',
         amendment: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this amendment.',
