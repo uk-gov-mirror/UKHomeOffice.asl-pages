@@ -5,14 +5,6 @@ import { Link, Snippet, Markdown } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
 
-const getStatusBadge = status => {
-  const good = ['resolved'];
-  const bad = ['rejected', 'withdrawn'];
-  const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
-
-  return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
-};
-
 const getProfileLink = ({ id, name, establishmentId, asruUser }) => {
   if (establishmentId && !asruUser) {
     return <Link page="profile.read" profileId={id} establishmentId={establishmentId} label={name} />;
@@ -63,7 +55,6 @@ const LogItem = ({ log, task }) => {
   return (
     <div className="log-item">
       <span className="date">{format(log.createdAt, dateFormat.long)}</span>
-      {getStatusBadge(status)}
       {getAuthor(log.changedBy, action, status, task)}
       {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}
       {
