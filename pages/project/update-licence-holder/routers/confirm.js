@@ -3,7 +3,6 @@ const { get, omit, merge } = require('lodash');
 const form = require('../../../common/routers/form');
 const experienceFields = require('../schema/experience-fields');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
-const { getGrantedVersion } = require('../../../project-version/middleware');
 
 const sendData = (req, params = {}) => {
   const values = get(req.session, `form.${req.model.id}.values`);
@@ -28,7 +27,9 @@ module.exports = () => {
   app.use(form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     configure(req, res, next) {
-      getGrantedVersion(req)
+      const versionId = req.project.status === 'inactive' ? req.project.draft.id : req.project.granted.id;
+      return req.api(`/establishment/${req.establishmentId}/projects/${req.project.id}/project-versions/${versionId}`)
+        .then(({ json: { data } }) => data)
         .then(version => {
           req.form.experienceFields = experienceFields(version);
         })
