@@ -18,6 +18,7 @@ module.exports = {
     }
   },
   'sticky-nav': {
+    status: 'Status',
     activity: 'Latest activity',
     establishment: 'Establishment details',
     comments: {
@@ -26,7 +27,7 @@ module.exports = {
       revocation: 'Reason for revocation',
       review: 'Comments'
     },
-    status: 'What do you want to do?',
+    'next-steps': 'What do you want to do?',
     conditions: 'Additional conditions'
   },
   activityLog: {

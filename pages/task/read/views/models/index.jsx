@@ -18,6 +18,7 @@ import Profile from './profile';
 import Project from './project';
 import Role from './role';
 
+import TaskStatus from '../components/task-status';
 import ActivityLog from '../components/activity-log';
 
 const models = {
@@ -62,6 +63,10 @@ export default function Model({ task, formFields, allowSubmit }) {
 
   return (
     <StickyNavPage>
+      <StickyNavAnchor id="status">
+        <TaskStatus task={task} />
+      </StickyNavAnchor>
+
       <StickyNavAnchor id="activity">
         <ActivityLog task={task} />
       </StickyNavAnchor>
@@ -80,8 +85,8 @@ export default function Model({ task, formFields, allowSubmit }) {
       }
       {
         hasNextSteps &&
-          <StickyNavAnchor id="status">
-            <h2><Snippet>sticky-nav.status</Snippet></h2>
+          <StickyNavAnchor id="next-steps">
+            <h2><Snippet>sticky-nav.next-steps</Snippet></h2>
             <p><Snippet>make-decision.hint</Snippet></p>
             {
               endorsingOwnPil && <Warning><Snippet>warning.ntcoOwnPil</Snippet></Warning>
