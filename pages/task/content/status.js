@@ -14,7 +14,7 @@ module.exports = {
     log: 'Extended by'
   },
   'with-licensing': {
-    state: 'Awaiting review',
+    state: 'Awaiting decision',
     log: 'Submitted by',
     currentlyWith: 'Currently with: Home Office Licensing Officer'
   },
@@ -104,7 +104,7 @@ module.exports = {
     currentlyWith: 'Currently with: Named Training and Competency Officer'
   },
   'ntco-endorsed': {
-    state: 'Awaiting review',
+    state: 'Awaiting decision',
     action: {
       application: 'Endorse application',
       amendment: 'Endorse amendment',
