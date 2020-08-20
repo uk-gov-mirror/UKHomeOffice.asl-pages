@@ -14,7 +14,7 @@ module.exports = {
     log: 'Extended by'
   },
   'with-licensing': {
-    state: 'Awaiting review',
+    state: 'Awaiting decision',
     log: 'Submitted by'
   },
   'with-inspectorate': {
@@ -98,7 +98,7 @@ module.exports = {
     log: 'Submitted by'
   },
   'ntco-endorsed': {
-    state: 'Awaiting review',
+    state: 'Awaiting decision',
     action: {
       application: 'Endorse application',
       amendment: 'Endorse amendment',
