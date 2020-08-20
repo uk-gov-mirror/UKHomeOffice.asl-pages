@@ -32,15 +32,30 @@ const getRecommendation = status => {
 };
 
 const ExtraProjectMeta = ({ item, task }) => {
-  const status = item.event.status;
-  if (status !== 'with-inspectorate' && status !== 'resubmitted') {
+  if (item.id === task.activityLog[0].id) {
+    return null; // don't show on latest activity
+  }
+
+  if (!['awaiting-endorsement', 'resubmitted'].includes(item.event.status)) {
     return null;
+
   }
   const versionId = get(item, 'event.data.data.version');
   if (!versionId) {
     return null;
   }
-  return <p><Link page="projectVersion" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
+
+  return (
+    <p>
+      <Link
+        page="projectVersion"
+        versionId={versionId}
+        establishmentId={task.data.establishmentId}
+        projectId={task.data.id}
+        label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
+      />
+    </p>
+  );
 };
 
 const LogItem = ({ log, task }) => {
