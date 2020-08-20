@@ -4,7 +4,6 @@ const form = require('../../../common/routers/form');
 const getSchema = require('../schema');
 const experienceFields = require('../schema/experience-fields');
 const { hydrate } = require('../../../common/middleware');
-const { getGrantedVersion } = require('../../../project-version/middleware');
 
 module.exports = () => {
   const app = Router();
@@ -13,12 +12,17 @@ module.exports = () => {
 
   app.use(form({
     configure(req, res, next) {
+      const versionId = req.project.status === 'inactive' ? req.project.draft.id : req.project.granted.id;
       const getProfiles = () => {
         return req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
           .then(({ json: { data } }) => data);
       };
+      const getProjectVersion = () => {
+        return req.api(`/establishment/${req.establishmentId}/projects/${req.project.id}/project-versions/${versionId}`)
+          .then(({ json: { data } }) => data);
+      };
       req.model.licenceHolderId = '';
-      Promise.all([getProfiles(), getGrantedVersion(req)])
+      Promise.all([getProfiles(), getProjectVersion()])
         .then(([profiles, version]) => {
           req.form.schema = getSchema(profiles);
           req.form.experienceFields = experienceFields(version);
