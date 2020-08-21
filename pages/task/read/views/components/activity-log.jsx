@@ -34,7 +34,7 @@ const getRecommendation = status => {
 const actionPerformedByAdmin = item => {
   const establishmentId = get(item, 'event.data.establishmentId');
   const profile = get(item, 'event.meta.user.profile');
-  return profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
+  return !!profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
 };
 
 const ExtraProjectMeta = ({ item, task }) => {
