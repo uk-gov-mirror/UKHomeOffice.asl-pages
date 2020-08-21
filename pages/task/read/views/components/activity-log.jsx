@@ -31,15 +31,23 @@ const getRecommendation = status => {
   return <p><Snippet>{`status.${status}.recommendation`}</Snippet></p>;
 };
 
+const actionPerformedByAdmin = item => {
+  const establishmentId = get(item, 'event.data.establishmentId');
+  const profile = get(item, 'event.meta.user.profile');
+  return profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
+};
+
 const ExtraProjectMeta = ({ item, task }) => {
   if (item.id === task.activityLog[0].id) {
-    return null; // don't show on latest activity
+    return null; // don't show for latest activity
   }
 
-  if (!['awaiting-endorsement', 'resubmitted'].includes(item.event.status)) {
+  const resubmittedByAdmin = item.event.status === 'resubmitted' && actionPerformedByAdmin(item);
+
+  if (item.event.status !== 'endorsed' && !resubmittedByAdmin) {
     return null;
-
   }
+
   const versionId = get(item, 'event.data.data.version');
   if (!versionId) {
     return null;
@@ -68,7 +76,7 @@ const LogItem = ({ log, task }) => {
   }
 
   return (
-    <div className="log-item">
+    <div className="log-item" id={log.id}>
       <span className="date">{format(log.createdAt, dateFormat.long)}</span>
       {getAuthor(log.changedBy, action, status, task)}
       {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}
