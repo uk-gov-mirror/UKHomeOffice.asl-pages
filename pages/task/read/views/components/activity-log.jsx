@@ -38,32 +38,32 @@ const actionPerformedByAdmin = item => {
 };
 
 const ExtraProjectMeta = ({ item, task }) => {
-  if (item.id === task.activityLog[0].id) {
-    return null; // don't show for latest activity
-  }
-
-  const resubmittedByAdmin = item.event.status === 'resubmitted' && actionPerformedByAdmin(item);
-
-  if (item.event.status !== 'endorsed' && !resubmittedByAdmin) {
-    return null;
-  }
-
+  const mostRecentActivity = item.id === task.activityLog[0].id;
   const versionId = get(item, 'event.data.data.version');
-  if (!versionId) {
+  const status = get(item, 'event.status');
+  const isEndorsed = get(item, 'event.data.meta.authority', '').toLowerCase() === 'yes';
+  const isAwerbed = get(item, 'event.data.meta.awerb', '').toLowerCase() === 'yes';
+  const requiresAdminInteraction = !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
+
+  if (mostRecentActivity || !versionId) {
     return null;
   }
 
-  return (
-    <p>
-      <Link
-        page="projectVersion"
-        versionId={versionId}
-        establishmentId={task.data.establishmentId}
-        projectId={task.data.id}
-        label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
-      />
-    </p>
-  );
+  if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
+    return (
+      <p>
+        <Link
+          page="projectVersion"
+          versionId={versionId}
+          establishmentId={task.data.establishmentId}
+          projectId={task.data.id}
+          label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
+        />
+      </p>
+    );
+  }
+
+  return null;
 };
 
 const LogItem = ({ log, task }) => {
