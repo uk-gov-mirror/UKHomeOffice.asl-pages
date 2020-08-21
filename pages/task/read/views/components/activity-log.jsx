@@ -1,35 +1,36 @@
 import React, { Fragment, useState } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import { Link, Snippet, Markdown } from '@asl/components';
+import { Link, Snippet, Markdown, Inset } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
 
-const getProfileLink = ({ id, name, establishmentId, asruUser }) => {
+function ProfileLink({ id, name, establishmentId, asruUser }) {
   if (establishmentId && !asruUser) {
     return <Link page="profile.read" profileId={id} establishmentId={establishmentId} label={name} />;
   } else {
     return <Link page="globalProfile" profileId={id} label={name} />;
   }
-};
+}
 
-const getAuthor = (changedBy, action, status, task) => {
+function Action({ task, action, changedBy }) {
   const type = task.type;
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
   return (
     <p>
       <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
       <strong>: </strong>
-      {
-        getProfileLink({ id: changedBy.id, name, establishmentId: task.data.establishmentId, asruUser: changedBy.asruUser })
-      }
+      <ProfileLink id={changedBy.id} name={name} establishmentId={task.data.establishmentId} asruUser={changedBy.asruUser} />
     </p>
   );
-};
+}
 
-const getRecommendation = status => {
+function InspectorRecommendation({ status }) {
+  if (status !== 'inspector-recommended' || status !== 'inspector-rejected') {
+    return null;
+  }
   return <p><Snippet>{`status.${status}.recommendation`}</Snippet></p>;
-};
+}
 
 const actionPerformedByAdmin = item => {
   const establishmentId = get(item, 'event.data.establishmentId');
@@ -37,7 +38,7 @@ const actionPerformedByAdmin = item => {
   return !!profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
 };
 
-const ExtraProjectMeta = ({ item, task }) => {
+function ExtraProjectMeta({ item, task }) {
   const mostRecentActivity = item.id === task.activityLog[0].id;
   const versionId = get(item, 'event.data.data.version');
   const status = get(item, 'event.status');
@@ -64,9 +65,20 @@ const ExtraProjectMeta = ({ item, task }) => {
   }
 
   return null;
-};
+}
 
-const LogItem = ({ log, task }) => {
+function Comment({ changedBy, comment }) {
+  return (
+    <div className="comment">
+      <p className="author">{`${changedBy.firstName} ${changedBy.lastName} commented:`}</p>
+      <Inset>
+        <Markdown className="content">{comment}</Markdown>
+      </Inset>
+    </div>
+  );
+}
+
+function LogItem({ log, task }) {
   const isExtension = get(log, 'event.meta.payload.data.extended');
   let { action, status } = log;
 
@@ -78,15 +90,13 @@ const LogItem = ({ log, task }) => {
   return (
     <div className="log-item" id={log.id}>
       <span className="date">{format(log.createdAt, dateFormat.long)}</span>
-      {getAuthor(log.changedBy, action, status, task)}
-      {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}
-      {
-        task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} />
-      }
-      <Markdown className="comment">{log.comment}</Markdown>
+      <Action task={task} action={action} changedBy={log.changedBy} />
+      <InspectorRecommendation status={status} />
+      <Comment changedBy={log.changedBy} comment={log.comment} />
+      { task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} /> }
     </div>
   );
-};
+}
 
 export default function ActivityLog({ task }) {
   const [open, setOpen] = useState(false);
