@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
+import PplDeclarations from './ppl-declarations';
 
 function ProfileLink({ id, name, establishmentId, asruUser }) {
   if (establishmentId && !asruUser) {
@@ -52,15 +53,18 @@ function ExtraProjectMeta({ item, task }) {
 
   if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
     return (
-      <p>
-        <Link
-          page="projectVersion"
-          versionId={versionId}
-          establishmentId={task.data.establishmentId}
-          projectId={task.data.id}
-          label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
-        />
-      </p>
+      <Fragment>
+        <PplDeclarations task={item.event} />
+        <p>
+          <Link
+            page="projectVersion"
+            versionId={versionId}
+            establishmentId={task.data.establishmentId}
+            projectId={task.data.id}
+            label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
+          />
+        </p>
+      </Fragment>
     );
   }
 

@@ -3,27 +3,18 @@ import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
 import pick from 'lodash/pick';
 import get from 'lodash/get';
-import isUndefined from 'lodash/isUndefined';
-import {
-  Link,
-  StickyNavAnchor,
-  Snippet,
-  Diff,
-  Markdown
-} from '@asl/components';
+import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
 
 // need unconnected ReviewFields component and not default
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 import Deadline from '../components/deadline';
+import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
 
 const selector = ({ static: { project, establishment, version, values } }) => ({ project, establishment, version, values });
-
-// declarations can be 'Yes', 'No', or 'Not yet'
-const declarationConfirmed = declaration => declaration && declaration.toLowerCase() === 'yes';
 
 function EstablishmentDiff({ task }) {
   const isComplete = !task.isOpen;
@@ -61,12 +52,10 @@ function EstablishmentDiff({ task }) {
 export default function Project({ task, schema }) {
   const { project, establishment, version, values } = useSelector(selector, shallowEqual);
   const declarations = task.data.meta;
-  const isAmendment = task.type === 'amendment';
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
 
   const isComplete = !task.isOpen;
-
   const showDeclarations = declarations.authority || declarations.awerb;
 
   const formatters = {
@@ -133,42 +122,8 @@ export default function Project({ task, schema }) {
             />
           </p>
           {
-            task.status === 'with-inspectorate' && showDeclarations && (
-              <Fragment>
-                <p><strong><Snippet>declarations.pel-holder.question</Snippet></strong></p>
-                <p>{declarations.authority}</p>
-
-                <p><strong><Snippet>declarations.awerb.question</Snippet></strong></p>
-                <p>{declarations.awerb}</p>
-                {
-                  declarationConfirmed(declarations.awerb) &&
-                    <Fragment>
-                      <p>
-                        <strong><Snippet>declarations.awerb.review-date</Snippet></strong>
-                      </p>
-                      <Markdown>{declarations['awerb-review-date']}</Markdown>
-                    </Fragment>
-                }
-                {
-                  // we don't collect a reason for 'Not yet'
-                  declarations.awerb && declarations.awerb.toLowerCase() === 'no' &&
-                    <Fragment>
-                      <p>
-                        <strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong>
-                      </p>
-                      <Markdown>{declarations['awerb-no-review-reason']}</Markdown>
-                    </Fragment>
-                }
-
-                {
-                  !isAmendment && !isUndefined(declarations.ready) &&
-                    <Fragment>
-                      <p><strong><Snippet>declarations.ready-for-inspector.question</Snippet></strong></p>
-                      <p>{declarations.ready}</p>
-                    </Fragment>
-                }
-              </Fragment>
-            )
+            task.status === 'with-inspectorate' && showDeclarations &&
+              <PplDeclarations task={task} />
           }
         </StickyNavAnchor>
       )

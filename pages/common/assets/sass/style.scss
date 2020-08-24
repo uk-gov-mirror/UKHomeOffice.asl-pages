@@ -132,6 +132,16 @@ dl.continuation {
       float: right;
     }
   }
+
+  .declarations {
+    p {
+      margin: 0;
+
+      &.question {
+        margin-top: $govuk-gutter-half;
+      }
+    }
+  }
 }
 
 .preserve-whitespace {
@@ -505,5 +515,13 @@ details {
 
   td {
     vertical-align: top;
+  }
+}
+
+#submitted-version {
+  .declarations {
+    .question span {
+      font-weight: bold;
+    }
   }
 }
