@@ -31,16 +31,39 @@ const getRecommendation = status => {
   return <p><Snippet>{`status.${status}.recommendation`}</Snippet></p>;
 };
 
+const actionPerformedByAdmin = item => {
+  const establishmentId = get(item, 'event.data.establishmentId');
+  const profile = get(item, 'event.meta.user.profile');
+  return !!profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
+};
+
 const ExtraProjectMeta = ({ item, task }) => {
-  const status = item.event.status;
-  if (status !== 'with-inspectorate' && status !== 'resubmitted') {
-    return null;
-  }
+  const mostRecentActivity = item.id === task.activityLog[0].id;
   const versionId = get(item, 'event.data.data.version');
-  if (!versionId) {
+  const status = get(item, 'event.status');
+  const isEndorsed = get(item, 'event.data.meta.authority', '').toLowerCase() === 'yes';
+  const isAwerbed = get(item, 'event.data.meta.awerb', '').toLowerCase() === 'yes';
+  const requiresAdminInteraction = !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
+
+  if (mostRecentActivity || !versionId) {
     return null;
   }
-  return <p><Link page="projectVersion" versionId={versionId} establishmentId={task.data.establishmentId} projectId={task.data.id} label="View this version"/></p>;
+
+  if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
+    return (
+      <p>
+        <Link
+          page="projectVersion"
+          versionId={versionId}
+          establishmentId={task.data.establishmentId}
+          projectId={task.data.id}
+          label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
+        />
+      </p>
+    );
+  }
+
+  return null;
 };
 
 const LogItem = ({ log, task }) => {
@@ -53,7 +76,7 @@ const LogItem = ({ log, task }) => {
   }
 
   return (
-    <div className="log-item">
+    <div className="log-item" id={log.id}>
       <span className="date">{format(log.createdAt, dateFormat.long)}</span>
       {getAuthor(log.changedBy, action, status, task)}
       {(status === 'inspector-recommended' || status === 'inspector-rejected') && getRecommendation(status)}

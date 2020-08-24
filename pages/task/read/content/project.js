@@ -58,5 +58,6 @@ module.exports = {
     'ready-for-inspector': {
       question: 'Has an inspector advised that this version of the draft application is ready for assessment?'
     }
-  }
+  },
+  viewVersionLink: 'View this version ({{date}})'
 };
