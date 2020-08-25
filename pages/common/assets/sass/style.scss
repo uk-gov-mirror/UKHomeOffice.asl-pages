@@ -124,17 +124,22 @@ dl.continuation {
   }
 
   .log-item {
-
-    .comment {
-      padding-bottom: $govuk-gutter-half;
-    }
-
     .role {
       font-weight: bold;
     }
 
     .date {
       float: right;
+    }
+  }
+
+  .declarations {
+    p {
+      margin: 0;
+
+      &.question {
+        margin-top: $govuk-gutter-half;
+      }
     }
   }
 }
@@ -510,5 +515,13 @@ details {
 
   td {
     vertical-align: top;
+  }
+}
+
+#submitted-version {
+  .declarations {
+    .question span {
+      font-weight: bold;
+    }
   }
 }
