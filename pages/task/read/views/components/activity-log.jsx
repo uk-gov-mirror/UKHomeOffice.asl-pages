@@ -72,7 +72,7 @@ function ExtraProjectMeta({ item, task }) {
 }
 
 function Comment({ changedBy, comment }) {
-  return (
+  return comment && (
     <div className="comment">
       <p className="author">{`${changedBy.firstName} ${changedBy.lastName} commented:`}</p>
       <Inset>
