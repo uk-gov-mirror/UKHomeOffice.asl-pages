@@ -39,6 +39,15 @@ const actionPerformedByAdmin = item => {
   return !!profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
 };
 
+function DeadlineDetails({ item, task }) {
+  return (
+    <Fragment>
+      <p><strong><Snippet>deadlineExtension.from</Snippet></strong><span>{item.originalDeadline}</span></p>
+      <p><strong><Snippet>deadlineExtension.to</Snippet></strong><span>{item.deadline}</span></p>
+    </Fragment>
+  );
+}
+
 function ExtraProjectMeta({ item, task }) {
   const mostRecentActivity = item.id === task.activityLog[0].id;
   const versionId = get(item, 'event.data.data.version');
@@ -96,6 +105,7 @@ function LogItem({ log, task }) {
       <span className="date">{format(log.createdAt, dateFormat.long)}</span>
       <Action task={task} action={action} changedBy={log.changedBy} />
       <InspectorRecommendation status={status} />
+      { isExtension && <DeadlineDetails item={log} /> }
       <Comment changedBy={log.changedBy} comment={log.comment} />
       { task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} /> }
     </div>

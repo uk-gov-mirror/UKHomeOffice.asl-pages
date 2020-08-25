@@ -11,7 +11,7 @@ module.exports = {
   },
   'deadline-extended': {
     state: 'Deadline extended',
-    log: 'Extended by'
+    log: 'Deadline for decision extended by'
   },
   'with-licensing': {
     state: 'Awaiting decision',
@@ -220,7 +220,7 @@ module.exports = {
   },
   'deadline-extension': {
     state: 'Deadline extended',
-    log: 'Extended by'
+    log: 'Deadline for decision extended by'
   },
   updated: {
     state: 'Resubmitted',

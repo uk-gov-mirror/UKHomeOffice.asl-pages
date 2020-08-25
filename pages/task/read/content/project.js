@@ -59,5 +59,9 @@ module.exports = {
       question: 'Has an inspector advised that this version of the draft application is ready for assessment?'
     }
   },
-  viewVersionLink: 'View this version ({{date}})'
+  viewVersionLink: 'View this version ({{date}})',
+  deadlineExtension: {
+    from: 'Deadline extended from: ',
+    to: 'Deadline extended to: '
+  }
 };
