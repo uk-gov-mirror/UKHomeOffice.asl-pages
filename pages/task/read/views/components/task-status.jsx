@@ -8,8 +8,7 @@ const getStatusBadge = status => {
   const good = ['resolved'];
   const bad = ['rejected', 'withdrawn'];
   const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
-
-  return <p><span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span></p>;
+  return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
 };
 
 export default function TaskStatus({ task }) {
@@ -35,8 +34,10 @@ export default function TaskStatus({ task }) {
   return (
     <div className="task-status">
       <h2><Snippet>sticky-nav.status</Snippet></h2>
-      {getStatusBadge(status)}
-      <p><Snippet optional>{snippetContent}</Snippet></p>
+      <p>
+        {getStatusBadge(status)}
+        <span className="currently-with"><Snippet optional>{snippetContent}</Snippet></span>
+      </p>
       { model === 'project' && <Deadline task={task} /> }
     </div>
   );

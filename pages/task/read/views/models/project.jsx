@@ -50,12 +50,10 @@ function EstablishmentDiff({ task }) {
 
 export default function Project({ task }) {
   const { project, establishment, version, values } = useSelector(selector, shallowEqual);
-  const declarations = task.data.meta;
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
 
   const isComplete = !task.isOpen;
-  const showDeclarations = declarations.authority || declarations.awerb;
 
   const formatters = {
     licenceHolder: {
@@ -109,7 +107,9 @@ export default function Project({ task }) {
       (task.data.action === 'grant' || task.data.action === 'transfer') && (
         <StickyNavAnchor id="submitted-version" key="submitted-version">
           <h2><Snippet>sticky-nav.submitted-version</Snippet></h2>
-          <p><Snippet type={task.type}>versions.submitted.hint</Snippet></p>
+          {
+            task.status === 'with-inspectorate' && <PplDeclarations task={task} />
+          }
           <p>
             <Link
               page="projectVersion"
@@ -120,10 +120,6 @@ export default function Project({ task }) {
               label={<Snippet>versions.submitted.label</Snippet>}
             />
           </p>
-          {
-            task.status === 'with-inspectorate' && showDeclarations &&
-              <PplDeclarations task={task} />
-          }
         </StickyNavAnchor>
       )
     ),

@@ -50,10 +50,10 @@ function DeadlineDetails({ item }) {
   return (
     <Fragment>
       <p>
-        <strong><Snippet>deadlineExtension.from</Snippet></strong> <span>{format(standardDeadline, dateFormat.long)}</span>
+        <strong><Snippet>deadline.extension.from</Snippet></strong> <span>{format(standardDeadline, dateFormat.long)}</span>
       </p>
       <p>
-        <strong><Snippet>deadlineExtension.to</Snippet></strong> <span>{format(extendedDeadline, dateFormat.long)}</span>
+        <strong><Snippet>deadline.extension.to</Snippet></strong> <span>{format(extendedDeadline, dateFormat.long)}</span>
       </p>
     </Fragment>
   );

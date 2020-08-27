@@ -16,13 +16,13 @@ module.exports = {
   'with-licensing': {
     state: 'Awaiting decision',
     log: 'Submitted by',
-    currentlyWith: 'Currently with: Home Office Licensing Officer'
+    currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
   'with-inspectorate': {
     state: 'Awaiting recommendation',
     action: 'Refer to inspector',
     log: 'Submitted by',
-    currentlyWith: 'Currently with: Home Office Inspector'
+    currentlyWith: '**Currently with:** Home Office Inspector'
   },
   'referred-to-inspector': {
     state: 'Awaiting recommendation',
@@ -34,7 +34,7 @@ module.exports = {
       transfer: 'The transfer request will be sent to an inspector for assessment.'
     },
     log: 'Referred by',
-    currentlyWith: 'Currently with: Home Office Inspector'
+    currentlyWith: '**Currently with:** Home Office Inspector'
   },
   'returned-to-applicant': {
     state: 'Returned',
@@ -47,7 +47,7 @@ module.exports = {
       review: 'The review request will be returned to the applicant with your comments.'
     },
     log: 'Returned by',
-    currentlyWith: 'Currently with: Applicant'
+    currentlyWith: '**Currently with:** Applicant'
   },
   'recalled-by-applicant': {
     state: 'Recalled',
@@ -62,7 +62,7 @@ module.exports = {
       default: 'The task will be returned and can be edited.'
     },
     log: 'Recalled by',
-    currentlyWith: 'Currently with: Applicant'
+    currentlyWith: '**Currently with:** Applicant'
   },
   'discarded-by-applicant': {
     state: 'Discarded',
@@ -101,7 +101,7 @@ module.exports = {
   'with-ntco': {
     state: 'Awaiting endorsement',
     log: 'Submitted by',
-    currentlyWith: 'Currently with: Named Training and Competency Officer'
+    currentlyWith: '**Currently with:** Named Training and Competency Officer'
   },
   'ntco-endorsed': {
     state: 'Awaiting decision',
@@ -116,15 +116,15 @@ module.exports = {
       transfer: 'You confirm that the applicant holds the necessary training or experience to carry out the categories of procedures listed in this transfer request.'
     },
     log: 'Endorsed by',
-    currentlyWith: 'Currently with: Home Office Licensing Officer'
+    currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
   // TODO: content
   'awaiting-endorsement': {
     state: 'Awaiting endorsement',
     log: 'Submitted by',
     currentlyWith: {
-      pil: 'Currently with: Named Training and Competency Officer',
-      project: 'Currently with: Establishment Admin'
+      pil: '**Currently with:** Named Training and Competency Officer',
+      project: '**Currently with:** Establishment Admin'
     }
   },
   // TODO: content
@@ -148,7 +148,7 @@ module.exports = {
     },
     log: 'Recommended by',
     recommendation: '**Recommendation:** Approve',
-    currentlyWith: 'Currently with: Home Office Licensing Officer'
+    currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
   'inspector-rejected': {
     state: 'Recommendation made',
@@ -161,7 +161,7 @@ module.exports = {
     },
     log: 'Recommended by',
     recommendation: '**Recommendation:**  Reject',
-    currentlyWith: 'Currently with: Home Office Licensing Officer'
+    currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
   resubmitted: {
     state: 'Submitted',

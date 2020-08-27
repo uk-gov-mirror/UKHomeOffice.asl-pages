@@ -34,8 +34,7 @@ module.exports = {
       info: 'Read the version of this project licence that is currently active'
     },
     submitted: {
-      label: 'View latest submission',
-      hint: 'This is the {{type}} that has been submitted for approval.'
+      label: 'View latest submission'
     }
   },
   establishment: {
@@ -46,22 +45,25 @@ module.exports = {
   },
   declarations: {
     'pel-holder': {
-      question: 'Does this application have the endorsement of your primary establishment\'s PEL holder?',
+      question: 'PEL holder approval:',
       name: 'PEL Holder:',
       'endorsement-date': 'Endorsement date: '
     },
     'awerb': {
-      question: 'Has the application been reviewed by the AWERB of each relevant establishment?',
+      question: 'AWERB approval:',
       'review-date': 'AWERB review date:',
-      'no-review-reason': 'Why has this amendment not been reviewed by the AWERB of each relevant establishment?'
+      'no-review-reason': 'Reason for no review:'
     },
     'ready-for-inspector': {
-      question: 'Has an inspector advised that this version of the draft application is ready for assessment?'
+      question: 'Inspector approval:'
     }
   },
   viewVersionLink: 'View this version ({{date}})',
-  deadlineExtension: {
-    from: 'Deadline extended from: ',
-    to: 'Deadline extended to: '
+  deadline: {
+    title: 'Deadline for decision: ',
+    extension: {
+      from: 'Deadline extended from: ',
+      to: 'Deadline extended to: '
+    }
   }
 };

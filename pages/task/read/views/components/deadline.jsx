@@ -11,9 +11,13 @@ export default function Deadline({ task }) {
   const deadline = get(task, 'data.deadline');
   const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
 
+  if (!deadlineDate) {
+    return null;
+  }
+
   return (
     <div className="deadline">
-      <h3>Statutory deadline: { deadlineDate ? formatDate(deadlineDate, dateFormat.long) : 'Not yet set' }</h3>
+      <h3><Snippet>deadline.title</Snippet> {formatDate(deadlineDate, dateFormat.long)}</h3>
 
       { isInspector && deadline && deadline.isExtendable &&
         <Details summary="Extend deadline">
