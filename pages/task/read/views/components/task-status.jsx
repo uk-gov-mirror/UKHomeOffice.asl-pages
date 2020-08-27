@@ -2,6 +2,7 @@ import React from 'react';
 import get from 'lodash/get';
 import classnames from 'classnames';
 import { Snippet } from '@asl/components';
+import Deadline from './deadline';
 
 const getStatusBadge = status => {
   const good = ['resolved'];
@@ -14,13 +15,15 @@ const getStatusBadge = status => {
 export default function TaskStatus({ task }) {
   const model = get(task, 'data.model');
   const latestActivity = task.activityLog[0];
-
-  const isExtension = get(latestActivity, 'event.meta.payload.data.extended');
   let { action, status } = latestActivity;
 
-  if (action === 'update' && isExtension) {
-    status = 'deadline-extended';
-    action = 'deadline-extended';
+  if (model === 'project') {
+    const isExtension = get(latestActivity, 'event.data.deadline.isExtended') || get(latestActivity, 'event.meta.payload.data.extended', false);
+
+    if (action === 'update' && isExtension) {
+      status = 'with-inspectorate';
+      action = 'with-inspectorate';
+    }
   }
 
   let snippetContent = `status.${status}.currentlyWith`;
@@ -34,6 +37,7 @@ export default function TaskStatus({ task }) {
       <h2><Snippet>sticky-nav.status</Snippet></h2>
       {getStatusBadge(status)}
       <p><Snippet optional>{snippetContent}</Snippet></p>
+      { model === 'project' && <Deadline task={task} /> }
     </div>
   );
 }

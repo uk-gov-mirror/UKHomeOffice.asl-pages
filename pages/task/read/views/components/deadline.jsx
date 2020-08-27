@@ -1,35 +1,31 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Link, Snippet } from '@asl/components';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import get from 'lodash/get';
+import { Link, Snippet, Details } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import { formatDate } from '../../../../../lib/utils';
 
-class Deadline extends Component {
-  render() {
-    const task = this.props.task;
+export default function Deadline({ task }) {
+  const isInspector = useSelector(state => state.static.isInspector);
+  const isExtended = get(task, 'data.deadline.isExtended', false);
+  const deadline = get(task, 'data.deadline');
+  const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
 
-    return (
-      <div className="deadline">
-        <h2><Snippet>sticky-nav.deadline</Snippet></h2>
+  return (
+    <div className="deadline">
+      <h3>Statutory deadline: { deadlineDate ? formatDate(deadlineDate, dateFormat.long) : 'Not yet set' }</h3>
 
-        <h3>{ formatDate(task.deadline, dateFormat.long) }</h3>
-
-        { this.props.isInspector && task.isExtendable &&
-          <Fragment>
-            <p><Snippet>deadline.hint</Snippet></p>
-            <Link
-              page="task.read.extend"
-              taskId={task.id}
-              label={<Snippet>deadline.extend.button</Snippet>}
-              className="govuk-button button-secondary"
-            />
-          </Fragment>
-        }
-      </div>
-    );
-  }
+      { isInspector && deadline && deadline.isExtendable &&
+        <Details summary="Extend deadline">
+          <p><Snippet>deadline.hint</Snippet></p>
+          <Link
+            page="task.read.extend"
+            taskId={task.id}
+            label={<Snippet>deadline.extend.button</Snippet>}
+            className="govuk-button button-secondary"
+          />
+        </Details>
+      }
+    </div>
+  );
 }
-
-const mapStateToProps = ({ static: { isInspector } }) => ({ isInspector });
-
-export default connect(mapStateToProps)(Deadline);

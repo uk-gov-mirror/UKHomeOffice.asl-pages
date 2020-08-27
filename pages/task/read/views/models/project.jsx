@@ -9,7 +9,6 @@ import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
-import Deadline from '../components/deadline';
 import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
@@ -49,7 +48,7 @@ function EstablishmentDiff({ task }) {
   );
 }
 
-export default function Project({ task, schema }) {
+export default function Project({ task }) {
   const { project, establishment, version, values } = useSelector(selector, shallowEqual);
   const declarations = task.data.meta;
   const continuation = task.data.continuation;
@@ -174,14 +173,6 @@ export default function Project({ task, schema }) {
               </Fragment>
             )
           }
-        </StickyNavAnchor>
-      )
-    ),
-
-    (
-      task.deadline && (
-        <StickyNavAnchor id="deadline" key="deadline">
-          <Deadline task={task} />
         </StickyNavAnchor>
       )
     ),
