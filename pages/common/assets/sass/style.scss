@@ -527,3 +527,8 @@ details {
     float: right;
   }
 }
+
+.deadline-passed {
+  color: $red;
+  margin-top: -$govuk-gutter-half;
+}

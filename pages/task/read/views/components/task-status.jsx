@@ -3,6 +3,7 @@ import get from 'lodash/get';
 import classnames from 'classnames';
 import { Snippet } from '@asl/components';
 import Deadline from './deadline';
+import { isDeadlineExtension } from '../../../../../lib/utils';
 
 const getStatusBadge = status => {
   const good = ['resolved'];
@@ -17,7 +18,7 @@ export default function TaskStatus({ task }) {
   let { action, status } = latestActivity;
 
   if (model === 'project') {
-    const isExtension = get(latestActivity, 'event.data.deadline.isExtended') || get(latestActivity, 'event.meta.payload.data.extended', false);
+    const isExtension = isDeadlineExtension(latestActivity);
 
     if (action === 'update' && isExtension) {
       status = 'with-inspectorate';

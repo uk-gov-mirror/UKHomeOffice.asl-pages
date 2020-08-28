@@ -146,7 +146,7 @@ module.exports = {
       revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.',
       transfer: 'The transfer request will be sent to a Licensing Office who will action your recommendation'
     },
-    log: 'Recommended by',
+    log: 'Recommendation made by Inspector',
     recommendation: '**Recommendation:** Approve',
     currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
@@ -159,7 +159,7 @@ module.exports = {
       revocation: 'The revocation request will be sent to a Licensing Officer who will action your recommendation.',
       transfer: 'The transfer request will be sent to a Licensing Officer who will action your recommendation.'
     },
-    log: 'Recommended by',
+    log: 'Recommendation made by Inspector',
     recommendation: '**Recommendation:**  Reject',
     currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },

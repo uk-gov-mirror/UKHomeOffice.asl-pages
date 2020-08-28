@@ -64,6 +64,15 @@ module.exports = {
     extension: {
       from: 'Deadline extended from: ',
       to: 'Deadline extended to: '
+    },
+    today: '(Deadline is today)',
+    passed: {
+      singular: '(Deadline passed {{days}} day ago)',
+      plural: '(Deadline passed {{days}} days ago)'
+    },
+    lateDecision: {
+      singular: '{{days}} day over deadline for decision',
+      plural: '{{days}} days over deadline for decision'
     }
   }
 };
