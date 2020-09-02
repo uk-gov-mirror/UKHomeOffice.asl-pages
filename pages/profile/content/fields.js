@@ -65,7 +65,7 @@ module.exports = {
   roles: {
     label: 'Roles'
   },
-  pil: {
+  pilLicenceNumber: {
     label: 'PIL number'
   }
 };
