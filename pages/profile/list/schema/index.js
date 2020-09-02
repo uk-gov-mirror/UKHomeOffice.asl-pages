@@ -16,9 +16,7 @@ module.exports = {
     accessor: 'roles.type',
     f: 'type'
   },
-  pil: {
-    show: true,
-    sortable: false,
-    accessor: 'pil.licenceNumber'
+  pilLicenceNumber: {
+    show: true
   }
 };

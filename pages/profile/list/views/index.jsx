@@ -33,7 +33,7 @@ export const peopleFormatters = {
     accessor: row => row.roles && row.roles.map(v => v.type),
     format: data => data && joinAcronyms(data.map(selectivelyUppercase))
   },
-  pil: {
+  pilLicenceNumber: {
     format: (pil, row) => {
       return (pil && row.pil.status === 'active') ? pil : '-';
     }
