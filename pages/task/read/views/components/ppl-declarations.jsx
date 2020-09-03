@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import isUndefined from 'lodash/isUndefined';
 import { Markdown, Snippet } from '@asl/components';
 
 // declarations can be 'Yes', 'No', or 'Not yet'
@@ -16,15 +15,12 @@ export default function PplDeclarations({ task }) {
 
   return (
     <div className="declarations">
-      <p className="question"><Snippet>declarations.pel-holder.question</Snippet></p>
-      <p>{declarations.authority || 'No'}</p>
-
-      <p className="question"><Snippet>declarations.awerb.question</Snippet></p>
-      <p>{declarations.awerb}</p>
+      <p><strong><Snippet>declarations.pel-holder.question</Snippet></strong> {declarations.authority || 'No'}</p>
+      <p><strong><Snippet>declarations.awerb.question</Snippet></strong> {declarations.awerb}</p>
       {
         declarationConfirmed(declarations.awerb) &&
           <Fragment>
-            <p className="question"><Snippet>declarations.awerb.review-date</Snippet></p>
+            <p><strong><Snippet>declarations.awerb.review-date</Snippet></strong></p>
             <Markdown>{declarations['awerb-review-date']}</Markdown>
           </Fragment>
       }
@@ -32,17 +28,13 @@ export default function PplDeclarations({ task }) {
         // we don't collect a reason for 'Not yet'
         declarations.awerb && declarations.awerb.toLowerCase() === 'no' &&
           <Fragment>
-            <p className="question"><Snippet>declarations.awerb.no-review-reason</Snippet></p>
+            <p><strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong></p>
             <Markdown>{declarations['awerb-no-review-reason']}</Markdown>
           </Fragment>
       }
-
       {
-        !isAmendment && !isUndefined(declarations.ready) &&
-          <Fragment>
-            <p className="question"><Snippet>declarations.ready-for-inspector.question</Snippet></p>
-            <p>{declarations.ready}</p>
-          </Fragment>
+        !isAmendment &&
+          <p><strong><Snippet>declarations.ready-for-inspector.question</Snippet></strong> {declarations.ready || 'No'}</p>
       }
     </div>
   );

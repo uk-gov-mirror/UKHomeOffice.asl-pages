@@ -9,7 +9,6 @@ import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
-import Deadline from '../components/deadline';
 import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
@@ -49,14 +48,12 @@ function EstablishmentDiff({ task }) {
   );
 }
 
-export default function Project({ task, schema }) {
+export default function Project({ task }) {
   const { project, establishment, version, values } = useSelector(selector, shallowEqual);
-  const declarations = task.data.meta;
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
 
   const isComplete = !task.isOpen;
-  const showDeclarations = declarations.authority || declarations.awerb;
 
   const formatters = {
     licenceHolder: {
@@ -110,7 +107,9 @@ export default function Project({ task, schema }) {
       (task.data.action === 'grant' || task.data.action === 'transfer') && (
         <StickyNavAnchor id="submitted-version" key="submitted-version">
           <h2><Snippet>sticky-nav.submitted-version</Snippet></h2>
-          <p><Snippet type={task.type}>versions.submitted.hint</Snippet></p>
+          {
+            task.status === 'with-inspectorate' && <PplDeclarations task={task} />
+          }
           <p>
             <Link
               page="projectVersion"
@@ -121,10 +120,6 @@ export default function Project({ task, schema }) {
               label={<Snippet>versions.submitted.label</Snippet>}
             />
           </p>
-          {
-            task.status === 'with-inspectorate' && showDeclarations &&
-              <PplDeclarations task={task} />
-          }
         </StickyNavAnchor>
       )
     ),
@@ -174,14 +169,6 @@ export default function Project({ task, schema }) {
               </Fragment>
             )
           }
-        </StickyNavAnchor>
-      )
-    ),
-
-    (
-      task.deadline && (
-        <StickyNavAnchor id="deadline" key="deadline">
-          <Deadline task={task} />
         </StickyNavAnchor>
       )
     ),

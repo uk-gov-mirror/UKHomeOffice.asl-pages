@@ -4,6 +4,7 @@ import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
+import { daysSinceDate, isDeadlineExtension } from '../../../../../lib/utils';
 import PplDeclarations from './ppl-declarations';
 
 function ProfileLink({ id, name, establishmentId, asruUser }) {
@@ -26,11 +27,25 @@ function Action({ task, action, changedBy }) {
   );
 }
 
-function InspectorRecommendation({ status }) {
-  if (status !== 'inspector-recommended' || status !== 'inspector-rejected') {
+function InspectorRecommendation({ item, task }) {
+  if (!['inspector-recommended', 'inspector-rejected'].includes(item.status)) {
     return null;
   }
-  return <p><Snippet>{`status.${status}.recommendation`}</Snippet></p>;
+
+  const isExtended = get(task, 'data.deadline.isExtended', false);
+  const deadline = get(task, 'data.deadline');
+  const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
+  const daysSinceDeadline = daysSinceDate(deadlineDate, item.createdAt);
+
+  return <Fragment>
+    {
+      daysSinceDeadline > 0 &&
+        <p className="deadline-passed">
+          <Snippet days={daysSinceDeadline}>{`deadline.lateDecision.${daysSinceDeadline > 1 ? 'plural' : 'singular'}`}</Snippet>
+        </p>
+    }
+    <p><Snippet>{`status.${item.status}.recommendation`}</Snippet></p>
+  </Fragment>;
 }
 
 const actionPerformedByAdmin = item => {
@@ -38,6 +53,26 @@ const actionPerformedByAdmin = item => {
   const profile = get(item, 'event.meta.user.profile');
   return !!profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
 };
+
+function DeadlineDetails({ item }) {
+  const standardDeadline = get(item, 'event.data.deadline.standard');
+  const extendedDeadline = get(item, 'event.data.deadline.extended');
+
+  if (!standardDeadline || !extendedDeadline) {
+    return null;
+  }
+
+  return (
+    <Fragment>
+      <p>
+        <strong><Snippet>deadline.extension.from</Snippet></strong> <span>{format(standardDeadline, dateFormat.long)}</span>
+      </p>
+      <p>
+        <strong><Snippet>deadline.extension.to</Snippet></strong> <span>{format(extendedDeadline, dateFormat.long)}</span>
+      </p>
+    </Fragment>
+  );
+}
 
 function ExtraProjectMeta({ item, task }) {
   const mostRecentActivity = item.id === task.activityLog[0].id;
@@ -82,22 +117,22 @@ function Comment({ changedBy, comment }) {
   );
 }
 
-function LogItem({ log, task }) {
-  const isExtension = get(log, 'event.meta.payload.data.extended');
-  let { action, status } = log;
+function LogItem({ item, task }) {
+  let { action } = item;
+  const isExtension = isDeadlineExtension(item);
 
   if (action === 'update' && isExtension) {
-    status = 'deadline-extended';
     action = 'deadline-extended';
   }
 
   return (
-    <div className="log-item" id={log.id}>
-      <span className="date">{format(log.createdAt, dateFormat.long)}</span>
-      <Action task={task} action={action} changedBy={log.changedBy} />
-      <InspectorRecommendation status={status} />
-      <Comment changedBy={log.changedBy} comment={log.comment} />
-      { task.data.model === 'project' && <ExtraProjectMeta item={log} task={task} /> }
+    <div className="log-item" id={item.id}>
+      <span className="date">{format(item.createdAt, dateFormat.long)}</span>
+      <Action task={task} action={action} changedBy={item.changedBy} />
+      <InspectorRecommendation item={item} task={task} />
+      { isExtension && <DeadlineDetails item={item} /> }
+      <Comment changedBy={item.changedBy} comment={item.comment} />
+      { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }
     </div>
   );
 }
@@ -120,7 +155,7 @@ export default function ActivityLog({ task }) {
     <div className="activity-log">
       <h2><Snippet>sticky-nav.activity</Snippet></h2>
 
-      <LogItem key={latestActivity.id} log={latestActivity} task={task} />
+      <LogItem key={latestActivity.id} item={latestActivity} task={task} />
 
       { task.activityLog.length > 1 &&
         <Fragment>
@@ -137,9 +172,9 @@ export default function ActivityLog({ task }) {
           <div className={classnames('older-activity', { hidden: !open })}>
             <ul className="task-activity">
               {
-                task.activityLog.slice(1).map(log => (
-                  <li key={log.id}>
-                    <LogItem log={log} task={task} />
+                task.activityLog.slice(1).map(item => (
+                  <li key={item.id}>
+                    <LogItem item={item} task={task} />
                   </li>
                 ))
               }

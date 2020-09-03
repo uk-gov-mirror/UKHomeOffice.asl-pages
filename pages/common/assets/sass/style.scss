@@ -136,10 +136,6 @@ dl.continuation {
   .declarations {
     p {
       margin: 0;
-
-      &.question {
-        margin-top: $govuk-gutter-half;
-      }
     }
   }
 }
@@ -520,8 +516,19 @@ details {
 
 #submitted-version {
   .declarations {
-    .question span {
-      font-weight: bold;
+    p {
+      margin: 0;
     }
   }
+}
+
+.task-status {
+  .currently-with {
+    float: right;
+  }
+}
+
+.deadline-passed {
+  color: $red;
+  margin-top: -$govuk-gutter-half;
 }
