@@ -5,7 +5,7 @@ module.exports = {
       label: 'Certificate number'
     },
     accreditingBody: {
-      label: 'Accrediting body'
+      label: 'Accrediting body or course provider'
     },
     passDate: {
       label: 'Date awarded',
@@ -17,7 +17,7 @@ module.exports = {
       required: 'You need to enter a certificate number'
     },
     accreditingBody: {
-      required: 'You need to choose an accreditation body'
+      required: 'You need to choose an accrediting body or course provider'
     },
     passDate: {
       required: 'You need to enter the date when the certificate was awarded.',
