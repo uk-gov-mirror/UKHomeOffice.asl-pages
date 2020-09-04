@@ -11,5 +11,8 @@ module.exports = merge({}, commonContent, {
     place: {
       delete: 'Remove approved area'
     }
+  },
+  buttons: {
+    submit: 'Continue'
   }
 });

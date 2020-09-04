@@ -44,6 +44,7 @@ module.exports = settings => {
 
   app.use('/confirm', (req, res, next) => {
     confirm({
+      page: 'place.delete',
       method: 'DELETE',
       apiUrl: `/establishment/${req.establishmentId}/place/${req.model.id}`
     })(req, res, next);

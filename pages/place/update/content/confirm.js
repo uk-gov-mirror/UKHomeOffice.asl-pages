@@ -8,5 +8,8 @@ module.exports = merge({}, commonContent, baseContent, {
       label: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
     }
   },
-  subtitle: 'Amend approved area'
+  subtitle: 'Amend approved area',
+  buttons: {
+    submit: 'Submit'
+  }
 });
