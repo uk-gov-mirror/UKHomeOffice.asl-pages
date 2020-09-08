@@ -5,7 +5,7 @@ const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { populateNamedPeople } = require('../../../common/middleware');
 const form = require('../../../common/routers/form');
 const getSchema = require('../../schema/view');
-const { cleanModel } = require('../../../../lib/utils');
+const { cleanModel, daysSinceDate } = require('../../../../lib/utils');
 const getContent = require('../content');
 const { getEstablishment } = require('../../../common/helpers');
 const updateData = require('../middleware/update-data');
@@ -210,6 +210,16 @@ module.exports = () => {
     next();
   });
 
+  app.use((req, res, next) => {
+    if (req.task.data.model === 'project') {
+      const deadline = get(req.task, 'data.deadline');
+      const isExtended = get(deadline, 'isExtended', false);
+      const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
+      res.locals.static.daysSinceDeadline = daysSinceDate(deadlineDate);
+    }
+    next();
+  });
+
   app.use(form(Object.assign({
     configure: (req, res, next) => {
       res.locals.static.content = merge({}, res.locals.static.content, getContent(req.task));
@@ -254,6 +264,10 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
+    const hasDeadlinePassedReason = get(req.task, 'data.meta.deadline-passed-reason');
+    if (req.task.data.model === 'project' && res.locals.static.daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
+      return res.redirect(req.buildRoute('task.read.deadlinePassed'));
+    }
     return res.redirect(req.buildRoute('task.read', { suffix: 'confirm' }));
   });
 

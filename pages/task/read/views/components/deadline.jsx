@@ -7,8 +7,8 @@ import { formatDate, daysSinceDate } from '../../../../../lib/utils';
 
 export default function Deadline({ task }) {
   const isInspector = useSelector(state => state.static.isInspector);
-  const isExtended = get(task, 'data.deadline.isExtended', false);
   const deadline = get(task, 'data.deadline');
+  const isExtended = get(deadline, 'isExtended', false);
   const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
 
   if (!deadlineDate) {

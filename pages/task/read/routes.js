@@ -1,4 +1,4 @@
-const { extend, confirm, read, discard } = require('./routers');
+const { extend, confirm, read, discard, deadlinePassed } = require('./routers');
 const success = require('../../success');
 
 module.exports = {
@@ -13,6 +13,10 @@ module.exports = {
   extend: {
     path: '/extend',
     router: extend
+  },
+  deadlinePassed: {
+    path: '/deadline-passed',
+    router: deadlinePassed
   },
   confirm: {
     path: '/confirm',
