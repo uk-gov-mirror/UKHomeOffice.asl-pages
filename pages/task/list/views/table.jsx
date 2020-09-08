@@ -46,7 +46,9 @@ const formatters = {
   },
   status: {
     format: (status, model) => {
-      const deadline = get(model, 'deadline');
+      const deadline = get(model, 'data.deadline');
+      const isExtended = get(deadline, 'isExtended', false);
+      const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
       const continuation = get(model, 'data.continuation') && get(model, 'data.modelData.status') === 'inactive';
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
 
@@ -54,7 +56,7 @@ const formatters = {
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
           {
-            deadline && <Countdown expiry={deadline} unit="day" showUrgent={9} />
+            deadline && <Countdown expiry={deadlineDate} unit="day" showUrgent={9} />
           }
           {
             continuation && <span className="notice"><Snippet>continuation</Snippet></span>
