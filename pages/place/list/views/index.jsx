@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
+  Acronym,
   FilterTable,
   Snippet,
   Link,
@@ -50,7 +51,13 @@ const pageFormatters = {
   }
 };
 
-function Places({ establishment, allowedActions }) {
+export default function Places() {
+  const { establishment, allowedActions } = useSelector(state => state.static);
+  const { schema } = useSelector(state => state.datatable);
+
+  schema.nacwos.label = <Fragment><Acronym>NACWO</Acronym>s</Fragment>;
+  schema.nvssqps.label = <Fragment><Acronym>NVS</Acronym>s / <Acronym>SQP</Acronym>s</Fragment>;
+
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
@@ -59,6 +66,7 @@ function Places({ establishment, allowedActions }) {
         subtitle={establishment.name}
       />
       <FilterTable
+        schema={schema}
         formatters={Object.assign({}, formatters, pageFormatters)}
         createPath={allowedActions.includes('place.create') && 'place.create'}
         className="places-list"
@@ -66,7 +74,3 @@ function Places({ establishment, allowedActions }) {
     </Fragment>
   );
 }
-
-const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
-
-export default connect(mapStateToProps)(Places);

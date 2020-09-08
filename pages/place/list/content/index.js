@@ -10,13 +10,5 @@ module.exports = merge({}, commonContent, {
   },
   buttons: {
     edit: 'Amend'
-  },
-  fields: {
-    nacwos: {
-      label: 'NACWOs'
-    },
-    nvssqps: {
-      label: 'NVSs / SQPs'
-    }
   }
 });

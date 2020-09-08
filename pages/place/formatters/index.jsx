@@ -1,15 +1,13 @@
 import React, { Fragment } from 'react';
-import { defineValue, joinAcronyms, labelFromCode } from '../../common/formatters';
+import { joinAcronyms, labelFromCode } from '../../common/formatters';
 
 export default {
   suitability: {
     format: joinAcronyms,
-    label: defineValue,
     mapOptions: labelFromCode
   },
   holding: {
     format: joinAcronyms,
-    label: defineValue,
     mapOptions: labelFromCode
   },
   restrictions: {
