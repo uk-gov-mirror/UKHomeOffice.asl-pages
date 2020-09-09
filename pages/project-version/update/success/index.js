@@ -7,11 +7,6 @@ module.exports = settings => {
     root: __dirname
   });
 
-  app.use((req, res, next) => {
-    req.model = req.version;
-    next();
-  });
-
   app.use(success());
 
   app.use((req, res, next) => res.sendResponse());
