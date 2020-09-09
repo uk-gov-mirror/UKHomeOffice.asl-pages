@@ -35,7 +35,10 @@ export const peopleFormatters = {
   },
   pilLicenceNumber: {
     format: (pil, row) => {
-      return (pil && row.pil.status === 'active') ? pil : '-';
+      if (!pil) {
+        return '-';
+      }
+      return (row.pil && row.pil.status === 'active') ? pil : '-';
     }
   }
 };
