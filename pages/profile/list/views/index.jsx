@@ -30,7 +30,7 @@ export const peopleFormatters = {
     format: (name, person) => <Link page="profile.read" profileId={person.id} label={`${person.firstName} ${person.lastName}`} />
   },
   roles: {
-    accessor: row => row.roles && row.roles.map(v => v.type),
+    accessor: row => row.roles && row.roles.map(v => v.type).sort(),
     format: data => data && joinAcronyms(data.map(selectivelyUppercase))
   },
   pilLicenceNumber: {

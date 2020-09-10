@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import sortBy from 'lodash/sortBy';
 import {
   Snippet,
   Link,
@@ -50,8 +51,9 @@ const Index = ({
   allowedActions,
   asruAdmin
 }) => {
-  const inspectors = establishment.asru.filter(p => p.asruUser && p.asruInspector);
-  const spocs = establishment.asru.filter(p => p.asruUser && p.asruLicensing);
+  const inspectors = sortBy(establishment.asru.filter(p => p.asruUser && p.asruInspector), 'lastName');
+  const spocs = sortBy(establishment.asru.filter(p => p.asruUser && p.asruLicensing), 'lastName');
+  const holcs = sortBy(establishment.holc, 'lastName');
   const openApplication = allowedActions.includes('establishment.update') && establishment.openTasks.find(task => task.data && task.data.model === 'establishment' && task.data.action === 'grant');
   const canApply = establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication;
 
@@ -90,12 +92,12 @@ const Index = ({
             }
 
             {
-              !!establishment.holc.length &&
+              !!holcs.length &&
                 <Fragment>
                   <dt><Snippet>holc</Snippet></dt>
                   <dd>
                     {
-                      establishment.holc.map(holc => (
+                      holcs.map(holc => (
                         <p key={holc.id} className="holc">
                           <Link page="profile.read" profileId={holc.profile.id} label={`${holc.profile.firstName} ${holc.profile.lastName}`} />
                         </p>
