@@ -191,7 +191,9 @@ module.exports = () => {
 
       if (nacwoProfileId) {
         const nacwoRole = req.establishment.nacwo.find(r => r.profile.id === nacwoProfileId);
-        roleIds.push(nacwoRole.id);
+        if (nacwoRole) {
+          roleIds.push(nacwoRole.id);
+        }
       }
 
       const allNacwos = req.establishment.nacwo;
