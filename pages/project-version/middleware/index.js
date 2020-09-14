@@ -73,6 +73,10 @@ const traverse = (node, key, keys = []) => {
     });
   } else if (node instanceof Object) {
     Object.keys(node).forEach(k => {
+      // don't traverse into text editor objects
+      if (get(node[k], 'document.object') === 'document') {
+        return;
+      }
       traverse(node[k], `${key ? `${key}.` : ''}${k}`, keys);
     });
   }
