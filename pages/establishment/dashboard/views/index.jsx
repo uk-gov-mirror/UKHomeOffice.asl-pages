@@ -53,7 +53,7 @@ const Index = ({
 }) => {
   const inspectors = sortBy(establishment.asru.filter(p => p.asruUser && p.asruInspector), 'lastName');
   const spocs = sortBy(establishment.asru.filter(p => p.asruUser && p.asruLicensing), 'lastName');
-  const holcs = sortBy(establishment.holc, 'lastName');
+  const holcs = sortBy(establishment.holc, p => p.profile.lastName);
   const openApplication = allowedActions.includes('establishment.update') && establishment.openTasks.find(task => task.data && task.data.model === 'establishment' && task.data.action === 'grant');
   const canApply = establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication;
 
