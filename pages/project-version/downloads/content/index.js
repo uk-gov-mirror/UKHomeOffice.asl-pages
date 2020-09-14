@@ -49,6 +49,7 @@ module.exports = {
     hint: 'Download a copy of the application data that can be used as a template for similar projects. The file can be uploaded to avoid creating new applications from scratch.'
   },
   nts: {
+    heading: 'Non-technical summary',
     link: 'Non-technical summary (.pdf)',
     hint: 'Download the project\'s non-technical summary.'
   },

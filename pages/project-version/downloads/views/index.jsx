@@ -50,6 +50,12 @@ const ProjectDownloads = () => {
           <p><Link page="projectVersion.pdf" query={{ application: true }} label={<Snippet>application.pdf-link</Snippet>} /></p>
           <p className="govuk-hint"><Snippet>application.hint</Snippet></p>
 
+          <h3><Snippet>nts.heading</Snippet></h3>
+          <Fragment>
+            <p><Link page="projectVersion.ntsPdf" label={<Snippet>nts.link</Snippet>} /></p>
+            <p className="govuk-hint"><Snippet>nts.hint</Snippet></p>
+          </Fragment>
+
           {
             !isLegacy && (
               <Fragment>
@@ -59,11 +65,6 @@ const ProjectDownloads = () => {
               </Fragment>
             )
           }
-
-          <Fragment>
-            <p><Link page="projectVersion.ntsPdf" label={<Snippet>nts.link</Snippet>} /></p>
-            <p className="govuk-hint"><Snippet>nts.hint</Snippet></p>
-          </Fragment>
 
           {
             !isLegacy && (
