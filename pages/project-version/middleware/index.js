@@ -73,6 +73,11 @@ const traverse = (node, key, keys = []) => {
     });
   } else if (node instanceof Object) {
     Object.keys(node).forEach(k => {
+      // don't traverse into text editor objects
+      if (get(node[k], 'document.object') === 'document') {
+        keys.push(`${key ? `${key}.` : ''}${k}`);
+        return;
+      }
       traverse(node[k], `${key ? `${key}.` : ''}${k}`, keys);
     });
   }
@@ -177,13 +182,23 @@ const getChanges = (current, version) => {
   const removed = remove(pvKeys, k => !cvKeys.includes(k));
   let changed = [];
   cvKeys.forEach(k => {
-    let cvNode = getNode(after, k);
-    let pvNode = getNode(before, k);
-    if (!isEqual(cvNode, pvNode)) {
+    const pvNode = getNode(before, k);
+    const cvNode = getNode(after, k);
+    if (hasChanged(pvNode, cvNode)) {
       changed.push(k);
     }
   });
   return added.concat(removed).concat(changed);
+};
+
+const hasChanged = (before, after) => {
+  // backwards compatibility check for transition from string to object values for RTEs
+  if (typeof before === 'string' && typeof after !== 'string') {
+    try {
+      before = JSON.parse(before);
+    } catch (e) {}
+  }
+  return !isEqual(before, after);
 };
 
 const getAllChanges = () => (req, res, next) => {
