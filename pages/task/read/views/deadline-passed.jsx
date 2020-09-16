@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import get from 'lodash/get';
 import { Form, Snippet, Header } from '@asl/components';
 
 export default function DeadlinePassedReason() {
-  const daysSinceDeadline = useSelector(state => state.static.daysSinceDeadline);
+  const task = useSelector(state => state.static.task);
+  const daysSinceDeadline = get(task, 'data.deadline.daysSince');
 
   return (
     <div className="govuk-grid-row">
