@@ -27,15 +27,19 @@ function Action({ task, action, changedBy }) {
   );
 }
 
-function InspectorRecommendation({ item, task }) {
+function InspectorRecommendation({ item }) {
   if (!['inspector-recommended', 'inspector-rejected'].includes(item.status)) {
     return null;
   }
 
-  const isExtended = get(task, 'data.deadline.isExtended', false);
-  const deadline = get(task, 'data.deadline');
-  const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
-  const daysSinceDeadline = daysSinceDate(deadlineDate, item.createdAt);
+  const deadlineAtTimeOfRecommendation = get(item, 'event.data.deadline');
+  let daysSinceDeadline;
+
+  if (deadlineAtTimeOfRecommendation) {
+    const isExtended = get(deadlineAtTimeOfRecommendation, 'isExtended', false);
+    const deadlineDate = get(deadlineAtTimeOfRecommendation, isExtended ? 'extended' : 'standard');
+    daysSinceDeadline = daysSinceDate(deadlineDate, item.createdAt);
+  }
 
   return <Fragment>
     {
@@ -129,7 +133,7 @@ function LogItem({ item, task }) {
     <div className="log-item" id={item.id}>
       <span className="date">{format(item.createdAt, dateFormat.long)}</span>
       <Action task={task} action={action} changedBy={item.changedBy} />
-      <InspectorRecommendation item={item} task={task} />
+      <InspectorRecommendation item={item} />
       { isExtension && <DeadlineDetails item={item} /> }
       <Comment changedBy={item.changedBy} comment={item.comment} />
       { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }
