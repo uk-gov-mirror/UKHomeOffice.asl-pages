@@ -86,7 +86,8 @@ module.exports = {
         root: 'View task',
         extend: 'Extend deadline',
         confirm: 'Confirm',
-        success: 'Success'
+        success: 'Success',
+        deadlinePassed: 'Deadline passed reason'
       }
     },
     training: {

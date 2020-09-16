@@ -5,7 +5,7 @@ module.exports = settings => {
   const app = page({
     ...settings,
     root: __dirname,
-    paths: ['/extend', '/confirm', '/success']
+    paths: ['/deadline-passed', '/extend', '/confirm', '/success']
   });
 
   return app;
