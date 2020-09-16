@@ -1,7 +1,7 @@
 const { get, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
-const { mapSpecies, mapPermissiblePurpose } = require('@asl/projects/client/helpers');
+const { mapSpecies, mapPermissiblePurpose, mapAnimalQuantities } = require('@asl/projects/client/helpers');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -66,7 +66,12 @@ const canComment = () => (req, res, next) => {
 };
 
 const traverse = (node, key, keys = []) => {
-  if (key) { keys.push(key); }
+  if (key) {
+    if (key.match(/^reduction-quantities-/)) {
+      keys.push('reduction-quantities');
+    }
+    keys.push(key);
+  }
   if (node instanceof Array) {
     node.forEach(o => {
       traverse(o, `${key}${o && o.id ? `.${o.id}` : ''}`, keys);
@@ -90,6 +95,9 @@ const getNode = (tree, path) => {
   }
   if (path === 'permissible-purpose') {
     return mapPermissiblePurpose(tree);
+  }
+  if (path === 'reduction-quantities') {
+    return mapAnimalQuantities(tree, 'reduction-quantities');
   }
   let keys = path.split('.');
   let node = tree[keys[0]];
