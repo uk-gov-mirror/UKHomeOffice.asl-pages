@@ -3,6 +3,7 @@ const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
   title: 'Personal licence',
+  pageTitle: 'Personal licence',
   fields: {
     licenceNumber: { label: 'Licence number' },
     establishment: { label: 'Establishment' },

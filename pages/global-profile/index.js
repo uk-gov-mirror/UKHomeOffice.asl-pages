@@ -21,6 +21,7 @@ module.exports = settings => {
     return req.api(`/asru-profile/${req.profileId}`)
       .then(({ json: { data } }) => {
         res.locals.model = omit(data, 'dob');
+        res.locals.pageTitle = `${data.firstName} ${data.lastName}`;
       })
       .then(() => next())
       .catch(next);

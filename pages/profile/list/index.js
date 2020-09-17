@@ -9,6 +9,11 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.use((req, res, next) => {
+    res.locals.pageTitle = `People - ${req.establishment.name}`;
+    next();
+  });
+
   app.use(datatable({
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/profiles`;

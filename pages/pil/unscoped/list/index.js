@@ -7,6 +7,11 @@ module.exports = () => {
     root: __dirname
   });
 
+  app.use((req, res, next) => {
+    res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
+    next();
+  });
+
   app.use(datatable({
     configure: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/pils`;

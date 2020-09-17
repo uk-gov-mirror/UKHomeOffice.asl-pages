@@ -36,6 +36,7 @@ module.exports = settings => {
         req.profile = model;
         req.profileId = profileId;
 
+        res.locals.pageTitle = `${req.profile.firstName} ${req.profile.lastName} - ${req.establishment.name}`;
         res.locals.static.establishment = meta.establishment;
         res.locals.static.profile = req.profile;
         res.locals.model = req.model;

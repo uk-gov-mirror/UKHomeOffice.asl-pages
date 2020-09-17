@@ -3,6 +3,7 @@ const baseContent = require('../../../profile/content');
 
 module.exports = merge({}, baseContent, {
   title: 'Change your password',
+  pageTitle: 'Change your password',
   summary: `Your new password must contain:
   * at least ten characters
   * at least one uppercase character

@@ -64,6 +64,7 @@ module.exports = settings => {
     locals: (req, res, next) => {
       res.locals.static.schema = omit(req.form.schema, 'rcvsNumber');
       res.locals.static.ownProfile = req.user.profile.id === req.profileId;
+      res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
       next();
     }
   }));

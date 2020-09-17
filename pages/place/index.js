@@ -30,6 +30,11 @@ module.exports = settings => {
       .catch(next);
   });
 
+  app.use((req, res, next) => {
+    res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
+    next();
+  });
+
   return app;
 };
 

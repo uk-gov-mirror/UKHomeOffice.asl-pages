@@ -7,6 +7,7 @@ module.exports = {
   fields,
   tasks,
   title: 'Task list',
+  pageTitle: 'Task list',
   countdown: {
     singular: '1 {{unit}} left',
     plural: '{{diff}} {{unit}}s left',
