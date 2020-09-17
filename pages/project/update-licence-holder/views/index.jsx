@@ -35,7 +35,7 @@ const FormBody = ({ fields, values, formFields, setValue, submit, project }) => 
     />
     {
       Object.keys(values).filter(key => !['licenceHolderId', 'experience-projects', 'comments'].includes(key)).map(key => (
-        <input key={key} type="hidden" name={key} value={values[key]} />
+        <input key={key} type="hidden" name={key} value={typeof values[key] === 'string' ? values[key] : JSON.stringify(values[key])} />
       ))
     }
     {
