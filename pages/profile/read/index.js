@@ -1,5 +1,6 @@
 const { page } = require('@asl/service/ui');
 const { relatedTasks } = require('../../common/routers');
+const loadPermissions = require('../../common/middleware/load-permissions');
 
 module.exports = settings => {
   const app = page({
@@ -11,6 +12,8 @@ module.exports = settings => {
     res.locals.static.isOwnProfile = req.user.profile.id === req.profileId;
     next();
   });
+
+  app.get('/', loadPermissions('training.read', 'training.update'));
 
   app.get('/', relatedTasks(req => {
     return {
