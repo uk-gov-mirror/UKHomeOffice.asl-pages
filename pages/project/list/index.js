@@ -31,6 +31,7 @@ module.exports = settings => {
     locals: (req, res, next) => {
       set(res.locals, 'static.status', req.query.status || 'active');
       set(res.locals, 'static.adminListUrl', req.buildRoute('profile.list', { suffix: '?filters[roles][0]=admin' }));
+      res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
       next();
     },
     getApiPath: (req, res, next) => {

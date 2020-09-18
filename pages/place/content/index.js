@@ -1,4 +1,5 @@
 module.exports = {
+  title: 'Approved areas',
   fields: require('./fields'),
   errors: require('./errors'),
   notifications: {

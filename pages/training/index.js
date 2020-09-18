@@ -6,6 +6,11 @@ const routes = require('./routes');
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
+  app.use((req, res, next) => {
+    res.locals.pageTitle = `Training - ${req.profile.firstName} ${req.profile.lastName}`;
+    next();
+  });
+
   app.param('certificateId', (req, res, next, certificateId) => {
     if (certificateId === 'create') {
       req.certificateId = 'create';

@@ -3,6 +3,7 @@ const baseContent = require('../../../profile/content');
 
 module.exports = merge({}, baseContent, {
   title: 'Edit your details',
+  pageTitle: 'Edit your details',
   fields: {
     comments: {
       label: 'Why are you making this change?',

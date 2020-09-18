@@ -23,6 +23,7 @@ module.exports = settings => {
   app.use((req, res, next) => {
     res.locals.static.profile = req.user.profile;
     res.locals.static.establishment = req.establishment;
+    res.locals.pageTitle = req.establishment.name;
     next();
   });
 

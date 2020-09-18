@@ -23,6 +23,7 @@ module.exports = settings => {
         req.project.openTasks = meta.openTasks;
         req.establishment = meta.establishment;
         res.locals.static.project = req.project;
+        res.locals.pageTitle = `${req.project.title} - ${req.establishment.name}`;
       })
       .then(() => next())
       .catch(next);

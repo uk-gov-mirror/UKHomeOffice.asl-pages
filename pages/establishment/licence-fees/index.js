@@ -10,6 +10,11 @@ module.exports = settings => {
     next();
   });
 
+  app.use((req, res, next) => {
+    res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
+    next();
+  });
+
   app.get('/', (req, res, next) => {
     Promise.resolve()
       .then(() => req.api(`/establishment/${req.establishmentId}/billing`))

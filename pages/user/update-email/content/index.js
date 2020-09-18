@@ -3,6 +3,7 @@ const baseContent = require('../../../profile/content');
 
 module.exports = merge({}, baseContent, {
   title: 'Change your email address',
+  pageTitle: 'Change your email address',
   fields: {
     email: {
       label: 'Your new email address',
