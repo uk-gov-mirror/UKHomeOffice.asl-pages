@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const routes = require('./routes');
+const content = require('./content');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -11,7 +12,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    res.locals.pageTitle = `${res.locals.static.content.fees.title} - ${req.establishment.name}`;
+    res.locals.pageTitle = `${content.fees.title} - ${req.establishment.name}`;
     next();
   });
 
