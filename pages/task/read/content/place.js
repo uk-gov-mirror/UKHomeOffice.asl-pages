@@ -2,6 +2,9 @@ const { merge } = require('lodash');
 const place = require('../../../place/content');
 
 module.exports = merge({}, place, {
+  title: {
+    /* overwrites title property from place content with an emptyobject for a safe merge */
+  },
   'sticky-nav': {
     details: 'Establishment details',
     create: 'Approved area to add',
