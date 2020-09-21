@@ -1,9 +1,9 @@
 module.exports = {
-  title: 'Estimated licence fees',
   notifications: {
     'fee-waived-updated': 'Updated billable status'
   },
   fees: {
+    title: 'Estimated licence fees',
     period: 'Covering the period:',
     disclaimer: 'These projections are based on the number of billable licences held and may differ from the final numbers.',
     details: {

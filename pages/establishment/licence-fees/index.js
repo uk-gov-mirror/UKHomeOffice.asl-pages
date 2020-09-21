@@ -11,7 +11,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
+    res.locals.pageTitle = `${res.locals.static.content.fees.title} - ${req.establishment.name}`;
     next();
   });
 

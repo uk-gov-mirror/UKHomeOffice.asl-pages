@@ -81,7 +81,7 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
       <WidthContainer>
         <ErrorSummary />
         <Header
-          title={<Snippet>title</Snippet>}
+          title={<Snippet>fees.title</Snippet>}
           subtitle={establishment ? establishment.name : subtitle}
         />
         <div className="subtitle">
