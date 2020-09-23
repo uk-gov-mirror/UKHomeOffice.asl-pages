@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const { cleanModel } = require('../../lib/utils');
-const { populateNamedPeople } = require('../common/middleware');
+const { populateNamedPeople, validateUuidParam } = require('../common/middleware');
 const routes = require('./routes');
-const { validateUuidParam } = require('../common/middleware');
+const content = require('./content');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -31,7 +31,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
+    res.locals.pageTitle = `${content.title} - ${req.establishment.name}`;
     next();
   });
 
