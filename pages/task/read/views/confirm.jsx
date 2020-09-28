@@ -11,7 +11,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
     action = 'update';
   }
   const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
-  const requiresDeclaration = (model === 'pil' || model === 'project' || model === 'trainingPil') && values.status === 'endorsed' && action !== 'review';
+  const requiresDeclaration = ['pil', 'trainingPil', 'project'].includes(model) && values.status === 'endorsed' && action !== 'review';
   const name = `${get(task, 'data.modelData.profile.firstName')} ${get(task, 'data.modelData.profile.lastName')}`;
 
   return (
