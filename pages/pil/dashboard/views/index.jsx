@@ -49,11 +49,10 @@ const Index = ({
   canTransferPil,
   trainingUpToDate
 }) => {
-
   const taskType = model.status === 'pending' ? 'application' : 'amendment';
 
-  const beforeProcs = pil.procedures.map(p => ({ key: p }));
-  const afterProcs = model.procedures.map(p => ({ key: p }));
+  const beforeProcs = pil.procedures.map(p => (p.key ? p : { key: p }));
+  const afterProcs = model.procedures.map(p => (p.key ? p : { key: p }));
 
   const sections = [
     {
