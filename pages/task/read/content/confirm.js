@@ -25,7 +25,7 @@ module.exports = merge({}, baseContent, {
          * I have the authority of the establishment licence holder, and they are aware that this establishment will
          have financial responsibility for this personal licence if granted.`,
       project: `By endorsing this {{type}}, I agree that:
-        * {{licenceHolder}}'s training record is accurate and up to date.
+        * {{name}}'s training record is accurate and up to date.
         * The non-technical summary uses everyday language and contains no information that could identify people, places or intellectual property.`,
       trainingPil: `By endorsing this {{type}}, I agree that:
         * {{name}} will receive all relevant training before carrying out regulated procedures on protected animals as part of this course.

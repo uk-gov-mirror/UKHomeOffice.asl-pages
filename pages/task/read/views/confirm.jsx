@@ -12,8 +12,8 @@ const CommentForm = ({ task, values, errors, formFields }) => {
   }
   const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
   const requiresDeclaration = ['pil', 'trainingPil', 'project'].includes(model) && values.status === 'endorsed' && action !== 'review';
-  const name = `${get(task, 'data.modelData.profile.firstName')} ${get(task, 'data.modelData.profile.lastName')}`;
-  const licenceHolder = `${get(task, 'data.modelData.licenceHolder.firstName')} ${get(task, 'data.modelData.licenceHolder.lastName')}`;
+  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder');
+  const name = `${get(licenceHolder, 'firstName')} ${get(licenceHolder, 'lastName')}`;
 
   return (
     <Fragment>
@@ -32,7 +32,7 @@ const CommentForm = ({ task, values, errors, formFields }) => {
       { requiresDeclaration &&
         <div className="task-declaration">
           <h2><Snippet>declaration.title</Snippet></h2>
-          <Snippet type={task.type} name={name} licenceHolder={licenceHolder}>{`declaration.${values.status}.${model}`}</Snippet>
+          <Snippet type={task.type} name={name}>{`declaration.${values.status}.${model}`}</Snippet>
         </div>
       }
       <p className="control-panel">
