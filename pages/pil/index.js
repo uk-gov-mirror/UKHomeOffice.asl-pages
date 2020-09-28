@@ -10,6 +10,7 @@ module.exports = settings => {
         req.pilId = pilId;
         req.pil = response.json.data;
         req.pil.openTasks = response.json.meta.openTasks;
+        req.model = req.pil;
         next();
       })
       .catch(next);
