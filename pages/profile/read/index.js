@@ -28,7 +28,13 @@ module.exports = settings => {
         res.locals.static.profile.pil = req.pil;
         next();
       })
-      .catch(next);
+      .catch(e => {
+        if (e.status === 404) {
+          req.pil = null;
+          return next();
+        }
+        next(e);
+      });
   });
 
   app.get('/', relatedTasks(req => {
