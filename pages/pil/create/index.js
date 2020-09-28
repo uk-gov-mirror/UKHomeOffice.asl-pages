@@ -18,7 +18,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    if (!req.profile.pil) {
+    if (!req.profile.pil || !req.profile.pil.id) {
       return next();
     }
     // allow new application if a revoked PIL is held by another establishment
