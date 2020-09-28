@@ -35,7 +35,7 @@ class Profile extends React.Component {
     const profileRole = (establishments.find(est => est.id === estId) || {}).role;
     const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
 
-    const hasPil = pilLicenceNumber;
+    const hasPil = pilLicenceNumber && pil;
 
     const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
 
