@@ -21,8 +21,8 @@ function PilProcedures({ task }) {
 
   const catEs = pil.profile.trainingPils.map(p => ({ ...p, key: 'E' }));
 
-  const fromModelData = sortBy((pil.procedures || []).map(p => ({ key: p })).concat(catEs), 'key');
-  const fromData = sortBy((data.procedures || []).map(p => ({ key: p })).concat(catEs), 'key');
+  const fromModelData = sortBy((pil.procedures || []).map(p => (p.key ? p : { key: p })).concat(catEs), 'key');
+  const fromData = sortBy((data.procedures || []).map(p => (p.key ? p : { key: p })).concat(catEs), 'key');
 
   return <ProceduresDiff before={!isReview && fromModelData} after={isReview ? fromModelData : fromData} beforePil={pil} afterPil={isReview ? pil : data} />;
 }
