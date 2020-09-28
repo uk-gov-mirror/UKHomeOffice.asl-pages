@@ -1,55 +1,64 @@
 import React, { Fragment } from 'react';
 import { Snippet, Inset } from '@asl/components';
+import TrainingPil from '../../unscoped/courses/participants/read/views/training-pil';
 
-const Item = ({procedure, model, before, after, diffClassName = 'diff'}) => {
-  const procedureChanged = before.procedures.includes(procedure) !== after.procedures.includes(procedure);
+const Item = ({ procedure, model, before, after, diffClassName = 'diff', catE }) => {
+  const procedureChanged = before.map(p => p.key).includes(procedure.key) !== after.map(p => p.key).includes(procedure.key);
 
-  const onlyNotesChanged = !procedureChanged && ['D', 'F'].includes(procedure) &&
-    before[`notesCat${procedure}`] !== after[`notesCat${procedure}`];
+  const onlyNotesChanged = !procedureChanged && ['D', 'F'].includes(procedure.key) &&
+    before[`notesCat${procedure.key}`] !== after[`notesCat${procedure.key}`];
 
   return (
     <li className={procedureChanged ? diffClassName : ''}>
       <Fragment>
-        {`${procedure}. `}<Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
+        <strong>{`${procedure.key}. `}</strong><Snippet>{`procedureDefinitions.${procedure.key}`}</Snippet>
         {
-          ['D', 'F'].includes(procedure) &&
+          ['D', 'F'].includes(procedure.key) &&
             <Inset className={onlyNotesChanged ? diffClassName : ''}>
-              <p><strong><Snippet>{`fields.notesCat${procedure}.label`}</Snippet></strong></p>
-              {model[`notesCat${procedure}`]}
+              <p><strong><Snippet>{`fields.notesCat${procedure.key}.label`}</Snippet></strong></p>
+              {model[`notesCat${procedure.key}`]}
             </Inset>
+        }
+        {
+          procedure.key === 'E' && (
+            <TrainingPil trainingPil={procedure} />
+          )
         }
       </Fragment>
     </li>
   );
 };
 
-export default function ProceduresDiff({ before, after, taskType }) {
-  // old tasks might have null procedures
-  before.procedures = before.procedures || [];
-  after.procedures = after.procedures || [];
+export default function ProceduresDiff({
+  before = [],
+  after = [],
+  beforePil = {},
+  afterPil = {}
+}) {
+  if (!before.length && !after.length) {
+    return <p>No procedures selected.</p>;
+  }
 
-  const displayData = taskType === 'application' ? after : before;
-  displayData.procedures.sort();
-
-  if (taskType !== 'amendment' && taskType !== 'transfer') {
-    if (displayData.procedures.length === 0) {
-      return <p>No procedures selected.</p>;
-    }
-
+  if (!before.length) {
     return (
       <div className="procedures-diff">
         <h4>Categories</h4>
         <ul>
           {
-            displayData.procedures.map(procedure =>
-              <li key={procedure}>
-                {`${procedure}. `}<Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
+            after.map(procedure =>
+              <li key={procedure.key}>
+                <strong>{`${procedure.key}. `}</strong><Snippet>{`procedureDefinitions.${procedure.key}`}</Snippet>
                 {
-                  ['D', 'F'].includes(procedure) &&
+                  ['D', 'F'].includes(procedure.key) &&
                     <Inset>
-                      <p><strong><Snippet>{`fields.notesCat${procedure}.label`}</Snippet></strong></p>
-                      {displayData[`notesCat${procedure}`]}
+                      <p><strong><Snippet>{`fields.notesCat${procedure.key}.label`}</Snippet></strong></p>
+                      {afterPil[`notesCat${procedure.key}`]}
                     </Inset>
+                }
+                {
+                  procedure.key === 'E' && (
+                    <TrainingPil trainingPil={procedure} />
+                  )
                 }
               </li>
             )
@@ -58,9 +67,6 @@ export default function ProceduresDiff({ before, after, taskType }) {
       </div>
     );
   }
-
-  const proceduresBefore = before.procedures.sort();
-  const proceduresAfter = after.procedures.sort();
 
   return (
     <div className="procedures-diff">
@@ -76,11 +82,11 @@ export default function ProceduresDiff({ before, after, taskType }) {
             <td>
               <ul className="current">
                 {
-                  proceduresBefore.map(procedure =>
+                  before.map(procedure =>
                     <Item
-                      key={procedure}
+                      key={procedure.key}
                       procedure={procedure}
-                      model={before}
+                      model={beforePil}
                       before={before}
                       after={after}
                       diffClassName="diff removed"
@@ -92,11 +98,11 @@ export default function ProceduresDiff({ before, after, taskType }) {
             <td>
               <ul className="proposed">
                 {
-                  proceduresAfter.map(procedure =>
+                  after.map(procedure =>
                     <Item
-                      key={procedure}
+                      key={procedure.key}
                       procedure={procedure}
-                      model={after}
+                      model={afterPil}
                       before={before}
                       after={after}
                     />

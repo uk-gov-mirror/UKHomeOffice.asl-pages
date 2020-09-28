@@ -31,8 +31,13 @@ module.exports = {
       courses: {
         list: 'Training courses',
         create: 'New training course',
-        read: '{{model.title}}',
-        update: 'Update'
+        read: '{{trainingCourse.title}}',
+        update: 'Update',
+        participants: {
+          add: 'Apply for licence',
+          read: 'View licence',
+          revoke: 'Revoke licence'
+        }
       }
     },
     place: {

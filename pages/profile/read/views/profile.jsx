@@ -20,7 +20,8 @@ class Profile extends React.Component {
       projects = [],
       establishments = [],
       id,
-      dob
+      dob,
+      pilLicenceNumber
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions || [];
@@ -33,12 +34,13 @@ class Profile extends React.Component {
 
     const profileRole = (establishments.find(est => est.id === estId) || {}).role;
     const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
-    const pilActive = pil && pil.status === 'active';
+
+    const hasPil = pilLicenceNumber && pil;
 
     const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
 
     const canApply = (isOwnProfile || allowedActions.includes('pil.create')) &&
-      !pilActive &&
+      (!hasPil || !correctEstablishment) &&
       over18 &&
       (correctEstablishment || !pilIncomplete);
 
@@ -175,17 +177,16 @@ class Profile extends React.Component {
                 <Snippet>pil.title</Snippet>
               </h3>
               {
-                pil && pil.licenceNumber && (
+                hasPil && (
                   <p>
                     <Link
                       page='pil.read'
                       establishmentId={estId}
                       profileId={id}
-                      pilId={pil.id}
-                      label={pil.licenceNumber}
+                      label={pilLicenceNumber}
                     />
                     {
-                      pil.status !== 'active' && <span> ({pil.status})</span>
+                      pil && pil.status !== 'active' && <span> ({pil.status})</span>
                     }
                   </p>
                 )

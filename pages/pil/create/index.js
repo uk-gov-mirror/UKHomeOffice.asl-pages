@@ -25,7 +25,10 @@ module.exports = settings => {
     if (req.profile.pil.status === 'revoked' && req.profile.pil.establishmentId !== req.establishmentId) {
       return next();
     }
-    res.redirect(req.buildRoute('pil.read', { pilId: req.profile.pil.id }));
+    if (req.pil && req.pil.openTask) {
+      return res.redirect(req.buildRoute('task.read', { taskId: req.pil.openTask.id }));
+    }
+    res.redirect(req.buildRoute('pil.update', { pilId: req.profile.pil.id }));
   });
 
   app.post('/', (req, res, next) => {

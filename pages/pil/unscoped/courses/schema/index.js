@@ -29,11 +29,15 @@ module.exports = {
       'required'
     ]
   },
+  establishment: {
+    accessor: 'establishment.name'
+  },
   projectId: {
     inputType: 'autoComplete',
     accessor: 'project.id',
     options: [],
     apiPath: 'pils.courses.autocomplete-projects',
+    formatNullValue: true,
     validate: [
       'required'
     ]

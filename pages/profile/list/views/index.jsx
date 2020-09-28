@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import some from 'lodash/some';
 import {
   Search,
   Datatable,
@@ -38,7 +39,13 @@ export const peopleFormatters = {
       if (!pil) {
         return '-';
       }
-      return (row.pil && row.pil.status === 'active') ? pil : '-';
+      if (row.pil && row.pil.status === 'active') {
+        return pil;
+      }
+      if (some(row.trainingPils, trainingPil => trainingPil.status === 'active')) {
+        return pil;
+      }
+      return '-';
     }
   }
 };

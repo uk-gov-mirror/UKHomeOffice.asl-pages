@@ -5,6 +5,7 @@ const profile = require('./profile');
 const role = require('./role');
 const project = require('./project');
 const establishment = require('./establishment');
+const trainingPil = require('./training-pil');
 const { merge } = require('lodash');
 
 const getContent = model => {
@@ -21,6 +22,8 @@ const getContent = model => {
       return project;
     case 'establishment':
       return establishment;
+    case 'trainingPil':
+      return trainingPil;
   }
   return {};
 };

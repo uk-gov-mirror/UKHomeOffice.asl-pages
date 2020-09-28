@@ -8,8 +8,24 @@ import {
   DiffText,
   TrainingSummary
 } from '@asl/components';
+import get from 'lodash/get';
+import sortBy from 'lodash/sortBy';
 import ProceduresDiff from '../../../../pil/procedures/views/diff';
 import SpeciesDiff from '../../../../pil/species/views/diff';
+
+function PilProcedures({ task }) {
+  const action = get(task, 'data.action');
+  const pil = get(task, 'data.modelData');
+  const data = get(task, 'data.data');
+  const isReview = action === 'review';
+
+  const catEs = pil.profile.trainingPils.map(p => ({ ...p, key: 'E' }));
+
+  const fromModelData = sortBy((pil.procedures || []).map(p => ({ key: p })).concat(catEs), 'key');
+  const fromData = sortBy((data.procedures || []).map(p => ({ key: p })).concat(catEs), 'key');
+
+  return <ProceduresDiff before={!isReview && fromModelData} after={isReview ? fromModelData : fromData} beforePil={pil} afterPil={isReview ? pil : data} />;
+}
 
 export default function PIL({ task, values }) {
   const profile = useSelector(state => state.static.profile);
@@ -71,7 +87,7 @@ export default function PIL({ task, values }) {
 
     <StickyNavAnchor id="procedures" key="procedures">
       <h2><Snippet>sticky-nav.procedures</Snippet></h2>
-      <ProceduresDiff before={task.data.modelData} after={task.data.data} taskType={task.type} />
+      <PilProcedures task={task} />
     </StickyNavAnchor>,
 
     <StickyNavAnchor id="species" key="species">

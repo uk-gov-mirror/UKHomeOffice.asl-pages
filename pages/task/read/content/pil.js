@@ -1,5 +1,6 @@
 const { merge } = require('lodash');
 const baseContent = require('../../../pil/content');
+const fields = require('../../../pil/unscoped/courses/content/fields');
 
 module.exports = merge({}, baseContent, {
   title: {
@@ -39,6 +40,7 @@ module.exports = merge({}, baseContent, {
     }
   },
   fields: {
+    ...fields,
     status: {
       label: '',
       'with-ntco': ''

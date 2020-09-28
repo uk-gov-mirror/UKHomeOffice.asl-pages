@@ -11,10 +11,10 @@ module.exports = merge({}, baseContent, {
       label: 'Course title'
     },
     applications: {
-      label: 'Submitted applications'
+      label: 'Participants added'
     },
     licences: {
-      label: 'Granted licences'
+      label: 'Licences granted'
     }
   },
   'cannot-update': 'No training courses have been added, you’ll need to contact an Admin user or NTCO at your establishment if you wish to add a training course.'

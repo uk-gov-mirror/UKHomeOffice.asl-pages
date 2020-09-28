@@ -2,6 +2,7 @@ const { merge } = require('lodash');
 const commonContent = require('../../../common/content');
 const baseContent = require('../../content');
 const standardConditions = require('./standard-conditions');
+const { fields } = require('../../read/content');
 
 module.exports = merge({}, commonContent, baseContent, {
   legalPreamble:
@@ -16,5 +17,6 @@ availability on your licence, or it ceases to be the place where you wish your l
 available, you must notify the Home Office.
 
 This licence shall be in force until it is revoked by the Home Office and shall be subject to periodic review.`,
-  standardConditions
+  standardConditions,
+  fields
 });

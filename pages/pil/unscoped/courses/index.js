@@ -14,6 +14,7 @@ module.exports = () => {
         req.trainingCourseId = id;
         req.trainingCourse = trainingCourse;
         req.model = trainingCourse;
+        res.locals.static.trainingCourse = trainingCourse;
         res.locals.model = trainingCourse;
         next();
       })

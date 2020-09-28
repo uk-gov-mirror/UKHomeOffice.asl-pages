@@ -7,11 +7,6 @@ const create = require('./create');
 const review = require('./review');
 
 module.exports = {
-  read: {
-    path: '/:pilId',
-    permissions: 'pil.read',
-    router: read
-  },
   create: {
     path: '/create',
     permissions: 'pil.create',
@@ -40,8 +35,13 @@ module.exports = {
     router: remove
   },
   pdf: {
-    path: '/:pilId/pdf',
+    path: '/pdf',
     permissions: 'pil.pdf',
     router: pdf
+  },
+  read: {
+    path: '/',
+    permissions: 'pil.readCombinedPil',
+    router: read
   }
 };

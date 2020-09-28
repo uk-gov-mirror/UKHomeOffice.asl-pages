@@ -29,6 +29,7 @@ const getTaskLabel = task => {
       return `Area ${taskType}`;
 
     case 'pil':
+    case 'trainingPil':
       return `Personal licence ${taskType}`;
 
     default:

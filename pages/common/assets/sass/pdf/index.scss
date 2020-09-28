@@ -124,6 +124,28 @@ dl dd {
   page-break-before: always;
 }
 
+.procedures-diff > ul > li {
+  margin-bottom: 15px;
+
+  .model-summary {
+    dd, dt {
+      float: none;
+      display: block;
+      margin-left: 0;
+      text-indent: 0;
+    }
+
+    dd {
+      margin-bottom: 15px;
+
+      ul {
+        padding-left: 1em;
+        list-style-type: disc;
+      }
+    }
+  }
+}
+
 .conditions h2 {
   font-size: 15px !important;
 }

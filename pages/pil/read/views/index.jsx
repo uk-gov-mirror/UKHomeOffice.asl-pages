@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
@@ -13,29 +13,36 @@ import {
   DownloadHeader,
   LicenceStatusBanner
 } from '@asl/components';
+import ProceduresDiff from '../../procedures/views/diff';
 import { Warning } from '@ukhomeoffice/react-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 
-const PIL = ({
-  pil,
-  profile,
-  canUpdate,
-  canReapply,
-  allowedActions,
-  canDownload,
-  openTask,
-  currentPath,
-  isLicenceHolder,
-  pilReviewRequired,
-  reviewUrl,
-  showRelatedTasks
-}) => {
+export default function PIL({ pil }) {
+  pil = pil || useSelector(state => state.static.pil);
+  const {
+    profile,
+    canUpdate,
+    canReapply,
+    allowedActions,
+    canDownload,
+    openTask,
+    currentPath,
+    isLicenceHolder,
+    pilReviewRequired,
+    reviewUrl,
+    showRelatedTasks,
+    canApply
+  } = useSelector(state => state.static, shallowEqual);
+
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
   const canUpdateConditions = allowedActions.includes('pil.updateConditions') && pil.status === 'active';
 
   const formatters = {
     issueDate: {
       format: issueDate => formatDate(issueDate, dateFormat.long)
+    },
+    licenceNumber: {
+      format: l => profile.pilLicenceNumber
     },
     updatedAt: {
       format: (updatedAt, pil) => differenceInCalendarDays(updatedAt, pil.issueDate) > 0
@@ -49,7 +56,9 @@ const PIL = ({
       format: reviewDate => formatDate(reviewDate, dateFormat.long)
     },
     establishment: {
-      format: e => e && e.name ? e.name : 'This licence is held at another establishment.'
+      format: (e, model) => {
+        return e && e.name ? e.name : 'This licence is held at another establishment.';
+      }
     },
     species: {
       format: pilSpecies => {
@@ -72,20 +81,7 @@ const PIL = ({
         if (!procedures) {
           return '-';
         }
-        return procedures.sort().map(procedure => {
-          return (
-            <p key={procedure}>
-              <strong>{procedure}</strong>
-              {': '}
-              <Snippet>{`procedureDefinitions.${procedure}`}</Snippet>
-              {
-                procedure === 'F' && (
-                  <em>: {pil.notesCatF}</em>
-                )
-              }
-            </p>
-          );
-        });
+        return <ProceduresDiff after={procedures} afterPil={pil} />;
       }
     },
     conditions: {
@@ -117,6 +113,12 @@ const PIL = ({
     amendButtonSnippet = `action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.button`;
   }
 
+  let amendIntroSnippet = `action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`;
+  if (pil.procedures.find(p => p.key === 'E')) {
+    amendIntroSnippet = 'action.amend.update.summary';
+    amendButtonSnippet = 'action.amend.update.button';
+  }
+
   return (
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
@@ -145,6 +147,21 @@ const PIL = ({
       <ModelSummary model={pil} formatters={formatters} schema={pilSchema} formatNullValue={true} />
 
       {
+        canApply && (
+          <div className="licence-actions">
+            <section className="amend-licence">
+              <Snippet>action.amend.apply.summary</Snippet>
+              <Link
+                page="pil.create"
+                className="govuk-button button-secondary"
+                label={<Snippet>action.amend.apply.button</Snippet>}
+              />
+            </section>
+          </div>
+        )
+      }
+
+      {
         canUpdate && (
           <div className="licence-actions">
             <Fragment>
@@ -164,11 +181,11 @@ const PIL = ({
                       pil.status === 'active' &&
                       <Fragment>
                         <section className="amend-licence">
-                          <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
+                          <Snippet>{amendIntroSnippet}</Snippet>
                           <Link
                             page="pil.update"
                             className="govuk-button button-secondary"
-                            establishmentId={pil.establishmentId}
+                            pilId={pil.id}
                             label={<Snippet>{amendButtonSnippet}</Snippet>}
                           />
                         </section>
@@ -177,6 +194,7 @@ const PIL = ({
                           <Link
                             page="pil.revoke"
                             className="govuk-button button-warning"
+                            pilId={pil.id}
                             establishmentId={pil.establishmentId}
                             label={<Snippet>action.revoke.button</Snippet>}
                           />
@@ -189,6 +207,7 @@ const PIL = ({
                         <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
                         <Link
                           page="pil.update"
+                          pilId={pil.id}
                           className="govuk-button button-secondary"
                           establishmentId={pil.establishmentId}
                           label={<Snippet>action.reapply.button</Snippet>}
@@ -215,36 +234,4 @@ const PIL = ({
       { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
-};
-
-const mapStateToProps = ({
-  static: {
-    profile,
-    canUpdate,
-    canReapply,
-    canDownload,
-    pil,
-    openTask,
-    allowedActions,
-    currentPath,
-    isLicenceHolder,
-    pilReviewRequired,
-    reviewUrl,
-    showRelatedTasks
-  }
-}) => ({
-  pil,
-  profile,
-  canUpdate,
-  canReapply,
-  canDownload,
-  allowedActions,
-  openTask,
-  currentPath,
-  isLicenceHolder,
-  pilReviewRequired,
-  reviewUrl,
-  showRelatedTasks
-});
-
-export default connect(mapStateToProps)(PIL);
+}
