@@ -13,7 +13,8 @@ module.exports = () => {
       .then(trainingCourse => {
         req.trainingCourseId = id;
         req.trainingCourse = trainingCourse;
-        req.model = res.locals.static.trainingCourse = trainingCourse;
+        req.model = trainingCourse;
+        res.locals.static.trainingCourse = trainingCourse;
         res.locals.model = trainingCourse;
         next();
       })
