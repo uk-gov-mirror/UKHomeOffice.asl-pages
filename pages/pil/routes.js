@@ -42,6 +42,7 @@ module.exports = {
   read: {
     path: '/',
     permissions: 'pil.readCombinedPil',
+    breadcrumb: false,
     router: read
   }
 };
