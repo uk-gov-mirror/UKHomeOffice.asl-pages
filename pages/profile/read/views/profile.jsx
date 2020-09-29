@@ -35,12 +35,12 @@ class Profile extends React.Component {
     const profileRole = (establishments.find(est => est.id === estId) || {}).role;
     const pilIncomplete = pil && (pil.status === 'inactive' || pil.status === 'pending');
 
-    const hasPil = pilLicenceNumber && pil;
+    const hasPil = !!(pilLicenceNumber && pil);
+    const hasActivePil = hasPil && pil.status === 'active';
 
     const over18 = dob ? differenceInYears(new Date(), new Date(dob)) >= 18 : false;
-
     const canApply = (isOwnProfile || allowedActions.includes('pil.create')) &&
-      (!hasPil || !correctEstablishment) &&
+      !hasActivePil &&
       over18 &&
       (correctEstablishment || !pilIncomplete);
 
