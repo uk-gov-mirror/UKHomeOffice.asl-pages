@@ -18,7 +18,7 @@ export default function TrainingPil({ className, trainingPil }) {
     <Inset className={className}>
       <ModelSummary
         model={{ ...trainingPil.trainingCourse, ...pick(trainingPil, 'expiryDate', 'issueDate') }}
-        schema={pick({ ...schema, ...trainingPilSchema }, fields)}
+        schema={{ ...pick({ ...schema, ...trainingPilSchema }, fields), projectId: { accessor: 'project.licenceNumber' } }}
         formatters={formatters}
         inline={false}
       />
