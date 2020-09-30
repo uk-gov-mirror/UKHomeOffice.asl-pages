@@ -1,30 +1,39 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Snippet, Inset } from '@asl/components';
 import TrainingPil from '../../unscoped/courses/participants/read/views/training-pil';
 
-const Item = ({ procedure, model, before, after, diffClassName = 'diff', catE }) => {
+const Item = ({
+  procedure,
+  model,
+  before,
+  after,
+  beforePil = {},
+  afterPil = {},
+  diffClassName = 'diff',
+  catE
+}) => {
   const procedureChanged = before.map(p => p.key).includes(procedure.key) !== after.map(p => p.key).includes(procedure.key);
 
   const onlyNotesChanged = !procedureChanged && ['D', 'F'].includes(procedure.key) &&
-    before[`notesCat${procedure.key}`] !== after[`notesCat${procedure.key}`];
+    beforePil[`notesCat${procedure.key}`] !== afterPil[`notesCat${procedure.key}`];
 
   return (
     <li className={procedureChanged ? diffClassName : ''}>
-      <Fragment>
-        <strong>{`${procedure.key}. `}</strong><Snippet>{`procedureDefinitions.${procedure.key}`}</Snippet>
-        {
-          ['D', 'F'].includes(procedure.key) &&
-            <Inset className={onlyNotesChanged ? diffClassName : ''}>
-              <p><strong><Snippet>{`fields.notesCat${procedure.key}.label`}</Snippet></strong></p>
+      <strong>{`${procedure.key}. `}</strong><Snippet>{`procedureDefinitions.${procedure.key}`}</Snippet>
+      {
+        ['D', 'F'].includes(procedure.key) &&
+          <Inset>
+            <p><strong><Snippet>{`fields.notesCat${procedure.key}.label`}</Snippet></strong></p>
+            <div className={onlyNotesChanged ? diffClassName : ''}>
               {model[`notesCat${procedure.key}`]}
-            </Inset>
-        }
-        {
-          procedure.key === 'E' && (
-            <TrainingPil trainingPil={procedure} />
-          )
-        }
-      </Fragment>
+            </div>
+          </Inset>
+      }
+      {
+        procedure.key === 'E' && (
+          <TrainingPil trainingPil={procedure} />
+        )
+      }
     </li>
   );
 };
@@ -89,6 +98,8 @@ export default function ProceduresDiff({
                       model={beforePil}
                       before={before}
                       after={after}
+                      beforePil={beforePil}
+                      afterPil={afterPil}
                       diffClassName="diff removed"
                     />
                   )
@@ -105,6 +116,8 @@ export default function ProceduresDiff({
                       model={afterPil}
                       before={before}
                       after={after}
+                      beforePil={beforePil}
+                      afterPil={afterPil}
                     />
                   )
                 }
