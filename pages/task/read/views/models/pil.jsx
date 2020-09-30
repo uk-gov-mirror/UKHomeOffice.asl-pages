@@ -19,7 +19,7 @@ function PilProcedures({ task }) {
   const data = get(task, 'data.data');
   const isReview = action === 'review';
 
-  const catEs = (pil.profile.trainingPils || []).map(p => ({ ...p, key: 'E' }));
+  const catEs = get(pil, 'profile.trainingPils', []).map(p => ({ ...p, key: 'E' }));
 
   const fromModelData = sortBy((pil.procedures || []).map(p => (p.key ? p : { key: p })).concat(catEs), 'key');
   const fromData = sortBy((data.procedures || []).map(p => (p.key ? p : { key: p })).concat(catEs), 'key');
