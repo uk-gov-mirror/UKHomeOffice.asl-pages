@@ -15,6 +15,8 @@ module.exports = () => {
     });
     res.redirect(req.buildRoute('training.dashboard', { profileId: req.project.licenceHolderId }));
   });
+  // if someone ends up on a GET by mistake then rediect them to the training page in projects
+  app.get('/update-training', (req, res) => res.redirect(`${req.buildRoute('projectVersion.update')}/training`));
 
   app.use((req, res, next) => {
     const isAmendment = req.project.status !== 'inactive';
