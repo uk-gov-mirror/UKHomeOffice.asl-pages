@@ -98,6 +98,9 @@ module.exports = settings => {
     res.redirect(req.buildRoute('pil.read'));
   });
 
+  // redirect old /pil/:pilId links
+  app.get('/:pilId', (req, res) => res.redirect(req.buildRoute('pil.read')));
+
   app.get('/', (req, res) => res.sendResponse());
 
   return app;
