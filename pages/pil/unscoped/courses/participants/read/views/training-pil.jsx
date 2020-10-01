@@ -14,11 +14,22 @@ export default function TrainingPil({ className, trainingPil }) {
     'projectTitle',
     'projectId'
   ];
+
+  const modelSchema = {
+    ...pick({
+      ...schema,
+      ...trainingPilSchema
+    }, fields),
+    projectId: {
+      accessor: 'project.licenceNumber'
+    }
+  };
+
   return (
     <Inset className={className}>
       <ModelSummary
         model={{ ...trainingPil.trainingCourse, ...pick(trainingPil, 'expiryDate', 'issueDate') }}
-        schema={pick({ ...schema, ...trainingPilSchema }, fields)}
+        schema={modelSchema}
         formatters={formatters}
         inline={false}
       />
