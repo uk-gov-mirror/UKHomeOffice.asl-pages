@@ -20,9 +20,18 @@ module.exports = settings => {
       return next();
     },
     getValues: (req, res, next) => {
+      function hasPil(profile) {
+        if (profile.pil && profile.pil.status === 'active') {
+          return true;
+        }
+        if (profile.trainingPils.find(p => p.status === 'active')) {
+          return true;
+        }
+        return false;
+      }
       req.datatable.data.rows = req.datatable.data.rows.map(profile => {
         const roles = profile.roles;
-        if (profile.pil && profile.pil.status === 'active') {
+        if (hasPil(profile)) {
           roles.push({ type: 'pilh' });
         }
         if (profile.projects && profile.projects.length && some(profile.projects, p => p.status === 'active')) {
