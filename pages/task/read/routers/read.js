@@ -11,7 +11,8 @@ const { getEstablishment } = require('../../../common/helpers');
 const updateData = require('../middleware/update-data');
 
 const endorsingOwnPil = (task, profile) => {
-  return task.data.model === 'pil' && task.status === 'awaiting-endorsement' && profile.id === get(task, 'data.subject.id');
+  const isNtco = !!profile.roles.find(r => r.type === 'ntco' && r.establishmentId === task.data.establishmentId);
+  return isNtco && task.data.model === 'pil' && task.status === 'awaiting-endorsement' && profile.id === get(task, 'data.subject.id');
 };
 
 module.exports = () => {
