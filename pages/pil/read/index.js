@@ -99,7 +99,12 @@ module.exports = settings => {
   });
 
   // redirect old /pil/:pilId links
-  app.get('/:pilId', (req, res) => res.redirect(req.buildRoute('pil.read')));
+  app.get('/:pilId', (req, res, next) => {
+    if (req.params.pilId === 'create') {
+      return next('route');
+    }
+    res.redirect(req.buildRoute('pil.read'));
+  });
 
   app.get('/', (req, res) => res.sendResponse());
 
