@@ -368,7 +368,7 @@ export default function ProjectLandingPage() {
   const isEditable = model.status === 'active' || model.status === 'inactive';
   const grantedVersion = model.versions.find(v => v.status === 'granted');
 
-  const canChangeLicenceHolder = canUpdate && !openTask && isEditable && (!model.isLegacyStub || (model.isLegacyStub && asruLicensing));
+  const canChangeLicenceHolder = canUpdate && isEditable && (!model.isLegacyStub || (model.isLegacyStub && asruLicensing));
 
   return (
     <Fragment>
@@ -387,7 +387,12 @@ export default function ProjectLandingPage() {
           <Link page="profile.read" profileId={model.licenceHolder.id} label="View profile" />
           {
             canChangeLicenceHolder && (
-              <Fragment> | <Link page="project.updateLicenceHolder" label="Change" /></Fragment>
+              <Fragment> | {
+                openTask
+                  ? <Snippet>actions.cantChangeHolder</Snippet>
+                  : <Link page="project.updateLicenceHolder" label="Change" />
+              }
+              </Fragment>
             )
           }
         </dd>
