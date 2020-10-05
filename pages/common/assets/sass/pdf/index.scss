@@ -150,6 +150,10 @@ dl dd {
   font-size: 15px !important;
 }
 
+.conditions .condition {
+  page-break-inside: avoid !important;
+}
+
 .granted-page.action-plan {
   > h3:first-of-type {
     display: none;
