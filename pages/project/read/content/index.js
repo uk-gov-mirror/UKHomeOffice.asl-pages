@@ -76,7 +76,8 @@ module.exports = merge({}, baseContent, {
       amendment: 'Discard this amendment',
       stub: 'Cancel licence conversion'
     },
-    amendStub: 'Edit record'
+    amendStub: 'Edit record',
+    cantChangeHolder: 'An amendment is in progress so the PPL holder cannot be changed'
   },
   confirm: {
     application: 'Are you sure you want to discard this draft project?',
