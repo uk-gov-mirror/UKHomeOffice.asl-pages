@@ -13,8 +13,8 @@ module.exports = settings => {
 
   app.use(form({
     schema,
-    configure: (req, res, next) => {
-      console.log('IN CONFIGURE');
+    locals: (req, res, next) => {
+      console.log('THIS DOES NOT LOG?!?!');
       next();
     },
     editAnswers: (req, res, next) => {
@@ -26,6 +26,11 @@ module.exports = settings => {
       return res.redirect(req.buildRoute('pil.read'));
     }
   }));
+
+  app.use((req, res, next) => {
+    console.log('HERE ALSO!');
+    next();
+  });
 
   app.post('/', (req, res, next) => {
     settings.sendData(req)
