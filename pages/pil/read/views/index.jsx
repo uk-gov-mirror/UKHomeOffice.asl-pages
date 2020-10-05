@@ -186,6 +186,7 @@ export default function PIL({ pil }) {
                             page="pil.update"
                             className="govuk-button button-secondary"
                             pilId={pil.id}
+                            establishmentId={pil.establishmentId}
                             label={<Snippet>{amendButtonSnippet}</Snippet>}
                           />
                         </section>
