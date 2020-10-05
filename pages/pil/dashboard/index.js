@@ -3,6 +3,7 @@ const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { get, pick, merge, every } = require('lodash');
 const form = require('../../common/routers/form');
 const success = require('../../success');
+const confirm = require('./routers/confirm');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 const { canUpdateModel, canTransferPil } = require('../../../lib/utils');
 
@@ -28,7 +29,7 @@ module.exports = settings => {
   const app = page({
     ...settings,
     root: __dirname,
-    paths: ['/success']
+    paths: ['/confirm', '/success']
   });
 
   app.get('/', (req, res, next) => {
@@ -85,6 +86,7 @@ module.exports = settings => {
       next();
     },
     locals: (req, res, next) => {
+      console.log("IN LOCALS");
       res.locals.static.profile = req.profile;
       res.locals.static.skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
       res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
@@ -104,15 +106,10 @@ module.exports = settings => {
   app.post('/', redirectToTaskIfOpen());
 
   app.post('/', (req, res, next) => {
-    sendData(req)
-      .then(response => {
-        req.session.success = { taskId: get(response, 'json.data.id') };
-        delete req.session.form[req.model.id];
-        return res.redirect(req.buildRoute('pil.update', { suffix: 'success' }));
-      })
-      .catch(next);
+    return res.redirect(req.buildRoute('pil.update', { suffix: 'confirm' }));
   });
 
+  app.get('/confirm', confirm({ sendData }));
   app.get('/success', success());
 
   app.get((req, res) => res.sendResponse());

@@ -69,8 +69,6 @@ module.exports = merge({}, baseContent, {
     }
   },
   buttons: {
-    submit: 'Submit to NTCO',
-    submitAsLicensing: 'Update licence',
-    submitAsAsru: 'Submit to licensing'
+    submit: 'Continue'
   }
 });
