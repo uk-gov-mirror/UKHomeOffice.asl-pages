@@ -90,7 +90,7 @@ export default function Establishment({ task, values }) {
           <Diff
             before={values}
             after={task.data.data}
-            schema={establishmentSchema}
+            schema={{ ...establishmentSchema, isTrainingEstablishment: {} }}
             formatters={formatters}
             comparator={hasChanged}
             currentLabel={isComplete && <Snippet>diff.previous</Snippet>}

@@ -8,7 +8,8 @@ import {
   Conditions,
   Link,
   DownloadHeader,
-  LicenceStatusBanner
+  LicenceStatusBanner,
+  Inset
 } from '@asl/components';
 import ProfileLink from '../../components/profile-link';
 import RelatedTasks from '../../../task/list/views/related-tasks';
@@ -66,6 +67,11 @@ const Index = ({
                       )
                     }
                   </ul>
+              }
+              {
+                establishment.isTrainingEstablishment && (
+                  <Inset><Snippet>trainingEst</Snippet></Inset>
+                )
               }
               {
                 !(establishment.procedure || establishment.breeding || establishment.supplying) && '-'

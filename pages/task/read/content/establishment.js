@@ -21,6 +21,9 @@ module.exports = {
         procedure: 'Regulated scientific procedures on regulated animals'
       }
     },
+    isTrainingEstablishment: {
+      label: 'Does the establishment run training courses that require Category E personal licences?'
+    },
     authorisationTypes: {
       label: 'Authorisations',
       options: {
