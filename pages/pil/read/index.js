@@ -13,7 +13,7 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     if (['pending', 'inactive'].includes(req.model.status)) {
-      return res.redirect(req.buildRoute('pil.update'));
+      return res.redirect(req.buildRoute('pil.update', { pilId: req.pil.id }));
     }
     next();
   });
