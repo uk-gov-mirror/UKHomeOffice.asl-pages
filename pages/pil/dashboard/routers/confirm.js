@@ -13,8 +13,7 @@ module.exports = settings => {
       return res.redirect(req.buildRoute('pil.update'));
     },
     cancelEdit: (req, res, next) => {
-      delete req.session.form[req.model.id];
-      return res.redirect(req.buildRoute('pil.read'));
+      return res.redirect(req.buildRoute('profile.read'));
     }
   }));
 
