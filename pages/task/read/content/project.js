@@ -45,17 +45,17 @@ module.exports = {
   },
   declarations: {
     'pel-holder': {
-      question: 'PEL holder approval:',
+      question: 'PEL holder endorsement:',
       name: 'PEL Holder:',
       'endorsement-date': 'Endorsement date: '
     },
     'awerb': {
-      question: 'AWERB approval:',
+      question: 'AWERB review:',
       'review-date': 'AWERB review date:',
       'no-review-reason': 'Reason for no review:'
     },
     'ready-for-inspector': {
-      question: 'Inspector approval:'
+      question: 'Inspector confirmed ready:'
     }
   },
   viewVersionLink: 'View this version ({{date}})',
