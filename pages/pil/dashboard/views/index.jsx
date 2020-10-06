@@ -109,6 +109,7 @@ const Index = ({
             action="delete"
             method="POST"
             onSubmit={confirmDelete}
+            className="control-panel"
           >
             <button className="link"><span>Discard draft application</span></button>
           </form>
