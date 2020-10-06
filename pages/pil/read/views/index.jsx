@@ -205,13 +205,13 @@ export default function PIL({ pil }) {
                     {
                       pil.status === 'revoked' && canReapply &&
                       <section className="amend-licence">
-                        <Snippet>{`action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`}</Snippet>
+                        <Snippet>{`action.amend.reapply.summary`}</Snippet>
                         <Link
                           page="pil.update"
                           pilId={pil.id}
                           className="govuk-button button-secondary"
                           establishmentId={pil.establishmentId}
-                          label={<Snippet>action.reapply.button</Snippet>}
+                          label={<Snippet>action.amend.reapply.button</Snippet>}
                         />
                       </section>
                     }
