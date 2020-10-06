@@ -13,6 +13,9 @@ module.exports = settings => {
       return res.redirect(req.buildRoute('pil.update'));
     },
     cancelEdit: (req, res, next) => {
+      delete req.session.form[req.model.id];
+      delete req.session.form[`${req.model.id}-species`];
+      delete req.session.form[`${req.model.id}-procedures`];
       return res.redirect(req.buildRoute('profile.read'));
     }
   }));
