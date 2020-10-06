@@ -136,8 +136,6 @@ module.exports = ({
   const form = Router();
 
   const _configure = (req, res, next) => {
-    console.log("IN FORM ROUTER:CONFIGURE");
-
     req.form = req.form || {};
     req.form.schema = schema;
     req.session.form = req.session.form || {};
@@ -149,9 +147,6 @@ module.exports = ({
         validate: 'required'
       };
     }
-
-    console.log('schema', req.form.schema);
-
     return configure(req, res, next);
   };
 
