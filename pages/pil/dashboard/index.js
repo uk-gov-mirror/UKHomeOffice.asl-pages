@@ -69,6 +69,22 @@ module.exports = settings => {
 
   app.post('/', updateDataFromTask(sendData));
 
+  app.use((req, res, next) => {
+    res.locals.static.profile = req.profile;
+    res.locals.static.skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
+    res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
+    res.locals.static.isAsru = req.user.profile.asruUser;
+    res.locals.static.isLicensing = req.user.profile.asruLicensing;
+    res.locals.static.pil = req.pil;
+
+    return canTransferPil(req)
+      .then(canTransfer => {
+        res.locals.static.canTransferPil = canTransfer;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
   app.use(form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     validate: (req, res, next) => {
@@ -84,22 +100,6 @@ module.exports = settings => {
       }
 
       next();
-    },
-    locals: (req, res, next) => {
-      console.log("IN LOCALS");
-      res.locals.static.profile = req.profile;
-      res.locals.static.skipExemptions = get(req.session, [req.profileId, 'skipExemptions'], null);
-      res.locals.static.skipTraining = get(req.session, [req.profileId, 'skipTraining'], null);
-      res.locals.static.isAsru = req.user.profile.asruUser;
-      res.locals.static.isLicensing = req.user.profile.asruLicensing;
-      res.locals.static.pil = req.pil;
-
-      return canTransferPil(req)
-        .then(canTransfer => {
-          res.locals.static.canTransferPil = canTransfer;
-        })
-        .then(() => next())
-        .catch(next);
     }
   }));
 
@@ -109,7 +109,7 @@ module.exports = settings => {
     return res.redirect(req.buildRoute('pil.update', { suffix: 'confirm' }));
   });
 
-  app.get('/confirm', confirm({ sendData }));
+  app.use('/confirm', confirm({ sendData }));
   app.get('/success', success());
 
   app.get((req, res) => res.sendResponse());
