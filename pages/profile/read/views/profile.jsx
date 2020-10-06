@@ -46,7 +46,7 @@ class Profile extends React.Component {
 
     let type;
 
-    if (pil.status === 'revoked') {
+    if (pil && pil.status === 'revoked') {
       type = 'pilReapply';
     } else if (pilIncomplete) {
       type = 'pilView';
