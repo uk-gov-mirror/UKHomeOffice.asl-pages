@@ -32,8 +32,9 @@ module.exports = merge({}, baseContent, {
     continue: 'Continue',
     pplApply: 'Apply for project licence',
     pilApply: 'Apply for personal licence',
-    roleApply: 'Add role',
     pilView: 'View application',
+    pilReapply: 'Repply for personal licence',
+    roleApply: 'Add role',
     convertExisting: 'Convert existing project'
   },
   pil: {

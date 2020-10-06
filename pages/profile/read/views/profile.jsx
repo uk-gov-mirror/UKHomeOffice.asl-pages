@@ -44,6 +44,18 @@ class Profile extends React.Component {
       over18 &&
       (correctEstablishment || !pilIncomplete);
 
+    let type;
+
+    if (pil.status === 'revoked') {
+      type = 'pilReapply';
+    } else if (pilIncomplete) {
+      type = 'pilView';
+    } else {
+      type = 'pilApply';
+    }
+
+    const applyText = `buttons.${type}`;
+
     return (
       <Fragment>
         {
@@ -228,7 +240,7 @@ class Profile extends React.Component {
                       establishmentId={estId}
                       profileId={id}
                       className='govuk-button button-secondary'
-                      label={<Snippet>{`buttons.${pilIncomplete ? 'pilView' : 'pilApply'}`}</Snippet>}
+                      label={<Snippet>{applyText}</Snippet>}
                     />
                   </p>
                 )

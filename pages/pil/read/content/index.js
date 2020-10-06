@@ -48,8 +48,13 @@ module.exports = merge({}, baseContent, {
       },
       update: {
         summary: `## Amend licence
-         You add or remove categories A, B, C, D, or F from this personal licence`,
+          You add or remove categories A, B, C, D, or F from this personal licence`,
         button: 'Amend licence'
+      },
+      reapply: {
+        summary: `## Reapply for licence
+          Reapply for a personal licence at {{establishment.name}}`,
+        button: 'Reapply for licence'
       }
     }
   },
