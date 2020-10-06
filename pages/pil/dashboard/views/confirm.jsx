@@ -1,24 +1,41 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Snippet, FormLayout } from '@asl/components';
+import { Header, Snippet, Form } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
 
-export default function Confirm() {
-  // const model = useSelector(state => state.model);
+function SubmitPIL({ formFields }) {
+  const model = useSelector(state => state.model);
+  const { isAsru, isLicensing } = useSelector(state => state.static);
 
-  // const isPilTransfer = !!model.establishment.to;
-  // let submitSnippet = 'buttons.submit';
+  const isPilTransfer = !!model.establishment.to;
+  let submitSnippet = 'buttons.submit';
 
-  // if (isAsru && !isPilTransfer) {
-  //   submitSnippet = 'buttons.submitAsAsru';
+  if (isAsru && !isPilTransfer) {
+    submitSnippet = 'buttons.submitAsAsru';
 
-  //   if (isLicensing) {
-  //     submitSnippet = 'buttons.submitAsLicensing';
-  //   }
-  // }
+    if (isLicensing) {
+      submitSnippet = 'buttons.submitAsLicensing';
+    }
+  }
 
   return (
-    <FormLayout>
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        { formFields }
+        <Button><Snippet>{ submitSnippet }</Snippet></Button>
+      </div>
+    </div>
+  );
+}
+
+export default function Confirm() {
+  return (
+    <Fragment>
       <Header title={<Snippet>title</Snippet>} />
-    </FormLayout>
+
+      <Form detachFields submit={false}>
+        <SubmitPIL />
+      </Form>
+    </Fragment>
   );
 }

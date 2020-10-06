@@ -6,17 +6,8 @@ const schema = require('../schema/confirm');
 module.exports = settings => {
   const app = Router();
 
-  app.use((req, res, next) => {
-    console.log('HERE');
-    next();
-  });
-
   app.use(form({
     schema,
-    locals: (req, res, next) => {
-      console.log('THIS DOES NOT LOG?!?!');
-      next();
-    },
     editAnswers: (req, res, next) => {
       delete req.session.form[req.model.id].validationErrors;
       return res.redirect(req.buildRoute('pil.update'));
@@ -27,13 +18,10 @@ module.exports = settings => {
     }
   }));
 
-  app.use((req, res, next) => {
-    console.log('HERE ALSO!');
-    next();
-  });
-
   app.post('/', (req, res, next) => {
-    settings.sendData(req)
+    const { comment } = req.session.form[req.model.id].values;
+
+    settings.sendData(req, { meta: { comment } })
       .then(response => {
         req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
