@@ -19,7 +19,7 @@ function UpdatingForm({ id, waived, onCancelClick, formFields }) {
       {
         formFields
       }
-      <input type="hidden" name="pilId" value={id} />
+      <input type="hidden" name="profileId" value={id} />
       <input type="hidden" name="waived" value={!waived} />
       <p className="control-panel">
         <Button>Update billable status</Button>
@@ -89,13 +89,13 @@ export default function Row({ model }) {
   const [updating, setUpdating] = useState(false);
   const [waiver, setWaiver] = useState(null);
   const url = useSelector(state => state.static.url);
-  const { waived, id } = model;
+  const { waived, profile } = model;
 
   useEffect(() => {
     if (!waived) {
       return;
     }
-    fetch(`${url}/history?pilId=${id}`).response
+    fetch(`${url}/history?profileId=${profile.id}`).response
       .then(response => response.json())
       .then(response => {
         setWaiver(response);
@@ -115,8 +115,8 @@ export default function Row({ model }) {
     <Inset onClick={preventCollapse}>
       {
         updating
-          ? <UpdatingPanel waived={waived} id={id} onCancelClick={toggleUpdating} />
-          : <SummaryPanel id={id} waiver={waiver} toggleUpdating={toggleUpdating} />
+          ? <UpdatingPanel waived={waived} id={profile.id} onCancelClick={toggleUpdating} />
+          : <SummaryPanel id={profile.id} waiver={waiver} toggleUpdating={toggleUpdating} />
       }
     </Inset>
   );

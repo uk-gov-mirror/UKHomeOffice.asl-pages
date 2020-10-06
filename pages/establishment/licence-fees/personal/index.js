@@ -34,7 +34,7 @@ module.exports = settings => {
       json: {
         year: req.year,
         establishmentId: req.establishmentId,
-        pilId: req.body.pilId,
+        profileId: req.body.profileId,
         comment: req.body.comment,
         waived: req.body.waived === 'true'
       }
@@ -52,7 +52,7 @@ module.exports = settings => {
       query: {
         year: req.year,
         establishmentId: req.establishmentId,
-        pilId: req.query.pilId
+        profileId: req.query.profileId
       }
     };
     req.api(`/billing/waiver`, params)
