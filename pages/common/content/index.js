@@ -16,7 +16,7 @@ module.exports = {
       read: 'View personal licence',
       create: 'Apply for personal licence',
       update: {
-        root: 'Amend personal licence',
+        root: 'Personal licence',
         training: 'Training',
         exemptions: 'Exemptions',
         procedures: 'Procedures',

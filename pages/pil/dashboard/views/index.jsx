@@ -8,7 +8,6 @@ import {
   Form,
   TrainingSummary
 } from '@asl/components';
-import { Button } from '@ukhomeoffice/react-components';
 import { canUpdateModel } from '../../../../lib/utils';
 
 import InProgressWarning from '../../../common/components/in-progress-warning';
@@ -25,27 +24,11 @@ function confirmDelete(e) {
   }
 }
 
-function SubmitPIL({ formFields, snippet }) {
-  return (
-    <div className="govuk-grid-row">
-      <div className="govuk-grid-column-two-thirds">
-        {
-          formFields
-        }
-        <Button><Snippet>{ snippet }</Snippet></Button>
-      </div>
-    </div>
-  );
-}
-
 const Index = ({
   pil,
   establishment,
   certificates,
-  exemptions,
   model,
-  isAsru,
-  isLicensing,
   canTransferPil,
   trainingUpToDate
 }) => {
@@ -97,17 +80,6 @@ const Index = ({
     }
   ];
 
-  const isPilTransfer = !!model.establishment.to;
-  let submitSnippet = 'buttons.submit';
-
-  if (isAsru && !isPilTransfer) {
-    submitSnippet = 'buttons.submitAsAsru';
-
-    if (isLicensing) {
-      submitSnippet = 'buttons.submitAsLicensing';
-    }
-  }
-
   if (!canUpdateModel(model)) {
     return <InProgressWarning task={model.openTasks[0]} />;
   }
@@ -130,15 +102,14 @@ const Index = ({
       />
       <p><Snippet>pil.summary</Snippet></p>
       <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
-      <Form detachFields submit={false}>
-        <SubmitPIL snippet={submitSnippet} />
-      </Form>
+      <Form />
       {
         model.status === 'pending' && (
           <form
             action="delete"
             method="POST"
             onSubmit={confirmDelete}
+            className="control-panel"
           >
             <button className="link"><span>Discard draft application</span></button>
           </form>
