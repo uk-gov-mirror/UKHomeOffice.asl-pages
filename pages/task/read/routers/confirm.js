@@ -1,7 +1,29 @@
 const form = require('../../../common/routers/form');
 const { Router } = require('express');
 const { set, get, pick } = require('lodash');
+const { render } = require('mustache');
 const getSchema = require('../../schema/confirm');
+const content = require('../content/confirm');
+
+const requiresDeclaration = (task, values) => {
+  const model = task.data.model;
+  let action = task.data.action;
+  if (action === 'grant' && task.type === 'amendment') {
+    action = 'update';
+  }
+  return ['pil', 'trainingPil', 'project'].includes(model) && values.status === 'endorsed' && action !== 'review';
+};
+
+const trim = value => value.split('\n').map(s => s.trim()).join('\n').trim();
+
+const getDeclarationText = (task, values) => {
+  const declaration = get(content, `declaration.${values.status}.${task.data.model}`);
+  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder');
+  return trim(render(declaration, {
+    name: `${get(licenceHolder, 'firstName')} ${get(licenceHolder, 'lastName')}`,
+    type: task.type
+  }));
+};
 
 module.exports = () => {
   const app = Router();
@@ -46,7 +68,6 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[`${req.task.id}`].values;
-
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
@@ -59,6 +80,10 @@ module.exports = () => {
         }
       }
     };
+
+    if (requiresDeclaration(req.task, values)) {
+      opts.json.meta.declaration = getDeclarationText(req.task, values);
+    }
 
     return req.api(`/tasks/${req.task.id}/status`, opts)
       .then(response => {

@@ -6,6 +6,7 @@ const success = require('../../success');
 const confirm = require('./routers/confirm');
 const { hydrate, updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 const { canUpdateModel, canTransferPil } = require('../../../lib/utils');
+const content = require('./content');
 
 module.exports = settings => {
   const sendData = (req, params = {}) => {
@@ -14,7 +15,10 @@ module.exports = settings => {
     const opts = {
       method: 'PUT',
       json: merge({
-        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species')
+        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species'),
+        meta: {
+          declaration: content.fields.declaration.label
+        }
       }, params)
     };
 
