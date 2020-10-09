@@ -78,6 +78,24 @@ function DeadlineDetails({ item }) {
   );
 }
 
+function ExtraPilMeta({ item }) {
+  const declaration = get(item, 'event.meta.payload.meta.declaration');
+
+  if (!declaration) {
+    return null;
+  }
+
+  return (
+    <div className="declaration">
+      <p>Declaration:</p>
+      <Inset>
+        <Markdown>{declaration}</Markdown>
+      </Inset>
+    </div>
+  );
+
+}
+
 function ExtraProjectMeta({ item, task }) {
   const mostRecentActivity = item.id === task.activityLog[0].id;
   const versionId = get(item, 'event.data.data.version');
@@ -135,6 +153,7 @@ function LogItem({ item, task }) {
       <Action task={task} action={action} changedBy={item.changedBy} />
       <InspectorRecommendation item={item} />
       { isExtension && <DeadlineDetails item={item} /> }
+      { task.data.model === 'pil' && <ExtraPilMeta item={item} /> }
       <Comment changedBy={item.changedBy} comment={item.comment} />
       { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }
     </div>
