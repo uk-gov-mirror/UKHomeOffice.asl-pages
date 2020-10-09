@@ -2,7 +2,7 @@ module.exports = req => {
   const schema = {
     licenceHolder: {
       show: true,
-      sort: 'profile.lastName',
+      sort: 'lastName',
       toCSVString: (_, row) => `${row.profile.firstName} ${row.profile.lastName}`
     },
     licenceNumber: {
