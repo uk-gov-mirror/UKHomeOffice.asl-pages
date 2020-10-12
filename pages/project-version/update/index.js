@@ -4,7 +4,7 @@ const update = require('./router');
 const submit = require('./submit');
 const success = require('./success');
 
-module.exports = () => {
+module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.post('/update-training', (req, res, next) => {
@@ -41,7 +41,7 @@ module.exports = () => {
 
   // we always want to serve the same template and
   // scripts for any sub-routes under /edit
-  app.use('/*', update());
+  app.use('/*', update(settings));
 
   app.use((req, res) => res.sendResponse());
 
