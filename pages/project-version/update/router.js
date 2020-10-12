@@ -73,7 +73,7 @@ module.exports = settings => {
     next();
   });
 
-  app.put('/', bodyParser.json({ limit: '5mb' }));
+  app.put('/', bodyParser.json({ limit: settings.bodySizeLimit }));
 
   app.put('/', (req, res, next) => {
     const clientVersion = req.get('x-projects-version');
