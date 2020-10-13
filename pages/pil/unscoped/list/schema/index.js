@@ -5,7 +5,8 @@ module.exports = {
     sort: 'profile.lastName'
   },
   licenceNumber: {
-    show: true
+    show: true,
+    sort: 'profile.pilLicenceNumber'
   },
   issueDate: {
     show: true
