@@ -12,7 +12,6 @@ module.exports = merge({}, commonContent, {
       label: 'Why are you creating this approved area?'
     }
   },
-  inset: 'Any addition to your licensed premises will need to be assessed.',
   buttons: {
     submit: 'Continue'
   }

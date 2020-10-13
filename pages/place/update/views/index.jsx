@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
-  Inset,
   FormLayout,
   Header
 } from '@asl/components';
@@ -16,11 +15,6 @@ const Page = ({ model }) => {
   }
   return <FormLayout formatters={formatters}>
     <Header title={<Snippet>pages.place.edit</Snippet>} />
-    <Inset>
-      <p>
-        <Snippet>inset</Snippet>
-      </p>
-    </Inset>
   </FormLayout>;
 };
 
