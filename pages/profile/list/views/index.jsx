@@ -23,6 +23,9 @@ const joinAcronyms = data => {
 };
 
 const selectivelyUppercase = filter => {
+  if (filter === 'named') {
+    return 'All named people';
+  }
   return filter === 'admin' ? 'Admin' : filter.toUpperCase();
 };
 
@@ -57,6 +60,8 @@ const Filters = () => (
       prop="roles"
       formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
       append={['pilh', 'pplh', 'admin']}
+      prepend={['named']}
+      showAllLabel="All people"
     />
     <div className="table-heading">
       <FilterSummary />

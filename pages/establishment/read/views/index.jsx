@@ -77,6 +77,10 @@ const Index = ({
                 !(establishment.procedure || establishment.breeding || establishment.supplying) && '-'
               }
             </dd>
+            <dt><Snippet>approvedAreas</Snippet></dt>
+            <dd><Link page="place.list" label={<Snippet>action.approvedAreas</Snippet>} /></dd>
+            <dt><Snippet>namedPeople</Snippet></dt>
+            <dd><Link page="profile.list" label={<Snippet>action.namedPeople</Snippet>} query={{ filters: { roles: ['named'] } }} /></dd>
           </dl>
           <Accordion>
             <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>

@@ -25,6 +25,8 @@ module.exports = {
       applicableAnimals: 'Applicable animals'
     }
   },
+  approvedAreas: 'Approved areas',
+  namedPeople: 'Named people',
   notifications: {
     'conditions-updated': 'The conditions on this licence have been updated.',
     'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
@@ -54,6 +56,8 @@ module.exports = {
     },
     reapply: {
       button: 'Reapply for licence'
-    }
+    },
+    approvedAreas: 'View approved areas',
+    namedPeople: 'View named people'
   }
 };
