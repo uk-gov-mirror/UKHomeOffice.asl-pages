@@ -1,5 +1,5 @@
 const content = require('../content');
-const { toArray } = require('../../../../lib/utils');
+const { toArray, toBoolean } = require('../../../../lib/utils');
 const { uniq } = require('lodash');
 
 const licenceOptions = ['supplying', 'breeding', 'procedure'];
@@ -25,9 +25,26 @@ module.exports = {
   },
   licences: {
     inputType: 'checkboxGroup',
+    automapReveals: true,
     options: licenceOptions.map(option => ({
       value: option,
-      label: content.fields.licences.options[option]
+      label: content.fields.licences.options[option],
+      reveal: option === 'procedure' && ({
+        isTrainingEstablishment: {
+          inputType: 'radioGroup',
+          format: toBoolean,
+          options: [
+            {
+              value: true,
+              label: 'Yes'
+            },
+            {
+              value: false,
+              label: 'No'
+            }
+          ]
+        }
+      })
     })),
     validate: [
       {

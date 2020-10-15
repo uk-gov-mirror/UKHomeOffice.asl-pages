@@ -11,6 +11,7 @@ module.exports = {
     hasConditions: 'In addition to the [standard conditions of Section 2C licences](https://www.gov.uk/government/publications/establishment-licence-standard-conditions/establishment-licence-standard-conditions):',
     noConditions: 'The [standard conditions of Section 2C licences](https://www.gov.uk/government/publications/establishment-licence-standard-conditions/establishment-licence-standard-conditions) apply.'
   },
+  trainingEst: 'This establishment runs training courses that require Category E personal licences',
   authorisations: {
     title: 'Authorisations',
     killing: {

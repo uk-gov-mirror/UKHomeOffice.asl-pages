@@ -17,7 +17,7 @@ module.exports = () => {
     const opts = {
       method: 'PUT',
       json: merge({
-        data: pick(values, ['name', 'address', 'procedure', 'breeding', 'supplying', 'authorisations']),
+        data: pick(values, ['name', 'address', 'procedure', 'breeding', 'supplying', 'authorisations', 'isTrainingEstablishment']),
         meta: { comments: values.comments }
       }, params)
     };

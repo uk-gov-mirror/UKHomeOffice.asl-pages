@@ -14,5 +14,8 @@ export default {
   },
   authorisations: {
     format: listFormatter
+  },
+  isTrainingEstablishment: {
+    format: isTrainingEstablishment => isTrainingEstablishment ? 'Yes' : 'No'
   }
 };

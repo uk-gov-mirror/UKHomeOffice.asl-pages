@@ -191,26 +191,31 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    req.form.values = pick(req.body, Object.keys(req.form.schema));
+    const reveals = getOptionReveals(req.form.schema, req.body);
+    const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
+
+    const schema = {
+      ...req.form.schema,
+      ...reveals
+    };
+
+    req.form.values = pick(req.body, [
+      ...Object.keys(req.form.schema),
+      ...Object.keys(reveals),
+      ...conditionalRevealKeys
+    ]);
+
     req.form.values = mapValues(req.form.values, (value, key) => {
-      const nullValue = req.form.schema[key].nullValue;
+      const nullValue = schema[key].nullValue;
       return (value || isUndefined(nullValue)) ? value : nullValue;
     });
     req.form.values = mapValues(req.form.values, (value, key) => {
-      const format = req.form.schema[key].format || identity;
+      const format = schema[key].format || identity;
       return format(value, req.form.values);
     });
     req.form.values = mapValues(req.form.values, trim);
     req.form.values = cleanModel(req.form.values);
 
-    const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
-    const revealKeys = Object.keys(getOptionReveals(req.form.schema, req.body));
-    Object.assign(req.form.values, {
-      ...pick(req.body, [
-        ...conditionalRevealKeys,
-        ...revealKeys
-      ])
-    });
     return process(req, res, next);
   };
 

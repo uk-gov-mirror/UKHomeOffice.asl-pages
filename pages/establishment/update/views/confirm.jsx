@@ -15,7 +15,7 @@ const Confirm = ({ before, after }) => {
       />
 
       <Diff
-        schema={schema}
+        schema={{ ...schema, isTrainingEstablishment: {} }}
         before={before}
         after={after}
         comparator={hasChanged}
