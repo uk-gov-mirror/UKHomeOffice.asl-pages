@@ -102,7 +102,11 @@ const Index = ({
       />
       <p><Snippet>pil.summary</Snippet></p>
       <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />
-      <Form />
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <Form />
+        </div>
+      </div>
       {
         model.status === 'pending' && (
           <form
