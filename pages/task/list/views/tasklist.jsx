@@ -5,7 +5,8 @@ import {
   Snippet,
   LinkFilter,
   FilterSummary,
-  Panel
+  Panel,
+  Tabs
 } from '@asl/components';
 
 import Table from './table';
@@ -56,7 +57,8 @@ const Tasklist = ({
   workflowConnectionError,
   tabs = [],
   progress,
-  hasTasks
+  hasTasks,
+  displayTabs = true
 }) => {
   if (workflowConnectionError) {
     return (
@@ -68,9 +70,24 @@ const Tasklist = ({
     );
   }
 
+  progress = progress || tabs[0];
+  const selected = tabs.indexOf(progress);
+
   return (
     <Fragment>
-      <StatusFilters tabs={tabs} progress={progress} />
+      {
+        displayTabs
+          ? (
+            <Fragment>
+              {
+                !!tabs.length && <Tabs active={selected}>
+                  { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
+                </Tabs>
+              }
+            </Fragment>
+          )
+          : <StatusFilters tabs={tabs} progress={progress} />
+      }
       {
         hasTasks && <Fragment>
           <Filters />
