@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Acronym,
-  Tabs,
   Snippet,
   LinkFilter,
   FilterSummary,
@@ -28,6 +27,31 @@ const Filters = () => (
   </Fragment>
 );
 
+const StatusFilters = ({ tabs, progress }) => {
+  if (!tabs.length) {
+    return null;
+  }
+
+  return (
+    <div className="link-filter no-margin">
+      <label>Status:</label>
+      <ul>
+        {
+          tabs.map(tab => (
+            <li key={tab}>
+              {
+                progress === tab
+                  ? <Snippet>{ `tabs.${tab}` }</Snippet>
+                  : <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>
+              }
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  );
+};
+
 const Tasklist = ({
   workflowConnectionError,
   tabs = [],
@@ -43,15 +67,10 @@ const Tasklist = ({
       </Panel>
     );
   }
-  progress = progress || tabs[0];
-  const selected = tabs.indexOf(progress);
+
   return (
     <Fragment>
-      {
-        !!tabs.length && <Tabs active={selected}>
-          { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
-        </Tabs>
-      }
+      <StatusFilters tabs={tabs} progress={progress} />
       {
         hasTasks && <Fragment>
           <Filters />
