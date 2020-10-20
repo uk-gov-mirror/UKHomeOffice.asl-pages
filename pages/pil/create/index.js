@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const differenceInYears = require('date-fns/difference_in_years');
 
@@ -38,10 +39,10 @@ module.exports = settings => {
       return Promise.resolve()
         // create empty PIL
         .then(() => req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}/pil`, { method: 'POST' }))
-        // lookup created PIL
-        .then(() => req.api(`/establishment/${req.establishmentId}/profiles/${req.profileId}`))
         .then(({ json: { data } }) => {
-          return res.redirect(req.buildRoute('pil.update', { pilId: data.pil.id }));
+          // redirect to newly created pil
+          const pilId = get(data, 'data.id');
+          return res.redirect(req.buildRoute('pil.update', { pilId }));
         })
         .catch(next);
     }
