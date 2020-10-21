@@ -12,7 +12,7 @@ module.exports = () => {
     const target = isExemption
       ? 'modules'
       : 'certificate';
-    res.redirect(req.buildRoute(`training.${target}`));
+    res.redirect(req.buildRoute(`${res.locals.static.basePage}.${target}`));
   });
 
   return app;

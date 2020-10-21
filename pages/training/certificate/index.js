@@ -25,7 +25,7 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    res.redirect(req.buildRoute('training.modules'));
+    res.redirect(req.buildRoute(`${res.locals.static.basePage}.modules`));
   });
 
   return app;

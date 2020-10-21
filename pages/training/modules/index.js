@@ -28,7 +28,7 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     const { modules } = req.form.values;
     if (intersection(modules, SPECIES_MODULES).length) {
-      return res.redirect(req.buildRoute('training.species'));
+      return res.redirect(req.buildRoute(`${res.locals.static.basePage}.species`));
     }
     return next();
   });

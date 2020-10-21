@@ -12,6 +12,8 @@ module.exports = settings => {
       .then(({ json: { data, meta } }) => {
         req.model = data;
         req.model.openTasks = meta.openTasks || [];
+        req.profile = req.model;
+        res.locals.static.profile = req.model;
         res.locals.model = req.model;
       })
       .then(() => next())

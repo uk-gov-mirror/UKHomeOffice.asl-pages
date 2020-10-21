@@ -1,12 +1,16 @@
 import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Link,
   Snippet,
-  Header
+  Header,
+  TrainingSummary
 } from '@asl/components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 
-const Index = () => {
+export default function Index() {
+  const { certificates } = useSelector(state => state.model);
+
   return <Fragment>
     <Header title={<Snippet>pages.account.title</Snippet>} />
     <div className="govuk-grid-row">
@@ -24,8 +28,11 @@ const Index = () => {
         </ul>
       </div>
     </div>
+    <section className="profile-section">
+      <h3><Snippet>training</Snippet></h3>
+      <TrainingSummary certificates={certificates} />
+      <Link page="ownTraining" label="Manage training" />
+    </section>
     <RelatedTasks />
   </Fragment>;
-};
-
-export default Index;
+}

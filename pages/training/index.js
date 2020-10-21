@@ -7,6 +7,7 @@ module.exports = () => {
   const app = Router({ mergeParams: true });
 
   app.use((req, res, next) => {
+    res.locals.static.basePage = req.establishmentId ? 'training' : 'ownTraining';
     res.locals.pageTitle = `Training - ${req.profile.firstName} ${req.profile.lastName}`;
     next();
   });
@@ -20,7 +21,11 @@ module.exports = () => {
       };
       return next();
     }
-    return req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/certificate/${certificateId}`)
+
+    const apiPrefix = req.establishmentId
+      ? `/establishment/${req.establishmentId}/profile/${req.profileId}`
+      : '/me';
+    return req.api(`${apiPrefix}/certificate/${certificateId}`)
       .then(({ json: { data, meta } }) => {
         req.certificateId = certificateId;
         req.model = cleanModel(data);
