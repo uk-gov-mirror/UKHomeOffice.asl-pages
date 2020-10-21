@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { Header, Snippet, FormLayout } from '@asl/components';
 
 export default function Type() {
-  const profile = useSelector(state => state.static.profile);
+  const { profile, basePage } = useSelector(state => state.static);
   return (
-    <FormLayout cancelLink="training.dashboard">
+    <FormLayout cancelLink={`${basePage}.dashboard`}>
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={`${profile.firstName} ${profile.lastName}`}

@@ -11,11 +11,15 @@ const submit = () => (req, res, next) => {
     }
   };
 
-  req.api(`/establishment/${req.establishmentId}/profile/${req.profileId}/certificate/${isNewCert ? '' : req.certificateId}`, params)
+  const apiPrefix = req.establishmentId
+    ? `/establishment/${req.establishmentId}/profile/${req.profileId}`
+    : '/me';
+
+  req.api(`${apiPrefix}/certificate/${isNewCert ? '' : req.certificateId}`, params)
     .then(() => {
       delete req.session.form[req.model.id];
       req.notification({ key: 'success' });
-      res.redirect(req.buildRoute('training.dashboard'));
+      res.redirect(req.buildRoute(`${res.locals.static.basePage}.dashboard`));
     })
     .catch(next);
 };

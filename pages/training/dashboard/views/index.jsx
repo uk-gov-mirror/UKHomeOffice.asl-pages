@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { Header, Snippet, Link, TrainingSummary } from '@asl/components';
 
 export default function Training() {
-  const { profile, referrer } = useSelector(state => state.static, shallowEqual);
+  const { profile, referrer, basePage } = useSelector(state => state.static, shallowEqual);
   const draftProjects = (profile.projects || []).filter(p => p.status === 'inactive');
   const activeProjects = (profile.projects || []).filter(p => p.status === 'active');
   return (
@@ -14,9 +14,9 @@ export default function Training() {
       />
       <h2><Snippet>modules.title</Snippet></h2>
       <p className="govuk-hint"><Snippet>modules.hint</Snippet></p>
-      <TrainingSummary certificates={profile.certificates} actions={true} />
+      <TrainingSummary certificates={profile.certificates} actions={true} basePage={basePage} />
       <p>
-        <Link page="training.type" className="govuk-button" certificateId="create" label={<Snippet>modules.add</Snippet>}/>
+        <Link page={`${basePage}.type`} className="govuk-button" certificateId="create" label={<Snippet>modules.add</Snippet>}/>
       </p>
       {
         (referrer || !!draftProjects.length) && (

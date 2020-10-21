@@ -1,3 +1,4 @@
 module.exports = {
-  pageTitle: 'Account'
+  pageTitle: 'Account',
+  training: 'Training'
 };
