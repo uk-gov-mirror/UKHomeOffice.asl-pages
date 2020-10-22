@@ -18,6 +18,9 @@ function ProfileLink({ id, name, establishmentId, asruUser }) {
 function Action({ task, action, changedBy }) {
   const type = task.type;
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
+  if (action === 'autoresolved') {
+    return <p><strong><Snippet>status.autoresolved.log</Snippet></strong></p>;
+  }
   return (
     <p>
       <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
