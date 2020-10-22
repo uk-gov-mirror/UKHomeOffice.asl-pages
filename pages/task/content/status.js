@@ -253,5 +253,9 @@ module.exports = {
       transfer: 'You will need to start a new transfer request if you still wish to transfer this licence.'
     },
     log: 'Discarded by'
+  },
+  autoresolved: {
+    state: 'Approved',
+    log: 'Automatically approved'
   }
 };
