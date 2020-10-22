@@ -3,14 +3,12 @@ import { useSelector } from 'react-redux';
 import {
   Link,
   Snippet,
-  Header,
-  TrainingSummary
+  Header
 } from '@asl/components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 
 export default function Index() {
-  const { certificates } = useSelector(state => state.model);
-
+  const { asruUser } = useSelector(state => state.model);
   return <Fragment>
     <Header title={<Snippet>pages.account.title</Snippet>} />
     <div className="govuk-grid-row">
@@ -25,14 +23,14 @@ export default function Index() {
           <li>
             <Link page="account.updatePassword" label={ <Snippet>pages.account.updatePassword.base</Snippet> } />
           </li>
+          {
+            !asruUser && <li>
+              <Link page="ownTraining" label="Manage training" />
+            </li>
+          }
         </ul>
       </div>
     </div>
-    <section className="profile-section">
-      <h3><Snippet>training</Snippet></h3>
-      <TrainingSummary certificates={certificates} />
-      <Link page="ownTraining" label="Manage training" />
-    </section>
     <RelatedTasks />
   </Fragment>;
 }
