@@ -16,7 +16,7 @@ module.exports = settings => {
       next();
     },
     getApiPath: (req, res, next) => {
-      req.datatable.apiPath = `/establishment/${req.establishmentId}/places`;
+      req.datatable.apiPath = `/search/establishment/${req.establishmentId}/places`;
       next();
     }
   })({ schema, defaultRowCount: 50 }));
