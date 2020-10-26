@@ -36,7 +36,8 @@ module.exports = {
       hint: 'Comments can be seen by inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task.'
     },
     comments: {
-      label: 'Why are you making this amendment?'
+      label: 'Reason for amendment',
+      hint: 'Briefly summarise what\'s changed and why'
     }
   },
   errors: {
