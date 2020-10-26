@@ -6,7 +6,8 @@ import {
   Snippet,
   Link,
   Header,
-  LicenceStatusBanner
+  LicenceStatusBanner,
+  Search
 } from '@asl/components';
 import formatters from '../../formatters';
 
@@ -25,12 +26,12 @@ const pageFormatters = {
   },
   nacwos: {
     format: nacwos => {
-      return nacwos && nacwos.map(nacwo => (
-        <p key={nacwo.profile.id} className="no-margins">
+      return nacwos && nacwos.map(profile => (
+        <p key={profile.id} className="no-margins">
           <Link
             page="profile.read"
-            profileId={nacwo.profile.id}
-            label={`${nacwo.profile.firstName} ${nacwo.profile.lastName}`}
+            profileId={profile.id}
+            label={`${profile.firstName} ${profile.lastName}`}
           />
         </p>
       ));
@@ -38,12 +39,12 @@ const pageFormatters = {
   },
   nvssqps: {
     format: nvssqps => {
-      return nvssqps && nvssqps.map(role => (
-        <p key={role.profile.id} className="no-margins">
+      return nvssqps && nvssqps.map(profile => (
+        <p key={profile.id} className="no-margins">
           <Link
             page="profile.read"
-            profileId={role.profile.id}
-            label={`${role.profile.firstName} ${role.profile.lastName}`}
+            profileId={profile.id}
+            label={`${profile.firstName} ${profile.lastName}`}
           />
         </p>
       ));
@@ -65,6 +66,7 @@ export default function Places() {
         title={<Snippet>pages.place.list</Snippet>}
         subtitle={establishment.name}
       />
+      <Search label={<Snippet>searchText</Snippet>} />
       <FilterTable
         schema={schema}
         formatters={Object.assign({}, formatters, pageFormatters)}
