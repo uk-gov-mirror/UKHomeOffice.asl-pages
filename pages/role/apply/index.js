@@ -61,6 +61,10 @@ module.exports = settings => {
 
       next();
     },
+    getValues: (req, res, next) => {
+      req.form.values.rcvsNumber = req.form.values.rcvsNumber || req.profile.rcvsNumber;
+      next();
+    },
     locals: (req, res, next) => {
       res.locals.static.schema = omit(req.form.schema, 'rcvsNumber');
       res.locals.static.ownProfile = req.user.profile.id === req.profileId;
