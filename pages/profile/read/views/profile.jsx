@@ -21,7 +21,8 @@ class Profile extends React.Component {
       establishments = [],
       id,
       dob,
-      pilLicenceNumber
+      pilLicenceNumber,
+      rcvsNumber
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions || [];
@@ -149,9 +150,16 @@ class Profile extends React.Component {
             <Snippet>responsibilities.title</Snippet>
           </h3>
           {
-            !isEmpty(estRoles) && estRoles.map(({ type, id }) => (
-              <p key={id}>{defineValue(type.toUpperCase())}</p>
-            ))
+            !isEmpty(estRoles) && estRoles.map(({ type, id }) => {
+              return <Fragment key={id}>
+                <p>{defineValue(type.toUpperCase())}</p>
+                {
+                  type === 'nvs' && <p className="govuk-hint">
+                    <Snippet rcvsNumber={rcvsNumber || 'Unknown'}>responsibilities.rcvsNumber</Snippet>
+                  </p>
+                }
+              </Fragment>;
+            })
           }
           {
             isEmpty(estRoles) && (
