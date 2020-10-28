@@ -14,13 +14,15 @@ module.exports = {
     show: true,
     filter: true,
     comparator: 'AND',
-    exact: true
+    exact: true,
+    sortable: false
   },
   holding: {
     show: true,
     filter: true,
     comparator: 'AND',
-    exact: true
+    exact: true,
+    sortable: false
   },
   nacwos: {
     show: true,
