@@ -11,6 +11,11 @@ module.exports = () => {
   });
 
   app.use((req, res, next) => {
+    res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
+    next();
+  });
+
+  app.use((req, res, next) => {
     req.model = {
       id: 'new-training-course',
       ...buildModel(schema)

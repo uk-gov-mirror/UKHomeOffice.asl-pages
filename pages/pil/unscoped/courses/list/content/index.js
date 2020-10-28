@@ -2,6 +2,7 @@ const { merge } = require('lodash');
 const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
+  pageTitle: 'Training courses',
   subtitle: 'Apply for category E licences on behalf of people attending a course.',
   buttons: {
     add: 'Add course details'

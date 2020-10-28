@@ -5,6 +5,11 @@ const schema = require('../participants/list/schema');
 module.exports = () => {
   const app = page({ root: __dirname });
 
+  app.use((req, res, next) => {
+    res.locals.pageTitle = `${req.trainingCourse.title} - ${req.establishment.name}`;
+    next();
+  });
+
   app.use(datatable({
     getApiPath: (req, res, next) => {
       const query = {
