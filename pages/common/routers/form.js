@@ -15,7 +15,8 @@ const {
   omit,
   chain,
   reduce,
-  castArray
+  castArray,
+  cloneDeep
 } = require('lodash');
 const validator = require('../../../lib/validation');
 const { hasChanged, cleanModel } = require('../../../lib/utils');
@@ -137,7 +138,7 @@ module.exports = ({
 
   const _configure = (req, res, next) => {
     req.form = req.form || {};
-    req.form.schema = schema;
+    req.form.schema = cloneDeep(schema);
     req.session.form = req.session.form || {};
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
     req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
