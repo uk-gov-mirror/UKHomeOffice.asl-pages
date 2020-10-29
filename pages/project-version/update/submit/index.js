@@ -2,6 +2,7 @@ const { pick, get, set } = require('lodash');
 const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
 const { getSchema } = require('./schema');
+const content = require('./content');
 
 module.exports = settings => {
   const app = page({
@@ -79,6 +80,11 @@ module.exports = settings => {
         version: req.version.id
       }
     };
+
+    if (res.locals.static.canEndorse) {
+      json.meta.declaration = content.declaration.content;
+    }
+
     Promise.resolve()
       .then(() => req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/grant`, { method: 'POST', json }))
       .then(response => {

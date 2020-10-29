@@ -81,7 +81,7 @@ function DeadlineDetails({ item }) {
   );
 }
 
-function ExtraPilMeta({ item }) {
+function DeclarationMeta({ item }) {
   const declaration = get(item, 'event.meta.payload.meta.declaration');
 
   if (!declaration) {
@@ -156,7 +156,7 @@ function LogItem({ item, task }) {
       <Action task={task} action={action} changedBy={item.changedBy} />
       <InspectorRecommendation item={item} />
       { isExtension && <DeadlineDetails item={item} /> }
-      { task.data.model === 'pil' && <ExtraPilMeta item={item} /> }
+      <DeclarationMeta item={item} />
       <Comment changedBy={item.changedBy} comment={item.comment} />
       { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }
     </div>
