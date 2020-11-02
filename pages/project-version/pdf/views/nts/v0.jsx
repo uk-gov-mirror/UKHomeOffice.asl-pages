@@ -1,13 +1,12 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import ReviewField from '@asl/projects/client/components/review-field';
 import RichText from '@asl/projects/client/components/editor';
-import schemaV0 from '@asl/projects/client/schema/v0';
-import RetrospectiveAssessment from '@asl/projects/client/components/retrospective-assessment';
-
-const getPurposeOptions = () => {
-  return schemaV0().programmeOfWork.subsections.purpose.fields.find(field => field.name === 'purpose').options;
-};
+import {
+  Duration,
+  Keywords,
+  Purpose,
+  RetrospectiveAssessment
+} from '../../../nts/views/components';
 
 export default function SchemaV0() {
   const project = useSelector(state => state.application.project);
@@ -21,34 +20,22 @@ export default function SchemaV0() {
 
       <div className="q-and-a">
         <h3>Project duration</h3>
-        <ReviewField
-          type="duration"
-          value={version['duration']}
-        />
+        <Duration version={version} />
       </div>
 
       <div className="q-and-a">
         <h3>Project purpose</h3>
-        <ReviewField
-          type="permissible-purpose"
-          value={version['purpose']}
-          project={version}
-          options={getPurposeOptions()}
-        />
+        <Purpose version={version} schemaVersion={0} />
       </div>
 
       <div className="q-and-a">
         <h3>Key words</h3>
-        <p>{
-          (version.keywords || []).length
-            ? version.keywords.join(', ')
-            : 'No answer provided'
-        }</p>
+        <Keywords version={version} />
       </div>
 
       <div className="q-and-a">
         <h2>Retrospective assessment</h2>
-        <RetrospectiveAssessment showTitle={false} />
+        <RetrospectiveAssessment version={version} />
       </div>
 
       <h2>Objectives and benefits</h2>

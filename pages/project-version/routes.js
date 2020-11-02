@@ -2,6 +2,7 @@ const read = require('./read');
 const update = require('./update');
 const downloads = require('./downloads');
 const pdf = require('./pdf');
+const nts = require('./nts');
 const docx = require('./docx');
 const convert = require('./convert');
 const ppl = require('./ppl');
@@ -19,6 +20,10 @@ module.exports = {
   downloads: {
     path: '/downloads',
     router: downloads
+  },
+  nts: {
+    path: '/nts',
+    router: nts
   },
   pdf: {
     path: '/pdf',

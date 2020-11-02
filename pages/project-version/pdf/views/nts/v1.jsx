@@ -1,50 +1,15 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { concat, flatten, values } from 'lodash';
 import RichText from '@asl/projects/client/components/editor';
-import ReviewField from '@asl/projects/client/components/review-field';
-import schemaV1 from '@asl/projects/client/schema/v1';
-import permissiblePurpose from '@asl/projects/client/schema/v1/permissible-purpose';
-import { projectSpecies as SPECIES } from '@asl/constants';
-import SpeciesTable from './components/species-table';
-import RetrospectiveAssessment from '@asl/projects/client/components/retrospective-assessment';
-
-const getPermissiblePurposeOptions = () => {
-  return permissiblePurpose.options;
-};
-
-const getFateOfAnimalsOptions = () => {
-  return schemaV1().protocols.subsections['fate-of-animals'].fields.find(field => field.name === 'fate-of-animals').options;
-};
-
-const speciesLabels = flatten(values(SPECIES));
-
-const getSpeciesLabel = speciesKey => {
-  const species = speciesLabels.find(s => s.value === speciesKey);
-  return species ? species.label : undefined;
-};
-
-const getSpeciesCount = (speciesKey, version) => version[`reduction-quantities-${speciesKey}`] || 'No answer provided';
-
-function SpeciesCount({ version }) {
-  const speciesUsed = concat([], version.species, version['species-other']).filter(Boolean);
-
-  if (speciesUsed.length < 1) {
-    return 'No data available';
-  }
-
-  return (
-    <ul>
-      {
-        speciesUsed.map(species => (
-          <li key={species}>
-            {getSpeciesLabel(species)}: {getSpeciesCount(species, version)}
-          </li>
-        ))
-      }
-    </ul>
-  );
-}
+import {
+  Duration,
+  FateOfAnimals,
+  Keywords,
+  Purpose,
+  RetrospectiveAssessment,
+  SpeciesCount,
+  SpeciesTable
+} from '../../../nts/views/components';
 
 export default function SchemaV1() {
   const version = useSelector(state => state.project);
@@ -57,42 +22,24 @@ export default function SchemaV1() {
 
       <div className="q-and-a">
         <h3>Project duration</h3>
-        <ReviewField
-          type="duration"
-          value={version['duration']}
-        />
+        <Duration version={version} />
       </div>
 
       <div className="q-and-a">
         <h3>Project purpose</h3>
-        {
-          version['training-licence']
-            ? <ul>
-              <li>(f) Higher education and training</li>
-            </ul>
-            : <ReviewField
-              type="permissible-purpose"
-              value={version['permissible-purpose']}
-              project={version}
-              options={getPermissiblePurposeOptions()}
-            />
-        }
+        <Purpose version={version} schemaVersion={1} />
       </div>
 
       <div className="q-and-a">
         <h3>Key words</h3>
-        <p>{
-          (version.keywords || []).length
-            ? version.keywords.join(', ')
-            : 'No answer provided'
-        }</p>
+        <Keywords version={version} />
       </div>
 
       <SpeciesTable version={version} />
 
       <div className="q-and-a">
         <h2>Retrospective assessment</h2>
-        <RetrospectiveAssessment showTitle={false} />
+        <RetrospectiveAssessment version={version} />
       </div>
 
       <h2>Objectives and benefits</h2>
@@ -189,12 +136,7 @@ export default function SchemaV1() {
 
       <div className="q-and-a">
         <h4>What will happen to the animals at the end of the study?</h4>
-        <ReviewField
-          type="checkbox"
-          value={version['fate-of-animals']}
-          project={version}
-          options={getFateOfAnimalsOptions()}
-        />
+        <FateOfAnimals version={version} />
       </div>
 
       <h2>Application of the three Rs</h2>

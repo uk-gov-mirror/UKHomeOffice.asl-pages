@@ -76,7 +76,8 @@ module.exports = {
       update: 'Amend licence',
       'update-draft': 'Edit draft',
       downloads: 'Downloads',
-      convert: 'Convert legacy licence'
+      convert: 'Convert legacy licence',
+      nts: 'Non-technical summary'
     },
     account: {
       menu: 'Your account',
