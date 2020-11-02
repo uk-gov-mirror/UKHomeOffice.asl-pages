@@ -14,7 +14,8 @@ module.exports = {
       },
       {
         name: 'keywords',
-        label: 'Key words'
+        label: 'Key words',
+        type: 'Keywords'
       }
     ]
   },
