@@ -363,7 +363,7 @@ function PreviousVersions({ model }) {
 function RelatedContent({ project, version }) {
   return (
     <div className="related-content">
-      <h2>Related content</h2>
+      <h3>Related content</h3>
       <ul>
         <li>
           <Link page="projectVersion.nts" projectId={project.id} versionId={version.id} label={<Snippet>related.nts</Snippet>} />
@@ -386,16 +386,15 @@ export default function ProjectLandingPage() {
   return (
     <Fragment>
       <ProjectStatusBanner model={model} version={grantedVersion || model.versions[0]} />
+      <Header
+        subtitle={establishment.name}
+        title={model.title || 'Untitled project'}
+      />
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <Header
-            subtitle={establishment.name}
-            title={model.title || 'Untitled project'}
-          />
 
           <dl className="inline">
-
             <dt><Snippet>fields.licenceHolder.label</Snippet></dt>
             <dd>
               {`${model.licenceHolder.firstName} ${model.licenceHolder.lastName}`}<br />
@@ -504,10 +503,12 @@ export default function ProjectLandingPage() {
             }
           </dl>
         </div>
+
         <div className="govuk-grid-column-one-third">
           <RelatedContent project={model} version={grantedVersion || model.versions[0]} />
         </div>
       </div>
+
       <CurrentVersion model={model} />
       <Actions model={model} />
       <PreviousVersions model={model} />

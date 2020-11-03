@@ -547,6 +547,9 @@ dl.inline dd .procedures-diff ul {
 }
 
 .related-content {
+  border-top: 1px solid govuk-colour('grey-2');
+  padding-top: $govuk-gutter;
+
   ul {
     list-style: none;
     padding: 0;
