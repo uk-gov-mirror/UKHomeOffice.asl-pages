@@ -45,9 +45,9 @@ export default function NTS() {
   const thisVersionIsGranted = project.granted && project.granted.id === version.id;
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
   const title = get(version, 'data.title') || 'Untitled project';
+  const isTrainingLicence = get(version, 'data.training-licence', false);
 
   const sections = getSchema(project.schemaVersion);
-
   const firstSectionName = Object.keys(sections)[0];
   const [activeSection, setActiveSection] = useState(firstSectionName);
 
@@ -107,12 +107,14 @@ export default function NTS() {
             Object.keys(sections)
               .map(sectionName => {
                 const section = sections[sectionName];
+                const fields = section.fields.filter(f => isTrainingLicence ? f.training !== false : f.training !== true);
+
                 return (
                   <section key={sectionName} className={classnames({ hidden: sectionName !== activeSection })}>
                     <h1>{section.title}</h1>
                     { section.subtitle && <h2>{section.subtitle}</h2> }
                     {
-                      section.fields.map((field, index) => (
+                      fields.map((field, index) => (
                         <Fragment key={index}>
                           { field.heading && <h2>{field.heading}</h2> }
                           { field.label && <h3>{field.label}</h3> }
