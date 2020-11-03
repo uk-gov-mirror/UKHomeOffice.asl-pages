@@ -34,18 +34,22 @@ export default function SpeciesTable({ version }) {
 
   return (
     <table className="govuk-table animal-types">
-      <tr>
-        <th>Animal types</th>
-        <th>Life stages</th>
-      </tr>
-      {
-        speciesDetails.map(species => (
-          <tr key={species.value}>
-            <td>{species.name}</td>
-            <td>{(species.lifeStages || []).join(', ')}</td>
-          </tr>
-        ))
-      }
+      <thead>
+        <tr>
+          <th>Animal types</th>
+          <th>Life stages</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          speciesDetails.map(species => (
+            <tr key={species.value}>
+              <td>{species.name}</td>
+              <td>{(species.lifeStages || []).join(', ')}</td>
+            </tr>
+          ))
+        }
+      </tbody>
     </table>
   );
 }
