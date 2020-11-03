@@ -11,12 +11,13 @@ import {
   FateOfAnimals,
   Keywords,
   Purpose,
-  RetrospectiveAssessment,
+  RetrospectiveDecision,
+  RetrospectivePlaceholder,
   SpeciesCount,
   SpeciesTable
 } from './components';
 
-function Field({ field, version, schemaVersion }) {
+function Field({ field, version, schemaVersion, project }) {
   if (!field.name) {
     return null;
   }
@@ -34,6 +35,10 @@ function Field({ field, version, schemaVersion }) {
       return <Purpose version={version.data} schemaVersion={schemaVersion} />
     case 'Keywords':
       return <Keywords version={version.data} />
+    case 'RetrospectiveDecision':
+      return <RetrospectiveDecision version={version.data} />
+    case 'RetrospectivePlaceholder':
+      return <RetrospectivePlaceholder version={version.data} project={project} field={field} />
     default:
       return <RichText value={version.data[field.name]} readOnly={true} />
   }
@@ -80,7 +85,8 @@ export default function NTS() {
         title={title}
         subtitle={<Snippet>subtitle</Snippet>}
         licenceStatus={licenceStatus}
-        showPdf={true}
+        showPdf={false}
+        showAllDownloads={true}
         basename={basename}
       >
         <dl>
@@ -118,16 +124,9 @@ export default function NTS() {
                         <Fragment key={index}>
                           { field.heading && <h2>{field.heading}</h2> }
                           { field.label && <h3>{field.label}</h3> }
-                          <Field field={field} version={version} schemaVersion={project.schemaVersion} />
+                          <Field field={field} version={version} schemaVersion={project.schemaVersion} project={project} />
                         </Fragment>
                       ))
-                    }
-                    {
-                      sectionName === 'overview' &&
-                      <Fragment>
-                        <h2>Retrospective assessment</h2>
-                        <RetrospectiveAssessment version={version} />
-                      </Fragment>
                     }
                   </section>
                 );

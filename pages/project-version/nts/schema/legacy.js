@@ -16,6 +16,11 @@ module.exports = {
         name: 'keywords',
         label: 'Key words',
         type: 'Keywords'
+      },
+      {
+        name: 'retrospective-assessment',
+        heading: 'Retrospective assessment',
+        type: 'RetrospectiveDecision'
       }
     ]
   },
@@ -27,6 +32,14 @@ module.exports = {
       {
         name: 'nts-objectives',
         label: 'What is the aim of this project?'
+      },
+      {
+        name: 'retro-aims',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of these aims will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * Is there a plan for this work to continue under another licence?
+  * Did the project achieve it's aims and if not, why not?`
       },
       {
         heading: `Potential benefits likely to derive from the project, for example how science might be advanced or how humans,
@@ -54,8 +67,15 @@ module.exports = {
     fields: [
       {
         name: 'nts-adverse-effects',
-        heading: `In the context of what you propose to do to the animals, what are the expected adverse effects and the
+        label: `In the context of what you propose to do to the animals, what are the expected adverse effects and the
         likely/expected level of severity? What will happen to the animals at the end?`
+      },
+      {
+        name: 'retro-harms',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of these predicted harms will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * What harms were caused to the animals, how severe were those harms and how many animals were affected?`
       }
     ]
   },
@@ -64,7 +84,15 @@ module.exports = {
     fields: [
       {
         name: 'nts-replacement',
-        heading: `State why you need to use animals and why you cannot use non-animal alternatives.`
+        label: `State why you need to use animals and why you cannot use non-animal alternatives.`
+      },
+      {
+        name: 'retro-replacement',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of replacement will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * What, if any, non-animal alternatives were used or explored after the project started, and is there anything others
+  can learn from your experience?`
       }
     ]
   },
@@ -73,7 +101,14 @@ module.exports = {
     fields: [
       {
         name: 'nts-reduction',
-        heading: `Explain how you will assure the use of minimum numbers of animals.`
+        label: `Explain how you will assure the use of minimum numbers of animals.`
+      },
+      {
+        name: 'retro-reduction',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of reduction will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * How did you minimise the numbers of animals used on your project and is there anything others can learn from your experience?`
       }
     ]
   },
@@ -82,8 +117,16 @@ module.exports = {
     fields: [
       {
         name: 'nts-refinement',
-        heading: `Explain the choice of species and why the animal model(s) you will use are the most refined, having
+        label: `Explain the choice of species and why the animal model(s) you will use are the most refined, having
         regard to the objectives. Explain the general measures you will take to minimise welfare costs (harms) to the animals.`
+      },
+      {
+        name: 'retro-refinement',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of refinement will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * With the knowledge you have now, could the choice of animals or model(s) used be improved for future work of this kind?
+  During the project, how did you minimise harm to the animals?`
       }
     ]
   }

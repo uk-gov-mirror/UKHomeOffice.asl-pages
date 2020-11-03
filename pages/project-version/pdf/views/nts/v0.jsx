@@ -5,7 +5,7 @@ import {
   Duration,
   Keywords,
   Purpose,
-  RetrospectiveAssessment
+  RetrospectiveDecision
 } from '../../../nts/views/components';
 
 export default function SchemaV0() {
@@ -35,7 +35,7 @@ export default function SchemaV0() {
 
       <div className="q-and-a">
         <h2>Retrospective assessment</h2>
-        <RetrospectiveAssessment version={version} />
+        <RetrospectiveDecision version={version} />
       </div>
 
       <h2>Objectives and benefits</h2>

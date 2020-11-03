@@ -6,7 +6,7 @@ import {
   FateOfAnimals,
   Keywords,
   Purpose,
-  RetrospectiveAssessment,
+  RetrospectiveDecision,
   SpeciesCount,
   SpeciesTable
 } from '../../../nts/views/components';
@@ -39,7 +39,7 @@ export default function SchemaV1() {
 
       <div className="q-and-a">
         <h2>Retrospective assessment</h2>
-        <RetrospectiveAssessment version={version} />
+        <RetrospectiveDecision version={version} />
       </div>
 
       <h2>Objectives and benefits</h2>

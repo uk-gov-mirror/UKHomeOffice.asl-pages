@@ -21,6 +21,11 @@ module.exports = {
         name: 'species',
         label: 'Animal types and life stages',
         type: 'SpeciesTable'
+      },
+      {
+        name: 'retrospective-assessment',
+        heading: 'Retrospective assessment',
+        type: 'RetrospectiveDecision'
       }
     ]
   },
@@ -32,6 +37,14 @@ module.exports = {
       {
         name: 'project-aim',
         label: 'What is the aim of this project?'
+      },
+      {
+        name: 'retro-aims',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of these aims will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * Is there a plan for this work to continue under another licence?
+  * Did the project achieve it's aims and if not, why not?`
       },
       {
         heading: `Potential benefits likely to derive from the project, for example how science might be advanced or how humans,
@@ -109,6 +122,13 @@ module.exports = {
       {
         name: 'fate-of-animals',
         label: 'What will happen to the animals at the end of the study?'
+      },
+      {
+        name: 'retro-harms',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of these predicted harms will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * What harms were caused to the animals, how severe were those harms and how many animals were affected?`
       }
     ]
   },
@@ -135,6 +155,14 @@ module.exports = {
         name: 'training-replacement-observation',
         label: 'Why can’t your aim be met by observing or by participating in ongoing research or clinical procedures?',
         training: true
+      },
+      {
+        name: 'retro-replacement',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of replacement will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * What, if any, non-animal alternatives were used or explored after the project started, and is there anything others
+  can learn from your experience?`
       }
     ]
   },
@@ -174,6 +202,13 @@ module.exports = {
         name: 'training-reduction-other-measures',
         label: 'What other measures will you use to minimise the number of animals you plan to use in your project?',
         training: true
+      },
+      {
+        name: 'retro-reduction',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of reduction will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * How did you minimise the numbers of animals used on your project and is there anything others can learn from your experience?`
       }
     ]
   },
@@ -209,6 +244,14 @@ module.exports = {
       {
         name: 'project-harms-animals',
         label: 'Explain the choice of species and the related life stages'
+      },
+      {
+        name: 'retro-refinement',
+        type: 'RetrospectivePlaceholder',
+        content: `### A retrospective assessment of refinement will be due by {{raDate}}
+The PPL holder will be required to disclose:
+  * With the knowledge you have now, could the choice of animals or model(s) used be improved for future work of this kind?
+  During the project, how did you minimise harm to the animals?`
       }
     ]
   }

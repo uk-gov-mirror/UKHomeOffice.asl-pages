@@ -555,3 +555,10 @@ dl.inline dd .procedures-diff ul {
     padding: 0;
   }
 }
+
+.retrospective-placeholder {
+  background-color: govuk-colour('grey-2');
+  padding: $govuk-gutter $govuk-gutter;
+  padding-bottom: $govuk-gutter-half;
+  margin-bottom: $govuk-gutter;
+}
