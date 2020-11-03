@@ -545,3 +545,10 @@ dl.inline dd .procedures-diff ul {
   color: $red;
   margin-top: -$govuk-gutter-half;
 }
+
+.related-content {
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
