@@ -33,7 +33,7 @@ export default function SpeciesTable({ version }) {
   }
 
   return (
-    <table className="animal-types">
+    <table className="govuk-table animal-types">
       <tr>
         <th>Animal types</th>
         <th>Life stages</th>
