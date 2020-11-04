@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import { Snippet, DownloadHeader } from '@asl/components';
+import { Snippet, DownloadHeader, Link } from '@asl/components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 import getSchema from '../schema';
 import RichText from '@asl/projects/client/components/editor';
@@ -44,6 +44,60 @@ function Field({ field, version, schemaVersion, project }) {
   }
 }
 
+function SideNav({ sections, activeSection, setActiveSection }) {
+  return (
+    <nav className="sidebar-nav section-nav sticky">
+      {
+        Object.keys(sections)
+          .map(sectionName => {
+            return (
+              <a
+                key={sectionName}
+                href={`#${sectionName}`}
+                className={classnames({ active: sectionName === activeSection })}
+                onClick={() => setActiveSection(sectionName)}>
+                <h3>{sections[sectionName].title}</h3>
+              </a>
+            );
+          })
+      }
+    </nav>
+  );
+}
+
+function BottomNav({ sections, activeSection, setActiveSection }) {
+  const sectionNames = Object.keys(sections);
+  const activeSectionPos = sectionNames.indexOf(activeSection);
+  const previousSection = activeSectionPos > 0 ? sectionNames[activeSectionPos-1] : undefined;
+  const nextSection = activeSectionPos < sectionNames.length-1 ? sectionNames[activeSectionPos+1] : undefined;
+
+  return (
+    <nav className="bottom-nav">
+      {
+        previousSection &&
+          <a
+            href={`#${previousSection}`}
+            onClick={() => setActiveSection(previousSection)}
+            className="previous">
+            <strong>Previous</strong><br />
+            <span>{sections[previousSection].title}</span>
+          </a>
+      }
+      {
+        nextSection &&
+          <a
+            href={`#${nextSection}`}
+            onClick={() => setActiveSection(nextSection)}
+            className="next">
+            <strong>Next</strong><br />
+            <span>{sections[nextSection].title}</span>
+          </a>
+      }
+      <Link page="project.read" label="View project overview" />
+    </nav>
+  );
+}
+
 export default function NTS() {
   const { project, version, basename } = useSelector(state => state.static);
 
@@ -55,27 +109,6 @@ export default function NTS() {
   const sections = getSchema(project.schemaVersion);
   const firstSectionName = Object.keys(sections)[0];
   const [activeSection, setActiveSection] = useState(firstSectionName);
-
-  function SideNav({ sections }) {
-    return (
-      <nav className="sidebar-nav section-nav sticky">
-        {
-          Object.keys(sections)
-            .map(sectionName => {
-              return (
-                <a
-                  key={sectionName}
-                  href={`#${sectionName}`}
-                  className={classnames({ active: sectionName === activeSection })}
-                  onClick={() => setActiveSection(sectionName)}>
-                  <h3>{sections[sectionName].title}</h3>
-                </a>
-              );
-            })
-        }
-      </nav>
-    );
-  }
 
   return (
     <div id="ppl-drafting-tool" className="non-technical-summary">
@@ -106,7 +139,7 @@ export default function NTS() {
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
-          <SideNav sections={sections} activeSection={activeSection} />
+          <SideNav sections={sections} activeSection={activeSection} setActiveSection={setActiveSection} />
         </div>
         <div className="govuk-grid-column-two-thirds">
           {
@@ -132,6 +165,7 @@ export default function NTS() {
                 );
               })
           }
+          <BottomNav sections={sections} activeSection={activeSection} setActiveSection={setActiveSection} />
         </div>
       </div>
     </div>
