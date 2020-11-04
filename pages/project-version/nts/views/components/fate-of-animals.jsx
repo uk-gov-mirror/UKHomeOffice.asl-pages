@@ -7,10 +7,12 @@ const getFateOfAnimalsOptions = () => {
 };
 
 export default function FateOfAnimals({ version }) {
-  return <ReviewField
-    type="checkbox"
-    value={version['fate-of-animals']}
-    project={version}
-    options={getFateOfAnimalsOptions()}
-  />
+  return (
+    <ReviewField
+      type="checkbox"
+      value={version['fate-of-animals']}
+      project={version}
+      options={getFateOfAnimalsOptions()}
+    />
+  );
 }
