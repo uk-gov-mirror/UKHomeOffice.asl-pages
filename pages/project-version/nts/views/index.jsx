@@ -18,7 +18,7 @@ import {
 } from './components';
 
 function Field({ field, version, schemaVersion, project }) {
-  if (!field.name) {
+  if (!field.name && !field.type) {
     return null;
   }
 

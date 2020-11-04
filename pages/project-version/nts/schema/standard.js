@@ -23,7 +23,6 @@ module.exports = {
         type: 'SpeciesTable'
       },
       {
-        name: 'retrospective-assessment',
         heading: 'Retrospective assessment',
         type: 'RetrospectiveDecision'
       }
@@ -39,7 +38,6 @@ module.exports = {
         label: 'What is the aim of this project?'
       },
       {
-        name: 'retro-aims',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of these aims will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -124,7 +122,6 @@ The PPL holder will be required to disclose:
         label: 'What will happen to the animals at the end of the study?'
       },
       {
-        name: 'retro-harms',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of these predicted harms will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -157,7 +154,6 @@ The PPL holder will be required to disclose:
         training: true
       },
       {
-        name: 'retro-replacement',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of replacement will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -204,7 +200,6 @@ The PPL holder will be required to disclose:
         training: true
       },
       {
-        name: 'retro-reduction',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of reduction will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -246,7 +241,6 @@ The PPL holder will be required to disclose:
         label: 'Explain the choice of species and the related life stages'
       },
       {
-        name: 'retro-refinement',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of refinement will be due by {{raDate}}
 The PPL holder will be required to disclose:

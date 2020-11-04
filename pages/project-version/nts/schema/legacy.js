@@ -34,7 +34,6 @@ module.exports = {
         label: 'What is the aim of this project?'
       },
       {
-        name: 'retro-aims',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of these aims will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -71,7 +70,6 @@ The PPL holder will be required to disclose:
         likely/expected level of severity? What will happen to the animals at the end?`
       },
       {
-        name: 'retro-harms',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of these predicted harms will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -87,7 +85,6 @@ The PPL holder will be required to disclose:
         label: `State why you need to use animals and why you cannot use non-animal alternatives.`
       },
       {
-        name: 'retro-replacement',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of replacement will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -104,7 +101,6 @@ The PPL holder will be required to disclose:
         label: `Explain how you will assure the use of minimum numbers of animals.`
       },
       {
-        name: 'retro-reduction',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of reduction will be due by {{raDate}}
 The PPL holder will be required to disclose:
@@ -121,7 +117,6 @@ The PPL holder will be required to disclose:
         regard to the objectives. Explain the general measures you will take to minimise welfare costs (harms) to the animals.`
       },
       {
-        name: 'retro-refinement',
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of refinement will be due by {{raDate}}
 The PPL holder will be required to disclose:
