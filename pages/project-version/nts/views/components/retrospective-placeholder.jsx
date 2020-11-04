@@ -3,7 +3,7 @@ import format from 'date-fns/format';
 import { Markdown } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 
-export default function RetrospectivePlaceholder({ project, version, field}) {
+export default function RetrospectivePlaceholder({ project, version, field }) {
   const raCompulsory = version.raCompulsory;
   const raRequired = !!version.retrospectiveAssessment;
 

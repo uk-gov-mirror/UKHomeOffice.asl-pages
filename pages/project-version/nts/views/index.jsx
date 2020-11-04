@@ -31,8 +31,8 @@ function SideNav({ sections, activeSection, setActiveSection }) {
 function BottomNav({ sections, activeSection, setActiveSection }) {
   const sectionNames = Object.keys(sections);
   const activeSectionPos = sectionNames.indexOf(activeSection);
-  const previousSection = activeSectionPos > 0 ? sectionNames[activeSectionPos-1] : undefined;
-  const nextSection = activeSectionPos < sectionNames.length-1 ? sectionNames[activeSectionPos+1] : undefined;
+  const previousSection = activeSectionPos > 0 ? sectionNames[activeSectionPos - 1] : undefined;
+  const nextSection = activeSectionPos < sectionNames.length - 1 ? sectionNames[activeSectionPos + 1] : undefined;
 
   return (
     <nav className="bottom-nav">

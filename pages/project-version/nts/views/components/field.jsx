@@ -18,22 +18,22 @@ export default function Field({ field, version, schemaVersion, project }) {
 
   switch (field.type) {
     case 'Duration':
-      return <Duration version={version} />
+      return <Duration version={version} />;
     case 'SpeciesTable':
-      return <SpeciesTable version={version} />
+      return <SpeciesTable version={version} />;
     case 'SpeciesCount':
-      return <SpeciesCount version={version} />
+      return <SpeciesCount version={version} />;
     case 'FateOfAnimals':
-      return <FateOfAnimals version={version} />
+      return <FateOfAnimals version={version} />;
     case 'Purpose':
-      return <Purpose version={version} schemaVersion={schemaVersion} />
+      return <Purpose version={version} schemaVersion={schemaVersion} />;
     case 'Keywords':
-      return <Keywords version={version} />
+      return <Keywords version={version} />;
     case 'RetrospectiveDecision':
-      return <RetrospectiveDecision version={version} />
+      return <RetrospectiveDecision version={version} />;
     case 'RetrospectivePlaceholder':
-      return <RetrospectivePlaceholder version={version} project={project} field={field} />
+      return <RetrospectivePlaceholder version={version} project={project} field={field} />;
     default:
-      return <RichText value={version[field.name]} readOnly={true} />
+      return <RichText value={version[field.name]} readOnly={true} />;
   }
 }
