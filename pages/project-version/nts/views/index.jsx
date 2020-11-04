@@ -5,44 +5,7 @@ import get from 'lodash/get';
 import { Snippet, DownloadHeader, Link } from '@asl/components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 import getSchema from '../schema';
-import RichText from '@asl/projects/client/components/editor';
-import {
-  Duration,
-  FateOfAnimals,
-  Keywords,
-  Purpose,
-  RetrospectiveDecision,
-  RetrospectivePlaceholder,
-  SpeciesCount,
-  SpeciesTable
-} from './components';
-
-function Field({ field, version, schemaVersion, project }) {
-  if (!field.name && !field.type) {
-    return null;
-  }
-
-  switch (field.type) {
-    case 'Duration':
-      return <Duration version={version.data} />
-    case 'SpeciesTable':
-      return <SpeciesTable version={version.data} />
-    case 'SpeciesCount':
-      return <SpeciesCount version={version.data} />
-    case 'FateOfAnimals':
-      return <FateOfAnimals version={version.data} />
-    case 'Purpose':
-      return <Purpose version={version.data} schemaVersion={schemaVersion} />
-    case 'Keywords':
-      return <Keywords version={version.data} />
-    case 'RetrospectiveDecision':
-      return <RetrospectiveDecision version={version.data} />
-    case 'RetrospectivePlaceholder':
-      return <RetrospectivePlaceholder version={version.data} project={project} field={field} />
-    default:
-      return <RichText value={version.data[field.name]} readOnly={true} />
-  }
-}
+import Field from './components/field';
 
 function SideNav({ sections, activeSection, setActiveSection }) {
   return (
@@ -157,7 +120,7 @@ export default function NTS() {
                         <Fragment key={index}>
                           { field.heading && <h2>{field.heading}</h2> }
                           { field.label && <h3>{field.label}</h3> }
-                          <Field field={field} version={version} schemaVersion={project.schemaVersion} project={project} />
+                          <Field field={field} version={version.data} schemaVersion={project.schemaVersion} project={project} />
                         </Fragment>
                       ))
                     }
