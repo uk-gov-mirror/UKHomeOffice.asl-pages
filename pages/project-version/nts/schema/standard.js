@@ -91,7 +91,8 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'species-count',
-        label: 'Species and numbers of animals expected to be used'
+        label: 'Species and numbers of animals expected to be used',
+        type: 'SpeciesCount'
       }
     ]
   },
@@ -119,7 +120,8 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'fate-of-animals',
-        label: 'What will happen to the animals at the end of the study?'
+        label: 'What will happen to the animals at the end of the study?',
+        type: 'FateOfAnimals'
       },
       {
         type: 'RetrospectivePlaceholder',

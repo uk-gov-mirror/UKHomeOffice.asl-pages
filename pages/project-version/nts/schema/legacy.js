@@ -18,7 +18,6 @@ module.exports = {
         type: 'Keywords'
       },
       {
-        name: 'retrospective-assessment',
         heading: 'Retrospective assessment',
         type: 'RetrospectiveDecision'
       }
