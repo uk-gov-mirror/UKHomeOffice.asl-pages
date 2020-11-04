@@ -104,7 +104,7 @@ The PPL holder will be required to disclose:
     fields: [
       {
         name: 'project-harms-summary',
-        heading: `Describe, in general terms, the procedures animals will undergo, eg injections, surgical procedures.
+        label: `Describe, in general terms, the procedures animals will undergo, eg injections, surgical procedures.
         Include the typical number of procedures individual animals will undergo and the likely duration of suffering.`
       },
       {
@@ -139,7 +139,7 @@ The PPL holder will be required to disclose:
     fields: [
       {
         name: 'replacement-why',
-        heading: 'Why do you need to use animals to achieve the aim of your project?'
+        label: 'Why do you need to use animals to achieve the aim of your project?'
       },
       {
         name: 'replacement-alternatives',
