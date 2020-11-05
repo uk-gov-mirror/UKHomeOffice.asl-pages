@@ -33,7 +33,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     // move users to read only route if there is a non-editable open task
-    if (req.project.openTasks && req.project.openTasks[0].editable === false) {
+    if (req.project.openTasks && req.project.openTasks.length && req.project.openTasks[0].editable === false) {
       return res.redirect(req.buildRoute('projectVersion.read'));
     }
     // move users away from edit route if not viewing a draft
