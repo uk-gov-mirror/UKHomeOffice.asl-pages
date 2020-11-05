@@ -360,6 +360,19 @@ function PreviousVersions({ model }) {
   );
 }
 
+function RelatedContent({ project, version }) {
+  return (
+    <div className="related-content">
+      <h3>Related content</h3>
+      <ul>
+        <li>
+          <Link page="projectVersion.nts" projectId={project.id} versionId={version.id} label={<Snippet>related.nts</Snippet>} />
+        </li>
+      </ul>
+    </div>
+  );
+}
+
 export default function ProjectLandingPage() {
   const { establishment, canUpdate, openTask, allowedActions, asruLicensing, showRelatedTasks } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
@@ -373,121 +386,129 @@ export default function ProjectLandingPage() {
   return (
     <Fragment>
       <ProjectStatusBanner model={model} version={grantedVersion || model.versions[0]} />
-
       <Header
         subtitle={establishment.name}
         title={model.title || 'Untitled project'}
       />
 
-      <dl className="inline">
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
 
-        <dt><Snippet>fields.licenceHolder.label</Snippet></dt>
-        <dd>
-          {`${model.licenceHolder.firstName} ${model.licenceHolder.lastName}`}<br />
-          <Link page="profile.read" profileId={model.licenceHolder.id} label="View profile" />
-          {
-            canChangeLicenceHolder && (
-              <Fragment> | {
-                openTask
-                  ? <Snippet>actions.cantChangeHolder</Snippet>
-                  : <Link page="project.updateLicenceHolder" label="Change" />
+          <dl className="inline">
+            <dt><Snippet>fields.licenceHolder.label</Snippet></dt>
+            <dd>
+              {`${model.licenceHolder.firstName} ${model.licenceHolder.lastName}`}<br />
+              <Link page="profile.read" profileId={model.licenceHolder.id} label="View profile" />
+              {
+                canChangeLicenceHolder && (
+                  <Fragment> | {
+                    openTask
+                      ? <Snippet>actions.cantChangeHolder</Snippet>
+                      : <Link page="project.updateLicenceHolder" label="Change" />
+                  }
+                  </Fragment>
+                )
               }
-              </Fragment>
-            )
-          }
-        </dd>
+            </dd>
 
-        <Fragment>
-          <dt><Snippet>fields.licenceNumber.label</Snippet></dt>
-          <dd>
-            {model.licenceNumber ? model.licenceNumber : '-'}
-            {
-              model.isLegacyStub && allowedActions.includes('project.updateLicenceNumber') &&
-              <Fragment>
-                <br />
-                <Link page="projectAsruActions.updateLicenceNumber" label="Change" />
-              </Fragment>
-            }
-          </dd>
-        </Fragment>
-
-        {
-          model.granted && model.granted.duration && !isRevoked &&
-          <Fragment>
-            <dt><Snippet>fields.duration.label</Snippet></dt>
-            <dd>{getProjectDuration(model)}</dd>
-          </Fragment>
-        }
-
-        {
-          model.issueDate &&
             <Fragment>
-              <dt><Snippet>fields.issueDate.label</Snippet></dt>
+              <dt><Snippet>fields.licenceNumber.label</Snippet></dt>
               <dd>
-                {formatDate(model.issueDate, dateFormat.long)}
+                {model.licenceNumber ? model.licenceNumber : '-'}
                 {
-                  allowedActions.includes('project.updateIssueDate') &&
-                    <Fragment>
-                      <br />
-                      <Link page="projectAsruActions.updateIssueDate" label="Change" />
-                    </Fragment>
+                  model.isLegacyStub && allowedActions.includes('project.updateLicenceNumber') &&
+                  <Fragment>
+                    <br />
+                    <Link page="projectAsruActions.updateLicenceNumber" label="Change" />
+                  </Fragment>
                 }
               </dd>
             </Fragment>
-        }
 
-        {
-          model.granted && (
-            <Fragment>
-              {
-                model.amendedDate &&
-                <Fragment>
-                  <dt><Snippet>fields.amendedDate.label</Snippet></dt>
-                  <dd>{formatDate(model.amendedDate, dateFormat.long)}</dd>
-                </Fragment>
-              }
-              {
-                !isRevoked &&
-                <Fragment>
-                  <dt><Snippet>fields.expiryDate.label</Snippet></dt>
-                  <dd>{formatDate(model.expiryDate, dateFormat.long)}</dd>
-                </Fragment>
-              }
-              {
-                isRevoked &&
-                <Fragment>
-                  <dt><Snippet>fields.revocationDate.label</Snippet></dt>
-                  <dd>{formatDate(model.revocationDate, dateFormat.long)}</dd>
-                </Fragment>
-              }
-              {
-                model.raDate &&
-                <Fragment>
-                  <dt><Snippet>fields.raDate.label</Snippet></dt>
-                  <dd>{formatDate(model.raDate, dateFormat.long)}</dd>
-                </Fragment>
-              }
-              {
-                model.transferredInDate && (
-                  <Fragment>
-                    <dt><Snippet>fields.transferredInDate.label</Snippet></dt>
-                    <dd>{formatDate(model.transferredInDate, dateFormat.long)}</dd>
-                  </Fragment>
-                )
-              }
-              {
-                model.transferredOutDate && (
-                  <Fragment>
-                    <dt><Snippet>fields.transferredOutDate.label</Snippet></dt>
-                    <dd>{formatDate(model.transferredOutDate, dateFormat.long)}</dd>
-                  </Fragment>
-                )
-              }
+            {
+              model.granted && model.granted.duration && !isRevoked &&
+              <Fragment>
+                <dt><Snippet>fields.duration.label</Snippet></dt>
+                <dd>{getProjectDuration(model)}</dd>
+              </Fragment>
+            }
 
-            </Fragment>
-          )
-        }
-      </dl>
+            {
+              model.issueDate &&
+                <Fragment>
+                  <dt><Snippet>fields.issueDate.label</Snippet></dt>
+                  <dd>
+                    {formatDate(model.issueDate, dateFormat.long)}
+                    {
+                      allowedActions.includes('project.updateIssueDate') &&
+                        <Fragment>
+                          <br />
+                          <Link page="projectAsruActions.updateIssueDate" label="Change" />
+                        </Fragment>
+                    }
+                  </dd>
+                </Fragment>
+            }
+
+            {
+              model.granted && (
+                <Fragment>
+                  {
+                    model.amendedDate &&
+                    <Fragment>
+                      <dt><Snippet>fields.amendedDate.label</Snippet></dt>
+                      <dd>{formatDate(model.amendedDate, dateFormat.long)}</dd>
+                    </Fragment>
+                  }
+                  {
+                    !isRevoked &&
+                    <Fragment>
+                      <dt><Snippet>fields.expiryDate.label</Snippet></dt>
+                      <dd>{formatDate(model.expiryDate, dateFormat.long)}</dd>
+                    </Fragment>
+                  }
+                  {
+                    isRevoked &&
+                    <Fragment>
+                      <dt><Snippet>fields.revocationDate.label</Snippet></dt>
+                      <dd>{formatDate(model.revocationDate, dateFormat.long)}</dd>
+                    </Fragment>
+                  }
+                  {
+                    model.raDate &&
+                    <Fragment>
+                      <dt><Snippet>fields.raDate.label</Snippet></dt>
+                      <dd>{formatDate(model.raDate, dateFormat.long)}</dd>
+                    </Fragment>
+                  }
+                  {
+                    model.transferredInDate && (
+                      <Fragment>
+                        <dt><Snippet>fields.transferredInDate.label</Snippet></dt>
+                        <dd>{formatDate(model.transferredInDate, dateFormat.long)}</dd>
+                      </Fragment>
+                    )
+                  }
+                  {
+                    model.transferredOutDate && (
+                      <Fragment>
+                        <dt><Snippet>fields.transferredOutDate.label</Snippet></dt>
+                        <dd>{formatDate(model.transferredOutDate, dateFormat.long)}</dd>
+                      </Fragment>
+                    )
+                  }
+
+                </Fragment>
+              )
+            }
+          </dl>
+        </div>
+
+        <div className="govuk-grid-column-one-third">
+          <RelatedContent project={model} version={grantedVersion || model.versions[0]} />
+        </div>
+      </div>
+
       <CurrentVersion model={model} />
       <Actions model={model} />
       <PreviousVersions model={model} />

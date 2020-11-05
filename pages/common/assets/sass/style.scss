@@ -1,6 +1,7 @@
 @import 'ho-frontend-toolkit';
 @import '@ukhomeoffice/react-components';
 @import '@asl/components';
+@import 'images';
 
 .block {
   display: block;
@@ -544,4 +545,40 @@ dl.inline dd .procedures-diff ul {
 .deadline-passed {
   color: $red;
   margin-top: -$govuk-gutter-half;
+}
+
+.related-content {
+  border-top: 1px solid govuk-colour('grey-2');
+  padding-top: $govuk-gutter;
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+}
+
+.retrospective-placeholder {
+  background-color: govuk-colour('grey-2');
+  padding: $govuk-gutter $govuk-gutter;
+  padding-bottom: $govuk-gutter-half;
+  margin-bottom: $govuk-gutter;
+}
+
+nav.bottom-nav {
+  a {
+    display: block;
+    border-top: 1px solid govuk-colour('grey-2');
+    padding: $govuk-gutter-half;
+    padding-left: $govuk-gutter;
+
+    &.previous {
+      background: $arrowPrevious no-repeat 0 22px;
+      background-size: 15px;
+    }
+
+    &.next {
+      background: $arrowNext no-repeat 0 22px;
+      background-size: 15px;
+    }
+  }
 }

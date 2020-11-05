@@ -107,5 +107,8 @@ module.exports = merge({}, baseContent, {
     title: 'Guest access',
     content: 'Allow colleagues to view this project. Administrators will have access by default.',
     action: 'Grant access'
+  },
+  related: {
+    nts: 'Non-technical summary'
   }
 });
