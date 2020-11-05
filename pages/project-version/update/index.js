@@ -33,7 +33,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     //move users away from edit route if not viewing a draft
-    if (req.version.id !== req.project.draft.id) {
+    if (req.project.draft && req.version.id !== req.project.draft.id) {
       return res.redirect(req.buildRoute('projectVersion.update', { versionId: req.project.draft.id }));
     }
     if (req.version.status !== 'draft') {
