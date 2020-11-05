@@ -17,6 +17,11 @@ module.exports = merge({}, baseContent, {
       hint: 'Visible only to ASRU business support'
     }
   },
+  errors: {
+    'deadline-passed-reason': {
+      required: 'Please provide a reason'
+    }
+  },
   buttons: {
     submit: 'Continue'
   }
