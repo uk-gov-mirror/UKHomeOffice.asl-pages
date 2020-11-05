@@ -32,12 +32,18 @@ module.exports = settings => {
   app.use('/success', success());
 
   app.use((req, res, next) => {
-    //move users away from edit route if not viewing a draft
-    if (req.project.draft && req.version.id !== req.project.draft.id) {
-      return res.redirect(req.buildRoute('projectVersion.update', { versionId: req.project.draft.id }));
+    // move users to read only route if there is a non-editable open task
+    if (req.project.openTasks && req.project.openTasks[0].editable === false) {
+      return res.redirect(req.buildRoute('projectVersion.read'));
     }
+    // move users away from edit route if not viewing a draft
     if (req.version.status !== 'draft') {
       return res.redirect(req.buildRoute('projectVersion.read'));
+    }
+    // if this is not the latest draft (i.e. this version was returned by admin without endorsing)
+    // then redirect to edit view of latest draft
+    if (req.project.draft && req.version.id !== req.project.draft.id) {
+      return res.redirect(req.buildRoute('projectVersion.update', { versionId: req.project.draft.id }));
     }
     next();
   });
