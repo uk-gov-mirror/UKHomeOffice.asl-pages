@@ -8,7 +8,6 @@ const getVersion = () => (req, res, next) => {
     .then(({ json: { data, meta } }) => {
       req.project = {
         ...data.project,
-        establishment: meta.establishment,
         openTasks: meta.openTasks,
         ...req.project
       };

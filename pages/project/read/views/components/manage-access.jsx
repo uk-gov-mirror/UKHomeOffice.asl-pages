@@ -5,8 +5,8 @@ import Section from './section';
 import Collaborators from '../../../components/collaborators';
 
 export default function ManageAccess({ model }) {
-  const canUpdate = useSelector(state => state.static.canUpdate);
-  if (!canUpdate) {
+  const canManageAccess = useSelector(state => state.static.canManageAccess);
+  if (!canManageAccess) {
     return null;
   }
 

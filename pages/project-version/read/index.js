@@ -33,6 +33,10 @@ module.exports = settings => {
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && req.user.profile.asruUser && res.locals.static.isCommentable;
 
+    if (req.project.establishmentId !== req.establishmentId) {
+      res.locals.static.additionalAvailability = (req.project.additionalEstablishments || []).find(e => e.id === req.establishmentId);
+    }
+
     res.locals.static.showConditions = req.user.profile.asruUser
       ? req.version.status !== 'draft'
       : req.version.status === 'granted';

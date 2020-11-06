@@ -63,7 +63,8 @@ module.exports = {
     inactive: 'Draft',
     transferred: 'Transferred',
     expired: 'Expired',
-    revoked: 'Revoked'
+    revoked: 'Revoked',
+    'additional-availability-ended': 'Availability removed'
   },
   tabs: {
     inactive: 'Drafts'

@@ -19,6 +19,9 @@ module.exports = settings => {
   app.use((req, res, next) => {
     res.locals.model = req.project;
     res.locals.static.establishment = req.establishment;
+    if (req.project.establishmentId !== req.establishmentId) {
+      res.locals.static.additionalAvailability = (req.project.additionalEstablishments || []).find(e => e.id === req.establishmentId);
+    }
     next();
   });
 
@@ -33,12 +36,14 @@ module.exports = settings => {
     Promise.all([
       req.user.can('project.update', params),
       req.user.can('project.revoke', params),
-      req.user.can('project.transfer', params)
+      req.user.can('project.transfer', params),
+      req.user.can('project.manageAccess', params)
     ])
-      .then(([canUpdate, canRevoke, canTransfer]) => {
+      .then(([canUpdate, canRevoke, canTransfer, canManageAccess]) => {
         const openTask = req.project.openTasks[0];
         const editable = (!openTask || (openTask && openTask.editable));
 
+        res.locals.static.canManageAccess = canManageAccess;
         res.locals.static.canTransfer = canTransfer;
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.editable = editable;

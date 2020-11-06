@@ -25,7 +25,7 @@ module.exports = {
   },
   addUser: {
     path: '/:projectId/add-user',
-    permissions: 'project.update',
+    permissions: 'project.manageAccess',
     router: addUser
   },
   removeUser: {

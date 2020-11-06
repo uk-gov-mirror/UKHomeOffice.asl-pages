@@ -219,7 +219,8 @@ module.exports = {
       active: 'Amendment in progress',
       superseded: 'Superseded',
       stub: 'Partial record',
-      transferred: 'Transferred out'
+      transferred: 'Transferred out',
+      'additional-availability-removed': 'Additional availability removed'
     },
     summary: {
       pel: `This licence is not active. The establishment is not authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals in any approved area.`,
@@ -228,7 +229,8 @@ module.exports = {
       ppl_active: `This amendment has not been approved yet.`,
       superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
       stub: 'This is not the full granted licence for this project, it is a partial record. To view the granted licence, refer to offline records or contact the Home Office.',
-      transferred: 'This licence has been transferred to another establishment.'
+      transferred: 'This licence has been transferred to another establishment.',
+      'additional-availability-removed': 'This is the most recent version of the licence that {{establishmentName}} is authorised to see.'
     },
     view: 'View granted licence',
     viewTransferred: 'View the latest version of this licence'

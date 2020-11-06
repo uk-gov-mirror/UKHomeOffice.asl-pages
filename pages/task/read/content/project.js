@@ -34,7 +34,8 @@ module.exports = {
       info: 'Read the version of this project licence that is currently active'
     },
     submitted: {
-      label: 'View latest submission'
+      label: 'View latest submission',
+      text: 'This is the application that has been submitted for approval.'
     }
   },
   establishment: {
@@ -42,6 +43,10 @@ module.exports = {
     proposed: 'Proposed establishment',
     previous: 'Previous establishment',
     new: 'New establishment'
+  },
+  'additional-establishments': {
+    title: 'Additional establishments',
+    content: 'Consultation required with inspectors for'
   },
   declarations: {
     'pel-holder': {

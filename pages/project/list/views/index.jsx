@@ -69,7 +69,7 @@ const Projects = ({
     </Tabs>
     <Search label={<Snippet>searchText</Snippet>} />
     <FilterSummary />
-    <Datatable formatters={formatters} />
+    <Datatable formatters={formatters(establishment.id)} />
   </Fragment>
 );
 

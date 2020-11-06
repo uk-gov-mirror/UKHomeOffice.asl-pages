@@ -6,12 +6,12 @@ import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
 
-const bad = ['expired', 'transferred', 'revoked'];
+const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended'];
 const good = ['active'];
 
 const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
 
-const formatters = {
+const formatters = establishmentId => ({
   title: {
     format: (title, model) => {
       return (
@@ -24,8 +24,15 @@ const formatters = {
   },
   status: {
     format: (status, model) => {
+      const isAdditionalAvailability = model.establishmentId !== establishmentId;
+      const additionalAvailabilityEnded = isAdditionalAvailability && model.additionalEstablishments[0].status === 'removed';
+
       if (hasExpired(model)) {
         status = 'expired';
+      }
+
+      if (additionalAvailabilityEnded) {
+        status = 'additional-availability-ended';
       }
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
       return (
@@ -82,6 +89,6 @@ const formatters = {
       return `${years} years ${months} months`;
     }
   }
-};
+});
 
 export default formatters;

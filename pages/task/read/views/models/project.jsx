@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
+import uniqBy from 'lodash/uniqBy';
 import pick from 'lodash/pick';
 import get from 'lodash/get';
 import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
@@ -13,7 +14,7 @@ import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
 
-const selector = ({ static: { project, establishment, version, values } }) => ({ project, establishment, version, values });
+const selector = ({ static: { project, establishment, version, values, isAsru } }) => ({ project, establishment, version, values, isAsru });
 
 function EstablishmentDiff({ task }) {
   const isComplete = !task.isOpen;
@@ -48,10 +49,56 @@ function EstablishmentDiff({ task }) {
   );
 }
 
+function EstablishmentLink({ establishment, showLink }) {
+  const name = establishment.name || establishment['establishment-name'];
+  const id = establishment['establishment-id'] || establishment.id;
+  return (
+    <Fragment>
+      {
+        showLink
+          ? <Link
+            page="establishment.read"
+            label={name}
+            establishmentId={id}
+          />
+          : <span>{name}</span>
+      }
+    </Fragment>
+  );
+}
+
+function EstablishmentLinks({ establishments, isAsru }) {
+  return (
+    <span>
+      {
+        establishments.map((establishment, index) => {
+          const isLastItem = index === establishments.length - 1;
+          const showComma = index > 0 && !isLastItem;
+          const showAnd = isLastItem;
+          return (
+            <Fragment key={index}>
+              { showComma && <span>, </span> }
+              { showAnd && <span> and </span> }
+              <EstablishmentLink key={index} establishment={establishment} showLink={isAsru} />
+            </Fragment>
+          );
+        })
+      }
+    </span>
+  );
+}
+
 export default function Project({ task }) {
-  const { project, establishment, version, values } = useSelector(selector, shallowEqual);
+  const { project, establishment, version, values, isAsru } = useSelector(selector, shallowEqual);
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
+
+  const proposedAdditionalEstablishments = get(version, 'data.establishments', []).filter(e => e['establishment-id']);
+
+  const additionalEstablishments = uniqBy([
+    ...project.additionalEstablishments,
+    ...proposedAdditionalEstablishments
+  ], est => est['establishment-id'] || est.id);
 
   const isComplete = !task.isOpen;
 
@@ -111,6 +158,19 @@ export default function Project({ task }) {
             task.status === 'with-inspectorate' && <PplDeclarations task={task} />
           }
           <p>
+            {
+              !!additionalEstablishments.length && (
+                <Fragment>
+                  <h3><Snippet>additional-establishments.title</Snippet></h3>
+                  <p>
+                    <Snippet>additional-establishments.content</Snippet>
+                    {' '}
+                    <EstablishmentLinks establishments={additionalEstablishments} isAsru={isAsru} />
+                  </p>
+                </Fragment>
+              )
+            }
+            <p><Snippet>versions.submitted.text</Snippet></p>
             <Link
               page="projectVersion"
               className="govuk-button button-secondary"
