@@ -6,7 +6,8 @@ import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
 export default function ProjectStatusBanner({ model = {}, version = {}, isPdf }) {
-  const { canViewTransferredProject } = useSelector(state => state.static);
+  const { canViewTransferredProject, additionalAvailability } = useSelector(state => state.static);
+  const additionalAvailabilityRemoved = additionalAvailability && additionalAvailability.status === 'removed';
   if (model.status === 'transferred') {
     return (
       <LicenceStatusBanner title={<Snippet>invalidLicence.status.transferred</Snippet>} licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour="red">
@@ -31,7 +32,7 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
     }
 
     // viewing active version
-    if (model.granted && model.granted.id === version.id) {
+    if (model.granted && model.granted.id === version.id && !additionalAvailabilityRemoved) {
       return null;
     }
     model.versions = model.versions || [];
@@ -41,6 +42,17 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
     const versionIndex = grantedVersions.map(v => v.id).indexOf(version.id);
     const nextVersion = grantedVersions[versionIndex + 1];
     const isFirstVersion = versionIndex === 0;
+
+    if (additionalAvailabilityRemoved) {
+      return (
+        <LicenceStatusBanner title={<Snippet>invalidLicence.status.additional-availability-removed</Snippet>} licence={model} colour="red" isPdf={isPdf}>
+          <Fragment>
+            <p><strong>{`Availability granted: ${format(additionalAvailability.issueDate, dateFormat.long)}, Removed: ${format(additionalAvailability.revokedDate, dateFormat.long)}`}</strong></p>
+            <p><Snippet establishmentName={additionalAvailability.name}>{`invalidLicence.summary.additional-availability-removed`}</Snippet></p>
+          </Fragment>
+        </LicenceStatusBanner>
+      );
+    }
 
     return (
       <LicenceStatusBanner title={<Snippet>{`invalidLicence.status.${superseded ? 'superseded' : 'draft'}`}</Snippet>} licence={model} colour={superseded && 'red'} isPdf={isPdf}>

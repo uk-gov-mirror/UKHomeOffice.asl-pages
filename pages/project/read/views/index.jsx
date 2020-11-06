@@ -10,7 +10,7 @@ import Section from './components/section';
 import ManageAccess from './components/manage-access';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 
-const getProjectDuration = model => formatters.duration.format(model.granted);
+const getProjectDuration = model => formatters().duration.format(model.granted);
 
 const getUngrantedVersion = model => {
   return ['draft', 'submitted'].includes(model.versions[0].status) ? model.versions[0] : null;
@@ -24,7 +24,7 @@ const confirmSubmission = message => e => {
   }
 };
 
-function CurrentVersion({ model }) {
+function CurrentVersion({ model, additionalAvailabilityRemoved, additionalAvailability }) {
   if (model.status === 'transferred') {
     return null;
   }
@@ -39,16 +39,24 @@ function CurrentVersion({ model }) {
     ? 'projectVersion.update'
     : 'projectVersion';
 
-  const versionId = model.granted
+  let versionId = model.granted
     ? model.granted.id
     : model.versions[0].id;
+
+  if (additionalAvailabilityRemoved) {
+    versionId = additionalAvailability.versionId;
+  }
 
   const status = model.versions[0].status;
   const returned = openTask && editable && canUpdate;
 
-  const labelKey = model.granted
+  let labelKey = model.granted
     ? `granted.${model.isLegacyStub ? 'stub' : model.status}`
     : `draft.${returned ? 'returned' : status}`;
+
+  if (additionalAvailabilityRemoved) {
+    labelKey = 'granted.additional-availability-removed';
+  }
 
   return (
     <Link
@@ -374,12 +382,17 @@ function RelatedContent({ project, version }) {
 }
 
 export default function ProjectLandingPage() {
-  const { establishment, canUpdate, openTask, allowedActions, asruLicensing, showRelatedTasks } = useSelector(state => state.static);
+  const { canUpdate, openTask, allowedActions, asruLicensing, showRelatedTasks, additionalAvailability } = useSelector(state => state.static);
   const model = useSelector(state => state.model);
+  const additionalAvailabilityRemoved = additionalAvailability && additionalAvailability.status === 'removed';
 
   const isRevoked = model.status === 'revoked';
   const isEditable = model.status === 'active' || model.status === 'inactive';
   const grantedVersion = model.versions.find(v => v.status === 'granted');
+
+  const canManageAccess = model.status === 'inactive'
+    ? (!additionalAvailability || additionalAvailability.status === 'draft')
+    : (!additionalAvailability || additionalAvailability.status === 'active');
 
   const canChangeLicenceHolder = canUpdate && isEditable && (!model.isLegacyStub || (model.isLegacyStub && asruLicensing));
 
@@ -387,7 +400,7 @@ export default function ProjectLandingPage() {
     <Fragment>
       <ProjectStatusBanner model={model} version={grantedVersion || model.versions[0]} />
       <Header
-        subtitle={establishment.name}
+        subtitle={model.establishment.name}
         title={model.title || 'Untitled project'}
       />
 
@@ -508,14 +521,20 @@ export default function ProjectLandingPage() {
           <RelatedContent project={model} version={grantedVersion || model.versions[0]} />
         </div>
       </div>
-
-      <CurrentVersion model={model} />
-      <Actions model={model} />
-      <PreviousVersions model={model} />
-      <RevokeLicence model={model} />
-      <ManageAccess model={model} />
-
-      { showRelatedTasks && <RelatedTasks /> }
+      <CurrentVersion model={model} additionalAvailabilityRemoved={additionalAvailabilityRemoved} additionalAvailability={additionalAvailability} />
+      {
+        !additionalAvailability && (
+          <Fragment>
+            <Actions model={model} />
+            <PreviousVersions model={model} />
+            <RevokeLicence model={model} />
+          </Fragment>
+        )
+      }
+      {
+        canManageAccess && <ManageAccess model={model} />
+      }
+      { showRelatedTasks && !additionalAvailability && <RelatedTasks /> }
     </Fragment>
   );
 }
