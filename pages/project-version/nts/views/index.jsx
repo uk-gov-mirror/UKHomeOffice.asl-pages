@@ -63,6 +63,8 @@ function BottomNav({ sections, activeSection, setActiveSection }) {
 
 export default function NTS() {
   const { project, version, basename } = useSelector(state => state.static);
+  const versionData = version.data;
+  versionData.raCompulsory = version.raCompulsory;
 
   const thisVersionIsGranted = project.granted && project.granted.id === version.id;
   const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
@@ -120,7 +122,7 @@ export default function NTS() {
                         <Fragment key={index}>
                           { field.heading && <h2>{field.heading}</h2> }
                           { field.label && <h3>{field.label}</h3> }
-                          <Field field={field} version={version.data} schemaVersion={project.schemaVersion} project={project} />
+                          <Field field={field} version={versionData} schemaVersion={project.schemaVersion} project={project} />
                         </Fragment>
                       ))
                     }

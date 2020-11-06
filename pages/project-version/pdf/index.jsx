@@ -21,8 +21,11 @@ module.exports = settings => {
 
   const setupPdf = (opts = {}) => (req, res, next) => {
     const isFullApplication = !!req.query.application;
+    const versionData = req.version.data || { title: 'Untitled project' };
+    versionData.raCompulsory = req.version.raCompulsory;
+
     const initialState = {
-      project: req.version.data || { title: 'Untitled project' },
+      project: versionData,
       application: {
         schemaVersion: req.project.schemaVersion,
         establishment: req.project.establishment,
