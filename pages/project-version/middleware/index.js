@@ -98,6 +98,11 @@ const getNode = (tree, path) => {
   if (path === 'reduction-quantities') {
     return mapAnimalQuantities(tree, 'reduction-quantities');
   }
+  if (path.match(/establishments\.(.*)\.establishment-id/)) {
+    const id = path.split('.')[1];
+    const establishment = (tree.establishments || []).find(e => e.id === id);
+    return establishment && (establishment.name || establishment['establishment-name']);
+  }
   let keys = path.split('.');
   let node = tree[keys[0]];
   for (let i = 1; i < keys.length; i++) {
