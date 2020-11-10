@@ -74,7 +74,7 @@ function EstablishmentLinks({ establishments, isAsru }) {
         establishments.map((establishment, index) => {
           const isLastItem = index === establishments.length - 1;
           const showComma = index > 0 && !isLastItem;
-          const showAnd = isLastItem;
+          const showAnd = isLastItem && establishments.length > 1;
           return (
             <Fragment key={index}>
               { showComma && <span>, </span> }
