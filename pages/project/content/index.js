@@ -7,10 +7,10 @@ module.exports = {
       label: 'Status'
     },
     licenceHolder: {
-      label: 'PPL holder'
+      label: 'Licence holder'
     },
     licenceNumber: {
-      label: 'PPL number'
+      label: 'Licence number'
     },
     issueDate: {
       label: 'Date granted'
@@ -54,6 +54,12 @@ module.exports = {
     },
     duration: {
       label: 'Project duration'
+    },
+    establishment: {
+      label: 'Establishment'
+    },
+    createdAt: {
+      label: 'Created on'
     }
   },
   'ra-required': 'Requires RA',

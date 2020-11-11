@@ -1,0 +1,102 @@
+import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, Snippet } from '@asl/components';
+import Subsection from '../components/subsection';
+
+export default function Downloads() {
+  const project = useSelector(state => state.model);
+  const grantedVersion = project.granted;
+  const latestVersion = project.versions[0];
+  const linkVersion = grantedVersion || latestVersion;
+  const licenceStatus = grantedVersion ? project.status : 'inactive';
+  const title = grantedVersion ? 'Project downloads' : 'Application downloads';
+  const isLegacy = project.schemaVersion === 0;
+
+  const ammendmentInProgress = !!(project.openTasks || []).find(t => t.type === 'amendment');
+
+  return (
+    <div className="govuk-grid-row project-downloads">
+      <div className="govuk-grid-column-two-thirds">
+        <Subsection title={title} className="project-download-links">
+
+          <Fragment>
+            <h3><Snippet>{`downloads.licence.${licenceStatus}.heading`}</Snippet></h3>
+            <p>
+              <Link
+                page="projectVersion.pdf"
+                projectVersionId={linkVersion.id}
+                label={<Snippet title={title}>{`downloads.licence.${licenceStatus}.link`}</Snippet>}
+              />
+            </p>
+            <p className="govuk-hint"><Snippet>{`downloads.licence.${licenceStatus}.hint`}</Snippet></p>
+          </Fragment>
+
+          <Fragment>
+            <h3><Snippet>downloads.nts.heading</Snippet></h3>
+            <p>
+              <Link
+                page="projectVersion.ntsPdf"
+                label={<Snippet>downloads.nts.link</Snippet>}
+                projectVersionId={linkVersion.id}
+              />
+            </p>
+            <p className="govuk-hint"><Snippet>downloads.nts.hint</Snippet></p>
+          </Fragment>
+
+          {
+            !isLegacy && (
+              <Fragment>
+                <h3><Snippet>downloads.protocols.heading</Snippet></h3>
+                <p>
+                  <Link
+                    page="projectVersion.protocolsPdf"
+                    label={<Snippet>downloads.protocols.link</Snippet>}
+                    projectVersionId={linkVersion.id}
+                  />
+                </p>
+                <p className="govuk-hint"><Snippet>downloads.protocols.hint</Snippet></p>
+              </Fragment>
+            )
+          }
+
+          <Fragment>
+            <h3><Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.heading`}</Snippet></h3>
+            <p>
+              <Link
+                page="projectVersion.docx"
+                label={<Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.link`}</Snippet>}
+                projectVersionId={latestVersion.id}
+              />
+            </p>
+            <p>
+              <Link
+                page="projectVersion.pdf"
+                query={{ application: true }}
+                label={<Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.pdf-link`}</Snippet>}
+                projectVersionId={latestVersion.id}
+              />
+            </p>
+            <p className="govuk-hint"><Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.hint`}</Snippet></p>
+          </Fragment>
+
+          {
+            !isLegacy && (
+              <Fragment>
+                <h3><Snippet>downloads.template.heading</Snippet></h3>
+                <p>
+                  <Link
+                    page="projectVersion.ppl"
+                    label={<Snippet>downloads.template.link</Snippet>}
+                    projectVersionId={linkVersion.id}
+                  />
+                </p>
+                <p className="govuk-hint"><Snippet>downloads.template.hint</Snippet></p>
+              </Fragment>
+            )
+          }
+
+        </Subsection>
+      </div>
+    </div>
+  );
+}

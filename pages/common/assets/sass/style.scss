@@ -547,16 +547,6 @@ dl.inline dd .procedures-diff ul {
   margin-top: -$govuk-gutter-half;
 }
 
-.related-content {
-  border-top: 1px solid govuk-colour('grey-2');
-  padding-top: $govuk-gutter;
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-}
-
 .retrospective-placeholder {
   background-color: govuk-colour('grey-2');
   padding: $govuk-gutter $govuk-gutter;
@@ -580,5 +570,16 @@ nav.bottom-nav {
       background: $arrowNext no-repeat 0 22px;
       background-size: 15px;
     }
+  }
+}
+
+.project-landing-page {
+  .subsection:not(:first-child) {
+    border-top: 1px solid govuk-colour('grey-2');
+    padding-top: $govuk-gutter;
+  }
+
+  ul.other-documents {
+    padding-left: 1em;
   }
 }

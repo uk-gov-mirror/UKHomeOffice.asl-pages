@@ -1,0 +1,99 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link, Snippet } from '@asl/components';
+import { Button } from '@ukhomeoffice/react-components';
+import { formatDate } from '../../../../../lib/utils';
+import { dateFormat } from '../../../../../constants';
+import Subsection from './subsection';
+
+const getUngrantedVersion = project => {
+  return ['draft', 'submitted'].includes(project.versions[0].status) ? project.versions[0] : null;
+};
+
+const confirmSubmission = message => e => {
+  e.preventDefault();
+
+  if (window.confirm(message)) {
+    e.target.submit();
+  }
+};
+
+export default function StartAmendment() {
+  const project = useSelector(state => state.model);
+  const { confirmMessage, url, openTask, editable, asruUser, canUpdate, canTransfer, asruLicensing } = useSelector(state => state.static);
+
+  let startAmendmentDescriptionKey = 'start';
+
+  if (!editable || project.status !== 'active') {
+    return null;
+  }
+
+  const ungrantedVersion = getUngrantedVersion(project);
+
+  if (ungrantedVersion && (ungrantedVersion.asruVersion !== asruUser)) {
+    return null;
+  }
+
+  if (project.isLegacyStub) {
+    return null;
+  }
+
+  // task is a pending revocation or licence holder change
+  if (openTask && openTask.data.action !== 'grant') {
+    return null;
+  }
+
+  const firstAmendment = project.versions[project.versions.findIndex(v => v.status === 'granted') - 1];
+  const amendmentStartDate = firstAmendment && formatDate(firstAmendment.createdAt, dateFormat.short);
+
+  if (project.draft) {
+    startAmendmentDescriptionKey = 'continue';
+  } else if (canTransfer) {
+    startAmendmentDescriptionKey = 'transfer';
+  }
+
+  const isEditable = project.status === 'active' || project.status === 'inactive';
+  const canChangeLicenceHolder = canUpdate && isEditable && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
+
+  return (
+    <Subsection
+      title="Amend licence"
+      content={<Snippet amendmentStartDate={amendmentStartDate}>{`start-amendment.description.${startAmendmentDescriptionKey}`}</Snippet>}
+    >
+      <form method="POST">
+        <Button className="button-secondary">
+          <Snippet>{`actions.${project.draft ? 'continue' : 'amend'}`}</Snippet>
+        </Button>
+        {
+          canChangeLicenceHolder && !openTask &&
+            <span style={{ 'line-height': '2' }}>
+              &nbsp;or <Link page="project.updateLicenceHolder" label="change licence holder only" />
+            </span>
+        }
+      </form>
+      {
+        project.draft && (
+          <div className="margin-bottom">
+            {
+              openTask
+                ? (
+                  <Link
+                    page="task.read"
+                    taskId={openTask.id}
+                    label={<Snippet>actions.discardTask</Snippet>}
+                  />
+                )
+                : (
+                  <form method="POST" action={`${url}/delete/amendment`} onSubmit={confirmSubmission(confirmMessage)}>
+                    <button className="link">
+                      <span><Snippet>actions.discard.amendment</Snippet></span>
+                    </button>
+                  </form>
+                )
+            }
+          </div>
+        )
+      }
+    </Subsection>
+  );
+}

@@ -72,7 +72,8 @@ module.exports = settings => {
     return {
       model: 'project',
       modelId: req.projectId,
-      establishmentId: req.establishmentId
+      establishmentId: req.establishmentId,
+      onlyClosed: true // history panel only shows closed tasks, current activity uses openTasks prop
     };
   }));
 
