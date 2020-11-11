@@ -7,7 +7,7 @@ import Subsection from './subsection';
 
 export default function Details() {
   const project = useSelector(state => state.model);
-  const { establishment, allowedActions } = useSelector(state => state.static);
+  const { allowedActions } = useSelector(state => state.static);
   const isGranted = !!project.granted;
   const isRevoked = project.status === 'revoked';
   const snippetPath = `details.${isGranted ? 'granted' : 'application'}`;
@@ -22,7 +22,15 @@ export default function Details() {
         </dd>
 
         <dt><Snippet>fields.establishment.label</Snippet></dt>
-        <dd>{establishment.name}</dd>
+        <dd>{project.establishment.name}</dd>
+
+        {
+          project.additionalEstablishments.length > 0 &&
+            <Fragment>
+              <dt><Snippet>fields.additionalEstablishments.label</Snippet></dt>
+              <dd>{project.additionalEstablishments.map(e => e.name).join(', ')}</dd>
+            </Fragment>
+        }
 
         {
           isGranted && (

@@ -44,9 +44,10 @@ export default function ProjectLandingPage() {
 
   const workflowConnectionError = useSelector(state => state.static.workflowConnectionError);
   const datatable = useSelector(state => state.datatable);
+  const { additionalAvailability } = useSelector(state => state.static);
   const hasHistory = get(datatable, 'pagination.totalCount') > 0;
 
-  if (workflowConnectionError || !hasHistory) {
+  if (workflowConnectionError || additionalAvailability || !hasHistory) {
     delete sections.history;
   }
 

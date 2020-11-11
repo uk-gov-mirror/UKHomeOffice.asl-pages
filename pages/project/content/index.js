@@ -58,6 +58,9 @@ module.exports = {
     establishment: {
       label: 'Establishment'
     },
+    additionalEstablishments: {
+      label: 'Additional availability at'
+    },
     createdAt: {
       label: 'Created on'
     }

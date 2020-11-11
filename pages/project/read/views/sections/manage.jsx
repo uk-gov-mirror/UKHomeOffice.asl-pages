@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import OpenTask from '../components/open-task';
 import StartAmendment from '../components/start-amendment';
@@ -21,16 +21,11 @@ export default function Manage() {
 
   return (
     <div className="manage">
-      <OpenTask />
-      {
-        canUpdate && !additionalAvailability &&
-          <Fragment>
-            <StartAmendment />
-            <ManageAccess />
-            <RevokeLicence />
-            <DiscardDraft />
-          </Fragment>
-      }
+      { !additionalAvailability && <OpenTask /> }
+      { canUpdate && !additionalAvailability && <StartAmendment /> }
+      <ManageAccess />
+      { canUpdate && !additionalAvailability && <RevokeLicence /> }
+      { canUpdate && !additionalAvailability && <DiscardDraft /> }
     </div>
   );
 }

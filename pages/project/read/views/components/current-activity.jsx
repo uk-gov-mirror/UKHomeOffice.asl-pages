@@ -9,7 +9,11 @@ const format = (type, value, task) => {
 
 export default function CurrentActivity() {
   const project = useSelector(state => state.model);
-  const workflowConnectionError = useSelector(state => state.static.workflowConnectionError);
+  const { additionalAvailability, workflowConnectionError } = useSelector(state => state.static);
+
+  if (additionalAvailability) {
+    return null;
+  }
 
   return (
     <Subsection title="Current activity" className="current-activity">
