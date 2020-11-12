@@ -6,17 +6,9 @@ import Collaborators from '../../../components/collaborators';
 
 export default function ManageAccess() {
   const project = useSelector(state => state.model);
-  const { canManageAccess, additionalAvailability } = useSelector(state => state.static);
+  const { canManageAccess } = useSelector(state => state.static);
 
   if (!canManageAccess) {
-    return null;
-  }
-
-  const aaMatchesProjectStatus = project.status === 'inactive'
-    ? (!additionalAvailability || additionalAvailability.status === 'draft')
-    : (!additionalAvailability || additionalAvailability.status === 'active');
-
-  if (!aaMatchesProjectStatus) {
     return null;
   }
 
