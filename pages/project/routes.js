@@ -30,7 +30,7 @@ module.exports = {
   },
   removeUser: {
     path: '/:projectId/remove-user',
-    permissions: 'project.update',
+    permissions: 'project.manageAccess',
     router: removeUser
   },
   updateLicenceHolder: {

@@ -390,10 +390,6 @@ export default function ProjectLandingPage() {
   const isEditable = model.status === 'active' || model.status === 'inactive';
   const grantedVersion = model.versions.find(v => v.status === 'granted');
 
-  const canManageAccess = model.status === 'inactive'
-    ? (!additionalAvailability || additionalAvailability.status === 'draft')
-    : (!additionalAvailability || additionalAvailability.status === 'active');
-
   const canChangeLicenceHolder = canUpdate && isEditable && (!model.isLegacyStub || (model.isLegacyStub && asruLicensing));
 
   return (
@@ -531,9 +527,7 @@ export default function ProjectLandingPage() {
           </Fragment>
         )
       }
-      {
-        canManageAccess && <ManageAccess model={model} />
-      }
+      <ManageAccess model={model} />
       { showRelatedTasks && !additionalAvailability && <RelatedTasks /> }
     </Fragment>
   );
