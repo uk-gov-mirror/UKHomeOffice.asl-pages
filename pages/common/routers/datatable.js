@@ -85,7 +85,7 @@ module.exports = ({
     }
     let { rows = defaultRowCount, page } = req.query;
     if (req.query.csv) {
-      rows = 1e6;
+      rows = 1e4;
       page = 1;
     }
     page = parseInt(page, 10) - 1 || 0;
