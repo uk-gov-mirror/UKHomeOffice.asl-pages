@@ -32,7 +32,9 @@ start({
     canTransfer: state.static.canTransfer,
     canTransferDraft: state.static.canTransferDraft,
     transferInProgress: state.static.transferInProgress,
-    establishments: state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
+    establishments: state.static.user.asruUser
+      ? state.static.project.licenceHolder.establishments
+      : state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
     raCompulsory: state.model.raCompulsory,
