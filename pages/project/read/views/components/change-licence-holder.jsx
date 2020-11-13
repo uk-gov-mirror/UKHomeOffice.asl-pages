@@ -5,10 +5,10 @@ import Subsection from './subsection';
 
 export default function ChangeLicenceHolder() {
   const project = useSelector(state => state.model);
-  const { canUpdate, asruLicensing } = useSelector(state => state.static);
+  const { canUpdate, asruLicensing, openTask } = useSelector(state => state.static);
 
   const isEditable = project.status === 'inactive' || project.status === 'active';
-  const canChangeLicenceHolder = canUpdate && isEditable && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
+  const canChangeLicenceHolder = !openTask && canUpdate && isEditable && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
 
   if (!canChangeLicenceHolder) {
     return null;
