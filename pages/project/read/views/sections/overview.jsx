@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Details from '../components/details';
-import Licence from '../components/licence';
+import CurrentVersion from '../components/current-version';
 import CurrentActivity from '../components/current-activity';
 
 export default function Overview() {
@@ -9,7 +9,7 @@ export default function Overview() {
       <div className="govuk-grid-row overview">
         <div className="govuk-grid-column-two-thirds">
           <Details />
-          <Licence />
+          <CurrentVersion />
         </div>
       </div>
       <CurrentActivity />

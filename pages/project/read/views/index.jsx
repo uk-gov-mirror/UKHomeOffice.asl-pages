@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
 import { Header, Snippet, Tabs } from '@asl/components';
+import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Overview from './sections/overview';
 import Manage from './sections/manage';
 import History from './sections/history';
@@ -51,6 +52,10 @@ export default function ProjectLandingPage() {
     delete sections.history;
   }
 
+  if (project.isLegacyStub) {
+    delete sections.downloads;
+  }
+
   const sectionNames = Object.keys(sections);
   const firstSectionName = sectionNames[0];
   const [activeSection, setActiveSection] = useState(firstSectionName);
@@ -64,6 +69,8 @@ export default function ProjectLandingPage() {
 
   return (
     <div className="project-landing-page">
+      <ProjectStatusBanner model={project} version={project.granted || project.versions[0]} />
+
       <Header
         subtitle={establishment.name}
         title={project.title || 'Untitled project'}
@@ -71,10 +78,10 @@ export default function ProjectLandingPage() {
 
       <SectionNav sections={sections} activeSection={activeSection} setActiveSection={setActiveSection} />
 
-      { activeSection === 'overview' && <Overview /> }
-      { activeSection === 'manage' && <Manage /> }
+      { activeSection === 'overview' && sections.overview && <Overview /> }
+      { activeSection === 'manage' && sections.manage && <Manage /> }
       { activeSection === 'history' && sections.history && <History /> }
-      { activeSection === 'downloads' && <Downloads /> }
+      { activeSection === 'downloads' && sections.downloads && <Downloads /> }
     </div>
   );
 }

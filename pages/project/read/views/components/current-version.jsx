@@ -3,18 +3,30 @@ import { useSelector } from 'react-redux';
 import { Link, Snippet } from '@asl/components';
 import Subsection from './subsection';
 
-export default function Licence() {
+export default function CurrentVersion() {
   const project = useSelector(state => state.model);
-  let versionId = (project.granted || project.versions[0]).id;
+  const version = project.granted || project.versions[0];
+  let versionId = version.id;
+
+  if (project.status === 'transferred') {
+    return null;
+  }
 
   if (project.isLegacyStub) {
     return null;
   }
+  const { additionalAvailability, canUpdate, asruUser, openTask, editable } = useSelector(state => state.static);
 
-  let labelKey = `${project.granted ? 'granted' : 'application'}.licence`;
+  const showEditLink = project.status === 'inactive' && project.draft && canUpdate && !asruUser;
+  const page = showEditLink ? 'projectVersion.update' : 'projectVersion';
+  const returned = openTask && editable && canUpdate;
+
+  let labelKey = project.granted
+    ? `granted.licence`
+    : `application.${returned ? 'returned' : version.status}`;
+
   let labelKeyPdf = `${project.granted ? 'granted' : 'application'}.pdf`;
 
-  const { additionalAvailability } = useSelector(state => state.static);
   const additionalAvailabilityRemoved = additionalAvailability && additionalAvailability.status === 'removed';
 
   if (additionalAvailabilityRemoved) {
@@ -27,7 +39,7 @@ export default function Licence() {
     <Subsection title="Licence" className="licence">
       <p>
         <Link
-          page="projectVersion"
+          page={page}
           versionId={versionId}
           label={<Snippet>{`actions.view.${labelKey}`}</Snippet>}
           className={project.granted ? '' : 'govuk-button'}

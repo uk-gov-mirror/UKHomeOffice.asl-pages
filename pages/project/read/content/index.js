@@ -93,8 +93,10 @@ module.exports = merge({}, baseContent, {
         'additional-availability-removed-pdf': 'Download last available version of this licence (PDF)'
       },
       application: {
-        licence: 'Open application',
-        pdf: 'Download application (PDF)'
+        draft: 'Open application',
+        pdf: 'Download application (PDF)',
+        submitted: 'View submitted draft',
+        returned: 'Continue editing draft'
       }
     },
     viewTask: 'View task',
@@ -144,5 +146,13 @@ module.exports = merge({}, baseContent, {
     links: {
       nts: 'Non-technical summary'
     }
+  },
+  manage: {
+    noPermissions: 'You don\'t have permission to amend, revoke or grant other users access to this licence.'
+  },
+  changeLicenceHolder: {
+    title: 'Change licence holder',
+    description: 'Change the prospective licence holder of this project.',
+    link: 'Change licence holder'
   }
 });
