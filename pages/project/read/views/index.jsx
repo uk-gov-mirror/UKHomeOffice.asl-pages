@@ -30,6 +30,21 @@ function SectionNav({ sections, activeSection, setActiveSection }) {
   );
 }
 
+function hasHistory() {
+  const workflowConnectionError = useSelector(state => state.static.workflowConnectionError);
+  if (workflowConnectionError) {
+    return false;
+  }
+  const datatable = useSelector(state => state.datatable);
+  return get(datatable, 'pagination.totalCount') > 0;
+}
+
+function hasPreviousVersions() {
+  const project = useSelector(state => state.model);
+  const previousVersions = project.versions.filter(v => v.status === 'granted' && v.id !== project.granted.id && !v.isLegacyStub);
+  return previousVersions.length > 0;
+}
+
 export default function ProjectLandingPage() {
   const project = useSelector(state => state.model);
   const { establishment } = useSelector(state => state.static);
@@ -43,12 +58,9 @@ export default function ProjectLandingPage() {
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const workflowConnectionError = useSelector(state => state.static.workflowConnectionError);
-  const datatable = useSelector(state => state.datatable);
   const { additionalAvailability } = useSelector(state => state.static);
-  const hasHistory = get(datatable, 'pagination.totalCount') > 0;
 
-  if (workflowConnectionError || additionalAvailability || !hasHistory) {
+  if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
   }
 
