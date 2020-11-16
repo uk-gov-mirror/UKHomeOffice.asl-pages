@@ -5,9 +5,9 @@ import Subsection from './subsection';
 
 export default function OpenTask() {
   const project = useSelector(state => state.model);
-  const { openTask, editable, canUpdate, asruUser } = useSelector(state => state.static);
+  const { openTask, editable, canUpdate, asruUser, additionalAvailability } = useSelector(state => state.static);
 
-  if (!openTask || !openTask.data) {
+  if (!openTask || !openTask.data || additionalAvailability) {
     return null;
   }
 

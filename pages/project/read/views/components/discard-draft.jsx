@@ -14,7 +14,11 @@ const confirmSubmission = message => e => {
 
 export default function DiscardDraft() {
   const project = useSelector(state => state.model);
-  const { openTask, url, confirmMessage, asruUser } = useSelector(state => state.static);
+  const { openTask, url, confirmMessage, asruUser, canUpdate, additionalAvailability } = useSelector(state => state.static);
+
+  if (!canUpdate || additionalAvailability) {
+    return null;
+  }
 
   // draft project without open task can be discarded by establishment
   if (project.status !== 'inactive' || openTask || asruUser) {

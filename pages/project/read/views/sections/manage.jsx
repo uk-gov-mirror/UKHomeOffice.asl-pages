@@ -9,10 +9,11 @@ import AmendStub from '../components/amend-stub';
 import ManageAccess from '../components/manage-access';
 import RevokeLicence from '../components/revoke-licence';
 import DiscardDraft from '../components/discard-draft';
+import DiscardStub from '../components/discard-stub';
 
 export default function Manage() {
   const project = useSelector(state => state.model);
-  const { canUpdate, canRevoke, canManageAccess, additionalAvailability } = useSelector(state => state.static);
+  const { canUpdate, canRevoke, canManageAccess } = useSelector(state => state.static);
 
   // project can be edited if it is active or a draft.
   const isEditable = project.status === 'inactive' || project.status === 'active';
@@ -25,14 +26,15 @@ export default function Manage() {
 
   return (
     <div className="manage">
-      { !additionalAvailability && <OpenTask /> }
-      { canUpdate && !additionalAvailability && <UserCannotEdit /> }
-      { canUpdate && !additionalAvailability && <StartAmendment /> }
-      { canUpdate && <AmendStub /> }
+      <OpenTask />
+      <UserCannotEdit />
+      <StartAmendment />
+      <AmendStub />
       <ChangeLicenceHolder />
       <ManageAccess />
-      { canUpdate && !additionalAvailability && <RevokeLicence /> }
-      { canUpdate && !additionalAvailability && <DiscardDraft /> }
+      <RevokeLicence />
+      <DiscardDraft />
+      <DiscardStub />
     </div>
   );
 }

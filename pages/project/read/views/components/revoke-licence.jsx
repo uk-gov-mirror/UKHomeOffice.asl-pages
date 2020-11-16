@@ -5,9 +5,9 @@ import Subsection from './subsection';
 
 export default function RevokeLicence() {
   const project = useSelector(state => state.model);
-  const { openTask, canRevoke, asruUser } = useSelector(state => state.static);
+  const { openTask, canRevoke, asruUser, additionalAvailability } = useSelector(state => state.static);
 
-  if (openTask || !canRevoke || project.status !== 'active') {
+  if (openTask || !canRevoke || additionalAvailability || project.status !== 'active') {
     return null;
   }
 

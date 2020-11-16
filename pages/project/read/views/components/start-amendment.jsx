@@ -20,11 +20,11 @@ const confirmSubmission = message => e => {
 
 export default function StartAmendment() {
   const project = useSelector(state => state.model);
-  const { confirmMessage, url, openTask, editable, asruUser, canUpdate, canTransfer, asruLicensing } = useSelector(state => state.static);
+  const { confirmMessage, url, openTask, editable, asruUser, canUpdate, canTransfer, asruLicensing, additionalAvailability } = useSelector(state => state.static);
 
   let startAmendmentDescriptionKey = 'start';
 
-  if (!editable || project.status !== 'active') {
+  if (!editable || project.status !== 'active' || !canUpdate || additionalAvailability) {
     return null;
   }
 

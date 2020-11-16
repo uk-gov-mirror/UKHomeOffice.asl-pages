@@ -6,9 +6,9 @@ import Subsection from './subsection';
 
 export default function AmendStub() {
   const project = useSelector(state => state.model);
-  const { asruLicensing } = useSelector(state => state.static);
+  const { asruLicensing, canUpdate, additionalAvailability } = useSelector(state => state.static);
 
-  if (!project.isLegacyStub || !asruLicensing) {
+  if (!project.isLegacyStub || !asruLicensing || !canUpdate || additionalAvailability) {
     return null;
   }
 
