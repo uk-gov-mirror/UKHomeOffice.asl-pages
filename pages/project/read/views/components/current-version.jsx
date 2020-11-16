@@ -32,7 +32,7 @@ export default function CurrentVersion() {
   if (additionalAvailabilityRemoved) {
     versionId = additionalAvailability.versionId;
     labelKey = 'granted.additional-availability-removed';
-    labelKeyPdf = 'granted.additional-availability-removed.pdf';
+    labelKeyPdf = 'granted.additional-availability-removed-pdf';
   }
 
   return (
