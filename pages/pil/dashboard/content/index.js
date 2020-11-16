@@ -2,6 +2,7 @@ const { merge } = require('lodash');
 const baseContent = require('../../content');
 const procedures = require('../../procedures/content');
 const species = require('../../species/content');
+const trainingFields = require('../../unscoped/courses/content/fields');
 
 module.exports = merge({}, baseContent, {
   pil: {
@@ -39,6 +40,7 @@ module.exports = merge({}, baseContent, {
   fields: {
     ...procedures.fields,
     ...species.fields,
+    ...trainingFields,
     modules: {
       label: 'Modules completed'
     },
