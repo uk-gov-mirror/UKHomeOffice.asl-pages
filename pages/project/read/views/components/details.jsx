@@ -28,7 +28,15 @@ export default function Details() {
           project.additionalEstablishments.length > 0 &&
             <Fragment>
               <dt><Snippet>fields.additionalEstablishments.label</Snippet></dt>
-              <dd>{project.additionalEstablishments.map(e => e.name).join(', ')}</dd>
+              <dd>
+                <ul>
+                  {
+                    project.additionalEstablishments.map(e => (
+                      <li key={e.id}>{e.name}</li>
+                    ))
+                  }
+                </ul>
+              </dd>
             </Fragment>
         }
 
