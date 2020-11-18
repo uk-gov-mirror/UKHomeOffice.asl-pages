@@ -15,7 +15,7 @@ export default function ManageAccess() {
   return (
     <Subsection
       title={<Snippet>manageAccess.title</Snippet>}
-      content={<Snippet>manageAccess.content</Snippet>}
+      content={<Snippet>{`manageAccess.content.${project.status === 'inactive' ? 'application' : 'granted'}`}</Snippet>}
     >
       <p>
         <Link page="project.addUser" label={<Snippet>manageAccess.action</Snippet>} />
