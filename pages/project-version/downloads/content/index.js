@@ -43,6 +43,12 @@ module.exports = {
     'pdf-link': 'Full application (.pdf)',
     hint: 'Download the full application, including background information and justification not detailed in the licence.'
   },
+  amendment: {
+    heading: 'Ammendment',
+    link: 'Amendment (.docx)',
+    'pdf-link': 'Amendment (.pdf)',
+    hint: 'Download the full amendment, including background information and justification not detailed in the licence.'
+  },
   template: {
     heading: 'Template',
     link: 'Template (.ppl)',

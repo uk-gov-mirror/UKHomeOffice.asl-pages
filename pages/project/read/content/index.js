@@ -1,7 +1,39 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
+const downloadContent = require('../../../project-version/downloads/content');
 
 module.exports = merge({}, baseContent, {
+  tabs: {
+    granted: {
+      overview: 'Project overview',
+      manage: 'Manage licence',
+      history: 'History',
+      downloads: 'Downloads'
+    },
+    application: {
+      overview: 'Details',
+      manage: 'Manage application',
+      history: 'History',
+      downloads: 'Downloads'
+    }
+  },
+  details: {
+    granted: {
+      title: 'Licence details',
+      licenceHolder: 'Licence holder'
+    },
+    application: {
+      title: 'Application details',
+      licenceHolder: 'Prospective licence holder'
+    }
+  },
+  downloads: {
+    ...downloadContent,
+    title: {
+      active: 'Project downloads',
+      inactive: 'Application downloads'
+    }
+  },
   openTask: {
     application: {
       title: 'Application in progress',
@@ -55,14 +87,14 @@ module.exports = merge({}, baseContent, {
   actions: {
     view: {
       granted: {
-        active: 'View granted licence',
-        revoked: 'View revoked licence',
-        expired: 'View expired licence',
-        transferred: 'View transferred licence',
-        'additional-availability-removed': 'View last available version of this licence'
+        licence: 'View licence',
+        pdf: 'Download licence (PDF)',
+        'additional-availability-removed': 'View last available version of this licence',
+        'additional-availability-removed-pdf': 'Download last available version of this licence (PDF)'
       },
-      draft: {
-        draft: 'Open draft',
+      application: {
+        draft: 'Open application',
+        pdf: 'Download application (PDF)',
         submitted: 'View submitted draft',
         returned: 'Continue editing draft'
       }
@@ -73,7 +105,7 @@ module.exports = merge({}, baseContent, {
     revoke: 'Revoke licence',
     discardTask: 'View task to discard',
     discard: {
-      draft: 'Discard draft',
+      draft: 'Discard application',
       amendment: 'Discard this amendment',
       stub: 'Cancel licence conversion'
     },
@@ -87,8 +119,8 @@ module.exports = merge({}, baseContent, {
   },
   discard: {
     draft: {
-      title: 'Discard draft project',
-      description: 'Any information in this draft will be deleted if it is discarded.'
+      title: 'Discard application',
+      description: 'Information in this application will be deleted.'
     },
     stub: {
       title: 'Cancel conversion',
@@ -106,10 +138,24 @@ module.exports = merge({}, baseContent, {
   },
   manageAccess: {
     title: 'Guest access',
-    content: 'Allow colleagues to view this project. Administrators will have access by default.',
+    content: {
+      application: 'Allow colleagues to view this application. Administrators will have access by default.',
+      granted: 'Allow colleagues to view this project. Administrators will have access by default.'
+    },
     action: 'Grant access'
   },
-  related: {
-    nts: 'Non-technical summary'
+  otherDocuments: {
+    heading: 'Other documents',
+    links: {
+      nts: 'Non-technical summary'
+    }
+  },
+  manage: {
+    noPermissions: 'You don\'t have permission to amend, revoke or grant other users access to this licence.'
+  },
+  changeLicenceHolder: {
+    title: 'Change licence holder',
+    description: 'Change the prospective licence holder of this project.',
+    link: 'Change licence holder'
   }
 });

@@ -1,26 +1,28 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Snippet, Link } from '@asl/components';
-import Section from './section';
+import Subsection from './subsection';
 import Collaborators from '../../../components/collaborators';
 
-export default function ManageAccess({ model }) {
-  const canManageAccess = useSelector(state => state.static.canManageAccess);
+export default function ManageAccess() {
+  const project = useSelector(state => state.model);
+  const { canManageAccess } = useSelector(state => state.static);
+
   if (!canManageAccess) {
     return null;
   }
 
   return (
-    <Section
+    <Subsection
       title={<Snippet>manageAccess.title</Snippet>}
-      content={<Snippet>manageAccess.content</Snippet>}
+      content={<Snippet>{`manageAccess.content.${project.status === 'inactive' ? 'application' : 'granted'}`}</Snippet>}
     >
       <p>
         <Link page="project.addUser" label={<Snippet>manageAccess.action</Snippet>} />
       </p>
       {
-        !!model.collaborators.length && <Collaborators collaborators={model.collaborators} />
+        !!project.collaborators.length && <Collaborators collaborators={project.collaborators} />
       }
-    </Section>
+    </Subsection>
   );
 }
