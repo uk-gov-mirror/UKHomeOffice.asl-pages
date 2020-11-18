@@ -38,7 +38,7 @@ module.exports = settings => {
       req.user.can('project.revoke', params),
       req.user.can('project.manageAccess', params)
     ])
-      .then(([canUpdate, canRevoke, canTransfer, canManageAccess]) => {
+      .then(([canUpdate, canRevoke, canManageAccess]) => {
         const openTask = req.project.openTasks[0];
         const editable = (!openTask || (openTask && openTask.editable));
 
