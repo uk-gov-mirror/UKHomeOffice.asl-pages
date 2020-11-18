@@ -8,7 +8,7 @@ export default function ChangeLicenceHolder() {
   const { canUpdate, openTask } = useSelector(state => state.static);
 
   // only shows for applications - for active licences the change licence holder function is in the start-amendment panel
-  if (!openTask && canUpdate && project.status !== 'inactive') {
+  if (openTask || !canUpdate || project.status !== 'inactive') {
     return null;
   }
 
