@@ -52,8 +52,7 @@ export default function StartAmendment() {
     startAmendmentDescriptionKey = 'transfer';
   }
 
-  const isEditable = project.status === 'active' || project.status === 'inactive';
-  const canChangeLicenceHolder = canUpdate && isEditable && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
+  const canChangeLicenceHolder = !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
 
   return (
     <Subsection
@@ -65,7 +64,7 @@ export default function StartAmendment() {
           <Snippet>{`actions.${project.draft ? 'continue' : 'amend'}`}</Snippet>
         </Button>
         {
-          canChangeLicenceHolder && !openTask &&
+          canChangeLicenceHolder &&
             <span style={{ 'line-height': '2' }}>
               &nbsp;or <Link page="project.updateLicenceHolder" label="change licence holder only" />
             </span>

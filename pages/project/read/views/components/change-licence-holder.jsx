@@ -5,12 +5,10 @@ import Subsection from './subsection';
 
 export default function ChangeLicenceHolder() {
   const project = useSelector(state => state.model);
-  const { canUpdate, asruLicensing, openTask } = useSelector(state => state.static);
+  const { canUpdate, openTask } = useSelector(state => state.static);
 
-  const isEditable = project.status === 'inactive' || project.status === 'active';
-  const canChangeLicenceHolder = !openTask && canUpdate && isEditable && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
-
-  if (!canChangeLicenceHolder) {
+  // only shows for applications - for active licences the change licence holder function is in the start-amendment panel
+  if (!openTask && canUpdate && project.status !== 'inactive') {
     return null;
   }
 
