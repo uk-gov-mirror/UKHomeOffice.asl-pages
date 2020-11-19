@@ -25,7 +25,7 @@ export default function Downloads() {
               <Link
                 page="projectVersion.pdf"
                 versionId={linkVersion.id}
-                label={<Snippet title={title}>{`downloads.licence.${licenceStatus}.link`}</Snippet>}
+                label={<Snippet title={project.title}>{`downloads.licence.${licenceStatus}.link`}</Snippet>}
               />
             </p>
             <p className="govuk-hint"><Snippet>{`downloads.licence.${licenceStatus}.hint`}</Snippet></p>
