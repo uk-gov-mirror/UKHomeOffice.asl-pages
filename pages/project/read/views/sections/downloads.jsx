@@ -12,7 +12,7 @@ export default function Downloads() {
   const title = grantedVersion ? 'Project downloads' : 'Application downloads';
   const isLegacy = project.schemaVersion === 0;
 
-  const ammendmentInProgress = !!(project.openTasks || []).find(t => t.type === 'amendment');
+  const amendmentInProgress = !!(project.openTasks || []).find(t => t.type === 'amendment');
 
   return (
     <div className="govuk-grid-row project-downloads">
@@ -24,7 +24,7 @@ export default function Downloads() {
             <p>
               <Link
                 page="projectVersion.pdf"
-                projectVersionId={linkVersion.id}
+                versionId={linkVersion.id}
                 label={<Snippet title={title}>{`downloads.licence.${licenceStatus}.link`}</Snippet>}
               />
             </p>
@@ -37,7 +37,7 @@ export default function Downloads() {
               <Link
                 page="projectVersion.ntsPdf"
                 label={<Snippet>downloads.nts.link</Snippet>}
-                projectVersionId={linkVersion.id}
+                versionId={linkVersion.id}
               />
             </p>
             <p className="govuk-hint"><Snippet>downloads.nts.hint</Snippet></p>
@@ -51,7 +51,7 @@ export default function Downloads() {
                   <Link
                     page="projectVersion.protocolsPdf"
                     label={<Snippet>downloads.protocols.link</Snippet>}
-                    projectVersionId={linkVersion.id}
+                    versionId={linkVersion.id}
                   />
                 </p>
                 <p className="govuk-hint"><Snippet>downloads.protocols.hint</Snippet></p>
@@ -60,23 +60,23 @@ export default function Downloads() {
           }
 
           <Fragment>
-            <h3><Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.heading`}</Snippet></h3>
+            <h3><Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.heading`}</Snippet></h3>
             <p>
               <Link
                 page="projectVersion.docx"
-                label={<Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.link`}</Snippet>}
-                projectVersionId={latestVersion.id}
+                label={<Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.link`}</Snippet>}
+                versionId={latestVersion.id}
               />
             </p>
             <p>
               <Link
                 page="projectVersion.pdf"
                 query={{ application: true }}
-                label={<Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.pdf-link`}</Snippet>}
-                projectVersionId={latestVersion.id}
+                label={<Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.pdf-link`}</Snippet>}
+                versionId={latestVersion.id}
               />
             </p>
-            <p className="govuk-hint"><Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.hint`}</Snippet></p>
+            <p className="govuk-hint"><Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.hint`}</Snippet></p>
           </Fragment>
 
           {
@@ -87,7 +87,7 @@ export default function Downloads() {
                   <Link
                     page="projectVersion.ppl"
                     label={<Snippet>downloads.template.link</Snippet>}
-                    projectVersionId={linkVersion.id}
+                    versionId={linkVersion.id}
                   />
                 </p>
                 <p className="govuk-hint"><Snippet>downloads.template.hint</Snippet></p>
