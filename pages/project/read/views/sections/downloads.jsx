@@ -12,7 +12,7 @@ export default function Downloads() {
   const title = grantedVersion ? 'Project downloads' : 'Application downloads';
   const isLegacy = project.schemaVersion === 0;
 
-  const ammendmentInProgress = !!(project.openTasks || []).find(t => t.type === 'amendment');
+  const amendmentInProgress = !!(project.openTasks || []).find(t => t.type === 'amendment');
 
   return (
     <div className="govuk-grid-row project-downloads">
@@ -60,11 +60,11 @@ export default function Downloads() {
           }
 
           <Fragment>
-            <h3><Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.heading`}</Snippet></h3>
+            <h3><Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.heading`}</Snippet></h3>
             <p>
               <Link
                 page="projectVersion.docx"
-                label={<Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.link`}</Snippet>}
+                label={<Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.link`}</Snippet>}
                 projectVersionId={latestVersion.id}
               />
             </p>
@@ -72,11 +72,11 @@ export default function Downloads() {
               <Link
                 page="projectVersion.pdf"
                 query={{ application: true }}
-                label={<Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.pdf-link`}</Snippet>}
+                label={<Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.pdf-link`}</Snippet>}
                 projectVersionId={latestVersion.id}
               />
             </p>
-            <p className="govuk-hint"><Snippet>{`downloads.${ammendmentInProgress ? 'amendment' : 'application'}.hint`}</Snippet></p>
+            <p className="govuk-hint"><Snippet>{`downloads.${amendmentInProgress ? 'amendment' : 'application'}.hint`}</Snippet></p>
           </Fragment>
 
           {
