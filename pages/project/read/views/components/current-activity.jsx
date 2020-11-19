@@ -9,9 +9,9 @@ const format = (type, value, task) => {
 
 export default function CurrentActivity() {
   const project = useSelector(state => state.model);
-  const { additionalAvailability, workflowConnectionError } = useSelector(state => state.static);
+  const { additionalAvailability, workflowConnectionError, showRelatedTasks } = useSelector(state => state.static);
 
-  if (additionalAvailability) {
+  if (additionalAvailability || !showRelatedTasks) {
     return null;
   }
 
