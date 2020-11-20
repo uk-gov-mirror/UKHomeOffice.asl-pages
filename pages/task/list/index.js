@@ -1,13 +1,9 @@
-const { page } = require('@asl/service/ui');
-const router = require('./router');
+const { Router } = require('express');
 
 module.exports = (settings = {}) => {
-  const app = page({
-    ...settings,
-    root: __dirname
-  });
+  const app = Router();
 
-  app.use(router({ tabs: settings.tabs }));
+  app.get('/', (req, res) => res.redirect(req.buildRoute('dashboard')));
 
   return app;
 };
