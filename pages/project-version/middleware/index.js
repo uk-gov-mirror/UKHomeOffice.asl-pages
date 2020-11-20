@@ -121,6 +121,25 @@ const getNode = (tree, path) => {
   return node;
 };
 
+const getFirstVersion = req => {
+  if (!req.project) {
+    return Promise.resolve();
+  }
+  // first version is only used during application process
+  if (req.project && req.project.granted) {
+    return Promise.resolve();
+  }
+  // if there are only one or two versions then the first version will be the same as current or previous
+  if (req.project.versions.length < 3) {
+    return Promise.resolve();
+  }
+  const first = sortBy(req.project.versions, 'createdAt')[0];
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${first.id}`)
+    // swallow error as this will return 403 for receiving establishment viewing a project transfer version
+    // eslint-disable-next-line handle-callback-err
+    .catch(err => {});
+};
+
 const getPreviousVersion = req => {
   if (!req.project) {
     return Promise.resolve();
@@ -215,11 +234,13 @@ const hasChanged = (before, after) => {
 
 const getAllChanges = () => (req, res, next) => {
   Promise.all([
+    getFirstVersion(req),
     getPreviousVersion(req),
     getGrantedVersion(req)
   ])
-    .then(([previousVersion, grantedVersion]) => {
+    .then(([firstVersion, previousVersion, grantedVersion]) => {
       return {
+        first: getChanges(req.version, firstVersion),
         latest: getChanges(req.version, previousVersion),
         granted: getChanges(req.version, grantedVersion)
       };
@@ -233,15 +254,19 @@ const getAllChanges = () => (req, res, next) => {
 
 const getChangedValues = (question, req) => {
   return Promise.all([
+    getFirstVersion(req),
     getPreviousVersion(req),
     getGrantedVersion(req)
   ])
-    .then(([previousVersion, grantedVersion]) => {
+    .then(([firstVersion, previousVersion, grantedVersion]) => {
+      const first = firstVersion && getNode(firstVersion.data, question);
       const previous = previousVersion && getNode(previousVersion.data, question);
       const granted = grantedVersion && getNode(grantedVersion.data, question);
       return {
-        grantedId: grantedVersion && grantedVersion.id,
+        firstId: firstVersion && firstVersion.id,
         previousId: previousVersion && previousVersion.id,
+        grantedId: grantedVersion && grantedVersion.id,
+        first,
         previous,
         granted
       };
