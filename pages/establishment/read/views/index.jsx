@@ -7,7 +7,7 @@ import {
   Snippet,
   Conditions,
   Link,
-  DownloadHeader,
+  DocumentHeader,
   LicenceStatusBanner,
   Inset
 } from '@asl/components';
@@ -33,13 +33,19 @@ const Index = ({
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-      <DownloadHeader
-        title={establishment.name}
-        subtitle="Establishment licence"
-        licenceStatus={establishment.status}
-        showPdf={canDownloadPDF}
-        basename={currentPath}
-      />
+      <DocumentHeader
+        subtitle={establishment.name}
+        title={<Snippet>page.title</Snippet>}
+        backLink={<Link page="establishment.dashboard" label={<Snippet>action.backToDash</Snippet>} />}
+      >
+        {
+          canDownloadPDF &&
+            <dl>
+              <dt>Downloads</dt>
+              <dd><Link page="establishment.pdf" label={<Snippet>action.download.pdf</Snippet>} /></dd>
+            </dl>
+        }
+      </DocumentHeader>
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">

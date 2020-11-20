@@ -16,5 +16,10 @@ module.exports = {
     transferred: {
       back: 'Back to transferred licence'
     }
+  },
+  action: {
+    download: {
+      pdf: 'Download non-technical summary as a PDF'
+    }
   }
 };

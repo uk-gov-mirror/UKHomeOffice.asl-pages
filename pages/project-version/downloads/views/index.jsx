@@ -17,7 +17,7 @@ const ProjectDownloads = () => {
 
       <ProjectStatusBanner model={project} version={version} />
 
-      <div className="download-header">
+      <div className="document-header">
         <div className="page-title">
           <h1>{title}</h1>
         </div>
