@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Header, Snippet, Tabs } from '@asl/components';
+import { DocumentHeader, Snippet, Tabs } from '@asl/components';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Overview from './sections/overview';
 import Manage from './sections/manage';
@@ -47,9 +47,7 @@ function hasPreviousVersions() {
 
 export default function ProjectLandingPage() {
   const project = useSelector(state => state.model);
-  const { establishment } = useSelector(state => state.static);
-  const isGranted = !!project.granted;
-  const snippetPath = `tabs.${isGranted ? 'granted' : 'application'}`;
+  const snippetPath = `tabs.${project.granted ? 'granted' : 'application'}`;
 
   const sections = {
     overview: <Snippet>{`${snippetPath}.overview`}</Snippet>,
@@ -83,9 +81,9 @@ export default function ProjectLandingPage() {
     <div className="project-landing-page">
       <ProjectStatusBanner model={project} version={project.granted || project.versions[0]} />
 
-      <Header
-        subtitle={establishment.name}
-        title={project.title || 'Untitled project'}
+      <DocumentHeader
+        title={<Snippet>{`page.title.${project.status === 'inactive' ? 'application' : 'granted'}`}</Snippet>}
+        subtitle={project.title || 'Untitled project'}
       />
 
       <SectionNav sections={sections} activeSection={activeSection} setActiveSection={setActiveSection} />

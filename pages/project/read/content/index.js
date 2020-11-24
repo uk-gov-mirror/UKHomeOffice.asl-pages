@@ -3,6 +3,12 @@ const baseContent = require('../../content');
 const downloadContent = require('../../../project-version/downloads/content');
 
 module.exports = merge({}, baseContent, {
+  page: {
+    title: {
+      granted: 'Project',
+      application: 'Application overview'
+    }
+  },
   tabs: {
     granted: {
       overview: 'Project overview',

@@ -10,7 +10,7 @@ import {
   Snippet,
   ModelSummary,
   Conditions,
-  DownloadHeader,
+  DocumentHeader,
   LicenceStatusBanner
 } from '@asl/components';
 import ProceduresDiff from '../../procedures/views/diff';
@@ -26,7 +26,6 @@ export default function PIL({ pil }) {
     allowedActions,
     canDownload,
     openTask,
-    currentPath,
     isLicenceHolder,
     pilReviewRequired,
     reviewUrl,
@@ -136,13 +135,18 @@ export default function PIL({ pil }) {
         )
       }
 
-      <DownloadHeader
-        title={`${profile.firstName} ${profile.lastName}`}
-        subtitle="Personal licence"
-        licenceStatus={pil.status}
-        showPdf={canDownload}
-        basename={currentPath}
-      />
+      <DocumentHeader
+        subtitle={`${profile.firstName} ${profile.lastName}`}
+        title={<Snippet>page.title</Snippet>}
+      >
+        {
+          canDownload &&
+            <dl>
+              <dt>Downloads</dt>
+              <dd><Link page="pil.pdf" label={<Snippet>action.download.pdf</Snippet>} /></dd>
+            </dl>
+        }
+      </DocumentHeader>
 
       <ModelSummary model={pil} formatters={formatters} schema={pilSchema} formatNullValue={true} />
 

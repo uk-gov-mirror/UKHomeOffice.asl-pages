@@ -4,7 +4,9 @@ const trainingFields = require('../../unscoped/courses/content/fields');
 
 module.exports = merge({}, baseContent, {
   title: 'Personal licence',
-  pageTitle: 'Personal licence',
+  page: {
+    title: 'Personal licence'
+  },
   fields: {
     ...trainingFields,
     licenceNumber: { label: 'Licence number' },
@@ -21,6 +23,9 @@ module.exports = merge({}, baseContent, {
   action: {
     applyNow: 'Apply now',
     backToProfile: 'Back to profile',
+    download: {
+      pdf: 'Download licence as a PDF'
+    },
     revoke: {
       summary: `## Revoke licence
         Cancel this licence if it is no longer needed. If the licence includes category E, this can be removed by viewing the relevant training course.`,

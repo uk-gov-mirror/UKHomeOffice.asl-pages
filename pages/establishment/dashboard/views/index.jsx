@@ -5,7 +5,7 @@ import {
   Snippet,
   Link,
   Sidebar,
-  Header,
+  DocumentHeader,
   PanelList,
   LicenceStatusBanner
 } from '@asl/components';
@@ -61,7 +61,11 @@ const Index = ({
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-      <Header title={establishment.name} />
+      <DocumentHeader
+        title={<Snippet>dashboard.title</Snippet>}
+        subtitle={establishment.name}
+      />
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <PanelList

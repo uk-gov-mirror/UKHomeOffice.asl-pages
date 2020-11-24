@@ -1,4 +1,7 @@
 module.exports = {
+  page: {
+    title: 'Establishment licence'
+  },
   address: 'Address',
   licenced: {
     title: 'Licensed to carry out',
@@ -58,6 +61,10 @@ module.exports = {
       button: 'Reapply for licence'
     },
     approvedAreas: 'View approved areas',
-    namedPeople: 'View named people'
+    namedPeople: 'View named people',
+    backToDash: 'Go to establishment overview',
+    download: {
+      pdf: 'Download licence as a PDF'
+    }
   }
 };

@@ -2,10 +2,12 @@ import React, { useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import { Snippet, DownloadHeader, Link } from '@asl/components';
+import { Snippet, DocumentHeader, Link } from '@asl/components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 import getSchema from '../schema';
 import Field from './components/field';
+import { formatDate } from '../../../../lib/utils';
+import { dateFormat } from '../../../../constants';
 
 function SideNav({ sections, activeSection, setActiveSection }) {
   return (
@@ -62,12 +64,10 @@ function BottomNav({ sections, activeSection, setActiveSection }) {
 }
 
 export default function NTS() {
-  const { project, version, basename } = useSelector(state => state.static);
+  const { project, version } = useSelector(state => state.static);
   const versionData = version.data;
   versionData.raCompulsory = version.raCompulsory;
 
-  const thisVersionIsGranted = project.granted && project.granted.id === version.id;
-  const licenceStatus = thisVersionIsGranted ? project.status : 'inactive';
   const title = get(version, 'data.title') || 'Untitled project';
   const isTrainingLicence = get(version, 'data.training-licence', false);
 
@@ -79,28 +79,55 @@ export default function NTS() {
     <div id="ppl-drafting-tool" className="non-technical-summary">
       <ProjectStatusBanner model={project} version={version} />
 
-      <DownloadHeader
+      <DocumentHeader
         title={title}
         subtitle={<Snippet>subtitle</Snippet>}
-        licenceStatus={licenceStatus}
-        showPdf={false}
-        showAllDownloads={true}
-        basename={basename}
+        detailsLabel="details and downloads"
       >
         <dl>
           <dt>Project title</dt>
           <dd>{title}</dd>
 
-          <dt>Project licence holder</dt>
+          <dt>Licence holder</dt>
           <dd>{`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}</dd>
+
+          <dt>Licence number</dt>
+          <dd>{project.licenceNumber}</dd>
 
           <dt>Primary establishment</dt>
           <dd>{project.establishment.name}</dd>
 
-          <dt>Project licence number</dt>
-          <dd>{project.licenceNumber}</dd>
+          { project.expiryDate &&
+            <Fragment>
+              <dt>Expiry date</dt>
+              <dd>{formatDate(project.expiryDate, dateFormat.long)}</dd>
+            </Fragment>
+          }
+
+          { project.raDate &&
+            <Fragment>
+              <dt>Retrospective assessment due</dt>
+              <dd>{formatDate(project.raDate, dateFormat.long)}</dd>
+            </Fragment>
+          }
+
+          { project.amendedDate &&
+            <Fragment>
+              <dt>Last amended</dt>
+              <dd>{formatDate(project.amendedDate, dateFormat.long)}</dd>
+            </Fragment>
+          }
+
+          <dt>Downloads</dt>
+          <dd>
+            <Link
+              page="projectVersion.ntsPdf"
+              label={<Snippet>action.download.pdf</Snippet>}
+              versionId={version.id}
+            />
+          </dd>
         </dl>
-      </DownloadHeader>
+      </DocumentHeader>
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
