@@ -143,7 +143,11 @@ export default function PIL({ pil }) {
           canDownload &&
             <dl>
               <dt>Downloads</dt>
-              <dd><Link page="pil.pdf" label={<Snippet>action.download.pdf</Snippet>} /></dd>
+              <dd>
+                <ul>
+                  <li><Link page="pil.pdf" label={<Snippet>action.download.pdf</Snippet>} /></li>
+                </ul>
+              </dd>
             </dl>
         }
       </DocumentHeader>
