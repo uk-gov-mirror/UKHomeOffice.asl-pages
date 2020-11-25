@@ -145,8 +145,8 @@ module.exports = merge({}, baseContent, {
   manageAccess: {
     title: 'Guest access',
     content: {
-      application: 'Allow colleagues to view this application. Administrators will have access by default.',
-      granted: 'Allow colleagues to view this project. Administrators will have access by default.'
+      application: 'Allow colleagues to view this application. Administrators and other staff with oversight of this project will have access by default.',
+      granted: 'Allow colleagues to view this project. Administrators and other staff with oversight of this project will have access by default.'
     },
     action: 'Grant access'
   },
