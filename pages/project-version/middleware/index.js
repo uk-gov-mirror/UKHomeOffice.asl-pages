@@ -295,16 +295,18 @@ const getProjectEstablishment = () => (req, res, next) => {
 
 const getPreviousProtocols = () => (req, res, next) => {
   Promise.all([
+    getFirstVersion(req),
     getPreviousVersion(req),
     getGrantedVersion(req)
   ])
-    .then(([previous, granted]) => {
+    .then(([first, previous, granted]) => {
+      first = get(first, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
       previous = get(previous, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
       granted = get(granted, 'data.protocols', []).filter(Boolean).map(p => p.id);
 
       const showDeleted = uniq([ ...previous, ...granted ]);
 
-      res.locals.static.previousProtocols = { previous, granted, showDeleted };
+      res.locals.static.previousProtocols = { first, previous, granted, showDeleted };
     })
     .then(() => next())
     .catch(next);
