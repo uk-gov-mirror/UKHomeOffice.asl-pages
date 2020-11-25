@@ -42,7 +42,11 @@ const Index = ({
           canDownloadPDF &&
             <dl>
               <dt>Downloads</dt>
-              <dd><Link page="establishment.pdf" label={<Snippet>action.download.pdf</Snippet>} /></dd>
+              <dd>
+                <ul>
+                  <li><Link page="establishment.pdf" label={<Snippet>action.download.pdf</Snippet>} /></li>
+                </ul>
+              </dd>
             </dl>
         }
       </DocumentHeader>

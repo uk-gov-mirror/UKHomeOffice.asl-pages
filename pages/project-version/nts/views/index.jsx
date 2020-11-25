@@ -120,11 +120,15 @@ export default function NTS() {
 
           <dt>Downloads</dt>
           <dd>
-            <Link
-              page="projectVersion.ntsPdf"
-              label={<Snippet>action.download.pdf</Snippet>}
-              versionId={version.id}
-            />
+            <ul>
+              <li>
+                <Link
+                  page="projectVersion.ntsPdf"
+                  label={<Snippet>action.download.pdf</Snippet>}
+                  versionId={version.id}
+                />
+              </li>
+            </ul>
           </dd>
         </dl>
       </DocumentHeader>
