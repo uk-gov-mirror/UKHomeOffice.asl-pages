@@ -25,7 +25,7 @@ export default function Training() {
             {
               referrer && (
                 <div className="training-links">
-                  <p><a href={referrer.target}>{`Resume ${referrer.label}`}</a></p>
+                  <p><a href={referrer.target}>{referrer.label}</a></p>
                 </div>
               )
             }

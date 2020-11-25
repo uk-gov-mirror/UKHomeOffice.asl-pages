@@ -9,7 +9,9 @@ module.exports = {
     },
     passDate: {
       label: 'Date awarded',
-      hint: 'For example, 12 11 2007'
+      hint: `This should be within the last 5 years
+
+For example, 30 09 2020`
     }
   },
   errors: {
