@@ -42,7 +42,7 @@ module.exports = {
     }
   },
   fields: {
-    comments: {
+    comment: {
       label: 'Comments',
       hint: 'Comments can be seen by inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task'
     },

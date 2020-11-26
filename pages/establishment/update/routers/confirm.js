@@ -3,6 +3,7 @@ const { get, pick, merge, isEmpty } = require('lodash');
 const form = require('../../../common/routers/form');
 const schema = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
+const content = require('../../../common/content');
 
 module.exports = () => {
 
@@ -18,7 +19,10 @@ module.exports = () => {
       method: 'PUT',
       json: merge({
         data: pick(values, ['name', 'address', 'procedure', 'breeding', 'supplying', 'authorisations', 'isTrainingEstablishment']),
-        meta: { comments: values.comments }
+        meta: {
+          comment: values.comment,
+          declaration: content.fields.declaration.label
+        }
       }, params)
     };
 

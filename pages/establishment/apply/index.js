@@ -3,6 +3,7 @@ const { page } = require('@asl/service/ui');
 const form = require('../../common/routers/form');
 const success = require('../../success');
 const schema = require('./schema');
+const content = require('./content');
 
 module.exports = settings => {
   const app = page({
@@ -28,7 +29,8 @@ module.exports = settings => {
       json: {
         data: {},
         meta: {
-          ...pick(req.session.form[req.model.id].values, 'comments')
+          ...pick(req.session.form[req.model.id].values, 'comment'),
+          declaration: content.fields.declaration.label
         }
       }
     };
