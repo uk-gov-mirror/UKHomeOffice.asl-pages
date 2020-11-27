@@ -10,7 +10,7 @@ module.exports = settings => {
   app.post('/update-training', (req, res, next) => {
     set(req.session, 'training-referrer', {
       target: `${req.buildRoute('projectVersion.update')}/training`,
-      label: req.project.name || 'Untitled project'
+      label: req.project.title || 'Untitled project'
     });
     res.redirect(req.buildRoute('training.dashboard', { profileId: req.project.licenceHolderId }));
   });
