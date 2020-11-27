@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   FormLayout,
   Header,
@@ -6,8 +7,9 @@ import {
 } from '@asl/components';
 
 const Page = () => {
+  const project = useSelector(state => state.static.project);
   return (
-    <FormLayout cancelLink="project.read">
+    <FormLayout cancelLink="projectVersion.update" versionId={project.draft.id}>
       <Header title={<Snippet>title</Snippet>} />
     </FormLayout>
   );
