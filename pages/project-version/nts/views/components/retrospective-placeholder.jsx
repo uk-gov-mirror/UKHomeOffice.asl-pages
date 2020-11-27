@@ -7,7 +7,7 @@ export default function RetrospectivePlaceholder({ project, version, field }) {
   const raCompulsory = version.raCompulsory;
   const raRequired = !!version.retrospectiveAssessment;
 
-  if (!raCompulsory && !raRequired) {
+  if ((!raCompulsory && !raRequired) || !project.raDate) {
     return null;
   }
 
