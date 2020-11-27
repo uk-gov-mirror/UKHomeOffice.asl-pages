@@ -3,7 +3,7 @@ module.exports = {
   modules: {
     title: 'Your current training modules',
     hint: 'Confirm training requirements have been met to support an application. This could be through completed training modules or professional experience that makes training unnecessary.',
-    add: 'Add training'
+    add: 'Add training or exemption'
   },
   actions: {
     remove: 'Delete'

@@ -26,7 +26,7 @@ module.exports = settings => {
     const type = req.pil.status === 'active' ? 'amendment' : 'application';
     set(req.session, 'training-referrer', {
       target: req.originalUrl,
-      label: `PIL ${type}`
+      label: `Resume ${req.profile.firstName} ${req.profile.lastName}'s personal licence ${type}`
     });
     res.redirect(req.buildRoute('training.dashboard'));
   });

@@ -15,12 +15,12 @@ module.exports = () => {
 
   app.use(form({
     configure(req, res, next) {
-      const isExemption = get(req.session, `form[${req.model.id}].values.isExemption`);
-      req.form.schema = getSchema(isExemption);
+      req.isExemption = req.model.isExemption || get(req.session, `form[${req.model.id}].values.isExemption`);
+      req.form.schema = getSchema(req.isExemption);
       next();
     },
     locals(req, res, next) {
-      res.locals.static.isExemption = get(req.session, `form[${req.model.id}].values.isExemption`);
+      res.locals.static.isExemption = req.isExemption;
       next();
     }
   }));

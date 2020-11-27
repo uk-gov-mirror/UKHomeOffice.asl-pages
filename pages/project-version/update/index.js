@@ -8,10 +8,9 @@ module.exports = settings => {
   const app = Router({ mergeParams: true });
 
   app.post('/update-training', (req, res, next) => {
-    const type = req.project.status === 'inactive' ? 'application' : 'amendment';
     set(req.session, 'training-referrer', {
       target: `${req.buildRoute('projectVersion.update')}/training`,
-      label: `PPL ${type}`
+      label: req.project.title || 'Untitled project'
     });
     res.redirect(req.buildRoute('training.dashboard', { profileId: req.project.licenceHolderId }));
   });
