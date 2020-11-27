@@ -40,6 +40,8 @@ module.exports = () => {
   app.use(form({
     configure: (req, res, next) => {
       const chosenStatus = get(req, `session.form[${req.task.id}].values.status`);
+      res.locals.static.commentRequired = req.task.nextSteps.find(s => s.id === chosenStatus).commentRequired;
+      res.locals.static.commentLabel = content.commentLabels[chosenStatus];
       req.schema = getSchema(req.task, chosenStatus);
       req.form.schema = req.schema;
       next();
