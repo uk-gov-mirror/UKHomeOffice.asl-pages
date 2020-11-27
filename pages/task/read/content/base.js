@@ -13,9 +13,16 @@ module.exports = {
       label: ''
     },
     comment: {
-      label: 'Comments',
-      hint: 'Comments can be seen by establishment users, as well as inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task. '
+      label: '{{#commentRequired}}Reason for {{commentLabel}}{{/commentRequired}}{{^commentRequired}}Remarks (optional){{/commentRequired}}',
+      hint: 'Your {{#commentRequired}}reason{{/commentRequired}}{{^commentRequired}}remarks{{/commentRequired}} will be recorded and visible to relevant establishment and Home Office personnel.'
     }
+  },
+  commentLabels: {
+    'returned-to-applicant': 'returning to applicant',
+    'referred-to-inspector': 'inspector referral',
+    'inspector-rejected': 'refusal',
+    'rejected': 'refusal',
+    'discarded-by-asru': 'discarding'
   },
   'sticky-nav': {
     status: 'Status',
