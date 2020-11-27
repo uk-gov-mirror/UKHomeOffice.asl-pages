@@ -11,7 +11,7 @@ const listFormatter = list => {
 
 export default {
   address: {
-    format: (value) => <span style={{ 'white-space': 'pre-line' }}>{value}</span>
+    format: (value) => <span className="preserve-whitespace">{value}</span>
   },
   licences: {
     format: listFormatter
