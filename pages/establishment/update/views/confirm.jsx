@@ -25,10 +25,10 @@ const Confirm = ({ before, after }) => {
       <Authorisations before={before} after={after} />
 
       {
-        after && after.comments && (
+        after && after.comment && (
           <Field
-            title={<Snippet>fields.comments.label</Snippet>}
-            content={after.comments}
+            title={<Snippet>fields.comment.label</Snippet>}
+            content={after.comment}
           />
         )
       }
