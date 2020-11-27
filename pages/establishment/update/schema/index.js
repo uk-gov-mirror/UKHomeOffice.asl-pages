@@ -20,7 +20,7 @@ module.exports = {
     validate: ['required']
   },
   address: {
-    inputType: 'inputText',
+    inputType: 'textarea',
     validate: ['required']
   },
   licences: {
