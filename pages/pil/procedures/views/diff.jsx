@@ -1,4 +1,5 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
 import { Snippet, Inset } from '@asl/components';
 import TrainingPil from '../../unscoped/courses/participants/read/views/training-pil';
 
@@ -48,6 +49,10 @@ export default function ProceduresDiff({
     return <p>No procedures selected.</p>;
   }
 
+  const procsChanged = !isEqual(before, after);
+  const notesChanged = !isEqual(beforePil.notesCatD, afterPil.notesCatD) || !isEqual(beforePil.notesCatF, afterPil.notesCatF);
+  const hasChanged = procsChanged || notesChanged;
+
   if (!before.length) {
     return (
       <div className="procedures-diff">
@@ -83,7 +88,9 @@ export default function ProceduresDiff({
         <thead>
           <tr>
             <th><Snippet>diff.procedures.current</Snippet></th>
-            <th><Snippet>diff.procedures.proposed</Snippet></th>
+            {
+              hasChanged && <th><Snippet>diff.procedures.proposed</Snippet></th>
+            }
           </tr>
         </thead>
         <tbody>
@@ -106,23 +113,27 @@ export default function ProceduresDiff({
                 }
               </ul>
             </td>
-            <td>
-              <ul className="proposed">
-                {
-                  after.map(procedure =>
-                    <Item
-                      key={procedure.key}
-                      procedure={procedure}
-                      model={afterPil}
-                      before={before}
-                      after={after}
-                      beforePil={beforePil}
-                      afterPil={afterPil}
-                    />
-                  )
-                }
-              </ul>
-            </td>
+            {
+              hasChanged && (
+                <td>
+                  <ul className="proposed">
+                    {
+                      after.map(procedure =>
+                        <Item
+                          key={procedure.key}
+                          procedure={procedure}
+                          model={afterPil}
+                          before={before}
+                          after={after}
+                          beforePil={beforePil}
+                          afterPil={afterPil}
+                        />
+                      )
+                    }
+                  </ul>
+                </td>
+              )
+            }
           </tr>
         </tbody>
       </table>

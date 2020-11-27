@@ -1,4 +1,5 @@
 import React from 'react';
+import isEqual from 'lodash/isEqual';
 import { Snippet } from '@asl/components';
 
 const Item = ({species, before, after, diffClassName = 'diff'}) => {
@@ -10,6 +11,12 @@ export default function SpeciesDiff({ before, after, taskType }) {
   // old tasks might have null species
   before.species = before.species || [];
   after.species = after.species || [];
+
+  if (!before.species.length && !after.species.length) {
+    return <p>No species selected.</p>;
+  }
+
+  const hasChanged = !isEqual(before.species.sort(), after.species.sort());
 
   const displayData = taskType === 'application' ? after : before;
   displayData.species.sort();
@@ -39,7 +46,9 @@ export default function SpeciesDiff({ before, after, taskType }) {
         <thead>
           <tr>
             <th><Snippet>diff.species.current</Snippet></th>
-            <th><Snippet>diff.species.proposed</Snippet></th>
+            {
+              hasChanged && <th><Snippet>diff.species.proposed</Snippet></th>
+            }
           </tr>
         </thead>
         <tbody>
@@ -59,20 +68,24 @@ export default function SpeciesDiff({ before, after, taskType }) {
                 }
               </ul>
             </td>
-            <td>
-              <ul className="proposed">
-                {
-                  speciesAfter.map(species =>
-                    <Item
-                      key={species}
-                      species={species}
-                      before={before}
-                      after={after}
-                    />
-                  )
-                }
-              </ul>
-            </td>
+            {
+              hasChanged && (
+                <td>
+                  <ul className="proposed">
+                    {
+                      speciesAfter.map(species =>
+                        <Item
+                          key={species}
+                          species={species}
+                          before={before}
+                          after={after}
+                        />
+                      )
+                    }
+                  </ul>
+                </td>
+              )
+            }
           </tr>
         </tbody>
       </table>
