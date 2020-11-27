@@ -12,16 +12,10 @@ import DiscardDraft from '../components/discard-draft';
 import DiscardStub from '../components/discard-stub';
 
 export default function Manage() {
-  const project = useSelector(state => state.model);
   const { canUpdate, canRevoke, canManageAccess } = useSelector(state => state.static);
 
-  // project can be edited if it is active or a draft.
-  const isEditable = project.status === 'inactive' || project.status === 'active';
-
-  if (!project.isLegacyStub) {
-    if ((!canUpdate && !canRevoke && !canManageAccess) || !isEditable) {
-      return <p><em><Snippet>manage.noPermissions</Snippet></em></p>;
-    }
+  if (!canUpdate && !canRevoke && !canManageAccess) {
+    return <p><em><Snippet>manage.noPermissions</Snippet></em></p>;
   }
 
   return (
