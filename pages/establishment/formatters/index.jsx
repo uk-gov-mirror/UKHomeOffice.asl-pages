@@ -1,3 +1,4 @@
+import React from 'react';
 import capitalize from 'lodash/capitalize';
 
 const listFormatter = list => {
@@ -9,6 +10,9 @@ const listFormatter = list => {
 };
 
 export default {
+  address: {
+    format: (value) => <span className="preserve-whitespace">{value}</span>
+  },
   licences: {
     format: listFormatter
   },
