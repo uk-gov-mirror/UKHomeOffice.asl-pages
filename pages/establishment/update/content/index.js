@@ -15,7 +15,7 @@ module.exports = {
     licences: {
       definedValues: 'Invalid option, select from the list of available options.'
     },
-    comments: {
+    comment: {
       required: 'Please provide a reason for making this change.'
     }
   },
