@@ -3,31 +3,30 @@ module.exports = {
     title: 'Establishment overview',
     establishment: {
       read: {
-        subtitle: 'Contact information for this establishment, as well as any conditions and authorisations.'
+        subtitle: 'Contact information, conditions and authorisations.'
       },
       fees: {
         overview: {
-          subtitle: 'Billable licences held at this establishment.'
+          subtitle: 'All billable licences held at {{establishment.name}}.'
         }
       }
     },
     profile: {
       list: {
-        subtitle: 'Named people, licence holders, and the Home Office Liaison Contact.'
+        subtitle: 'People affiliated with {{establishment.name}} including named people, licence holders and Home Office liaison contacts.'
       }
     },
     pils: {
-      subtitle: 'All personal licences held at this establishment.',
-      'training-subtitle': 'Apply for category E licences for course participants and view all other personal licences held at this establishment.'
+      subtitle: 'Personal licences held at {{establishment.name}}{{#establishment.isTrainingEstablishment}} and applications for Category E licences{{/establishment.isTrainingEstablishment}}.'
     },
     place: {
       list: {
-        subtitle: 'Approved areas in this establishment where animals may be used.'
+        subtitle: 'Approved areas where animals may be used.'
       }
     },
     project: {
       list: {
-        subtitle: 'Projects with primary availability at this establishment.'
+        subtitle: 'Projects held at {{establishment.name}} and those held elsewhere but licensed to work here.'
       }
     }
   },
