@@ -13,6 +13,8 @@ export default function Details() {
   const snippetPath = `details.${isGranted ? 'granted' : 'application'}`;
   const latestVersion = project.versions[0];
 
+  const additionalEstablishments = project.additionalEstablishments.filter(e => e.status !== 'removed');
+
   return (
     <Subsection title={<Snippet>{`${snippetPath}.title`}</Snippet>} className="licence-details">
       <dl className="inline">
@@ -25,13 +27,13 @@ export default function Details() {
         <dd>{project.establishment.name}</dd>
 
         {
-          project.additionalEstablishments.length > 0 &&
+          additionalEstablishments.length > 0 &&
             <Fragment>
               <dt><Snippet>fields.additionalEstablishments.label</Snippet></dt>
               <dd>
                 <ul>
                   {
-                    project.additionalEstablishments.map(e => (
+                    additionalEstablishments.map(e => (
                       <li key={e.id}>{e.name}</li>
                     ))
                   }
