@@ -154,12 +154,6 @@ dl dd {
   page-break-inside: avoid !important;
 }
 
-.granted-page.action-plan {
-  > h3:first-of-type {
-    display: none;
-  }
-}
-
 .objective-review {
   h2 {
     @extend h3;
