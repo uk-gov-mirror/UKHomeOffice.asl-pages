@@ -13,7 +13,7 @@ export default function SpeciesDiff({ before, after, taskType }) {
   after.species = after.species || [];
 
   if (!before.species.length && !after.species.length) {
-    return <p>No species selected.</p>;
+    return <p>No animal types selected.</p>;
   }
 
   const hasChanged = !isEqual(before.species.sort(), after.species.sort());
