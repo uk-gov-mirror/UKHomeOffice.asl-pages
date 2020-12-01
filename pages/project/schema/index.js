@@ -1,4 +1,4 @@
-const { pick } = require('lodash');
+const { pick, merge } = require('lodash');
 
 const schema = {
   id: {},
@@ -39,11 +39,13 @@ const schema = {
 };
 
 const getSchema = status => {
+  const inactiveLicenceHolder = { licenceHolder: { label: 'Name' } };
+
   switch (status) {
     case 'inactive':
-      return pick(schema, 'id', 'title', 'licenceHolder', 'status', 'updatedAt');
+      return merge({}, pick(schema, 'id', 'title', 'licenceHolder', 'status', 'updatedAt'), inactiveLicenceHolder);
     case 'inactive-statuses':
-      return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status');
+      return merge({}, pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status'), inactiveLicenceHolder);
     default:
       return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status', 'expiryDate');
   }
