@@ -27,11 +27,8 @@ function getContentKey(page, route) {
   return page;
 }
 
-function DashboardLink ({ page, route, isTrainingEstablishment, ...params }) {
+function DashboardLink ({ page, route, ...params }) {
   const contentKey = getContentKey(page, route);
-  const suffix = contentKey === 'pils' && isTrainingEstablishment
-    ? 'training-subtitle'
-    : 'subtitle';
   return (
     <Fragment>
       <Link
@@ -40,7 +37,7 @@ function DashboardLink ({ page, route, isTrainingEstablishment, ...params }) {
         {...params}
       />
       <p>
-        <Snippet>{`dashboard.${contentKey}.${suffix}`}</Snippet>
+        <Snippet>{`dashboard.${contentKey}.subtitle`}</Snippet>
       </p>
     </Fragment>
   );
@@ -69,7 +66,7 @@ const Index = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <PanelList
-            panels={links.filter(link => allowedActions.includes(link.permissions)).map((link, index) => <DashboardLink key={index} isTrainingEstablishment={establishment.isTrainingEstablishment} { ...link } />)}
+            panels={links.filter(link => allowedActions.includes(link.permissions)).map((link, index) => <DashboardLink key={index} { ...link } />)}
           />
           {
             canApply &&
