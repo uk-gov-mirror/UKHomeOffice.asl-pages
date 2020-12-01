@@ -100,30 +100,56 @@ function DeclarationMeta({ item }) {
 }
 
 function ExtraProjectMeta({ item, task }) {
-  const mostRecentActivity = item.id === task.activityLog[0].id;
   const versionId = get(item, 'event.data.data.version');
   const status = get(item, 'event.status');
   const isEndorsed = get(item, 'event.data.meta.authority', '').toLowerCase() === 'yes';
   const isAwerbed = get(item, 'event.data.meta.awerb', '').toLowerCase() === 'yes';
   const requiresAdminInteraction = !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
 
-  if (mostRecentActivity || !versionId) {
+  if (!versionId) {
     return null;
   }
 
-  if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
+  if (status === 'resolved') {
     return (
-      <Fragment>
-        <PplDeclarations task={item.event} />
+      <div className="version-links">
         <p>
           <Link
             page="projectVersion"
             versionId={versionId}
             establishmentId={task.data.establishmentId}
             projectId={task.data.id}
-            label={<Snippet date={format(item.createdAt, dateFormat.long)}>viewVersionLink</Snippet>}
+            label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.granted</Snippet>}
           />
         </p>
+        <p>
+          <Link
+            page="projectVersion.nts"
+            versionId={versionId}
+            establishmentId={task.data.establishmentId}
+            projectId={task.data.id}
+            label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.nts</Snippet>}
+          />
+        </p>
+      </div>
+    );
+  }
+
+  if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
+    return (
+      <Fragment>
+        <PplDeclarations task={item.event} />
+        <div className="version-links">
+          <p>
+            <Link
+              page="projectVersion"
+              versionId={versionId}
+              establishmentId={task.data.establishmentId}
+              projectId={task.data.id}
+              label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.version</Snippet>}
+            />
+          </p>
+        </div>
       </Fragment>
     );
   }

@@ -63,7 +63,11 @@ module.exports = {
       question: 'Inspector confirmed ready:'
     }
   },
-  viewVersionLink: 'View this version ({{date}})',
+  view: {
+    granted: 'View granted licence',
+    version: 'View this version ({{date}})',
+    nts: 'View non-technical summary'
+  },
   deadline: {
     title: 'Deadline for decision: ',
     extension: {
