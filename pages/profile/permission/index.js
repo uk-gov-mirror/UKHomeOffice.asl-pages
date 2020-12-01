@@ -28,7 +28,7 @@ module.exports = settings => {
     });
 
     const hasAdditionalProjects = some(req.profile.projects, project => {
-      return project.status === 'active' && project.additionalEstablishments.map(est => est.id).includes(req.establishmentId);
+      return project.status === 'active' && project.additionalEstablishments.filter(e => e.status !== 'removed').map(est => est.id).includes(req.establishmentId);
     });
 
     res.locals.static.isNamed = !!hasRoles || !!hasPil || !!hasProjects || !!hasAdditionalProjects;
