@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import isUndefined from 'lodash/isUndefined';
+import omit from 'lodash/omit';
 import { useSelector, shallowEqual } from 'react-redux';
 import {
   Diff,
@@ -22,12 +23,13 @@ const LicenceHolder = ({ type, profile }) => (
 
 const selector = ({ model, static: { establishment, isAsru } }) => ({ establishment, isAsru, model });
 
-export default function Playback({ task, schema, values, allowSubmit }) {
+export default function Playback({ task, values, allowSubmit }) {
   const { model, establishment, isAsru } = useSelector(selector, shallowEqual);
   const [dirty, setDirty] = useState(false);
   const nopes = ['recalled-by-applicant', 'discarded-by-applicant'];
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
+  const diffSchema = omit(placeSchema, 'nacwos', 'nvssqps');
 
   const isComplete = !task.isOpen;
 
@@ -67,7 +69,7 @@ export default function Playback({ task, schema, values, allowSubmit }) {
           <Diff
             after={task.data.data}
             before={values}
-            schema={placeSchema}
+            schema={diffSchema}
             formatters={formatters}
             comparator={hasChanged}
             currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
