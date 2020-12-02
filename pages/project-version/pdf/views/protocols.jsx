@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider, useSelector } from 'react-redux';
 import { Protocol } from '@asl/projects/client/pages/sections/granted/pdf-protocols';
+import ProtocolConditions from '@asl/projects/client/pages/sections/protocols/protocol-conditions';
 import Review from '@asl/projects/client/components/review-field';
 import Wrapper from '../../../common/views/pdf/wrapper';
 
@@ -45,6 +46,7 @@ function Protocols() {
   return (
     <div className="adverse-effects">
       <h3>{ title.join(' - ') }</h3>
+      <p>The general constraints apply to all protocols, these are described in detail towards the end of this document.</p>
       {
         protocols.map((protocol, index) => (
           <Protocol
@@ -93,6 +95,9 @@ function Protocols() {
           </Protocol>
         ))
       }
+      <div className="page-break-before">
+        <ProtocolConditions pdf={true} />
+      </div>
     </div>
   );
 }
