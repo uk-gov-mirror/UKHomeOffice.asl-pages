@@ -12,11 +12,7 @@ module.exports = () => {
   });
 
   app.use(form({
-    configure: (req, res, next) => {
-      req.schema = schema;
-      req.form.schema = req.schema;
-      next();
-    },
+    schema,
     locals: (req, res, next) => {
       set(res, 'locals.static', {
         ...res.locals.static,
