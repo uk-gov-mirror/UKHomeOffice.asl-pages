@@ -64,7 +64,7 @@ const Filters = () => (
       showAllLabel="All people"
     />
     <div className="table-heading">
-      <FilterSummary />
+      <FilterSummary resultType="profiles" />
     </div>
   </Fragment>
 );

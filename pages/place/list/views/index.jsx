@@ -72,6 +72,7 @@ export default function Places() {
         formatters={Object.assign({}, formatters, pageFormatters)}
         createPath={allowedActions.includes('place.create') && 'place.create'}
         className="places-list"
+        resultType="approved areas"
       />
     </Fragment>
   );

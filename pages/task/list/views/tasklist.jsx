@@ -23,7 +23,7 @@ const Filters = () => (
       append={['pil', 'ppl', 'pel', 'profile']}
     />
     <div className="table-heading">
-      <FilterSummary />
+      <FilterSummary resultType="tasks" />
     </div>
   </Fragment>
 );

@@ -54,7 +54,7 @@ export default function PilList() {
         </Inset>
       </Details>
       <Search label={<Snippet>search</Snippet>} />
-      <FilterSummary />
+      <FilterSummary resultType="personal licences" />
       <Datatable formatters={formatters} />
     </Page>
   );
