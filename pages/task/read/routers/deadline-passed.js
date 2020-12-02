@@ -10,13 +10,7 @@ module.exports = () => {
     next();
   });
 
-  app.use(form({
-    configure: (req, res, next) => {
-      req.schema = schema;
-      req.form.schema = req.schema;
-      next();
-    }
-  }));
+  app.use(form({ schema }));
 
   app.post('/', (req, res, next) => {
     return res.redirect(req.buildRoute('task.read', { suffix: 'confirm' }));
