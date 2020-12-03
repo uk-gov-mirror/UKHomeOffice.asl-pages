@@ -3,8 +3,8 @@ module.exports = {
     inputType: 'inputFile',
     validate: [
       'fileRequired',
-      // 5MB
-      { maxSize: 5e+6 },
+      // 15MB
+      { maxSize: 1.5e+7 },
       {
         mimeType: [
           'application/octet-stream',
