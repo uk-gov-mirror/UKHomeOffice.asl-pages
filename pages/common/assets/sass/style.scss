@@ -208,6 +208,10 @@ table.training tbody {
   font-weight: inherit;
   line-height: inherit;
 
+  ul {
+    list-style-type: disc;
+  }
+
   .expanding-panel {
     border: none;
     header {
@@ -254,7 +258,12 @@ p.holc {
 }
 
 .profile-section .project {
-  margin-bottom: 2em;
+  p {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+
+  margin-bottom: $govuk-gutter;
 }
 
 .establishment-name,

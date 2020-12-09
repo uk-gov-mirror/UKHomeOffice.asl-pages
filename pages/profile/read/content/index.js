@@ -14,7 +14,12 @@ module.exports = merge({}, baseContent, {
   projects: {
     title: 'Active projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',
-    expiryDate: 'Expiry date: {{expiryDate}}',
+    expiryDate: 'Expires on {{expiryDate}}',
+    primaryAvailabilityAt: {
+      application: 'Application at {{establishmentName}}',
+      licence: 'Licence held at {{establishmentName}}'
+    },
+    additionalAvailabilityAt: 'Has additional availabilty at {{establishmentNames}}',
     noProjects: 'None',
     drafts: 'Draft projects',
     conversions: 'Project conversions'
