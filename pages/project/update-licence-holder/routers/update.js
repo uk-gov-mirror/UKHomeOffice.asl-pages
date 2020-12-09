@@ -25,7 +25,7 @@ module.exports = () => {
       Promise.all([getProfiles(), getProjectVersion()])
         .then(([profiles, version]) => {
           req.form.schema = getSchema(profiles);
-          req.form.experienceFields = experienceFields(version);
+          req.form.experienceFields = experienceFields(version, req.project.schemaVersion);
           if (!req.project.isLegacyStub) {
             req.form.schema = {
               ...req.form.schema,

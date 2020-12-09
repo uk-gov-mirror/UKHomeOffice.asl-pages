@@ -255,7 +255,7 @@ export default function Project({ task }) {
           <h2><Snippet>sticky-nav.experience</Snippet></h2>
           <StaticRouter>
             <ReviewFields
-              fields={experience(version).fields}
+              fields={experience(version, project.schemaVersion).fields}
               values={task.data.meta}
               project={version.data}
               readonly={true}

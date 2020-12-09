@@ -31,7 +31,7 @@ module.exports = () => {
       return req.api(`/establishment/${req.establishmentId}/projects/${req.project.id}/project-versions/${versionId}`)
         .then(({ json: { data } }) => data)
         .then(version => {
-          req.form.experienceFields = experienceFields(version);
+          req.form.experienceFields = experienceFields(version, req.project.schemaVersion);
         })
         .then(() => next())
         .catch(next);
