@@ -5,6 +5,7 @@ import uniqBy from 'lodash/uniqBy';
 import pick from 'lodash/pick';
 import get from 'lodash/get';
 import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
+import EstablishmentLinks from '../components/establishment-links';
 
 // need unconnected ReviewFields component and not default
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
@@ -46,45 +47,6 @@ function EstablishmentDiff({ task }) {
         </tr>
       </tbody>
     </table>
-  );
-}
-
-function EstablishmentLink({ establishment, showLink }) {
-  const name = establishment.name || establishment['establishment-name'];
-  const id = establishment['establishment-id'] || establishment.id;
-  return (
-    <Fragment>
-      {
-        showLink
-          ? <Link
-            page="establishment.read"
-            label={name}
-            establishmentId={id}
-          />
-          : <span>{name}</span>
-      }
-    </Fragment>
-  );
-}
-
-function EstablishmentLinks({ establishments, isAsru }) {
-  return (
-    <span>
-      {
-        establishments.map((establishment, index) => {
-          const isLastItem = index === establishments.length - 1;
-          const showComma = index > 0 && !isLastItem;
-          const showAnd = isLastItem && establishments.length > 1;
-          return (
-            <Fragment key={index}>
-              { showComma && <span>, </span> }
-              { showAnd && <span> and </span> }
-              <EstablishmentLink key={index} establishment={establishment} showLink={isAsru} />
-            </Fragment>
-          );
-        })
-      }
-    </span>
   );
 }
 
@@ -165,7 +127,7 @@ export default function Project({ task }) {
                   <p>
                     <Snippet>additional-establishments.content</Snippet>
                     {' '}
-                    <EstablishmentLinks establishments={additionalEstablishments} isAsru={isAsru} />
+                    <EstablishmentLinks establishments={additionalEstablishments} showLink={isAsru} />
                   </p>
                 </Fragment>
               )

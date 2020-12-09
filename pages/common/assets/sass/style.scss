@@ -495,6 +495,11 @@ dl.inline dd .procedures-diff ul {
   }
 }
 
+ul.no-margin {
+  margin: 0;
+  padding-left: 1em;
+}
+
 .procedures-diff {
   margin: $govuk-gutter 0;
 
