@@ -5,6 +5,7 @@ import { Link, ExpiryDate, Snippet } from '@asl/components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
+import EstablishmentLinks from '../../task/read/views/components/establishment-links';
 
 const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended'];
 const good = ['active'];
@@ -14,10 +15,33 @@ const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Da
 const formatters = establishmentId => ({
   title: {
     format: (title, model) => {
+      const isAdditionalAvailability = model.establishmentId !== establishmentId;
+      const hasAdditionalAvailability = !isAdditionalAvailability && model.additionalEstablishments.length > 0;
+      const isLegacyStub = model.isLegacyStub;
+      const showInfo = isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
       return (
         <Fragment>
           <Link page="project.read" projectId={model.id} label={projectTitle(model)} />
-          { model.isLegacyStub ? ' - Partial record' : '' }
+          {
+            showInfo && (
+              <ul className="no-margin">
+                {
+                  isLegacyStub && <li>Partial record</li>
+                }
+                {
+                  isAdditionalAvailability && <li>{`Has primary availability at ${model.establishment.name}`}</li>
+                }
+                {
+                  hasAdditionalAvailability && (
+                    <li>
+                      <span>Has additional availability at </span>
+                      <EstablishmentLinks establishments={model.additionalEstablishments} showLink={false} />
+                    </li>
+                  )
+                }
+              </ul>
+            )
+          }
         </Fragment>
       );
     }
