@@ -73,9 +73,6 @@ class Profile extends React.Component {
       rcvsNumber
     } = this.props.profile;
 
-    const util = require('util');
-    console.log(util.inspect(this.props.profile, false, null, true));
-
     const allowedActions = this.props.allowedActions || [];
 
     const activeProjects = projects.filter(project => {
