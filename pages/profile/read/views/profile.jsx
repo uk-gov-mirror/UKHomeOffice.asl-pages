@@ -10,9 +10,8 @@ import { dateFormat } from '../../../../constants';
 
 function ProjectDetails({ project, establishment }) {
   const isAdditionalAvailability = project.establishmentId !== establishment.id;
-  const additionalEstablishments = project.additionalEstablishments.filter(e => e.id !== establishment.id);
-  const hasAdditionalAvailability = additionalEstablishments.length > 0;
-  const aaEstablishmentNames = (additionalEstablishments || []).map(e => e.name).join(', ');
+  const hasAdditionalAvailability = project.additionalEstablishments.length > 0;
+  const aaEstablishmentNames = (project.additionalEstablishments || []).map(e => e.name).join(', ');
   const showInfo = project.expiryDate || project.isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
   const isDraft = project.status === 'inactive';
 
