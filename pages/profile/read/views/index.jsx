@@ -44,6 +44,21 @@ const Index = ({
                   <dd>{ formatDate(model.dob, dateFormat.long) }</dd>
                 </Fragment>
               }
+              {
+                allowedActions.includes('profile.permissions') && <Fragment>
+                  <dd>
+                    {
+                      model.lastLogin
+                        ? formatDate(model.lastLogin, dateFormat.datetime)
+                        : (
+                          model.userId
+                            ? 'Unknown'
+                            : 'This user has not logged in'
+                        )
+                    }
+                  </dd>
+                </Fragment>
+              }
             </dl>
           </Fragment>
 
