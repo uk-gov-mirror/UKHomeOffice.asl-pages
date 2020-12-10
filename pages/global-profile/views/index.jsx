@@ -135,7 +135,17 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
           asruUser && (
             <Fragment>
               <dt>Last activity:</dt>
-              <dd>{ model.lastLogin ? formatDate(model.lastLogin, dateFormat.datetime) : 'This user has not logged in' }</dd>
+              <dd>
+                {
+                  model.lastLogin
+                    ? formatDate(model.lastLogin, dateFormat.datetime)
+                    : (
+                      model.userId
+                        ? 'Unknown'
+                        : 'This user has not logged in'
+                    )
+                }
+              </dd>
             </Fragment>
           )
         }
