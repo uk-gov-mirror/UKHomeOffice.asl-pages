@@ -1,28 +1,45 @@
 const { pick, merge } = require('lodash');
+const moment = require('moment');
+const { dateFormat } = require('../../../constants');
+
+function formatCSVDate(date) {
+  return date ? moment(date).format(dateFormat.long) : '-';
+}
 
 const schema = {
   id: {},
   title: {
-    show: true
+    show: true,
+    title: 'Licence title'
   },
   status: {
-    show: true
+    show: true,
+    title: 'Licence status'
   },
   licenceHolder: {
     show: true,
-    sort: 'licenceHolder.lastName'
+    sort: 'licenceHolder.lastName',
+    title: 'Licence holder',
+    toCSVString: licenceHolder => `${licenceHolder.firstName} ${licenceHolder.lastName}`
   },
   licenceNumber: {
-    show: true
+    show: true,
+    title: 'Licence number'
   },
   expiryDate: {
-    show: true
+    show: true,
+    title: 'Expiry date',
+    toCSVString: formatCSVDate
   },
   submittedAt: {
     show: true
   },
   updatedAt: {
     show: true
+  },
+  amendedDate: {
+    title: 'Last amended date',
+    toCSVString: formatCSVDate
   },
   granted: {
     show: true
@@ -35,11 +52,31 @@ const schema = {
   },
   transferredOutDate: {
     show: true
+  },
+  establishment: {
+    toCSVString: est => est.name,
+    title: 'Primary establishment'
+  },
+  species: {
+    title: 'Animal types',
+    toCSVString: species => species && species.length ? species.join(', ') : '-'
+  },
+  issueDate: {
+    title: 'Grant date',
+    toCSVString: formatCSVDate
+  },
+  raDate: {
+    title: 'RA due date',
+    toCSVString: formatCSVDate
   }
 };
 
-const getSchema = status => {
+const getSchema = (status, csv) => {
   const inactiveLicenceHolder = { licenceHolder: { label: 'Name' } };
+
+  if (csv) {
+    return merge({}, pick(schema, 'licenceNumber', 'title', 'licenceHolder', 'establishment', 'status', 'issueDate', 'amendedDate', 'expiryDate', 'species', 'raDate'));
+  }
 
   switch (status) {
     case 'inactive':
