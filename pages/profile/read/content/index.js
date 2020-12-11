@@ -57,7 +57,6 @@ module.exports = merge({}, baseContent, {
       notStarted: 'None'
     },
     noDob: {
-      ownProfile: 'Please add your date of birth to your account.',
       otherProfile: 'Ask the applicant to add their date of birth to their account.'
     },
     under18: 'Personal licence holders must be over 18.',
