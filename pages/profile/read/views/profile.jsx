@@ -8,9 +8,57 @@ import { defineValue, projectTitle } from '../../../common/formatters';
 import LeaveEstablishment from './leave-establishment';
 import { dateFormat } from '../../../../constants';
 
+function ProjectDetails({ project, establishment }) {
+  const isAdditionalAvailability = project.establishmentId !== establishment.id;
+  const hasAdditionalAvailability = project.additionalEstablishments.length > 0;
+  const aaEstablishmentNames = (project.additionalEstablishments || []).map(e => e.name).join(', ');
+  const showInfo = project.expiryDate || project.isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
+  const isDraft = project.status === 'inactive';
+
+  return (
+    <div className="project">
+      <p>
+        <Link
+          page='project.read'
+          label={projectTitle(project)}
+          projectId={project.id}
+          establishmentId={project.establishmentId}
+        />
+      </p>
+
+      {
+        showInfo &&
+          <ul className="no-margin">
+            {
+              project.isLegacyStub && <li>Partial record</li>
+            }
+            { project.expiryDate &&
+              <li>
+                <Snippet expiryDate={formatDate(project.expiryDate, dateFormat.long)}>projects.expiryDate</Snippet>
+              </li>
+            }
+            { isAdditionalAvailability &&
+              <li>
+                <Snippet establishmentName={project.establishment.name}>
+                  {`projects.primaryAvailabilityAt.${isDraft ? 'application' : 'licence'}`}
+                </Snippet>
+              </li>
+            }
+            { hasAdditionalAvailability &&
+              <li>
+                <Snippet establishmentNames={aaEstablishmentNames}>projects.additionalAvailabilityAt</Snippet>
+              </li>
+            }
+          </ul>
+      }
+    </div>
+  );
+}
+
 class Profile extends React.Component {
   render() {
-    const { id: estId } = this.props.establishment || {};
+    const establishment = this.props.establishment || {};
+    const { id: estId } = establishment || {};
     const isOwnProfile = this.props.isOwnProfile || false;
     const pil = this.props.profile.pil;
     const correctEstablishment = pil && pil.establishmentId === estId;
@@ -26,8 +74,24 @@ class Profile extends React.Component {
     } = this.props.profile;
 
     const allowedActions = this.props.allowedActions || [];
-    const activeProjects = projects.filter(({ establishmentId, status }) => status === 'active' && establishmentId === estId);
-    const draftProjects = projects.filter(({ establishmentId, status }) => status === 'inactive' && establishmentId === estId);
+
+    const activeProjects = projects.filter(project => {
+      if (project.status !== 'active') {
+        return false;
+      }
+      const isPrimaryEstablishment = project.establishmentId === establishment.id;
+      const isAdditionalAvailability = project.additionalEstablishments.find(e => e.id === establishment.id);
+      return isPrimaryEstablishment || isAdditionalAvailability;
+    });
+
+    const draftProjects = projects.filter(project => {
+      if (project.status !== 'inactive') {
+        return false;
+      }
+      const isPrimaryEstablishment = project.establishmentId === establishment.id;
+      const isAdditionalAvailability = project.additionalEstablishments.find(e => e.id === establishment.id);
+      return isPrimaryEstablishment || isAdditionalAvailability;
+    });
 
     const estRoles = roles.filter(({ establishmentId }) => establishmentId === estId);
 
@@ -65,57 +129,17 @@ class Profile extends React.Component {
               <h3>
                 <Snippet>projects.title</Snippet>
               </h3>
-
-              {
-                activeProjects.map(project => (
-                  <div key={project.id} className="project">
-                    <p>
-                      <Link
-                        page='project.read'
-                        label={projectTitle(project)}
-                        projectId={project.id}
-                        establishmentId={project.establishmentId}
-                      />
-                      { project.isLegacyStub ? ' - Partial record' : '' }
-                    </p>
-                    <p>
-                      <span>
-                        <Snippet
-                          expiryDate={formatDate(
-                            project.expiryDate,
-                            dateFormat.long
-                          )}
-                        >
-                          projects.expiryDate
-                        </Snippet>
-                      </span>
-                    </p>
-                  </div>
-                ))
-              }
+              { activeProjects.map(project => <ProjectDetails key={project.id} project={project} establishment={establishment} />) }
               {
                 isEmpty(activeProjects) && (
                   <p><Snippet>projects.noProjects</Snippet></p>
                 )
               }
+
               <h3>
                 <Snippet>projects.drafts</Snippet>
               </h3>
-              {
-                draftProjects.map(project => (
-                  <div key={project.id} className="project">
-                    <p>
-                      <Link
-                        page='project.read'
-                        label={projectTitle(project)}
-                        projectId={project.id}
-                        establishmentId={project.establishmentId}
-                      />
-                      { project.isLegacyStub ? ' - Partial record' : '' }
-                    </p>
-                  </div>
-                ))
-              }
+              { draftProjects.map(project => <ProjectDetails key={project.id} project={project} establishment={establishment} />) }
               {
                 isEmpty(draftProjects) && (
                   <p><Snippet>projects.noProjects</Snippet></p>
