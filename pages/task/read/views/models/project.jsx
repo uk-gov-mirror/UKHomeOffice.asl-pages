@@ -134,7 +134,7 @@ export default function Project({ task }) {
             }
             <p><Snippet>versions.submitted.text</Snippet></p>
             <Link
-              page="projectVersion"
+              page="projectVersion.fullApplication"
               className="govuk-button button-secondary"
               versionId={version.id}
               establishmentId={project.establishmentId}

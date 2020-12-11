@@ -25,7 +25,7 @@ module.exports = settings => {
     const showComments = req.version.status !== 'granted' && !!task;
 
     res.locals.static.taskId = task ? task.id : null;
-    res.locals.static.basename = req.buildRoute('projectVersion');
+    res.locals.static.basename = req.fullApplication ? req.buildRoute('projectVersion.fullApplication') : req.buildRoute('projectVersion');
     res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.version') === req.versionId;
@@ -51,7 +51,7 @@ module.exports = settings => {
     res.locals.static.version = req.version.id;
     // granted legacy PPLs are displayed in "read-only" mode
     // there is no "granted view" of legacy licences
-    const isGranted = req.project.status === 'active' && req.version.status === 'granted';
+    const isGranted = req.project.status === 'active' && req.version.status === 'granted' && !req.fullApplication;
     res.locals.static.isGranted = isGranted && req.project.schemaVersion > 0;
     res.locals.static.legacyGranted = isGranted && req.project.schemaVersion === 0;
     if (task && task.data.action === 'transfer') {
