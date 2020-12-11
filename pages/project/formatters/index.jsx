@@ -49,7 +49,7 @@ const formatters = establishmentId => ({
   status: {
     format: (status, model) => {
       const isAdditionalAvailability = model.establishmentId !== establishmentId;
-      const additionalAvailabilityEnded = isAdditionalAvailability && model.additionalEstablishments[0].status === 'removed';
+      const additionalAvailabilityEnded = isAdditionalAvailability && model.additionalEstablishments.find(e => e.id === establishmentId).status === 'removed';
 
       if (hasExpired(model)) {
         status = 'expired';
