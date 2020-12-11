@@ -256,7 +256,7 @@ class Profile extends React.Component {
                       dob && !over18 && <p><Snippet>pil.under18</Snippet></p>
                     }
                     {
-                      !dob && <p><Snippet>{`pil.noDob.${isOwnProfile ? 'ownProfile' : 'otherProfile'}`}</Snippet></p>
+                      !dob && !isOwnProfile && <p><Snippet>pil.noDob.otherProfile</Snippet></p>
                     }
                     {
                       !dob && isOwnProfile && <p><Link page='account.update' label={<Snippet>pil.addDob</Snippet>} /></p>
