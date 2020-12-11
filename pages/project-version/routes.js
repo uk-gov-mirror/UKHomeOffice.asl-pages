@@ -45,6 +45,15 @@ module.exports = {
     path: '/ppl',
     router: ppl
   },
+  fullApplication: {
+    path: '/full-application',
+    breadcrumb: false,
+    before: (req, res, next) => {
+      req.fullApplication = true;
+      next();
+    },
+    router: read
+  },
   read: {
     path: '/*',
     router: read
