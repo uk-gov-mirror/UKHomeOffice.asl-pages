@@ -10,7 +10,7 @@ import { dateFormat } from '../../../../constants';
 
 function ProjectDetails({ project, establishment }) {
   const isAdditionalAvailability = project.establishmentId !== establishment.id;
-  const hasAdditionalAvailability = project.additionalEstablishments.length > 0;
+  const hasAdditionalAvailability = (project.additionalEstablishments || []).length > 0;
   const aaEstablishmentNames = (project.additionalEstablishments || []).map(e => e.name).join(', ');
   const showInfo = project.expiryDate || project.isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
   const isDraft = project.status === 'inactive';
@@ -75,23 +75,17 @@ class Profile extends React.Component {
 
     const allowedActions = this.props.allowedActions || [];
 
-    const activeProjects = projects.filter(project => {
-      if (project.status !== 'active') {
+    const filterProjects = status => project => {
+      if (project.status !== status) {
         return false;
       }
       const isPrimaryEstablishment = project.establishmentId === establishment.id;
-      const isAdditionalAvailability = project.additionalEstablishments.find(e => e.id === establishment.id);
+      const isAdditionalAvailability = project.additionalEstablishments && project.additionalEstablishments.find(e => e.id === establishment.id);
       return isPrimaryEstablishment || isAdditionalAvailability;
-    });
+    };
 
-    const draftProjects = projects.filter(project => {
-      if (project.status !== 'inactive') {
-        return false;
-      }
-      const isPrimaryEstablishment = project.establishmentId === establishment.id;
-      const isAdditionalAvailability = project.additionalEstablishments.find(e => e.id === establishment.id);
-      return isPrimaryEstablishment || isAdditionalAvailability;
-    });
+    const activeProjects = projects.filter(filterProjects('active'));
+    const draftProjects = projects.filter(filterProjects('inactive'));
 
     const estRoles = roles.filter(({ establishmentId }) => establishmentId === estId);
 
