@@ -5,9 +5,9 @@ import Subsection from './subsection';
 
 export default function UserCannotEdit() {
   const project = useSelector(state => state.model);
-  const { asruUser, canUpdate, additionalAvailability } = useSelector(state => state.static);
+  const { asruUser, canUpdate, openTask, additionalAvailability } = useSelector(state => state.static);
 
-  if (project.status === 'inactive' || !canUpdate || additionalAvailability) {
+  if (project.status === 'inactive' || !canUpdate || openTask || additionalAvailability) {
     return null;
   }
 
