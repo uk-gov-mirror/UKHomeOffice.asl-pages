@@ -53,14 +53,16 @@ const baseSchema = {
   },
   nacwos: {
     inputType: 'selectMany',
-    addAnotherLabel: 'Add another NACWO',
+    addAnotherLabel: 'Add NACWO',
     removeLabel: 'Remove NACWO',
+    minRequiredFields: 0,
     nullValue: []
   },
   nvssqps: {
     inputType: 'selectMany',
-    addAnotherLabel: 'Add another NVS / SQP',
+    addAnotherLabel: 'Add NVS / SQP',
     removeLabel: 'Remove NVS / SQP',
+    minRequiredFields: 0,
     nullValue: []
   },
   restrictions: {
