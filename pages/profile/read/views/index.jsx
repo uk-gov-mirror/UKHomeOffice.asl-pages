@@ -46,6 +46,7 @@ const Index = ({
               }
               {
                 allowedActions.includes('profile.permissions') && <Fragment>
+                  <dt>Last activity:</dt>
                   <dd>
                     {
                       model.lastLogin
