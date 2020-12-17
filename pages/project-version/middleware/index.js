@@ -187,7 +187,7 @@ const getCacheableVersion = (req, url) => {
 const normaliseConditions = (versionData, { isSubmitted }) => {
   return mapValues(versionData, (val, key) => {
     if (key === 'protocols') {
-      return val.map(protocol => {
+      return val.filter(Boolean).map(protocol => {
         return {
           ...protocol,
           conditions: isSubmitted && sortBy(protocol.conditions, 'key')
