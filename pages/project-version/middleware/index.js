@@ -2,6 +2,7 @@ const { get, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose, mapAnimalQuantities } = require('@asl/projects/client/helpers');
+const diff = require('./diff');
 
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
@@ -253,22 +254,20 @@ const getAllChanges = () => (req, res, next) => {
 };
 
 const getChangedValues = (question, req) => {
-  return Promise.all([
-    getFirstVersion(req),
-    getPreviousVersion(req),
-    getGrantedVersion(req)
-  ])
-    .then(([firstVersion, previousVersion, grantedVersion]) => {
-      const first = firstVersion && getNode(firstVersion.data, question);
-      const previous = previousVersion && getNode(previousVersion.data, question);
-      const granted = grantedVersion && getNode(grantedVersion.data, question);
+
+  const getVersion = {
+    latest: getPreviousVersion,
+    granted: getGrantedVersion,
+    first: getFirstVersion
+  };
+  return Promise.resolve()
+    .then(() => getVersion[req.query.version](req))
+    .then(async (result) => {
+      const value = result && getNode(result.data, question);
+      const current = getNode(req.version.data, question);
       return {
-        firstId: firstVersion && firstVersion.id,
-        previousId: previousVersion && previousVersion.id,
-        grantedId: grantedVersion && grantedVersion.id,
-        first,
-        previous,
-        granted
+        value,
+        diff: await diff(value, current, { type: req.query.type })
       };
     });
 };
