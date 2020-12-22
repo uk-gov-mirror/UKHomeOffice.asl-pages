@@ -45,7 +45,8 @@ module.exports = settings => {
 
   app.get('/question/:question', (req, res, next) => {
     getChangedValues(req.params.question, req)
-      .then(changes => res.json(changes));
+      .then(changes => res.json(changes))
+      .catch(next);
   });
 
   app.post('/comment', (req, res, next) => {
