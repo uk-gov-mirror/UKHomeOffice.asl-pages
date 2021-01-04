@@ -17,10 +17,6 @@ module.exports = ({
   schema = defaultSchema
 } = {}) => datatable({
   configure: (req, res, next) => {
-    req.query.rows = req.query.rows || (req.user.profile.asruUser ? 20 : 10);
-    next();
-  },
-  getApiPath: (req, res, next) => {
     const tabs = getTabs(req.user.profile);
     const progress = req.query.progress || tabs[0];
     if (!tabs.includes(progress)) {
@@ -28,6 +24,15 @@ module.exports = ({
     }
     res.locals.static.tabs = tabs;
     req.datatable.progress = progress;
+    req.datatable.sort = { column: 'updatedAt', ascending: false };
+    if (req.user.profile.asruUser && ['myTasks', 'outstanding'].includes(progress)) {
+      req.datatable.sort.ascending = true;
+    }
+    req.query.rows = req.query.rows || (req.user.profile.asruUser ? 20 : 10);
+    next();
+  },
+  getApiPath: (req, res, next) => {
+    const progress = req.datatable.progress;
     req.datatable.apiPath = [req.datatable.apiPath, { query: { ...req.query, progress } }];
     next();
   },
