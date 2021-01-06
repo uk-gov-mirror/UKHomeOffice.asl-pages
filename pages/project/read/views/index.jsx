@@ -56,7 +56,7 @@ export default function ProjectLandingPage() {
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const { additionalAvailability, asruUser, asruInspector } = useSelector(state => state.static);
+  const { additionalAvailability, showManageSection } = useSelector(state => state.static);
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
@@ -66,7 +66,7 @@ export default function ProjectLandingPage() {
     delete sections.downloads;
   }
 
-  if (asruUser && asruInspector) {
+  if (!showManageSection) {
     delete sections.manage;
   }
 
