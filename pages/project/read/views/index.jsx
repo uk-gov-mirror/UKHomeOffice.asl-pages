@@ -56,7 +56,7 @@ export default function ProjectLandingPage() {
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const { additionalAvailability } = useSelector(state => state.static);
+  const { additionalAvailability, showManageSection } = useSelector(state => state.static);
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
@@ -64,6 +64,10 @@ export default function ProjectLandingPage() {
 
   if (project.isLegacyStub) {
     delete sections.downloads;
+  }
+
+  if (!showManageSection) {
+    delete sections.manage;
   }
 
   const sectionNames = Object.keys(sections);
