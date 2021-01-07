@@ -86,6 +86,12 @@ module.exports = merge({}, baseContent, {
       Contact your establishments Single Point of Contact for more information.`
     }
   },
+  currentActivity: {
+    amendmentStarted: {
+      title: 'Amendment in progress'
+    },
+    nothingInProgress: 'Nothing in progress just now.'
+  },
   amendStub: {
     title: 'Continue adding details',
     description: 'Continue filling in the licence details. Changes will only be visible to the ASRU licensing team until the licence has been fully converted.'
