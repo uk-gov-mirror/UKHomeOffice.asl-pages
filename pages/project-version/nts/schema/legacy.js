@@ -30,7 +30,7 @@ module.exports = {
     fields: [
       {
         name: 'nts-objectives',
-        label: 'What is the aim of this project?'
+        label: 'What\'s the aim of this project?'
       },
       {
         type: 'RetrospectivePlaceholder',
