@@ -100,6 +100,10 @@ The PPL holder will be required to disclose:
     experiment and number of procedures.`,
     fields: [
       {
+        name: 'project-harms-animals',
+        label: 'Explain why you are using these types of animals and your choice of life stages.'
+      },
+      {
         name: 'project-harms-summary',
         label: `Typically, what will be done to an animal used in your project?`
       },
@@ -232,10 +236,6 @@ The PPL holder will be required to disclose:
       {
         name: 'refinement-3rs-advances',
         label: 'How will you stay informed about advances in the 3Rs, and implement these advances effectively, during the project?'
-      },
-      {
-        name: 'project-harms-animals',
-        label: 'Explain why you are using these types of animals and your choice of life stages.'
       },
       {
         type: 'RetrospectivePlaceholder',
