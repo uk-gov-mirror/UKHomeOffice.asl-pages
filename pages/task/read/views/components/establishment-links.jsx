@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from '@asl/components';
+import sortBy from 'lodash/sortBy';
 
 function EstablishmentLink({ establishment, showLink }) {
   const name = establishment.name || establishment['establishment-name'];
@@ -23,7 +24,7 @@ export default function EstablishmentLinks({ establishments, showLink }) {
   return (
     <span>
       {
-        establishments.map((establishment, index) => {
+        sortBy(establishments, 'name').map((establishment, index) => {
           const isLastItem = index === establishments.length - 1;
           const showComma = index > 0 && !isLastItem;
           const showAnd = isLastItem && establishments.length > 1;
