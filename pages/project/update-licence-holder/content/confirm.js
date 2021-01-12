@@ -7,5 +7,8 @@ module.exports = merge({}, content, {
     declaration: {
       label: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
     }
+  },
+  buttons: {
+    submit: 'Submit'
   }
 });
