@@ -10,8 +10,6 @@ import EstablishmentLinks from '../../task/read/views/components/establishment-l
 const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended'];
 const good = ['active'];
 
-const hasExpired = (model = {}) => model.expiryDate && model.expiryDate < new Date().toISOString();
-
 const formatters = establishmentId => ({
   title: {
     format: (title, model) => {
@@ -51,10 +49,6 @@ const formatters = establishmentId => ({
       const isAdditionalAvailability = model.establishmentId !== establishmentId;
       const additionalAvailabilityEnded = isAdditionalAvailability && model.additionalEstablishments.find(e => e.id === establishmentId).status === 'removed';
 
-      if (hasExpired(model)) {
-        status = 'expired';
-      }
-
       if (additionalAvailabilityEnded) {
         status = 'additional-availability-ended';
       }
@@ -92,7 +86,7 @@ const formatters = establishmentId => ({
   },
   granted: {
     format: (granted, model) => {
-      const key = hasExpired(model) ? 'expired' : 'view';
+      const key = model.status !== 'active' ? model.status : 'view';
       return <Link page="projectVersion" versionId={granted.id} label={<Snippet>{`fields.granted.${key}`}</Snippet>} />;
     }
   },
