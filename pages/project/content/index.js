@@ -42,6 +42,7 @@ module.exports = {
     granted: {
       label: 'Licence details',
       expired: 'View expired licence',
+      revoked: 'View revoked licence',
       view: 'View granted licence'
     },
     draft: {
