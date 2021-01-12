@@ -20,5 +20,8 @@ module.exports = {
   },
   notifications: {
     success: 'Licence holder updated'
+  },
+  buttons: {
+    submit: 'Continue'
   }
 };
