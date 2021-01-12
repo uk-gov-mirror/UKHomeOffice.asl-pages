@@ -35,7 +35,7 @@ module.exports = {
     fields: [
       {
         name: 'project-aim',
-        label: 'What is the aim of this project?'
+        label: 'What\'s the aim of this project?'
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -60,9 +60,7 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'benefit-who',
-        label: `What will be the impact of this proposed work on humans / animals / the environment in the short-term
-        (within the duration of the project), in the medium-term and the long-term (which may accrue after the project
-        is finished)?`,
+        label: `Who or what will benefit from these outputs, and how?`,
         training: false
       },
       {
@@ -87,7 +85,7 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'benefit-maximise-outputs',
-        label: 'How will you maximise the outputs of your work?'
+        label: 'How will you look to maximise the outputs of this work?'
       },
       {
         name: 'species-count',
@@ -102,25 +100,27 @@ The PPL holder will be required to disclose:
     experiment and number of procedures.`,
     fields: [
       {
+        name: 'project-harms-animals',
+        label: 'Explain why you are using these types of animals and your choice of life stages.'
+      },
+      {
         name: 'project-harms-summary',
-        label: `Describe, in general terms, the procedures animals will undergo, eg injections, surgical procedures.
-        Include the typical number of procedures individual animals will undergo and the likely duration of suffering.`
+        label: `Typically, what will be done to an animal used in your project?`
       },
       {
         name: 'project-harms-effects',
-        label: `Expected impacts or adverse effects on the animals - for example, pain, weight loss, inactivity or lameness,
-        stress, or abnormal behaviour - and how long those effects are expected to last.`
+        label: `What are the expected impacts and/or adverse effects for the animals during your project?`
       },
       {
         heading: 'Expected severity categories and the proportion of animals in each category, per species.'
       },
       {
         name: 'project-harms-severity',
-        label: 'What are the expected severities and the proportion of animals in each category (per species)?'
+        label: 'What are the expected severities and the proportion of animals in each category (per animal type)?'
       },
       {
         name: 'fate-of-animals',
-        label: 'What will happen to the animals at the end of the study?',
+        label: 'What will happen to animals at the end of this project?',
         type: 'FateOfAnimals'
       },
       {
@@ -142,7 +142,7 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'replacement-alternatives',
-        label: 'What was your strategy for searching for non-animal alternatives?',
+        label: 'Which non-animal alternatives did you consider for use in this project?',
         training: false
       },
       {
@@ -177,13 +177,14 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'reduction-steps',
-        label: `What steps will you take to reduce animal numbers? Where applicable, what principles will you use to
-        design experiments?`,
+        label: `What steps did you take during the experimental design phase to reduce the number of animals being used
+        in this project?`,
         training: false
       },
       {
         name: 'reduction-review',
-        label: 'What other measures apart from good experimental design will you use to minimise numbers?',
+        label: `What measures, apart from good experimental design, will you use to optimise the number of animals you
+        plan to use in your project?`,
         training: false
       },
       {
@@ -217,30 +218,24 @@ The PPL holder will be required to disclose:
     fields: [
       {
         name: 'refinement-models',
-        label: `Why are the animals, models and methods you will use the best to meet your objectives? Why will your
-        approach cause the least pain, suffering, distress or lasting harm?`
+        label: `Which animal models and methods will you use during this project?
+        Explain why these models and methods cause the least pain, suffering, distress, or lasting harm to the animals.`
       },
       {
         name: 'refinement-less-sentient',
-        label: `Why can’t you use a less sentient animal, (for example at an immature stage, a less sentient species or
-        using terminally anaesthetised animals)?`
+        label: `Why can’t you use animals that are less sentient?`
       },
       {
         name: 'refinement-explaination',
-        label: `What are you going to do to refine the procedures (for example increased monitoring, post-operative
-        care, pain management, training of animals) to minimise the welfare costs (harms) to the animals?`
+        label: `How will you refine the procedures you're using to minimise the welfare costs (harms) for the animals?`
       },
       {
         name: 'refinement-published-guidance',
-        label: 'What published best practice guidance will be followed to ensure experiments are conducted in most refined way?'
+        label: 'What published best practice guidance will you follow to ensure experiments are conducted in the most refined way?'
       },
       {
         name: 'refinement-3rs-advances',
-        label: 'How will you ensure you continue to use the most refined methods during the lifetime of this project?'
-      },
-      {
-        name: 'project-harms-animals',
-        label: 'Explain the choice of species and the related life stages'
+        label: 'How will you stay informed about advances in the 3Rs, and implement these advances effectively, during the project?'
       },
       {
         type: 'RetrospectivePlaceholder',
