@@ -11,7 +11,7 @@ import { dateFormat } from '../../../../constants';
 function ProjectDetails({ project, establishment }) {
   const isAdditionalAvailability = project.establishmentId !== establishment.id;
   const hasAdditionalAvailability = (project.additionalEstablishments || []).length > 0;
-  const aaEstablishmentNames = (project.additionalEstablishments || []).map(e => e.name).join(', ');
+  const aaEstablishmentNames = (project.additionalEstablishments || []).map(e => e.name).sort().join(', ');
   const showInfo = project.expiryDate || project.isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
   const isDraft = project.status === 'inactive';
 
