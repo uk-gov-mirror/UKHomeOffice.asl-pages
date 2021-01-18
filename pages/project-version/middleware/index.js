@@ -18,11 +18,15 @@ const getVersion = () => (req, res, next) => {
     .catch(next);
 };
 
-const getComments = () => (req, res, next) => {
+const getComments = (action = 'grant') => (req, res, next) => {
   if (!req.project || !req.project.openTasks || !req.project.openTasks.length) {
     return next();
   }
-  req.api(`/tasks/${req.project.openTasks[0].id}`)
+  const task = get(req.project, 'openTasks', []).find(task => task.data.action === action);
+  if (!task) {
+    return next();
+  }
+  req.api(`/tasks/${task.id}`)
     .then(response => extractComments(response.json.data))
     .then(comments => {
       res.locals.static.comments = comments;
@@ -122,33 +126,43 @@ const getNode = (tree, path) => {
   return node;
 };
 
-const getFirstVersion = req => {
+const getFirstVersion = (req, type = 'project-versions') => {
   if (!req.project) {
     return Promise.resolve();
   }
-  // first version is only used during application process
-  if (req.project && req.project.granted) {
-    return Promise.resolve();
+  if (type === 'project-versions') {
+    // first version is only used during application process
+    if (req.project && req.project.granted) {
+      return Promise.resolve();
+    }
+    // if there are only one or two versions then the first version will be the same as current or previous
+    if (req.project.versions.length < 3) {
+      return Promise.resolve();
+    }
+  } else {
+    // if there are only one or two ra versions then the first version will be the same as current or previous
+    if (req.project.retrospectiveAssessments.length < 3) {
+      return Promise.resolve();
+    }
   }
-  // if there are only one or two versions then the first version will be the same as current or previous
-  if (req.project.versions.length < 3) {
-    return Promise.resolve();
-  }
-  const first = sortBy(req.project.versions, 'createdAt')[0];
-  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${first.id}`)
+  const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
+  const first = sortBy(req.project[key], 'createdAt')[0];
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${first.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer version
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
 };
 
-const getPreviousVersion = req => {
+const getPreviousVersion = (req, type = 'project-versions') => {
   if (!req.project) {
     return Promise.resolve();
   }
-  const previous = req.project.versions
-    // only get versions created after last granted, if granted
+  const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
+  const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
+  const previous = req.project[key]
+    // only get versions/ras created after last granted, if granted
     .filter(version => {
-      const granted = req.project.versions.find(v => v.status === 'granted');
+      const granted = req.project[key].find(v => v.status === 'granted');
       if (granted) {
         return version.createdAt >= granted.createdAt;
       }
@@ -156,22 +170,23 @@ const getPreviousVersion = req => {
     })
     // previous version could be granted or submitted
     .filter(version => version.status === 'submitted' || version.status === 'granted')
-    .find(version => version.createdAt < req.version.createdAt);
+    .find(version => version.createdAt < req[model].createdAt);
 
   if (!previous) {
     return Promise.resolve();
   }
-  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${previous.id}`)
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${previous.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer version
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
 };
 
-const getGrantedVersion = req => {
-  if (!req.project || !req.project.granted) {
+const getGrantedVersion = (req, type = 'project-versions') => {
+  const key = type === 'project-versions' ? 'granted' : 'grantedRa';
+  if (!req.project || !req.project[key]) {
     return Promise.resolve();
   }
-  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.project.granted.id}`)
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${req.project.granted.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
@@ -233,17 +248,18 @@ const hasChanged = (before, after) => {
   return !isEqual(before, after);
 };
 
-const getAllChanges = () => (req, res, next) => {
+const getAllChanges = (type = 'project-versions') => (req, res, next) => {
+  const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
   Promise.all([
-    getFirstVersion(req),
-    getPreviousVersion(req),
-    getGrantedVersion(req)
+    getFirstVersion(req, type),
+    getPreviousVersion(req, type),
+    getGrantedVersion(req, type)
   ])
     .then(([firstVersion, previousVersion, grantedVersion]) => {
       return {
-        first: getChanges(req.version, firstVersion),
-        latest: getChanges(req.version, previousVersion),
-        granted: getChanges(req.version, grantedVersion)
+        first: getChanges(req[model], firstVersion),
+        latest: getChanges(req[model], previousVersion),
+        granted: getChanges(req[model], grantedVersion)
       };
     })
     .then(changes => {
@@ -253,7 +269,9 @@ const getAllChanges = () => (req, res, next) => {
     .catch(next);
 };
 
-const getChangedValues = (question, req) => {
+const getChangedValues = (question, req, type = 'project-versions') => {
+
+  const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
 
   const getVersion = {
     latest: getPreviousVersion,
@@ -261,10 +279,10 @@ const getChangedValues = (question, req) => {
     first: getFirstVersion
   };
   return Promise.resolve()
-    .then(() => getVersion[req.query.version](req))
+    .then(() => getVersion[req.query.version](req, type))
     .then(async (result) => {
       const value = result && getNode(result.data, question);
-      const current = getNode(req.version.data, question);
+      const current = getNode(req[model].data, question);
       return {
         value,
         diff: await diff(value, current, { type: req.query.type })

@@ -6,6 +6,7 @@ import { Snippet, DocumentHeader, Link } from '@asl/components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 import getSchema from '../schema';
 import Field from './components/field';
+import RaSummary from './components/ra-summary';
 import { formatDate } from '../../../../lib/utils';
 import { dateFormat } from '../../../../constants';
 
@@ -65,6 +66,7 @@ function BottomNav({ sections, activeSection, setActiveSection }) {
 
 export default function NTS() {
   const { project, version } = useSelector(state => state.static);
+  const ra = project.grantedRa;
   const versionData = version.data;
   versionData.raCompulsory = version.raCompulsory;
 
@@ -81,7 +83,7 @@ export default function NTS() {
 
       <DocumentHeader
         title={title}
-        subtitle={<Snippet>subtitle</Snippet>}
+        subtitle={<Snippet includesRa={ra}>subtitle</Snippet>}
         detailsLabel="details and downloads"
       >
         <dl>
@@ -153,7 +155,12 @@ export default function NTS() {
                         <Fragment key={index}>
                           { field.heading && <h2>{field.heading}</h2> }
                           { field.label && <h3>{field.label}</h3> }
-                          <Field field={field} version={versionData} schemaVersion={project.schemaVersion} project={project} />
+                          {
+                            (field.type !== 'RetrospectivePlaceholder' || !ra) && <Field field={field} version={versionData} schemaVersion={project.schemaVersion} project={project} />
+                          }
+                          {
+                            field.raSummary && <RaSummary fields={field.raSummary} project={project} />
+                          }
                         </Fragment>
                       ))
                     }

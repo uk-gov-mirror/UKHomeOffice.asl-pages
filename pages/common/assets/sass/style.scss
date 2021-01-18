@@ -491,6 +491,19 @@ details {
   }
 }
 
+.ra-summary {
+  padding: $govuk-gutter;
+  background-color: white;
+  margin-bottom: $govuk-gutter;
+
+  > {
+    h3.grey {
+      font-weight: normal;
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
 dl.inline dd .procedures-diff ul {
   padding: 0;
 }

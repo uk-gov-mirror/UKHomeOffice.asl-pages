@@ -40,7 +40,9 @@ module.exports = settings => {
       req.user.can('project.manageAccess', params)
     ])
       .then(([canUpdate, canRevoke, canTransfer, canManageAccess]) => {
-        const openTask = req.project.openTasks[0];
+        const openTasks = req.project.openTasks;
+        const openTask = openTasks && openTasks.find(t => t.data.action === 'grant');
+        const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
         const editable = (!openTask || (openTask && openTask.editable));
 
         const isCorrectEstablishment = req.establishmentId === req.project.establishmentId;
@@ -50,6 +52,7 @@ module.exports = settings => {
         res.locals.static.canTransfer = canTransfer;
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
+        res.locals.static.openRaTask = openRaTask;
         res.locals.static.canRevoke = canRevoke;
         res.locals.static.asruUser = req.user.profile.asruUser;
         res.locals.static.asruLicensing = req.user.profile.asruLicensing;
@@ -79,6 +82,15 @@ module.exports = settings => {
       onlyClosed: true // history panel only shows closed tasks, current activity uses openTasks prop
     };
   }));
+
+  app.post('/ra', (req, res, next) => {
+    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork-ra`, { method: 'POST' })
+      .then(response => {
+        req.raId = get(response, 'json.data.data.data.raVersion');
+        res.redirect(req.buildRoute('retrospectiveAssessment.update'));
+      })
+      .catch(next);
+  });
 
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })

@@ -5,7 +5,13 @@ module.exports = {
     'licence-holder': 'PPL holder',
     experience: 'PPL holder experience',
     deadline: 'Statutory target deadline',
-    continuation: 'Project continuation'
+    continuation: 'Project continuation',
+    ra: 'Retrospective assessment'
+  },
+  ra: {
+    due: '**Assessment due: {{date}}**',
+    content: 'This is the retrospective assessment that has been submitted for approval',
+    view: 'View retrospective assessment'
   },
   continuation: {
     title: 'This is a project continuation',

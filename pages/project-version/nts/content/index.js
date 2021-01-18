@@ -1,5 +1,5 @@
 module.exports = {
-  subtitle: 'Non-technical summary',
+  subtitle: 'Non-technical summary{{#includesRa}} and retrospective assessment{{/includesRa}}',
   licence: {
     inactive: {
       back: 'Back to draft licence'

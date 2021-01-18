@@ -32,6 +32,12 @@ const getTaskLabel = task => {
     case 'trainingPil':
       return `Personal licence ${taskType}`;
 
+    case 'project':
+      if (action === 'grant-ra') {
+        return 'Retrospective assessment';
+      }
+      break;
+
     default:
       return `${upperFirst(model)} ${taskType}`;
   }

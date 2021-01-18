@@ -30,7 +30,11 @@ module.exports = {
     fields: [
       {
         name: 'nts-objectives',
-        label: 'What\'s the aim of this project?'
+        label: 'What\'s the aim of this project?',
+        raSummary: [
+          'continue-on-other-licence',
+          'aims-achieved'
+        ]
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -66,7 +70,10 @@ The PPL holder will be required to disclose:
       {
         name: 'nts-adverse-effects',
         label: `In the context of what you propose to do to the animals, what are the expected adverse effects and the
-        likely/expected level of severity? What will happen to the animals at the end?`
+        likely/expected level of severity? What will happen to the animals at the end?`,
+        raSummary: [
+          'actual-harms'
+        ]
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -81,7 +88,8 @@ The PPL holder will be required to disclose:
     fields: [
       {
         name: 'nts-replacement',
-        label: `State why you need to use animals and why you cannot use non-animal alternatives.`
+        label: `State why you need to use animals and why you cannot use non-animal alternatives.`,
+        raSummary: ['replacement']
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -97,7 +105,8 @@ The PPL holder will be required to disclose:
     fields: [
       {
         name: 'nts-reduction',
-        label: `Explain how you will assure the use of minimum numbers of animals.`
+        label: `Explain how you will assure the use of minimum numbers of animals.`,
+        raSummary: ['reduction']
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -113,7 +122,8 @@ The PPL holder will be required to disclose:
       {
         name: 'nts-refinement',
         label: `Explain the choice of species and why the animal model(s) you will use are the most refined, having
-        regard to the objectives. Explain the general measures you will take to minimise welfare costs (harms) to the animals.`
+        regard to the objectives. Explain the general measures you will take to minimise welfare costs (harms) to the animals.`,
+        raSummary: ['refinement']
       },
       {
         type: 'RetrospectivePlaceholder',

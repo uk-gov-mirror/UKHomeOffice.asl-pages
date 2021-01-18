@@ -45,6 +45,17 @@ module.exports = () => {
           .catch(next);
       }
 
+      if (action === 'grant-ra') {
+        const raId = get(req.task, 'data.data.raVersion');
+        return req.api(`${url}/retrospective-assessment/${raId}`, { query: { withDeleted: true } })
+          .then(({ json: { data } }) => {
+            req.ra = data;
+            req.project = data.project;
+          })
+          .then(() => next())
+          .catch(next);
+      }
+
       return req.api(url, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           req.project = data;
@@ -241,6 +252,7 @@ module.exports = () => {
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
       res.locals.static.version = req.version;
+      res.locals.static.ra = req.ra;
       next();
     },
     process: (req, res, next) => {

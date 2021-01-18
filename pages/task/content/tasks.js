@@ -27,7 +27,8 @@ module.exports = {
     grant: 'PPL application',
     transfer: 'PPL transfer',
     update: 'PPL amendment',
-    revoke: 'PPL revocation'
+    revoke: 'PPL revocation',
+    'grant-ra': 'Retrospective assessment'
   },
   establishment: {
     grant: 'Establishment application',

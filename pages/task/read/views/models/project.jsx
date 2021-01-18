@@ -15,7 +15,7 @@ import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
 
-const selector = ({ static: { project, establishment, version, values, isAsru } }) => ({ project, establishment, version, values, isAsru });
+const selector = ({ static: { project, establishment, version, ra, values, isAsru } }) => ({ project, establishment, version, values, isAsru, ra });
 
 function EstablishmentDiff({ task }) {
   const isComplete = !task.isOpen;
@@ -51,7 +51,7 @@ function EstablishmentDiff({ task }) {
 }
 
 export default function Project({ task }) {
-  const { project, establishment, version, values, isAsru } = useSelector(selector, shallowEqual);
+  const { project, establishment, version, values, isAsru, ra } = useSelector(selector, shallowEqual);
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
 
@@ -89,7 +89,7 @@ export default function Project({ task }) {
 
   return [
     (
-      task.data.action === 'grant' && (
+      (task.data.action === 'grant' || task.data.action === 'grant-ra') && (
         <StickyNavAnchor id="licence-holder" key="licence-holder">
           <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
           <p>
@@ -100,6 +100,24 @@ export default function Project({ task }) {
               label={`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}
             />
           </p>
+        </StickyNavAnchor>
+      )
+    ),
+
+    (
+      task.data.action === 'grant-ra' && (
+        <StickyNavAnchor id="ra" key="ra">
+          <h2><Snippet>sticky-nav.ra</Snippet></h2>
+          <p><Snippet date={format(project.raDate, dateFormat.long)}>ra.due</Snippet></p>
+          <p><Snippet>ra.content</Snippet></p>
+          <Link
+            page="retrospectiveAssessment.update"
+            className="govuk-button button-secondary"
+            label={<Snippet>ra.view</Snippet>}
+            raId={ra.id}
+            establishmentId={project.establishmentId}
+            projectId={project.id}
+          />
         </StickyNavAnchor>
       )
     ),

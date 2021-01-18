@@ -35,7 +35,11 @@ module.exports = {
     fields: [
       {
         name: 'project-aim',
-        label: 'What\'s the aim of this project?'
+        label: 'What\'s the aim of this project?',
+        raSummary: [
+          'continue-on-other-licence',
+          'aims-achieved'
+        ]
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -121,7 +125,10 @@ The PPL holder will be required to disclose:
       {
         name: 'fate-of-animals',
         label: 'What will happen to animals at the end of this project?',
-        type: 'FateOfAnimals'
+        type: 'FateOfAnimals',
+        raSummary: [
+          'actual-harms'
+        ]
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -148,12 +155,14 @@ The PPL holder will be required to disclose:
       {
         name: 'replacement-justification',
         label: 'Why were they not suitable?',
-        training: false
+        training: false,
+        raSummary: ['replacement']
       },
       {
         name: 'training-replacement-observation',
         label: 'Why can’t your aim be met by observing or by participating in ongoing research or clinical procedures?',
-        training: true
+        training: true,
+        raSummary: ['replacement']
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -185,7 +194,8 @@ The PPL holder will be required to disclose:
         name: 'reduction-review',
         label: `What measures, apart from good experimental design, will you use to optimise the number of animals you
         plan to use in your project?`,
-        training: false
+        training: false,
+        raSummary: ['reduction']
       },
       {
         name: 'training-reduction-techniques',
@@ -200,7 +210,8 @@ The PPL holder will be required to disclose:
       {
         name: 'training-reduction-other-measures',
         label: 'What other measures will you use to minimise the number of animals you plan to use in your project?',
-        training: true
+        training: true,
+        raSummary: ['reduction']
       },
       {
         type: 'RetrospectivePlaceholder',
@@ -235,7 +246,8 @@ The PPL holder will be required to disclose:
       },
       {
         name: 'refinement-3rs-advances',
-        label: 'How will you stay informed about advances in the 3Rs, and implement these advances effectively, during the project?'
+        label: 'How will you stay informed about advances in the 3Rs, and implement these advances effectively, during the project?',
+        raSummary: ['refinement']
       },
       {
         type: 'RetrospectivePlaceholder',

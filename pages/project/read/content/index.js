@@ -159,11 +159,21 @@ module.exports = merge({}, baseContent, {
   otherDocuments: {
     heading: 'Other documents',
     links: {
-      nts: 'Non-technical summary'
+      nts: 'Non-technical summary',
+      ra: 'Non-technical summary and retrospective assessment'
     }
   },
   manage: {
     noPermissions: 'You don\'t have permission to amend, revoke or grant other users access to this licence.'
+  },
+  ra: {
+    title: 'Retrospective assessment',
+    description: '**Deadline for submission: {{date}}**',
+    grantedDescription: '**RA completed: {{date}}**',
+    create: 'Start assessment',
+    granted: 'View completed assessment',
+    draft: 'View draft assessment',
+    openTask: 'View task'
   },
   changeLicenceHolder: {
     title: 'Change licence holder',

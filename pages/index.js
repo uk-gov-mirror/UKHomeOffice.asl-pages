@@ -7,6 +7,7 @@ module.exports = {
   role: require('./role'),
   project: require('./project'),
   projectVersion: require('./project-version'),
+  retrospectiveAssessment: require('./retrospective-assessment'),
   pil: require('./pil'),
   unscopedPils: require('./pil/unscoped'),
   task: require('./task'),
