@@ -59,7 +59,7 @@ module.exports = settings => {
     const task = get(req.project, 'openTasks', []).find(task => task.data.action === 'grant-ra');
     const showComments = req.retrospectiveAssessment.status !== 'granted' && !!task;
 
-    res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.meta.raVersion') === req.raId;
+    res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.raVersion') === req.raId;
     res.locals.static.basename = req.buildRoute('retrospectiveAssessment');
     res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
