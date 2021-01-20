@@ -81,6 +81,18 @@ function DeadlineDetails({ item }) {
   );
 }
 
+function AwerbDate({ item }) {
+  const awerb = get(item, 'event.meta.payload.meta.ra-awerb-date');
+
+  if (!awerb) {
+    return null;
+  }
+
+  return (
+    <p>Date of the most recent AWERB review<br />{format(awerb, dateFormat.long)}</p>
+  );
+}
+
 function DeclarationMeta({ item }) {
   const declaration = get(item, 'event.meta.payload.meta.declaration');
 
@@ -171,6 +183,7 @@ function Comment({ changedBy, comment }) {
 function LogItem({ item, task }) {
   let { action } = item;
   const isExtension = isDeadlineExtension(item);
+  const isRa = task.data.action === 'grant-ra';
 
   if (action === 'update' && isExtension) {
     action = 'deadline-extended';
@@ -182,6 +195,7 @@ function LogItem({ item, task }) {
       <Action task={task} action={action} changedBy={item.changedBy} />
       <InspectorRecommendation item={item} />
       { isExtension && <DeadlineDetails item={item} /> }
+      { isRa && <AwerbDate item={item} /> }
       <DeclarationMeta item={item} />
       <Comment changedBy={item.changedBy} comment={item.comment} />
       { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }

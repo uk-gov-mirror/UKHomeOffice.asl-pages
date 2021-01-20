@@ -179,5 +179,9 @@ module.exports = merge({}, baseContent, {
     title: 'Change licence holder',
     description: 'Change the prospective licence holder of this project.',
     link: 'Change licence holder'
+  },
+  warnings: {
+    raRequired: `**A retrospective assessment of this project's outcomes is due by {{date}}**`,
+    link: 'Fill in assessment'
   }
 });

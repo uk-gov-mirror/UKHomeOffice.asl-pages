@@ -274,9 +274,18 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     const daysSinceDeadline = get(req.task, 'data.deadline.daysSince');
     const hasDeadlinePassedReason = get(req.task, 'data.meta.deadline-passed-reason');
-    if (req.task.data.model === 'project' && daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
+    const model = get(req.task, 'data.model');
+    const action = get(req.task, 'data.action');
+    const status = get(req.form, 'values.status');
+
+    if (model === 'project' && daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
       return res.redirect(req.buildRoute('task.read.deadlinePassed'));
     }
+
+    if (model === 'project' && action === 'grant-ra' && status === 'endorsed') {
+      return res.redirect(req.buildRoute('task.read.raAwerb'));
+    }
+
     return res.redirect(req.buildRoute('task.read', { suffix: 'confirm' }));
   });
 

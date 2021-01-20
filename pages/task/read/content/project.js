@@ -8,9 +8,12 @@ module.exports = {
     continuation: 'Project continuation',
     ra: 'Retrospective assessment'
   },
+  title: {
+    ra: 'Review retrospective assessment'
+  },
   ra: {
-    due: '**Assessment due: {{date}}**',
-    content: 'This is the retrospective assessment that has been submitted for approval',
+    due: '**Deadline for submission: {{date}}**',
+    content: 'This is the retrospective assessment that has been submitted for approval.',
     view: 'View retrospective assessment'
   },
   continuation: {

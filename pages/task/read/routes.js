@@ -1,4 +1,5 @@
 const { extend, confirm, read, discard, deadlinePassed } = require('./routers');
+const raAwerb = require('./ra-awerb');
 const success = require('../../success');
 
 module.exports = {
@@ -17,6 +18,11 @@ module.exports = {
   deadlinePassed: {
     path: '/deadline-passed',
     router: deadlinePassed
+  },
+  raAwerb: {
+    path: '/ra-awerb',
+    breadcrumb: false,
+    router: raAwerb
   },
   confirm: {
     path: '/confirm',

@@ -3,7 +3,6 @@ import flatten from 'lodash/flatten';
 import format from 'date-fns/format';
 import getSchema from '@asl/projects/client/schema';
 import Field from './field';
-import ReactMarkdown from 'react-markdown';
 import { dateFormat } from '../../../../../constants';
 
 export default function RaSummary({ project, fields }) {
@@ -24,9 +23,6 @@ export default function RaSummary({ project, fields }) {
           return (
             <Fragment key={index}>
               <h3>{field.label}</h3>
-              {
-                field.hint && <ReactMarkdown className="grey">{field.hint}</ReactMarkdown>
-              }
               <Field field={field} version={project.grantedRa} />
             </Fragment>
           );

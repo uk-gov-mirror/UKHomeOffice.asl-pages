@@ -11,6 +11,9 @@ const requiresDeclaration = (task, values) => {
   if (action === 'grant' && task.type === 'amendment') {
     action = 'update';
   }
+  if (action === 'grant-ra') {
+    return false;
+  }
   return ['pil', 'trainingPil', 'project'].includes(model) && values.status === 'endorsed' && action !== 'review';
 };
 
@@ -31,6 +34,8 @@ module.exports = () => {
   app.use((req, res, next) => {
     req.model = { id: req.task.id };
     const status = get(req, `session.form[${req.task.id}].values.status`);
+    const values = req.session.form[`${req.task.id}`].values;
+    req.requiresDeclaration = requiresDeclaration(req.task, values);
     if (!status || status === req.task.status) {
       return res.redirect(req.buildRoute('task.read'));
     }
@@ -52,6 +57,7 @@ module.exports = () => {
       set(res, 'locals.static', {
         ...res.locals.static,
         task: req.task,
+        requiresDeclaration: req.requiresDeclaration,
         values
       });
 
@@ -78,12 +84,12 @@ module.exports = () => {
         data: values.data,
         meta: {
           ...values.meta,
-          ...pick(values, 'comment', 'restrictions', 'awerb', 'awerb-review-date', 'awerb-no-review-reason', 'deadline-passed-reason')
+          ...pick(values, 'comment', 'restrictions', 'awerb', 'awerb-review-date', 'awerb-no-review-reason', 'deadline-passed-reason', 'ra-awerb-date', 'declaration')
         }
       }
     };
 
-    if (requiresDeclaration(req.task, values)) {
+    if (req.requiresDeclaration) {
       opts.json.meta.declaration = getDeclarationText(req.task, values);
     }
 

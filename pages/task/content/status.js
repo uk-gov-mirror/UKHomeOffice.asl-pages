@@ -59,7 +59,7 @@ module.exports = {
       revocation: 'Recall revocation',
       transfer: 'Recall transfer',
       review: 'Recall review',
-      ra: 'Recall assessment'
+      ra: 'Recall retrospective assessment'
     },
     hint: {
       default: 'The task will be returned and can be edited.'
@@ -75,7 +75,7 @@ module.exports = {
       revocation: 'Discard revocation',
       transfer: 'Discard transfer',
       review: 'Discard review',
-      ra: 'Discard assessment'
+      ra: 'Discard retrospective assessment'
     },
     hint: {
       application: 'You will need to create a new application to apply for this type of licence in the future.',
@@ -140,7 +140,7 @@ module.exports = {
       amendment: 'Endorse amendment',
       transfer: 'Endorse transfer request',
       review: 'Endorse licence',
-      ra: 'Endorse assessment'
+      ra: 'Endorse retrospective assessment'
     },
     log: 'Endorsed by'
   },
@@ -180,7 +180,7 @@ module.exports = {
       revocation: 'Submit revocation',
       transfer: 'Submit transfer',
       review: 'Submit review',
-      ra: 'Submit assessment'
+      ra: 'Submit retrospective assessment'
     },
     hint: {
       application: 'Your application will be sent to the Home Office for review.',
@@ -198,7 +198,7 @@ module.exports = {
       amendment: 'Amend licence',
       revocation: 'Revoke licence',
       transfer: 'Approve transfer',
-      ra: 'Approve assessment'
+      ra: 'Approve retrospective assessment'
     },
     hint: {
       application: 'A new licence will be granted.',
@@ -223,7 +223,7 @@ module.exports = {
       amendment: 'Reject amendment',
       revocation: 'Reject revocation',
       transfer: 'Reject transfer request',
-      ra: 'Reject assessment'
+      ra: 'Reject retrospective assessment'
     },
     hint: {
       application: 'The applicant will need to create a new application to apply for this type of licence in the future.',
@@ -245,7 +245,7 @@ module.exports = {
       amendment: 'Edit and resubmit the amendment',
       transfer: 'Edit and resubmit the transfer request',
       review: 'Edit and resubmit the review',
-      ra: 'Edit and resubmit the assessment'
+      ra: 'Edit and resubmit the retrospective assessment'
     },
     hint: {
       application: 'Make changes to the application you previously submitted and respond to any comments.',
@@ -262,7 +262,7 @@ module.exports = {
       amendment: 'Discard amendment',
       revocation: 'Discard revocation',
       transfer: 'Discard transfer',
-      ra: 'Discard assessment'
+      ra: 'Discard retrospective assessment'
     },
     hint: {
       application: 'You will need to create a new application to apply for this type of licence in the future.',

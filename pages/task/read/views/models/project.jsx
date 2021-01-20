@@ -108,8 +108,11 @@ export default function Project({ task }) {
       task.data.action === 'grant-ra' && (
         <StickyNavAnchor id="ra" key="ra">
           <h2><Snippet>sticky-nav.ra</Snippet></h2>
-          <p><Snippet date={format(project.raDate, dateFormat.long)}>ra.due</Snippet></p>
-          <p><Snippet>ra.content</Snippet></p>
+          {
+            isAsru
+              ? <p><Snippet>ra.content</Snippet></p>
+              : <p><Snippet date={format(project.raDate, dateFormat.long)}>ra.due</Snippet></p>
+          }
           <Link
             page="retrospectiveAssessment.update"
             className="govuk-button button-secondary"
