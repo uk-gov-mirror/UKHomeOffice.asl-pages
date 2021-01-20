@@ -59,10 +59,6 @@ export default function Places() {
   schema.nacwos.label = <Fragment><Acronym>NACWO</Acronym>s</Fragment>;
   schema.nvssqps.label = <Fragment><Acronym>NVS</Acronym>s / <Acronym>SQP</Acronym>s</Fragment>;
 
-  const otherLinks = [
-    <Link key="csv-download" page="place.list" query={{csv: 1}} label="Download as CSV" />
-  ];
-
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
@@ -77,7 +73,7 @@ export default function Places() {
         createPath={allowedActions.includes('place.create') && 'place.create'}
         className="places-list"
         resultType="approved areas"
-        otherLinks={otherLinks}
+        downloadLink={<Link key="csv-download" page="place.list" query={{csv: 1}} label="Download as CSV" />}
       />
     </Fragment>
   );
