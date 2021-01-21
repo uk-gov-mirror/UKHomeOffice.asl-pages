@@ -1,5 +1,4 @@
 module.exports = {
-  id: {},
   site: {
     show: true,
     filter: true
@@ -15,24 +14,28 @@ module.exports = {
     filter: true,
     comparator: 'AND',
     exact: true,
-    sortable: false
+    sortable: false,
+    toCSVString: suitability => suitability && suitability.length ? suitability.join(', ') : ''
   },
   holding: {
     show: true,
     filter: true,
     comparator: 'AND',
     exact: true,
-    sortable: false
+    sortable: false,
+    toCSVString: holding => holding && holding.length ? holding.join(', ') : ''
   },
   nacwos: {
     show: true,
     sortable: false,
-    filter: true
+    filter: true,
+    toCSVString: profile => profile && profile.length ? profile.map(p => `${p.firstName} ${p.lastName}`).join(', ') : ''
   },
   nvssqps: {
     show: true,
     sortable: false,
-    filter: true
-  },
-  updatedAt: {}
+    filter: true,
+    title: 'nvs / sqps',
+    toCSVString: profile => profile && profile.length ? profile.map(p => `${p.firstName} ${p.lastName}`).join(', ') : ''
+  }
 };
