@@ -35,6 +35,7 @@ module.exports = {
     show: true,
     sortable: false,
     filter: true,
+    title: 'nvs / sqps',
     toCSVString: profile => profile && profile.length ? profile.map(p => `${p.firstName} ${p.lastName}`).join(', ') : ''
   }
 };
