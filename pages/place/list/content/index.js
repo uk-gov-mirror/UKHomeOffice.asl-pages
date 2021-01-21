@@ -13,6 +13,6 @@ module.exports = merge({}, commonContent, {
   },
   actions: {
     addNew: 'Create approved area',
-    download: 'Download as CSV'
+    download: 'Download all as CSV'
   }
 });
