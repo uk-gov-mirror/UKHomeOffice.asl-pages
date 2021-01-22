@@ -5,10 +5,10 @@ const routes = require('./routes');
 const { getComments, getChangedValues } = require('../project-version/middleware');
 const extractComments = require('../project-version/lib/extract-comments');
 
-module.exports = () => {
+module.exports = settings => {
   const app = Router({ mergeParams: true });
 
-  app.use(bodyParser.json({ limit: '5mb' }));
+  app.use(bodyParser.json({ limit: settings.bodySizeLimit }));
 
   app.use((req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/retrospective-assessment/${req.raId}`)
