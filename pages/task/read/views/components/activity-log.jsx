@@ -160,7 +160,7 @@ function ExtraProjectMeta({ item, task }) {
 function Comment({ changedBy, comment }) {
   return comment && (
     <div className="comment">
-      <p className="author">{`${changedBy.firstName} ${changedBy.lastName} commented:`}</p>
+      <p className="author">{`${changedBy.firstName} ${changedBy.lastName} remarked:`}</p>
       <Inset>
         <Markdown className="content">{comment}</Markdown>
       </Inset>
