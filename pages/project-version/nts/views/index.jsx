@@ -59,7 +59,7 @@ function BottomNav({ sections, activeSection, setActiveSection }) {
             <span>{sections[nextSection].title}</span>
           </a>
       }
-      <Link page="project.read" label="View project overview" />
+      <Link page="project.read" label="Go to project overview" />
     </nav>
   );
 }
