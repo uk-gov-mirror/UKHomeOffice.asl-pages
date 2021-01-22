@@ -2,7 +2,12 @@ module.exports = {
   title: 'Change the primary establishment of this project',
   fields: {
     primaryEstablishment: {
-      label: 'Primary establishment'
+      label: 'What is the primary establishment for this project?',
+      hint: {
+        summary: 'Help if your establishment\'s not listed',
+        details: `You need to be invited to an establishment before you can make them your primary establishment.
+        Ask the Home Office Liaison Contact (HOLC) at your chosen establishment to send you an invitation.`
+      }
     }
   },
   buttons: {
