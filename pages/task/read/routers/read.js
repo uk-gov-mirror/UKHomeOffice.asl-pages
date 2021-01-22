@@ -45,6 +45,17 @@ module.exports = () => {
           .catch(next);
       }
 
+      if (action === 'grant-ra') {
+        const raId = get(req.task, 'data.data.raVersion');
+        return req.api(`${url}/retrospective-assessment/${raId}`, { query: { withDeleted: true } })
+          .then(({ json: { data } }) => {
+            req.ra = data;
+            req.project = data.project;
+          })
+          .then(() => next())
+          .catch(next);
+      }
+
       return req.api(url, { query: { withDeleted: true } })
         .then(({ json: { data } }) => {
           req.project = data;
@@ -241,6 +252,7 @@ module.exports = () => {
       res.locals.static.establishment = req.establishment;
       res.locals.static.project = req.project;
       res.locals.static.version = req.version;
+      res.locals.static.ra = req.ra;
       next();
     },
     process: (req, res, next) => {
@@ -262,9 +274,18 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     const daysSinceDeadline = get(req.task, 'data.deadline.daysSince');
     const hasDeadlinePassedReason = get(req.task, 'data.meta.deadline-passed-reason');
-    if (req.task.data.model === 'project' && daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
+    const model = get(req.task, 'data.model');
+    const action = get(req.task, 'data.action');
+    const status = get(req.form, 'values.status');
+
+    if (model === 'project' && daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
       return res.redirect(req.buildRoute('task.read.deadlinePassed'));
     }
+
+    if (model === 'project' && action === 'grant-ra' && status === 'endorsed') {
+      return res.redirect(req.buildRoute('task.read.raAwerb'));
+    }
+
     return res.redirect(req.buildRoute('task.read', { suffix: 'confirm' }));
   });
 

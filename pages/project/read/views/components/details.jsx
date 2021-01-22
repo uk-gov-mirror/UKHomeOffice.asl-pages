@@ -89,13 +89,6 @@ export default function Details() {
                 </Fragment>
               }
               {
-                project.raDate &&
-                <Fragment>
-                  <dt><Snippet>fields.raDate.label</Snippet></dt>
-                  <dd>{formatDate(project.raDate, dateFormat.long)}</dd>
-                </Fragment>
-              }
-              {
                 project.transferredInDate && (
                   <Fragment>
                     <dt><Snippet>fields.transferredInDate.label</Snippet></dt>

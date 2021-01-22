@@ -60,7 +60,7 @@ export default function CurrentVersion() {
           <Link
             page="projectVersion.nts"
             versionId={versionId}
-            label={<Snippet>otherDocuments.links.nts</Snippet>}
+            label={<Snippet>{`otherDocuments.links.${project.grantedRa ? 'ra' : 'nts'}`}</Snippet>}
           />
         </li>
       </ul>

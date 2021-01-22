@@ -39,6 +39,11 @@ module.exports = (req, res, next) => {
       params.versionId = req.project.draft.id;
     } else if (action === 'update') {
       action = 'updateLicenceHolder';
+    } else if (action === 'grant-ra') {
+      model = 'retrospectiveAssessment';
+      action = '';
+      params.establishmentId = req.project.establishmentId;
+      params.raId = req.project.draftRa.id;
     }
   } else if (model === 'pil' && action === 'update-conditions') {
     action = 'read';
@@ -46,5 +51,5 @@ module.exports = (req, res, next) => {
     action = 'update';
   }
 
-  return res.redirect(req.buildRoute(`${model}.${action}`, params));
+  return res.redirect(req.buildRoute(`${model}${action ? '.' : ''}${action}`, params));
 };

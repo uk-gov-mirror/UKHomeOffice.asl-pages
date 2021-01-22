@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Field from '../../../nts/views/components/field';
+import RaSummary from '../../../nts/views/components/ra-summary';
 import getSchema from '../../../nts/schema';
 
 export default function NtsPdf() {
@@ -8,6 +9,7 @@ export default function NtsPdf() {
   const version = useSelector(state => state.project);
   const isTrainingLicence = version['training-licence'] || false;
   const sections = getSchema(project.schemaVersion);
+  const ra = project.grantedRa;
 
   return (
     <Fragment>
@@ -36,7 +38,13 @@ export default function NtsPdf() {
                         )
                       }
                       { field.label && field.name !== 'species' && <h4>{field.label}</h4> }
-                      <Field field={field} version={version} schemaVersion={project.schemaVersion} project={project} />
+
+                      {
+                        (field.type !== 'RetrospectivePlaceholder' || !ra) && <Field field={field} version={version} schemaVersion={project.schemaVersion} project={project} />
+                      }
+                      {
+                        field.raSummary && <RaSummary fields={field.raSummary} project={project} />
+                      }
                     </div>
                   ))
                 }

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { DocumentHeader, Snippet, Tabs } from '@asl/components';
+import { DocumentHeader, Snippet, Tabs, Link } from '@asl/components';
+import { Warning } from '@ukhomeoffice/react-components';
+import format from 'date-fns/format';
+import { dateFormat } from '../../../../constants';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Overview from './sections/overview';
 import Manage from './sections/manage';
@@ -47,7 +50,12 @@ function hasPreviousVersions() {
 
 export default function ProjectLandingPage() {
   const project = useSelector(state => state.model);
+  const { openRaTask, url } = useSelector(state => state.static);
   const snippetPath = `tabs.${project.granted ? 'granted' : 'application'}`;
+
+  const requiresRa = project.raDate || !project.grantedRa;
+  const showRaWarning = requiresRa && !openRaTask;
+  const hasDraftRa = !!project.retrospectiveAssessments.length && !project.grantedRa;
 
   const sections = {
     overview: <Snippet>{`${snippetPath}.overview`}</Snippet>,
@@ -83,6 +91,30 @@ export default function ProjectLandingPage() {
 
   return (
     <div className="project-landing-page">
+      {
+        showRaWarning && (
+          <Warning className="info">
+            <p><Snippet date={format(project.raDate, dateFormat.long)}>warnings.raRequired</Snippet></p>
+            {
+              hasDraftRa
+                ? (
+                  <Link
+                    page="retrospectiveAssessment"
+                    label={<Snippet>ra.draft</Snippet>}
+                    raId={project.draftRa.id}
+                  />
+                )
+                : (
+                  <form method="POST" action={`${url}/ra`}>
+                    <button className="link">
+                      <Snippet>ra.create</Snippet>
+                    </button>
+                  </form>
+                )
+            }
+          </Warning>
+        )
+      }
       <ProjectStatusBanner model={project} version={project.granted || project.versions[0]} />
 
       <DocumentHeader
