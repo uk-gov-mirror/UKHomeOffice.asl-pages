@@ -23,7 +23,7 @@ export default function RaSummary({ project, fields }) {
           return (
             <Fragment key={index}>
               <h3>{field.label}</h3>
-              <Field field={field} version={project.grantedRa} />
+              <Field field={field} version={project.grantedRa.data} />
             </Fragment>
           );
         })
