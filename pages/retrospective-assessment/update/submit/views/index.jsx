@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Snippet, Header, FormLayout } from '@asl/components';
 
 export default function Submit() {
-  const { canEndorse, awerbCompleted, project } = useSelector(state => state.static);
+  const { canEndorse, project } = useSelector(state => state.static);
   return (
     <FormLayout>
       <Header
@@ -12,7 +12,7 @@ export default function Submit() {
       />
       {
         canEndorse
-          ? !awerbCompleted && (
+          ? (
             <Fragment>
               <h3><Snippet>declarationTitle</Snippet></h3>
               <p><Snippet>declaration</Snippet></p>

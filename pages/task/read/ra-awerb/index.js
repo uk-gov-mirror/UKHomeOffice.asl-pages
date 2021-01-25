@@ -1,4 +1,5 @@
 const { page } = require('@asl/service/ui');
+const { get } = require('lodash');
 const moment = require('moment');
 const form = require('../../../common/routers/form');
 const content = require('./content');
@@ -8,7 +9,10 @@ module.exports = () => {
   const app = page({ root: __dirname });
 
   app.use((req, res, next) => {
-    req.model = { id: req.task.id };
+    req.model = {
+      id: req.task.id,
+      'ra-awerb-date': get(req.task, 'data.meta.ra-awerb-date')
+    };
     res.locals.static.project = req.project;
     next();
   });

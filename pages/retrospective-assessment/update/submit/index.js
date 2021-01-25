@@ -12,7 +12,11 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.model = req.retrospectiveAssessment;
+    const task = get(req.project, 'openTasks', []).find(t => t.data.action === 'grant-ra');
+    req.model = {
+      ...req.retrospectiveAssessment,
+      'ra-awerb-date': get(task, 'data.meta.ra-awerb-date')
+    };
     next();
   });
 
@@ -29,25 +33,16 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.use((req, res, next) => {
-    const task = get(req.project, 'openTasks', []).find(task => task.data.action === 'grant-ra');
-    if (!task) {
-      return next();
-    }
-    req.awerbCompleted = !!get(task, 'data.meta[\'ra-awerb-date\']');
-    next();
-  });
-
   app.use(form({
     configure: (req, res, next) => {
-      req.form.schema = getSchema(req.canEndorse, req.awerbCompleted);
+      req.form.schema = getSchema(req.canEndorse);
       next();
     },
     process: (req, res, next) => {
       if (!req.canEndorse) {
         return next();
       }
-      if (!req.body['ra-awerb-date-day'] || req.awerbCompleted) {
+      if (!req.body['ra-awerb-date-day']) {
         return next();
       }
       const day = req.body['ra-awerb-date-day'];
@@ -60,14 +55,13 @@ module.exports = settings => {
       next();
     },
     saveValues: (req, res, next) => {
-      if (!req.body['ra-awerb-date-day'] || req.awerbCompleted || !req.canEndorse) {
+      if (!req.body['ra-awerb-date-day'] || !req.canEndorse) {
         return next();
       }
       req.session.form[req.model.id].values['ra-awerb-date'] = moment(req.form.values['ra-awerb-date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
       next();
     },
     locals: (req, res, next) => {
-      res.locals.static.awerbCompleted = req.awerbCompleted;
       res.locals.static.project = req.project;
       res.locals.static.canEndorse = req.canEndorse;
       next();
@@ -76,8 +70,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = req.form.values;
-    const task = get(req.project, 'openTasks', []).find(task => task.data.action === 'grant-ra');
-    const includeDeclaration = req.canEndorse && !get(task, 'data.meta.declaration');
+    const includeDeclaration = req.canEndorse;
     const json = {
       meta: {
         ...values,

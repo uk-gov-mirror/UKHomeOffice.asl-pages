@@ -1,6 +1,6 @@
 const { pick } = require('lodash');
 
-module.exports = (includeAwerb, awerbCompleted) => {
+module.exports = includeAwerb => {
   const schema = {
     comment: {
       inputType: 'textarea'
@@ -11,7 +11,7 @@ module.exports = (includeAwerb, awerbCompleted) => {
     }
   };
 
-  return includeAwerb && !awerbCompleted
+  return includeAwerb
     ? pick(schema, 'ra-awerb-date', 'comment')
     : pick(schema, 'comment');
 };
