@@ -36,7 +36,7 @@ const getTaskLabel = task => {
       if (action === 'grant-ra') {
         return 'Retrospective assessment';
       }
-      break;
+      return `${upperFirst(model)} ${taskType}`;
 
     default:
       return `${upperFirst(model)} ${taskType}`;
