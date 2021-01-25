@@ -41,7 +41,7 @@ module.exports = settings => {
     ])
       .then(([canUpdate, canRevoke, canTransfer, canManageAccess]) => {
         const openTasks = req.project.openTasks;
-        const openTask = openTasks && openTasks.find(t => t.data.action === 'grant');
+        const openTask = openTasks && openTasks.find(t => t.data.action !== 'grant-ra');
         const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
         const editable = (!openTask || (openTask && openTask.editable));
 
