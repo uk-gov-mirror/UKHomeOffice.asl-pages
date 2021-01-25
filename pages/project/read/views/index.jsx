@@ -53,7 +53,7 @@ export default function ProjectLandingPage() {
   const { openRaTask, url } = useSelector(state => state.static);
   const snippetPath = `tabs.${project.granted ? 'granted' : 'application'}`;
 
-  const requiresRa = project.raDate || !project.grantedRa;
+  const requiresRa = project.raDate && !project.grantedRa;
   const showRaWarning = requiresRa && !openRaTask;
   const hasDraftRa = !!project.retrospectiveAssessments.length && !project.grantedRa;
 
