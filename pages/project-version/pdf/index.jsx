@@ -73,6 +73,18 @@ module.exports = settings => {
       .catch(next);
   };
 
+  const loadRa = (req, res, next) => {
+    if (!req.project.grantedRa) {
+      return next();
+    }
+    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/retrospective-assessment/${req.project.grantedRa.id}`)
+      .then(({ json: { data } }) => {
+        req.project.grantedRa = data;
+      })
+      .then(() => next())
+      .catch(next);
+  };
+
   const renderLicence = (req, res, next) => {
     req.pdf.body = renderToStaticMarkup(<Licence store={req.pdf.store} nonce={req.pdf.nonce} />);
     next();
@@ -91,6 +103,7 @@ module.exports = settings => {
   };
 
   app.get('/nts',
+    loadRa,
     setupPdf({ officialSensitive: false }),
     renderNts,
     convertToPdf
