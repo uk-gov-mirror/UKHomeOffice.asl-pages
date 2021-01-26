@@ -11,7 +11,7 @@ function concatArray(arr) {
 
 module.exports = {
   id: {
-    titl: 'ID'
+    title: 'ID'
   },
   profile: {
     show: true,
