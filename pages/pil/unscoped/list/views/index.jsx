@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { useSelector } from 'react-redux';
 import {
   Link,
   Search,
@@ -43,6 +44,8 @@ const formatters = {
 };
 
 export default function PilList() {
+  const query = useSelector(state => state.static.query);
+  const queryWithCSV = { ...(query || {}), csv: true };
   return (
     <Page activeTab="list">
       <Details
@@ -55,6 +58,7 @@ export default function PilList() {
       </Details>
       <Search label={<Snippet>search</Snippet>} />
       <FilterSummary resultType="personal licences" />
+      <Link page="pils.list" label="Download CSV" query={queryWithCSV} className="float-right" />
       <Datatable formatters={formatters} />
     </Page>
   );

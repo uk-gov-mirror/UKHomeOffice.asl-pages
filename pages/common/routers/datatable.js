@@ -145,7 +145,9 @@ module.exports = ({
     const schema = res.locals.datatable.schema;
     const stringifier = csv({
       header: true,
-      columns: Object.keys(schema).map(key => ({ key, header: schema[key].title || key }))
+      columns: Object.keys(schema)
+        .filter(key => !schema[key].omitFromCSV)
+        .map(key => ({ key, header: schema[key].title || key }))
     });
     stringifier.pipe(res);
     res.locals.datatable.data.rows
