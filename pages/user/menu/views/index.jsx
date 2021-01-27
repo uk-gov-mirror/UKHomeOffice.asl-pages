@@ -24,9 +24,14 @@ export default function Index() {
             <Link page="account.updatePassword" label={ <Snippet>pages.account.updatePassword.base</Snippet> } />
           </li>
           {
-            !asruUser && <li>
-              <Link page="ownTraining" label="Manage training" />
-            </li>
+            !asruUser && <Fragment>
+              <li>
+                <Link page="ownTraining" label={ <Snippet>links.manageTraining</Snippet> } />
+              </li>
+              {/* <li>
+                <Link page="account.emailPreferences" label={ <Snippet>links.emailPreferences</Snippet> } />
+              </li> */}
+            </Fragment>
           }
         </ul>
       </div>

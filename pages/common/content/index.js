@@ -83,7 +83,8 @@ module.exports = {
       menu: 'Your account',
       update: 'Edit your details',
       updateEmail: 'Change your email address',
-      updatePassword: 'Change your password'
+      updatePassword: 'Change your password',
+      emailPreferences: 'Email alerts and newsletters'
     },
     feedback: 'Feedback',
     task: {

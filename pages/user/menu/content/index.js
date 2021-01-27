@@ -1,4 +1,8 @@
 module.exports = {
   pageTitle: 'Account',
-  training: 'Training'
+  training: 'Training',
+  links: {
+    manageTraining: 'Manage training',
+    emailPreferences: 'Email alerts and newsletters'
+  }
 };
