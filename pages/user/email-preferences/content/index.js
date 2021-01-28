@@ -32,6 +32,6 @@ module.exports = {
     success: 'Email preferences saved'
   },
   buttons: {
-    submit: 'Update preferences'
+    submit: 'Save preferences'
   }
 };
