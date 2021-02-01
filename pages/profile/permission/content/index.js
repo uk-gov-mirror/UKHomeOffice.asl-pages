@@ -14,10 +14,14 @@ module.exports = merge({}, baseContent, {
   title: 'Update permissions',
   remove: {
     title: 'Remove permissions',
+    nonRemovable: `You cannot remove {{profile.firstName}} {{profile.lastName}} from {{establishment.name}} because:
+
+{{#hasProjects}}* they hold one or more project licences here - licences must be revoked or transferred first{{/hasProjects}}
+{{#hasPil}}* they hold a personal licence here - licences must be revoked or transferred first{{/hasPil}}
+{{#hasRoles}}* they hold one or more named roles here - roles must be reassigned first{{/hasRoles}}
+{{#hasAdditionalProjects}}* they hold one or more projects with additional availability here - additional availability must be removed first{{/hasAdditionalProjects}}`,
     warning: `If you remove this person from this establishment, they will no longer be able to view any of this
-      establishment's data.`,
-    nonRemovable: `This person currently holds an active licence or a position of responsibility in this establishment. To remove them from your establishment, you should revoke their licences or
-      reassign their areas of responsibility.`
+      establishment's data.`
   },
   notifications: {
     changed: 'Permission level changed',

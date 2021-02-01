@@ -31,7 +31,12 @@ module.exports = settings => {
       return project.status === 'active' && project.additionalEstablishments.filter(e => e.status !== 'removed').map(est => est.id).includes(req.establishmentId);
     });
 
-    res.locals.static.isNamed = !!hasRoles || !!hasPil || !!hasProjects || !!hasAdditionalProjects;
+    Object.assign(res.locals.static, {
+      hasRoles: !!hasRoles,
+      hasPil: !!hasPil,
+      hasProjects: !!hasProjects,
+      hasAdditionalProjects: !!hasAdditionalProjects
+    });
     next();
   });
 
