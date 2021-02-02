@@ -1,6 +1,5 @@
 module.exports = {
   comments: {
-    inputType: 'textarea',
-    validate: ['required']
+    inputType: 'textarea'
   }
 };
