@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, Snippet, Form, ErrorSummary, ApplyChanges, Header } from '@asl/components';
 import { Warning, Button } from '@ukhomeoffice/react-components';
 
@@ -29,7 +29,11 @@ function PermissionsForm({ formFields, profile }) {
   );
 }
 
-const Page = ({ url, isNamed, profile }) => {
+export default function Page() {
+  const { hasProjects, hasPil, hasRoles, hasAdditionalProjects, url, profile } = useSelector(state => state.static);
+
+  const nonRemovable = hasProjects || hasPil || hasRoles || hasAdditionalProjects;
+
   return (
     <Fragment>
       <ErrorSummary />
@@ -45,11 +49,14 @@ const Page = ({ url, isNamed, profile }) => {
         <hr />
         <h2><Snippet>remove.title</Snippet></h2>
         <p>
-          {isNamed && (<Snippet>remove.nonRemovable</Snippet>)}
-          {!isNamed && (<Snippet>remove.warning</Snippet>)}
+          {
+            nonRemovable
+              ? <Snippet hasProjects={hasProjects} hasPil={hasPil} hasRoles={hasRoles} hasAdditionalProjects={hasAdditionalProjects}>remove.nonRemovable</Snippet>
+              : <Snippet>remove.warning</Snippet>
+          }
         </p>
         <ApplyChanges type="form" method="POST" action={`${url}/remove`}>
-          <button className="govuk-button" disabled={isNamed}>
+          <button className="govuk-button" disabled={nonRemovable}>
             <Snippet>buttons.remove</Snippet>
           </button>
         </ApplyChanges>
@@ -63,8 +70,4 @@ const Page = ({ url, isNamed, profile }) => {
 
     </Fragment>
   );
-};
-
-const mapStateToProps = ({ static: { url, isNamed, profile } }) => ({ url, isNamed, profile });
-
-export default connect(mapStateToProps)(Page);
+}
