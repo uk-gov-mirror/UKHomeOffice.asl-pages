@@ -67,6 +67,17 @@ section.continuedreuse .review {
   }
 }
 
+.full-application {
+  .review {
+    .grey {
+      display: block;
+      margin-top: -$govuk-gutter-half; // remove gap between question and hint
+      font-style: italic;
+      color: $dark-grey;
+    }
+  }
+}
+
 section > h2 {
   border-bottom: 1px solid $dark-grey;
   padding-bottom: $govuk-gutter / 2;
