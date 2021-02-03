@@ -18,7 +18,7 @@ export default function Purpose({ version, schemaVersion }) {
 
   return <ReviewField
     type="permissible-purpose"
-    value={version['permissible-purpose']}
+    value={schemaVersion === 0 ? version.purpose : version['permissible-purpose']}
     project={version}
     options={purposeOptions}
   />;
