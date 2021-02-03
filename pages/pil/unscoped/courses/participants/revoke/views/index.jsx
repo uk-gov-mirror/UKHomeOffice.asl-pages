@@ -8,6 +8,7 @@ const RevokePIL = ({ trainingPil, children }) => (
       title={<Snippet>title</Snippet>}
       subtitle={`${trainingPil.profile.firstName} ${trainingPil.profile.lastName}`}
     />
+    <p><Snippet name={`${trainingPil.profile.firstName} ${trainingPil.profile.lastName}`}>summary</Snippet></p>
     { children }
   </FormLayout>
 );
