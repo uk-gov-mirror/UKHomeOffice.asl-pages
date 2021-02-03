@@ -49,6 +49,7 @@ export default function CurrentVersion() {
       <p>
         <Link
           page="projectVersion.pdf"
+          query={project.granted ? null : { application: true }}
           versionId={versionId}
           label={<Snippet>{`actions.view.${labelKeyPdf}`}</Snippet>}
         />
