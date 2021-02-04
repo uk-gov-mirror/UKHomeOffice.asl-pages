@@ -10,6 +10,9 @@ module.exports = merge({}, baseContent, {
     subtitle: 'Licences will be valid for 3 months from the date of approval.'
   },
   fields: {
+    title: {
+      label: 'Course title'
+    },
     profile: {
       label: 'Name'
     },
@@ -24,8 +27,8 @@ module.exports = merge({}, baseContent, {
     }
   },
   buttons: {
-    edit: 'Edit',
-    delete: 'Delete',
+    edit: 'Edit course details',
+    delete: 'Delete course',
     apply: 'Apply for a licence'
   },
   notifications: {

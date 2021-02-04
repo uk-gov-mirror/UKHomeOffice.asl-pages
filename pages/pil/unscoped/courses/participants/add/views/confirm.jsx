@@ -24,7 +24,7 @@ export default function Confirm() {
       />
       <ModelSummary schema={participantSchema} formatters={{ ...formatters, ...localFormatters }} />
       <ModelSummary model={course} schema={pick(courseSchema, 'title', 'startDate')} formatters={formatters} />
-      <ModelSummary model={course} schema={pick(courseSchema, 'projectTitle', 'projectId', 'species')} formatters={formatters} />
+      <ModelSummary model={course} schema={pick(courseSchema, 'species', 'projectId', 'projectTitle')} formatters={formatters} />
     </FormLayout>
   );
 }
