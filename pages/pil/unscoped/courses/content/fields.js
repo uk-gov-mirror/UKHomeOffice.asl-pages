@@ -1,6 +1,6 @@
 module.exports = {
   title: {
-    label: 'Title',
+    label: 'Course title',
     hint: 'For your records'
   },
   startDate: {

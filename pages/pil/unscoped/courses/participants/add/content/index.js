@@ -8,7 +8,7 @@ module.exports = {
       label: 'Last name'
     },
     email: {
-      label: 'Email'
+      label: 'Email address'
     },
     dob: {
       label: 'Date of birth',
