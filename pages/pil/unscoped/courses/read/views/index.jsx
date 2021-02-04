@@ -80,7 +80,6 @@ export default function Page() {
         <div className="govuk-grid-column-two-thirds">
           <Header
             title={<Snippet>title</Snippet>}
-            subtitle={model.title}
           />
           <ModelSummary schema={schema} formatters={formatters} />
           {
