@@ -33,8 +33,8 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = { id: req.task.id };
-    const status = get(req, `session.form[${req.task.id}].values.status`);
-    const values = req.session.form[`${req.task.id}`].values;
+    const values = get(req, `session.form[${req.task.id}].values`, {});
+    const status = values.status;
     req.requiresDeclaration = requiresDeclaration(req.task, values);
     if (!status || status === req.task.status) {
       return res.redirect(req.buildRoute('task.read'));
