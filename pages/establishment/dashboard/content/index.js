@@ -35,5 +35,6 @@ module.exports = {
       apply: 'Apply for an establishment licence'
     }
   },
-  applicationInProgress: 'An application for this establishment licence has been sent to the Home Office.'
+  applicationInProgress: 'An application for this establishment licence has been sent to the Home Office.',
+  cjsm: 'Secure CJSM email address'
 };
