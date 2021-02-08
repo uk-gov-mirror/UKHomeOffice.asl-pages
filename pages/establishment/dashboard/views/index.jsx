@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import sortBy from 'lodash/sortBy';
 import {
   Snippet,
@@ -43,11 +43,10 @@ function DashboardLink ({ page, route, ...params }) {
   );
 }
 
-const Index = ({
-  establishment,
-  allowedActions,
-  asruAdmin
-}) => {
+export default function Index() {
+  const { establishment, allowedActions, profile } = useSelector(state => state.static);
+  const asruUser = profile.asruUser;
+  const asruAdmin = asruUser && profile.asruAdmin;
   const inspectors = sortBy(establishment.asru.filter(p => p.asruUser && p.asruInspector), 'lastName');
   const spocs = sortBy(establishment.asru.filter(p => p.asruUser && p.asruLicensing), 'lastName');
   const holcs = sortBy(establishment.holc, p => p.profile.lastName);
@@ -153,14 +152,18 @@ const Index = ({
                   <dd>{establishment.sharedKey}</dd>
                 </Fragment>
             }
+            {
+              asruUser && (
+                <Fragment>
+                  <dt><Snippet>cjsm</Snippet></dt>
+                  <dd>{establishment.cjsmEmail || 'None'}</dd>
+                  <Link page="establishment.cjsm" label="Edit" />
+                </Fragment>
+              )
+            }
           </dl>
         </Sidebar>
       </div>
     </Fragment>
-  )
-  ;
-};
-
-const mapStateToProps = ({ static: { establishment, allowedActions, profile } }) => ({ establishment, allowedActions, asruAdmin: profile.asruUser && profile.asruAdmin });
-
-export default connect(mapStateToProps)(Index);
+  );
+}
