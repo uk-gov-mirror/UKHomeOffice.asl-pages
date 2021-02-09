@@ -49,7 +49,7 @@ const Establishment = ({ establishment, content }) => {
       </ul>
 
       <section className="licence-holder">
-        <h2>Establishment licence holder(s)</h2>
+        <h2>Establishment licence holder</h2>
         {
           licenceHolders && licenceHolders.length > 0 ? (
             <p><strong>{getPeopleList(licenceHolders)}</strong></p>
@@ -59,11 +59,13 @@ const Establishment = ({ establishment, content }) => {
         }
       </section>
 
+      <section className="licence-holder">
+        <h2>Named Person Responsible for Compliance</h2>
+        <p><strong>{ getPeopleList(establishment.namedPeople.nprc) || 'None.' }</strong></p>
+      </section>
+
       <section className="named-people break">
         <h2>Named people</h2>
-
-        <h4>Named Person Responsible for Compliance</h4>
-        <p>{ getPeopleList(establishment.namedPeople.nprc) || 'None.' }</p>
 
         <h4>Named Information Officers</h4>
         <p>{ getPeopleList(establishment.namedPeople.nio) || 'None.' }</p>
