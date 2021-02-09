@@ -10,6 +10,7 @@ import Overview from './sections/overview';
 import Manage from './sections/manage';
 import History from './sections/history';
 import Downloads from './sections/downloads';
+import AdditionalAvailabilityWarning from './components/additional-availability-warning';
 
 function SectionNav({ sections, activeSection, setActiveSection }) {
   const activeTab = Object.keys(sections).indexOf(activeSection);
@@ -124,6 +125,7 @@ export default function ProjectLandingPage() {
       />
 
       <SectionNav sections={sections} activeSection={activeSection} setActiveSection={setActiveSection} />
+      <AdditionalAvailabilityWarning />
 
       { activeSection === 'overview' && sections.overview && <Overview /> }
       { activeSection === 'manage' && sections.manage && <Manage /> }

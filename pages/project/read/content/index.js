@@ -182,6 +182,7 @@ module.exports = merge({}, baseContent, {
   },
   warnings: {
     raRequired: `**A retrospective assessment of this project's outcomes is due by {{date}}**`,
-    link: 'Fill in assessment'
+    link: 'Fill in assessment',
+    aa: 'Some features only available to the primary establishment have been hidden.'
   }
 });
