@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import isEqual from 'lodash/isEqual';
-import { Snippet, Inset } from '@asl/components';
+import { Snippet, Inset, Markdown } from '@asl/components';
 import TrainingPil from '../../unscoped/courses/participants/read/views/training-pil';
 
 const Item = ({
@@ -70,9 +70,15 @@ export default function ProceduresDiff({
                     </Inset>
                 }
                 {
-                  procedure.key === 'E' && (
-                    <TrainingPil trainingPil={procedure} />
-                  )
+                  procedure.key === 'E' && <Fragment>
+                    {
+                      // some cat E pils are converted cat F
+                      // these don't have any training course data but will have a note
+                      procedure.trainingCourse
+                        ? <TrainingPil trainingPil={procedure} />
+                        : <Inset><Markdown>{ afterPil.notesCatF }</Markdown></Inset>
+                    }
+                  </Fragment>
                 }
               </li>
             )
