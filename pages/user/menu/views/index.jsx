@@ -28,7 +28,7 @@ export default function Index() {
               <li>
                 <Link page="ownTraining" label={ <Snippet>links.manageTraining</Snippet> } />
               </li>
-              <li className="pre-release">
+              <li>
                 <Link page="account.emailPreferences" label={ <Snippet>links.emailPreferences</Snippet> } />
               </li>
             </Fragment>
