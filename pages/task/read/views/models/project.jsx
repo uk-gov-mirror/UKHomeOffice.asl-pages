@@ -96,8 +96,8 @@ export default function Project({ task }) {
             <Link
               page="profile.read"
               establishmentId={establishment.id}
-              profileId={project.licenceHolder.id}
-              label={`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}
+              profileId={version.licenceHolder.id}
+              label={`${version.licenceHolder.firstName} ${version.licenceHolder.lastName}`}
             />
           </p>
         </StickyNavAnchor>
