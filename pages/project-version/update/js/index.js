@@ -39,7 +39,8 @@ start({
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
     raCompulsory: state.model.raCompulsory,
-    training: state.static.training
+    training: state.static.training,
+    versionHolder: state.static.versionHolder
   },
   static: { urls: state.static.urls }
 });

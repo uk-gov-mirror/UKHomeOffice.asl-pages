@@ -34,7 +34,8 @@ module.exports = settings => {
         readonly: true,
         showConditions: !isFullApplication,
         isFullApplication: isFullApplication && req.project.schemaVersion > 0,
-        raCompulsory: req.version.raCompulsory
+        raCompulsory: req.version.raCompulsory,
+        versionHolder: req.version.licenceHolder
       },
       static: {
         content,
