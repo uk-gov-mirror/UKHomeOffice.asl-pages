@@ -50,7 +50,7 @@ module.exports = settings => {
     res.locals.static.project = req.project;
     res.locals.static.version = req.version.id;
 
-    res.locals.static.versionHolder = req.version.licenceHolder;
+    res.locals.static.licenceHolder = req.version.licenceHolder;
 
     // granted legacy PPLs are displayed in "read-only" mode
     // there is no "granted view" of legacy licences

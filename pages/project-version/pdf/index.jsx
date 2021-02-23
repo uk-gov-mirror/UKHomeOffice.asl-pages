@@ -35,7 +35,7 @@ module.exports = settings => {
         showConditions: !isFullApplication,
         isFullApplication: isFullApplication && req.project.schemaVersion > 0,
         raCompulsory: req.version.raCompulsory,
-        versionHolder: req.version.licenceHolder
+        licenceHolder: req.version.licenceHolder
       },
       static: {
         content,
