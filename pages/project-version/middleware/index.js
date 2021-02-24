@@ -130,6 +130,10 @@ const getNode = (tree, path) => {
   return node;
 };
 
+const canViewVersion = user => version => {
+  return !user.profile.asruUser || version.status !== 'draft';
+};
+
 const getFirstVersion = (req, type = 'project-versions') => {
   if (!req.project) {
     return Promise.resolve();
@@ -150,7 +154,8 @@ const getFirstVersion = (req, type = 'project-versions') => {
     }
   }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
-  const first = sortBy(req.project[key], 'createdAt')[0];
+  const versions = req.project[key].filter(canViewVersion(req.user));
+  const first = sortBy(versions, 'createdAt')[0];
   return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${first.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer version
     // eslint-disable-next-line handle-callback-err
@@ -173,7 +178,7 @@ const getPreviousVersion = (req, type = 'project-versions') => {
       return true;
     })
     // previous version could be granted or submitted
-    .filter(version => version.status === 'submitted' || version.status === 'granted')
+    .filter(canViewVersion(req.user))
     .find(version => version.createdAt < req[model].createdAt);
 
   if (!previous) {
