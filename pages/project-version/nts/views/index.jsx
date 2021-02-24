@@ -91,7 +91,7 @@ export default function NTS() {
           <dd>{title}</dd>
 
           <dt>Licence holder</dt>
-          <dd>{`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}</dd>
+          <dd>{`${version.licenceHolder.firstName} ${version.licenceHolder.lastName}`}</dd>
 
           <dt>Licence number</dt>
           <dd>{project.licenceNumber}</dd>
