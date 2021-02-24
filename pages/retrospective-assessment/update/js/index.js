@@ -30,7 +30,8 @@ start({
     grantedVersion: state.static.grantedVersion,
     newApplication: state.static.newApplication,
     sidebarLinks: state.static.sidebarLinks,
-    schemaVersion: 'RA'
+    schemaVersion: 'RA',
+    licenceHolder: state.static.project.licenceHolder
   },
   static: { urls: state.static.urls }
 });
