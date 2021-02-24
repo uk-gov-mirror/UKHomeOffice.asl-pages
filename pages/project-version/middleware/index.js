@@ -138,23 +138,16 @@ const getFirstVersion = (req, type = 'project-versions') => {
   if (!req.project) {
     return Promise.resolve();
   }
-  if (type === 'project-versions') {
-    // first version is only used during application process
-    if (req.project && req.project.granted) {
-      return Promise.resolve();
-    }
-    // if there are only one or two versions then the first version will be the same as current or previous
-    if (req.project.versions.length < 3) {
-      return Promise.resolve();
-    }
-  } else {
-    // if there are only one or two ra versions then the first version will be the same as current or previous
-    if (req.project.retrospectiveAssessments.length < 3) {
-      return Promise.resolve();
-    }
+  // no first submission for granted projects
+  if (type === 'project-versions' && req.project.granted) {
+    return Promise.resolve();
   }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
   const versions = req.project[key].filter(canViewVersion(req.user));
+  // if there are only one or two versions then the first version will be the same as current or previous
+  if (versions.length < 3) {
+    return Promise.resolve();
+  }
   const first = sortBy(versions, 'createdAt')[0];
   return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${first.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer version
