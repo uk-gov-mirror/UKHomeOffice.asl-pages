@@ -28,7 +28,7 @@ module.exports = settings => {
     res.locals.static.basename = req.fullApplication ? req.buildRoute('projectVersion.fullApplication') : req.buildRoute('projectVersion');
     res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
-    res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.version') === req.versionId;
+    res.locals.static.isActionable = get(task, 'data.data.version') === req.versionId;
     res.locals.static.user = req.user.profile;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && req.user.profile.asruUser && res.locals.static.isCommentable;
