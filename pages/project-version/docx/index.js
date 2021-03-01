@@ -43,6 +43,7 @@ module.exports = () => {
 
     const application = {
       ...req.project,
+      licenceHolder: req.version.licenceHolder,
       establishment: req.project.establishment,
       establishments: [
         pick(req.project.establishment, 'id', 'name')

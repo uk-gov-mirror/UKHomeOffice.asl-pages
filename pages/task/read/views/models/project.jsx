@@ -54,6 +54,7 @@ export default function Project({ task }) {
   const { project, establishment, version, values, isAsru, ra } = useSelector(selector, shallowEqual);
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
+  const licenceHolder = version ? version.licenceHolder : project.licenceHolder;
 
   const proposedAdditionalEstablishments = get(version, 'data.establishments', []).filter(e => e['establishment-id']);
 
@@ -96,8 +97,8 @@ export default function Project({ task }) {
             <Link
               page="profile.read"
               establishmentId={establishment.id}
-              profileId={project.licenceHolder.id}
-              label={`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}
+              profileId={licenceHolder.id}
+              label={`${licenceHolder.firstName} ${licenceHolder.lastName}`}
             />
           </p>
         </StickyNavAnchor>

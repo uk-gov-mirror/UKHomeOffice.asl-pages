@@ -34,12 +34,13 @@ start({
     canTransferDraft: state.static.canTransferDraft,
     transferInProgress: state.static.transferInProgress,
     establishments: state.static.user.asruUser
-      ? state.static.project.licenceHolder.establishments
+      ? state.model.licenceHolder.establishments
       : state.static.user.establishments.map(e => ({ id: e.id, name: e.name })),
     showConditions: state.static.showConditions,
     editConditions: state.static.editConditions,
     raCompulsory: state.model.raCompulsory,
-    training: state.static.training
+    training: state.static.training,
+    licenceHolder: state.model.licenceHolder
   },
   static: { urls: state.static.urls }
 });
