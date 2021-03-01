@@ -40,7 +40,7 @@ start({
     editConditions: state.static.editConditions,
     raCompulsory: state.model.raCompulsory,
     training: state.static.training,
-    licenceHolder: state.static.licenceHolder
+    licenceHolder: state.model.licenceHolder
   },
   static: { urls: state.static.urls }
 });

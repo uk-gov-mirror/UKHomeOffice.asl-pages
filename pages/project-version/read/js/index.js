@@ -37,7 +37,7 @@ start({
     previousProtocols: state.static.previousProtocols,
     establishments: state.static.establishments || [],
     raCompulsory: state.model.raCompulsory,
-    licenceHolder: state.static.licenceHolder
+    licenceHolder: state.model.licenceHolder
   },
   static: { urls: state.static.urls }
 });

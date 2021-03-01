@@ -70,7 +70,6 @@ module.exports = settings => {
     res.locals.static.newApplication = !isAmendment && (!previousVersion || previousVersion.status === 'withdrawn');
     res.locals.model = req.version;
     res.locals.static.version = req.version;
-    res.locals.static.licenceHolder = req.version.licenceHolder;
     next();
   });
 
