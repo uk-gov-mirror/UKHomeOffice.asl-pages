@@ -19,6 +19,9 @@ module.exports = (task, chosenStatus) => {
     if (action === 'grant-ra') {
       return false;
     }
+    if (chosenStatus === 'returned-to-applicant') {
+      return false;
+    }
     return model === 'project' && status === 'awaiting-endorsement' && !wasAwerbed;
   };
 
