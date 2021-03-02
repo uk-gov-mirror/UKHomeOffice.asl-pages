@@ -12,6 +12,8 @@ const getVersion = () => (req, res, next) => {
         openTasks: meta.openTasks,
         ...req.project
       };
+      req.project.versions = req.project.versions.filter(canViewVersion(req.user));
+      req.project.retrospectiveAssessments = req.project.retrospectiveAssessments.filter(canViewVersion(req.user));
       req.version = data;
     })
     .then(() => next())
@@ -143,7 +145,7 @@ const getFirstVersion = (req, type = 'project-versions') => {
     return Promise.resolve();
   }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
-  const versions = req.project[key].filter(canViewVersion(req.user));
+  const versions = req.project[key];
   // if there are only one or two versions then the first version will be the same as current or previous
   if (versions.length < 3) {
     return Promise.resolve();
@@ -161,17 +163,9 @@ const getPreviousVersion = (req, type = 'project-versions') => {
   }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
   const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
+  const granted = req.project[key].find(v => v.status === 'granted');
   const previous = req.project[key]
-    // only get versions/ras created after last granted, if granted
-    .filter(version => {
-      const granted = req.project[key].find(v => v.status === 'granted');
-      if (granted) {
-        return version.createdAt >= granted.createdAt;
-      }
-      return true;
-    })
-    // previous version could be granted or submitted
-    .filter(canViewVersion(req.user))
+    .filter(version => granted ? version.createdAt >= granted.createdAt : true)
     .find(version => version.createdAt < req[model].createdAt);
 
   if (!previous) {
@@ -280,6 +274,7 @@ const getChangedValues = (question, req, type = 'project-versions') => {
     granted: getGrantedVersion,
     first: getFirstVersion
   };
+
   return Promise.resolve()
     .then(() => getVersion[req.query.version](req, type))
     .then(async (result) => {
