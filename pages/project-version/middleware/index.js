@@ -12,6 +12,8 @@ const getVersion = () => (req, res, next) => {
         openTasks: meta.openTasks,
         ...req.project
       };
+      req.project.versions = req.project.versions.filter(canViewVersion(req.user));
+      req.project.retrospectiveAssessments = req.project.retrospectiveAssessments.filter(canViewVersion(req.user));
       req.version = data;
     })
     .then(() => next())
@@ -130,27 +132,25 @@ const getNode = (tree, path) => {
   return node;
 };
 
+const canViewVersion = user => version => {
+  return !user.profile.asruUser || version.status !== 'draft';
+};
+
 const getFirstVersion = (req, type = 'project-versions') => {
   if (!req.project) {
     return Promise.resolve();
   }
-  if (type === 'project-versions') {
-    // first version is only used during application process
-    if (req.project && req.project.granted) {
-      return Promise.resolve();
-    }
-    // if there are only one or two versions then the first version will be the same as current or previous
-    if (req.project.versions.length < 3) {
-      return Promise.resolve();
-    }
-  } else {
-    // if there are only one or two ra versions then the first version will be the same as current or previous
-    if (req.project.retrospectiveAssessments.length < 3) {
-      return Promise.resolve();
-    }
+  // no first submission for granted projects
+  if (type === 'project-versions' && req.project.granted) {
+    return Promise.resolve();
   }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
-  const first = sortBy(req.project[key], 'createdAt')[0];
+  const versions = req.project[key];
+  // if there are only one or two versions then the first version will be the same as current or previous
+  if (versions.length < 3) {
+    return Promise.resolve();
+  }
+  const first = sortBy(versions, 'createdAt')[0];
   return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${first.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer version
     // eslint-disable-next-line handle-callback-err
@@ -163,17 +163,9 @@ const getPreviousVersion = (req, type = 'project-versions') => {
   }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
   const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
+  const granted = req.project[key].find(v => v.status === 'granted');
   const previous = req.project[key]
-    // only get versions/ras created after last granted, if granted
-    .filter(version => {
-      const granted = req.project[key].find(v => v.status === 'granted');
-      if (granted) {
-        return version.createdAt >= granted.createdAt;
-      }
-      return true;
-    })
-    // previous version could be granted or submitted
-    .filter(version => version.status === 'submitted' || version.status === 'granted')
+    .filter(version => granted ? version.createdAt >= granted.createdAt : true)
     .find(version => version.createdAt < req[model].createdAt);
 
   if (!previous) {
@@ -282,6 +274,7 @@ const getChangedValues = (question, req, type = 'project-versions') => {
     granted: getGrantedVersion,
     first: getFirstVersion
   };
+
   return Promise.resolve()
     .then(() => getVersion[req.query.version](req, type))
     .then(async (result) => {
