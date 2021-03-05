@@ -31,7 +31,8 @@ start({
     newApplication: state.static.newApplication,
     sidebarLinks: state.static.sidebarLinks,
     schemaVersion: 'RA',
-    licenceHolder: state.static.project.licenceHolder
+    licenceHolder: state.static.project.licenceHolder,
+    reasons: state.model.reasons
   },
   static: { urls: state.static.urls }
 });
