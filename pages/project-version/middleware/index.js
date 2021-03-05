@@ -28,7 +28,7 @@ const getComments = (action = 'grant') => (req, res, next) => {
     // the application task for AA projects won't be visible so don't try to load it
     return next();
   }
-  const task = get(req.project, 'openTasks', []).find(task => task.data.action === action);
+  const task = get(req.project, 'openTasks', []).find(task => get(task, 'data.action') === action);
   if (!task) {
     return next();
   }
