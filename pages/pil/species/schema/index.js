@@ -1,10 +1,7 @@
-const { toArray } = require('../../../../lib/utils');
-
 module.exports = {
   species: {
     inputType: 'speciesSelector',
-    format: toArray,
-    nullValue: [],
+    format: JSON.parse,
     validate: [
       'required'
     ]

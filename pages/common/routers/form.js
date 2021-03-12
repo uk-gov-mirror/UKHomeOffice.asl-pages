@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const { generateSecret, checkSecret } = require('../../../lib/middleware/csrf');
 const {
   mapValues,
+  mapKeys,
   map,
   size,
   get,
@@ -31,21 +32,32 @@ if (process.env.CSRF === 'false') {
 }
 
 const getOptionReveals = (schema, values) => {
+  function getValue(valueKey, key) {
+    const value = values[valueKey];
+    const opts = schema[key];
+    return opts.format ? opts.format(value) : value;
+  }
+
   return Object.keys(schema).reduce((obj, key) => {
     const field = schema[key];
     if (!field.options) {
       return obj;
     }
+    const valueKey = field.prefix ? `${field.prefix}-${key}` : key;
     const selectedOptions = field.options.filter(opt => {
       if (!values) {
         return true;
       }
-      return castArray(values[key]).includes(opt.value);
+      const value = typeof opt === 'string' ? opt : opt.value;
+      return castArray(getValue(valueKey, key)).includes(value);
     });
     return selectedOptions.reduce((o, opt) => {
       return {
         ...o,
-        ...(opt.reveal || {})
+        ...mapKeys((opt.reveal || {}), (v, k) => {
+          return v.prefix ? `${v.prefix}-${k}` : k;
+        }),
+        ...getOptionReveals(opt.reveal || {}, values)
       };
     }, obj);
   }, {});

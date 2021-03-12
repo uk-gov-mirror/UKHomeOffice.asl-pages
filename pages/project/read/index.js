@@ -92,6 +92,15 @@ module.exports = settings => {
       .catch(next);
   });
 
+  app.post('/rops', (req, res, next) => {
+    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops`, { method: 'POST' })
+      .then(response => {
+        req.ropId = get(response, 'json.data.data.data.ropId');
+        res.redirect(req.buildRoute('rops.guidance'));
+      })
+      .catch(next);
+  });
+
   app.post('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
       .then(response => {

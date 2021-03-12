@@ -10,6 +10,7 @@ import Overview from './sections/overview';
 import Manage from './sections/manage';
 import History from './sections/history';
 import Downloads from './sections/downloads';
+import Reporting from './sections/reporting';
 import AdditionalAvailabilityWarning from './components/additional-availability-warning';
 
 function SectionNav({ sections, activeSection, setActiveSection }) {
@@ -62,6 +63,7 @@ export default function ProjectLandingPage() {
   const sections = {
     overview: <Snippet>{`${snippetPath}.overview`}</Snippet>,
     manage: <Snippet>{`${snippetPath}.manage`}</Snippet>,
+    reporting: <Snippet>{`${snippetPath}.reporting`}</Snippet>,
     history: <Snippet>{`${snippetPath}.history`}</Snippet>,
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
@@ -70,6 +72,10 @@ export default function ProjectLandingPage() {
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
+  }
+
+  if (project.status === 'inactive') {
+    delete sections.reporting;
   }
 
   if (project.isLegacyStub) {
@@ -129,6 +135,7 @@ export default function ProjectLandingPage() {
 
       { activeSection === 'overview' && sections.overview && <Overview /> }
       { activeSection === 'manage' && sections.manage && <Manage /> }
+      { activeSection === 'reporting' && sections.reporting && <Reporting /> }
       { activeSection === 'history' && sections.history && <History /> }
       { activeSection === 'downloads' && sections.downloads && <Downloads /> }
     </div>
