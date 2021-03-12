@@ -122,7 +122,7 @@ const Establishment = ({ establishment, content }) => {
               {
                 !!rehomes.length &&
                   <Fragment>
-                    <h3 className="rehomes">Setting free and rehoming of protected animals bred, kept or supplied but not used in regulated procedures</h3>
+                    <h3 className="rehomes">Setting free and rehoming of protected animals</h3>
                     {
                       rehomes.map(({ method, description }, i) => (
                         <div className="purple-inset" key={i}>

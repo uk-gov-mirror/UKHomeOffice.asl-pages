@@ -28,7 +28,7 @@ module.exports = {
       label: 'Authorisations',
       options: {
         killing: 'Methods of killing not specified in Schedule 1',
-        rehomes: 'Setting free and rehoming of protected animals bred, kept or supplied but not used in regulated procedures'
+        rehomes: 'Setting free and rehoming of protected animals'
       }
     },
     conditions: {
