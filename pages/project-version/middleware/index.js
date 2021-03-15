@@ -4,6 +4,11 @@ const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose, mapAnimalQuantities } = require('@asl/projects/client/helpers');
 const diff = require('./diff');
 
+// eslint-disable-next-line no-control-regex
+const invisibleWhitespace = /[\u0000-\u0008\u000B-\u0019\u001b\u009b\u00ad\u200b\u2028\u2029\ufeff\ufe00-\ufe0f]/g;
+
+const normaliseWhitespace = str => str.replace(invisibleWhitespace, '');
+
 const getVersion = () => (req, res, next) => {
   req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/project-versions/${req.versionId}`)
     .then(({ json: { data, meta } }) => {
@@ -241,7 +246,14 @@ const hasChanged = (before, after) => {
       before = JSON.parse(before);
     } catch (e) {}
   }
-  return !isEqual(before, after);
+  const valueChanged = !isEqual(before, after);
+
+  // check for whitespace normalisation in RTE values
+  if (valueChanged && typeof before === 'object' && typeof after === 'object') {
+    return normaliseWhitespace(JSON.stringify(before)) !== normaliseWhitespace(JSON.stringify(after));
+  }
+
+  return valueChanged;
 };
 
 const getAllChanges = (type = 'project-versions') => (req, res, next) => {
