@@ -1,13 +1,4 @@
-const namedRoles = require('../../content/named-roles');
-
 module.exports = roles => {
-  const options = roles.map(role => {
-    return {
-      value: role,
-      label: namedRoles[role]
-    };
-  });
-
   return {
     type: {
       inputType: 'radioGroup',
@@ -17,7 +8,7 @@ module.exports = roles => {
           definedValues: roles
         }
       ],
-      options,
+      options: roles,
       nullValue: []
     },
     comment: {

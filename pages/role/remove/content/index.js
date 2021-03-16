@@ -1,5 +1,6 @@
 const { merge } = require('lodash');
 const baseContent = require('../../../profile/content');
+const namedRoles = require('../../content/named-roles');
 
 module.exports = merge({}, baseContent, {
   title: 'Remove role',
@@ -13,7 +14,8 @@ module.exports = merge({}, baseContent, {
   },
   fields: {
     type: {
-      label: 'Confirm the role you want to remove'
+      label: 'Confirm the role you want to remove',
+      options: namedRoles
     },
     comment: {
       label: 'Why are you removing this role?'
