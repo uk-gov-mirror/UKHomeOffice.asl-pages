@@ -3,8 +3,10 @@
 @import '@asl/components';
 @import 'images';
 
+$hint-colour: #696F73;
+
 .govuk-hint {
-  color: #696F73;
+  color: $hint-colour;
 }
 
 .block {
@@ -62,6 +64,26 @@ dl.continuation {
 
 .subtitle {
   font-size: 1.1em;
+}
+
+.product-testing-hint {
+  color: $govuk-text-colour;
+  padding-left: 1em;
+
+  .govuk-hint {
+    color: $hint-colour;
+  }
+}
+
+.rop-summary {
+  dl.inline {
+    dt {
+      max-width: 45%;
+    }
+    dd {
+      margin-left: 50%;
+    }
+  }
 }
 
 .margin-top {

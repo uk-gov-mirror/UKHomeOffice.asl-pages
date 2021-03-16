@@ -12,5 +12,6 @@ module.exports = {
   unscopedPils: require('./pil/unscoped'),
   task: require('./task'),
   training: require('./training'),
-  user: require('./user')
+  user: require('./user'),
+  rops: require('./rops')
 };

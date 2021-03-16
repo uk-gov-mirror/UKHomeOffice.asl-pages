@@ -13,6 +13,7 @@ const schema = {
     inputType: 'checkboxGroup',
     options: moduleCodes,
     format: toArray,
+    preventOptionMapping: true,
     validate: [
       'required',
       { definedValues: moduleCodes }

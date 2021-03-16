@@ -79,6 +79,9 @@ module.exports = {
       convert: 'Convert legacy licence',
       nts: 'Non-technical summary'
     },
+    rops: {
+      update: 'Return of procedures'
+    },
     account: {
       menu: 'Your account',
       update: 'Edit your details',
@@ -191,6 +194,10 @@ module.exports = {
     },
     declaration: {
       required: 'Please confirm that you understand.'
+    },
+    default: {
+      maxLength: 'This field is limited to 256 characters',
+      required: 'This field is required'
     }
   },
   countdown: {

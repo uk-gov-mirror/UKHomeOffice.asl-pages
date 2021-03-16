@@ -1,5 +1,3 @@
-const { toArray } = require('../../../../../lib/utils');
-
 module.exports = {
   projectTitle: {
     accessor: 'project.title'
@@ -22,9 +20,7 @@ module.exports = {
   },
   species: {
     inputType: 'speciesSelector',
-    formatNullValue: true,
-    format: toArray,
-    nullValue: [],
+    format: JSON.parse,
     validate: [
       'required'
     ]

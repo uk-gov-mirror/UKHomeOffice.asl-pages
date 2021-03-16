@@ -2,9 +2,9 @@ import moment from 'moment';
 import sinon from 'sinon';
 import validators from '../../../lib/validation/validators';
 
-const doTest = (value, params, type, expected) => {
+const doTest = (fieldName, value, params, type, expected) => {
   test(`testing '${value}' against ${params}`, () => {
-    expect(validators[type](value, params)).toBe(expected);
+    expect(validators[type](null, value, params)).toBe(expected);
   });
 };
 
@@ -25,7 +25,7 @@ describe('validation', () => {
         'object'
       ];
 
-      values.forEach((value, index) => doTest(value, params[index], 'type', true));
+      values.forEach((value, index) => doTest(null, value, params[index], 'type', true));
     });
 
     describe('invalid', () => {
@@ -43,7 +43,7 @@ describe('validation', () => {
         'object'
       ];
 
-      values.forEach((value, index) => doTest(value, params[index], 'type', false));
+      values.forEach((value, index) => doTest(null, value, params[index], 'type', false));
     });
   });
 
@@ -59,7 +59,7 @@ describe('validation', () => {
         5,
         256
       ];
-      values.forEach((value, index) => doTest(value, params[index], 'maxLength', true));
+      values.forEach((value, index) => doTest(null, value, params[index], 'maxLength', true));
     });
 
     describe('invalid', () => {
@@ -73,7 +73,7 @@ describe('validation', () => {
         2,
         256
       ];
-      values.forEach((value, index) => doTest(value, validators[index], 'maxLength', false));
+      values.forEach((value, index) => doTest(null, value, validators[index], 'maxLength', false));
     });
   });
 
@@ -89,7 +89,7 @@ describe('validation', () => {
         /\d/,
         /\/test$/
       ];
-      values.forEach((value, index) => doTest(value, params[index], 'match', true));
+      values.forEach((value, index) => doTest(null, value, params[index], 'match', true));
     });
 
     describe('invalid', () => {
@@ -103,7 +103,7 @@ describe('validation', () => {
         /\d/,
         /A string/
       ];
-      values.forEach((value, index) => doTest(value, validators[index], 'match', false));
+      values.forEach((value, index) => doTest(null, value, validators[index], 'match', false));
     });
   });
 
@@ -117,7 +117,7 @@ describe('validation', () => {
         ['A string', 'something'],
         ['a', 'b', 'something', 'c']
       ];
-      values.forEach((value, index) => doTest(value, validators[index], 'definedValues', true));
+      values.forEach((value, index) => doTest(null, value, validators[index], 'definedValues', true));
     });
 
     describe('invalid', () => {
@@ -129,7 +129,7 @@ describe('validation', () => {
         ['A string', 'Something'],
         ['a', 'something', 'b', 'c']
       ];
-      values.forEach((value, index) => doTest(value, validators[index], 'definedValues', false));
+      values.forEach((value, index) => doTest(null, value, validators[index], 'definedValues', false));
     });
   });
 
@@ -140,7 +140,7 @@ describe('validation', () => {
         false,
         'string'
       ];
-      values.forEach(value => doTest(value, true, 'required', true));
+      values.forEach(value => doTest(null, value, true, 'required', true));
     });
 
     describe('invalid', () => {
@@ -149,7 +149,7 @@ describe('validation', () => {
         null,
         undefined
       ];
-      values.forEach(value => doTest(value, true, 'required', false));
+      values.forEach(value => doTest(null, value, true, 'required', false));
     });
   });
 
@@ -179,12 +179,12 @@ describe('validation', () => {
           '2020-01-01'
         ];
         describe('before', () => {
-          before.forEach(value => doTest(value, '2019-01-02', 'dateIsBefore', true));
-          before.forEach(value => doTest(value, '2019-01-02', 'dateIsAfter', false));
+          before.forEach(value => doTest(null, value, '2019-01-02', 'dateIsBefore', true));
+          before.forEach(value => doTest(null, value, '2019-01-02', 'dateIsAfter', false));
         });
         describe('after', () => {
-          after.forEach(value => doTest(value, '2019-01-02', 'dateIsBefore', false));
-          after.forEach(value => doTest(value, '2019-01-02', 'dateIsAfter', true));
+          after.forEach(value => doTest(null, value, '2019-01-02', 'dateIsBefore', false));
+          after.forEach(value => doTest(null, value, '2019-01-02', 'dateIsAfter', true));
         });
       });
 
@@ -197,12 +197,12 @@ describe('validation', () => {
           '2020-01-16'
         ];
         describe('before', () => {
-          before.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsBefore', true));
-          before.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsAfter', false));
+          before.forEach(value => doTest(null, value, () => moment().subtract(5, 'days'), 'dateIsBefore', true));
+          before.forEach(value => doTest(null, value, () => moment().subtract(5, 'days'), 'dateIsAfter', false));
         });
         describe('after', () => {
-          after.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsBefore', false));
-          after.forEach(value => doTest(value, () => moment().subtract(5, 'days'), 'dateIsAfter', true));
+          after.forEach(value => doTest(null, value, () => moment().subtract(5, 'days'), 'dateIsBefore', false));
+          after.forEach(value => doTest(null, value, () => moment().subtract(5, 'days'), 'dateIsAfter', true));
         });
       });
 
@@ -215,12 +215,12 @@ describe('validation', () => {
           '2020-01-21'
         ];
         describe('before', () => {
-          before.forEach(value => doTest(value, 'now', 'dateIsBefore', true));
-          before.forEach(value => doTest(value, 'now', 'dateIsAfter', false));
+          before.forEach(value => doTest(null, value, 'now', 'dateIsBefore', true));
+          before.forEach(value => doTest(null, value, 'now', 'dateIsAfter', false));
         });
         describe('after', () => {
-          after.forEach(value => doTest(value, 'now', 'dateIsBefore', false));
-          after.forEach(value => doTest(value, 'now', 'dateIsAfter', true));
+          after.forEach(value => doTest(null, value, 'now', 'dateIsBefore', false));
+          after.forEach(value => doTest(null, value, 'now', 'dateIsAfter', true));
         });
       });
 

@@ -14,6 +14,7 @@ module.exports = merge({}, baseContent, {
       overview: 'Project overview',
       manage: 'Manage licence',
       history: 'History',
+      reporting: 'Reporting',
       downloads: 'Downloads'
     },
     application: {
@@ -184,5 +185,13 @@ module.exports = merge({}, baseContent, {
     raRequired: `**A retrospective assessment of this project's outcomes is due by {{date}}**`,
     link: 'Fill in assessment',
     aa: 'Some features only available to the primary establishment have been hidden.'
+  },
+  rops: {
+    title: 'Return of procedures',
+    content: 'Complete this project’s return of procedures for {{year}}.',
+    submitted: 'A return of procedures has been submitted for {{year}}.',
+    deadline: '**Deadline for submission:** {{deadline}}',
+    action: 'Fill in return',
+    read: 'View submitted return'
   }
 });
