@@ -108,7 +108,6 @@ function Actions({ model }) {
 export default function Procedures() {
   const { project, rop } = useSelector(state => state.static);
   const editable = rop.status === 'draft';
-  console.log({ editable });
   return (
     <Fragment>
       <DocumentHeader
