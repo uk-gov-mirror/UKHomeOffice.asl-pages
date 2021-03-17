@@ -1,9 +1,11 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Snippet, Header, FormLayout } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
-const Submit = ({ model, canEndorse }) => {
+export default function Submit() {
+  const model = useSelector(state => state.model);
+  const { canEndorse } = useSelector(state => state.static);
   const isApplication = model.type === 'application';
 
   const declaration = (
@@ -26,8 +28,4 @@ const Submit = ({ model, canEndorse }) => {
       )}
     </FormLayout>
   );
-};
-
-const mapStateToProps = ({ model, static: { canEndorse } }) => ({ model, canEndorse });
-
-export default connect(mapStateToProps)(Submit);
+}
