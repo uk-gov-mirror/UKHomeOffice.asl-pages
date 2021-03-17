@@ -59,23 +59,6 @@ const getAwerbQuestion = isAmendment => {
   return awerbQuestion;
 };
 
-const readyQuestion = {
-  inputType: 'radioGroup',
-  inline: true,
-  className: 'smaller',
-  options: [
-    {
-      value: 'Yes',
-      label: 'Yes'
-    },
-    {
-      value: 'No',
-      label: 'No'
-    }
-  ],
-  validate: ['required']
-};
-
 const getSchema = (isAmendment, isAsru, includeReady, includeAwerb) => {
   let schema = {
     comments: {
@@ -92,6 +75,24 @@ const getSchema = (isAmendment, isAsru, includeReady, includeAwerb) => {
   }
 
   if (includeReady) {
+
+    const readyQuestion = {
+      inputType: 'radioGroup',
+      inline: true,
+      className: 'smaller',
+      options: [
+        {
+          value: 'Yes',
+          label: 'Yes'
+        },
+        {
+          value: 'No',
+          label: 'No'
+        }
+      ],
+      validate: ['required']
+    };
+
     schema = {
       ready: readyQuestion,
       ...schema
