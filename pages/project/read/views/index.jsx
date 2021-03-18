@@ -52,7 +52,7 @@ function hasPreviousVersions() {
 
 export default function ProjectLandingPage() {
   const project = useSelector(state => state.model);
-  const { openRaTask, url, asruLicensing } = useSelector(state => state.static);
+  const { openRaTask, url } = useSelector(state => state.static);
   const snippetPath = `tabs.${project.granted ? 'granted' : 'application'}`;
 
   const isInactive = project.status === 'expired' || project.status === 'revoked';
@@ -68,13 +68,13 @@ export default function ProjectLandingPage() {
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const { additionalAvailability, showManageSection } = useSelector(state => state.static);
+  const { additionalAvailability, showManageSection, canUpdate } = useSelector(state => state.static);
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
   }
 
-  if (project.status === 'inactive' || !asruLicensing) {
+  if (project.status === 'inactive' && canUpdate) {
     delete sections.reporting;
   }
 
