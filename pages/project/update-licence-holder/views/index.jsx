@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
+import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Form,
   ErrorSummary,
@@ -17,8 +17,9 @@ const commentsSchema = {
   }
 };
 
-const FormBody = ({ fields, values, formFields, setValue, submit, project }) => (
-  <Fragment>
+const FormBody = ({ fields, model, formFields, submit, project }) => {
+  const [ values, setValues ] = useState(model);
+  return <Fragment>
     <WidthContainer>
       <dl>
         <dt>Current PPL holder</dt>
@@ -31,7 +32,7 @@ const FormBody = ({ fields, values, formFields, setValue, submit, project }) => 
       values={values}
       altLabels={true}
       noComments={true}
-      onFieldChange={setValue}
+      onFieldChange={(key, value) => setValues({ ...values, [key]: value })}
     />
     {
       Object.keys(values).filter(key => !['licenceHolderId', 'experience-projects', 'comments'].includes(key)).map(key => (
@@ -44,50 +45,26 @@ const FormBody = ({ fields, values, formFields, setValue, submit, project }) => 
     <Button>
       <Snippet>buttons.submit</Snippet>
     </Button>
-  </Fragment>
-);
+  </Fragment>;
+};
 
-class UpdateLicenceHolder extends Component {
-  constructor(options) {
-    super(options);
-    this.state = {
-      values: this.props.model
-    };
-    this.setValue = this.setValue.bind(this);
-  }
+const UpdateLicenceHolder = () => {
+  const model = useSelector(state => state.model);
+  const { fields, project } = useSelector(state => state.static);
+  return <Fragment>
+    <ErrorSummary />
+    <Header
+      title={<Snippet>title</Snippet>}
+      subtitle={project.title || 'Untitled project'}
+    />
+    <Form detachFields submit={false}>
+      <FormBody
+        project={project}
+        fields={fields}
+        model={model}
+      />
+    </Form>
+  </Fragment>;
+};
 
-  setValue(key, value) {
-    this.setState({
-      values: {
-        ...this.state.values,
-        [key]: value
-      }
-    });
-  }
-
-  render() {
-    const { values } = this.state;
-    const { fields, project } = this.props;
-    return (
-      <Fragment>
-        <ErrorSummary />
-        <Header
-          title={<Snippet>title</Snippet>}
-          subtitle={project.title || 'Untitled project'}
-        />
-        <Form detachFields submit={false}>
-          <FormBody
-            project={project}
-            fields={fields}
-            values={values}
-            setValue={this.setValue}
-          />
-        </Form>
-      </Fragment>
-    );
-  }
-}
-
-const mapStateToProps = ({ model, static: { fields, project } }) => ({ model, fields, project });
-
-export default connect(mapStateToProps)(UpdateLicenceHolder);
+export default UpdateLicenceHolder;
