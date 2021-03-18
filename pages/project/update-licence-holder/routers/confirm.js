@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { get, omit, merge } = require('lodash');
+const { BadRequestError } = require('@asl/service/errors');
 const form = require('../../../common/routers/form');
 const experienceFields = require('../schema/experience-fields');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
@@ -52,6 +53,9 @@ module.exports = () => {
   app.post('/', redirectToTaskIfOpen());
 
   app.post('/', (req, res, next) => {
+    if (req.project.draft && req.project.status === 'active') {
+      return next(new BadRequestError('Cannot change licence holder while an amendment is in progress'));
+    }
     sendData(req)
       .then(response => {
         req.session.success = { taskId: get(response, 'json.data.id') };
