@@ -52,7 +52,7 @@ export default function StartAmendment() {
     startAmendmentDescriptionKey = 'transfer';
   }
 
-  const canChangeLicenceHolder = !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
+  const canChangeLicenceHolder = !project.draft && !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
 
   return (
     <Subsection

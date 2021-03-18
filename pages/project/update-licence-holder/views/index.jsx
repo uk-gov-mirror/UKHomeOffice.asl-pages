@@ -6,7 +6,8 @@ import {
   Header,
   Snippet,
   WidthContainer,
-  Fieldset
+  Fieldset,
+  Link
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import RTEFieldset from '@asl/projects/client/components/fieldset';
@@ -51,6 +52,15 @@ const FormBody = ({ fields, model, formFields, submit, project }) => {
 const UpdateLicenceHolder = () => {
   const model = useSelector(state => state.model);
   const { fields, project } = useSelector(state => state.static);
+
+  if (project.draft && project.status === 'active') {
+    return <Fragment>
+      <h1>You cannot change the licence holder while an amendment is in progress.</h1>
+      <p>Discard or complete the amendment to continue.</p>
+      <p><Link page="project.read" label="Back to project" /></p>
+    </Fragment>;
+  }
+
   return <Fragment>
     <ErrorSummary />
     <Header
