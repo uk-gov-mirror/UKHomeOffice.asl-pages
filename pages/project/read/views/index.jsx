@@ -68,7 +68,7 @@ export default function ProjectLandingPage() {
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const { additionalAvailability, showManageSection, canUpdate } = useSelector(state => state.static);
+  const { additionalAvailability, showManageSection, canUpdate, isLicensing } = useSelector(state => state.static);
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
