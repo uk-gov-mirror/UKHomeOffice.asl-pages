@@ -430,20 +430,20 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       title: 'Return details'
     },
     general: {
-      title: 'Setup return: general'
+      title: 'Set up return: general'
     },
     animals: {
-      title: 'Setup return: animals'
+      title: 'Set up return: animals'
     },
     purposes: {
-      title: 'Setup return: purposes',
+      title: 'Set up return: purposes',
       purpose: {
         title: 'For the purpose',
         subpurpose: 'For the sub-purposes'
       }
     },
     techniques: {
-      title: 'Setup return: techniques'
+      title: 'Set up return: techniques'
     }
   }
 };
