@@ -349,3 +349,5 @@ module.exports = ({
 
   return form;
 };
+
+module.exports.getOptionReveals = getOptionReveals;

@@ -1,7 +1,8 @@
 const { get, intersection, flatten } = require('lodash');
 const { hasNhps } = require('../helpers');
 
-function schedule2Applicable(req, placesOfBirth = []) {
+function schedule2Applicable(req) {
+  const placesOfBirth = req.rop.placesOfBirth;
   const nopes = [
     'mice',
     'rats',
@@ -40,6 +41,11 @@ function schedule2Applicable(req, placesOfBirth = []) {
   return hasReqSpecies && hasReqPob;
 }
 
+const hasPurpose = purpose => req => {
+  const purposes = req.rop.purposes || [];
+  return purposes.includes(purpose);
+};
+
 module.exports = {
   procedures: {
     fields: ['proceduresCompleted'],
@@ -48,7 +54,6 @@ module.exports = {
       if (!req.form.values.proceduresCompleted) {
         return req.buildRoute('rops.nil-return');
       }
-      return req.buildRoute('rops.update', { step: 'postnatal' });
     }
   },
   postnatal: {
@@ -58,41 +63,32 @@ module.exports = {
       if (!req.form.values.postnatal) {
         return req.buildRoute('rops.nil-return');
       }
-      return req.buildRoute('rops.update', { step: 'endangered' });
     }
   },
   endangered: {
     fields: ['endangered', 'endangeredDetails'],
-    section: 'details',
-    target: req => req.buildRoute('rops.update', { step: 'nmbas' })
+    section: 'details'
   },
   nmbas: {
     fields: ['nmbas', 'generalAnaesthesia', 'generalAnaesthesiaDetails'],
-    section: 'details',
-    target: req => req.buildRoute('rops.update', { step: 'rodenticide' })
+    section: 'details'
   },
   rodenticide: {
     fields: ['rodenticide', 'rodenticideDetails'],
-    section: 'details',
-    target: req => req.buildRoute('rops.update', { step: 'setup' })
+    section: 'details'
   },
-  setup: {
-    target: req => req.buildRoute('rops.update', { step: 'product-testing' })
-  },
+  setup: {},
   'product-testing': {
     fields: ['productTesting'],
-    section: 'general',
-    target: req => req.buildRoute('rops.update', { step: 'species' })
+    section: 'general'
   },
   species: {
     fields: ['otherSpecies', 'species'],
-    section: 'animals',
-    target: req => req.buildRoute('rops.update', { step: 'reuse' })
+    section: 'animals'
   },
   reuse: {
     fields: ['reuse'],
-    section: 'animals',
-    target: req => req.buildRoute('rops.update', { step: 'birthplace' })
+    section: 'animals'
   },
   birthplace: {
     fields: ['placesOfBirth'],
@@ -101,74 +97,41 @@ module.exports = {
       return {
         reuse: req.rop.reuse
       };
-    },
-    target: req => {
-      if (schedule2Applicable(req, req.form.values.placesOfBirth)) {
-        return req.buildRoute('rops.update', { step: 'schedule2' });
-      }
-      if (hasNhps(req)) {
-        return req.buildRoute('rops.update', { step: 'nhps' });
-      }
-      return req.buildRoute('rops.update', { step: 'ga' });
     }
   },
   schedule2: {
     fields: ['scheduleTwoDetails'],
     section: 'animals',
-    target: req => {
-      if (hasNhps(req)) {
-        return req.buildRoute('rops.update', { step: 'nhps' });
-      }
-      return req.buildRoute('rops.update', { step: 'ga' });
-    }
+    include: schedule2Applicable
   },
   nhps: {
     fields: ['nhpsOrigin', 'nhpsColonyStatus', 'nhpsGeneration'],
     section: 'animals',
-    target: req => req.buildRoute('rops.update', { step: 'ga' })
+    include: hasNhps
   },
   ga: {
     fields: ['ga'],
-    section: 'animals',
-    target: req => req.buildRoute('rops.update', { step: 'purposes' })
+    section: 'animals'
   },
   purposes: {
     fields: ['purposes'],
-    section: 'purposes',
-    target: req => {
-      const purposes = req.form.values.purposes;
-      if (purposes.includes('basic')) {
-        return req.buildRoute('rops.update', { step: 'basic-subpurposes' });
-      }
-      if (purposes.includes('regulatory')) {
-        return req.buildRoute('rops.update', { step: 'regulatory-subpurposes' });
-      }
-      if (purposes.includes('translational')) {
-        return req.buildRoute('rops.update', { step: 'translational-subpurposes' });
-      }
-      return req.buildRoute('rops.update', { step: 'new-genetic-line' });
-    }
+    section: 'purposes'
   },
   'basic-subpurposes': {
     fields: ['basicSubpurposes'],
     section: 'purposes',
-    target: req => {
-      const purposes = req.rop.purposes;
-      if (purposes.includes('regulatory')) {
-        return req.buildRoute('rops.update', { step: 'regulatory-subpurposes' });
-      }
-      if (purposes.includes('translational')) {
-        return req.buildRoute('rops.update', { step: 'translational-subpurposes' });
-      }
-      return req.buildRoute('rops.update', { step: 'new-genetic-line' });
-    }
+    include: hasPurpose('basic')
   },
   'regulatory-subpurposes': {
     fields: ['regulatorySubpurposes'],
     section: 'purposes',
-    target: req => {
-      const purposes = req.rop.purposes;
-      const regulatorySubpurposes = req.form.values.regulatorySubpurposes;
+    include: hasPurpose('regulatory')
+  },
+  'regulatory-legislation': {
+    fields: ['regulatoryLegislation', 'regulatoryLegislationOrigin'],
+    section: 'purposes',
+    include: req => {
+      const regulatorySubpurposes = req.rop.regulatorySubpurposes;
       const nopes = [
         'qc-batch-safety',
         'qc-pyrogenicity',
@@ -180,46 +143,22 @@ module.exports = {
         'toxicity-non-lethal',
         'toxicity-skin'
       ];
-      if (intersection(regulatorySubpurposes, nopes).length) {
-        return req.buildRoute('rops.update', { step: 'regulatory-legislation' });
-      }
-      if (purposes.includes('translational')) {
-        return req.buildRoute('rops.update', { step: 'translational-subpurposes' });
-      }
-      return req.buildRoute('rops.update', { step: 'new-genetic-line' });
-    }
-  },
-  'regulatory-legislation': {
-    fields: ['regulatoryLegislation', 'regulatoryLegislationOrigin'],
-    section: 'purposes',
-    target: req => {
-      const purposes = req.rop.purposes;
-      if (purposes.includes('translational')) {
-        return req.buildRoute('rops.update', { step: 'translational-subpurposes' });
-      }
-      return req.buildRoute('rops.update', { step: 'new-genetic-line' });
+      return hasPurpose('regulatory')(req) && intersection(regulatorySubpurposes, nopes).length;
     }
   },
   'translational-subpurposes': {
     fields: ['translationalSubpurposes'],
     section: 'purposes',
-    target: req => req.buildRoute('rops.update', { step: 'new-genetic-line' })
+    include: hasPurpose('translational')
   },
   'new-genetic-line': {
     fields: ['newGeneticLine'],
-    section: 'purposes',
-    target: req => {
-      const productTesting = req.rop.productTesting;
-      if (productTesting) {
-        return req.buildRoute('rops.update', { step: 'techniques' });
-      }
-      return req.buildRoute('rops.update', { step: 'confirm' });
-    }
+    section: 'purposes'
   },
   techniques: {
     fields: ['productTestingTypes'],
     section: 'techniques',
-    target: req => req.buildRoute('rops.update', { step: 'confirm' })
+    include: req => !!req.rop.productTesting
   },
   confirm: {
     target: req => req.buildRoute('rops.procedures')

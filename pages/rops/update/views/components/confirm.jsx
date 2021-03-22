@@ -245,13 +245,19 @@ export default function Confirm() {
             <dl className="inline">
               <dt>Techniques of special interest used</dt>
               <dd>
-                <ul>
-                  {
-                    rop.productTestingTypes.map((t, i) => (
-                      <li key={i}><Snippet fallback={`fields.productTestingTypes.options.${t}`}>{`fields.productTestingTypes.options.${t}.label`}</Snippet></li>
-                    ))
-                  }
-                </ul>
+                {
+                  rop.productTestingTypes && !!rop.productTestingTypes.length
+                    ? (
+                      <ul>
+                        {
+                          rop.productTestingTypes.map((t, i) => (
+                            <li key={i}><Snippet fallback={`fields.productTestingTypes.options.${t}`}>{`fields.productTestingTypes.options.${t}.label`}</Snippet></li>
+                          ))
+                        }
+                      </ul>
+                    )
+                    : <em>None selected</em>
+                }
               </dd>
             </dl>
           </Section>
