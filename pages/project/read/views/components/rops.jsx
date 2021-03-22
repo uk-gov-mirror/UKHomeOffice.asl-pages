@@ -30,7 +30,8 @@ export default function Rops() {
                 draftRop
                   ? <Link
                     className="govuk-button button-secondary"
-                    page="rops.guidance"
+                    page="rops.update"
+                    step="confirm"
                     ropId={draftRop.id}
                     label={<Snippet>rops.action</Snippet>}
                   />
