@@ -414,7 +414,7 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       'animals-born': 'For animals born:'
     },
     confirm: {
-      title: 'Check set up details',
+      title: 'Check setup details',
       buttons: {
         submit: 'Continue to procedures'
       }
