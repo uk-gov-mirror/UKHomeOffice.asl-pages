@@ -42,7 +42,7 @@ function Section({ title, children, step }) {
 }
 
 export default function Confirm() {
-  const { year, rop } = useSelector(state => state.static);
+  const { year, rop, hasNhps } = useSelector(state => state.static);
   const projSpecies = get(rop, 'project.granted.data.species', []);
   const ropSpecies = get(rop, 'species.precoded', []);
   const otherSpecies = get(rop, 'species.otherSpecies', []);
@@ -73,6 +73,14 @@ export default function Confirm() {
 
   // eslint-disable-next-line no-useless-call
   const shouldShowLegislation = !!without.apply(null, [rop.regulatorySubpurposes, ...yeps]).length;
+
+  function getRadioOption(field, val) {
+    val = val || rop[field];
+    if (!field) {
+      return '-';
+    }
+    return <Snippet fallback={`fields.${field}.options.${val}`}>{`fields.${field}.options.${val}.label`}</Snippet>;
+  }
 
   return (
     <div className="rop-summary">
@@ -145,13 +153,29 @@ export default function Confirm() {
                 ? (
                   <ul>
                     {
-                      rop.placesOfBirth.map((p, i) => <li key={i}><Snippet fallback={`fields.placesOfBirth.options.${p}`}>{`fields.placesOfBirth.options.${p}.label`}</Snippet></li>)
+                      rop.placesOfBirth.map((p, i) => <li key={i}>{getRadioOption('placesOfBirth')}</li>)
                     }
                   </ul>
                 )
                 : '-'
             }
           </dd>
+
+          {
+            hasNhps && (
+              <Fragment>
+                <dt>Non-human primate (NHP) place of birth</dt>
+                <dd>{getRadioOption('nhpsOrigin')}</dd>
+
+                <dt>Non-human primate (NHP) source colony details</dt>
+                <dd>{getRadioOption('nhpsColonyStatus')}</dd>
+
+                <dt>Non-human primate (NHP) generation</dt>
+                <dd>{getRadioOption('nhpsGeneration')}</dd>
+              </Fragment>
+
+            )
+          }
 
           <dt>Genetically altered animals used</dt>
           <dd>{yn(rop.ga)}</dd>
@@ -163,7 +187,7 @@ export default function Confirm() {
             (rop.purposes || []).map((purpose, index) => (
               <Fragment key={index}>
                 <dt>Purpose {index + 1}</dt>
-                <dd><Snippet fallback={`fields.purposes.options.${purpose}`}>{`fields.purposes.options.${purpose}.label`}</Snippet></dd>
+                <dd>{getRadioOption('purposes', purpose)}</dd>
                 {
                   hasSubpurposes(purpose) && <dt>Subpurposes</dt>
                 }
@@ -172,7 +196,9 @@ export default function Confirm() {
                     {
                       purpose === 'basic' && rop.basicSubpurposes.map((sub, subIndex) => (
                         <li key={subIndex}>
-                          <Snippet fallback={`fields.basicSubpurposes.options.${sub}`}>{`fields.basicSubpurposes.options.${sub}.label`}</Snippet>
+                          {
+                            getRadioOption('basicSubpurposes', sub)
+                          }
                           {
                             sub === 'other' && <Inset>{rop.basicSubpurposesOther}</Inset>
                           }
@@ -182,7 +208,9 @@ export default function Confirm() {
                     {
                       purpose === 'regulatory' && rop.regulatorySubpurposes.map((sub, subIndex) => (
                         <li key={subIndex}>
-                          <Snippet fallback={`fields.regulatorySubpurposes.options.${sub}`}>{`fields.regulatorySubpurposes.options.${sub}.label`}</Snippet>
+                          {
+                            getRadioOption('regulatorySubpurposes', sub)
+                          }
                           {
                             sub === 'routine-other' && <Inset>{rop.regulatorySubpurposesOther}</Inset>
                           }
@@ -192,7 +220,9 @@ export default function Confirm() {
                     {
                       purpose === 'translational' && rop.translationalSubpurposes.map((sub, subIndex) => (
                         <li key={subIndex}>
-                          <Snippet fallback={`fields.translationalSubpurposes.options.${sub}`}>{`fields.translationalSubpurposes.options.${sub}.label`}</Snippet>
+                          {
+                            getRadioOption('translationalSubpurposes', sub)
+                          }
                           {
                             sub === 'translational-other' && <Inset>{rop.translationalSubpurposesOther}</Inset>
                           }
@@ -210,7 +240,9 @@ export default function Confirm() {
                           {
                             rop.regulatoryLegislation.map((leg, index) => (
                               <li key={index}>
-                                <Snippet fallback={`fields.regulatoryLegislation.options.${leg}`}>{`fields.regulatoryLegislation.options.${leg}.label`}</Snippet>
+                                {
+                                  getRadioOption('regulatoryLegislation', leg)
+                                }
                                 {
                                   leg === 'other' && <Inset>{rop.regulatoryLegislationOther}</Inset>
                                 }
@@ -224,7 +256,7 @@ export default function Confirm() {
                         <ul>
                           {
                             rop.regulatoryLegislationOrigin.map((leg, index) => (
-                              <li key={index}><Snippet fallback={`fields.regulatoryLegislationOrigin.options.${leg}`}>{`fields.regulatoryLegislationOrigin.options.${leg}.label`}</Snippet></li>
+                              <li key={index}>{getRadioOption('regulatoryLegislationOrigin', leg)}</li>
                             ))
                           }
                         </ul>
@@ -251,7 +283,7 @@ export default function Confirm() {
                       <ul>
                         {
                           rop.productTestingTypes.map((t, i) => (
-                            <li key={i}><Snippet fallback={`fields.productTestingTypes.options.${t}`}>{`fields.productTestingTypes.options.${t}.label`}</Snippet></li>
+                            <li key={i}>{getRadioOption('productTestingTypes', t)}</li>
                           ))
                         }
                       </ul>
