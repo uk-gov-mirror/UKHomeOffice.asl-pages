@@ -224,7 +224,7 @@ export default function Confirm() {
                             getRadioOption('translationalSubpurposes', sub)
                           }
                           {
-                            sub === 'translational-other' && <Inset>{rop.translationalSubpurposesOther}</Inset>
+                            sub === 'other' && <Inset>{rop.translationalSubpurposesOther}</Inset>
                           }
                         </li>
                       ))
