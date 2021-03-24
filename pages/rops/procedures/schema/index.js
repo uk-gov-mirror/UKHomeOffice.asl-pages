@@ -191,7 +191,7 @@ module.exports = (req, addMultiple) => {
   const hasGa = get(req, 'rop.ga', false);
   const species = [
     ...projectSpecies,
-    ...flatten(Object.values(get(req, 'rop.species', {})))
+    ...flatten(Object.values(get(req, 'rop.species') || {}))
   ];
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
