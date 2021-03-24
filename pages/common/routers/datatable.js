@@ -144,6 +144,7 @@ module.exports = ({
     res.attachment('data.csv');
     const schema = res.locals.datatable.schema;
     const stringifier = csv({
+      bom: true,
       header: true,
       columns: Object.keys(schema)
         .filter(key => !schema[key].omitFromCSV)
