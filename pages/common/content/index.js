@@ -10,7 +10,8 @@ module.exports = {
       read: 'Details',
       update: 'Amend establishment details',
       apply: 'Apply for licence',
-      fees: 'Estimated licence fees'
+      fees: 'Estimated licence fees',
+      rops: 'Return of procedures'
     },
     pil: {
       read: 'View personal licence',
@@ -132,7 +133,8 @@ module.exports = {
       confirm: 'Confirm changes',
       fees: {
         overview: 'Licence fees'
-      }
+      },
+      rops: 'Returns of procedures'
     },
     profile: {
       list: 'People',

@@ -9,6 +9,9 @@ module.exports = {
         overview: {
           subtitle: 'All billable licences held at {{establishment.name}}.'
         }
+      },
+      rops: {
+        subtitle: 'View and manage all returns of procedures at {{establishment.name}}'
       }
     },
     profile: {
