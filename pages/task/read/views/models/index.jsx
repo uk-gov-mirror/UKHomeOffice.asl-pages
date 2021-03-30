@@ -17,6 +17,7 @@ import Place from './place';
 import Profile from './profile';
 import Project from './project';
 import Role from './role';
+import Rop from './rop';
 import TrainingPil from './training-pil';
 
 import TaskStatus from '../components/task-status';
@@ -28,6 +29,7 @@ const models = {
   place: Place,
   profile: Profile,
   project: Project,
+  rop: Rop,
   role: Role,
   trainingPil: TrainingPil
 };

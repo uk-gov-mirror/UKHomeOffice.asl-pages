@@ -28,6 +28,9 @@ const getTaskLabel = task => {
       }
       return `Area ${taskType}`;
 
+    case 'rop':
+      return 'Return of procedures';
+
     case 'pil':
     case 'trainingPil':
       return `Personal licence ${taskType}`;
@@ -50,6 +53,10 @@ const getSuccessType = task => {
 
   if (task.status === 'resolved' && model === 'pil' && action === 'review') {
     return 'review-complete';
+  }
+
+  if (model === 'rop') {
+    return 'submitted';
   }
 
   if (latestActivity && latestActivity.action === 'endorsed') {

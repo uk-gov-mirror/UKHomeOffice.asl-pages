@@ -147,6 +147,24 @@ export default function Procedures() {
           : <em>No procedures added</em>
       }
 
+      {
+        editable
+          ? (
+            <Fragment>
+              <h2><Snippet>submit.title</Snippet></h2>
+              <p><Snippet>submit.content</Snippet></p>
+              <p>
+                <Link
+                  page="rops.submit"
+                  className="govuk-button"
+                  label={<Snippet>submit.action</Snippet>}
+                />
+              </p>
+            </Fragment>
+          )
+          // TODO: unsubmit
+          : <h2>Return submitted</h2>
+      }
     </Fragment>
   );
 }

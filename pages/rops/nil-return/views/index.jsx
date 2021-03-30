@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import isUndefined from 'lodash/isUndefined';
 import isNull from 'lodash/isNull';
-import { Header, Snippet, FormLayout, Link } from '@asl/components';
+import { Header, Snippet, Link, WidthContainer } from '@asl/components';
 
 export default function NilReturn() {
   const { project, rop } = useSelector(state => state.static);
@@ -10,7 +10,7 @@ export default function NilReturn() {
   const noProcs = rop.proceduresCompleted === false;
 
   return (
-    <FormLayout disabled={!!rop.procedures.length}>
+    <WidthContainer>
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={project.title}
@@ -49,6 +49,11 @@ export default function NilReturn() {
           }
         </tbody>
       </table>
-    </FormLayout>
+      {
+        !rop.procedures.length
+          ? <Link page="rops.submit" label={<Snippet>buttons.submit</Snippet>} className="govuk-button"/>
+          : <em>Cannot submit NIL return as procedures have been added</em>
+      }
+    </WidthContainer>
   );
 }

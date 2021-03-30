@@ -21,6 +21,9 @@ function Action({ task, action, changedBy }) {
   if (action === 'autoresolved') {
     return <p><strong><Snippet>status.autoresolved.log</Snippet></strong></p>;
   }
+  if (task.data.model === 'rop') {
+    action = 'resubmitted';
+  }
   return (
     <p>
       <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
