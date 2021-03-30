@@ -144,7 +144,7 @@ export default function Procedures() {
               <Datatable formatters={formatters} Actions={editable && Actions} />
             </div>
           )
-          : <em>No procedures added</em>
+          : <p><em>No procedures added</em></p>
       }
 
       {
