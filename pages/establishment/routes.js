@@ -4,6 +4,7 @@ const update = require('./update');
 const dashboard = require('./dashboard');
 const apply = require('./apply');
 const licenceFees = require('./licence-fees');
+const rops = require('./rops');
 
 module.exports = {
   dashboard: {
@@ -35,5 +36,10 @@ module.exports = {
     path: '/licence-fees',
     router: licenceFees,
     permissions: 'establishment.licenceFees'
+  },
+  rops: {
+    path: '/rops',
+    router: rops,
+    permissions: 'establishment.rops'
   }
 };
