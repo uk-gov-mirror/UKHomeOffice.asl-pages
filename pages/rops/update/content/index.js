@@ -105,7 +105,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
 Select all that apply`,
       options: {
         'uk-licenced': {
-          label: 'In the UK at licenced establishment',
+          label: 'In the UK at a licenced establishment',
           hint: 'Including your own establishment'
         },
         'eu-registered': 'In the EU (non-UK) at a registered breeder',
