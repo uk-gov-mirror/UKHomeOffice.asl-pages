@@ -2,6 +2,7 @@ const update = require('./update');
 const guidance = require('./guidance');
 const nilReturn = require('./nil-return');
 const procedures = require('./procedures');
+const submit = require('./submit');
 
 module.exports = {
   update: {
@@ -23,5 +24,10 @@ module.exports = {
     path: '/procedures',
     breadcrumb: false,
     router: procedures
+  },
+  submit: {
+    path: '/submit',
+    breadcrumb: false,
+    router: submit
   }
 };

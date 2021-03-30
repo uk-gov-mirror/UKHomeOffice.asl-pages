@@ -141,9 +141,9 @@ module.exports = () => {
   app.use((req, res, next) => {
     const action = req.task.data.action;
     const model = req.task.data.model;
-    if (action === 'update' || action === 'delete' || action === 'update-conditions') {
+    if (action === 'update' || action === 'delete' || action === 'update-conditions' || model === 'rop') {
       // if task is closed, get previous values from task
-      if (!req.task.isOpen) {
+      if (!req.task.isOpen && model !== 'rop') {
         res.locals.static.values = get(req.task, 'activityLog[0].event.data.modelData');
 
         if (model === 'establishment') {
@@ -178,6 +178,7 @@ module.exports = () => {
         const modelId = get(req.task.data, 'id');
         const estId = get(req.task.data, 'data.establishmentId');
         const profileId = get(req.task.data, 'data.profileId');
+        const projectId = get(req.task.data, 'data.projectId');
         switch (model) {
           case 'establishment':
             return `/establishment/${modelId}`;
@@ -185,6 +186,8 @@ module.exports = () => {
             return `/profile/${modelId}`;
           case 'pil':
             return `/establishment/${estId}/profile/${profileId}/pil/${modelId}`;
+          case 'rop':
+            return `/establishment/${estId}/project/${projectId}/rop/${modelId}`;
           default:
             return `/establishment/${estId}/${model}/${modelId}`;
         }

@@ -33,5 +33,10 @@ module.exports = merge({}, { fields }, {
         severe: 'Severe'
       }
     }
+  },
+  submit: {
+    title: 'Submit return',
+    content: 'Submit this project\'s completed return of procedures',
+    action: 'Submit return'
   }
 });

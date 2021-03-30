@@ -33,6 +33,9 @@ export default {
           </Fragment>
         );
       }
+      if (licence === 'rop') {
+        return 'PPL';
+      }
       if (licence === 'place' || licence === 'role' || licence === 'establishment') {
         return 'PEL';
       }
@@ -45,7 +48,12 @@ export default {
       const isExtended = get(deadline, 'isExtended', false);
       const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
       const continuation = get(model, 'data.continuation') && get(model, 'data.modelData.status') === 'inactive';
-      const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
+      const isRop = get(model, 'data.model') === 'rop';
+      const className = classnames({ badge: true, complete: good.includes(status || isRop), rejected: bad.includes(status) });
+
+      if (isRop) {
+        status = 'resubmitted';
+      }
 
       return (
         <Fragment>

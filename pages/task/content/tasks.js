@@ -3,6 +3,9 @@ module.exports = {
     create: 'Add named person',
     delete: 'Remove named person'
   },
+  rop: {
+    submit: 'Return of procedures'
+  },
   place: {
     create: 'New approved area',
     update: 'Area amendment',
