@@ -105,12 +105,12 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
 Select all that apply`,
       options: {
         'uk-licenced': {
-          label: 'In the UK at licenced establishment',
+          label: 'In the UK at a licensed establishment',
           hint: 'Including your own establishment'
         },
         'eu-registered': 'In the EU (non-UK) at a registered breeder',
         'uk-non-licenced': {
-          label: 'In the UK **not** at a licenced establishment',
+          label: 'In the UK **not** at a licensed establishment',
           hint: 'For example, cattle sourced at a commercial farm or wild caught animals'
         },
         'eu-non-registered': 'In the EU (non-UK) **not** at a registered breeder',
@@ -144,10 +144,10 @@ Select all that apply`,
     nhpsOrigin: {
       label: 'Select non-human primate (NHP) place of birth',
       options: {
-        'uk-licenced': 'Animals born in UK at a licenced establishment',
-        'eu-licenced': 'Animals born in EU (non-UK) at a licenced establishment',
-        'uk-non-licenced': 'Animals born in UK but **NOT** at a licenced establishment',
-        'eu-non-licenced': 'Animals born in EU (non-UK) but **NOT** at a licenced establishment',
+        'uk-licenced': 'Animals born in UK at a licensed establishment',
+        'eu-licenced': 'Animals born in EU (non-UK) at a licensed establishment',
+        'uk-non-licenced': 'Animals born in UK but **NOT** at a licensed establishment',
+        'eu-non-licenced': 'Animals born in EU (non-UK) but **NOT** at a licensed establishment',
         'europe': 'Animals born in the rest of Europe',
         'asia': 'Animals born in Asia',
         'america': 'Animals born in America',
