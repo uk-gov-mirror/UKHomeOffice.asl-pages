@@ -1,6 +1,19 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
 
+const severityErrors = [
+  'sub',
+  'non',
+  'mild',
+  'moderate',
+  'severe'
+].reduce((content, severity) => {
+  return {
+    ...content,
+    [`${severity}-severityNum`]: { type: 'This must be an integer' }
+  };
+}, { severityNum: { type: 'This must be an integer' } });
+
 module.exports = merge({}, baseContent, {
   title: 'Add procedures',
   fields: {
@@ -101,6 +114,7 @@ module.exports = merge({}, baseContent, {
   errors: {
     ga: {
       required: 'This field is required'
-    }
+    },
+    ...severityErrors
   }
 });

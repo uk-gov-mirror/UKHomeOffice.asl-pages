@@ -257,7 +257,7 @@ module.exports = (req, addMultiple) => {
             severityNum: {
               prefix: s,
               inputType: 'inputText',
-              validate: ['required'],
+              validate: ['required', { type: 'number' }],
               format: v => v ? parseInt(v, 10) : v
             },
             severityHoNote: {
