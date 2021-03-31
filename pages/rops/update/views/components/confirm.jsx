@@ -153,7 +153,7 @@ export default function Confirm() {
                 ? (
                   <ul>
                     {
-                      rop.placesOfBirth.map((p, i) => <li key={i}>{getRadioOption('placesOfBirth')}</li>)
+                      rop.placesOfBirth.map((p, i) => <li key={i}>{getRadioOption('placesOfBirth', p)}</li>)
                     }
                   </ul>
                 )
