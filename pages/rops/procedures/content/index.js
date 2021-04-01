@@ -38,5 +38,13 @@ module.exports = merge({}, { fields }, {
     title: 'Submit return',
     content: 'Submit this project\'s completed return of procedures',
     action: 'Submit return'
+  },
+  unsubmit: {
+    title: 'Correct return',
+    content: 'Tell the Home Office if there are errors in this return.',
+    action: 'Correct return'
+  },
+  notifications: {
+    success: 'Return updated.'
   }
 });

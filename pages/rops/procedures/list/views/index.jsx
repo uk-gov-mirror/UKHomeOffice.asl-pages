@@ -9,6 +9,7 @@ import {
   Datatable
 } from '@asl/components';
 import { getUrl } from '@asl/components/src/link';
+import { Button } from '@ukhomeoffice/react-components';
 import flatten from 'lodash/flatten';
 import Confirm from '../../../update/views/components/confirm';
 import { projectSpecies } from '@asl/constants';
@@ -106,7 +107,7 @@ function Actions({ model }) {
 }
 
 export default function Procedures() {
-  const { project, rop } = useSelector(state => state.static);
+  const { project, rop, url } = useSelector(state => state.static);
   const editable = rop.status === 'draft';
   return (
     <Fragment>
@@ -162,8 +163,15 @@ export default function Procedures() {
               </p>
             </Fragment>
           )
-          // TODO: unsubmit
-          : <h2>Return submitted</h2>
+          : (
+            <Fragment>
+              <h2><Snippet>unsubmit.title</Snippet></h2>
+              <p><Snippet>unsubmit.content</Snippet></p>
+              <form action={`${url}/unsubmit`} method="POST">
+                <Button><Snippet>unsubmit.action</Snippet></Button>
+              </form>
+            </Fragment>
+          )
       }
     </Fragment>
   );
