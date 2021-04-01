@@ -13,7 +13,9 @@ export default function Details() {
   const snippetPath = `details.${isGranted ? 'granted' : 'application'}`;
   const latestVersion = project.versions[0];
 
-  const additionalEstablishments = project.additionalEstablishments.filter(e => e.status !== 'removed');
+  const additionalEstablishments = isGranted
+    ? project.additionalEstablishments.filter(e => e.status === 'active')
+    : project.additionalEstablishments.filter(e => e.status !== 'removed');
 
   return (
     <Subsection title={<Snippet>{`${snippetPath}.title`}</Snippet>} className="licence-details">
