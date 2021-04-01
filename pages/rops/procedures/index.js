@@ -1,4 +1,6 @@
 const { Router } = require('express');
+const { set } = require('lodash');
+const content = require('./content');
 const routes = require('./routes');
 
 module.exports = () => {
@@ -23,6 +25,8 @@ module.exports = () => {
     };
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/unsubmit`, params)
       .then(() => {
+        set(res.locals, 'static.content.notifications', content.notifications);
+        req.notification({ key: 'success' });
         res.redirect(req.buildRoute('rops.procedures'));
       })
       .catch(next);

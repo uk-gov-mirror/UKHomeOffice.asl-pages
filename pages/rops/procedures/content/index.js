@@ -43,5 +43,8 @@ module.exports = merge({}, { fields }, {
     title: 'Correct return',
     content: 'Tell the Home Office if there are errors in this return.',
     action: 'Correct return'
+  },
+  notifications: {
+    success: 'Return updated.'
   }
 });
