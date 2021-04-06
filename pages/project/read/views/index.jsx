@@ -58,7 +58,7 @@ export default function ProjectLandingPage() {
   const isInactive = project.status === 'expired' || project.status === 'revoked';
   const requiresRa = project.raDate && !project.grantedRa;
   const showRaWarning = isInactive && requiresRa && !openRaTask;
-  const hasDraftRa = !!project.retrospectiveAssessments.length && !project.grantedRa;
+  const draftRa = project.retrospectiveAssessments.find(ra => ra.status === 'draft');
 
   const sections = {
     overview: <Snippet>{`${snippetPath}.overview`}</Snippet>,
@@ -104,12 +104,12 @@ export default function ProjectLandingPage() {
           <Warning className="info">
             <p><Snippet date={format(project.raDate, dateFormat.long)}>warnings.raRequired</Snippet></p>
             {
-              hasDraftRa
+              draftRa
                 ? (
                   <Link
                     page="retrospectiveAssessment"
                     label={<Snippet>ra.draft</Snippet>}
-                    raId={project.draftRa.id}
+                    raId={draftRa.id}
                   />
                 )
                 : (
