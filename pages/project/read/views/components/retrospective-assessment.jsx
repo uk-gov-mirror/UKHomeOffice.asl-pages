@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
@@ -30,7 +30,8 @@ export default function RA() {
       }
     >
       {
-        !hasRa && (
+        // bugfix: handle potential submitted RA that has had the task discarded without deleting the RA
+        (!hasRa || (!openRaTask && !model.draftRa)) && (
           <form method="POST" action={`${url}/ra`}>
             <Button className="button-secondary">
               <Snippet>ra.create</Snippet>
@@ -39,28 +40,23 @@ export default function RA() {
         )
       }
       {
-        hasRa && (
-          <Fragment>
-            {
-              openRaTask
-                ? (
-                  <Link
-                    page="task.read"
-                    label={<Snippet>{`ra.openTask`}</Snippet>}
-                    className="govuk-button button-secondary"
-                    taskId={openRaTask.id}
-                  />
-                )
-                : (
-                  <Link
-                    page="retrospectiveAssessment"
-                    label={<Snippet>ra.draft</Snippet>}
-                    className="govuk-button button-secondary"
-                    raId={model.draftRa.id}
-                  />
-                )
-            }
-          </Fragment>
+        hasRa && openRaTask && (
+          <Link
+            page="task.read"
+            label={<Snippet>{`ra.openTask`}</Snippet>}
+            className="govuk-button button-secondary"
+            taskId={openRaTask.id}
+          />
+        )
+      }
+      {
+        !openRaTask && model.draftRa && (
+          <Link
+            page="retrospectiveAssessment"
+            label={<Snippet>ra.draft</Snippet>}
+            className="govuk-button button-secondary"
+            raId={model.draftRa.id}
+          />
         )
       }
     </Subsection>
