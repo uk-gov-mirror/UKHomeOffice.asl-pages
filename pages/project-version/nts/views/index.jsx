@@ -66,9 +66,10 @@ function BottomNav({ sections, activeSection, setActiveSection }) {
 
 export default function NTS() {
   const { project, version } = useSelector(state => state.static);
-  const ra = project.grantedRa;
+  const grantedRa = project.grantedRa;
   const versionData = version.data;
   versionData.raCompulsory = version.raCompulsory;
+  versionData.raReasons = version.raReasons;
 
   const title = get(version, 'data.title') || 'Untitled project';
   const isTrainingLicence = get(version, 'data.training-licence', false);
@@ -83,7 +84,7 @@ export default function NTS() {
 
       <DocumentHeader
         title={title}
-        subtitle={<Snippet includesRa={ra}>subtitle</Snippet>}
+        subtitle={<Snippet includesRa={grantedRa}>subtitle</Snippet>}
         detailsLabel="details and downloads"
       >
         <dl>
@@ -156,7 +157,13 @@ export default function NTS() {
                           { field.heading && <h2>{field.heading}</h2> }
                           { field.label && <h3>{field.label}</h3> }
                           {
-                            (field.type !== 'RetrospectivePlaceholder' || !ra) && <Field field={field} version={versionData} schemaVersion={project.schemaVersion} project={project} />
+                            (field.type !== 'RetrospectivePlaceholder' || !grantedRa) &&
+                              <Field
+                                field={field}
+                                version={versionData}
+                                schemaVersion={project.schemaVersion}
+                                project={project}
+                              />
                           }
                           {
                             field.raSummary && <RaSummary fields={field.raSummary} project={project} />

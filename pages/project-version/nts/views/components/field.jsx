@@ -38,7 +38,7 @@ export default function Field({ field, version, schemaVersion, project }) {
     case 'Keywords':
       return <Keywords version={version} />;
     case 'RetrospectiveDecision':
-      return <RetrospectiveDecision version={version} />;
+      return <RetrospectiveDecision version={version} project={project} />;
     case 'RetrospectivePlaceholder':
       return <RetrospectivePlaceholder version={version} project={project} field={field} />;
     case 'radio':

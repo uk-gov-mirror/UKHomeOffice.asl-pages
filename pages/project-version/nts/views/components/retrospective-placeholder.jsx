@@ -6,8 +6,9 @@ import { dateFormat } from '../../../../../constants';
 export default function RetrospectivePlaceholder({ project, version, field }) {
   const raCompulsory = version.raCompulsory;
   const raRequired = !!version.retrospectiveAssessment;
+  const isRequired = raCompulsory || raRequired || project.raDate;
 
-  if ((!raCompulsory && !raRequired) || !project.raDate) {
+  if (!isRequired) {
     return null;
   }
 
