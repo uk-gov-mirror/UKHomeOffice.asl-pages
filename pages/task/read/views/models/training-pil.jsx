@@ -22,7 +22,7 @@ export function PilProcedures({ task, isPil = false }) {
     return <TrainingPilView trainingPil={data} />;
   }
 
-  let before = ((pil && pil.procedures) || [])
+  let before = ((pil && pil.status === 'active' && pil.procedures) || [])
     .map(p => ({ key: p }))
     .concat(profileCatEs.map(p => ({ ...p, key: 'E' })));
 
