@@ -58,17 +58,17 @@ export default function Details() {
                   </Fragment>
                 }
               </dd>
-              {
-                allowedActions.includes('project.updateIssueDate') &&
-                  <Fragment>
-                    <dt><Snippet>fields.issueDate.label</Snippet></dt>
-                    <dd>
-                      {formatDate(project.issueDate, dateFormat.long)}
+              <dt><Snippet>fields.issueDate.label</Snippet></dt>
+              <dd>
+                {formatDate(project.issueDate, dateFormat.long)}
+                {
+                  allowedActions.includes('project.updateIssueDate') &&
+                    <Fragment>
                       <br />
                       <Link page="projectAsruActions.updateIssueDate" label="Change" />
-                    </dd>
-                  </Fragment>
-              }
+                    </Fragment>
+                }
+              </dd>
               {
                 project.amendedDate &&
                 <Fragment>
