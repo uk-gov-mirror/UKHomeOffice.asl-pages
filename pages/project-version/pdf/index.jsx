@@ -23,6 +23,7 @@ module.exports = settings => {
     const isFullApplication = !!req.query.application;
     const versionData = req.version.data || { title: 'Untitled project' };
     versionData.raCompulsory = req.version.raCompulsory;
+    versionData.raReasons = req.version.raReasons;
 
     const initialState = {
       project: versionData,
