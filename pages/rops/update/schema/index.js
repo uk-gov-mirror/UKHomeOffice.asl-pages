@@ -54,8 +54,8 @@ module.exports = req => {
 
   function getSpecies() {
     const isLegacy = req.rop.project.schemaVersion === 0;
-    const hasOtherSpecies = get(req.version, 'data.species-other', []).length ||
-      get(req.version, 'data.species', []).find(s => s.includes('other'));
+    const hasOtherSpecies = (get(req.version, 'data.species-other') || []).length ||
+      (get(req.version, 'data.species') || []).find(s => s.includes('other'));
 
     if (isLegacy || hasOtherSpecies) {
       return getSpeciesField();
