@@ -8,6 +8,7 @@ module.exports = () => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops/${req.ropId}`)
       .then(({ json: { data, meta } }) => {
         req.rop = data;
+        req.project = req.rop.project;
         req.version = req.rop.project.granted;
         req.establishment = meta.establishment;
         Object.assign(res.locals.static, {
