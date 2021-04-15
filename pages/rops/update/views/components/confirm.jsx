@@ -79,6 +79,18 @@ export default function Confirm() {
     if (!field) {
       return '-';
     }
+    if (Array.isArray(val)) {
+      if (!val.length) {
+        return '-';
+      }
+      return <ul>
+        {
+          val.map(v => {
+            return <li key={v}>{ getRadioOption(field, v) }</li>;
+          })
+        }
+      </ul>;
+    }
     return <Snippet fallback={`fields.${field}.options.${val}`}>{`fields.${field}.options.${val}.label`}</Snippet>;
   }
 
@@ -148,17 +160,7 @@ export default function Confirm() {
 
           <dt>Place of birth for animals not reused</dt>
           <dd>
-            {
-              rop.placesOfBirth
-                ? (
-                  <ul>
-                    {
-                      rop.placesOfBirth.map((p, i) => <li key={i}>{getRadioOption('placesOfBirth', p)}</li>)
-                    }
-                  </ul>
-                )
-                : '-'
-            }
+            {getRadioOption('placesOfBirth')}
           </dd>
 
           {
@@ -277,19 +279,7 @@ export default function Confirm() {
             <dl className="inline">
               <dt>Techniques of special interest used</dt>
               <dd>
-                {
-                  rop.productTestingTypes && !!rop.productTestingTypes.length
-                    ? (
-                      <ul>
-                        {
-                          rop.productTestingTypes.map((t, i) => (
-                            <li key={i}>{getRadioOption('productTestingTypes', t)}</li>
-                          ))
-                        }
-                      </ul>
-                    )
-                    : <em>None selected</em>
-                }
+                {getRadioOption('productTestingTypes')}
               </dd>
             </dl>
           </Section>
