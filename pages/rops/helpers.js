@@ -1,18 +1,18 @@
 const { get, intersection } = require('lodash');
 
 function hasNhps(req, option) {
-  const nopes = [
+  const yeps = [
     'marmosets',
     'rhesus',
     'cynomolgus',
     'other-nhps'
   ];
   if (option) {
-    return nopes.includes(option);
+    return yeps.includes(option);
   }
-  const projectSpecies = get(req, 'project.granted.data.species', []);
-  const ropSpecies = get(req, 'rop.species.precoded', []);
-  return !!intersection([...projectSpecies, ...ropSpecies], nopes).length;
+  const projectSpecies = get(req, 'project.granted.data.species') || [];
+  const ropSpecies = get(req, 'rop.species.precoded') || [];
+  return !!intersection([...projectSpecies, ...ropSpecies], yeps).length;
 }
 
 module.exports = {
