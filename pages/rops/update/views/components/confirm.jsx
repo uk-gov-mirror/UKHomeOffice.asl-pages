@@ -43,9 +43,9 @@ function Section({ title, children, step }) {
 
 export default function Confirm() {
   const { year, rop, hasNhps } = useSelector(state => state.static);
-  const projSpecies = get(rop, 'project.granted.data.species', []);
-  const ropSpecies = get(rop, 'species.precoded', []);
-  const otherSpecies = get(rop, 'species.otherSpecies', []);
+  const projSpecies = get(rop, 'project.granted.data.species') || [];
+  const ropSpecies = get(rop, 'species.precoded') || [];
+  const otherSpecies = get(rop, 'species.otherSpecies') || [];
 
   const ropCustom = [
     ...otherSpecies,

@@ -5,7 +5,7 @@ import { Snippet, Details, Inset } from '@asl/components';
 
 export default function Schedule2() {
   const rop = useSelector(state => state.static.rop);
-  const placesOfBirth = get(rop, 'placesOfBirth', []);
+  const placesOfBirth = get(rop, 'placesOfBirth') || [];
   return (
     <Fragment>
       <h3><Snippet>animals-born</Snippet></h3>

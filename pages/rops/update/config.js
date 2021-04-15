@@ -28,7 +28,7 @@ function schedule2Applicable(req) {
     'europe',
     'rest-of-world'
   ];
-  const projectSpecies = get(req, 'rop.project.granted.data.species', []) || [];
+  const projectSpecies = get(req, 'rop.project.granted.data.species') || [];
   const ropSpecies = get(req, 'rop.species', {}) || {};
   const ropPrecoded = ropSpecies.precoded || [];
   const ropOthers = flatten(Object.keys(ropSpecies).filter(k => k !== 'precoded').map(k => ropSpecies[k]));

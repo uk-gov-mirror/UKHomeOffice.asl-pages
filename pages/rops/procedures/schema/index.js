@@ -6,7 +6,7 @@ const { hasNhps } = require('../../helpers');
 const allSpecies = flatten(Object.values(projectSpecies));
 
 function getReuse(key, req) {
-  const placesOfBirth = get(req, 'rop.placesOfBirth', []);
+  const placesOfBirth = get(req, 'rop.placesOfBirth') || [];
   return {
     reuse: {
       inputType: 'radioGroup',
@@ -42,9 +42,9 @@ function getReuse(key, req) {
 }
 
 function getNhpQs(key, req) {
-  const nhpsOrigin = get(req, 'rop.nhpsOrigin', []);
-  const nhpsColonyStatus = get(req, 'rop.nhpsColonyStatus', []);
-  const nhpsGeneration = get(req, 'rop.nhpsGeneration', []);
+  const nhpsOrigin = get(req, 'rop.nhpsOrigin') || [];
+  const nhpsColonyStatus = get(req, 'rop.nhpsColonyStatus') || [];
+  const nhpsGeneration = get(req, 'rop.nhpsGeneration') || [];
 
   return {
     nhpsOrigin: {
@@ -75,15 +75,15 @@ function getNhpQs(key, req) {
 }
 
 function getPurposes(req) {
-  const purposes = get(req, 'rop.purposes', []);
-  const basicSubpurposes = get(req, 'rop.basicSubpurposes', []);
+  const purposes = get(req, 'rop.purposes') || [];
+  const basicSubpurposes = get(req, 'rop.basicSubpurposes') || [];
   const basicSubpurposesOther = get(req, 'rop.basicSubpurposesOther');
-  const regulatorySubpurposes = get(req, 'rop.regulatorySubpurposes', []);
+  const regulatorySubpurposes = get(req, 'rop.regulatorySubpurposes') || [];
   const regulatorySubpurposesOther = get(req, 'rop.regulatorySubpurposesOther');
-  const regulatoryLegislation = get(req, 'rop.regulatoryLegislation', []);
+  const regulatoryLegislation = get(req, 'rop.regulatoryLegislation') || [];
   const regulatoryLegislationOther = get(req, 'rop.regulatoryLegislationOther');
-  const regulatoryLegislationOrigin = get(req, 'rop.regulatoryLegislationOrigin', []);
-  const translationalSubpurposes = get(req, 'rop.translationalSubpurposes', []);
+  const regulatoryLegislationOrigin = get(req, 'rop.regulatoryLegislationOrigin') || [];
+  const translationalSubpurposes = get(req, 'rop.translationalSubpurposes') || [];
   const translationalSubpurposesOther = get(req, 'rop.translationalSubpurposesOther');
 
   const nopes = [
@@ -187,7 +187,7 @@ function getPurposes(req) {
 }
 
 module.exports = (req, addMultiple) => {
-  const projectSpecies = get(req, 'rop.project.granted.data.species', []).filter(s => !s.includes('other'));
+  const projectSpecies = (get(req, 'rop.project.granted.data.species') || []).filter(s => !s.includes('other'));
   const hasGa = get(req, 'rop.ga', false);
   const species = [
     ...projectSpecies,
