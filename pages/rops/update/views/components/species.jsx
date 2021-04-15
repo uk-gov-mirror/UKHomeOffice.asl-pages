@@ -8,8 +8,8 @@ export default function Species() {
   const project = useSelector(state => state.static.project);
   const data = project.granted.data;
 
-  const hasOtherSpecies = get(data, 'species-other', []).length ||
-    get(data, 'species', []).find(s => s.includes('other'));
+  const hasOtherSpecies = (get(data, 'species-other') || []).length ||
+    (get(data, 'species') || []).find(s => s.includes('other'));
 
   if (project.schemaVersion === 0 || hasOtherSpecies) {
     return null;
