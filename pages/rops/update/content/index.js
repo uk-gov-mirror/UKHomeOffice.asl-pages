@@ -423,6 +423,9 @@ Crossing a genetically altered animal with a wild type animal will not normally 
   errors: {
     species: {
       customValidate: 'This is a required field'
+    },
+    otherSpecies: {
+      customValidate: 'At least one animal type must be provided.'
     }
   },
   sections: {
