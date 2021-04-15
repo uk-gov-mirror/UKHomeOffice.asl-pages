@@ -67,7 +67,21 @@ module.exports = req => {
         format: toBoolean,
         automapReveals: true,
         validate: [
-          'required'
+          'required',
+          {
+            customValidate: value => {
+              const projectSpecies = [
+                ...(req.version.data.species || []).filter(s => !s.includes('other')),
+                ...(req.rop.procedures.map(p => p.species))
+              ];
+
+              if (value === false && projectSpecies.length === 0) {
+                return false; // user must add species if none are present
+              }
+
+              return true;
+            }
+          }
         ],
         options: [
           false,
