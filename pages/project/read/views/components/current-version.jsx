@@ -35,8 +35,10 @@ export default function CurrentVersion() {
     labelKeyPdf = 'granted.additional-availability-removed-pdf';
   }
 
+  const subsectionTitle = <Snippet>{`details.${project.granted ? 'granted' : 'application'}.subsectionTitle`}</Snippet>;
+
   return (
-    <Subsection title="Licence" className="licence">
+    <Subsection title={subsectionTitle} className="licence">
       <p>
         <Link
           page={page}

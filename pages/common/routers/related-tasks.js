@@ -49,7 +49,7 @@ module.exports = getQuery => {
       next();
     },
     locals: (req, res, next) => {
-      res.locals.static.content = merge({}, res.locals.static.content, content);
+      res.locals.static.content = merge({}, content, res.locals.static.content);
       next();
     },
     errorHandler: (err, req, res, next) => {

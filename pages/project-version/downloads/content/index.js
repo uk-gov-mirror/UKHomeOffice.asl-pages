@@ -2,8 +2,8 @@ module.exports = {
   title: 'Downloads',
   licence: {
     inactive: {
-      heading: 'Draft licence',
-      link: 'Draft licence: {{title}} (.pdf)',
+      heading: 'Licence preview',
+      link: 'Licence preview: {{title}} (.pdf)',
       hint: 'Download a preview of how the licence will appear if granted. This doesn\'t include any restrictions the Home Office may add.',
       back: 'Back to draft licence'
     },

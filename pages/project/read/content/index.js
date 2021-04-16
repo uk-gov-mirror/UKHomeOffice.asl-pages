@@ -27,11 +27,18 @@ module.exports = merge({}, baseContent, {
   details: {
     granted: {
       title: 'Licence details',
-      licenceHolder: 'Licence holder'
+      licenceHolder: 'Licence holder',
+      subsectionTitle: 'Licence'
     },
     application: {
       title: 'Application details',
-      licenceHolder: 'Prospective licence holder'
+      licenceHolder: 'Prospective licence holder',
+      subsectionTitle: 'Application'
+    }
+  },
+  fields: {
+    establishment: {
+      label: 'Primary establishment'
     }
   },
   downloads: {
