@@ -5,7 +5,7 @@ module.exports = {
       heading: 'Licence preview',
       link: 'Licence preview: {{title}} (.pdf)',
       hint: 'Download a preview of how the licence will appear if granted. This doesn\'t include any restrictions the Home Office may add.',
-      back: 'Back to licence preview'
+      back: 'Back to draft licence'
     },
     active: {
       heading: 'Licence',
