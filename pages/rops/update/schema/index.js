@@ -1,4 +1,4 @@
-const { flatten, get } = require('lodash');
+const { flatten, get, intersection } = require('lodash');
 const { toBoolean, toArray } = require('../../../../lib/utils');
 
 module.exports = req => {
@@ -61,6 +61,10 @@ module.exports = req => {
       return getSpeciesField();
     }
 
+    const ropSpecies = flatten(Object.values(req.rop.species || {}));
+    // cannot select "no other species" as already added to procs
+    const disableOtherSpecies = !!intersection(ropSpecies, req.rop.procedures.map(p => p.species)).length;
+
     return {
       otherSpecies: {
         inputType: 'radioGroup',
@@ -83,8 +87,12 @@ module.exports = req => {
             }
           }
         ],
+        disabled: true,
         options: [
-          false,
+          {
+            value: false,
+            disabled: disableOtherSpecies
+          },
           {
             value: true,
             reveal: getSpeciesField()
