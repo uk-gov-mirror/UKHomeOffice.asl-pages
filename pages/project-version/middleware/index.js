@@ -1,4 +1,4 @@
-const { get, remove, isEqual, uniq, mapValues, sortBy } = require('lodash');
+const { get, remove, isEqual, uniq, mapValues, sortBy, pickBy, isEmpty } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose, mapAnimalQuantities } = require('@asl/projects/client/helpers');
@@ -232,19 +232,46 @@ const getChanges = (current, version) => {
   cvKeys.forEach(k => {
     const pvNode = getNode(before, k);
     const cvNode = getNode(after, k);
-    if (hasChanged(pvNode, cvNode)) {
+    if (hasChanged(pvNode, cvNode, k)) {
       changed.push(k);
     }
   });
-  return added.concat(removed).concat(changed);
+
+  return added
+    .filter(k => {
+      // ignore empty arrays added by cleanProtocols()
+      if (/^protocols\.[a-f0-9-]+\.(locations|objectives)$/.test(k)) {
+        const pvNode = getNode(before, k);
+        const cvNode = getNode(after, k);
+        if (pvNode === undefined && (Array.isArray(cvNode) && isEmpty(cvNode))) {
+          return false;
+        }
+      }
+      return true;
+    })
+    .concat(removed)
+    .concat(changed);
 };
 
-const hasChanged = (before, after) => {
+const ignoreEmptyArrayProps = obj => {
+  return pickBy(obj, (value, key) => !Array.isArray(value) || !isEmpty(value));
+};
+
+const hasChanged = (before, after, key) => {
   // backwards compatibility check for transition from string to object values for RTEs
   if (typeof before === 'string' && typeof after !== 'string') {
     try {
       before = JSON.parse(before);
     } catch (e) {}
+  }
+
+  // ignore empty arrays added by cleanProtocols()
+  if (key === 'protocols') { // protocols array
+    return before.some((protocol, idx) => {
+      return !isEqual(ignoreEmptyArrayProps(before[idx]), ignoreEmptyArrayProps(after[idx]));
+    });
+  } else if (/^protocols\.[a-f0-9-]+$/.test(key)) { // individual protocol
+    return !isEqual(ignoreEmptyArrayProps(before), ignoreEmptyArrayProps(after));
   }
   const valueChanged = !isEqual(before, after);
 
