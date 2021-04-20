@@ -9,7 +9,11 @@ export default function Reuse() {
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>
-      <p><Snippet>{`fields.reuse.playback.${reuse}`}</Snippet></p>
+      <ul>
+        <li>
+          <Snippet>{`fields.reuse.playback.${reuse}`}</Snippet>
+        </li>
+      </ul>
     </Fragment>
   );
 }

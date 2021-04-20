@@ -9,7 +9,9 @@ export default function GA() {
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>
-      <p><Snippet>{`fields.ga.playback.${ga}`}</Snippet></p>
+      <ul>
+        <li><Snippet>{`fields.ga.playback.${ga}`}</Snippet></li>
+      </ul>
     </Fragment>
   );
 }

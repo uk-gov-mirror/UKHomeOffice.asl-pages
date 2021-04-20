@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Return details',
-  playback: 'This project\'s licence:',
+  playback: 'Currently or previously authorised on this project:',
   fields: {
     proceduresCompleted: {
       label: 'Were any procedures carried out and completed on any animals in {{year}}?',
