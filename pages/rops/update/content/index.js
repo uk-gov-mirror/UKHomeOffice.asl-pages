@@ -237,42 +237,42 @@ They do not include:
       label: 'Which of the following sub-purposes apply?',
       hint: 'Select all that apply',
       options: {
-        oncology: 'Oncology',
         cardio: {
           label: 'Cardiovascular and lymphatic system',
           hint: 'Including blood'
         },
-        nervous: {
-          label: 'Nervous system',
-          hint: 'Including neuroscience and psychology'
+        dentistry: 'Dentistry',
+        endocrine: {
+          label: 'Endocrine system',
+          hint: 'Including metabolism'
         },
-        respiratory: {
-          label: 'Respiratory system',
-          hint: 'Including the nose'
+        ethology: {
+          label: 'Ethology',
+          hint: 'Including anmial behaviour and biology'
         },
         gastro: {
           label: 'Gastrointestinal system',
           hint: 'Including the liver'
         },
-        musculoskeletal: 'Musculoskeletal system',
-        dentistry: 'Dentistry',
         immune: 'Immune system',
-        urogenital: {
-          label: 'Urogenital system',
-          hint: 'Including the reproductive system'
+        multisystemic: 'Multisystemic',
+        musculoskeletal: 'Musculoskeletal system',
+        nervous: {
+          label: 'Nervous system',
+          hint: 'Including neuroscience and psychology'
+        },
+        oncology: 'Oncology',
+        respiratory: {
+          label: 'Respiratory system',
+          hint: 'Including the nose'
         },
         sensory: {
           label: 'Sensory organs',
           hint: 'Including skin, eyes and ears'
         },
-        endocrine: {
-          label: 'Endocrine system',
-          hint: 'Including metabolism'
-        },
-        multisystemic: 'Multisystemic',
-        ethology: {
-          label: 'Ethology',
-          hint: 'Including anmial behaviour and biology'
+        urogenital: {
+          label: 'Urogenital system',
+          hint: 'Including the reproductive system'
         },
         other: 'Other'
       }
@@ -284,18 +284,18 @@ They do not include:
       label: 'Which of the following sub-purposes apply?',
       hint: 'Select all that apply',
       options: {
+        'qc-batch-potency': 'Quality control: Batch potency testing',
+        'qc-batch-safety': 'Quality control: Batch safety testing',
+        'qc-pyrogenicity': 'Quality control: Pyrogenicity testing',
+        'qc-other': 'Quality control: Other quality controls',
         'routine-blood': 'Routine production: Blood based products',
         'routine-monoclonal': 'Routine production: Monoclonal antibodies',
         'routine-other': 'Routine production: Other',
-        'qc-batch-safety': 'Quality control: Batch safety testing',
-        'qc-pyrogenicity': 'Quality control: Pyrogenicity testing',
-        'qc-batch-potency': 'Quality control: Batch potency testing',
-        'qc-other': 'Quality control: Other quality controls',
-        'other-efficacy': 'Other efficacy and tolerance testing',
-        'toxicity-ld50': 'Toxicity and acute and sub-acute LD50, LC50',
+        'toxicity-ld50': 'Toxicity and acute and sub-acute: LD50, LC50',
         'toxicity-other-lethal': 'Toxicity and acute and sub-acute: Other lethal methods',
         'toxicity-non-lethal': 'Toxicity and acute and sub-acute: Non lethal methods',
-        'toxicity-skin': 'Toxicity and skin irritation/corrosion'
+        'toxicity-skin': 'Toxicity and skin irritation/corrosion',
+        'other-efficacy': 'Other efficacy and tolerance testing'
       }
     },
     regulatorySubpurposesOther: {
@@ -305,15 +305,15 @@ They do not include:
       label: 'What type of legislation applies to regulatory research carried out?',
       hint: 'Select all that apply',
       options: {
+        biocides: 'Biocides legislation',
+        cosmetics: 'Cosmetics legislation',
+        feed: 'Feed legislation including legislation for the safety of target animals, workers and environment',
+        food: 'Food legislation including food contact material',
+        'industrial-chemicals': 'Industrial chemicals legislation',
         'human-use': 'Legislation on medicinal products for human use',
         'veterinary-use': 'Legislation on medicinal products for veterinary use and their residues',
         'medical-devices': 'Medical devices legislation',
-        'industrial-chemicals': 'Industrial chemicals legislation',
         'plant-protection': 'Plant protection product legislation',
-        biocides: 'Biocides legislation',
-        food: 'Food legislation including food contact material',
-        feed: 'Feed legislation including legislation for the safety of target animals, workers and environment',
-        cosmetics: 'Cosmetics legislation',
         other: 'Other'
       }
     },
@@ -334,42 +334,42 @@ They do not include:
       hint: 'Select all that apply',
       options: {
         cancer: 'Human cancer',
-        infectious: 'Human infectious disorders',
         cardio: 'Human cardiovascular disorders',
-        nervous: 'Human nervous and mental disorders',
-        respiratory: {
-          label: 'Human respiratory disorders',
-          hint: 'Including Covid-19'
+        dentistry: 'Human dentistry',
+        endocrine: {
+          label: 'Human endocrine disorders',
+          hint: 'Including metabolic disorders'
         },
         gastro: {
           label: 'Human gastrointestinal disorders',
           hint: 'Including liver disease'
         },
-        musculoskeletal: 'Human musculoskeletal disorders',
-        dentistry: 'Human dentistry',
         immune: 'Human immune disorders',
-        urogenital: {
-          label: 'Human urogenital disorders',
-          hint: 'Including reproductive disorders'
+        infectious: 'Human infectious disorders',
+        musculoskeletal: 'Human musculoskeletal disorders',
+        nervous: 'Human nervous and mental disorders',
+        respiratory: {
+          label: 'Human respiratory disorders',
+          hint: 'Including Covid-19'
         },
         sensory: {
           label: 'Human sensory organ disorders',
           hint: 'Including skin, eyes and ears'
         },
-        endocrine: {
-          label: 'Human endocrine disorders',
-          hint: 'Including metabolic disorders'
+        urogenital: {
+          label: 'Human urogenital disorders',
+          hint: 'Including reproductive disorders'
         },
         other: 'Other human disorders',
         'animal-diseases': 'Animal diseases and disorders',
-        'animal-welfare': 'Animal welfare',
         'animal-nutrition': 'Animal nutrition',
+        'animal-welfare': 'Animal welfare',
         diagnosis: 'Diagnosis of diseases',
-        plant: 'Plant diseases',
         'non-reg-tox': {
           label: 'Non-regulatory toxicology',
           hint: 'Including ecotoxicology'
-        }
+        },
+        plant: 'Plant diseases'
       }
     },
     translationalSubpurposesOther: {
