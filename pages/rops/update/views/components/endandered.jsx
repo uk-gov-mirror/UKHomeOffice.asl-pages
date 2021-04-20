@@ -9,7 +9,9 @@ export default function Endangered() {
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>
-      <p><Snippet>{`fields.endangered.playback.${endangered}`}</Snippet></p>
+      <ul>
+        <li><Snippet>{`fields.endangered.playback.${endangered}`}</Snippet></li>
+      </ul>
     </Fragment>
   );
 }
