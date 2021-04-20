@@ -3,6 +3,7 @@ const update = require('./update');
 const updateEmail = require('./update-email');
 const updatePassword = require('./update-password');
 const emailPreferences = require('./email-preferences');
+const notifications = require('./notifications');
 
 module.exports = {
   menu: {
@@ -24,5 +25,10 @@ module.exports = {
   emailPreferences: {
     path: '/email-preferences',
     router: emailPreferences
+  },
+  notifications: {
+    path: '/notifications',
+    breadcrumb: false,
+    router: notifications
   }
 };
