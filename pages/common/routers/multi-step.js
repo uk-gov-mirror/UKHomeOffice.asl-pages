@@ -78,12 +78,20 @@ module.exports = ({ schema, config, root, postData = (req, res, next) => next() 
 
   app.use(form({
     configure(req, res, next) {
+      req.multiStep = {};
       req.form.schema = pick(schema(req), req.config.fields);
       next();
     },
     locals: (req, res, next) => {
       if (req.config.locals) {
         merge(res.locals.static, req.config.locals(req));
+      }
+      next();
+    },
+    process: (req, res, next) => {
+      req.multiStep.values = req.form.values;
+      if (req.config.process) {
+        req.config.process(req);
       }
       next();
     }

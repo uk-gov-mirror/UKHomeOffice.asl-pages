@@ -84,7 +84,12 @@ module.exports = {
   },
   species: {
     fields: ['otherSpecies', 'species'],
-    section: 'animals'
+    section: 'animals',
+    process: req => {
+      if (req.multiStep.values.otherSpecies === false) {
+        req.multiStep.values.species = null;
+      }
+    }
   },
   reuse: {
     fields: ['reuse'],

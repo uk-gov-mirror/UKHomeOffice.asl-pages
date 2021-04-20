@@ -20,7 +20,7 @@ module.exports = () => {
       const params = {
         method: 'PUT',
         json: {
-          data: req.form.values
+          data: req.multiStep.values
         }
       };
       req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}`, params)
