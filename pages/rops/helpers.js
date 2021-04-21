@@ -15,6 +15,16 @@ function hasNhps(req, option) {
   return !!intersection([...projectSpecies, ...ropSpecies], yeps).length;
 }
 
+function hasGeneticallyAltered(req) {
+  if (req.project.schemaVersion === 0) {
+    return (get(req.project, 'granted.data.protocols') || []).some(protocol => {
+      return (protocol.species || []).some(s => s['genetically-altered']);
+    });
+  }
+  return get(req.project, 'granted.data.ga', false);
+}
+
 module.exports = {
-  hasNhps
+  hasNhps,
+  hasGeneticallyAltered
 };
