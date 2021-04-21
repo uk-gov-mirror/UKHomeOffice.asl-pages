@@ -2,13 +2,14 @@ const { page } = require('@asl/service/ui');
 const { multiStep } = require('../../common/routers');
 const config = require('./config');
 const schema = require('./schema');
-const { hasNhps } = require('../helpers');
+const { hasNhps, hasGeneticallyAltered } = require('../helpers');
 
 module.exports = () => {
   const app = page({ root: __dirname });
 
   app.use((req, res, next) => {
     res.locals.static.hasNhps = hasNhps(req);
+    res.locals.static.hasGeneticallyAltered = hasGeneticallyAltered(req);
     next();
   });
 
