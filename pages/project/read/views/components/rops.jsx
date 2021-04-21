@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
+import format from 'date-fns/format';
+import { dateFormat } from '../../../../../constants';
 import Subsection from '../components/subsection';
 
 export default function Rops() {
@@ -13,7 +15,7 @@ export default function Rops() {
   return (
     <Subsection
       title={<Snippet>rops.title</Snippet>}
-      content={<Snippet year={(new Date()).getFullYear()}>{ submittedRop ? 'rops.submitted' : 'rops.content' }</Snippet>}
+      content={<Snippet year={format(project.ropsDeadline, 'YYYY')}>{ submittedRop ? 'rops.submitted' : 'rops.content' }</Snippet>}
     >
       {
         submittedRop
@@ -25,7 +27,7 @@ export default function Rops() {
           />
           : (
             <Fragment>
-              <p><Snippet deadline="31 January 2022">rops.deadline</Snippet></p>
+              <p><Snippet deadline={format(project.ropsDeadline, dateFormat.long)}>rops.deadline</Snippet></p>
               {
                 draftRop
                   ? <Link
