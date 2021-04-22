@@ -59,20 +59,40 @@ export default function PIL({ task, values }) {
             </thead>
             <tbody>
               <tr>
-                <td>{pil.establishment.from.name}</td>
-                <td><span className="highlight">{pil.establishment.to.name}</span></td>
+                <td>
+                  <Link
+                    page="establishment.dashboard"
+                    establishmentId={pil.establishment.from.id}
+                    label={pil.establishment.from.name}
+                  />
+                </td>
+                <td>
+                  <span className="highlight">
+                    <Link
+                      page="establishment.dashboard"
+                      establishmentId={pil.establishment.to.id}
+                      label={pil.establishment.to.name}
+                    />
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
       }
       {
-        !isTransfer && <p>{establishment.name}</p>
+        !isTransfer && <p>
+          <Link
+            page="establishment.dashboard"
+            establishmentId={establishment.id}
+            label={establishment.name}
+          />
+        </p>
       }
     </StickyNavAnchor>,
 
     <StickyNavAnchor id={applicantKey} key={applicantKey}>
       <h2><Snippet>{`sticky-nav.${applicantKey}`}</Snippet></h2>
-      <p><Link page="profile.read" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
+      <p><Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
       {
         task.type === 'application' && <dl>
           <dt><Snippet>pil.applicant.over18</Snippet></dt>
