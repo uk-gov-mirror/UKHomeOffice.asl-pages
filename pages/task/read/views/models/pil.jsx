@@ -92,7 +92,7 @@ export default function PIL({ task, values }) {
 
     <StickyNavAnchor id={applicantKey} key={applicantKey}>
       <h2><Snippet>{`sticky-nav.${applicantKey}`}</Snippet></h2>
-      <p><Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
+      <p><Link page="profile.read" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
       {
         task.type === 'application' && <dl>
           <dt><Snippet>pil.applicant.over18</Snippet></dt>
