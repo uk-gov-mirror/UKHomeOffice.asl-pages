@@ -6,6 +6,10 @@ const { hasNhps } = require('../../helpers');
 const allSpecies = flatten(Object.values(projectSpecies));
 
 function getReuse(key, req) {
+  if (!req.rop.reuse) {
+    return null;
+  }
+
   const placesOfBirth = get(req, 'rop.placesOfBirth') || [];
   return {
     reuse: {
