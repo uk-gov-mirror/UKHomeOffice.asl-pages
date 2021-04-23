@@ -9,7 +9,7 @@ const routes = require('./routes');
 module.exports = settings => {
   const app = Router({ mergeParams: true });
 
-  app.use(bodyParser.json({ limit: '5mb' }));
+  app.use(bodyParser.json({ limit: settings.bodySizeLimit }));
 
   app.use(getVersion(), getComments(), (req, res, next) => {
     res.locals.static.establishment = req.project.establishment;
