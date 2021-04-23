@@ -8,16 +8,24 @@ import {
   Field,
   EditableField,
   StickyNavAnchor,
-  ModelSummary
+  ModelSummary,
+  Link
 } from '@asl/components';
 import { schema as placeSchema } from '../../../../place/schema';
 import formatters from '../../../../place/formatters';
 import { hasChanged } from '../../../../../lib/utils';
 
-const LicenceHolder = ({ type, profile }) => (
+const LicenceHolder = ({ type, profile, establishment }) => (
   <Fragment>
     <dt><Snippet>{type}</Snippet></dt>
-    <dd>{`${profile.firstName} ${profile.lastName}`}</dd>
+    <dd>
+      <Link
+        page="profile.read"
+        establishmentId={establishment.id}
+        profileId={profile.id}
+        label={`${profile.firstName} ${profile.lastName}`}
+      />
+    </dd>
   </Fragment>
 );
 
@@ -49,15 +57,21 @@ export default function Playback({ task, values, allowSubmit }) {
       <h2><Snippet>sticky-nav.details</Snippet></h2>
       <dl className="inline">
         <dt><Snippet>establishment</Snippet></dt>
-        <dd>{ establishment.name }</dd>
+        <dd>
+          <Link
+            page="establishment.dashboard"
+            establishmentId={establishment.id}
+            label={establishment.name}
+          />
+        </dd>
 
         <dt><Snippet>licenceNumber</Snippet></dt>
         <dd>{ establishment.licenceNumber }</dd>
         {
-          establishment.pelh && <LicenceHolder type="pelh" profile={establishment.pelh} />
+          establishment.pelh && <LicenceHolder type="pelh" establishment={establishment} profile={establishment.pelh} />
         }
         {
-          establishment.nprc && <LicenceHolder type="nprc" profile={establishment.nprc} />
+          establishment.nprc && <LicenceHolder type="nprc" establishment={establishment} profile={establishment.nprc} />
         }
       </dl>
     </StickyNavAnchor>,

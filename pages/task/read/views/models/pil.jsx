@@ -59,14 +59,34 @@ export default function PIL({ task, values }) {
             </thead>
             <tbody>
               <tr>
-                <td>{pil.establishment.from.name}</td>
-                <td><span className="highlight">{pil.establishment.to.name}</span></td>
+                <td>
+                  <Link
+                    page="establishment.dashboard"
+                    establishmentId={pil.establishment.from.id}
+                    label={pil.establishment.from.name}
+                  />
+                </td>
+                <td>
+                  <span className="highlight">
+                    <Link
+                      page="establishment.dashboard"
+                      establishmentId={pil.establishment.to.id}
+                      label={pil.establishment.to.name}
+                    />
+                  </span>
+                </td>
               </tr>
             </tbody>
           </table>
       }
       {
-        !isTransfer && <p>{establishment.name}</p>
+        !isTransfer && <p>
+          <Link
+            page="establishment.dashboard"
+            establishmentId={establishment.id}
+            label={establishment.name}
+          />
+        </p>
       }
     </StickyNavAnchor>,
 
