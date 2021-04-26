@@ -32,6 +32,16 @@ module.exports = () => {
       .catch(next);
   });
 
+  app.get('*', (req, res, next) => {
+    const { status, proceduresCompleted, postnatal } = req.rop;
+    const isNilReturn = !proceduresCompleted || !postnatal;
+
+    if (status === 'draft' && isNilReturn) {
+      return res.redirect(req.buildRoute('rops.nil-return'));
+    }
+    next();
+  });
+
   return app;
 };
 

@@ -94,15 +94,17 @@ export default function Confirm() {
     return <Snippet fallback={`fields.${field}.options.${val}`}>{`fields.${field}.options.${val}.label`}</Snippet>;
   }
 
+  const nilReturn = !rop.proceduresCompleted || !rop.postnatal;
+
   return (
     <div className="rop-summary">
       <Section title="General details" step="procedures">
         <dl className="inline">
           <dt>Procedures completed in {year}</dt>
-          <dd>Yes</dd>
+          <dd>{yn(rop.proceduresCompleted)}</dd>
 
           <dt>Only protected embryonic forms used</dt>
-          <dd>{yn(!rop.postnatal)}</dd>
+          <dd>{rop.proceduresCompleted ? yn(!rop.postnatal) : '-'}</dd>
 
           <dt>Endangered animals used</dt>
           <dd>{yn(rop.endangered)}</dd>
@@ -148,144 +150,150 @@ export default function Confirm() {
           <dd>{yn(rop.productTesting)}</dd>
         </dl>
       </Section>
-      <Section title="Animals" step="species">
-        <dl className="inline">
-          <dt>Animal species</dt>
-          <dd>
-            <ul>{species.map((s, i) => <li key={i}>{s}</li>)}</ul>
-          </dd>
-
-          <dt>Re-use</dt>
-          <dd>{yn(rop.reuse)}</dd>
-
-          <dt>Place of birth for animals not reused</dt>
-          <dd>
-            {getRadioOption('placesOfBirth')}
-          </dd>
-
-          {
-            hasNhps && (
-              <Fragment>
-                <dt>Non-human primate (NHP) place of birth</dt>
-                <dd>{getRadioOption('nhpsOrigin')}</dd>
-
-                <dt>Non-human primate (NHP) source colony details</dt>
-                <dd>{getRadioOption('nhpsColonyStatus')}</dd>
-
-                <dt>Non-human primate (NHP) generation</dt>
-                <dd>{getRadioOption('nhpsGeneration')}</dd>
-              </Fragment>
-
-            )
-          }
-
-          <dt>Genetically altered animals used</dt>
-          <dd>{yn(rop.ga)}</dd>
-        </dl>
-      </Section>
-      <Section title="Purposes" step="purposes">
-        <dl className="inline">
-          {
-            (rop.purposes || []).map((purpose, index) => (
-              <Fragment key={index}>
-                <dt>Purpose {index + 1}</dt>
-                <dd>{getRadioOption('purposes', purpose)}</dd>
-                {
-                  hasSubpurposes(purpose) && <dt>Subpurposes</dt>
-                }
+      {
+        !nilReturn && (
+          <Fragment>
+            <Section title="Animals" step="species">
+              <dl className="inline">
+                <dt>Animal species</dt>
                 <dd>
-                  <ul>
-                    {
-                      purpose === 'basic' && rop.basicSubpurposes.map((sub, subIndex) => (
-                        <li key={subIndex}>
-                          {
-                            getRadioOption('basicSubpurposes', sub)
-                          }
-                          {
-                            sub === 'other' && <Inset>{rop.basicSubpurposesOther}</Inset>
-                          }
-                        </li>
-                      ))
-                    }
-                    {
-                      purpose === 'regulatory' && rop.regulatorySubpurposes.map((sub, subIndex) => (
-                        <li key={subIndex}>
-                          {
-                            getRadioOption('regulatorySubpurposes', sub)
-                          }
-                          {
-                            sub === 'routine-other' && <Inset>{rop.regulatorySubpurposesOther}</Inset>
-                          }
-                        </li>
-                      ))
-                    }
-                    {
-                      purpose === 'translational' && rop.translationalSubpurposes.map((sub, subIndex) => (
-                        <li key={subIndex}>
-                          {
-                            getRadioOption('translationalSubpurposes', sub)
-                          }
-                          {
-                            sub === 'other' && <Inset>{rop.translationalSubpurposesOther}</Inset>
-                          }
-                        </li>
-                      ))
-                    }
-                  </ul>
+                  <ul>{species.map((s, i) => <li key={i}>{s}</li>)}</ul>
                 </dd>
+
+                <dt>Re-use</dt>
+                <dd>{yn(rop.reuse)}</dd>
+
+                <dt>Place of birth for animals not reused</dt>
+                <dd>
+                  {getRadioOption('placesOfBirth')}
+                </dd>
+
                 {
-                  purpose === 'regulatory' && shouldShowLegislation && (
+                  hasNhps && (
                     <Fragment>
-                      <dt>Type of legislation</dt>
+                      <dt>Non-human primate (NHP) place of birth</dt>
+                      <dd>{getRadioOption('nhpsOrigin')}</dd>
+
+                      <dt>Non-human primate (NHP) source colony details</dt>
+                      <dd>{getRadioOption('nhpsColonyStatus')}</dd>
+
+                      <dt>Non-human primate (NHP) generation</dt>
+                      <dd>{getRadioOption('nhpsGeneration')}</dd>
+                    </Fragment>
+
+                  )
+                }
+
+                <dt>Genetically altered animals used</dt>
+                <dd>{yn(rop.ga)}</dd>
+              </dl>
+            </Section>
+            <Section title="Purposes" step="purposes">
+              <dl className="inline">
+                {
+                  (rop.purposes || []).map((purpose, index) => (
+                    <Fragment key={index}>
+                      <dt>Purpose {index + 1}</dt>
+                      <dd>{getRadioOption('purposes', purpose)}</dd>
+                      {
+                        hasSubpurposes(purpose) && <dt>Subpurposes</dt>
+                      }
                       <dd>
                         <ul>
                           {
-                            rop.regulatoryLegislation.map((leg, index) => (
-                              <li key={index}>
+                            purpose === 'basic' && rop.basicSubpurposes.map((sub, subIndex) => (
+                              <li key={subIndex}>
                                 {
-                                  getRadioOption('regulatoryLegislation', leg)
+                                  getRadioOption('basicSubpurposes', sub)
                                 }
                                 {
-                                  leg === 'other' && <Inset>{rop.regulatoryLegislationOther}</Inset>
+                                  sub === 'other' && <Inset>{rop.basicSubpurposesOther}</Inset>
+                                }
+                              </li>
+                            ))
+                          }
+                          {
+                            purpose === 'regulatory' && rop.regulatorySubpurposes.map((sub, subIndex) => (
+                              <li key={subIndex}>
+                                {
+                                  getRadioOption('regulatorySubpurposes', sub)
+                                }
+                                {
+                                  sub === 'routine-other' && <Inset>{rop.regulatorySubpurposesOther}</Inset>
+                                }
+                              </li>
+                            ))
+                          }
+                          {
+                            purpose === 'translational' && rop.translationalSubpurposes.map((sub, subIndex) => (
+                              <li key={subIndex}>
+                                {
+                                  getRadioOption('translationalSubpurposes', sub)
+                                }
+                                {
+                                  sub === 'other' && <Inset>{rop.translationalSubpurposesOther}</Inset>
                                 }
                               </li>
                             ))
                           }
                         </ul>
                       </dd>
-                      <dt>Origin of legislation</dt>
-                      <dd>
-                        <ul>
-                          {
-                            rop.regulatoryLegislationOrigin.map((leg, index) => (
-                              <li key={index}>{getRadioOption('regulatoryLegislationOrigin', leg)}</li>
-                            ))
-                          }
-                        </ul>
-                      </dd>
+                      {
+                        purpose === 'regulatory' && shouldShowLegislation && (
+                          <Fragment>
+                            <dt>Type of legislation</dt>
+                            <dd>
+                              <ul>
+                                {
+                                  rop.regulatoryLegislation.map((leg, index) => (
+                                    <li key={index}>
+                                      {
+                                        getRadioOption('regulatoryLegislation', leg)
+                                      }
+                                      {
+                                        leg === 'other' && <Inset>{rop.regulatoryLegislationOther}</Inset>
+                                      }
+                                    </li>
+                                  ))
+                                }
+                              </ul>
+                            </dd>
+                            <dt>Origin of legislation</dt>
+                            <dd>
+                              <ul>
+                                {
+                                  rop.regulatoryLegislationOrigin.map((leg, index) => (
+                                    <li key={index}>{getRadioOption('regulatoryLegislationOrigin', leg)}</li>
+                                  ))
+                                }
+                              </ul>
+                            </dd>
+                          </Fragment>
+                        )
+                      }
                     </Fragment>
-                  )
+                  ))
                 }
-              </Fragment>
-            ))
-          }
-          <dt>Creation of new genetic line</dt>
-          <dd>{yn(rop.newGeneticLine)}</dd>
-        </dl>
-      </Section>
-      {
-        rop.productTesting && (
-          <Section title="Techniques" step="techniques">
-            <dl className="inline">
-              <dt>Techniques of special interest used</dt>
-              <dd>
-                {getRadioOption('productTestingTypes')}
-              </dd>
-            </dl>
-          </Section>
+                <dt>Creation of new genetic line</dt>
+                <dd>{yn(rop.newGeneticLine)}</dd>
+              </dl>
+            </Section>
+            {
+              rop.productTesting && (
+                <Section title="Techniques" step="techniques">
+                  <dl className="inline">
+                    <dt>Techniques of special interest used</dt>
+                    <dd>
+                      {getRadioOption('productTestingTypes')}
+                    </dd>
+                  </dl>
+                </Section>
+              )
+            }
+            <hr />
+          </Fragment>
         )
       }
-      <hr />
     </div>
   );
 }
