@@ -6,11 +6,26 @@ const { hasNhps } = require('../../helpers');
 const allSpecies = flatten(Object.values(projectSpecies));
 
 function getReuse(key, req) {
+  const nhps = hasNhps(req, key);
+  const placesOfBirth = get(req, 'rop.placesOfBirth') || [];
+
   if (!req.rop.reuse) {
-    return null;
+    if (nhps) {
+      return {};
+    }
+    return {
+      placesOfBirth: {
+        inputType: 'radioGroup',
+        prefix: key,
+        hint: false,
+        validate: [
+          'required'
+        ],
+        options: placesOfBirth
+      }
+    };
   }
 
-  const placesOfBirth = get(req, 'rop.placesOfBirth') || [];
   return {
     reuse: {
       inputType: 'radioGroup',
@@ -28,7 +43,7 @@ function getReuse(key, req) {
         {
           value: false,
           label: 'No',
-          reveal: {
+          reveal: !nhps && {
             placesOfBirth: {
               inputType: 'radioGroup',
               prefix: key,
@@ -46,6 +61,9 @@ function getReuse(key, req) {
 }
 
 function getNhpQs(key, req) {
+  if (!hasNhps(req, key)) {
+    return {};
+  }
   const nhpsOrigin = get(req, 'rop.nhpsOrigin') || [];
   const nhpsColonyStatus = get(req, 'rop.nhpsColonyStatus') || [];
   const nhpsGeneration = get(req, 'rop.nhpsGeneration') || [];
@@ -211,7 +229,10 @@ module.exports = (req, addMultiple) => {
         return {
           value: s,
           label: obj ? obj.label : s,
-          reveal: hasNhps(req, s) ? getNhpQs(s, req) : getReuse(s, req)
+          reveal: {
+            ...getNhpQs(s, req),
+            ...getReuse(s, req)
+          }
         };
       })
     },
