@@ -3,6 +3,8 @@ const { set } = require('lodash');
 const content = require('./content');
 const routes = require('./routes');
 
+const isNilReturn = rop => !rop.proceduresCompleted || !rop.postnatal;
+
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
@@ -27,16 +29,16 @@ module.exports = () => {
       .then(() => {
         set(res.locals, 'static.content.notifications', content.notifications);
         req.notification({ key: 'success' });
+        if (isNilReturn(req.rop)) {
+          return res.redirect(req.buildRoute('rops.nil-return'));
+        }
         res.redirect(req.buildRoute('rops.procedures'));
       })
       .catch(next);
   });
 
   app.get('*', (req, res, next) => {
-    const { status, proceduresCompleted, postnatal } = req.rop;
-    const isNilReturn = !proceduresCompleted || !postnatal;
-
-    if (status === 'draft' && isNilReturn) {
+    if (req.rop.status === 'draft' && isNilReturn(req.rop)) {
       return res.redirect(req.buildRoute('rops.nil-return'));
     }
     next();
