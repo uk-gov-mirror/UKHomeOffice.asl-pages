@@ -37,9 +37,10 @@ module.exports = settings => {
       req.user.can('project.update', params),
       req.user.can('project.revoke', params),
       req.user.can('project.transfer', params),
-      req.user.can('project.manageAccess', params)
+      req.user.can('project.manageAccess', params),
+      req.user.can('project.rops.update', params)
     ])
-      .then(([canUpdate, canRevoke, canTransfer, canManageAccess]) => {
+      .then(([canUpdate, canRevoke, canTransfer, canManageAccess, canUpdateRops]) => {
         const openTasks = req.project.openTasks;
         const openTask = openTasks && openTasks.find(t => t.data.action !== 'grant-ra');
         const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
@@ -49,6 +50,7 @@ module.exports = settings => {
 
         res.locals.static.canManageAccess = canManageAccess;
         res.locals.static.canUpdate = canUpdate && isCorrectEstablishment;
+        res.locals.static.canUpdateRops = canUpdateRops && isCorrectEstablishment;
         res.locals.static.canTransfer = canTransfer;
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
