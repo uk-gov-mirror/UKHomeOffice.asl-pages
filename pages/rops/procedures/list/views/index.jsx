@@ -100,7 +100,7 @@ function Actions({ model }) {
     <Fragment>
       <Link page="rops.procedures.update" procedureId={model.id} label="Edit" />
       <form method="POST" action={`${url}/delete`}>
-        <button className="link" onClick={onClick}>Delete</button>
+        <button className="link" onClick={onClick}><span>Delete</span></button>
       </form>
     </Fragment>
   );
