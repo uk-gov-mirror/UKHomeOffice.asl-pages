@@ -7,7 +7,7 @@ const success = require('../routers/success');
 
 const sendData = (req) => {
   const { type, comment } = req.session.form[req.model.id].values;
-  const roleId = req.profile.roles.find(r => r.type === type).id;
+  const roleId = req.profile.roles.find(r => r.type === type && r.establishmentId === req.establishmentId).id;
 
   const opts = {
     method: 'DELETE',
