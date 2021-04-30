@@ -21,6 +21,11 @@ module.exports = () => {
       let nvssqps = get(req.body, 'nvssqps');
       req.form.values.nacwos = uniq(Array.isArray(nacwos) ? nacwos : [nacwos]).filter(Boolean);
       req.form.values.nvssqps = uniq(Array.isArray(nvssqps) ? nvssqps : [nvssqps]).filter(Boolean);
+
+      // if user does not click "Done" on restrictions then the value is posted twice as an array
+      if (Array.isArray(req.body.restrictions)) {
+        req.form.values.restrictions = req.body.restrictions[0];
+      }
       next();
     },
     cancelEdit: (req, res, next) => {
