@@ -69,6 +69,7 @@ export default function Create() {
         </div>
         <div className="control-panel">
           <button type="submit" className="govuk-button" disabled={disabled}><Snippet>buttons.submit</Snippet></button>
+          <Link page="rops.procedures.list" label={<Snippet>buttons.cancel</Snippet>} />
         </div>
       </form>
 
