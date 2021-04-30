@@ -69,7 +69,6 @@ export default function NTS() {
   const grantedRa = project.grantedRa;
   const versionData = version.data;
   versionData.raCompulsory = version.raCompulsory;
-  versionData.raReasons = version.raReasons;
 
   const title = get(version, 'data.title') || 'Untitled project';
   const isTrainingLicence = get(version, 'data.training-licence', false);

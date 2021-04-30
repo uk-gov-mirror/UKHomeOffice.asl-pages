@@ -14,10 +14,11 @@ export default function RetrospectiveDecision({ project, version }) {
       </div>
 
       {
-        isRequired && version.raReasons &&
+        isRequired && project.raReasons &&
           <Fragment>
             <h3>Reason for retrospective assessment</h3>
-            <RaReasons reasons={version.raReasons} />
+            <p>This may include reasons from previous versions of this licence.</p>
+            <RaReasons reasons={project.raReasons} />
           </Fragment>
       }
 
