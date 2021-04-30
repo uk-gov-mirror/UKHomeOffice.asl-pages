@@ -365,6 +365,27 @@ const getPreviousProtocols = () => (req, res, next) => {
     .catch(next);
 };
 
+const loadRa = (req, res, next) => {
+  const requiresRa = req.version.raCompulsory || req.version.retrospectiveAssessment || req.project.raDate;
+
+  if (!requiresRa) {
+    return next();
+  }
+
+  const raUrl = `/establishments/${req.establishmentId}/projects/${req.projectId}/retrospective-assessment`;
+  const raReasons = req.api(`${raUrl}/reasons`);
+  // grantedRa is re-fetched if present because req.project.grantedRa doesn't include ra.data by default
+  const grantedRa = req.project.grantedRa ? req.api(`${raUrl}/${req.project.grantedRa.id}`) : Promise.resolve();
+
+  return Promise.all([raReasons, grantedRa])
+    .then(([reasonsResponse, grantedRaResponse]) => {
+      req.project.raReasons = get(reasonsResponse, 'json.data');
+      req.project.grantedRa = grantedRaResponse ? get(grantedRaResponse, 'json.data') : null;
+    })
+    .then(() => next())
+    .catch(next);
+};
+
 module.exports = {
   getVersion,
   getComments,
@@ -374,5 +395,6 @@ module.exports = {
   getAllChanges,
   getChangedValues,
   getProjectEstablishment,
-  getPreviousProtocols
+  getPreviousProtocols,
+  loadRa
 };

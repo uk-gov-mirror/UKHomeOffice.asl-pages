@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import filenamify from 'filenamify';
 import { Router } from 'express';
 import createStore from '@asl/projects/client/store';
-import { getProjectEstablishment } from '../middleware';
+import { getProjectEstablishment, loadRa } from '../middleware';
 import Licence from './views';
 import Protocols from './views/protocols';
 import NTS from './views/nts';
@@ -23,7 +23,6 @@ module.exports = settings => {
     const isFullApplication = !!req.query.application;
     const versionData = req.version.data || { title: 'Untitled project' };
     versionData.raCompulsory = req.version.raCompulsory;
-    versionData.raReasons = req.version.raReasons;
 
     const initialState = {
       project: versionData,
@@ -72,18 +71,6 @@ module.exports = settings => {
         res.attachment(`${filename}.pdf`);
         response.body.pipe(res);
       })
-      .catch(next);
-  };
-
-  const loadRa = (req, res, next) => {
-    if (!req.project.grantedRa) {
-      return next();
-    }
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/retrospective-assessment/${req.project.grantedRa.id}`)
-      .then(({ json: { data } }) => {
-        req.project.grantedRa = data;
-      })
-      .then(() => next())
       .catch(next);
   };
 
