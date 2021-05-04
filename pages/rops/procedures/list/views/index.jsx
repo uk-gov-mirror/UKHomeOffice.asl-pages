@@ -111,11 +111,17 @@ const Submission = () => {
   const hasProcedures = useSelector(state => !!state.static.rop.procedures.length);
   const editable = useSelector(state => state.static.rop.status === 'draft');
 
-  if (!hasProcedures) {
-    return null;
+  if (!editable) {
+    return <Fragment>
+      <h2><Snippet>unsubmit.title</Snippet></h2>
+      <p><Snippet>unsubmit.content</Snippet></p>
+      <form action={`${url}/unsubmit`} method="POST">
+        <Button><Snippet>unsubmit.action</Snippet></Button>
+      </form>
+    </Fragment>;
   }
-  return editable
-    ? <Fragment>
+  return hasProcedures && (
+    <Fragment>
       <h2><Snippet>submit.title</Snippet></h2>
       <p><Snippet>submit.content</Snippet></p>
       <p>
@@ -126,13 +132,7 @@ const Submission = () => {
         />
       </p>
     </Fragment>
-    : <Fragment>
-      <h2><Snippet>unsubmit.title</Snippet></h2>
-      <p><Snippet>unsubmit.content</Snippet></p>
-      <form action={`${url}/unsubmit`} method="POST">
-        <Button><Snippet>unsubmit.action</Snippet></Button>
-      </form>
-    </Fragment>;
+  );
 };
 
 export default function Procedures() {
