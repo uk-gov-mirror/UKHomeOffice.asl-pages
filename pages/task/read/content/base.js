@@ -15,6 +15,9 @@ module.exports = {
     comment: {
       label: '{{#commentRequired}}Reason for {{commentLabel}}{{/commentRequired}}{{^commentRequired}}Remarks (optional){{/commentRequired}}',
       hint: 'Your {{#commentRequired}}reason{{/commentRequired}}{{^commentRequired}}remarks{{/commentRequired}} will be recorded and visible to relevant establishment and Home Office personnel.'
+    },
+    assignedTo: {
+      label: 'Assign to:'
     }
   },
   commentLabels: {
@@ -35,6 +38,7 @@ module.exports = {
       review: 'Comments'
     },
     'next-steps': 'What do you want to do?',
+    'asru-assignment': 'Task assignment',
     conditions: 'Additional conditions'
   },
   activityLog: {

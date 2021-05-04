@@ -250,6 +250,20 @@ table.training tbody {
   }
 }
 
+.flex {
+  display: flex;
+
+  .grow {
+    flex-grow: 1;
+  }
+
+  .shrink {
+    flex-shrink: 1;
+    align-self: center;
+    margin-left: $govuk-gutter;
+  }
+}
+
 .control-panel {
   margin-top: $govuk-gutter;
   display: flex;

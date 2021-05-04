@@ -122,5 +122,13 @@ export default {
         </div>
       );
     }
+  },
+  assignedTo: {
+    format: assignedTo => {
+      if (!assignedTo) {
+        return <em>Unassigned</em>;
+      }
+      return <Link page="globalProfile" label={`${assignedTo.firstName} ${assignedTo.lastName}`} profileId={assignedTo.id} />;
+    }
   }
 };

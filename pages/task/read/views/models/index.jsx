@@ -22,6 +22,7 @@ import TrainingPil from './training-pil';
 
 import TaskStatus from '../components/task-status';
 import ActivityLog from '../components/activity-log';
+import AsruAssignment from '../components/asru-assignment';
 
 const models = {
   establishment: Establishment,
@@ -34,7 +35,7 @@ const models = {
   trainingPil: TrainingPil
 };
 
-const selector = ({ static: { schema, values } }) => ({ schema, values });
+const selector = ({ static: { schema, values, isAsru } }) => ({ schema, values, isAsru });
 
 const AsruDiscard = ({ task, showBorder }) => {
   return (
@@ -56,7 +57,7 @@ const AsruDiscard = ({ task, showBorder }) => {
 };
 
 export default function Model({ task, formFields, allowSubmit }) {
-  const { schema, values } = useSelector(selector, shallowEqual);
+  const { schema, values, isAsru } = useSelector(selector, shallowEqual);
   const endorsingOwnPil = useSelector(state => state.static.endorsingOwnPil);
   const Model = models[task.data.model];
   const hasComments = task.data.meta && task.data.meta.comments;
@@ -84,6 +85,14 @@ export default function Model({ task, formFields, allowSubmit }) {
               title={<Snippet fallback="sticky-nav.comments.default">{`sticky-nav.comments.${task.type}`}</Snippet>}
               content={task.data.meta.comments}
             />
+          </StickyNavAnchor>
+        )
+      }
+      {
+        isAsru && (
+          <StickyNavAnchor id="asru-assignment">
+            <h2><Snippet>sticky-nav.asru-assignment</Snippet></h2>
+            <AsruAssignment />
           </StickyNavAnchor>
         )
       }

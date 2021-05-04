@@ -14,7 +14,7 @@ const getStatusBadge = (status, model) => {
 
 export default function TaskStatus({ task }) {
   const model = get(task, 'data.model');
-  const latestActivity = task.activityLog[0];
+  const latestActivity = task.activityLog.filter(a => a.eventName !== 'assign')[0];
   let { action, status } = latestActivity;
 
   if (model === 'project') {
