@@ -303,14 +303,7 @@ p.holc {
 }
 
 .projects-actions {
-  margin: 0;
-  // needed to negate the .control-panel margin top
-  margin-top: 0 !important;
-  float: right;
-
-  > *:last-child {
-    margin-right: 0;
-  }
+  margin-bottom: $govuk-gutter;
 
   button, a {
     font-size: 0.95em;

@@ -36,9 +36,8 @@ module.exports = settings => {
       next();
     },
     getApiPath: (req, res, next) => {
-      const query = {
-        status: req.query.status || 'active'
-      };
+      const allStatuses = ['inactive', 'pending', 'active', 'expired', 'revoked', 'transferred'];
+      const query = req.query.csv ? { status: allStatuses } : { status: req.query.status || 'active' };
       req.datatable.apiPath = [`/establishment/${req.establishmentId}/projects`, { query }];
       next();
     }
