@@ -106,9 +106,40 @@ function Actions({ model }) {
   );
 }
 
+const Submission = () => {
+  const url = useSelector(state => state.static.url);
+  const hasProcedures = useSelector(state => !!state.static.rop.procedures.length);
+  const editable = useSelector(state => state.static.rop.status === 'draft');
+
+  if (!hasProcedures) {
+    return null;
+  }
+  return editable
+    ? <Fragment>
+      <h2><Snippet>submit.title</Snippet></h2>
+      <p><Snippet>submit.content</Snippet></p>
+      <p>
+        <Link
+          page="rops.submit"
+          className="govuk-button"
+          label={<Snippet>submit.action</Snippet>}
+        />
+      </p>
+    </Fragment>
+    : <Fragment>
+      <h2><Snippet>unsubmit.title</Snippet></h2>
+      <p><Snippet>unsubmit.content</Snippet></p>
+      <form action={`${url}/unsubmit`} method="POST">
+        <Button><Snippet>unsubmit.action</Snippet></Button>
+      </form>
+    </Fragment>;
+};
+
 export default function Procedures() {
-  const { project, rop, url } = useSelector(state => state.static);
-  const editable = rop.status === 'draft';
+  const { project } = useSelector(state => state.static);
+  const hasProcedures = useSelector(state => !!state.static.rop.procedures.length);
+  const editable = useSelector(state => state.static.rop.status === 'draft');
+
   return (
     <Fragment>
       <DocumentHeader
@@ -139,7 +170,7 @@ export default function Procedures() {
         )
       }
       {
-        rop.procedures.length
+        hasProcedures
           ? (
             <div style={{ overflowX: 'scroll', maxWidth: '2000px' }}>
               <Datatable formatters={formatters} Actions={editable && Actions} />
@@ -147,32 +178,7 @@ export default function Procedures() {
           )
           : <p><em>No procedures added</em></p>
       }
-
-      {
-        editable
-          ? (
-            <Fragment>
-              <h2><Snippet>submit.title</Snippet></h2>
-              <p><Snippet>submit.content</Snippet></p>
-              <p>
-                <Link
-                  page="rops.submit"
-                  className="govuk-button"
-                  label={<Snippet>submit.action</Snippet>}
-                />
-              </p>
-            </Fragment>
-          )
-          : (
-            <Fragment>
-              <h2><Snippet>unsubmit.title</Snippet></h2>
-              <p><Snippet>unsubmit.content</Snippet></p>
-              <form action={`${url}/unsubmit`} method="POST">
-                <Button><Snippet>unsubmit.action</Snippet></Button>
-              </form>
-            </Fragment>
-          )
-      }
+      <Submission />
     </Fragment>
   );
 }
