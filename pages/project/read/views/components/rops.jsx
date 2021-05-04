@@ -15,7 +15,7 @@ export default function Rops() {
   return (
     <Subsection
       title={<Snippet>rops.title</Snippet>}
-      content={<Snippet year={format(project.ropsDeadline, 'YYYY')}>{ submittedRop ? 'rops.submitted' : 'rops.content' }</Snippet>}
+      content={<Snippet year="2021">{ submittedRop ? 'rops.submitted' : 'rops.content' }</Snippet>}
     >
       {
         submittedRop
