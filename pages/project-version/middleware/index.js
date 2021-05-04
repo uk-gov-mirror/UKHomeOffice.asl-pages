@@ -366,7 +366,9 @@ const getPreviousProtocols = () => (req, res, next) => {
 };
 
 const loadRa = (req, res, next) => {
-  const requiresRa = req.version.raCompulsory || req.version.retrospectiveAssessment || req.project.raDate;
+  const raCompulsory = get(req, 'version.raCompulsory');
+  const retrospectiveAssessment = get(req, 'version.retrospectiveAssessment');
+  const requiresRa = raCompulsory || retrospectiveAssessment || req.project.raDate;
 
   if (!requiresRa) {
     return next();

@@ -2,7 +2,7 @@ const { Router } = require('express');
 const bodyParser = require('body-parser');
 const { get } = require('lodash');
 const routes = require('./routes');
-const { getComments, getChangedValues } = require('../project-version/middleware');
+const { getComments, getChangedValues, loadRa } = require('../project-version/middleware');
 const extractComments = require('../project-version/lib/extract-comments');
 
 module.exports = settings => {
@@ -20,6 +20,8 @@ module.exports = settings => {
       .then(() => next())
       .catch(next);
   });
+
+  app.use(loadRa);
 
   app.use(getComments('grant-ra'));
 
