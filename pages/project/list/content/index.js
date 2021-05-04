@@ -11,5 +11,8 @@ module.exports = merge({}, baseContent, {
   buttons: {
     create: 'Apply for project licence',
     upload: 'Use existing template'
+  },
+  actions: {
+    downloadAll: 'Download all project data (CSV)'
   }
 });

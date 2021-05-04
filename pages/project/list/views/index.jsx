@@ -63,6 +63,9 @@ function Projects({
           </div>
         )
       }
+
+      <Link page="project.list" label={<Snippet>actions.downloadAll</Snippet>} query={queryWithCSV} className="float-right" />
+
       <Tabs active={tabs.indexOf(status)}>
         {
           tabs.map((tab, index) =>
@@ -70,9 +73,9 @@ function Projects({
           )
         }
       </Tabs>
+
       <Search label={<Snippet>searchText</Snippet>} />
       <FilterSummary resultType="projects" />
-      <Link page="project.list" label="Download CSV" query={queryWithCSV} className="float-right" />
       <Datatable formatters={formatters(establishment.id)} />
     </Fragment>
   );
