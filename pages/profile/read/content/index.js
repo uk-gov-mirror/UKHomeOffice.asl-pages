@@ -12,16 +12,21 @@ module.exports = merge({}, baseContent, {
   },
   training: 'Training record',
   projects: {
-    title: 'Active projects',
     licenceNumber: 'Licence number: {{licenceNumber}}',
-    expiryDate: 'Expires on {{expiryDate}}',
+    expiry: 'Expires on {{expiryDate}}',
+    expired: 'Expired on {{expiryDate}}',
+    revocationDate: 'Revoked on {{revocationDate}}',
     primaryAvailabilityAt: {
       application: 'Application at {{establishmentName}}',
       licence: 'Licence held at {{establishmentName}}'
     },
     additionalAvailabilityAt: 'Has additional availabilty at {{establishmentNames}}',
     noProjects: 'None',
-    drafts: 'Draft projects',
+    tabs: {
+      active: 'Active',
+      drafts: 'Drafts',
+      inactive: 'Inactive'
+    },
     conversions: 'Project conversions'
   },
   contactDetails: {
