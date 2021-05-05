@@ -333,8 +333,8 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
           <Fragment>
             <hr />
             <LeaveEstablishment
-              profile={this.props.profile}
-              establishment={this.props.establishment}
+              profile={profile}
+              establishment={establishment}
             />
           </Fragment>
         )
