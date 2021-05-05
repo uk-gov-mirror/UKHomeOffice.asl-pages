@@ -210,10 +210,12 @@ function getPurposes(req) {
 
 module.exports = (req, addMultiple) => {
   const projectSpecies = (get(req, 'rop.project.granted.data.species') || []).filter(s => !s.includes('other'));
+  const ropSpecies = flatten(Object.values(get(req, 'rop.species') || {})).filter(s => !s.match(/^other-/));
+
   const hasGa = get(req, 'rop.ga', false);
   const species = [
     ...projectSpecies,
-    ...flatten(Object.values(get(req, 'rop.species') || {}))
+    ...ropSpecies
   ];
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
