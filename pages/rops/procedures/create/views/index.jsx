@@ -9,7 +9,6 @@ import {
   WidthContainer,
   ErrorSummary
 } from '@asl/components';
-import formatters from '../../formatters';
 
 function FormSection({ title, fields, step }) {
   const model = useSelector(state => state.model);
@@ -28,7 +27,7 @@ function FormSection({ title, fields, step }) {
         )
       }
       <h2>{title}</h2>
-      <Fieldset schema={pick(schema, fields)} model={model} formatters={pick(formatters, fields)} errors={errors} />
+      <Fieldset schema={pick(schema, fields)} model={model} errors={errors} />
     </Fragment>
   );
 }
