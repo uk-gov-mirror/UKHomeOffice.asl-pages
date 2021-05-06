@@ -12,6 +12,7 @@ import { getUrl } from '@asl/components/src/link';
 import { Button } from '@ukhomeoffice/react-components';
 import flatten from 'lodash/flatten';
 import Confirm from '../../../update/views/components/confirm';
+import OverflowWrapper from '../../../../common/components/overflow-wrapper';
 import { projectSpecies } from '@asl/constants';
 
 const allSpecies = flatten(Object.values(projectSpecies));
@@ -172,9 +173,9 @@ export default function Procedures() {
       {
         hasProcedures
           ? (
-            <div style={{ overflowX: 'scroll', maxWidth: '2000px' }}>
+            <OverflowWrapper>
               <Datatable formatters={formatters} Actions={editable && Actions} />
-            </div>
+            </OverflowWrapper>
           )
           : <p><em>No procedures added</em></p>
       }
