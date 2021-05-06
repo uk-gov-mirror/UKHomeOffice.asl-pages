@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import differenceInYears from 'date-fns/difference_in_years';
 import { Button } from '@ukhomeoffice/react-components';
@@ -61,7 +61,7 @@ function ProjectDetails({ project, establishment }) {
   );
 }
 
-export default function Profile({ profile, establishment = {}, allowedActions = [], isOwnProfile = false, projectTab = 'active' }) {
+export default function Profile({ profile, establishment = {}, allowedActions = [], isOwnProfile = false }) {
   const {
     pil,
     roles = [],
@@ -71,6 +71,14 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
     pilLicenceNumber,
     rcvsNumber
   } = profile;
+
+  const projectTabs = ['active', 'drafts', 'inactive'];
+  const [projectTab, setProjectTab] = useState(projectTabs[0]);
+
+  const changeTab = tab => e => {
+    e.preventDefault();
+    setProjectTab(tab);
+  };
 
   const correctEstablishment = pil && pil.establishmentId === establishment.id;
 
@@ -87,7 +95,6 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
     return isPrimaryEstablishment || isAdditionalAvailability;
   };
 
-  const projectTabs = ['active', 'drafts', 'inactive'];
   const activeProjects = projects.filter(filterProjects('active'));
   const draftProjects = projects.filter(filterProjects('inactive'));
   const inactiveProjects = projects.filter(filterProjects(['expired', 'revoked', 'transferred']));
@@ -154,7 +161,7 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
             <Tabs active={projectTabs.indexOf(projectTab)}>
               {
                 projectTabs.map((tab, index) =>
-                  <a key={index} href={`?projectTab=${tab}`}><Snippet>{`projects.tabs.${tab}`}</Snippet></a>
+                  <a key={index} href={`#${tab}`} onClick={changeTab(tab)}><Snippet>{`projects.tabs.${tab}`}</Snippet></a>
                 )
               }
             </Tabs>
