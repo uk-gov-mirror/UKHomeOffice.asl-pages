@@ -9,6 +9,10 @@ module.exports = {
     state: 'Task updated',
     log: 'Updated by'
   },
+  assign: {
+    state: 'Task assigned',
+    log: 'Assigned by'
+  },
   'deadline-extended': {
     state: 'Deadline extended',
     log: 'Deadline for decision extended by'

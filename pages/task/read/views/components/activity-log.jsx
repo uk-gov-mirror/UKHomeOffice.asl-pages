@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@asl/components';
@@ -29,6 +30,22 @@ function Action({ task, action, changedBy }) {
       <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
       <strong>: </strong>
       <ProfileLink id={changedBy.id} name={name} establishmentId={task.data.establishmentId} asruUser={changedBy.asruUser} />
+    </p>
+  );
+}
+
+function Assignment({ item }) {
+  const assignedTo = item.assignedTo;
+  return (
+    <p>
+      <strong>Assigned to</strong>
+      <strong>: </strong>
+      {
+        assignedTo
+          ? <ProfileLink id={assignedTo.id} name={`${assignedTo.firstName} ${assignedTo.lastName}`} asruUser={true} />
+          : <em>Unassigned</em>
+      }
+
     </p>
   );
 }
@@ -187,6 +204,7 @@ function LogItem({ item, task }) {
   let { action } = item;
   const isExtension = isDeadlineExtension(item);
   const isRa = task.data.action === 'grant-ra';
+  const isAssignment = item.eventName === 'assign';
 
   if (action === 'update' && isExtension) {
     action = 'deadline-extended';
@@ -199,6 +217,7 @@ function LogItem({ item, task }) {
       <InspectorRecommendation item={item} />
       { isExtension && <DeadlineDetails item={item} /> }
       { isRa && <AwerbDate item={item} /> }
+      { isAssignment && <Assignment item={item} />}
       <DeclarationMeta item={item} />
       <Comment changedBy={item.changedBy} comment={item.comment} />
       { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }
@@ -208,6 +227,7 @@ function LogItem({ item, task }) {
 
 export default function ActivityLog({ task }) {
   const [open, setOpen] = useState(false);
+  const isAsru = useSelector(state => state.static.isAsru);
 
   function toggle(e) {
     e.preventDefault();
@@ -218,7 +238,9 @@ export default function ActivityLog({ task }) {
     return null;
   }
 
-  const latestActivity = task.activityLog[0];
+  const activityLog = isAsru ? task.activityLog : task.activityLog.filter(a => a.eventName !== 'assign');
+
+  const latestActivity = activityLog[0];
 
   return (
     <div className="activity-log">
@@ -226,7 +248,7 @@ export default function ActivityLog({ task }) {
 
       <LogItem key={latestActivity.id} item={latestActivity} task={task} />
 
-      { task.activityLog.length > 1 &&
+      { activityLog.length > 1 &&
         <Fragment>
           <p className={classnames('toggle-switch', { open })}>
             <a href="#" onClick={toggle}>
@@ -241,7 +263,7 @@ export default function ActivityLog({ task }) {
           <div className={classnames('older-activity', { hidden: !open })}>
             <ul className="task-activity">
               {
-                task.activityLog.slice(1).map(item => (
+                activityLog.slice(1).map(item => (
                   <li key={item.id}>
                     <LogItem item={item} task={task} />
                   </li>

@@ -5,6 +5,7 @@ const UnauthorisedError = require('@asl/service/errors/unauthorised');
 const { populateNamedPeople } = require('../../../common/middleware');
 const form = require('../../../common/routers/form');
 const getSchema = require('../../schema/view');
+const getAssignSchema = require('../../schema/assign');
 const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
 const { getEstablishment } = require('../../../common/helpers');
@@ -230,6 +231,19 @@ module.exports = () => {
     next();
   });
 
+  app.use((req, res, next) => {
+    if (!req.user.profile.asruUser) {
+      return next();
+    }
+    req.api('/asru/profiles')
+      .then(({ json: { data } }) => {
+        const profiles = data.filter(profile => profile.id !== req.user.profile.id);
+        res.locals.static.assignmentSchema = getAssignSchema(profiles);
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
   app.use(form(Object.assign({
     configure: (req, res, next) => {
       res.locals.static.content = merge({}, res.locals.static.content, getContent(req.task));
@@ -249,6 +263,7 @@ module.exports = () => {
       res.locals.static.schema = req.schema;
       res.locals.static.task = req.task;
       res.locals.static.profile = req.profile;
+      res.locals.static.user = req.user.profile;
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
       res.locals.static.endorsingOwnPil = endorsingOwnPil(req.task, req.user.profile);

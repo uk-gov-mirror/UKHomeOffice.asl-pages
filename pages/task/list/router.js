@@ -1,4 +1,4 @@
-const { get } = require('lodash');
+const { get, omit } = require('lodash');
 const { NotFoundError } = require('@asl/service/errors');
 const defaultSchema = require('./schema');
 const datatable = require('../../common/routers/datatable');
@@ -17,6 +17,9 @@ module.exports = ({
   schema = defaultSchema
 } = {}) => datatable({
   configure: (req, res, next) => {
+    if (!req.user.profile.asruUser) {
+      req.datatable.schema = omit(req.datatable.schema, 'assignedTo');
+    }
     const tabs = getTabs(req.user.profile);
     const progress = req.query.progress || tabs[0];
     if (!tabs.includes(progress)) {

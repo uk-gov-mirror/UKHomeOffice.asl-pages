@@ -1,5 +1,6 @@
 const { page } = require('@asl/service/ui');
 const routes = require('./routes');
+const assign = require('./routers/assign');
 
 module.exports = settings => {
   const app = page({
@@ -7,6 +8,8 @@ module.exports = settings => {
     root: __dirname,
     paths: ['/deadline-passed', '/extend', '/confirm', '/success']
   });
+
+  app.use('/assign', assign());
 
   return app;
 };

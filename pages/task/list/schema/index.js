@@ -20,5 +20,9 @@ module.exports = {
   status: {
     show: true,
     sortable: false
+  },
+  assignedTo: {
+    show: true,
+    sortable: false
   }
 };

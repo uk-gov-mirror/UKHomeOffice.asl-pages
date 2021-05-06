@@ -13,5 +13,8 @@ module.exports = {
   },
   status: {
     label: 'Status'
+  },
+  assignedTo: {
+    label: 'Assigned to'
   }
 };
