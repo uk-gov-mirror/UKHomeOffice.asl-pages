@@ -11,7 +11,8 @@ const Index = ({
   model,
   establishment,
   isOwnProfile,
-  showRelatedTasks
+  showRelatedTasks,
+  projectTab
 }) => {
   const certificates = model.certificates || [];
   return (
@@ -63,7 +64,13 @@ const Index = ({
             </dl>
           </Fragment>
 
-          <Profile profile={model} establishment={establishment} allowedActions={allowedActions} isOwnProfile={isOwnProfile} />
+          <Profile
+            profile={model}
+            establishment={establishment}
+            allowedActions={allowedActions}
+            isOwnProfile={isOwnProfile}
+            projectTab={projectTab}
+          />
         </div>
       </div>
       {
@@ -90,7 +97,8 @@ const mapStateToProps = ({
     establishment,
     allowedActions,
     isOwnProfile,
-    showRelatedTasks
+    showRelatedTasks,
+    projectTab
   },
   model
 }) => ({
@@ -98,7 +106,8 @@ const mapStateToProps = ({
   model,
   allowedActions,
   isOwnProfile,
-  showRelatedTasks
+  showRelatedTasks,
+  projectTab
 });
 
 export default connect(mapStateToProps)(Index);
