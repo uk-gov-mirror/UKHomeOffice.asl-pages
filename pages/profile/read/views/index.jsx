@@ -69,7 +69,6 @@ const Index = ({
             establishment={establishment}
             allowedActions={allowedActions}
             isOwnProfile={isOwnProfile}
-            projectTab={projectTab}
           />
         </div>
       </div>
@@ -97,8 +96,7 @@ const mapStateToProps = ({
     establishment,
     allowedActions,
     isOwnProfile,
-    showRelatedTasks,
-    projectTab
+    showRelatedTasks
   },
   model
 }) => ({
@@ -106,8 +104,7 @@ const mapStateToProps = ({
   model,
   allowedActions,
   isOwnProfile,
-  showRelatedTasks,
-  projectTab
+  showRelatedTasks
 });
 
 export default connect(mapStateToProps)(Index);
