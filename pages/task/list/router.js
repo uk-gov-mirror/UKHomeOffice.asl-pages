@@ -4,7 +4,7 @@ const defaultSchema = require('./schema');
 const datatable = require('../../common/routers/datatable');
 
 const hasMyTasks = profile => {
-  return profile.asruUser && profile.asru && profile.asru.length > 0;
+  return profile.asruUser && (profile.asruLicensing || profile.asruInspector);
 };
 
 const getTabs = profile => {
