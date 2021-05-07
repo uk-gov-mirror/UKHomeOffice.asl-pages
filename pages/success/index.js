@@ -56,7 +56,7 @@ const getSuccessType = task => {
   }
 
   if (model === 'rop') {
-    return 'report-submitted';
+    return 'rop-submitted';
   }
 
   if (latestActivity && latestActivity.action === 'endorsed') {
