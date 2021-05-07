@@ -15,6 +15,11 @@ module.exports = {
   'submitted': {
     // add any content that differs from default
   },
+  'report-submitted': {
+    whatNext: {
+      body: `Your report has been submitted.`
+    }
+  },
   'recalled-by-applicant': {
     panel: {
       title: 'Recalled'
