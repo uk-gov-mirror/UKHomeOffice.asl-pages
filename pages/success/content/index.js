@@ -15,6 +15,11 @@ module.exports = {
   'submitted': {
     // add any content that differs from default
   },
+  'rop-submitted': {
+    whatNext: {
+      body: `Your return has been submitted.`
+    }
+  },
   'recalled-by-applicant': {
     panel: {
       title: 'Recalled'
