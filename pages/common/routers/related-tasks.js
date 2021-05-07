@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { merge } = require('lodash');
+const { merge, omit } = require('lodash');
 const datatable = require('./datatable');
 const content = require('../../task/list/content');
 const taskListSchema = require('../../task/list/schema');
@@ -42,6 +42,12 @@ module.exports = getQuery => {
   });
 
   app.use(datatable({
+    configure: (req, res, next) => {
+      if (!req.user.profile.asruUser) {
+        req.datatable.schema = omit(req.datatable.schema, 'assignedTo');
+      }
+      next();
+    },
     getApiPath: (req, res, next) => {
       let query = getQuery(req);
       query = merge(query, req.query);
