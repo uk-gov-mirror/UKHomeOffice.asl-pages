@@ -24,7 +24,6 @@ module.exports = settings => {
     const task = get(req.project, 'openTasks[0]');
     const showComments = req.version.status !== 'granted' && !!task;
 
-    res.locals.static.taskId = task ? task.id : null;
     res.locals.static.basename = req.fullApplication ? req.buildRoute('projectVersion.fullApplication') : req.buildRoute('projectVersion');
     res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
@@ -32,6 +31,12 @@ module.exports = settings => {
     res.locals.static.user = req.user.profile;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && req.user.profile.asruUser && res.locals.static.isCommentable;
+
+    const taskId = task ? task.id : null;
+
+    if (taskId) {
+      res.locals.static.taskLink = req.buildRoute('task.read', { taskId });
+    }
 
     if (req.project.establishmentId !== req.establishmentId) {
       res.locals.static.additionalAvailability = (req.project.additionalEstablishments || []).find(e => e.id === req.establishmentId);
