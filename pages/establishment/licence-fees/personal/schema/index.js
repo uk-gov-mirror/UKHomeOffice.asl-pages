@@ -3,7 +3,15 @@ module.exports = req => {
     licenceHolder: {
       show: true,
       sort: 'lastName',
-      toCSVString: (_, row) => `${row.profile.firstName} ${row.profile.lastName}`
+      omitFromCSV: true
+    },
+    firstName: {
+      show: false,
+      toCSVString: (_, row) => row.profile.firstName
+    },
+    lastName: {
+      show: false,
+      toCSVString: (_, row) => row.profile.lastName
     },
     licenceNumber: {
       show: true,
