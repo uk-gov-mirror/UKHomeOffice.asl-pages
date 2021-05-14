@@ -17,7 +17,17 @@ module.exports = {
     show: true,
     title: 'Licence holder',
     sort: 'profile.lastName',
-    toCSVString: licenceHolder => `${licenceHolder.firstName} ${licenceHolder.lastName}`
+    omitFromCSV: true
+  },
+  firstName: {
+    title: 'First name',
+    show: false,
+    toCSVString: (_, row) => row.profile.firstName
+  },
+  lastName: {
+    title: 'Last name',
+    show: false,
+    toCSVString: (_, row) => row.profile.lastName
   },
   licenceNumber: {
     show: true,
