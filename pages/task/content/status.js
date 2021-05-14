@@ -280,5 +280,8 @@ module.exports = {
   autoresolved: {
     state: 'Approved',
     log: 'Automatically approved'
+  },
+  autodiscarded: {
+    log: 'Automatically discarded'
   }
 };
