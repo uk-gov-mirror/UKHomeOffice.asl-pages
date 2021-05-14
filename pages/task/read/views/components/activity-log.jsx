@@ -22,6 +22,9 @@ function Action({ task, action, changedBy }) {
   if (action === 'autoresolved') {
     return <p><strong><Snippet>status.autoresolved.log</Snippet></strong></p>;
   }
+  if (action === 'discarded-by-asru' && !changedBy.id) {
+    return <p><strong><Snippet>status.autodiscarded.log</Snippet></strong></p>;
+  }
   if (task.data.model === 'rop') {
     action = 'resubmitted';
   }
@@ -192,7 +195,9 @@ function ExtraProjectMeta({ item, task }) {
 function Comment({ changedBy, comment }) {
   return comment && (
     <div className="comment">
-      <p className="author">{`${changedBy.firstName} ${changedBy.lastName} remarked:`}</p>
+      {
+        changedBy.id && <p className="author">{`${changedBy.firstName} ${changedBy.lastName} remarked:`}</p>
+      }
       <Inset>
         <Markdown className="content">{comment}</Markdown>
       </Inset>
