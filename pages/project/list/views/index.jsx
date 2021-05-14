@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Button } from '@ukhomeoffice/react-components';
 import {
   Search,
@@ -9,6 +9,7 @@ import {
   Header,
   Tabs,
   Link,
+  LinkFilter,
   LicenceStatusBanner,
   Details,
   Inset
@@ -22,14 +23,11 @@ const tabs = [
   'inactive'
 ];
 
-function Projects({
-  establishment,
-  status,
-  allowedActions,
-  adminListUrl,
-  query
-}) {
+export default function Projects() {
+  const { establishment, status, allowedActions, adminListUrl, query } = useSelector(state => state.static);
+  const { count } = useSelector(state => state.datatable.pagination);
   const queryWithCSV = { ...(query || {}), csv: true };
+
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
@@ -75,20 +73,22 @@ function Projects({
       </Tabs>
 
       <Search label={<Snippet>searchText</Snippet>} />
-      <FilterSummary resultType="projects" />
+
+      {
+        status === 'inactive-statuses' &&
+          <LinkFilter
+            prop="retrospective-assessment"
+            append={['RA required', 'RA incomplete', 'RA overdue', 'RA complete']}
+            showAllLabel="Show all"
+          />
+      }
+
+      <FilterSummary
+        resultType="projects"
+        filteredLabel={<Snippet count={count}>{`results.filtered.${count === 1 ? 'singular' : 'plural'}`}</Snippet>}
+      />
+
       <Datatable formatters={formatters(establishment.id)} />
     </Fragment>
   );
 }
-
-const mapStateToProps = ({
-  static: {
-    establishment,
-    status,
-    allowedActions,
-    adminListUrl,
-    query
-  }
-}) => ({ establishment, status, allowedActions, adminListUrl, query });
-
-export default connect(mapStateToProps)(Projects);

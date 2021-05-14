@@ -25,7 +25,7 @@ module.exports = {
       label: 'Date revoked'
     },
     raDate: {
-      label: 'Retrospective assessment due'
+      label: 'Retrospective assessment (RA)'
     },
     transferredInDate: {
       label: 'Transferred in'
@@ -87,5 +87,11 @@ module.exports = {
       action: ''
     },
     action: 'Remove access'
+  },
+  results: {
+    filtered: {
+      singular: 'Showing {{count}} project',
+      plural: 'Showing {{count}} projects'
+    }
   }
 };

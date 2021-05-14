@@ -9,6 +9,10 @@ $hint-colour: #696F73;
   color: $hint-colour;
 }
 
+.not-applicable {
+  color: $hint-colour;
+}
+
 .block {
   display: block;
 }

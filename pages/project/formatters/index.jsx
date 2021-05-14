@@ -56,9 +56,6 @@ const formatters = establishmentId => ({
       return (
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}` }</Snippet></span>
-          {
-            model.raDate && <p className="ra-label"><Snippet>ra-required</Snippet></p>
-          }
         </Fragment>
       );
     }
@@ -105,6 +102,20 @@ const formatters = establishmentId => ({
       const { years, months } = granted.duration;
 
       return `${years} years ${months} months`;
+    }
+  },
+  raDate: {
+    format: (raDate, project) => {
+      if (!raDate) {
+        return <span className="not-applicable">Not applicable</span>;
+      }
+      if (project.raGrantedDate) {
+        return `Completed ${formatDate(project.raGrantedDate, dateFormat.medium)}`;
+      }
+      if (raDate < (new Date()).toISOString()) {
+        return `Overdue ${formatDate(raDate, dateFormat.medium)}`;
+      }
+      return `To do ${formatDate(raDate, dateFormat.medium)}`;
     }
   }
 });

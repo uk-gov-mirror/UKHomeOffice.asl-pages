@@ -66,6 +66,7 @@ const schema = {
     toCSVString: formatCSVDate
   },
   raDate: {
+    show: true,
     title: 'RA due date',
     toCSVString: formatCSVDate
   }
@@ -82,7 +83,7 @@ const getSchema = (status, csv) => {
     case 'inactive':
       return merge({}, pick(schema, 'id', 'title', 'licenceHolder', 'status', 'updatedAt'), inactiveLicenceHolder);
     case 'inactive-statuses':
-      return merge({}, pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status'), inactiveLicenceHolder);
+      return merge({}, pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status', 'raDate'), inactiveLicenceHolder);
     default:
       return pick(schema, 'id', 'title', 'licenceHolder', 'licenceNumber', 'status', 'expiryDate');
   }
