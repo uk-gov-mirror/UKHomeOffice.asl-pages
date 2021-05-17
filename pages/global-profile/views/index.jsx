@@ -167,8 +167,13 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
         hasEstablishments && <Fragment>
           <h2>Establishments</h2>
           <PanelList panels={sortBy(model.establishments, 'name').map((establishment) => {
+            const title = <h3>
+              {establishment.name}
+              { establishment.status === 'inactive' && <span className="status-notice">(draft establishment)</span> }
+              { establishment.status === 'revoked' && <span className="status-notice">(revoked establishment)</span> }
+            </h3>;
             return (
-              <ExpandingPanel key={establishment.id} title={establishment.name} isOpen={model.establishments.length === 1}>
+              <ExpandingPanel key={establishment.id} customTitle={title} isOpen={model.establishments.length === 1}>
                 <p>
                   <Link page="establishment.dashboard" establishmentId={establishment.id} label={<Snippet>establishment.link</Snippet>} />
                 </p>
