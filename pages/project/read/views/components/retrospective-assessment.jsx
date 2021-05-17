@@ -14,7 +14,7 @@ export default function RA() {
     return null;
   }
 
-  if (!model.raDate || model.grantedRa) {
+  if (!model.raDate) {
     return null;
   }
 
@@ -30,8 +30,17 @@ export default function RA() {
       }
     >
       {
+        model.grantedRa &&
+          <Link
+            page="retrospectiveAssessment"
+            label={<Snippet>ra.granted</Snippet>}
+            className="govuk-button button-secondary"
+            raId={model.grantedRa.id}
+          />
+      }
+      {
         // bugfix: handle potential submitted RA that has had the task discarded without deleting the RA
-        (!hasRa || (!openRaTask && !model.draftRa)) && (
+        !model.grantedRa && (!hasRa || (!openRaTask && !model.draftRa)) && (
           <form method="POST" action={`${url}/ra`}>
             <Button className="button-secondary">
               <Snippet>ra.create</Snippet>
@@ -40,24 +49,22 @@ export default function RA() {
         )
       }
       {
-        hasRa && openRaTask && (
+        hasRa && openRaTask &&
           <Link
             page="task.read"
-            label={<Snippet>{`ra.openTask`}</Snippet>}
+            label={<Snippet>ra.openTask</Snippet>}
             className="govuk-button button-secondary"
             taskId={openRaTask.id}
           />
-        )
       }
       {
-        !openRaTask && model.draftRa && (
+        !openRaTask && model.draftRa &&
           <Link
             page="retrospectiveAssessment"
             label={<Snippet>ra.draft</Snippet>}
             className="govuk-button button-secondary"
             raId={model.draftRa.id}
           />
-        )
       }
     </Subsection>
   );

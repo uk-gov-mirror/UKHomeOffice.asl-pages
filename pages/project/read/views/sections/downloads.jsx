@@ -13,6 +13,7 @@ export default function Downloads() {
   const isLegacy = project.schemaVersion === 0;
 
   const amendmentInProgress = !!(project.openTasks || []).find(t => t.type === 'amendment');
+  const ntsSnippet = project.grantedRa ? 'ntsRa' : 'nts';
 
   return (
     <div className="govuk-grid-row project-downloads">
@@ -32,15 +33,15 @@ export default function Downloads() {
           </Fragment>
 
           <Fragment>
-            <h3><Snippet>downloads.nts.heading</Snippet></h3>
+            <h3><Snippet>{`downloads.${ntsSnippet}.heading`}</Snippet></h3>
             <p>
               <Link
                 page="projectVersion.ntsPdf"
-                label={<Snippet>downloads.nts.link</Snippet>}
+                label={<Snippet>{`downloads.${ntsSnippet}.link`}</Snippet>}
                 versionId={linkVersion.id}
               />
             </p>
-            <p className="govuk-hint"><Snippet>downloads.nts.hint</Snippet></p>
+            <p className="govuk-hint"><Snippet>{`downloads.${ntsSnippet}.hint`}</Snippet></p>
           </Fragment>
 
           {
