@@ -250,6 +250,11 @@ table.training tbody {
     border: none;
     header {
       background: none;
+
+      .status-notice {
+        margin-left: $govuk-gutter-half;
+        font-weight: normal;
+      }
     }
   }
 }
