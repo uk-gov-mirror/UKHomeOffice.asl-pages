@@ -23,6 +23,13 @@ const tabs = [
   'inactive'
 ];
 
+const raFilters = {
+  required: 'RA required',
+  outstanding: 'RA outstanding',
+  overdue: 'RA overdue',
+  complete: 'RA complete'
+};
+
 export default function Projects() {
   const { establishment, status, allowedActions, adminListUrl, query } = useSelector(state => state.static);
   const { count } = useSelector(state => state.datatable.pagination);
@@ -77,9 +84,10 @@ export default function Projects() {
       {
         status === 'inactive-statuses' &&
           <LinkFilter
-            prop="retrospective-assessment"
-            append={['RA required', 'RA incomplete', 'RA overdue', 'RA complete']}
             showAllLabel="Show all"
+            prop="retrospective-assessment"
+            append={Object.keys(raFilters)}
+            formatter={filterKey => (raFilters[filterKey])}
           />
       }
 
