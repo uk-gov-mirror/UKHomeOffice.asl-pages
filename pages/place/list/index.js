@@ -1,4 +1,4 @@
-const { pickBy } = require('lodash');
+const { pickBy, set, get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
@@ -17,6 +17,11 @@ module.exports = settings => {
     },
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/search/establishment/${req.establishmentId}/places`;
+      next();
+    },
+    getValues: (req, res, next) => {
+      const filters = get(req.datatable, 'filters.options').filter(f => f.key !== 'area');
+      set(req.datatable, 'filters.options', filters);
       next();
     }
   })({ schema, defaultRowCount: 50 }));

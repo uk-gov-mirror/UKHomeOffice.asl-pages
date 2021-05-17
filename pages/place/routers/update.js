@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { get, uniq } = require('lodash');
+const { get, uniq, merge } = require('lodash');
 const form = require('../../common/routers/form');
 const { getSchema } = require('../schema');
 const { hydrate } = require('../../common/middleware');
@@ -13,7 +13,27 @@ module.exports = () => {
   app.use(form({
     checkChanged: true,
     configure: (req, res, next) => {
-      req.form.schema = getSchema(req.establishment);
+      req.api(`/search/establishment/${req.establishmentId}/places`)
+        .then(response => {
+          const filters = response.json.meta.filters;
+          req.form.schema = getSchema({
+            establishment: req.establishment,
+            sites: filters.find(f => f.key === 'site').values,
+            areas: filters.find(f => f.key === 'area').values
+          });
+        })
+        .then(() => next())
+        .catch(next);
+    },
+    getValues: (req, res, next) => {
+      merge(req.form.schema, {
+        site: {
+          defaultValue: req.form.values.site
+        },
+        area: {
+          defaultValue: req.form.values.area
+        }
+      });
       next();
     },
     process: (req, res, next) => {

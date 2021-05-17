@@ -48,7 +48,7 @@ module.exports = settings => {
 
       Object.assign(res.locals.static, {
         establishment: req.establishment,
-        diffSchema: schema,
+        diffSchema: schema(),
         values: {
           ...req.session.form[req.model.id].values,
           // provide the selected roles for rendering profile names in the rhs of diff
