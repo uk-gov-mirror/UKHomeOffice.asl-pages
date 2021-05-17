@@ -173,7 +173,7 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
               { establishment.status === 'revoked' && <span className="status-notice">(revoked establishment)</span> }
             </h3>;
             return (
-              <ExpandingPanel key={establishment.id} customTitle={title} isOpen={model.establishments.length === 1}>
+              <ExpandingPanel key={establishment.id} title={title} wrapTitle={false} isOpen={model.establishments.length === 1}>
                 <p>
                   <Link page="establishment.dashboard" establishmentId={establishment.id} label={<Snippet>establishment.link</Snippet>} />
                 </p>
