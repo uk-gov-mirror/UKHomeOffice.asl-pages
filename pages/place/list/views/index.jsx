@@ -18,7 +18,7 @@ const pageFormatters = {
         <Fragment>
           <Link page="place.read" label={name} placeId={place.id} />
           {
-            place.restrictions && <i className="icon icon-information" />
+            place.restrictions && <i className="icon icon-information" title={place.restrictions} />
           }
         </Fragment>
       );
