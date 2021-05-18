@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { omit, pick, merge, get, set, concat } = require('lodash');
 const form = require('../../common/routers/form');
-const { schema } = require('../schema');
+const { baseSchema } = require('../schema');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../common/middleware');
 
 module.exports = settings => {
@@ -48,7 +48,7 @@ module.exports = settings => {
 
       Object.assign(res.locals.static, {
         establishment: req.establishment,
-        diffSchema: schema(),
+        diffSchema: baseSchema(),
         values: {
           ...req.session.form[req.model.id].values,
           // provide the selected roles for rendering profile names in the rhs of diff
