@@ -11,7 +11,7 @@ import {
   ModelSummary,
   Link
 } from '@asl/components';
-import { schema as placeSchema } from '../../../../place/schema';
+import { baseSchema } from '../../../../place/schema';
 import formatters from '../../../../place/formatters';
 import { hasChanged } from '../../../../../lib/utils';
 
@@ -37,6 +37,7 @@ export default function Playback({ task, values, allowSubmit }) {
   const nopes = ['recalled-by-applicant', 'discarded-by-applicant'];
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
+  const placeSchema = baseSchema();
   const diffSchema = omit(placeSchema, 'nacwos', 'nvssqps');
 
   const isComplete = !task.isOpen;

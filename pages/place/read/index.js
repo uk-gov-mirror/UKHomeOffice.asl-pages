@@ -1,7 +1,7 @@
 const { page } = require('@asl/service/ui');
 const { omit } = require('lodash');
 const { relatedTasks } = require('../../common/routers');
-const { schema } = require('../schema');
+const { baseSchema } = require('../schema');
 
 module.exports = settings => {
   const app = page({
@@ -14,6 +14,8 @@ module.exports = settings => {
     req.model.nvssqps = req.place.roles.filter(r => ['nvs', 'sqp'].includes(r.type));
     res.locals.model = req.model;
     res.locals.static.openTask = req.model.openTasks[0];
+
+    const schema = baseSchema();
 
     res.locals.static.summarySchema = {
       ...omit(schema, 'name'),

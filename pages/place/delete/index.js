@@ -1,6 +1,6 @@
 const { pick, concat } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { schema } = require('../schema');
+const { baseSchema } = require('../schema');
 const confirm = require('../routers/confirm');
 const form = require('../../common/routers/form');
 const success = require('../../success');
@@ -20,6 +20,7 @@ module.exports = settings => {
       }
     },
     locals: (req, res, next) => {
+      const schema = baseSchema();
       res.locals.model = pick(req.model, Object.keys(schema), 'tasks');
       res.locals.static = res.locals.static || {};
       res.locals.static.schema = schema;

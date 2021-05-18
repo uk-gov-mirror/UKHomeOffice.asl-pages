@@ -112,6 +112,6 @@ const getSchema = ({ establishment, sites, areas }) => {
 };
 
 module.exports = {
-  schema: baseSchema,
+  baseSchema,
   getSchema
 };
