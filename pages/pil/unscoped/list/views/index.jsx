@@ -30,9 +30,9 @@ const formatters = {
   reviewStatus: {
     format: (status, model) => {
       if (model.reviewOverdue) {
-        status = 'deadline passed';
+        status = 'overdue';
       } else if (model.reviewDue) {
-        status = 'deadline soon';
+        status = 'due soon';
       }
       if (!status) {
         return null;
@@ -57,8 +57,8 @@ export default function PilList() {
         </Inset>
       </Details>
       <Search label={<Snippet>search</Snippet>} />
+      <Link page="pils.list" label="Download table (CSV)" query={queryWithCSV} className="float-right" />
       <FilterSummary resultType="personal licences" />
-      <Link page="pils.list" label="Download CSV" query={queryWithCSV} className="float-right" />
       <Datatable formatters={formatters} />
     </Page>
   );
