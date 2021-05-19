@@ -198,7 +198,8 @@ module.exports = merge({}, baseContent, {
     content: 'Complete this project’s return of procedures for {{year}}.',
     submitted: 'A return of procedures has been submitted for {{year}}.',
     deadline: '**Deadline for submission:** {{deadline}}',
-    action: 'Fill in return',
+    start: 'Start return',
+    continue: 'Continue editing return',
     read: 'View submitted return'
   }
 });

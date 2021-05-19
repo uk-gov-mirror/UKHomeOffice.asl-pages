@@ -35,12 +35,12 @@ export default function Rops() {
                     page="rops.update"
                     step="confirm"
                     ropId={draftRop.id}
-                    label={<Snippet>rops.action</Snippet>}
+                    label={<Snippet>rops.continue</Snippet>}
                   />
                   : (
                     <form method="POST" action={`${url}/rops`}>
                       <Button className="button-secondary">
-                        <Snippet>rops.action</Snippet>
+                        <Snippet>rops.start</Snippet>
                       </Button>
                     </form>
                   )
