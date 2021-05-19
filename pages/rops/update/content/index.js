@@ -301,6 +301,9 @@ They do not include:
     regulatorySubpurposesOther: {
       label: 'Specify other'
     },
+    regulatorySubpurposesOtherEfficacy: {
+      label: 'Specify other'
+    },
     regulatoryLegislation: {
       label: 'What type of legislation applies to regulatory research carried out?',
       hint: 'Select all that apply',

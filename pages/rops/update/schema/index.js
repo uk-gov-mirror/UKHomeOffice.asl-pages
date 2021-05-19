@@ -370,7 +370,12 @@ module.exports = req => {
         'qc-pyrogenicity',
         'qc-batch-potency',
         'qc-other',
-        'other-efficacy',
+        {
+          value: 'other-efficacy',
+          reveal: {
+            regulatorySubpurposesOtherEfficacy: getOtherField('regulatorySubpurposes', 'other-efficacy')
+          }
+        },
         'toxicity-ld50',
         'toxicity-other-lethal',
         'toxicity-non-lethal',
