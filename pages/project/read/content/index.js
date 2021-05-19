@@ -200,6 +200,7 @@ module.exports = merge({}, baseContent, {
     deadline: '**Deadline for submission:** {{deadline}}',
     start: 'Start return',
     continue: 'Continue editing return',
-    read: 'View submitted return'
+    read: 'View submitted return',
+    'not-due': 'Return of procedures are no longer due for this project'
   }
 });

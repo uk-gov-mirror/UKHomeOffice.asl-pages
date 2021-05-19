@@ -4,13 +4,28 @@ import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
+import isBefore from 'date-fns/is_before';
 import Subsection from '../components/subsection';
+
+const START_DATE = '2021-01-01';
 
 export default function Rops() {
   const { url, project } = useSelector(state => state.static);
 
   const draftRop = project.rops.find(rop => rop.status === 'draft');
   const submittedRop = project.rops.find(rop => rop.status === 'submitted');
+
+  const endDate = project.revocationDate || project.expiryDate;
+  const ropNotRequired = isBefore(new Date(endDate), new Date(START_DATE));
+
+  if (ropNotRequired) {
+    return (
+      <Subsection
+        title={<Snippet>rops.title</Snippet>}
+        content={<strong><Snippet>rops.not-due</Snippet></strong>}
+      />
+    );
+  }
 
   return (
     <Subsection
