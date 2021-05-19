@@ -1,6 +1,7 @@
 const { page } = require('@asl/service/ui');
 const { mapKeys, pickBy } = require('lodash');
 const update = require('../routers/update');
+const content = require('./content');
 
 function format(req) {
   const vals = req.form.values;
@@ -33,6 +34,13 @@ module.exports = () => {
 
   app.post('/', (req, res, next) => {
     const values = format(req);
+    const numAdded = values.length;
+    let severities = values.map(s => content.fields.severity.options[s.severity]);
+
+    if (severities.length > 1) {
+      const last = severities.pop();
+      severities = `${severities.join(', ')} and ${last}`;
+    }
 
     const params = {
       method: 'POST',
@@ -41,6 +49,7 @@ module.exports = () => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedures`, params)
       .then(() => {
         delete req.session.form[req.model.id];
+        req.notification({ key: 'added', numAdded, severities, plural: numAdded > 1 });
         res.redirect(req.buildRoute('rops.procedures'));
       })
       .catch(next);

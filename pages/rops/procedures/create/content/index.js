@@ -116,5 +116,8 @@ module.exports = merge({}, baseContent, {
       required: 'This field is required'
     },
     ...severityErrors
+  },
+  notifications: {
+    added: '{{numAdded}} row{{#plural}}s{{/plural}} added: {{severities}}'
   }
 });
