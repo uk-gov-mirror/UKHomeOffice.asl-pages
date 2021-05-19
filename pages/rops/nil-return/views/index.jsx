@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import isUndefined from 'lodash/isUndefined';
 import isNull from 'lodash/isNull';
-import { Header, Snippet, Link, WidthContainer } from '@asl/components';
+import Header from '../../components/header';
+import { Snippet, Link, WidthContainer } from '@asl/components';
 
 export default function NilReturn() {
   const { project, rop } = useSelector(state => state.static);
@@ -10,50 +11,50 @@ export default function NilReturn() {
   const noProcs = rop.proceduresCompleted === false;
 
   return (
-    <WidthContainer>
-      <Header
-        title={<Snippet>title</Snippet>}
-        subtitle={project.title}
-      />
-      <p><Snippet noProcs={noProcs}>reason</Snippet></p>
-      <table className="govuk-table">
-        <tbody>
-          <tr>
-            <td><strong>Project licence holder</strong></td>
-            <td>{`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Project licence number</strong></td>
-            <td>{project.licenceNumber}</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Establishment</strong></td>
-            <td>{project.establishment.name}</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><strong>Procedures carried out</strong></td>
-            <td>{rop.proceduresCompleted ? 'Yes' : 'No'}</td>
-            <td><Link page="rops.update" label="Change" step="procedures" /></td>
-          </tr>
-          {
-            !isUndefined(rop.postnatal) && !isNull(rop.postnatal) && (
-              <tr>
-                <td><strong>{`Only 'protected' embryonic forms used?`}</strong></td>
-                <td>{rop.postnatal ? 'No' : 'Yes'}</td>
-                <td><Link page="rops.update" label="Change" step="postnatal" /></td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
-      {
-        !rop.procedures.length
-          ? <Link page="rops.submit" label={<Snippet>buttons.submit</Snippet>} className="govuk-button"/>
-          : <em>Cannot submit NIL return as procedures have been added</em>
-      }
-    </WidthContainer>
+    <Fragment>
+      <Header />
+      <WidthContainer>
+        <h1><Snippet>subtitle</Snippet></h1>
+        <p><Snippet noProcs={noProcs}>reason</Snippet></p>
+        <table className="govuk-table">
+          <tbody>
+            <tr>
+              <td><strong>Project licence holder</strong></td>
+              <td>{`${project.licenceHolder.firstName} ${project.licenceHolder.lastName}`}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Project licence number</strong></td>
+              <td>{project.licenceNumber}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Establishment</strong></td>
+              <td>{project.establishment.name}</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><strong>Procedures carried out</strong></td>
+              <td>{rop.proceduresCompleted ? 'Yes' : 'No'}</td>
+              <td><Link page="rops.update" label="Change" step="procedures" /></td>
+            </tr>
+            {
+              !isUndefined(rop.postnatal) && !isNull(rop.postnatal) && (
+                <tr>
+                  <td><strong>{`Only 'protected' embryonic forms used?`}</strong></td>
+                  <td>{rop.postnatal ? 'No' : 'Yes'}</td>
+                  <td><Link page="rops.update" label="Change" step="postnatal" /></td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+        {
+          !rop.procedures.length
+            ? <Link page="rops.submit" label={<Snippet>buttons.submit</Snippet>} className="govuk-button"/>
+            : <em>Cannot submit NIL return as procedures have been added</em>
+        }
+      </WidthContainer>
+    </Fragment>
   );
 }

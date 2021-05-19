@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import {
-  DocumentHeader,
   Snippet,
   Details,
   WidthContainer,
@@ -10,11 +9,10 @@ import {
 } from '@asl/components';
 import { getUrl } from '@asl/components/src/link';
 import { Button } from '@ukhomeoffice/react-components';
-import format from 'date-fns/format';
 import flatten from 'lodash/flatten';
+import Header from '../../../components/header';
 import Confirm from '../../../update/views/components/confirm';
 import OverflowWrapper from '../../../../common/components/overflow-wrapper';
-import { dateFormat } from '../../../../../constants';
 import { projectSpecies } from '@asl/constants';
 
 const allSpecies = flatten(Object.values(projectSpecies));
@@ -139,32 +137,12 @@ const Submission = () => {
 };
 
 export default function Procedures() {
-  const { project, establishment } = useSelector(state => state.static);
   const hasProcedures = useSelector(state => !!state.static.rop.procedures.length);
   const editable = useSelector(state => state.static.rop.status === 'draft');
 
   return (
     <Fragment>
-      <DocumentHeader
-        title={<Snippet>title</Snippet>}
-        subtitle={project.title}
-        detailsLabel="details and downloads"
-        backLink={<Link page="project.read" label="Go to project overview" />}
-      >
-        <dl>
-          <dt>Establishment</dt>
-          <dd>{ establishment.name }</dd>
-
-          <dt>Project licence holder</dt>
-          <dd>{ `${project.licenceHolder.firstName} ${project.licenceHolder.lastName}` }</dd>
-
-          <dt>Project licence number</dt>
-          <dd>{ project.licenceNumber }</dd>
-
-          <dt>Expiry date</dt>
-          <dd>{ format(project.expiryDate, dateFormat.long) }</dd>
-        </dl>
-      </DocumentHeader>
+      <Header />
 
       <h2><Snippet canEdit={editable}>change.title</Snippet></h2>
       <p><Snippet canEdit={editable}>change.content</Snippet></p>
