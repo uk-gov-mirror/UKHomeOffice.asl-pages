@@ -14,6 +14,15 @@ module.exports = settings => {
     next();
   });
 
+  app.use((req, res, next) => {
+    return req.user.can('profile.read.allCsv', { establishment: req.establishmentId })
+      .then(canDownload => {
+        res.locals.static.canDownload = canDownload;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
   app.use(datatable({
     getApiPath: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/profiles`;

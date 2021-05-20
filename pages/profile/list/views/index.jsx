@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import some from 'lodash/some';
 import {
   Search,
@@ -53,21 +53,32 @@ export const peopleFormatters = {
   }
 };
 
-const Filters = () => (
-  <Fragment>
-    <Search label={<Snippet>searchText</Snippet>} />
-    <LinkFilter
-      prop="roles"
-      formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
-      append={['pilh', 'pplh', 'admin']}
-      prepend={['named']}
-      showAllLabel="All people"
-    />
-    <div className="table-heading">
-      <FilterSummary resultType="people" />
-    </div>
-  </Fragment>
-);
+function Filters() {
+  const { canDownload } = useSelector(state => state.static);
+
+  return (
+    <Fragment>
+      <Search label={<Snippet>searchText</Snippet>} />
+
+      <LinkFilter
+        prop="roles"
+        formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
+        append={['pilh', 'pplh', 'admin']}
+        prepend={['named']}
+        showAllLabel="All people"
+      />
+
+      {
+        canDownload &&
+          <Link page="profile.list" label="Download all (CSV)" query={{ csv: true }} className="float-right" />
+      }
+
+      <div className="table-heading">
+        <FilterSummary resultType="people" />
+      </div>
+    </Fragment>
+  );
+}
 
 const Invite = ({ activeTab }) => (
   <Fragment>
@@ -79,32 +90,24 @@ const Invite = ({ activeTab }) => (
   </Fragment>
 );
 
-const People = ({
-  establishment,
-  allowedActions,
-  formatters = peopleFormatters,
-  showFilters = true,
-  activeTab = 0,
-  Actions,
-  ...props
-}) => (
-  <Fragment>
-    <LicenceStatusBanner licence={establishment} licenceType="pel" />
+export default function PeopleList({ formatters = peopleFormatters, showFilters = true, activeTab = 0, Actions }) {
+  const { establishment, allowedActions } = useSelector(state => state.static);
 
-    <Header
-      title={<Snippet>pages.profile.list</Snippet>}
-      subtitle={establishment.name}
-    />
-    {
-      allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />
-    }
-    {
-      showFilters && <Filters />
-    }
-    <Datatable formatters={formatters} Actions={Actions} />
-  </Fragment>
-);
+  return (
+    <Fragment>
+      <LicenceStatusBanner licence={establishment} licenceType="pel" />
 
-const mapStateToProps = ({ static: { establishment, allowedActions } }) => ({ establishment, allowedActions });
-
-export default connect(mapStateToProps)(People);
+      <Header
+        title={<Snippet>pages.profile.list</Snippet>}
+        subtitle={establishment.name}
+      />
+      {
+        allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />
+      }
+      {
+        showFilters && <Filters />
+      }
+      <Datatable formatters={formatters} Actions={Actions} />
+    </Fragment>
+  );
+}
