@@ -1,5 +1,6 @@
 const { page } = require('@asl/service/ui');
-const { mapKeys } = require('lodash');
+const { mapKeys, set } = require('lodash');
+const content = require('./content');
 const update = require('../routers/update');
 
 function getValues(req, res, next) {
@@ -55,6 +56,7 @@ module.exports = () => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedure/${req.procedureId}`, params)
       .then(() => {
         delete req.session.form[req.model.id];
+        req.notification({ key: 'updated' });
         res.redirect(req.buildRoute('rops.procedures'));
       })
       .catch(next);
@@ -63,6 +65,8 @@ module.exports = () => {
   app.post('/delete', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedure/${req.procedureId}`, { method: 'DELETE' })
       .then(() => {
+        set(res.locals, 'static.content', content);
+        req.notification({ key: 'deleted' });
         res.redirect(req.buildRoute('rops.procedures'));
       })
       .catch(next);
