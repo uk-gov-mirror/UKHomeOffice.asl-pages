@@ -50,7 +50,11 @@ module.exports = () => {
     }
   }));
 
-  app.post('/', redirectToTaskIfOpen());
+  app.post('/', redirectToTaskIfOpen(req => {
+    if (req.project.draft && req.project.status === 'inactive') {
+      return false;
+    }
+  }));
 
   app.post('/', (req, res, next) => {
     if (req.project.draft && req.project.status === 'active') {
@@ -61,7 +65,7 @@ module.exports = () => {
         req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
 
-        if (req.project.isLegacyStub) {
+        if (req.project.isLegacyStub || req.project.status === 'inactive') {
           req.notification({ key: 'success' });
           return res.redirect(req.buildRoute('project.read'));
         }

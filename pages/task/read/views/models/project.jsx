@@ -54,7 +54,10 @@ export default function Project({ task }) {
   const { project, establishment, version, values, isAsru, ra } = useSelector(selector, shallowEqual);
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
-  const licenceHolder = version ? version.licenceHolder : project.licenceHolder;
+  // always use licence holder from project for applications
+  const licenceHolder = project.status === 'inactive'
+    ? project.licenceHolder
+    : (version ? version.licenceHolder : project.licenceHolder);
 
   const proposedAdditionalEstablishments = get(version, 'data.establishments', []).filter(e => e['establishment-id']);
 

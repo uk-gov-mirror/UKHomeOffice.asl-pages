@@ -44,7 +44,10 @@ const updateDataFromTask = updateModel => (req, res, next) => {
   next();
 };
 
-const redirectToTaskIfOpen = () => (req, res, next) => {
+const redirectToTaskIfOpen = (shouldRedirect = () => true) => (req, res, next) => {
+  if (!shouldRedirect(req)) {
+    return next();
+  }
   const taskId = get(req.session, `form.${req.model.id}.taskId`);
   if (taskId) {
     // check task is not stale
