@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import { Link, ExpiryDate, Snippet } from '@asl/components';
+import { Link, ExpiryDate, Snippet, Countdown } from '@asl/components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
@@ -113,7 +113,10 @@ const formatters = establishmentId => ({
         return 'Complete';
       }
       if (raDate < (new Date()).toISOString()) {
-        return `Overdue ${formatDate(raDate, dateFormat.medium)}`;
+        return <Fragment>
+          {`Due ${formatDate(raDate, dateFormat.medium)}`}
+          <Countdown expiry={raDate} unit="day" showUrgent={1} showNotice={1} />
+        </Fragment>;
       }
       return `Due ${formatDate(raDate, dateFormat.medium)}`;
     }
