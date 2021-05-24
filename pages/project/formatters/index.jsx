@@ -107,15 +107,15 @@ const formatters = establishmentId => ({
   raDate: {
     format: (raDate, project) => {
       if (!raDate) {
-        return <span className="not-applicable">Not applicable</span>;
+        return <span className="not-applicable">Not required</span>;
       }
       if (project.raGrantedDate) {
-        return `Completed ${formatDate(project.raGrantedDate, dateFormat.medium)}`;
+        return 'Complete';
       }
       if (raDate < (new Date()).toISOString()) {
         return `Overdue ${formatDate(raDate, dateFormat.medium)}`;
       }
-      return `To do ${formatDate(raDate, dateFormat.medium)}`;
+      return `Due ${formatDate(raDate, dateFormat.medium)}`;
     }
   }
 });
