@@ -24,8 +24,7 @@ const tabs = [
 ];
 
 const raFilters = {
-  required: 'RA required',
-  outstanding: 'RA outstanding',
+  outstanding: 'RA due',
   overdue: 'RA overdue',
   complete: 'RA complete'
 };

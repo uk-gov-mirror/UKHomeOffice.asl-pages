@@ -14,5 +14,8 @@ module.exports = merge({}, baseContent, {
   },
   actions: {
     downloadAll: 'Download all project data (CSV)'
+  },
+  countdown: {
+    expired: '{{diff}} days overdue'
   }
 });

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import { Link, ExpiryDate, Snippet } from '@asl/components';
+import { Link, ExpiryDate, Snippet, Countdown } from '@asl/components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
@@ -107,15 +107,18 @@ const formatters = establishmentId => ({
   raDate: {
     format: (raDate, project) => {
       if (!raDate) {
-        return <span className="not-applicable">Not applicable</span>;
+        return <span className="not-applicable">Not required</span>;
       }
       if (project.raGrantedDate) {
-        return `Completed ${formatDate(project.raGrantedDate, dateFormat.medium)}`;
+        return 'Complete';
       }
       if (raDate < (new Date()).toISOString()) {
-        return `Overdue ${formatDate(raDate, dateFormat.medium)}`;
+        return <Fragment>
+          {`Due ${formatDate(raDate, dateFormat.medium)}`}
+          <Countdown expiry={raDate} unit="day" showUrgent={1} showNotice={1} />
+        </Fragment>;
       }
-      return `To do ${formatDate(raDate, dateFormat.medium)}`;
+      return `Due ${formatDate(raDate, dateFormat.medium)}`;
     }
   }
 });
