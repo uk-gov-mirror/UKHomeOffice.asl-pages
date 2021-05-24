@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { DocumentHeader, Link, Snippet } from '@asl/components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
+import ProceduresDownloadLink from './procedures-download-link';
 
 export default function RopHeader() {
-  const { project, establishment, year } = useSelector(state => state.static);
-  const now = format(new Date(), 'DD-MM-YYYY');
-  const filename = `procedures-added-to-rop-for-${project.licenceNumber}-in-${year}-downloaded-${now}.csv`;
+  const { project, establishment } = useSelector(state => state.static);
 
   return (
     <DocumentHeader
@@ -32,7 +31,7 @@ export default function RopHeader() {
         <dt>Downloads</dt>
         <dd>
           <ul>
-            <li><Link page="rops.procedures.list" query={{csv: { filename }}} label="Download procedures (CSV)" /></li>
+            <li><ProceduresDownloadLink /></li>
           </ul>
         </dd>
       </dl>

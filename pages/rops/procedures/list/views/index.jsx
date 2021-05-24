@@ -10,6 +10,7 @@ import {
 import { getUrl } from '@asl/components/src/link';
 import { Button } from '@ukhomeoffice/react-components';
 import Header from '../../../components/header';
+import ProceduresDownloadLink from '../../../components/procedures-download-link';
 import Confirm from '../../../update/views/components/confirm';
 import OverflowWrapper from '../../../../common/components/overflow-wrapper';
 import formatters from '../formatters';
@@ -80,11 +81,14 @@ export default function Procedures() {
       </Details>
       <br />
 
+      { !editable && <ProceduresDownloadLink className="float-right" /> }
+
       <h2><Snippet>procedures.title</Snippet></h2>
       {
         editable && (
           <Fragment>
             <p><Snippet>procedures.content</Snippet></p>
+            <ProceduresDownloadLink className="float-right" />
             <Link
               className="govuk-button"
               page="rops.procedures.create"
