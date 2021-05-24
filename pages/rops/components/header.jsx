@@ -5,7 +5,10 @@ import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 
 export default function RopHeader() {
-  const { project, establishment } = useSelector(state => state.static);
+  const { project, establishment, year } = useSelector(state => state.static);
+  const now = format(new Date(), 'DD-MM-YYYY');
+  const filename = `procedures-added-to-rop-for-${project.licenceNumber}-in-${year}-downloaded-${now}.csv`;
+
   return (
     <DocumentHeader
       title={<Snippet>title</Snippet>}
@@ -25,6 +28,13 @@ export default function RopHeader() {
 
         <dt>Expiry date</dt>
         <dd>{ format(project.expiryDate, dateFormat.long) }</dd>
+
+        <dt>Downloads</dt>
+        <dd>
+          <ul>
+            <li><Link page="rops.procedures.list" query={{csv: { filename }}} label="Download procedures (CSV)" /></li>
+          </ul>
+        </dd>
       </dl>
     </DocumentHeader>
   );

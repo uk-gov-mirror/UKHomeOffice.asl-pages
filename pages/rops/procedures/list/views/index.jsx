@@ -9,83 +9,10 @@ import {
 } from '@asl/components';
 import { getUrl } from '@asl/components/src/link';
 import { Button } from '@ukhomeoffice/react-components';
-import flatten from 'lodash/flatten';
 import Header from '../../../components/header';
 import Confirm from '../../../update/views/components/confirm';
 import OverflowWrapper from '../../../../common/components/overflow-wrapper';
-import { projectSpecies } from '@asl/constants';
-
-const allSpecies = flatten(Object.values(projectSpecies));
-
-function yn(v) {
-  if (v) {
-    return 'Yes';
-  }
-  if (v === false) {
-    return 'No';
-  }
-  return '-';
-}
-
-const getRadioOption = field => v => {
-  if (!v) {
-    return '-';
-  }
-  return <Snippet fallback={`fields.${field}.options.${v}`}>{`fields.${field}.options.${v}.label`}</Snippet>;
-};
-
-const formatters = {
-  species: {
-    format: s => {
-      const species = allSpecies.find(as => as.value === s);
-      return species ? species.label : s;
-    }
-  },
-  reuse: {
-    format: yn
-  },
-  placesOfBirth: {
-    format: getRadioOption('placesOfBirth')
-  },
-  nhpsOrigin: {
-    format: getRadioOption('nhpsOrigin')
-  },
-  nhpsColonyStatus: {
-    format: getRadioOption('nhpsColonyStatus')
-  },
-  nhpsGeneration: {
-    format: getRadioOption('nhpsGeneration')
-  },
-  ga: {
-    format: getRadioOption('ga')
-  },
-  newGeneticLine: {
-    format: yn
-  },
-  purposes: {
-    format: getRadioOption('purposes')
-  },
-  subpurpose: {
-    format: (v, model) => {
-      switch (model.purposes) {
-        case 'basic':
-          return getRadioOption('basicSubpurposes')(model.basicSubpurposes);
-        case 'regulatory':
-          return getRadioOption('regulatorySubpurposes')(model.regulatorySubpurposes);
-        case 'translational':
-          return getRadioOption('translationalSubpurposes')(model.translationalSubpurposes);
-        default:
-          return '-';
-      }
-    }
-  },
-  regulatoryLegislation: {
-    format: getRadioOption('regulatoryLegislation')
-  },
-  severity: {
-    format: getRadioOption('severity')
-  }
-};
+import formatters from '../formatters';
 
 function Actions({ model }) {
   const url = getUrl({ page: 'rops.procedures.update', procedureId: model.id });

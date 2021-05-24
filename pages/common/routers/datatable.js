@@ -141,7 +141,7 @@ module.exports = ({
     if (!req.query.csv) {
       return next();
     }
-    res.attachment('data.csv');
+    res.attachment(req.query.csv.filename || 'data.csv');
     const schema = res.locals.datatable.schema;
     const stringifier = csv({
       bom: true,
