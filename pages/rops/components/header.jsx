@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import { DocumentHeader, Link, Snippet } from '@asl/components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
+import ProceduresDownloadLink from './procedures-download-link';
 
 export default function RopHeader() {
   const { project, establishment } = useSelector(state => state.static);
+
   return (
     <DocumentHeader
       title={<Snippet>title</Snippet>}
@@ -25,6 +27,13 @@ export default function RopHeader() {
 
         <dt>Expiry date</dt>
         <dd>{ format(project.expiryDate, dateFormat.long) }</dd>
+
+        <dt>Downloads</dt>
+        <dd>
+          <ul>
+            <li><ProceduresDownloadLink /></li>
+          </ul>
+        </dd>
       </dl>
     </DocumentHeader>
   );
