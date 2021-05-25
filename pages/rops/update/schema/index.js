@@ -379,7 +379,40 @@ module.exports = req => {
         'toxicity-ld50',
         'toxicity-other-lethal',
         'toxicity-non-lethal',
-        'toxicity-skin'
+        'toxicity-skin',
+        'toxicity-skin-sensation',
+        'toxicity-eye-irritation',
+        'toxicity-repeated-lt-29',
+        'toxicity-repeated-29-90',
+        'toxicity-repeated-mt-90',
+        'toxicity-carcinogenicity',
+        'toxicity-genotoxicity',
+        'toxicity-reproductive',
+        'toxicity-developmental',
+        'toxicity-neurotoxicity',
+        'toxicity-kinetics',
+        'toxicity-pharmaco-dynamics',
+        'toxicity-phototoxicity',
+        'toxicity-ecotoxicity-acute',
+        'toxicity-ecotoxicity-chronic',
+        'toxicity-ecotoxicity-reproductive',
+        'toxicity-ecotoxicity-endochronic',
+        'toxicity-ecotoxicity-bioaccumulation',
+        {
+          value: 'other-toxicity-ecotoxicity',
+          reveal: {
+            regulatorySubpurposesOtherToxicityEcotoxicity: getOtherField('regulatorySubpurposes', 'other-toxicity-ecotoxicity')
+          }
+        },
+        'toxicity-safety-testing',
+        'toxicity-target-animal',
+        {
+          value: 'other-toxicity',
+          reveal: {
+            regulatorySubpurposesOtherToxicity: getOtherField('regulatorySubpurposes', 'other-toxicity')
+          }
+        },
+        'combined-end-points'
       ].map(disableProcOpts('regulatorySubpurposes'))
     },
     regulatoryLegislation: {

@@ -295,7 +295,30 @@ They do not include:
         'toxicity-other-lethal': 'Toxicity and acute and sub-acute: Other lethal methods',
         'toxicity-non-lethal': 'Toxicity and acute and sub-acute: Non lethal methods',
         'toxicity-skin': 'Toxicity and skin irritation/corrosion',
-        'other-efficacy': 'Other efficacy and tolerance testing'
+        'other-efficacy': 'Other efficacy and tolerance testing',
+        'toxicity-skin-sensation': 'Toxicity and skin sensation',
+        'toxicity-eye-irritation': 'Toxicity and eye irritation/corrosion',
+        'toxicity-repeated-lt-29': 'Toxicity and repeated dose toxicity: Up to 29 days',
+        'toxicity-repeated-29-90': 'Toxicity and repeated dose toxicity: 29 to 90 days',
+        'toxicity-repeated-mt-90': 'Toxicity and repeated dose toxicity: More than 90 days',
+        'toxicity-carcinogenicity': 'Toxicity and carcinogenicity',
+        'toxicity-genotoxicity': 'Toxicity and genotoxicity',
+        'toxicity-reproductive': 'Toxicity and reproductive toxicity',
+        'toxicity-developmental': 'Toxicity and developmental toxicity',
+        'toxicity-neurotoxicity': 'Toxicity and neurotoxicity',
+        'toxicity-kinetics': 'Toxicity and kinetics',
+        'toxicity-pharmaco-dynamics': 'Toxicity and pharmaco-dynamics (including safety pharmacology)',
+        'toxicity-phototoxicity': 'Toxicity and phototoxicity',
+        'toxicity-ecotoxicity-acute': 'Toxicity and ecotoxicity: Acute toxicity',
+        'toxicity-ecotoxicity-chronic': 'Toxicity and ecotoxicity: Chronic toxicity',
+        'toxicity-ecotoxicity-reproductive': 'Toxicity and ecotoxicity: Reproductive toxicity',
+        'toxicity-ecotoxicity-endochronic': 'Toxicity and ecotoxicity: Endochronic activity',
+        'toxicity-ecotoxicity-bioaccumulation': 'Toxicity and ecotoxicity: Bioaccumulation',
+        'other-toxicity-ecotoxicity': 'Toxicity and ecotoxicity: Other',
+        'toxicity-safety-testing': 'Toxicity and safety testing in food and feed area',
+        'toxicity-target-animal': 'Toxicity and target animal safety',
+        'other-toxicity': 'Toxicity and other',
+        'combined-end-points': 'Combined end-points'
       }
     },
     regulatorySubpurposesOther: {
@@ -303,6 +326,12 @@ They do not include:
     },
     regulatorySubpurposesOtherEfficacy: {
       label: 'Specify other'
+    },
+    regulatorySubpurposesOtherToxicity: {
+      label: 'Specify other'
+    },
+    regulatorySubpurposesOtherToxicityEcotoxicity: {
+      label: 'Specify toxicity and ecotoxicity'
     },
     regulatoryLegislation: {
       label: 'What type of legislation applies to regulatory research carried out?',
