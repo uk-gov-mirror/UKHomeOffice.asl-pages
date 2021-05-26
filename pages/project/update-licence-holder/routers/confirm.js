@@ -54,6 +54,7 @@ module.exports = () => {
     if (req.project.draft && req.project.status === 'inactive') {
       return false;
     }
+    return true;
   }));
 
   app.post('/', (req, res, next) => {
