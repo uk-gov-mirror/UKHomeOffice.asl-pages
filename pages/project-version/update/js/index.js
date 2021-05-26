@@ -31,6 +31,8 @@ start({
     newApplication: state.static.newApplication,
     previousProtocols: state.static.previousProtocols,
     canTransfer: state.static.canTransfer,
+    canUpdateTraining: state.static.canUpdateTraining,
+    canSubmit: state.static.canSubmit,
     canTransferDraft: state.static.canTransferDraft,
     transferInProgress: state.static.transferInProgress,
     establishments: state.static.user.asruUser

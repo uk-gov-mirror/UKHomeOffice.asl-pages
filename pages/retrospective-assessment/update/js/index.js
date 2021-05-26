@@ -30,6 +30,7 @@ start({
     grantedVersion: state.static.grantedVersion,
     newApplication: state.static.newApplication,
     sidebarLinks: state.static.sidebarLinks,
+    canSubmit: state.static.canSubmit,
     schemaVersion: 'RA',
     licenceHolder: state.static.project.licenceHolder
   },

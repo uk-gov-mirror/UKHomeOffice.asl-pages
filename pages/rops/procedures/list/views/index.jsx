@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import {
   Snippet,
   Details,
@@ -36,9 +36,9 @@ function Actions({ model }) {
 }
 
 const Submission = () => {
-  const url = useSelector(state => state.static.url);
-  const hasProcedures = useSelector(state => !!state.static.rop.procedures.length);
-  const editable = useSelector(state => state.static.rop.status === 'draft');
+  const { url, canSubmit, rop } = useSelector(state => state.static, shallowEqual);
+  const hasProcedures = rop.procedures.length;
+  const editable = rop.status === 'draft';
 
   if (!editable) {
     return <Fragment>
@@ -52,14 +52,23 @@ const Submission = () => {
   return hasProcedures && (
     <Fragment>
       <h2><Snippet>submit.title</Snippet></h2>
-      <p><Snippet>submit.content</Snippet></p>
-      <p>
-        <Link
-          page="rops.submit"
-          className="govuk-button"
-          label={<Snippet>submit.action</Snippet>}
-        />
-      </p>
+      {
+        canSubmit
+          ? (
+            <Fragment>
+              <p><Snippet>submit.content</Snippet></p>
+              <p>
+                <Link
+                  page="rops.submit"
+                  className="govuk-button"
+                  label={<Snippet>submit.action</Snippet>}
+                />
+              </p>
+            </Fragment>
+          )
+          : <p><Snippet>submit.cannot-submit</Snippet></p>
+      }
+
     </Fragment>
   );
 };

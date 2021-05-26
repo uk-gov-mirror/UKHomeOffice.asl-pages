@@ -44,10 +44,18 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    Promise.resolve()
-      .then(() => req.user.can('project.update', req.params))
-      .then(canUpdate => {
+    const params = {
+      projectId: req.projectId,
+      licenceHolderId: req.project.licenceHolderId,
+      establishment: req.establishmentId
+    };
+    Promise.all([
+      req.user.can('project.update', params),
+      req.user.can('retrospectiveAssessment.submit', params)
+    ])
+      .then(([canUpdate, canSubmit]) => {
         res.locals.static.canUpdate = canUpdate;
+        res.locals.static.canSubmit = canSubmit;
       })
       .then(() => next())
       .catch(next);
