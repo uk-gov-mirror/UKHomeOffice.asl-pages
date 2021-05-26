@@ -6,7 +6,6 @@ import UserCannotEdit from '../components/user-cannot-edit';
 import StartAmendment from '../components/start-amendment';
 import ChangeLicenceHolder from '../components/change-licence-holder';
 import AmendStub from '../components/amend-stub';
-import ManageAccess from '../components/manage-access';
 import RevokeLicence from '../components/revoke-licence';
 import DiscardDraft from '../components/discard-draft';
 import DiscardStub from '../components/discard-stub';
@@ -25,7 +24,6 @@ export default function Manage() {
       <StartAmendment />
       <AmendStub />
       <ChangeLicenceHolder />
-      <ManageAccess />
       <RevokeLicence />
       <DiscardDraft />
       <DiscardStub />

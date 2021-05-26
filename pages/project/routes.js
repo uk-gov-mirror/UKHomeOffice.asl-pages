@@ -4,8 +4,7 @@ const read = require('./read');
 const updateLicenceHolder = require('./update-licence-holder');
 const remove = require('./delete');
 const revoke = require('./revoke');
-const addUser = require('./add-user');
-const removeUser = require('./remove-user');
+const collaborators = require('./collaborators');
 const transferDraft = require('./transfer-draft');
 
 module.exports = {
@@ -23,15 +22,11 @@ module.exports = {
     permissions: 'project.read.single',
     router: read
   },
-  addUser: {
-    path: '/:projectId/add-user',
+  collaborators: {
+    path: '/:projectId/collaborators',
+    breadcrumb: false,
     permissions: 'project.manageAccess',
-    router: addUser
-  },
-  removeUser: {
-    path: '/:projectId/remove-user',
-    permissions: 'project.manageAccess',
-    router: removeUser
+    router: collaborators
   },
   updateLicenceHolder: {
     path: '/:projectId/update-licence-holder',

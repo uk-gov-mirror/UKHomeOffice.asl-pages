@@ -8,6 +8,7 @@ import { dateFormat } from '../../../../constants';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Overview from './sections/overview';
 import Manage from './sections/manage';
+import ManageAccess from './sections/manage-access';
 import History from './sections/history';
 import Downloads from './sections/downloads';
 import Reporting from './sections/reporting';
@@ -63,12 +64,13 @@ export default function ProjectLandingPage() {
   const sections = {
     overview: <Snippet>{`${snippetPath}.overview`}</Snippet>,
     manage: <Snippet>{`${snippetPath}.manage`}</Snippet>,
+    manageAccess: <Snippet>{`${snippetPath}.manage-access`}</Snippet>,
     reporting: <Snippet>{`${snippetPath}.reporting`}</Snippet>,
     history: <Snippet>{`${snippetPath}.history`}</Snippet>,
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const { additionalAvailability, showManageSection, showReporting } = useSelector(state => state.static);
+  const { additionalAvailability, showManageSection, canManageAccess, showReporting } = useSelector(state => state.static);
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
@@ -84,6 +86,10 @@ export default function ProjectLandingPage() {
 
   if (!showManageSection) {
     delete sections.manage;
+  }
+
+  if (!canManageAccess) {
+    delete sections.manageAccess;
   }
 
   const sectionNames = Object.keys(sections);
@@ -135,6 +141,7 @@ export default function ProjectLandingPage() {
 
       { activeSection === 'overview' && sections.overview && <Overview /> }
       { activeSection === 'manage' && sections.manage && <Manage /> }
+      { activeSection === 'manageAccess' && sections.manageAccess && <ManageAccess /> }
       { activeSection === 'reporting' && sections.reporting && <Reporting /> }
       { activeSection === 'history' && sections.history && <History /> }
       { activeSection === 'downloads' && sections.downloads && <Downloads /> }
