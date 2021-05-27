@@ -38,19 +38,22 @@ module.exports = settings => {
       req.user.can('project.revoke', params),
       req.user.can('project.transfer', params),
       req.user.can('project.manageAccess', params),
-      req.user.can('project.rops.update', params)
+      req.user.can('project.rops.update', params),
+      req.user.can('project.rops.create', params)
     ])
-      .then(([canUpdate, canRevoke, canTransfer, canManageAccess, canUpdateRops]) => {
+      .then(([canUpdate, canRevoke, canTransfer, canManageAccess, canUpdateRops, canCreateRops]) => {
         const openTasks = req.project.openTasks;
         const openTask = openTasks && openTasks.find(t => t.data.action !== 'grant-ra');
         const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
         const editable = (!openTask || (openTask && openTask.editable));
 
         const isCorrectEstablishment = req.establishmentId === req.project.establishmentId;
+        const ropExists = req.project.rops.length;
+        const canAccessRops = ropExists ? canUpdateRops : canCreateRops;
 
         res.locals.static.canManageAccess = canManageAccess;
         res.locals.static.canUpdate = canUpdate && isCorrectEstablishment;
-        res.locals.static.canUpdateRops = canUpdateRops && isCorrectEstablishment;
+        res.locals.static.showReporting = isCorrectEstablishment && canAccessRops && req.project.status !== 'inactive';
         res.locals.static.canTransfer = canTransfer;
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;

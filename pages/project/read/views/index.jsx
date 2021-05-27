@@ -68,13 +68,13 @@ export default function ProjectLandingPage() {
     downloads: <Snippet>{`${snippetPath}.downloads`}</Snippet>
   };
 
-  const { additionalAvailability, showManageSection, canUpdateRops } = useSelector(state => state.static);
+  const { additionalAvailability, showManageSection, showReporting } = useSelector(state => state.static);
 
   if (additionalAvailability || (!hasHistory() && !hasPreviousVersions())) {
     delete sections.history;
   }
 
-  if (project.status === 'inactive' || !canUpdateRops) {
+  if (!showReporting) {
     delete sections.reporting;
   }
 
