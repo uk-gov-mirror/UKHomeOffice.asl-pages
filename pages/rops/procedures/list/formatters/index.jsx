@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import flatten from 'lodash/flatten';
+import get from 'lodash/get';
 import { projectSpecies } from '@asl/constants';
 import { Snippet } from '@asl/components';
 
@@ -20,61 +21,85 @@ export function formatSpecies(s) {
   return species ? species.label : s;
 }
 
-const getRadioOption = field => v => {
+export function getOtherValue(field, rop) {
+  const otherFields = {
+    'routine-other': 'regulatorySubpurposesOther',
+    'other-efficacy': 'regulatorySubpurposesOtherEfficacy',
+    'other-toxicity': 'regulatorySubpurposesOtherToxicity',
+    'other-toxicity-ecotoxicity': 'regulatorySubpurposesOtherToxicityEcotoxicity'
+  };
+  return get(rop, otherFields[field]);
+}
+
+const getRadioOption = field => (v, rop) => {
   if (!v) {
     return '-';
   }
+
+  if (field === 'regulatorySubpurposes' && v.includes('other')) {
+    const otherValue = getOtherValue(v, rop);
+
+    if (otherValue) {
+      return <Fragment>
+        <Snippet fallback={`fields.${field}.options.${v}`}>{`fields.${field}.options.${v}.label`}</Snippet>
+        <span>: {otherValue}</span>
+      </Fragment>;
+    }
+  }
+
   return <Snippet fallback={`fields.${field}.options.${v}`}>{`fields.${field}.options.${v}.label`}</Snippet>;
 };
 
-const formatters = {
-  species: {
-    format: formatSpecies
-  },
-  reuse: {
-    format: yn
-  },
-  placesOfBirth: {
-    format: getRadioOption('placesOfBirth')
-  },
-  nhpsOrigin: {
-    format: getRadioOption('nhpsOrigin')
-  },
-  nhpsColonyStatus: {
-    format: getRadioOption('nhpsColonyStatus')
-  },
-  nhpsGeneration: {
-    format: getRadioOption('nhpsGeneration')
-  },
-  ga: {
-    format: getRadioOption('ga')
-  },
-  newGeneticLine: {
-    format: yn
-  },
-  purposes: {
-    format: getRadioOption('purposes')
-  },
-  subpurpose: {
-    format: (v, model) => {
-      switch (model.purposes) {
-        case 'basic':
-          return getRadioOption('basicSubpurposes')(model.basicSubpurposes);
-        case 'regulatory':
-          return getRadioOption('regulatorySubpurposes')(model.regulatorySubpurposes);
-        case 'translational':
-          return getRadioOption('translationalSubpurposes')(model.translationalSubpurposes);
-        default:
-          return '-';
+const formatters = rop => {
+  return {
+    species: {
+      format: formatSpecies
+    },
+    reuse: {
+      format: yn
+    },
+    placesOfBirth: {
+      format: getRadioOption('placesOfBirth')
+    },
+    nhpsOrigin: {
+      format: getRadioOption('nhpsOrigin')
+    },
+    nhpsColonyStatus: {
+      format: getRadioOption('nhpsColonyStatus')
+    },
+    nhpsGeneration: {
+      format: getRadioOption('nhpsGeneration')
+    },
+    ga: {
+      format: getRadioOption('ga')
+    },
+    newGeneticLine: {
+      format: yn
+    },
+    purposes: {
+      format: getRadioOption('purposes')
+    },
+    subpurpose: {
+      format: (v, model) => {
+        switch (model.purposes) {
+          case 'basic':
+            return getRadioOption('basicSubpurposes')(model.basicSubpurposes);
+          case 'regulatory':
+            return getRadioOption('regulatorySubpurposes')(model.regulatorySubpurposes, rop);
+          case 'translational':
+            return getRadioOption('translationalSubpurposes')(model.translationalSubpurposes);
+          default:
+            return '-';
+        }
       }
+    },
+    regulatoryLegislation: {
+      format: getRadioOption('regulatoryLegislation')
+    },
+    severity: {
+      format: getRadioOption('severity')
     }
-  },
-  regulatoryLegislation: {
-    format: getRadioOption('regulatoryLegislation')
-  },
-  severity: {
-    format: getRadioOption('severity')
-  }
+  };
 };
 
 export default formatters;
