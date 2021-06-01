@@ -146,7 +146,7 @@ export default function Confirm() {
             )
           }
 
-          <dt>Techniques</dt>
+          <dt>Special techniques used</dt>
           <dd>{yn(rop.productTesting)}</dd>
         </dl>
       </Section>
