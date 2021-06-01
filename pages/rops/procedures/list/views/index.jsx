@@ -65,8 +65,9 @@ const Submission = () => {
 };
 
 export default function Procedures() {
-  const hasProcedures = useSelector(state => !!state.static.rop.procedures.length);
-  const editable = useSelector(state => state.static.rop.status === 'draft');
+  const rop = useSelector(state => state.static.rop);
+  const hasProcedures = !!rop.procedures.length;
+  const editable = rop.status === 'draft';
 
   return (
     <Fragment>
@@ -101,7 +102,7 @@ export default function Procedures() {
         hasProcedures
           ? (
             <OverflowWrapper>
-              <Datatable formatters={formatters} Actions={editable && Actions} />
+              <Datatable formatters={formatters(rop)} Actions={editable && Actions} />
             </OverflowWrapper>
           )
           : <p><em>No procedures added</em></p>

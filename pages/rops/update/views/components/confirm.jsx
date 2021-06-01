@@ -221,6 +221,15 @@ export default function Confirm() {
                                 {
                                   sub === 'routine-other' && <Inset>{rop.regulatorySubpurposesOther}</Inset>
                                 }
+                                {
+                                  sub === 'other-efficacy' && <Inset>{rop.regulatorySubpurposesOtherEfficacy}</Inset>
+                                }
+                                {
+                                  sub === 'other-toxicity' && <Inset>{rop.regulatorySubpurposesOtherToxicity}</Inset>
+                                }
+                                {
+                                  sub === 'other-toxicity-ecotoxicity' && <Inset>{rop.regulatorySubpurposesOtherToxicityEcotoxicity}</Inset>
+                                }
                               </li>
                             ))
                           }
