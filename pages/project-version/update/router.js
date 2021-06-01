@@ -25,7 +25,12 @@ module.exports = settings => {
 
   app.get('/', (req, res, next) => {
     const { licenceHolderId } = req.project;
-    req.api(`/establishment/${req.establishmentId}/profile/${licenceHolderId}/certificates`)
+    const params = {
+      query: {
+        projectId: req.project.id
+      }
+    };
+    req.api(`/establishment/${req.establishmentId}/profile/${licenceHolderId}/certificates`, params)
       .then(response => {
         res.locals.static.training = response.json.data;
         next();
@@ -36,11 +41,18 @@ module.exports = settings => {
   app.get('/', (req, res, next) => {
     Promise.all([
       req.user.can('project.update', req.params),
-      req.user.can('project.transfer', req.params)
+      req.user.can('project.transfer', req.params),
+      req.user.can('training.update', {
+        ...req.params,
+        profileId: req.project.licenceHolderId
+      }),
+      req.user.can('project.submit', req.params)
     ])
-      .then(([canUpdate, canTransfer]) => {
+      .then(([canUpdate, canTransfer, canUpdateTraining, canSubmit]) => {
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.canTransfer = canTransfer;
+        res.locals.static.canUpdateTraining = canUpdateTraining;
+        res.locals.static.canSubmit = canSubmit;
         res.locals.static.canTransferDraft = canTransfer && get(req.project, 'openTasks').length === 0 && req.user.profile.establishments.length > 1;
         res.locals.static.transferInProgress = get(req.project, 'openTasks[0].data.action') === 'transfer';
       })

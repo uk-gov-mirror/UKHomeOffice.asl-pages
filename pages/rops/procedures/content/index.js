@@ -37,7 +37,8 @@ module.exports = merge({}, { fields }, {
   submit: {
     title: 'Submit return',
     content: 'Submit this project\'s completed return of procedures',
-    action: 'Submit return'
+    action: 'Submit return',
+    'cannot-submit': 'Only the PPL holder or an admin can submit this to the Home Office.'
   },
   unsubmit: {
     title: 'Correct return',
