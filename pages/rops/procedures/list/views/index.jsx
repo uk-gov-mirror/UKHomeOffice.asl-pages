@@ -37,7 +37,7 @@ function Actions({ model }) {
 
 const Submission = () => {
   const { url, canSubmit, rop } = useSelector(state => state.static, shallowEqual);
-  const hasProcedures = rop.procedures.length;
+  const hasProcedures = !!rop.procedures.length;
   const editable = rop.status === 'draft';
 
   if (!editable) {
