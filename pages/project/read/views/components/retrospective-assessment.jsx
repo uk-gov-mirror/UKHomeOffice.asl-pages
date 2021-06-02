@@ -8,7 +8,11 @@ import Subsection from './subsection';
 
 export default function RA() {
   const model = useSelector(state => state.model);
-  const { url, openRaTask } = useSelector(state => state.static);
+  const { url, openRaTask, canUpdateRa } = useSelector(state => state.static);
+
+  if (!canUpdateRa) {
+    return null;
+  }
 
   if (!['expired', 'revoked'].includes(model.status)) {
     return null;
