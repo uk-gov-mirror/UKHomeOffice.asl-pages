@@ -82,6 +82,11 @@ module.exports = {
     fields: ['productTesting'],
     section: 'general'
   },
+  techniques: {
+    fields: ['productTestingTypes'],
+    section: 'techniques',
+    include: req => !!req.rop.productTesting
+  },
   species: {
     fields: ['otherSpecies', 'species'],
     section: 'animals',
@@ -182,11 +187,6 @@ module.exports = {
   'new-genetic-line': {
     fields: ['newGeneticLine'],
     section: 'purposes'
-  },
-  techniques: {
-    fields: ['productTestingTypes'],
-    section: 'techniques',
-    include: req => !!req.rop.productTesting
   },
   confirm: {
     target: req => req.buildRoute('rops.procedures')
