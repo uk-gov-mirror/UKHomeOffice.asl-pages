@@ -27,7 +27,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     endangered: {
       label: 'Were any endangered species used in procedures in 2021?',
       summary: 'Show list of endangered species',
-      details: 'The list of endangered species can be found in [Annex A to Council Regulation EC 338/97](). Captive bred animals of these species do not count as endangered.',
+      details: 'The list of endangered species can be found in [Annex A to Council Regulation EC 338/97](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R1320). Captive bred animals of these species do not count as endangered.',
       options: {
         false: 'No, endangered species were not used',
         true: 'Yes, endangered species were used'
