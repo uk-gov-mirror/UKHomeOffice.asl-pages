@@ -39,9 +39,10 @@ module.exports = settings => {
       req.user.can('project.transfer', params),
       req.user.can('project.manageAccess', params),
       req.user.can('project.rops.update', params),
-      req.user.can('project.rops.create', params)
+      req.user.can('project.rops.create', params),
+      req.user.can('retrospectiveAssessment.update', params)
     ])
-      .then(([canUpdate, canRevoke, canTransfer, canManageAccess, canUpdateRops, canCreateRops]) => {
+      .then(([canUpdate, canRevoke, canTransfer, canManageAccess, canUpdateRops, canCreateRops, canUpdateRa]) => {
         const openTasks = req.project.openTasks;
         const openTask = openTasks && openTasks.find(t => t.data.action !== 'grant-ra');
         const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
@@ -51,6 +52,7 @@ module.exports = settings => {
         const ropExists = req.project.rops.length;
         const canAccessRops = ropExists ? canUpdateRops : canCreateRops;
 
+        res.locals.static.canUpdateRa = canUpdateRa;
         res.locals.static.canManageAccess = canManageAccess;
         res.locals.static.canUpdate = canUpdate && isCorrectEstablishment;
         res.locals.static.showReporting = isCorrectEstablishment && canAccessRops && req.project.status !== 'inactive';
