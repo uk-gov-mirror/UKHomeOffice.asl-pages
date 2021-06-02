@@ -85,7 +85,7 @@ const getSuccessType = task => {
   return task.status;
 };
 
-const getAdditionalInfo = task => {
+const getAdditionalInfo = ({ task, project }) => {
   const model = get(task, 'data.model');
 
   switch (model) {
@@ -100,7 +100,7 @@ const getAdditionalInfo = task => {
       return get(task, 'data.modelData.name');
 
     case 'project':
-      return get(task, 'data.modelData.title');
+      return get(project, 'title') || get(task, 'data.modelData.title');
 
     case 'profile':
       return get(task, 'data.modelData.name');
@@ -136,7 +136,7 @@ module.exports = () => {
     res.locals.static.establishment = req.establishment || get(req.task, 'data.establishment');
     res.locals.static.taskIsOpen = get(req.task, 'isOpen');
     res.locals.static.isAsruUser = req.user.profile.asruUser;
-    res.locals.static.additionalInfo = getAdditionalInfo(req.task);
+    res.locals.static.additionalInfo = getAdditionalInfo(req);
 
     next();
   });
