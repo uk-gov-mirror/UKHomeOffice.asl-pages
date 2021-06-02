@@ -7,6 +7,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = { id: req.task.id };
+    res.locals.static.task = req.task;
     next();
   });
 
