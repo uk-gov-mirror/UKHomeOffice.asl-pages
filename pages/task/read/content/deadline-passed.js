@@ -5,10 +5,7 @@ module.exports = merge({}, baseContent, {
   deadline: {
     passed: {
       title: 'Confirm reason for statutory deadline passing',
-      summary: {
-        singular: 'This application is {{days}} day after the deadline for when a decision was due. Confirm the reason so ASRU can record if it\'s a justified delay.',
-        plural: 'This application is {{days}} days after the deadline for when a decision was due. Confirm the reason so ASRU can record if it\'s a justified delay.'
-      }
+      summary: 'A decision about this application was due on {{date}}. Confirm why the deadline was missed so ASRU can record if it\'s a justified delay.'
     }
   },
   fields: {
