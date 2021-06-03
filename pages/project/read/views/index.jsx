@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import get from 'lodash/get';
 import { DocumentHeader, Snippet, Tabs, Link } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
@@ -52,12 +52,12 @@ function hasPreviousVersions() {
 
 export default function ProjectLandingPage() {
   const project = useSelector(state => state.model);
-  const { openRaTask, url } = useSelector(state => state.static);
+  const { openRaTask, url, canUpdateRa } = useSelector(state => state.static, shallowEqual);
   const snippetPath = `tabs.${project.granted ? 'granted' : 'application'}`;
 
   const isInactive = project.status === 'expired' || project.status === 'revoked';
   const requiresRa = project.raDate && !project.grantedRa;
-  const showRaWarning = isInactive && requiresRa && !openRaTask;
+  const showRaWarning = canUpdateRa && isInactive && requiresRa && !openRaTask;
   const draftRa = project.retrospectiveAssessments.find(ra => ra.status === 'draft');
 
   const sections = {
