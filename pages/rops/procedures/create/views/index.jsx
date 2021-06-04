@@ -33,7 +33,17 @@ function FormSection({ title, fields, step }) {
   );
 }
 
-function DeleteButton({ deleteUrl, onDelete }) {
+function DeleteButton() {
+  const model = useSelector(state => state.model);
+  const deleteUrl = getUrl({ page: 'rops.procedures.update', procedureId: model.id }) + '/delete';
+
+  function onDelete(e) {
+    if (window.confirm('Are you sure you want to delete this procedure?')) {
+      return true;
+    }
+    e.preventDefault();
+  }
+
   return (
     <form method="POST" action={deleteUrl} className="float-right">
       <button className="govuk-button button-warning push-up" onClick={onDelete}>Delete procedure</button>
@@ -43,10 +53,9 @@ function DeleteButton({ deleteUrl, onDelete }) {
 
 export default function Create() {
   const model = useSelector(state => state.model);
-  const { project, csrfToken, rop } = useSelector(state => state.static);
+  const { project, csrfToken } = useSelector(state => state.static);
   const [disabled, setDisabled] = useState(false);
-  const editable = rop.status === 'draft';
-  const deleteUrl = getUrl({ page: 'rops.procedures.update', procedureId: model.id }) + '/delete';
+  const deletable = model.id !== 'new-procedure';
 
   const onFormSubmit = e => {
     if (disabled) {
@@ -55,13 +64,6 @@ export default function Create() {
     e.persist();
     setTimeout(() => setDisabled(true), 0);
   };
-
-  function onDelete(e) {
-    if (window.confirm('Are you sure you want to delete this procedure?')) {
-      return true;
-    }
-    e.preventDefault();
-  }
 
   return (
     <Fragment>
@@ -90,10 +92,10 @@ export default function Create() {
       </form>
 
       {
-        editable &&
+        deletable &&
           <div className="govuk-grid-row">
             <div className="govuk-grid-column-two-thirds">
-              <DeleteButton deleteUrl={deleteUrl} onDelete={onDelete} />
+              <DeleteButton />
             </div>
           </div>
       }
