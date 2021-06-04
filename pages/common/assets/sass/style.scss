@@ -682,7 +682,7 @@ nav.bottom-nav {
   margin-bottom: $govuk-gutter;
 
   .overflow-inner {
-    overflow: scroll;
+    overflow: auto;
   }
 
   &:before, &:after {
