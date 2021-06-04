@@ -18,7 +18,7 @@ module.exports = {
   'rop-submitted': {
     whatNext: {
       body: `Your return has been submitted.`,
-      external: '',
+      external: ''
     },
     taskLink: {
       before: 'You can ',
