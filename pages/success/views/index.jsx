@@ -9,8 +9,11 @@ const Index = ({ onwardLink }) => {
     taskId,
     taskIsOpen,
     isAsruUser,
-    additionalInfo
+    additionalInfo,
+    successType
   } = useSelector(state => state.static);
+
+  const showTask = taskIsOpen || successType === 'rop-submitted';
 
   return (
     <div className="govuk-grid-row success">
@@ -32,7 +35,7 @@ const Index = ({ onwardLink }) => {
           <p><Snippet optional>{`success.whatNext.${isAsruUser ? 'internal' : 'external'}`}</Snippet></p>
 
           {
-            taskIsOpen &&
+            showTask &&
               <p>
                 <Snippet>success.taskLink.before</Snippet> <Link page="task.read" label={<Snippet>success.taskLink.linkText</Snippet>} taskId={taskId} />
               </p>
