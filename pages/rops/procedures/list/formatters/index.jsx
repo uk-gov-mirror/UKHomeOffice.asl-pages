@@ -41,13 +41,13 @@ const getRadioOption = field => (v, rop) => {
 
     if (otherValue) {
       return <Fragment>
-        <Snippet fallback={`fields.${field}.options.${v}`}>{`fields.${field}.options.${v}.label`}</Snippet>
+        <Snippet fallback={`condensedFields.${field}.options.${v}`}>{`condensedFields.${field}.options.${v}.label`}</Snippet>
         <span>: {otherValue}</span>
       </Fragment>;
     }
   }
 
-  return <Snippet fallback={`fields.${field}.options.${v}`}>{`fields.${field}.options.${v}.label`}</Snippet>;
+  return <Snippet fallback={`condensedFields.${field}.options.${v}`}>{`condensedFields.${field}.options.${v}.label`}</Snippet>;
 };
 
 const formatters = rop => {
