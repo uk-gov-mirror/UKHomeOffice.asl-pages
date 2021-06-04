@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import pick from 'lodash/pick';
+import { getUrl } from '@asl/components/src/link';
 import {
   Fieldset,
   Header,
@@ -32,9 +33,20 @@ function FormSection({ title, fields, step }) {
   );
 }
 
+function DeleteButton({ deleteUrl, onDelete }) {
+  return (
+    <form method="POST" action={deleteUrl} className="float-right">
+      <button className="govuk-button button-warning push-up" onClick={onDelete}>Delete procedure</button>
+    </form>
+  );
+}
+
 export default function Create() {
-  const { project, csrfToken } = useSelector(state => state.static);
+  const model = useSelector(state => state.model);
+  const { project, csrfToken, rop } = useSelector(state => state.static);
   const [disabled, setDisabled] = useState(false);
+  const editable = rop.status === 'draft';
+  const deleteUrl = getUrl({ page: 'rops.procedures.update', procedureId: model.id }) + '/delete';
 
   const onFormSubmit = e => {
     if (disabled) {
@@ -43,6 +55,13 @@ export default function Create() {
     e.persist();
     setTimeout(() => setDisabled(true), 0);
   };
+
+  function onDelete(e) {
+    if (window.confirm('Are you sure you want to delete this procedure?')) {
+      return true;
+    }
+    e.preventDefault();
+  }
 
   return (
     <Fragment>
@@ -62,16 +81,22 @@ export default function Create() {
           <div className="govuk-grid-column-two-thirds">
             <FormSection title="Outcomes" fields="severity" />
           </div>
-          <div className="govuk-grid-column-one-third">
-
-          </div>
         </div>
+
         <div className="control-panel">
           <button type="submit" className="govuk-button" disabled={disabled}><Snippet>buttons.submit</Snippet></button>
           <Link page="rops.procedures.list" label={<Snippet>buttons.cancel</Snippet>} />
         </div>
       </form>
 
+      {
+        editable &&
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-two-thirds">
+              <DeleteButton deleteUrl={deleteUrl} onDelete={onDelete} />
+            </div>
+          </div>
+      }
     </Fragment>
   );
 }
