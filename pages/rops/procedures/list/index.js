@@ -33,6 +33,7 @@ module.exports = () => {
           return row[key] !== null;
         });
       });
+      req.datatable.data.rows = req.datatable.data.rows.map((row, idx) => ({ rowNum: idx + 1, ...row }));
       next();
     }
   })({ defaultRowCount: 100 }));
