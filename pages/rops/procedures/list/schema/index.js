@@ -100,10 +100,12 @@ const getSchema = rop => {
     },
     severityHoNote: {
       show: true,
+      sortable: false,
       label: 'HO note'
     },
     severityPersonalNote: {
       show: true,
+      sortable: false,
       label: 'Personal note'
     }
   };
