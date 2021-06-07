@@ -119,5 +119,8 @@ module.exports = merge({}, baseContent, {
   },
   notifications: {
     added: '{{numAdded}} row{{#plural}}s{{/plural}} added: {{severities}}'
+  },
+  buttons: {
+    submit: 'Add procedures'
   }
 });
