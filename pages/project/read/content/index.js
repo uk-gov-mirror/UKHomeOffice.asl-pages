@@ -1,7 +1,6 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
 const downloadContent = require('../../../project-version/downloads/content');
-const collaborators = require('../../collaborators/content');
 
 module.exports = merge({}, baseContent, {
   page: {
@@ -14,7 +13,6 @@ module.exports = merge({}, baseContent, {
     granted: {
       overview: 'Project overview',
       manage: 'Manage licence',
-      'manage-access': 'Guest access',
       history: 'History',
       reporting: 'Reporting',
       downloads: 'Downloads'
@@ -161,8 +159,8 @@ module.exports = merge({}, baseContent, {
   manageAccess: {
     title: 'Guest access',
     content: {
-      application: 'Give people read-only or editing permissions for this application. Establishment administrators will have access by default.',
-      granted: 'Give people read-only or editing permissions for this project. Establishment administrators will have access by default.'
+      application: 'Allow colleagues to view this application. Administrators and other staff with oversight of this project will have access by default.',
+      granted: 'Allow colleagues to view this project. Administrators and other staff with oversight of this project will have access by default.'
     },
     action: 'Grant access'
   },
@@ -204,6 +202,5 @@ module.exports = merge({}, baseContent, {
     continue: 'Continue editing return',
     read: 'View submitted return',
     'not-due': 'Return of procedures are no longer due for this project'
-  },
-  ...collaborators
+  }
 });

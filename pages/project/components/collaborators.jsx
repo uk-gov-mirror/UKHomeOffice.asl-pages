@@ -1,6 +1,19 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet, Link } from '@asl/components';
+import { Snippet } from '@asl/components';
+
+function RemoveUser({ id, name }) {
+  const removeUserUrl = useSelector(state => state.static.removeUserUrl);
+  const url = useSelector(state => state.static.url);
+
+  return (
+    <form action={`${removeUserUrl}?referrer=${url}`} method="post">
+      <input type="hidden" name="profileId" value={id} />
+      <input type="hidden" name="profileName" value={name} />
+      <button className="link"><Snippet>collaborators.action</Snippet></button>
+    </form>
+  );
+}
 
 export default function Collaborators() {
   const collaborators = useSelector(state => state.static.project.collaborators);
@@ -17,7 +30,6 @@ export default function Collaborators() {
           <tr>
             <th><Snippet>collaborators.fields.name</Snippet></th>
             <th><Snippet>collaborators.fields.email</Snippet></th>
-            <th><Snippet>collaborators.fields.role</Snippet></th>
             <th><Snippet>collaborators.fields.action</Snippet></th>
           </tr>
         </thead>
@@ -29,10 +41,7 @@ export default function Collaborators() {
                 <tr key={profile.id}>
                   <td>{name}</td>
                   <td>{profile.email}</td>
-                  <td>{profile.role === 'edit' ? 'Edit' : 'Read only'}</td>
-                  <td className="actions">
-                    <Link page="project.collaborators.update" profileId={profile.id} label={<Snippet>collaborators.action</Snippet>} />
-                  </td>
+                  <td className="actions"><RemoveUser id={profile.id} name={name} /></td>
                 </tr>
               );
             })
