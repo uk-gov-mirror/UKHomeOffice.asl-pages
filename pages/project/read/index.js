@@ -64,6 +64,7 @@ module.exports = settings => {
         res.locals.static.asruUser = req.user.profile.asruUser;
         res.locals.static.asruLicensing = req.user.profile.asruLicensing;
         res.locals.static.showManageSection = canUpdate || canRevoke || canTransfer || canManageAccess;
+        res.locals.static.removeUserUrl = req.buildRoute('project.removeUser');
       })
       .then(() => next())
       .catch(next);

@@ -79,6 +79,15 @@ module.exports = {
   tabs: {
     inactive: 'Drafts'
   },
+  collaborators: {
+    title: 'Colleagues granted access',
+    fields: {
+      name: 'Name',
+      email: 'Email',
+      action: ''
+    },
+    action: 'Remove access'
+  },
   results: {
     filtered: {
       singular: 'Showing {{count}} project',
