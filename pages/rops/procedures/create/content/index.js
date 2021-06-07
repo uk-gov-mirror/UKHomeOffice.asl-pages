@@ -42,7 +42,7 @@ module.exports = merge({}, baseContent, {
     },
     ga: {
       label: 'Genetically altered (GA) animals',
-      hint: 'Select if genetically altered animals used',
+      hint: 'Select GA status of animals used',
       options: {
         'no-ga': 'GA animals were not used',
         'ga-not-harmful': {
