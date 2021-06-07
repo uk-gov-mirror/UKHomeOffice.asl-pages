@@ -1,7 +1,7 @@
 const { stringify } = require('qs');
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
-const { form } = require('../../common/routers');
+const { form } = require('../../../common/routers');
 const getSchema = require('./schema');
 
 module.exports = () => {
@@ -33,8 +33,16 @@ module.exports = () => {
   }));
 
   app.post('/', (req, res, next) => {
-    const profileId = req.form.values.profile;
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/collaborators/${profileId}`, { method: 'POST' })
+    const { profile, role } = req.form.values;
+    const params = {
+      method: 'POST',
+      json: {
+        data: {
+          role
+        }
+      }
+    };
+    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/collaborators/${profile}`, params)
       .then(() => next())
       .catch(next);
   });
@@ -44,9 +52,9 @@ module.exports = () => {
     delete req.session.form[id];
 
     const name = get(req.form, 'schema.profile.options', []).find(p => p.value === req.form.values.profile).label;
-
+    delete req.session.form[req.model.id];
     req.notification({ key: 'success', name });
-    res.redirect(req.buildRoute('project.addUser'));
+    res.redirect(req.buildRoute('project.collaborators.create'));
   });
 
   return app;

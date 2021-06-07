@@ -70,7 +70,11 @@ module.exports = {
       revoke: 'Revoke licence',
       import: 'Import project',
       addUser: 'Give access to this PPL',
-      transferDraft: 'Transfer draft project'
+      transferDraft: 'Transfer draft project',
+      collaborators: {
+        create: 'Add user',
+        update: '{{collaborator.firstName}} {{collaborator.lastName}}'
+      }
     },
     projectVersion: {
       read: 'View',
