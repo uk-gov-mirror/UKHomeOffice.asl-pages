@@ -22,48 +22,62 @@ const radioOption = field => (v, rop) => {
 
 const getSchema = rop => {
   const schema = {
+    rowNum: {
+      show: true,
+      sortable: false,
+      label: 'Row'
+    },
     species: {
       show: true,
+      sortable: false,
       label: 'Animal species',
       toCSVString: formatSpecies
     },
     reuse: {
       show: true,
+      sortable: false,
       label: 'Reuse',
       toCSVString: yn
     },
     placesOfBirth: {
       show: true,
+      sortable: false,
       label: 'Place of birth',
       toCSVString: radioOption('placesOfBirth')
     },
     nhpsOrigin: {
       show: true,
+      sortable: false,
       label: 'NHP origin',
       toCSVString: radioOption('nhpsOrigin')
     },
     nhpsColonyStatus: {
       show: true,
+      sortable: false,
       label: 'NHP colony status',
       toCSVString: radioOption('nhpsColonyStatus')
     },
     nhpsGeneration: {
       show: true,
+      sortable: false,
       label: 'NHP generation',
       toCSVString: radioOption('nhpsGeneration')
     },
     ga: {
       show: true,
+      sortable: false,
       label: 'Genetic status',
       toCSVString: radioOption('ga')
     },
     newGeneticLine: {
       show: true,
+      sortable: false,
       label: 'New genetic line',
       toCSVString: yn
     },
     purposes: {
       show: true,
+      sortable: false,
       label: 'Purpose',
       toCSVString: radioOption('purposes')
     },
@@ -86,16 +100,19 @@ const getSchema = rop => {
     },
     regulatoryLegislation: {
       show: true,
+      sortable: false,
       label: 'Regulatory legislation',
       toCSVString: radioOption('regulatoryLegislation')
     },
     severity: {
       show: true,
+      sortable: false,
       label: 'Severity',
       toCSVString: radioOption('severity')
     },
     severityNum: {
       show: true,
+      sortable: false,
       label: 'Number of procedures'
     },
     severityHoNote: {
