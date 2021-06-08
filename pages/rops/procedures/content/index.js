@@ -30,7 +30,7 @@ module.exports = merge({}, { fields }, {
         mild: 'Mild',
         moderate: 'Moderate',
         severe: 'Severe',
-        non: 'Non recovery'
+        non: 'Non-recovery'
       }
     }
   },
