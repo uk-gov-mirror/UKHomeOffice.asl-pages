@@ -27,10 +27,10 @@ module.exports = merge({}, { fields }, {
       summary: 'Reporting re-use, tiny animals, NHPs and large numbers over 999',
       options: {
         sub: 'Sub-threshold',
-        non: 'Non recovery',
         mild: 'Mild',
         moderate: 'Moderate',
-        severe: 'Severe'
+        severe: 'Severe',
+        non: 'Non-recovery'
       }
     }
   },

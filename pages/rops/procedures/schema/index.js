@@ -273,10 +273,10 @@ module.exports = (req, addMultiple) => {
       ],
       options: [
         'sub',
-        'non',
         'mild',
         'moderate',
-        'severe'
+        'severe',
+        'non'
       ].map(s => {
         return {
           value: s,
