@@ -42,12 +42,12 @@ module.exports = merge({}, baseContent, {
     },
     ga: {
       label: 'Genetically altered (GA) animals',
-      hint: 'Select if genetically altered animals used',
+      hint: 'Select GA status of animals used',
       options: {
         'no-ga': 'GA animals were not used',
         'ga-not-harmful': {
           label: 'GA animals without a harmful phenotype were used',
-          hint: 'For strains showing no or sub-theshold phenotypes'
+          hint: 'For strains showing no or sub-threshold phenotypes'
         },
         'ga-harmful': {
           label: 'GA animals with a harmful phenotype were used',
