@@ -1,13 +1,13 @@
 const { get } = require('lodash');
 const { yn, formatSpecies, getOtherValue } = require('../formatters');
-const content = require('../../content');
+const content = require('../content');
 
 const radioOption = field => (v, rop) => {
   if (!v) {
     return '-';
   }
 
-  const label = get(content, `fields.${field}.options.${v}.label`) || get(content, `fields.${field}.options.${v}`) || v;
+  const label = get(content, `condensedFields.${field}.options.${v}.label`) || get(content, `condensedFields.${field}.options.${v}`) || v;
 
   if (field === 'regulatorySubpurposes' && v.includes('other')) {
     const otherValue = getOtherValue(v, rop);
