@@ -192,7 +192,7 @@ They do not include:
       }
     },
     purposes: {
-      label: 'Which purposes best apply to procedures completed in {{year}}?',
+      label: 'Select purpose of procedure',
       hint: 'Select all that apply',
       options: {
         basic: {
