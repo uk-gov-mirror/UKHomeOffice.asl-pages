@@ -3,10 +3,10 @@ const baseContent = require('../../content');
 
 const severityErrors = [
   'sub',
-  'non',
   'mild',
   'moderate',
-  'severe'
+  'severe',
+  'non'
 ].reduce((content, severity) => {
   return {
     ...content,
@@ -93,10 +93,10 @@ module.exports = merge({}, baseContent, {
       summary: 'Reporting re-use, tiny animals, NHPs and large numbers over 999',
       options: {
         sub: 'Sub-threshold',
-        non: 'Non recovery',
         mild: 'Mild',
         moderate: 'Moderate',
-        severe: 'Severe'
+        severe: 'Severe',
+        non: 'Non recovery'
       }
     },
     severityNum: {
