@@ -7,7 +7,6 @@ import {
   Link,
   Datatable
 } from '@asl/components';
-import { getUrl } from '@asl/components/src/link';
 import { Button } from '@ukhomeoffice/react-components';
 import Header from '../../../components/header';
 import ProceduresDownloadLink from '../../../components/procedures-download-link';
@@ -16,21 +15,9 @@ import OverflowWrapper from '../../../../common/components/overflow-wrapper';
 import formatters from '../formatters';
 
 function Actions({ model }) {
-  const url = getUrl({ page: 'rops.procedures.update', procedureId: model.id });
-
-  function onClick(e) {
-    if (window.confirm('Are you sure you want to delete this procedure?')) {
-      return true;
-    }
-    e.preventDefault();
-  }
-
   return (
     <Fragment>
       <Link page="rops.procedures.update" procedureId={model.id} label="Edit" />
-      <form method="POST" action={`${url}/delete`}>
-        <button className="link" onClick={onClick}><span>Delete</span></button>
-      </form>
     </Fragment>
   );
 }
