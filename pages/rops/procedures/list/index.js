@@ -24,6 +24,7 @@ module.exports = () => {
     configure: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedures`;
       req.datatable.schema = getSchema(req.rop);
+      req.datatable.pagination = false;
       next();
     },
     locals: (req, res, next) => {
@@ -36,7 +37,7 @@ module.exports = () => {
       req.datatable.data.rows = req.datatable.data.rows.map((row, idx) => ({ rowNum: idx + 1, ...row }));
       next();
     }
-  })({ defaultRowCount: 100 }));
+  })());
 
   return app;
 };

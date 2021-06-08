@@ -79,7 +79,7 @@ export default function Procedures() {
   const editable = rop.status === 'draft';
 
   return (
-    <Fragment>
+    <div className="rop-procedures-list force-show-scrollbars">
       <Header />
 
       <h2><Snippet canEdit={editable}>change.title</Snippet></h2>
@@ -117,6 +117,6 @@ export default function Procedures() {
           : <p><em>No procedures added</em></p>
       }
       <Submission />
-    </Fragment>
+    </div>
   );
 }

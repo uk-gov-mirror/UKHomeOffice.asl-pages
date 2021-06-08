@@ -33,6 +33,7 @@ const buildQuery = (req, schema) => {
 
 module.exports = ({
   configure = defaultMiddleware,
+  setPagination = defaultMiddleware,
   getApiPath = defaultMiddleware,
   getValues = defaultMiddleware,
   persistQuery = defaultMiddleware,
@@ -49,6 +50,16 @@ module.exports = ({
     req.datatable = req.datatable || {};
     req.datatable.schema = schema;
     return configure(req, res, next);
+  };
+
+  const _setPagination = (req, res, next) => {
+    req.query = req.query || {};
+    if (req.datatable.pagination === false || req.query.csv) {
+      req.query.rows = 1e4; // bump limit to 10k rows
+      req.query.page = 1;
+      req.datatable.pagination = { hideUI: true };
+    }
+    return setPagination(req, res, next);
   };
 
   const _getApiPath = (req, res, next) => {
@@ -84,17 +95,13 @@ module.exports = ({
       }
     }
     let { rows = defaultRowCount, page } = req.query;
-    if (req.query.csv) {
-      rows = 1e4;
-      page = 1;
-    }
     page = parseInt(page, 10) - 1 || 0;
     const limit = getLimit(rows);
-    req.datatable.pagination = {
+    req.datatable.pagination = merge({}, req.datatable.pagination, {
       limit,
       page,
       offset: page * limit
-    };
+    });
     return persistQuery(req, res, next);
   };
 
@@ -168,6 +175,7 @@ module.exports = ({
 
   app.get('/',
     _configure,
+    _setPagination,
     _getApiPath,
     _persistQuery,
     _getValues,

@@ -90,6 +90,20 @@ dl.continuation {
   }
 }
 
+.rop-procedures-list {
+  .govuk-table {
+    th {
+      font-size: 16px;
+    }
+
+    td {
+      font-size: 16px;
+      white-space: nowrap;
+      padding: 5px 10px 5px 0;
+    }
+  }
+}
+
 .margin-top {
   margin-top: $govuk-gutter;
 }
@@ -665,6 +679,7 @@ nav.bottom-nav {
 
 .overflow-wrapper {
   position: relative;
+  margin-bottom: $govuk-gutter;
 
   .overflow-inner {
     overflow: auto;
@@ -691,5 +706,27 @@ nav.bottom-nav {
   }
   &.overflow-right:after {
     display: block;
+  }
+}
+
+.force-show-scrollbars {
+  /* from https://gist.github.com/IceCreamYou/cd517596e5847a88e2bb0a091da43fb4 */
+
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background-color: govuk-colour('grey-3');
+    width: 1px; /* hides white square at end of scrollbar */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    background-color: govuk-colour('grey-1');
+    border-color: transparent;
+    border-radius: 9px 8px 8px 9px;
+    border-width: 3px 3px 3px 4px; /* Workaround because margins aren't supported */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: govuk-colour('black');
   }
 }
