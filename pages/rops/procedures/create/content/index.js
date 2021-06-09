@@ -112,9 +112,6 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    ga: {
-      required: 'This field is required'
-    },
     ...severityErrors
   },
   notifications: {

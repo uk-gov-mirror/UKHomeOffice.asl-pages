@@ -453,11 +453,84 @@ Crossing a genetically altered animal with a wild type animal will not normally 
     }
   },
   errors: {
+    proceduresCompleted: {
+      required: 'Select if procedures were completed on animals in {{year}}'
+    },
+    postnatal: {
+      required: 'Select if postnatal or free feeding animals were used in procedures in {{year}}'
+    },
+    endangered: {
+      required: 'Select if endangered species were used in procedures in {{year}}'
+    },
+    endangeredDetails: {
+      required: 'Give details of endangered species used'
+    },
+    nmbas: {
+      required: 'Select if neuromuscular blocking agents were used in procedures in {{year}}'
+    },
+    generalAnaesthesia: {
+      required: 'Select if general anaesthesia was used throughout the entire period of neuromuscular blockade'
+    },
+    generalAnaesthesiaDetails: {
+      required: 'Explain why general anaesthesia was not used throughout the entire period of neuromuscular blockade'
+    },
+    rodenticide: {
+      required: 'Select if rodenticide trials were carried out in {{year}}'
+    },
+    rodenticideDetails: {
+      required: 'Give details of rodenticide trials carried out'
+    },
+    productTesting: {
+      required: 'Select if any of the techniques listed were used in {{year}}'
+    },
+    productTestingTypes: {
+      required: 'Select which techniques were used'
+    },
     species: {
-      customValidate: 'This is a required field'
+      customValidate: 'Select which other animal types were used'
     },
     otherSpecies: {
+      required: 'Select if any other animal types were used in procedures in {{year}}',
       customValidate: 'At least one animal type must be provided.'
+    },
+    reuse: {
+      required: 'Select if any procedures reused animals in {{year}}'
+    },
+    placesOfBirth: {
+      required: 'Select the place of birth for animals used in procedures in {{year}}'
+    },
+    nhpsOrigin: {
+      required: 'Select the place of birth for non-human primates used in procedures in {{year}}'
+    },
+    nhpsColonyStatus: {
+      required: 'Select where the non-human primates were sourced from'
+    },
+    nhpsGeneration: {
+      required: 'Select the generation (maternal line) of non-human primates'
+    },
+    ga: {
+      required: 'Select if genetically altered animals were used in procedures in {{year}}'
+    },
+    purposes: {
+      required: 'Select the purposes that best apply to procedures completed in {{year}}'
+    },
+    basicSubpurposes: {
+      required: 'Select the sub-purposes that best describe the research area'
+    },
+    regulatorySubpurposes: {
+      required: 'Select the sub-purposes that best describe the research area'
+    },
+    regulatoryLegislation: {
+      required: 'Select the type of legislation that applies to the regulatory research carried out'
+    },
+    regulatoryLegislationOrigin: {
+      required: 'Select the origin of the legislation'
+    },
+    translationalSubpurposes: {
+      required: 'Select the sub-purposes that best describe the research area'
+    },
+    newGeneticLine: {
+      required: 'Select if procedures involved the creation of a new genetic line'
     }
   },
   sections: {
