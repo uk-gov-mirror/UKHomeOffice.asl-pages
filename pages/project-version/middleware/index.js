@@ -187,7 +187,10 @@ const getGrantedVersion = (req, type = 'project-versions') => {
   if (!req.project || !req.project[key]) {
     return Promise.resolve();
   }
-  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${req.project.granted.id}`)
+  const index = req.project.versions.map(v => v.id).indexOf(req.version.id);
+  const version = req.project.versions.slice(index).find(v => v.status === 'granted');
+
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${version.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
