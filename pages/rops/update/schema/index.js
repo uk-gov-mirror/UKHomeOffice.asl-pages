@@ -44,7 +44,7 @@ module.exports = req => {
         validate: [
           {
             customValidate: val => {
-              return !!flatten(Object.values(val)).length;
+              return !!flatten(Object.values(val || {})).length;
             }
           }
         ]
