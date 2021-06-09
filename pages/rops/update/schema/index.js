@@ -1,4 +1,4 @@
-const { flatten, get, intersection } = require('lodash');
+const { flatten, get, intersection, every } = require('lodash');
 const { toBoolean, toArray } = require('../../../../lib/utils');
 
 module.exports = req => {
@@ -44,7 +44,11 @@ module.exports = req => {
         validate: [
           {
             customValidate: val => {
-              return !!flatten(Object.values(val || {})).length;
+              if (!flatten(Object.values(val || {})).length) {
+                return false;
+              }
+              const others = val.precoded.filter(s => s.includes('other-'));
+              return every(others, key => val[`species-${key}`].length);
             }
           }
         ]
