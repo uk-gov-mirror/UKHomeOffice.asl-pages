@@ -490,7 +490,7 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       customValidate: 'Select which other animal types were used'
     },
     otherSpecies: {
-      required: 'Select if any other animals types were used in procedures in {{year}}',
+      required: 'Select if any other animal types were used in procedures in {{year}}',
       customValidate: 'At least one animal type must be provided.'
     },
     reuse: {
