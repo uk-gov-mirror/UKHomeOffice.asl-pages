@@ -521,7 +521,7 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       required: 'Select the sub-purposes that best describe the research area'
     },
     regulatoryLegislation: {
-      required: 'Select the applicable legislation'
+      required: 'Select the type of legislation that applies to the regulatory research carried out'
     },
     regulatoryLegislationOrigin: {
       required: 'Select the origin of the legislation'
