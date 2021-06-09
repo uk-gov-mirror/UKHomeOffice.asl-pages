@@ -47,5 +47,37 @@ module.exports = merge({}, { fields }, {
   },
   notifications: {
     success: 'Return updated.'
+  },
+  errors: {
+    species: {
+      required: 'Select an animal type'
+    },
+    ga: {
+      required: 'Select the animals’ genetic status'
+    },
+    newGeneticLine: {
+      required: 'Select if a new genetic line was created'
+    },
+    purposes: {
+      required: 'Select a purpose'
+    },
+    severity: {
+      required: 'Select a severity'
+    },
+    basicSubpurposes: {
+      required: 'Select a sub-purpose'
+    },
+    regulatorySubpurposes: {
+      required: 'Select a sub-purpose'
+    },
+    regulatoryLegislation: {
+      required: 'Select the applicable legislation'
+    },
+    regulatoryLegislationOrigin: {
+      required: 'Select the origin of the legislation'
+    },
+    translationalSubpurposes: {
+      required: 'Select a sub-purpose'
+    }
   }
 });
