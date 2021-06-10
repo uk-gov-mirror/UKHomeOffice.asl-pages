@@ -48,7 +48,7 @@ module.exports = req => {
                 return false;
               }
               const others = val.precoded.filter(s => s.includes('other-'));
-              return every(others, key => val[`species-${key}`].length);
+              return every(others, key => (val[`species-${key}`] || []).length);
             }
           }
         ]
