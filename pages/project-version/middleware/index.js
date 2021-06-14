@@ -183,11 +183,12 @@ const getPreviousVersion = (req, type = 'project-versions') => {
 };
 
 const getGrantedVersion = (req, type = 'project-versions') => {
-  if (!req.project) {
-    return Promise.resolve();
-  }
   const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
   const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
+
+  if (!req.project || !req.project[key]) {
+    return Promise.resolve();
+  }
 
   const granted = req.project[key]
     .find(version => version.createdAt < req[model].createdAt && version.status === 'granted');
