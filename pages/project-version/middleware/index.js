@@ -183,14 +183,21 @@ const getPreviousVersion = (req, type = 'project-versions') => {
 };
 
 const getGrantedVersion = (req, type = 'project-versions') => {
-  const key = type === 'project-versions' ? 'granted' : 'grantedRa';
+  const key = type === 'project-versions' ? 'versions' : 'retrospectiveAssessments';
+  const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
+
   if (!req.project || !req.project[key]) {
     return Promise.resolve();
   }
-  const index = req.project.versions.map(v => v.id).indexOf(req.version.id);
-  const version = req.project.versions.slice(index).find(v => v.status === 'granted');
 
-  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${version.id}`)
+  const granted = req.project[key]
+    .find(version => version.createdAt < req[model].createdAt && version.status === 'granted');
+
+  if (!granted) {
+    return Promise.resolve();
+  }
+
+  return getCacheableVersion(req, `/establishments/${req.establishmentId}/projects/${req.projectId}/${type}/${granted.id}`)
     // swallow error as this will return 403 for receiving establishment viewing a project transfer
     // eslint-disable-next-line handle-callback-err
     .catch(err => {});
