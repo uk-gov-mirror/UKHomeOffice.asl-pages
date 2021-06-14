@@ -138,7 +138,7 @@ const getNode = (tree, path) => {
 };
 
 const canViewVersion = user => version => {
-  return !user.profile.asruUser || version.status !== 'draft';
+  return (user.profile.asruUser === version.asruVersion) || version.status !== 'draft';
 };
 
 const getFirstVersion = (req, type = 'project-versions') => {
