@@ -1,65 +1,70 @@
-const { omit, isEmpty } = require('lodash');
-const content = require('../content');
+const { omit } = require('lodash');
 
-const conditionalRequired = (field, expected = 'Yes') => (value, model) => {
-  if (model[field] === expected) {
-    return !isEmpty(value);
-  }
-  return true;
+const getDateField = establishmentName => {
+  return {
+    inputType: 'inputDate',
+    label: `Enter date of application's most recent AWERB review at ${establishmentName}`,
+    hint: 'For example, 12 06 2020',
+    validate: [
+      'required',
+      'validDate',
+      { dateIsBefore: 'now' }
+    ]
+  };
 };
 
-const getAwerbQuestion = isAmendment => {
-  const awerbQuestion = {
-    inputType: 'radioGroup',
-    inline: true,
-    className: 'smaller',
-    automapReveals: true,
-    options: [
-      {
-        value: 'Yes',
-        label: 'Yes',
-        reveal: {
-          'awerb-review-date': {
-            inputType: 'textarea',
-            label: content.fields['awerb-review-date'].label,
-            validate: [
-              {
-                customValidate: conditionalRequired('awerb')
-              }
-            ]
-          }
-        }
-      },
-      {
-        value: 'Not yet',
-        label: 'Not yet'
-      }
-    ],
-    validate: ['required']
-  };
+const getAwerbQuestion = ({ isLegacy, isAmendment, awerbEstablishments }) => {
+  let awerbDateFields = {};
 
-  if (isAmendment) {
-    awerbQuestion.options[1] = {
-      label: 'No',
-      value: 'No',
-      reveal: {
-        'awerb-no-review-reason': {
-          label: content.fields['awerb-no-review-reason'].label,
-          inputType: 'textarea',
-          validate: [
-            {
-              customValidate: conditionalRequired('awerb', 'No')
-            }
-          ]
-        }
+  if (isLegacy) {
+    awerbDateFields = {
+      'awerb-review-date': {
+        inputType: 'textarea',
+        validate: ['required']
       }
     };
+  } else {
+    awerbDateFields = awerbEstablishments.reduce((fields, establishment) => {
+      return {
+        ...fields,
+        [`awerb-${establishment.id}`]: getDateField(establishment.name)
+      };
+    }, {});
   }
 
-  return awerbQuestion;
+  if (!isAmendment) {
+    return awerbDateFields;
+  }
+
+  return {
+    'awerb-exempt': {
+      inputType: 'radioGroup',
+      validate: ['required'],
+      automapReveals: true,
+      options: [
+        {
+          label: 'No',
+          value: 'no',
+          reveal: {
+            ...awerbDateFields
+          }
+        },
+        {
+          label: 'Yes',
+          value: 'yes',
+          reveal: {
+            'awerb-no-review-reason': {
+              inputType: 'textarea',
+              validate: ['required']
+            }
+          }
+        }
+      ]
+    }
+  };
 };
 
-const getSchema = (isAmendment, isAsru, includeReady, includeAwerb) => {
+const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, awerbEstablishments }) => {
   let schema = {
     comments: {
       inputType: 'textarea',
@@ -75,7 +80,6 @@ const getSchema = (isAmendment, isAsru, includeReady, includeAwerb) => {
   }
 
   if (includeReady) {
-
     const readyQuestion = {
       inputType: 'radioGroup',
       inline: true,
@@ -102,7 +106,7 @@ const getSchema = (isAmendment, isAsru, includeReady, includeAwerb) => {
   // awerb question should always be first if included
   if (includeAwerb) {
     schema = {
-      awerb: getAwerbQuestion(isAmendment),
+      ...getAwerbQuestion({ isLegacy, isAmendment, awerbEstablishments }),
       ...schema
     };
   }
