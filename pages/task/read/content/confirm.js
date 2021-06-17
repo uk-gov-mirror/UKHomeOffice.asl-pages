@@ -16,7 +16,7 @@ module.exports = merge({}, baseContent, {
     restrictions: {
       label: 'Restrictions'
     },
-    ...pick(versionContent.fields, ['awerb', 'awerb-dates', 'awerb-no-review-reason'])
+    ...pick(versionContent.fields, ['awerb', 'awerb-review-date', 'awerb-dates', 'awerb-no-review-reason'])
   },
   declaration: {
     title: 'Declaration',
@@ -33,6 +33,6 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    ...pick(versionContent.errors, ['awerb', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason'])
+    ...pick(versionContent.errors, ['awerb', 'awerb-review-date', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason'])
   }
 });
