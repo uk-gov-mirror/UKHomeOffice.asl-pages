@@ -41,8 +41,10 @@ module.exports = () => {
     if (!status || status === req.task.status) {
       return res.redirect(req.buildRoute('task.read'));
     }
-    req.askAwerb = askAwerb(req.task, status);
-    req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+    if (req.project) {
+      req.askAwerb = askAwerb(req.task, status);
+      req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+    }
     next();
   });
 
@@ -52,7 +54,7 @@ module.exports = () => {
       res.locals.static.commentRequired = req.task.nextSteps.find(s => s.id === chosenStatus).commentRequired;
       res.locals.static.commentLabel = content.commentLabels[chosenStatus];
       const awerbEstablishments = req.awerbEstablishments;
-      const isLegacy = req.project.schemaVersion === 0;
+      const isLegacy = req.project && req.project.schemaVersion === 0;
       req.schema = getSchema({ task: req.task, chosenStatus, isLegacy, awerbEstablishments });
       req.form.schema = req.schema;
       next();
