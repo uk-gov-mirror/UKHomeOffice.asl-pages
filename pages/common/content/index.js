@@ -54,7 +54,8 @@ module.exports = {
       invite: 'Invite user',
       invitations: 'Invitations',
       permission: 'Change / remove permissions',
-      convertLegacyProject: 'Convert legacy project'
+      convertLegacyProject: 'Convert legacy project',
+      remove: 'Remove permissions'
     },
     role: {
       create: 'Add role',

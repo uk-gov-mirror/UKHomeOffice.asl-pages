@@ -72,8 +72,5 @@ module.exports = merge({}, baseContent, {
     content: 'You will no longer be able to access or apply for licences at {{establishment.name}}.',
     'cannot-leave': 'Before you can leave {{establishment.name}}, you need to discard or transfer any licences you hold, and remove yourself from any named roles.',
     button: 'Leave establishment'
-  },
-  notifications: {
-    leftEstablishment: 'You\'ve left {{establishment.name}}.'
   }
 });

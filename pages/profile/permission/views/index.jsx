@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Snippet, Form, ErrorSummary, ApplyChanges, Header } from '@asl/components';
+import { Link, Snippet, Form, ErrorSummary, Header } from '@asl/components';
 import { Warning, Button } from '@ukhomeoffice/react-components';
 
 const formatters = {
@@ -30,7 +30,7 @@ function PermissionsForm({ formFields, profile }) {
 }
 
 export default function Page() {
-  const { hasProjects, hasPil, hasRoles, hasAdditionalProjects, url, profile } = useSelector(state => state.static);
+  const { hasProjects, hasPil, hasRoles, hasAdditionalProjects, profile } = useSelector(state => state.static);
 
   const nonRemovable = hasProjects || hasPil || hasRoles || hasAdditionalProjects;
 
@@ -55,11 +55,13 @@ export default function Page() {
               : <Snippet>remove.warning</Snippet>
           }
         </p>
-        <ApplyChanges type="form" method="POST" action={`${url}/remove`}>
-          <button className="govuk-button" disabled={nonRemovable}>
-            <Snippet>buttons.remove</Snippet>
-          </button>
-        </ApplyChanges>
+        <p>
+          <Link
+            className="govuk-button button-warning"
+            page="profile.remove"
+            label={<Snippet>buttons.remove</Snippet>}
+          />
+        </p>
         <p>
           <Link
             page="profile.read"
