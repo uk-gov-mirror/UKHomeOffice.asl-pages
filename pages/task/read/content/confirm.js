@@ -16,7 +16,7 @@ module.exports = merge({}, baseContent, {
     restrictions: {
       label: 'Restrictions'
     },
-    ...pick(versionContent.fields, ['awerb', 'awerb-review-date', 'awerb-no-review-reason'])
+    ...pick(versionContent.fields, ['awerb', 'awerb-dates', 'awerb-no-review-reason'])
   },
   declaration: {
     title: 'Declaration',
@@ -33,14 +33,6 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    awerb: {
-      required: 'Select an option'
-    },
-    'awerb-review-date': {
-      customValidate: 'Please provide the AWERB review date(s)'
-    },
-    'awerb-no-review-reason': {
-      customValidate: 'Please explain why there was no AWERB review'
-    }
+    ...pick(versionContent.errors, ['awerb', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason'])
   }
 });

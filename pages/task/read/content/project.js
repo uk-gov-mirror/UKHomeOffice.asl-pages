@@ -64,7 +64,7 @@ module.exports = {
       'endorsement-date': 'Endorsement date: '
     },
     'awerb': {
-      question: 'AWERB review:',
+      question: 'AWERB required:',
       'review-date': 'AWERB review date:',
       'no-review-reason': 'Reason for no review:'
     },

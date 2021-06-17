@@ -25,6 +25,14 @@ module.exports = {
     'awerb-review-date': {
       label: 'Please state the date of the most recent AWERB review for each relevant establishment.'
     },
+    'awerb-exempt': {
+      label: 'Is this amendment exempt from a review by the AWERB of each relevant establishment?',
+      hint: 'Only amendments that don\'t change the meaning of the licence, such as spelling corrections are exempt from an AWERB review.'
+    },
+    'awerb-dates': {
+      label: 'Enter date of application\'s most recent AWERB review', // fallback (overridden by schema field label)
+      hint: 'For example, 12 06 2020'
+    },
     'awerb-no-review-reason': {
       label: 'Why has this amendment not been reviewed by the AWERB of each relevant establishment?'
     },
@@ -32,8 +40,8 @@ module.exports = {
       label: 'Has an inspector advised you that this version of your application is ready for assessment?'
     },
     comment: {
-      label: 'Comments',
-      hint: 'Comments can be seen by inspectors and Home Office team members. They will be added to the \'Latest activity\' log of this task.'
+      label: 'Remarks (optional)',
+      hint: 'Your remarks will be recorded and visible to relevant establishment and Home Office personnel.'
     },
     comments: {
       label: 'Reason for amendment',
@@ -54,10 +62,18 @@ module.exports = {
       required: 'Select an option'
     },
     'awerb-review-date': {
-      customValidate: 'Please provide the AWERB review date(s)'
+      required: 'Please provide the AWERB review date(s)'
+    },
+    'awerb-exempt': {
+      required: 'Select an option'
+    },
+    'awerb-dates': {
+      required: 'Enter the date of the application\'s most recent AWERB review',
+      validDate: 'Enter a valid date',
+      dateIsBefore: 'Enter a valid date in the past'
     },
     'awerb-no-review-reason': {
-      customValidate: 'Please explain why there was no AWERB review'
+      required: 'Please explain why there was no AWERB review'
     },
     ready: {
       required: 'Select an option'
