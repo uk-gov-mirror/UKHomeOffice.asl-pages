@@ -17,8 +17,8 @@ const getVersion = () => (req, res, next) => {
         openTasks: meta.openTasks,
         ...req.project
       };
-      req.project.versions = req.project.versions.filter(canViewVersion(req.user));
-      req.project.retrospectiveAssessments = req.project.retrospectiveAssessments.filter(canViewVersion(req.user));
+      req.project.versions = req.project.versions.filter(canViewVersion(req));
+      req.project.retrospectiveAssessments = req.project.retrospectiveAssessments.filter(canViewVersion(req));
       req.version = data;
     })
     .then(() => next())
@@ -137,8 +137,8 @@ const getNode = (tree, path) => {
   return node;
 };
 
-const canViewVersion = user => version => {
-  return (user.profile.asruUser === version.asruVersion) || version.status !== 'draft';
+const canViewVersion = req => version => {
+  return (req.user.profile.asruUser === version.asruVersion) || version.status !== 'draft' || version.id === req.versionId;
 };
 
 const getFirstVersion = (req, type = 'project-versions') => {
