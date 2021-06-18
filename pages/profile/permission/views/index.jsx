@@ -56,11 +56,15 @@ export default function Page() {
           }
         </p>
         <p>
-          <Link
-            className="govuk-button button-warning"
-            page="profile.remove"
-            label={<Snippet>buttons.remove</Snippet>}
-          />
+          {
+            nonRemovable
+              ? <Button disabled={true} className="button-warning"><Snippet>buttons.remove</Snippet></Button>
+              : <Link
+                className="govuk-button button-warning"
+                page="profile.remove"
+                label={<Snippet>buttons.remove</Snippet>}
+              />
+          }
         </p>
         <p>
           <Link
