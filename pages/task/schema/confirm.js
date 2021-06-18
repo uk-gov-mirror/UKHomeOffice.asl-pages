@@ -19,7 +19,7 @@ module.exports = ({ task, chosenStatus, isLegacy, awerbEstablishments }) => {
     }
   };
 
-  const isAmendment = get(task, 'type') === 'amendment';
+  const isAmendment = ['amendment', 'transfer'].includes(get(task, 'type'));
 
   if (askAwerb(task, chosenStatus)) {
     schema = {
