@@ -54,30 +54,30 @@ const Establishment = ({ establishment, content }) => {
           licenceHolders && licenceHolders.length > 0 ? (
             <p><strong>{getPeopleList(licenceHolders)}</strong></p>
           ) : (
-            <p>None.</p>
+            <p>None</p>
           )
         }
       </section>
 
       <section className="licence-holder">
         <h2>Named Person Responsible for Compliance</h2>
-        <p><strong>{ getPeopleList(establishment.namedPeople.nprc) || 'None.' }</strong></p>
+        <p><strong>{ getPeopleList(establishment.namedPeople.nprc) || 'None' }</strong></p>
       </section>
 
       <section className="named-people break">
         <h2>Named people</h2>
 
         <h4>Named Information Officers</h4>
-        <p>{ getPeopleList(establishment.namedPeople.nio) || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nio) || 'None' }</p>
 
         <h4>Named Training and Competency Officers</h4>
-        <p>{ getPeopleList(establishment.namedPeople.ntco) || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.ntco) || 'None' }</p>
 
         <h4>Named Veternary Surgeons</h4>
-        <p>{ getPeopleList(establishment.namedPeople.nvs) || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nvs) || 'None' }</p>
 
         <h4>Named Animal Care and Welfare Officers</h4>
-        <p>{ getPeopleList(establishment.namedPeople.nacwo) || 'None.' }</p>
+        <p>{ getPeopleList(establishment.namedPeople.nacwo) || 'None' }</p>
       </section>
 
       {/* page break */}
@@ -93,7 +93,7 @@ const Establishment = ({ establishment, content }) => {
               </div>
             </Fragment>
           ) : (
-            <p>None.</p>
+            <p>None</p>
           )
         }
       </section>
@@ -137,7 +137,7 @@ const Establishment = ({ establishment, content }) => {
               }
             </Fragment>
           ) : (
-            <p>None.</p>
+            <p>None</p>
           )
         }
       </section>
@@ -197,7 +197,7 @@ const Establishment = ({ establishment, content }) => {
         ) : (
           <section className="approved-areas break">
             <h2>Approved areas</h2>
-            <p>None.</p>
+            <p>None</p>
           </section>
         )
       }

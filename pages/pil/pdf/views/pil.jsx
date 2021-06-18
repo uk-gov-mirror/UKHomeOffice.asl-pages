@@ -51,7 +51,7 @@ const PIL = ({ pil, content }) => {
               }
             </ul>
           ) : (
-            <p>None.</p>
+            <p>None</p>
           )
         }
       </section>
@@ -62,7 +62,7 @@ const PIL = ({ pil, content }) => {
           hasProcedures ? (
             <ProceduresDiff after={pil.procedures} afterPil={pil} />
           ) : (
-            <p>None.</p>
+            <p>None</p>
           )
         }
       </section>
@@ -78,7 +78,7 @@ const PIL = ({ pil, content }) => {
               </div>
             </Fragment>
           ) : (
-            <p>None.</p>
+            <p>None</p>
           )
         }
       </section>
