@@ -18,9 +18,9 @@ module.exports = merge({}, baseContent, {
     revocationDate: 'Revoked on {{revocationDate}}',
     primaryAvailabilityAt: {
       application: 'Application at {{establishmentName}}',
-      licence: 'Licence held at {{establishmentName}}'
+      licence: 'Primary availability at {{establishmentName}}'
     },
-    additionalAvailabilityAt: 'Has additional availabilty at {{establishmentNames}}',
+    additionalAvailabilityAt: 'Additional availability at {{establishmentNames}}',
     noProjects: 'None',
     tabs: {
       active: 'Active',
