@@ -295,8 +295,9 @@ module.exports = () => {
     const model = get(req.task, 'data.model');
     const action = get(req.task, 'data.action');
     const status = get(req.form, 'values.status');
+    const isAsruUser = req.user.profile.asruUser;
 
-    if (model === 'project' && daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
+    if (model === 'project' && isAsruUser && daysSinceDeadline > 0 && !hasDeadlinePassedReason) {
       return res.redirect(req.buildRoute('task.read.deadlinePassed'));
     }
 
