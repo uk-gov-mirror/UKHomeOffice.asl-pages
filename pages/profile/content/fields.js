@@ -33,29 +33,29 @@ module.exports = {
     options: {
       basic: {
         label: 'Personal (Basic access)',
-        hint: `* Manage own licences.
-               * View named people and Home Office liaison contacts (HOLCs).`
+        hint: `* manage own licences
+               * view named people and Home Office liaison contacts (HOLCs)`
       },
       read: {
         label: 'Overview (Intermediate access)',
-        hint: `* Manage own licences.
-               * View all people.
-               * View all licences.
-               * View the establishment’s approved areas.`
+        hint: `* manage own licences
+               * view all people
+               * view all licences
+               * view the establishment’s approved areas`
       },
       admin: {
         label: 'Admin (PEL holder delegate)',
-        hint: `* Manage all licences.
-               * Manage user accounts and permissions.
-               * Manage establishment details, approved areas and named roles.
-               * View annual licence fee information.
-               * Endorse project applications on behalf of applicants.`
+        hint: `* manage all licences
+               * manage user accounts and permissions
+               * manage establishment details, approved areas and named roles
+               * view annual licence fee information
+               * endorse project applications on behalf of applicants`
       },
       blocked: {
         label: 'Blocked',
-        hint: `* Cannot view any licences.
-               * Cannot view named people and Home Office liaison contacts (HOLCs).
-               * Cannot view any other establishment details.`
+        hint: `* cannot view any licences
+               * cannot view named people and Home Office liaison contacts (HOLCs)
+               * cannot view any other establishment details`
       }
     }
   },

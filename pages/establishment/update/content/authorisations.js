@@ -5,7 +5,7 @@ module.exports = {
   proposed: {
     title: 'Proposed authorisations'
   },
-  none: 'None.',
+  none: 'None',
   'method-number': 'Method {{number}}',
   method: 'Method',
   description: 'Applicable animals'
