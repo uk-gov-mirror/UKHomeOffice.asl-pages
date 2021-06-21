@@ -27,12 +27,12 @@ const formatters = establishmentId => ({
                   isLegacyStub && <li>Partial record</li>
                 }
                 {
-                  isAdditionalAvailability && <li>{`Has primary availability at ${model.establishment.name}`}</li>
+                  isAdditionalAvailability && <li>{`Primary availability at ${model.establishment.name}`}</li>
                 }
                 {
                   hasAdditionalAvailability && (
                     <li>
-                      <span>Has additional availability at </span>
+                      <span>Additional availability at </span>
                       <EstablishmentLinks establishments={model.additionalEstablishments} showLink={false} />
                     </li>
                   )
