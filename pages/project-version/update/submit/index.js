@@ -1,4 +1,5 @@
 const { pick, get, set } = require('lodash');
+const moment = require('moment');
 const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
 const { getSchema } = require('./schema');
@@ -12,6 +13,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     req.version.type = req.project.status === 'active' ? 'amendment' : 'application';
+    req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
     next();
   });
 
@@ -33,14 +35,17 @@ module.exports = settings => {
     if (declarations) {
       Object.assign(req.version, pick(declarations, [
         'authority',
-        'awerb',
         'ready',
         'authority-pelholder-name',
         'authority-endorsement-date',
+        'awerb',
         'awerb-review-date',
+        'awerb-exempt',
+        'awerb-dates',
         'awerb-no-review-reason',
         'comments'
       ]));
+      (declarations['awerb-dates'] || []).forEach(awerb => set(req.version, `awerb-${awerb.id}`, awerb.date));
     }
     next();
   });
@@ -56,15 +61,41 @@ module.exports = settings => {
   app.use(
     form({
       configure: (req, res, next) => {
+        const existingTask = get(req.project, 'openTasks[0]');
         // if application has previously been approved then this is a resubmission and we can show the inspector ready question
-        const hasAuthority = get(req.project, 'openTasks[0].data.meta.authority') === 'Yes';
+        const hasAuthority = get(existingTask, 'data.meta.authority') === 'Yes';
         const isAmendment = req.version.type === 'amendment';
+        const isAsru = req.user.profile.asruUser;
         const includeReady = hasAuthority && !isAmendment;
         const includeAwerb = res.locals.static.canEndorse;
-        req.form.schema = getSchema(isAmendment, req.user.profile.asruUser, includeReady, includeAwerb);
+        const awerbEstablishments = req.awerbEstablishments;
+        const isLegacy = req.project.schemaVersion === 0;
+        req.processAwerbDates = includeAwerb && !isLegacy;
+        req.form.schema = getSchema({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, awerbEstablishments });
+        next();
+      },
+      process: (req, res, next) => {
+        if (req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
+          req.awerbEstablishments.forEach(e => {
+            req.form.values[`awerb-${e.id}`] = `${req.body[`awerb-${e.id}-year`]}-${req.body[`awerb-${e.id}-month`]}-${req.body[`awerb-${e.id}-day`]}`;
+          });
+        }
+        next();
+      },
+      saveValues: (req, res, next) => {
+        if (req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
+          const primaryEstablishment = req.project.establishment;
+          req.session.form[req.model.id].values['awerb-dates'] = req.awerbEstablishments.map(e => {
+            return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };
+          });
+        }
         next();
       },
       locals: (req, res, next) => {
+        // map the error content to the per-establishment date fields
+        req.awerbEstablishments.forEach(e => {
+          set(res.locals, `static.content.errors.awerb-${e.id}`, content.errors['awerb-dates']);
+        });
         set(res.locals, 'static.content.buttons.submit', get(res.locals, `static.content.buttons.submit.${req.version.type}`));
         next();
       }
@@ -72,7 +103,8 @@ module.exports = settings => {
   );
 
   app.post('/', (req, res, next) => {
-    const values = req.form.values;
+    const values = req.session.form[req.model.id].values;
+
     const json = {
       meta: {
         ...values,

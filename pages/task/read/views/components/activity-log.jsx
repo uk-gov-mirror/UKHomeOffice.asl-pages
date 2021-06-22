@@ -135,6 +135,10 @@ function DeclarationMeta({ item }) {
 }
 
 function ExtraProjectMeta({ item, task }) {
+  if (task.data.model !== 'project') {
+    return null;
+  }
+
   const versionId = get(item, 'event.data.data.version');
   const status = get(item, 'event.status');
   const isEndorsed = get(item, 'event.data.meta.authority', '').toLowerCase() === 'yes';
@@ -173,7 +177,6 @@ function ExtraProjectMeta({ item, task }) {
   if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
     return (
       <Fragment>
-        <PplDeclarations task={item.event} />
         <div className="version-links">
           <p>
             <Link
@@ -205,6 +208,11 @@ function Comment({ changedBy, comment }) {
   );
 }
 
+const showPplDeclarations = (item) => {
+  const status = get(item, 'event.status');
+  return ['endorsed', 'resubmitted'].includes(status);
+};
+
 function LogItem({ item, task }) {
   let { action } = item;
   const isExtension = isDeadlineExtension(item);
@@ -223,9 +231,10 @@ function LogItem({ item, task }) {
       { isExtension && <DeadlineDetails item={item} /> }
       { isRa && <AwerbDate item={item} /> }
       { isAssignment && <Assignment item={item} />}
-      <DeclarationMeta item={item} />
       <Comment changedBy={item.changedBy} comment={item.comment} />
-      { task.data.model === 'project' && <ExtraProjectMeta item={item} task={task} /> }
+      { showPplDeclarations(item) && <PplDeclarations task={item.event} /> }
+      <DeclarationMeta item={item} />
+      <ExtraProjectMeta item={item} task={task} />
     </div>
   );
 }
