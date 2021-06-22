@@ -64,6 +64,10 @@ module.exports = {
     link: 'Non-technical summary and retrospective assessment (.pdf)',
     hint: 'Download the project\'s non-technical summary and retrospective assessment.'
   },
+  ntsDraftRa: {
+    link: 'Non-technical summary and draft retrospective assessment (.pdf)',
+    hint: 'Download the project\'s non-technical summary and draft retrospective assessment.'
+  },
   protocols: {
     heading: 'Protocols',
     link: 'Steps and adverse effects (.pdf)',

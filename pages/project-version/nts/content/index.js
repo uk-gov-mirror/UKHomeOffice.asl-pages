@@ -19,7 +19,9 @@ module.exports = {
   },
   action: {
     download: {
-      pdf: 'Download non-technical summary as a PDF'
+      pdf: 'Download non-technical summary as a PDF',
+      pdfRa: 'Download non-technical summary and retrospective assessment as a PDF',
+      pdfDraftRa: 'Download non-technical summary and draft retrospective assessment as a PDF'
     }
   }
 };

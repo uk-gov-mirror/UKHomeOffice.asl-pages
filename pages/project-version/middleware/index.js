@@ -378,7 +378,7 @@ const getPreviousProtocols = () => (req, res, next) => {
 const loadRa = (req, res, next) => {
   const raCompulsory = get(req, 'version.raCompulsory');
   const retrospectiveAssessment = get(req, 'version.retrospectiveAssessment');
-  const requiresRa = raCompulsory || retrospectiveAssessment || req.project.raDate;
+  const requiresRa = !!raCompulsory || !!retrospectiveAssessment || !!req.project.raDate;
 
   if (!requiresRa) {
     return next();
@@ -386,13 +386,15 @@ const loadRa = (req, res, next) => {
 
   const raUrl = `/establishments/${req.establishmentId}/projects/${req.projectId}/retrospective-assessment`;
   const raReasons = req.api(`${raUrl}/reasons`);
-  // grantedRa is re-fetched if present because req.project.grantedRa doesn't include ra.data by default
+  // grantedRa / draftRa is re-fetched if present because req.project.xxxRa doesn't include ra.data by default
   const grantedRa = req.project.grantedRa ? req.api(`${raUrl}/${req.project.grantedRa.id}`) : Promise.resolve();
+  const draftRa = req.project.draftRa ? req.api(`${raUrl}/${req.project.draftRa.id}`) : Promise.resolve();
 
-  return Promise.all([raReasons, grantedRa])
-    .then(([reasonsResponse, grantedRaResponse]) => {
+  return Promise.all([raReasons, grantedRa, draftRa])
+    .then(([reasonsResponse, grantedRaResponse, draftRaResponse]) => {
       req.project.raReasons = get(reasonsResponse, 'json.data');
       req.project.grantedRa = grantedRaResponse ? get(grantedRaResponse, 'json.data') : null;
+      req.project.draftRa = draftRaResponse ? get(draftRaResponse, 'json.data') : null;
     })
     .then(() => next())
     .catch(next);
