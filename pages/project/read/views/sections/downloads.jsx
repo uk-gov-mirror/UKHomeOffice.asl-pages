@@ -42,6 +42,20 @@ export default function Downloads() {
               />
             </p>
             <p className="govuk-hint"><Snippet>{`downloads.${ntsSnippet}.hint`}</Snippet></p>
+            {
+              project.draftRa &&
+                <Fragment>
+                  <p>
+                    <Link
+                      page="projectVersion.ntsPdf"
+                      label={<Snippet>downloads.ntsDraftRa.link</Snippet>}
+                      versionId={linkVersion.id}
+                      query={{ draftRa: true }}
+                    />
+                  </p>
+                  <p className="govuk-hint"><Snippet>downloads.ntsDraftRa.hint</Snippet></p>
+                </Fragment>
+            }
           </Fragment>
 
           {

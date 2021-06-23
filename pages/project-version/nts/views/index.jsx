@@ -126,10 +126,21 @@ export default function NTS() {
               <li>
                 <Link
                   page="projectVersion.ntsPdf"
-                  label={<Snippet>action.download.pdf</Snippet>}
+                  label={<Snippet>{`action.download.${project.grantedRa ? 'pdfRa' : 'pdf'}`}</Snippet>}
                   versionId={version.id}
                 />
               </li>
+              {
+                project.draftRa &&
+                <li>
+                  <Link
+                    page="projectVersion.ntsPdf"
+                    label={<Snippet>action.download.pdfDraftRa</Snippet>}
+                    versionId={version.id}
+                    query={{ draftRa: true }}
+                  />
+                </li>
+              }
             </ul>
           </dd>
         </dl>

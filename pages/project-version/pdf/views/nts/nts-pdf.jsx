@@ -5,11 +5,11 @@ import RaSummary from '../../../nts/views/components/ra-summary';
 import getSchema from '../../../nts/schema';
 
 export default function NtsPdf() {
-  const project = useSelector(state => state.application.project);
+  const { project, includeDraftRa } = useSelector(state => state.application);
   const version = useSelector(state => state.project);
   const isTrainingLicence = version['training-licence'] || false;
   const sections = getSchema(project.schemaVersion);
-  const ra = project.grantedRa;
+  const ra = includeDraftRa ? project.draftRa : project.grantedRa;
 
   return (
     <Fragment>
@@ -43,7 +43,7 @@ export default function NtsPdf() {
                         (field.type !== 'RetrospectivePlaceholder' || !ra) && <Field field={field} version={version} schemaVersion={project.schemaVersion} project={project} />
                       }
                       {
-                        field.raSummary && <RaSummary fields={field.raSummary} project={project} />
+                        field.raSummary && <RaSummary fields={field.raSummary} project={project} isPdf={true} includeDraftRa={includeDraftRa} />
                       }
                     </div>
                   ))
