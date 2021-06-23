@@ -23,13 +23,13 @@ module.exports = {
     currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
   'with-inspectorate': {
-    state: 'Awaiting recommendation',
+    state: 'Awaiting decision',
     action: 'Refer to inspector',
     log: 'Submitted by',
     currentlyWith: '**Currently with:** Home Office Inspector'
   },
   'referred-to-inspector': {
-    state: 'Awaiting recommendation',
+    state: 'Awaiting decision',
     action: 'Refer to inspector',
     hint: {
       application: 'The application will be sent to an inspector for assessment.',
