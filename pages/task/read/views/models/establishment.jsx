@@ -93,8 +93,8 @@ export default function Establishment({ task, values }) {
             schema={{ ...establishmentSchema, isTrainingEstablishment: {} }}
             formatters={formatters}
             comparator={hasChanged}
-            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
-            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
+            currentLabel={isComplete ? <Snippet>diff.previous</Snippet> : undefined}
+            proposedLabel={isComplete ? <Snippet>diff.changed-to</Snippet> : undefined}
           />
 
           <Authorisations
