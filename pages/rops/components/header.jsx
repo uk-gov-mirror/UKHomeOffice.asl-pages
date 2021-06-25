@@ -6,8 +6,8 @@ import { dateFormat } from '../../../constants';
 import ProceduresDownloadLink from './procedures-download-link';
 
 export default function RopHeader() {
-  const establishment = useSelector(state => state.static.establishment);
   const project = useSelector(state => state.model.project);
+  const establishment = project.establishment;
 
   return (
     <DocumentHeader
