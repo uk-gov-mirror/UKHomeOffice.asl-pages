@@ -16,5 +16,7 @@ module.exports = () => {
 
   app.use('/success', success());
 
+  app.get('*', (req, res) => res.sendResponse());
+
   return app;
 };
