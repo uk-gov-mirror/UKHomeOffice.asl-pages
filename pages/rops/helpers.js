@@ -24,7 +24,13 @@ function hasGeneticallyAltered(req) {
   return get(req.project, 'granted.data.ga', false);
 }
 
+function hasOtherSpecies(req) {
+  return (get(req.project, 'granted.data.species-other') || []).length ||
+    (get(req.project, 'granted.data.species') || []).find(s => s.includes('other'));
+}
+
 module.exports = {
   hasNhps,
-  hasGeneticallyAltered
+  hasGeneticallyAltered,
+  hasOtherSpecies
 };

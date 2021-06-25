@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Snippet, Header, FormLayout } from '@asl/components';
 
 export default function Submit() {
-  const project = useSelector(state => state.static.project);
+  const project = useSelector(state => state.model.project);
   return (
     <FormLayout cancelLink="rops.procedures">
       <Header
