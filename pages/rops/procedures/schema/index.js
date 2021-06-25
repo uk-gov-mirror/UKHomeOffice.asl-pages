@@ -2,6 +2,7 @@ const { get, flatten } = require('lodash');
 const { projectSpecies } = require('@asl/constants');
 const { toArray, toBoolean } = require('../../../../lib/utils');
 const { hasNhps } = require('../../helpers');
+const content = require('../create/content');
 
 const allSpecies = flatten(Object.values(projectSpecies));
 
@@ -285,7 +286,8 @@ module.exports = (req, addMultiple) => {
               prefix: s,
               inputType: 'inputText',
               validate: ['required', { type: 'number' }],
-              format: v => v ? parseInt(v, 10) : v
+              format: v => v ? parseInt(v, 10) : v,
+              label: content.fields.severityNum[s] && content.fields.severityNum[s].label
             },
             severityHoNote: {
               prefix: s,

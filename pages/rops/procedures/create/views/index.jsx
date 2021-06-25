@@ -10,6 +10,7 @@ import {
   WidthContainer,
   ErrorSummary
 } from '@asl/components';
+import formatters from '../formatters';
 
 function FormSection({ title, fields, step }) {
   const model = useSelector(state => state.model);
@@ -28,7 +29,7 @@ function FormSection({ title, fields, step }) {
         )
       }
       <h2>{title}</h2>
-      <Fieldset schema={pick(schema, fields)} model={model} errors={errors} />
+      <Fieldset schema={pick(schema, fields)} model={model} errors={errors} formatters={formatters} />
     </Fragment>
   );
 }
@@ -82,6 +83,17 @@ export default function Create() {
         <div className="govuk-grid-row">
           <div className="govuk-grid-column-two-thirds">
             <FormSection title="Outcomes" fields="severity" />
+          </div>
+        </div>
+
+        <div className="govuk-grid-row">
+          <div className="govuk-grid-column-two-thirds">
+            <hr />
+            <h2>Related guidance</h2>
+            <p className="govuk-hint">Links opens in a new tab</p>
+            <a href="https://www.gov.uk/guidance/animal-testing-and-research-annual-returns" target="_blank" rel="noreferrer">
+              Guidance on completing your annual return of procedures
+            </a>
           </div>
         </div>
 
