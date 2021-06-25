@@ -6,7 +6,7 @@ import formatters from '../formatters';
 import components from './components';
 
 export default function Step() {
-  const { step, project, schema } = useSelector(state => state.static);
+  const { step, schema, project } = useSelector(state => state.static);
   const Component = components[step];
   return (
     <FormLayout formatters={pick(formatters, Object.keys(schema || {}))}>

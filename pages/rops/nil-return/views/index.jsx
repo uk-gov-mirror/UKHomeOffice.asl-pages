@@ -6,7 +6,8 @@ import Header from '../../components/header';
 import { Snippet, Link, WidthContainer } from '@asl/components';
 
 export default function NilReturn() {
-  const { project, rop } = useSelector(state => state.static);
+  const rop = useSelector(state => state.model);
+  const project = rop.project;
 
   const noProcs = rop.proceduresCompleted === false;
 

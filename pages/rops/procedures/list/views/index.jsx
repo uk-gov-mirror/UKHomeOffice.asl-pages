@@ -23,7 +23,8 @@ function Actions({ model }) {
 }
 
 const Submission = () => {
-  const { url, canSubmit, rop } = useSelector(state => state.static, shallowEqual);
+  const { url, canSubmit } = useSelector(state => state.static, shallowEqual);
+  const rop = useSelector(state => state.model);
   const hasProcedures = !!rop.procedures.length;
   const editable = rop.status === 'draft';
 
@@ -61,7 +62,7 @@ const Submission = () => {
 };
 
 export default function Procedures() {
-  const rop = useSelector(state => state.static.rop);
+  const rop = useSelector(state => state.model);
   const hasProcedures = !!rop.procedures.length;
   const editable = rop.status === 'draft';
 

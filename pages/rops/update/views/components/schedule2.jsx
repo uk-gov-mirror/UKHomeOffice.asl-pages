@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import { Snippet, Details, Inset } from '@asl/components';
 
 export default function Schedule2() {
-  const rop = useSelector(state => state.static.rop);
+  const rop = useSelector(state => state.model);
   const placesOfBirth = get(rop, 'placesOfBirth') || [];
   return (
     <Fragment>

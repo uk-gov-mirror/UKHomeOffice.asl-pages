@@ -209,7 +209,7 @@ function getPurposes(req) {
 }
 
 module.exports = (req, addMultiple) => {
-  const projectSpecies = (get(req, 'rop.project.granted.data.species') || []).filter(s => !s.includes('other'));
+  const projectSpecies = (get(req, 'project.granted.data.species') || []).filter(s => !s.includes('other'));
   const ropSpecies = flatten(Object.values(get(req, 'rop.species') || {})).filter(s => !s.match(/^other-/));
 
   const hasGa = get(req, 'rop.ga', false);

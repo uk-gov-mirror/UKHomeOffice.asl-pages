@@ -21,7 +21,7 @@ function yn(val) {
 const ALL_SPECIES = flatten(values(projectSpecies));
 
 function Section({ title, children, step }) {
-  const editable = useSelector(state => state.static.rop.status) === 'draft';
+  const editable = useSelector(state => state.model.status) === 'draft';
   return (
     <Fragment>
       <hr />
@@ -42,8 +42,8 @@ function Section({ title, children, step }) {
 }
 
 export default function Confirm() {
-  const { year, rop, hasNhps } = useSelector(state => state.static);
-  const projSpecies = get(rop, 'project.granted.data.species') || [];
+  const { year, hasNhps, species: projSpecies } = useSelector(state => state.static);
+  const rop = useSelector(state => state.model);
   const ropSpecies = get(rop, 'species.precoded') || [];
   const otherSpecies = get(rop, 'species.otherSpecies') || [];
 

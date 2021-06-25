@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import get from 'lodash/get';
 import { Snippet } from '@asl/components';
 
 export default function Endangered() {
-  const project = useSelector(state => state.static.project);
-  const endangered = get(project, 'granted.data.endangered-animals', false);
+  const endangered = useSelector(state => state.static.hasEndangeredSpecies);
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>

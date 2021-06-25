@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import get from 'lodash/get';
 import { Snippet } from '@asl/components';
 
 export default function Reuse() {
-  const project = useSelector(state => state.static.project);
-  const reuse = get(project, 'granted.data.reuse', false);
+  const reuse = useSelector(state => state.static.hasReUse);
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>
