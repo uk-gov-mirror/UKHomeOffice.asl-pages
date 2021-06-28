@@ -42,8 +42,8 @@ export default function NilReturn() {
             {
               !isUndefined(rop.postnatal) && !isNull(rop.postnatal) && (
                 <tr>
-                  <td><strong>{`Only 'protected' embryonic forms used?`}</strong></td>
-                  <td>{rop.postnatal ? 'No' : 'Yes'}</td>
+                  <td><strong>{`Postnatal or free feeding animals used`}</strong></td>
+                  <td>{rop.postnatal ? 'Yes' : 'No'}</td>
                   <td><Link page="rops.update" label="Change" step="postnatal" /></td>
                 </tr>
               )
