@@ -16,12 +16,12 @@ function hasNhps(req, option) {
 }
 
 function hasGeneticallyAltered(req) {
-  if (req.project.schemaVersion === 0) {
-    return (get(req.project, 'granted.data.protocols') || []).some(protocol => {
+  return (get(req.project, 'granted.data.protocols') || []).some(protocol => {
+    if (req.project.schemaVersion === 0) {
       return (protocol.species || []).some(s => s['genetically-altered']);
-    });
-  }
-  return get(req.project, 'granted.data.ga', false);
+    }
+    return protocol.gaas;
+  });
 }
 
 function hasOtherSpecies(req) {
