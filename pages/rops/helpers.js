@@ -24,6 +24,12 @@ function hasGeneticallyAltered(req) {
   });
 }
 
+function hasReUse(req) {
+  return (get(req.project, 'granted.data.protocols') || []).some(protocol => {
+    return (protocol.speciesDetails || []).some(s => s['reuse']);
+  });
+}
+
 function hasOtherSpecies(req) {
   return (get(req.project, 'granted.data.species-other') || []).length ||
     (get(req.project, 'granted.data.species') || []).find(s => s.includes('other'));
@@ -32,5 +38,6 @@ function hasOtherSpecies(req) {
 module.exports = {
   hasNhps,
   hasGeneticallyAltered,
-  hasOtherSpecies
+  hasOtherSpecies,
+  hasReUse
 };
