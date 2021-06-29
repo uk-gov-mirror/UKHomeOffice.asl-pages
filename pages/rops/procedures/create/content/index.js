@@ -18,7 +18,8 @@ module.exports = merge({}, baseContent, {
   title: 'Add procedures',
   fields: {
     species: {
-      label: 'Animal species'
+      label: 'Animal species',
+      hint: 'Select animal type used'
     },
     reuse: {
       label: 'Reuse',
