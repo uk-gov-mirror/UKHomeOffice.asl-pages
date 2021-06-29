@@ -4,6 +4,7 @@ import isUndefined from 'lodash/isUndefined';
 import isNull from 'lodash/isNull';
 import Header from '../../components/header';
 import { Snippet, Link, WidthContainer } from '@asl/components';
+import CancelLink from '../../components/cancel-link';
 
 export default function NilReturn() {
   const rop = useSelector(state => state.model);
@@ -52,8 +53,18 @@ export default function NilReturn() {
         </table>
         {
           !rop.procedures.length
-            ? <Link page="rops.submit" label={<Snippet>buttons.submit</Snippet>} className="govuk-button"/>
-            : <em>Cannot submit NIL return as procedures have been added</em>
+            ? (
+              <div className="control-panel">
+                <Link page="rops.submit" label={<Snippet>buttons.submit</Snippet>} className="govuk-button"/>
+                <CancelLink />
+              </div>
+            )
+            : (
+              <Fragment>
+                <em>Cannot submit NIL return as procedures have been added</em>
+                <CancelLink />
+              </Fragment>
+            )
         }
       </WidthContainer>
     </Fragment>
