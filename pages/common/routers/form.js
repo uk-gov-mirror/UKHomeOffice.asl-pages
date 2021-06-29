@@ -101,6 +101,36 @@ const getConditionalRevealKeys = schema => chain(schema)
   .flatten()
   .value();
 
+const flattenDetailsReveals = schema => {
+  return reduce(schema, (flattenedSchema, field, key) => {
+    if (field.options) {
+      field.options = map(field.options, option => {
+        return (option.options || option.reveal) ? flattenDetailsReveals({option}).option : option;
+      });
+    }
+
+    if (field.reveal) {
+      field.reveal = reduce(field.reveal, (fields, revealedField, revealedKey) => {
+        // if the field is a details reveal, remove it and copy the revealed fields to the parent object
+        if (revealedField.inputType === 'detailsReveal') {
+          return {
+            ...fields,
+            ...revealedField.reveal
+          };
+        }
+        return {
+          ...fields,
+          [revealedKey]: revealedField
+        };
+      }, {});
+    }
+
+    flattenedSchema[key] = field;
+
+    return flattenedSchema;
+  }, {});
+};
+
 const schemaWithReveals = schema => reduce(schema, (obj, value, key) => {
   return {
     ...obj,
@@ -204,6 +234,9 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
+    // if we don't clone the schema here it gets modified in place by flattenDetailsReveals() because object refs...
+    // thought it would be clearer with an explicit assignment
+    req.form.schema = flattenDetailsReveals(cloneDeep(req.form.schema));
     const reveals = getOptionReveals(req.form.schema, req.body);
     const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
 

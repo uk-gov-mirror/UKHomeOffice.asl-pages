@@ -136,6 +136,13 @@ module.exports = merge({}, baseContent, {
         details: 'If you have non-recovery procedures in combination with new genetic lines being created or a purpose of breeding or maintaining colonies of GA animals, add an explanatory note to the Home Office.'
       }
     },
+    addNote: {
+      label: 'Add a note',
+      options: {
+        true: 'Yes',
+        false: 'No'
+      }
+    },
     severityHoNote: {
       label: 'Note to Home Office (optional)'
     },

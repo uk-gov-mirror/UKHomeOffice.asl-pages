@@ -289,13 +289,19 @@ module.exports = (req, addMultiple) => {
               format: v => v ? parseInt(v, 10) : v,
               label: content.fields.severityNum[s] && content.fields.severityNum[s].label
             },
-            severityHoNote: {
-              prefix: s,
-              inputType: 'textarea'
-            },
-            severityPersonalNote: {
-              prefix: s,
-              inputType: 'textarea'
+            addNote: {
+              inputType: 'detailsReveal',
+              label: 'Add note',
+              reveal: {
+                severityHoNote: {
+                  prefix: s,
+                  inputType: 'textarea'
+                },
+                severityPersonalNote: {
+                  prefix: s,
+                  inputType: 'textarea'
+                }
+              }
             }
           }
         };
