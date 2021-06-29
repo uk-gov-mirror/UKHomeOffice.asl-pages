@@ -1,10 +1,8 @@
 import React from 'react';
 
 export default function CancelLink() {
-  if (typeof window !== 'undefined') {
-    if (window.history.length <= 1) {
-      return null;
-    }
+  if (typeof window === 'undefined' || window.history.length <= 1) {
+    return null;
   }
 
   function onClick(e) {
