@@ -61,7 +61,7 @@ export default function CurrentActivity() {
 
       {
         !workflowConnectionError && project.openTasks.length > 0 &&
-          <table className="govuk-table tasklist">
+          <table className="govuk-table govuk-react-datatable tasklist">
             <thead>
               <tr>
                 <th>Last changed</th>

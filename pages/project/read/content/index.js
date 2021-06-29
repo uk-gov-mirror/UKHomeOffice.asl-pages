@@ -24,6 +24,12 @@ module.exports = merge({}, baseContent, {
       downloads: 'Downloads'
     }
   },
+  countdown: {
+    singular: '1 {{unit}} left',
+    plural: '{{diff}} {{unit}}s left',
+    expired: 'Deadline passed',
+    expiresToday: 'Deadline today'
+  },
   details: {
     granted: {
       title: 'Licence details',
