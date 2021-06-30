@@ -135,7 +135,7 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
 
             <div className="control-panel float-right">
               {
-                allowedActions.includes('project.convertLegacy') &&
+                allowedActions.includes('project.stub.create') &&
                   <Link
                     className="govuk-button button-secondary"
                     page="profile.convertLegacyProject"

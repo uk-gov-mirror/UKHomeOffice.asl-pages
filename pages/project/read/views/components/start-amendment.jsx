@@ -20,7 +20,7 @@ const confirmSubmission = message => e => {
 
 export default function StartAmendment() {
   const project = useSelector(state => state.model);
-  const { confirmMessage, url, openTask, editable, asruUser, canUpdate, canTransfer, asruLicensing, additionalAvailability } = useSelector(state => state.static);
+  const { confirmMessage, url, openTask, editable, asruUser, canUpdate, canTransfer, canUpdateStub, additionalAvailability } = useSelector(state => state.static);
 
   let startAmendmentDescriptionKey = 'start';
 
@@ -52,7 +52,7 @@ export default function StartAmendment() {
     startAmendmentDescriptionKey = 'transfer';
   }
 
-  const canChangeLicenceHolder = !project.draft && !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && asruLicensing));
+  const canChangeLicenceHolder = !project.draft && !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && canUpdateStub));
 
   return (
     <Subsection
