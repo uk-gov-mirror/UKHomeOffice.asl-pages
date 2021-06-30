@@ -29,7 +29,7 @@ module.exports = {
   },
   convertLegacyProject: {
     path: '/:profileId/convert-legacy-project',
-    permissions: 'project.convertLegacy',
+    permissions: 'project.stub.create',
     router: convertLegacyProject
   },
   invite: {

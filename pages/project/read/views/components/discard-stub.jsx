@@ -14,10 +14,10 @@ const confirmSubmission = message => e => {
 
 export default function DiscardStub() {
   const project = useSelector(state => state.model);
-  const { url, confirmMessage, asruLicensing, canUpdate, additionalAvailability } = useSelector(state => state.static);
+  const { url, confirmMessage, canUpdateStub, additionalAvailability } = useSelector(state => state.static);
 
   // legacy stubs can be discarded at any point
-  if (!project.isLegacyStub || !asruLicensing || !canUpdate || additionalAvailability) {
+  if (!project.isLegacyStub || !canUpdateStub || additionalAvailability) {
     return null;
   }
 
