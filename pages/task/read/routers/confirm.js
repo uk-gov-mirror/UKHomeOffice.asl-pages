@@ -44,6 +44,10 @@ module.exports = () => {
     if (req.project) {
       req.askAwerb = askAwerb(req.task, status);
       req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+
+      get(req.task, 'data.meta[awerb-dates]', []).map(awerb => {
+        req.model[`awerb-${awerb.id}`] = awerb.date;
+      });
     }
     next();
   });
