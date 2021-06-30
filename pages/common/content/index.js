@@ -81,9 +81,7 @@ module.exports = {
       convert: 'Convert legacy licence',
       nts: 'Non-technical summary'
     },
-    rops: {
-      update: 'Return of procedures'
-    },
+    rops: 'Return of procedures {{year}}',
     account: {
       menu: 'Your account',
       update: 'Edit your details',
