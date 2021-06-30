@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import get from 'lodash/get';
 import upperFirst from 'lodash/upperFirst';
 import { Markdown, Snippet } from '@asl/components';
 import format from 'date-fns/format';
@@ -10,12 +11,15 @@ export default function PplDeclarations({ task }) {
   }
 
   const status = task.status;
-  const declarations = task.data.meta;
   const isAmendment = task.type === 'amendment';
 
-  // activity log for initial endorsement does not have the authority prop set in the 'event' (i.e. task) meta
+  // prefer the payload for declarations if available as it reflects the status at the time the task was actioned
+  const declarations = get(task, 'meta.payload.meta') || get(task, 'data.meta') || {};
+
   if (!declarations.authority && status === 'endorsed') {
     declarations.authority = 'Yes';
+    // endorsed action needs to display ready status but does not submit it in payload
+    declarations.ready = get(task, 'data.meta.ready');
   }
 
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
@@ -24,10 +28,13 @@ export default function PplDeclarations({ task }) {
 
   return (
     <div className="declarations">
-      <dl className="inline-wide">
-        <dt><Snippet>declarations.pel-holder.question</Snippet></dt>
-        <dd>{declarations.authority || 'No'}</dd>
-      </dl>
+      {
+        declarations.authority &&
+          <dl className="inline-wide">
+            <dt><Snippet>declarations.pel-holder.question</Snippet></dt>
+            <dd>{declarations.authority}</dd>
+          </dl>
+      }
 
       {
         isAmendment
