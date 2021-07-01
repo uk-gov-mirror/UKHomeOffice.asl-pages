@@ -102,6 +102,9 @@ const getConditionalRevealKeys = schema => chain(schema)
   .value();
 
 const flattenDetailsReveals = schema => {
+  // if we don't clone the schema here it gets modified in place because object refs...
+  schema = cloneDeep(schema);
+
   return reduce(schema, (flattenedSchema, field, key) => {
     if (field.options) {
       field.options = map(field.options, option => {
@@ -234,9 +237,7 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    // if we don't clone the schema here it gets modified in place by flattenDetailsReveals() because object refs...
-    // thought it would be clearer with an explicit assignment
-    req.form.schema = flattenDetailsReveals(cloneDeep(req.form.schema));
+    req.form.schema = flattenDetailsReveals(req.form.schema);
     const reveals = getOptionReveals(req.form.schema, req.body);
     const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
 
