@@ -94,6 +94,14 @@ dl.continuation {
   }
 }
 
+form.procedures {
+  .form-section {
+    border-top: 3px solid $govuk-border-colour;
+    padding-top: $govuk-gutter-half;
+    margin-bottom: $govuk-gutter;
+  }
+}
+
 .rop-procedures-list {
   .govuk-table {
     th {
