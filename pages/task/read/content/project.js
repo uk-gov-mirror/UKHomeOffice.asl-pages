@@ -44,6 +44,7 @@ module.exports = {
     },
     submitted: {
       label: 'View latest submission',
+      discarded: 'This submission was discarded on {{date}}',
       text: 'This is the application that has been submitted for approval.'
     }
   },

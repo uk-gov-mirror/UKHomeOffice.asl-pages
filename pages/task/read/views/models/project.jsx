@@ -67,6 +67,7 @@ export default function Project({ task }) {
   ], est => est['establishment-id'] || est.id);
 
   const isComplete = !task.isOpen;
+  const isDiscarded = task.status === 'discarded-by-applicant';
 
   const formatters = {
     licenceHolder: {
@@ -157,15 +158,24 @@ export default function Project({ task }) {
                 </Fragment>
               )
             }
-            <p><Snippet>versions.submitted.text</Snippet></p>
-            <Link
-              page="projectVersion.fullApplication"
-              className="govuk-button button-secondary"
-              versionId={version.id}
-              establishmentId={project.establishmentId}
-              projectId={project.id}
-              label={<Snippet>versions.submitted.label</Snippet>}
-            />
+            {
+              isDiscarded
+                ? <p><Snippet date={format(version.deleted, dateFormat.long)}>versions.submitted.discarded</Snippet></p>
+                : (
+                  <Fragment>
+                    <p><Snippet>versions.submitted.text</Snippet></p>
+                    <Link
+                      page="projectVersion.fullApplication"
+                      className="govuk-button button-secondary"
+                      versionId={version.id}
+                      establishmentId={project.establishmentId}
+                      projectId={project.id}
+                      label={<Snippet>versions.submitted.label</Snippet>}
+                    />
+                  </Fragment>
+                )
+            }
+
           </p>
         </StickyNavAnchor>
       )
