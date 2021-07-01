@@ -14,7 +14,8 @@ const formatters = establishmentId => ({
   title: {
     format: (title, model) => {
       const isAdditionalAvailability = model.establishmentId !== establishmentId;
-      const hasAdditionalAvailability = !isAdditionalAvailability && model.additionalEstablishments.length > 0;
+      const aaEstablishments = model.additionalEstablishments.filter(aa => model.status === 'inactive' || aa.status === 'active');
+      const hasAdditionalAvailability = !isAdditionalAvailability && aaEstablishments.length > 0;
       const isLegacyStub = model.isLegacyStub;
       const showInfo = isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
       return (
@@ -33,7 +34,7 @@ const formatters = establishmentId => ({
                   hasAdditionalAvailability && (
                     <li>
                       <span>Additional availability at </span>
-                      <EstablishmentLinks establishments={model.additionalEstablishments} showLink={false} />
+                      <EstablishmentLinks establishments={aaEstablishments} showLink={false} />
                     </li>
                   )
                 }
