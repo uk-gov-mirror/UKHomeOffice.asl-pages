@@ -89,9 +89,21 @@ module.exports = merge({}, baseContent, {
       }
     },
     severity: {
-      label: 'Select actual severities and enter number of procedures',
-      hint: 'Severities are those experienced by animals as a result of the procedure.',
+      label: 'Select severities and enter number of procedures',
+      hint: `Severities are those actually experienced by animals. A procedure carried out on 100 mice would be 100 procedures.
+
+      Select all that apply.`,
       summary: 'Reporting re-use, tiny animals, NHPs and large numbers over 999',
+      details: `### Re-use
+      If animals were used in the same procedure across multiple studies, you can give one figure for all the procedures
+      carried out. However you should record the first use of theanimals separately to subsequent re-uses. Be sure to check
+      the detailed guidance on reporting re-use to ensure you record the figures correctly.
+
+      ### Tiny animals
+      If tiny animals such as fish larvae were used, estimates are fine.
+
+      ### Numbers over 999 and NHPs
+      If the number of procedures is over 99 for NHPs, or 999 for any other animal, add a note to the Home Office explaining why (for example if you’ve given a single figure for multiple studies). If the number relates to animals used on the same breeding protocol simply state ‘Breeding’.`,
       options: {
         sub: 'Sub-threshold',
         mild: 'Mild',
@@ -101,9 +113,35 @@ module.exports = merge({}, baseContent, {
       }
     },
     severityNum: {
-      label: 'Number of procedures',
-      hint: 'For example, a procedure carried out on 100 mice would be 100 procedures.',
-      summary: 'Reporting exceeded severities'
+      label: 'Enter number of procedures carried out',
+      sub: {
+        label: 'Enter number of sub-threshold procedures carried out',
+        summary: 'Reporting sub-threshold on experimental studies',
+        details: 'Add an explanatory note if the study was experimental and severities were sub-threshold. An experimental study is one that was carried out for any purpose other than breeding GA animals and that didn’t create a new genetic line.'
+      },
+      mild: {
+        label: 'Enter number of mild procedures carried out'
+      },
+      moderate: {
+        label: 'Enter number of moderate procedures carried out'
+      },
+      severe: {
+        label: 'Enter number of severe procedures carried out',
+        summary: 'If harms exceeded severe',
+        details: 'If the animal suffered severe, prolonged pain that was not alleviated, add a note to the Home Office explaining why and if you had prior authorisation.'
+      },
+      non: {
+        label: 'Enter number of non-recovery procedures carried out',
+        summary: 'Reporting non-recovery with new genetic lines or breeding purposes',
+        details: 'If you have non-recovery procedures in combination with new genetic lines being created or a purpose of breeding or maintaining colonies of GA animals, add an explanatory note to the Home Office.'
+      }
+    },
+    addNote: {
+      label: 'Add a note',
+      options: {
+        true: 'Yes',
+        false: 'No'
+      }
     },
     severityHoNote: {
       label: 'Note to Home Office (optional)'
