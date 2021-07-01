@@ -2,6 +2,7 @@ import React from 'react';
 import format from 'date-fns/format';
 import { Markdown } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
+import { render } from 'mustache';
 
 export default function RetrospectivePlaceholder({ project, version, field }) {
   const raCompulsory = version.raCompulsory;
@@ -12,7 +13,7 @@ export default function RetrospectivePlaceholder({ project, version, field }) {
     return null;
   }
 
-  const content = field.content.replace('{{raDate}}', format(project.raDate, dateFormat.long));
+  const content = render(field.content, { raDate: format(project.raDate, dateFormat.long), hasRaDate: !!project.raDate });
 
   return (
     <div className="retrospective-placeholder">

@@ -38,7 +38,7 @@ module.exports = {
       },
       {
         type: 'RetrospectivePlaceholder',
-        content: `### A retrospective assessment of these aims will be due by {{raDate}}
+        content: `### A retrospective assessment of these aims will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
   * Is there a plan for this work to continue under another licence?
   * Did the project achieve it's aims and if not, why not?`
@@ -77,7 +77,7 @@ The PPL holder will be required to disclose:
       },
       {
         type: 'RetrospectivePlaceholder',
-        content: `### A retrospective assessment of these predicted harms will be due by {{raDate}}
+        content: `### A retrospective assessment of these predicted harms will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
   * What harms were caused to the animals, how severe were those harms and how many animals were affected?`
       }
@@ -93,7 +93,7 @@ The PPL holder will be required to disclose:
       },
       {
         type: 'RetrospectivePlaceholder',
-        content: `### A retrospective assessment of replacement will be due by {{raDate}}
+        content: `### A retrospective assessment of replacement will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
   * What, if any, non-animal alternatives were used or explored after the project started, and is there anything others
   can learn from your experience?`
@@ -110,7 +110,7 @@ The PPL holder will be required to disclose:
       },
       {
         type: 'RetrospectivePlaceholder',
-        content: `### A retrospective assessment of reduction will be due by {{raDate}}
+        content: `### A retrospective assessment of reduction will be due by {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
   * How did you minimise the numbers of animals used on your project and is there anything others can learn from your experience?`
       }
@@ -127,7 +127,7 @@ The PPL holder will be required to disclose:
       },
       {
         type: 'RetrospectivePlaceholder',
-        content: `### A retrospective assessment of refinement will be due by {{raDate}}
+        content: `### A retrospective assessment of refinement will be due by {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
   * With the knowledge you have now, could the choice of animals or model(s) used be improved for future work of this kind?
   During the project, how did you minimise harm to the animals?`
