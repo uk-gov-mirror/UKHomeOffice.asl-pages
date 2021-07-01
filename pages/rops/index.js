@@ -7,6 +7,11 @@ module.exports = () => {
   const app = Router();
 
   app.use((req, res, next) => {
+    req.breadcrumb('rops');
+    next();
+  });
+
+  app.use((req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops/${req.ropId}`)
       .then(({ json: { data, meta } }) => {
         req.rop = data;
@@ -32,7 +37,7 @@ module.exports = () => {
     req.model = req.rop;
     // remove full project data from payload sent to the client
     req.model.project = omit(req.model.project, 'granted');
-    res.locals.static.year = `${(new Date()).getFullYear()}`;
+    res.locals.static.year = req.rop.year;
     res.locals.static.project = pick(req.model.project, 'title');
     res.locals.model = req.model;
     next();
