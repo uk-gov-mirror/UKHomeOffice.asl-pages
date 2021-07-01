@@ -83,7 +83,8 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     },
     species: {
       label: 'Select {{#hasSpecies}}any other {{/hasSpecies}}animal types used',
-      playback: 'Includes the following animal types:'
+      playbackTitle: 'This project licence:',
+      playback: 'Authorises (or has previously authorised) use of the following animal types:'
     },
     reuse: {
       label: 'Did any of the procedures reuse animals in 2021?',

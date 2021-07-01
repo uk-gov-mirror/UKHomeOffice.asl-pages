@@ -13,7 +13,7 @@ export default function Species() {
 
   return (
     <Fragment>
-      <h3><Snippet>playback</Snippet></h3>
+      <h3><Snippet>fields.species.playbackTitle</Snippet></h3>
       <p><Snippet>fields.species.playback</Snippet></p>
       <ReviewField
         project={{ species }}
