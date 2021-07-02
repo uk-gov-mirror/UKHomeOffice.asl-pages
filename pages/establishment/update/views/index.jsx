@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import mapKeys from 'lodash/mapKeys';
 import mapValues from 'lodash/mapValues';
 import get from 'lodash/get';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import {
   Snippet,
   FormLayout,
