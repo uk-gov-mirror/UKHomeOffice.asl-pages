@@ -1,7 +1,7 @@
 const { merge } = require('lodash');
-const { fields } = require('../../update/content/index');
+const { fields, guidance } = require('../../update/content/index');
 
-module.exports = merge({}, { fields }, {
+module.exports = merge({}, { fields, guidance }, {
   title: 'Return of procedures {{year}}',
   change: {
     title: '{{#canEdit}}Change{{/canEdit}}{{^canEdit}}View{{/canEdit}} setup details',

@@ -1,6 +1,11 @@
 module.exports = {
   title: 'Return details',
   playback: 'Currently or previously authorised on this project:',
+  guidance: {
+    title: 'Detailed guidance',
+    hint: 'Link opens in a new tab',
+    link: 'Guidance on completing {{year}} annual return of procedures'
+  },
   fields: {
     proceduresCompleted: {
       label: 'Were any procedures carried out and completed on any animals in {{year}}?',

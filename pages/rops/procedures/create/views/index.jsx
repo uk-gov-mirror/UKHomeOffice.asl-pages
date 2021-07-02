@@ -7,17 +7,17 @@ import {
   Header,
   Snippet,
   Link,
-  WidthContainer,
-  ErrorSummary
+  ErrorSummary,
+  Sidebar
 } from '@asl/components';
 import formatters from '../formatters';
+import Guidance from '../../../components/guidance';
 
 function FormSection({ title, fields, step }) {
   const model = useSelector(state => state.model);
   const { schema, errors } = useSelector(state => state.static);
   return (
-    <Fragment>
-      <hr />
+    <div className="form-section">
       {
         step && (
           <Link
@@ -30,7 +30,7 @@ function FormSection({ title, fields, step }) {
       }
       <h2>{title}</h2>
       <Fieldset schema={pick(schema, fields)} model={model} errors={errors} formatters={formatters} />
-    </Fragment>
+    </div>
   );
 }
 
@@ -73,44 +73,35 @@ export default function Create() {
         title={<Snippet>title</Snippet>}
         subtitle={project.title}
       />
-      <form method="POST" noValidate onSubmit={onFormSubmit}>
-        <input type="hidden" name="_csrf" value={csrfToken} />
-        <WidthContainer>
-          <FormSection title="Animals" step="species" fields={['species', 'ga']} />
-          <FormSection title="Purposes" step="purposes" fields={['purposes', 'newGeneticLine']} />
-        </WidthContainer>
 
-        <div className="govuk-grid-row">
-          <div className="govuk-grid-column-two-thirds">
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-two-thirds">
+          <form method="POST" noValidate onSubmit={onFormSubmit} className="procedures">
+            <input type="hidden" name="_csrf" value={csrfToken} />
+            <FormSection title="Animals" step="species" fields={['species', 'ga']} />
+            <FormSection title="Purposes" step="purposes" fields={['purposes', 'newGeneticLine']} />
             <FormSection title="Outcomes" fields="severity" />
-          </div>
-        </div>
 
-        <div className="govuk-grid-row">
-          <div className="govuk-grid-column-two-thirds">
-            <hr />
-            <h2>Related guidance</h2>
-            <p className="govuk-hint">Links opens in a new tab</p>
-            <a href="https://www.gov.uk/guidance/animal-testing-and-research-annual-returns" target="_blank" rel="noreferrer">
-              Guidance on completing your annual return of procedures
-            </a>
-          </div>
-        </div>
-
-        <div className="control-panel">
-          <button type="submit" className="govuk-button" disabled={disabled}><Snippet>buttons.submit</Snippet></button>
-          <Link page="rops.procedures.list" label={<Snippet>buttons.cancel</Snippet>} />
-        </div>
-      </form>
-
-      {
-        deletable &&
-          <div className="govuk-grid-row">
-            <div className="govuk-grid-column-two-thirds">
-              <DeleteButton />
+            <div className="control-panel">
+              <button type="submit" className="govuk-button" disabled={disabled}><Snippet>buttons.submit</Snippet></button>
+              <Link page="rops.procedures.list" label={<Snippet>buttons.cancel</Snippet>} />
             </div>
-          </div>
-      }
+          </form>
+
+          {
+            deletable && (
+              <div className="govuk-grid-row">
+                <div className="govuk-grid-column-two-thirds">
+                  <DeleteButton />
+                </div>
+              </div>
+            )
+          }
+        </div>
+        <Sidebar>
+          <Guidance />
+        </Sidebar>
+      </div>
     </Fragment>
   );
 }
