@@ -48,7 +48,8 @@ const formatters = establishmentId => ({
   status: {
     format: (status, model) => {
       const isAdditionalAvailability = model.establishmentId !== establishmentId;
-      const additionalAvailabilityEnded = isAdditionalAvailability && model.additionalEstablishments.find(e => e.id === establishmentId).status === 'removed';
+      const aaEstablishment = model.additionalEstablishments.find(e => e.id === establishmentId);
+      const additionalAvailabilityEnded = isAdditionalAvailability && aaEstablishment && aaEstablishment.status === 'removed';
 
       if (additionalAvailabilityEnded) {
         status = 'additional-availability-ended';
