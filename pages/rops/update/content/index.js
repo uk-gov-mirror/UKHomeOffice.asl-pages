@@ -127,18 +127,19 @@ Select all that apply`,
       details: `* mice
 * rats
 * guinea pigs
-* hamsters
+* hamsters (Syrian) (Mesocricetus auratus)
+* hamsters (Chinese) (Cricetulus griseus)
 * gerbils
 * rabbits
 * cats
 * dogs
 * ferrets
-* common quail
+* Quail (Coturnix coturnix)
 * Xenopus Laevis
 * Xenopus Tropicalis
 * Rana Temporaria
 * Rana Pipiens
-* Zebrafish
+* zebrafish (Danio rerio)
 * genetically modified pigs
 * genetically modified sheep`
     },
