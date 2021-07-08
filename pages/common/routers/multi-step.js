@@ -71,6 +71,15 @@ module.exports = ({ schema, config, root, postData = (req, res, next) => next() 
     }, null);
 
     if (redirectStep) {
+      const prevStep = allSteps[allSteps.indexOf(redirectStep) - 1];
+      if (prevStep) {
+        const prevStepConfig = config[prevStep];
+        const target = prevStepConfig.target && prevStepConfig.target(req);
+        if (target) {
+          return res.redirect(target);
+        }
+      }
+
       return res.redirect(req.buildRoute(root, { step: redirectStep }));
     }
     next();

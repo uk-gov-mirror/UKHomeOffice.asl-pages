@@ -46,24 +46,24 @@ const hasPurpose = purpose => req => {
   return purposes.includes(purpose);
 };
 
+function redirectIfNilReturn(req) {
+  const noProceduresCompleted = get(req, 'form.values.proceduresCompleted', req.rop.proceduresCompleted) === false;
+  const noPostnatal = get(req, 'form.values.postnatal', req.rop.postnatal) === false;
+  if (noPostnatal || noProceduresCompleted) {
+    return req.buildRoute('rops.nil-return');
+  }
+}
+
 module.exports = {
   procedures: {
     fields: ['proceduresCompleted'],
     section: 'details',
-    target: req => {
-      if (!req.form.values.proceduresCompleted) {
-        return req.buildRoute('rops.nil-return');
-      }
-    }
+    target: redirectIfNilReturn
   },
   postnatal: {
     fields: ['postnatal'],
     section: 'details',
-    target: req => {
-      if (!req.form.values.postnatal) {
-        return req.buildRoute('rops.nil-return');
-      }
-    }
+    target: redirectIfNilReturn
   },
   endangered: {
     fields: ['endangered', 'endangeredDetails'],
