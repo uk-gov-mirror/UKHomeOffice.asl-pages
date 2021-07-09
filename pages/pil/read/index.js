@@ -1,5 +1,6 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
+const { NotFoundError } = require('@asl/service/errors');
 const { form, relatedTasks } = require('../../common/routers');
 const { hydrate } = require('../../common/middleware');
 
@@ -12,6 +13,9 @@ module.exports = settings => {
   app.get('/', hydrate());
 
   app.get('/', (req, res, next) => {
+    if (!req.model) {
+      return next(new NotFoundError());
+    }
     if (['pending', 'inactive'].includes(req.model.status)) {
       return res.redirect(req.buildRoute('pil.update', { pilId: req.pil.id }));
     }
