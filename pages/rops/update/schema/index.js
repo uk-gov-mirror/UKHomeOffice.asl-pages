@@ -513,7 +513,7 @@ module.exports = req => {
         'tobacco',
         'alcohol',
         'antibodies'
-      ]
+      ].map(disableProcOpts('specialTechnique'))
     }
   };
 };
