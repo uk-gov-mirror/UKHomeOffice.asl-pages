@@ -1,5 +1,6 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
+const { fields: { productTestingTypes } } = require('../../../update/content');
 
 const severityErrors = [
   'sub',
@@ -82,11 +83,16 @@ module.exports = merge({}, baseContent, {
         true: 'Yes'
       }
     },
-    techniques: {
-      label: 'Techniques used',
+    specialTechniqueUsed: {
+      label: 'Were techniques of special interest used?',
       options: {
-        none: 'None'
+        true: 'Yes',
+        false: 'No'
       }
+    },
+    specialTechnique: {
+      label: 'Technique of special interest',
+      options: productTestingTypes.options
     },
     severity: {
       label: 'Select severities and enter number of procedures',

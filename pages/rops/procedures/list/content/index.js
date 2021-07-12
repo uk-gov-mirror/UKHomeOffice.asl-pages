@@ -30,6 +30,7 @@ const condensedFields = merge({}, baseContent.fields, {
       'elsewhere': 'Elsewhere'
     }
   },
+  specialTechnique: baseContent.fields.productTestingTypes,
   nhpsColonyStatus: {
     options: {
       'self-sustaining': 'Self-sustaining',

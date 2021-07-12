@@ -1,4 +1,4 @@
-const { get, flatten } = require('lodash');
+const { get, flatten, omit } = require('lodash');
 const { projectSpecies } = require('@asl/constants');
 const { toArray, toBoolean } = require('../../../../lib/utils');
 const { hasNhps } = require('../../helpers');
@@ -220,7 +220,10 @@ module.exports = (req, addMultiple) => {
   ];
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
-  return {
+
+  const usesSpecialTechniques = req.rop.productTesting || (req.rop.productTestingTypes || []).length;
+
+  const schema = {
     species: {
       inputType: 'radioGroup',
       validate: [
@@ -265,6 +268,25 @@ module.exports = (req, addMultiple) => {
       format: toBoolean,
       options: newGeneticLineOptions
     },
+    specialTechniqueUsed: {
+      inputType: 'radioGroup',
+      validate: ['required'],
+      format: toBoolean,
+      automapReveals: true,
+      options: [
+        {
+          value: true,
+          reveal: {
+            specialTechnique: {
+              inputType: 'radioGroup',
+              validate: ['required'],
+              options: req.rop.productTestingTypes
+            }
+          }
+        },
+        false
+      ]
+    },
     severity: {
       inputType: addMultiple ? 'checkboxGroup' : 'radioGroup',
       format: v => addMultiple ? toArray(v) : v,
@@ -308,4 +330,6 @@ module.exports = (req, addMultiple) => {
       })
     }
   };
+
+  return usesSpecialTechniques ? schema : omit(schema, 'specialTechniqueUsed');
 };

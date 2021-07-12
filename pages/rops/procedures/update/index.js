@@ -49,6 +49,10 @@ module.exports = () => {
       return key;
     });
 
+    if (values.specialTechniqueUsed === false) {
+      values.specialTechnique = null;
+    }
+
     const params = {
       method: 'PUT',
       json: { data: values }

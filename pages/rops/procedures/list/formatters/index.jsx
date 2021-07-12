@@ -79,6 +79,9 @@ const formatters = rop => {
     purposes: {
       format: getRadioOption('purposes')
     },
+    specialTechnique: {
+      format: getRadioOption('specialTechnique')
+    },
     subpurpose: {
       format: (v, model) => {
         switch (model.purposes) {

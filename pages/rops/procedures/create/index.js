@@ -42,6 +42,10 @@ module.exports = () => {
       severities = `${severities.join(', ')} and ${last}`;
     }
 
+    if (values.specialTechniqueUsed === false) {
+      values.specialTechnique = null;
+    }
+
     const params = {
       method: 'POST',
       json: { data: values }

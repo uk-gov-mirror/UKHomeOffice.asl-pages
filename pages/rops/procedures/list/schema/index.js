@@ -75,6 +75,12 @@ const getSchema = rop => {
       label: 'New genetic line',
       toCSVString: yn
     },
+    specialTechnique: {
+      show: true,
+      sortable: false,
+      label: 'Special technique',
+      toCSVString: radioOption('specialTechnique')
+    },
     purposes: {
       show: true,
       sortable: false,
