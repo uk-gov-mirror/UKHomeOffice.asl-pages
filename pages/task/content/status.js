@@ -238,6 +238,10 @@ module.exports = {
     },
     log: 'Rejected by'
   },
+  recovered: {
+    state: 'Reopened',
+    log: 'Reopened by'
+  },
   'deadline-extension': {
     state: 'Deadline extended',
     log: 'Deadline for decision extended by'

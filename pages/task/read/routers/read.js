@@ -281,6 +281,19 @@ module.exports = () => {
     }
   })));
 
+  app.post('/reopen', (req, res, next) => {
+    const params = {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
+      json: {
+        status: 'recovered'
+      }
+    };
+    req.api(`/tasks/${req.taskId}/status`, params)
+      .then(() => res.redirect(req.buildRoute('task.read')))
+      .catch(next);
+  });
+
   app.post('/', (req, res, next) => {
     const status = get(req.form, 'values.status');
     if (status === 'updated') {

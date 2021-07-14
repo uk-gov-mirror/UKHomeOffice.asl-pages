@@ -6,7 +6,8 @@ module.exports = {
     experience: 'PPL holder experience',
     deadline: 'Statutory target deadline',
     continuation: 'Project continuation',
-    ra: 'Retrospective assessment'
+    ra: 'Retrospective assessment',
+    reopen: 'Reopen task'
   },
   title: {
     ra: 'Review retrospective assessment'
@@ -77,6 +78,10 @@ module.exports = {
     granted: 'View granted licence',
     version: 'View this version ({{date}})',
     nts: 'View non-technical summary'
+  },
+  reopen: {
+    content: 'Reopen this task',
+    button: 'Reopen task'
   },
   deadline: {
     title: 'Deadline for decision: ',

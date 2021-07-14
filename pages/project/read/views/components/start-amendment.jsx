@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Snippet } from '@asl/components';
+import get from 'lodash/get';
 import { Button } from '@ukhomeoffice/react-components';
 import { formatDate } from '../../../../../lib/utils';
 import { dateFormat } from '../../../../../constants';
@@ -46,13 +47,15 @@ export default function StartAmendment() {
   const firstAmendment = project.versions[project.versions.findIndex(v => v.status === 'granted') - 1];
   const amendmentStartDate = firstAmendment && formatDate(firstAmendment.createdAt, dateFormat.short);
 
-  if (project.draft) {
+  const amendmentInProgress = get(project, 'versions[0].status') !== 'granted';
+
+  if (amendmentInProgress) {
     startAmendmentDescriptionKey = 'continue';
   } else if (canTransfer) {
     startAmendmentDescriptionKey = 'transfer';
   }
 
-  const canChangeLicenceHolder = !project.draft && !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && canUpdateStub));
+  const canChangeLicenceHolder = !amendmentInProgress && !openTask && canUpdate && project.status === 'active' && (!project.isLegacyStub || (project.isLegacyStub && canUpdateStub));
 
   return (
     <Subsection
@@ -61,7 +64,7 @@ export default function StartAmendment() {
     >
       <form method="POST">
         <Button className="button-secondary">
-          <Snippet>{`actions.${project.draft ? 'continue' : 'amend'}`}</Snippet>
+          <Snippet>{`actions.${amendmentInProgress ? 'continue' : 'amend'}`}</Snippet>
         </Button>
         {
           canChangeLicenceHolder &&
@@ -71,7 +74,7 @@ export default function StartAmendment() {
         }
       </form>
       {
-        project.draft && (
+        amendmentInProgress && (
           <div className="margin-bottom">
             {
               openTask

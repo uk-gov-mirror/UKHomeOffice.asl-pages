@@ -6,6 +6,7 @@ module.exports = task => {
 
   const options = task.nextSteps
     .filter(step => step.id !== 'discarded-by-asru') // don't display ASRU discard as an option (has separate UI)
+    .filter(step => step.id !== 'recovered') // don't display recovered as an option (has separate UI)
     .map(option => {
       return {
         value: option.id,
