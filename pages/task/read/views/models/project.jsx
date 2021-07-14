@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
 import uniqBy from 'lodash/uniqBy';
@@ -14,8 +14,6 @@ import { dateFormat } from '../../../../../constants';
 import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
-
-const selector = ({ static: { project, establishment, version, ra, values, isAsru } }) => ({ project, establishment, version, values, isAsru, ra });
 
 function EstablishmentDiff({ task }) {
   const isComplete = !task.isOpen;
@@ -51,7 +49,9 @@ function EstablishmentDiff({ task }) {
 }
 
 export default function Project({ task }) {
-  const { project, establishment, version, values, isAsru, ra } = useSelector(selector, shallowEqual);
+  const { project, establishment, version, ra, values, isAsru, allowedActions, url } = useSelector(state => state.static, shallowEqual);
+  const [disabled, setDisabled] = useState(false);
+
   const continuation = task.data.continuation;
   const continuationRTE = get(version, 'data.expiring-yes');
   // always use licence holder from project for applications
@@ -68,6 +68,25 @@ export default function Project({ task }) {
 
   const isComplete = !task.isOpen;
   const isDiscarded = task.status === 'discarded-by-applicant';
+
+  const isCorrectVersion = get(project, 'versions[0].id') === get(task, 'data.data.version');
+  const isRejected = task.status === 'rejected';
+  const canReopenTask = isRejected && isCorrectVersion && allowedActions.includes('project.recoverTask');
+
+  function onReopen(e) {
+    if (window.confirm('Are you sure you want to reopen this task?')) {
+      return true;
+    }
+    e.preventDefault();
+  }
+
+  const onFormSubmit = e => {
+    if (disabled) {
+      e.preventDefault();
+    }
+    e.persist();
+    setTimeout(() => setDisabled(true), 0);
+  };
 
   const formatters = {
     licenceHolder: {
@@ -279,6 +298,18 @@ export default function Project({ task }) {
               label={<Snippet>versions.granted.label</Snippet>}
             />
           </p>
+        </StickyNavAnchor>
+      )
+    ),
+
+    (
+      canReopenTask && (
+        <StickyNavAnchor id="reopen" key="reopen">
+          <h2><Snippet>sticky-nav.reopen</Snippet></h2>
+          <p><Snippet>reopen.content</Snippet></p>
+          <form action={`${url}/reopen`} method="POST" onSubmit={onFormSubmit}>
+            <button className="govuk-button button-secondary" onClick={onReopen}><Snippet>reopen.button</Snippet></button>
+          </form>
         </StickyNavAnchor>
       )
     )
