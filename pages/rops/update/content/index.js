@@ -130,23 +130,23 @@ Select all that apply`,
       intro: 'Confirm if any of the animals were Schedule 2 species and if you had prior authority to use non-purpose bred animals.',
       summary: 'Show list of Schedule 2 species',
       details: `* mice
-* rats
-* guinea pigs
-* hamsters (Syrian) (Mesocricetus auratus)
-* hamsters (Chinese) (Cricetulus griseus)
-* gerbils
-* rabbits
-* cats
-* dogs
-* ferrets
+* Rats
+* Guinea pigs
+* Hamsters (Syrian) (Mesocricetus auratus)
+* Hamsters (Chinese) (Cricetulus griseus)
+* Gerbils
+* Rabbits
+* Cats
+* Dogs
+* Ferrets
 * Quail (Coturnix coturnix)
 * Xenopus Laevis
 * Xenopus Tropicalis
 * Rana Temporaria
 * Rana Pipiens
-* zebrafish (Danio rerio)
-* genetically modified pigs
-* genetically modified sheep`
+* Zebrafish (Danio rerio)
+* Genetically modified pigs
+* Genetically modified sheep`
     },
     nhpsOrigin: {
       label: 'Select non-human primate (NHP) place of birth',
