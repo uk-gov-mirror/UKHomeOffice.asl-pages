@@ -30,7 +30,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
       }
     },
     endangered: {
-      label: 'Were any endangered species used in procedures in 2021?',
+      label: 'Were any endangered species used in procedures in {{year}}?',
       summary: 'Show list of endangered species',
       details: 'The list of endangered species can be found in [Annex A to Council Regulation EC 338/97](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R1320). Captive bred animals of these species do not count as endangered.',
       options: {
@@ -63,7 +63,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
       label: 'Reason general anaesthesia not used for entire period of neuromuscular blockade'
     },
     rodenticide: {
-      label: 'Were any rodenticide trials carried out in 2021?',
+      label: 'Were any rodenticide trials carried out in {{year}}?',
       options: {
         false: 'No, rodenticide trials were not carried out',
         true: 'Yes, rodenticide trials were carried out'
@@ -73,14 +73,14 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
       label: 'Details of rodenticide trials carried out'
     },
     productTesting: {
-      label: 'Were any of the following techniques used in 2021?',
+      label: 'Were any of the following techniques used in {{year}}?',
       options: {
         false: 'No, none of these techniques were used',
         true: 'Yes, one or more of these techniques were used'
       }
     },
     otherSpecies: {
-      label: 'Were any other animal types used in procedures in 2021?',
+      label: 'Were any other animal types used in procedures in {{year}}?',
       options: {
         false: 'No, other animal types were not used',
         true: 'Yes, other animal types were used'
@@ -92,7 +92,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
       playback: 'Authorises (or has previously authorised) use of the following animal types:'
     },
     reuse: {
-      label: 'Did any of the procedures reuse animals in 2021?',
+      label: 'Did any of the procedures reuse animals in {{year}}?',
       playback: {
         true: 'Includes the reuse of animals',
         false: 'Does not include reuse of animals'
@@ -102,7 +102,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
         true: 'Yes, animals were reused'
       },
       summary: 'Guidance on reuse of animals',
-      details: 'Re-use is when animals are used again for a new experiment when you could equally use a naïve animal to get the same results. It is not the same as using animals in several protocols in order to achieve your scientific aims. Animals can be reused from one year to the next, so animals reused in 2021 could have first been used in 2020 or earlier.'
+      details: 'Re-use is when animals are used again for a new experiment when you could equally use a naïve animal to get the same results. It is not the same as using animals in several protocols in order to achieve your scientific aims. Animals can be reused from one year to the next, so animals reused in {{year}} could have first been used in 2020 or earlier.'
     },
     placesOfBirth: {
       label: 'What was the place of birth for animals used in procedures in {{year}}?',
