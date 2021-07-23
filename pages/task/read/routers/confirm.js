@@ -72,7 +72,7 @@ module.exports = () => {
       next();
     },
     saveValues: (req, res, next) => {
-      if (req.askAwerb) {
+      if (req.askAwerb && req.form.values['awerb-exempt'] !== 'yes') {
         const primaryEstablishment = req.project.establishment;
         req.session.form[req.model.id].values['awerb-dates'] = req.awerbEstablishments.map(e => {
           return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };

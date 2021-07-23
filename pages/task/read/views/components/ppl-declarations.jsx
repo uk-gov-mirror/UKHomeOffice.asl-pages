@@ -22,9 +22,11 @@ export default function PplDeclarations({ task }) {
     declarations.ready = get(task, 'data.meta.ready');
   }
 
+  const displayAwerb = declarations['awerb-exempt'] !== 'yes';
+
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
-  const primaryAwerb = declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
-  const aaAwerbs = (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary)) || [];
+  const primaryAwerb = displayAwerb && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
+  const aaAwerbs = (displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary))) || [];
 
   return (
     <div className="declarations">
@@ -81,7 +83,7 @@ export default function PplDeclarations({ task }) {
           </Fragment>
       }
       {
-        (declarations.awerb || '').toLowerCase() === 'no' &&
+        ((declarations.awerb || '').toLowerCase() === 'no' || declarations['awerb-exempt'] === 'yes') &&
           <Fragment>
             <p><strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong></p>
             <Markdown>{declarations['awerb-no-review-reason']}</Markdown>
