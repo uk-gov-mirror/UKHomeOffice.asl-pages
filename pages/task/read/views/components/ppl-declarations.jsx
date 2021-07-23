@@ -22,9 +22,11 @@ export default function PplDeclarations({ task }) {
     declarations.ready = get(task, 'data.meta.ready');
   }
 
+  const displayAwerb = declarations['awerb-exempt'] !== 'yes';
+
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
-  const primaryAwerb = declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
-  const aaAwerbs = (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary)) || [];
+  const primaryAwerb = displayAwerb && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
+  const aaAwerbs = displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary)) || [];
 
   return (
     <div className="declarations">
