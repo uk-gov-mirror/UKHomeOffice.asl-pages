@@ -102,7 +102,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
         true: 'Yes, animals were reused'
       },
       summary: 'Guidance on reuse of animals',
-      details: 'Re-use is when animals are used again for a new experiment when you could equally use a naïve animal to get the same results. It is not the same as using animals in several protocols in order to achieve your scientific aims. Animals can be reused from one year to the next, so animals reused in {{year}} could have first been used in 2020 or earlier.'
+      details: 'Re-use is when animals are used again for a new experiment when you could equally use a naïve animal to get the same results. It is not the same as using animals in several protocols in order to achieve your scientific aims. Animals can be reused from one year to the next, so animals reused in {{year}} could have first been used in {{lastYear}} or earlier.'
     },
     placesOfBirth: {
       label: 'What was the place of birth for animals used in procedures in {{year}}?',
