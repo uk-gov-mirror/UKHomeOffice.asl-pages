@@ -5,7 +5,7 @@ module.exports = {
 
 You should record the actual severity levels experienced by animals during procedures, even if these differ from what was projected in the licence.
 
-Include all procedures completed in 2021 no matter when they started.
+Include all procedures completed in {{year}} no matter when they started.
 
 Please note that some questions and options have changed from previous years.`
 };
