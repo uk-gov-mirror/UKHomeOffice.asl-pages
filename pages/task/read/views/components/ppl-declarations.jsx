@@ -83,7 +83,7 @@ export default function PplDeclarations({ task }) {
           </Fragment>
       }
       {
-        (declarations.awerb || '').toLowerCase() === 'no' &&
+        ((declarations.awerb || '').toLowerCase() === 'no' || declarations['awerb-exempt'] === 'yes') &&
           <Fragment>
             <p><strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong></p>
             <Markdown>{declarations['awerb-no-review-reason']}</Markdown>
