@@ -35,11 +35,12 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = req.rop;
-    // remove full project data from payload sent to the client
-    req.model.project = omit(req.model.project, 'granted');
     res.locals.static.year = req.rop.year;
     res.locals.static.project = pick(req.model.project, 'title');
-    res.locals.model = req.model;
+    res.locals.model = {
+      ...req.model,
+      project: omit(req.model.project, 'granted') // remove full project data from payload sent to the client
+    };
     next();
   });
 
