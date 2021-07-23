@@ -26,7 +26,7 @@ export default function PplDeclarations({ task }) {
 
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
   const primaryAwerb = displayAwerb && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
-  const aaAwerbs = displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary)) || [];
+  const aaAwerbs = (displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary))) || [];
 
   return (
     <div className="declarations">
