@@ -3,13 +3,9 @@ const { NotFoundError } = require('@asl/service/errors');
 const defaultSchema = require('./schema');
 const datatable = require('../../common/routers/datatable');
 
-const hasMyTasks = profile => {
-  return profile.asruUser && (profile.asruLicensing || profile.asruInspector);
-};
-
 const getTabs = profile => {
   const options = ['outstanding', 'inProgress', 'completed'];
-  return hasMyTasks(profile) ? ['myTasks', ...options] : options;
+  return profile.asruUser ? ['myTasks', ...options] : options;
 };
 
 module.exports = ({
