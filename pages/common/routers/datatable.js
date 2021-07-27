@@ -154,7 +154,13 @@ module.exports = ({
       bom: true,
       header: true,
       cast: {
-        string: (value) => ({ value: value ? `="${value}"` : `""`, quote: false })
+        string: (value) => {
+          if (value && /[0-9]+/.test(value) && !value.includes('"')) {
+            return { value: `="${value}"`, quote: false };
+          } else {
+            return { value, quote: false };
+          }
+        }
       },
       columns: Object.keys(schema)
         .filter(key => !schema[key].omitFromCSV)
