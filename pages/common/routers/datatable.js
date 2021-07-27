@@ -158,7 +158,7 @@ module.exports = ({
           if (value && /[0-9]+/.test(value) && !value.includes('"')) {
             return { value: `="${value}"`, quote: false };
           } else {
-            return { value, quote: false };
+            return value;
           }
         }
       },
