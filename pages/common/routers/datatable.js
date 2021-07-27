@@ -153,6 +153,9 @@ module.exports = ({
     const stringifier = csv({
       bom: true,
       header: true,
+      cast: {
+        string: (value) => ({ value: value ? `="${value}"` : `""`, quote: false })
+      },
       columns: Object.keys(schema)
         .filter(key => !schema[key].omitFromCSV)
         .map(key => ({ key, header: schema[key].title || key }))
