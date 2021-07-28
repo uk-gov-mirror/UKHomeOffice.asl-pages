@@ -7,6 +7,18 @@ module.exports = req => {
     if (typeof opt === 'string') {
       opt = { value: opt };
     }
+
+    if (opt.reveal) {
+      const keys = Object.keys(opt.reveal);
+      const vals = flatten(keys.map(key => req.rop[key]));
+      if (intersection(vals, field).length) {
+        return {
+          ...opt,
+          disabled: true
+        };
+      }
+    }
+
     if (field.includes(opt.value)) {
       return {
         ...opt,
@@ -16,18 +28,15 @@ module.exports = req => {
     return opt;
   };
 
-  function getOtherField(fieldName, option) {
+  function getOtherField(fieldName) {
+    const procIds = flatten(req.rop.procedures.map(p => [p.subpurposeOther, p.legislationOther])).filter(Boolean);
     return {
-      inputType: 'inputText',
-      disabled: req.rop.procedures.map(p => p[fieldName]).includes(option),
-      validate: [
-        {
-          validator: 'required',
-          params: {
-            valFromModel: true
-          }
-        }
-      ]
+      inputType: 'multiInput',
+      disabled: procIds,
+      nullValue: [],
+      format: JSON.parse,
+      objectItems: true,
+      validate: ['required']
     };
   }
 
@@ -349,7 +358,7 @@ module.exports = req => {
         {
           value: 'other',
           reveal: {
-            basicSubpurposesOther: getOtherField('basicSubpurposes', 'other')
+            basicSubpurposesOther: getOtherField('basicSubpurposes')
           }
         }
       ].map(disableProcOpts('basicSubpurposes'))
@@ -367,17 +376,18 @@ module.exports = req => {
         {
           value: 'routine-other',
           reveal: {
-            regulatorySubpurposesOther: getOtherField('regulatorySubpurposes', 'routine-other')
+            regulatorySubpurposesOther: getOtherField('regulatorySubpurposes')
           }
         },
         'qc-batch-safety',
         'qc-pyrogenicity',
         'qc-batch-potency',
+        // TODO: specify other
         'qc-other',
         {
           value: 'other-efficacy',
           reveal: {
-            regulatorySubpurposesOtherEfficacy: getOtherField('regulatorySubpurposes', 'other-efficacy')
+            regulatorySubpurposesOtherEfficacy: getOtherField('regulatorySubpurposes')
           }
         },
         'toxicity-ld50',
@@ -405,7 +415,7 @@ module.exports = req => {
         {
           value: 'other-toxicity-ecotoxicity',
           reveal: {
-            regulatorySubpurposesOtherToxicityEcotoxicity: getOtherField('regulatorySubpurposes', 'other-toxicity-ecotoxicity')
+            regulatorySubpurposesOtherToxicityEcotoxicity: getOtherField('regulatorySubpurposes')
           }
         },
         'toxicity-safety-testing',
@@ -413,7 +423,7 @@ module.exports = req => {
         {
           value: 'other-toxicity',
           reveal: {
-            regulatorySubpurposesOtherToxicity: getOtherField('regulatorySubpurposes', 'other-toxicity')
+            regulatorySubpurposesOtherToxicity: getOtherField('regulatorySubpurposes')
           }
         },
         'combined-end-points'
@@ -439,10 +449,10 @@ module.exports = req => {
         {
           value: 'other',
           reveal: {
-            regulatoryLegislationOther: getOtherField('regulatoryLegislation', 'other')
+            regulatoryLegislationOther: getOtherField('regulatoryLegislation')
           }
         }
-      ].map(disableProcOpts('regulatorySubpurposes'))
+      ].map(disableProcOpts('regulatoryLegislation'))
     },
     regulatoryLegislationOrigin: {
       inputType: 'checkboxGroup',
@@ -455,7 +465,7 @@ module.exports = req => {
         'uk',
         'eu',
         'non-eu'
-      ]
+      ].map(disableProcOpts('regulatoryLegislationOrigin'))
     },
     translationalSubpurposes: {
       inputType: 'checkboxGroup',
@@ -480,7 +490,7 @@ module.exports = req => {
         {
           value: 'other',
           reveal: {
-            translationalSubpurposesOther: getOtherField('translationalSubpurposes', 'other')
+            translationalSubpurposesOther: getOtherField('translationalSubpurposes')
           }
         },
         'animal-diseases',
@@ -489,7 +499,7 @@ module.exports = req => {
         'diagnosis',
         'plant',
         'non-reg-tox'
-      ]
+      ].map(disableProcOpts('translationalSubpurposes'))
     },
     newGeneticLine: {
       inputType: 'radioGroup',

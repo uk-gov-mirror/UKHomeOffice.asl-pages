@@ -1,4 +1,4 @@
-const { get, intersection, flatten } = require('lodash');
+const { get, intersection, flatten, without } = require('lodash');
 const { hasNhps } = require('../helpers');
 
 function schedule2Applicable(req) {
@@ -143,40 +143,11 @@ module.exports = {
     include: req => {
       const regulatorySubpurposes = req.rop.regulatorySubpurposes;
       const nopes = [
-        'qc-batch-safety',
-        'qc-pyrogenicity',
-        'qc-batch-potency',
-        'qc-other',
-        'other-efficacy',
-        'toxicity-ld50',
-        'toxicity-other-lethal',
-        'toxicity-non-lethal',
-        'toxicity-skin',
-        'toxicity-skin-sensation',
-        'toxicity-eye-irritation',
-        'toxicity-repeated-lt-29',
-        'toxicity-repeated-29-90',
-        'toxicity-repeated-mt-90',
-        'toxicity-carcinogenicity',
-        'toxicity-genotoxicity',
-        'toxicity-reproductive',
-        'toxicity-developmental',
-        'toxicity-neurotoxicity',
-        'toxicity-kinetics',
-        'toxicity-pharmaco-dynamics',
-        'toxicity-phototoxicity',
-        'toxicity-ecotoxicity-acute',
-        'toxicity-ecotoxicity-chronic',
-        'toxicity-ecotoxicity-reproductive',
-        'toxicity-ecotoxicity-endochronic',
-        'toxicity-ecotoxicity-bioaccumulation',
-        'other-toxicity-ecotoxicity',
-        'toxicity-safety-testing',
-        'toxicity-target-animal',
-        'other-toxicity',
-        'combined-end-points'
+        'routine-blood',
+        'routine-monoclonal',
+        'routine-other'
       ];
-      return hasPurpose('regulatory')(req) && intersection(regulatorySubpurposes, nopes).length;
+      return hasPurpose('regulatory')(req) && without(regulatorySubpurposes, nopes).length;
     }
   },
   'translational-subpurposes': {

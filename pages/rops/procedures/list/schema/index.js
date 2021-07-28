@@ -110,6 +110,12 @@ const getSchema = rop => {
       label: 'Regulatory legislation',
       toCSVString: radioOption('regulatoryLegislation')
     },
+    regulatoryLegislationOrigin: {
+      show: true,
+      sortable: false,
+      label: 'Regulatory legislation origin',
+      toCSVString: radioOption('regulatoryLegislationOrigin')
+    },
     severity: {
       show: true,
       sortable: false,

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import flatten from 'lodash/flatten';
 import get from 'lodash/get';
 import { projectSpecies } from '@asl/constants';
@@ -31,20 +31,9 @@ export function getOtherValue(field, rop) {
   return get(rop, otherFields[field]);
 }
 
-const getRadioOption = field => (v, rop) => {
+const getRadioOption = field => v => {
   if (!v) {
     return '-';
-  }
-
-  if (field === 'regulatorySubpurposes' && v.includes('other')) {
-    const otherValue = getOtherValue(v, rop);
-
-    if (otherValue) {
-      return <Fragment>
-        <Snippet fallback={`condensedFields.${field}.options.${v}`}>{`condensedFields.${field}.options.${v}.label`}</Snippet>
-        <span>: {otherValue}</span>
-      </Fragment>;
-    }
   }
 
   return <Snippet fallback={`condensedFields.${field}.options.${v}`}>{`condensedFields.${field}.options.${v}.label`}</Snippet>;
@@ -84,20 +73,56 @@ const formatters = rop => {
     },
     subpurpose: {
       format: (v, model) => {
+        let field;
+        let other;
+        const others = [
+          ...(rop.basicSubpurposesOther || []),
+          ...(rop.regulatorySubpurposesOther || []),
+          ...(rop.regulatorySubpurposesOtherEfficacy || []),
+          ...(rop.regulatorySubpurposesOtherToxicityEcotoxicity || []),
+          ...(rop.regulatorySubpurposesOtherToxicity || []),
+          ...(rop.translationalSubpurposesOther || [])
+        ];
+
         switch (model.purposes) {
           case 'basic':
-            return getRadioOption('basicSubpurposes')(model.basicSubpurposes);
+            field = 'basicSubpurposes';
+            break;
           case 'regulatory':
-            return getRadioOption('regulatorySubpurposes')(model.regulatorySubpurposes, rop);
+            field = 'regulatorySubpurposes';
+            break;
           case 'translational':
-            return getRadioOption('translationalSubpurposes')(model.translationalSubpurposes);
-          default:
-            return '-';
+            field = 'translationalSubpurposes';
+            break;
         }
+
+        const value = model[field];
+        const label = getRadioOption(field)(value);
+
+        if (value.includes('other')) {
+          const otherId = model.subpurposeOther;
+          other = (others.find(v => v.id === otherId) || {}).value;
+        }
+
+        return other || label || '-';
       }
     },
     regulatoryLegislation: {
-      format: getRadioOption('regulatoryLegislation')
+      format: (value, model) => {
+        if (!value) {
+          return '-';
+        }
+        const label = getRadioOption('regulatoryLegislation')(value);
+        let other;
+        if (value.includes('other')) {
+          const otherId = model.legislationOther;
+          other = ((rop.regulatoryLegislationOther || []).find(v => v.id === otherId) || {}).value;
+        }
+        return other || label || '-';
+      }
+    },
+    regulatoryLegislationOrigin: {
+      format: getRadioOption('regulatoryLegislationOrigin')
     },
     severity: {
       format: getRadioOption('severity')
