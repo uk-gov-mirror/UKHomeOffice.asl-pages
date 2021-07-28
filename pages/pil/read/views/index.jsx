@@ -88,7 +88,7 @@ export default function PIL({ pil }) {
         return (
           <Conditions
             conditions={conditions}
-            canUpdate={canUpdateConditions && canUpdateModel(pil)}
+            canUpdate={!openTask && canUpdateConditions && canUpdateModel(pil)}
             label={<Snippet>conditions.hasConditions</Snippet>}
             noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
           >
