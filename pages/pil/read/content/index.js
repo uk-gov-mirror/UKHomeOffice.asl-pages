@@ -20,6 +20,7 @@ module.exports = merge({}, baseContent, {
     conditions: { label: 'Conditions' },
     procedures: { label: 'Procedures' }
   },
+  updateInProgress: 'There is a pending change request to this licence',
   action: {
     applyNow: 'Apply now',
     backToProfile: 'Back to profile',
