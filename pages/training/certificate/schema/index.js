@@ -32,7 +32,7 @@ module.exports = {
   },
   passDate: {
     inputType: 'inputDate',
-    hint: 'For example, 20/08/2018',
+    hint: 'For example, 20/8/2020. Certificates must have been awarded in the last 5 years.',
     nullValue: '',
     validate: [
       'required',
