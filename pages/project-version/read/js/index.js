@@ -13,7 +13,7 @@ start({
     id: state.model.id
   }),
   comments: state.static.comments,
-  changes: state.static.isGranted
+  changes: state.static.isGranted || state.static.legacyGranted
     ? {}
     : {
       first: (state.static.changes && state.static.changes.first) || [],
