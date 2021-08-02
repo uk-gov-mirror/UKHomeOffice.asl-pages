@@ -37,7 +37,8 @@ module.exports = req => {
         inputType: 'speciesSelector',
         projectSpecies: true,
         presets: (req.version.data.species || []).find(s => s.includes('other'))
-          ? [] // if any "other" type species, don't preselect anything
+          // don't add species from project if "other" values are selected
+          ? req.rop.procedures.map(p => p.species)
           : [
             ...(req.version.data.species || []),
             ...(req.rop.procedures.map(p => p.species))
