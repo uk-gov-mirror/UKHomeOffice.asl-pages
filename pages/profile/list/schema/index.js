@@ -15,6 +15,7 @@ module.exports = {
   },
   firstName: {},
   lastName: {},
+  email: {},
   roles: {
     show: true,
     exact: true,
