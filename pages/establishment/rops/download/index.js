@@ -24,7 +24,7 @@ const columns = [
   { key: 'productTesting', header: 'product_testing' },
   { key: 'productTestingTypes', header: 'product_testing_types' },
   // from procedures
-  { key: 'id', header: 'procedure_id' },
+  { key: 'procedureId', header: 'procedure_id' },
   { key: 'species', header: 'species' },
   { key: 'otherSpecies', header: 'other_species' },
   { key: 'severityNum', header: 'no_of_procedures' },
