@@ -17,7 +17,6 @@ module.exports = () => {
           data: req.multiStep.values
         }
       };
-      console.log(params.json.data);
       req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}`, params)
         .then(() => {
           delete req.session.form[req.model.id].values;
