@@ -16,6 +16,7 @@ module.exports = () => {
       .then(({ json: { data } }) => {
         req.procedureId = procedureId;
         req.procedure = data;
+        res.locals.static.rop = req.rop;
         next();
       })
       .catch(next);

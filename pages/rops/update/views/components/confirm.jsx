@@ -5,6 +5,7 @@ import values from 'lodash/values';
 import flatten from 'lodash/flatten';
 import omit from 'lodash/omit';
 import without from 'lodash/without';
+import castArray from 'lodash/castArray';
 import { Snippet, Inset, Link } from '@asl/components';
 import { projectSpecies } from '@asl/constants';
 
@@ -38,6 +39,26 @@ function Section({ title, children, step }) {
         children
       }
     </Fragment>
+  );
+}
+
+function List({ items }) {
+  const listItems = items ? castArray(items) : [];
+
+  if (!listItems.length) {
+    return null;
+  }
+
+  if (listItems.length === 1) {
+    return listItems[0].value;
+  }
+
+  return (
+    <ul>
+      {
+        listItems.map((item, index) => <li key={index}>{item.value}</li>)
+      }
+    </ul>
   );
 }
 
@@ -207,7 +228,7 @@ export default function Confirm() {
                                   getRadioOption('basicSubpurposes', sub)
                                 }
                                 {
-                                  sub === 'other' && <Inset>{rop.basicSubpurposesOther}</Inset>
+                                  sub === 'other' && <Inset><List items={rop.basicSubpurposesOther} /></Inset>
                                 }
                               </li>
                             ))
@@ -219,16 +240,16 @@ export default function Confirm() {
                                   getRadioOption('regulatorySubpurposes', sub)
                                 }
                                 {
-                                  sub === 'routine-other' && <Inset>{rop.regulatorySubpurposesOther}</Inset>
+                                  sub === 'routine-other' && <Inset><List items={rop.regulatorySubpurposesOther} /></Inset>
                                 }
                                 {
-                                  sub === 'other-efficacy' && <Inset>{rop.regulatorySubpurposesOtherEfficacy}</Inset>
+                                  sub === 'other-efficacy' && <Inset><List items={rop.regulatorySubpurposesOtherEfficacy} /></Inset>
                                 }
                                 {
-                                  sub === 'other-toxicity' && <Inset>{rop.regulatorySubpurposesOtherToxicity}</Inset>
+                                  sub === 'other-toxicity' && <Inset><List items={rop.regulatorySubpurposesOtherToxicity} /></Inset>
                                 }
                                 {
-                                  sub === 'other-toxicity-ecotoxicity' && <Inset>{rop.regulatorySubpurposesOtherToxicityEcotoxicity}</Inset>
+                                  sub === 'other-toxicity-ecotoxicity' && <Inset><List items={rop.regulatorySubpurposesOtherToxicityEcotoxicity} /></Inset>
                                 }
                               </li>
                             ))
@@ -240,7 +261,7 @@ export default function Confirm() {
                                   getRadioOption('translationalSubpurposes', sub)
                                 }
                                 {
-                                  sub === 'other' && <Inset>{rop.translationalSubpurposesOther}</Inset>
+                                  sub === 'other' && <Inset><List items={rop.translationalSubpurposesOther} /></Inset>
                                 }
                               </li>
                             ))
@@ -260,7 +281,7 @@ export default function Confirm() {
                                         getRadioOption('regulatoryLegislation', leg)
                                       }
                                       {
-                                        leg === 'other' && <Inset>{rop.regulatoryLegislationOther}</Inset>
+                                        leg === 'other' && <Inset><List items={rop.regulatoryLegislationOther} /></Inset>
                                       }
                                     </li>
                                   ))

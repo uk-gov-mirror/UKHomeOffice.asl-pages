@@ -100,20 +100,54 @@ function getNhpQs(key, req) {
 function getPurposes(req) {
   const purposes = get(req, 'rop.purposes') || [];
   const basicSubpurposes = get(req, 'rop.basicSubpurposes') || [];
-  const basicSubpurposesOther = get(req, 'rop.basicSubpurposesOther');
   const regulatorySubpurposes = get(req, 'rop.regulatorySubpurposes') || [];
-  const regulatorySubpurposesOther = get(req, 'rop.regulatorySubpurposesOther');
   const regulatoryLegislation = get(req, 'rop.regulatoryLegislation') || [];
-  const regulatoryLegislationOther = get(req, 'rop.regulatoryLegislationOther');
   const regulatoryLegislationOrigin = get(req, 'rop.regulatoryLegislationOrigin') || [];
   const translationalSubpurposes = get(req, 'rop.translationalSubpurposes') || [];
-  const translationalSubpurposesOther = get(req, 'rop.translationalSubpurposesOther');
 
   const nopes = [
     'routine-blood',
     'routine-monoclonal',
     'routine-other'
   ];
+
+  function getOtherField(name, field, reveal) {
+    let options = (get(req, `rop.${field}`) || []).map(item => ({ value: item.id, label: item.value }));
+    if (reveal) {
+      options = options.map(opt => ({ ...opt, reveal }));
+    }
+    return {
+      [name]: {
+        inputType: 'radioGroup',
+        automapReveals: true,
+        validate: ['required'],
+        label: '',
+        options
+      }
+    };
+  }
+
+  const legislationFields = {
+    regulatoryLegislation: {
+      inputType: 'radioGroup',
+      hint: false,
+      automapReveals: true,
+      options: regulatoryLegislation.map(rl => {
+        if (rl === 'other') {
+          return {
+            value: rl,
+            reveal: getOtherField('legislationOther', 'regulatoryLegislationOther')
+          };
+        }
+        return rl;
+      })
+    },
+    regulatoryLegislationOrigin: {
+      inputType: 'radioGroup',
+      hint: false,
+      options: regulatoryLegislationOrigin
+    }
+  };
 
   return purposes.map(p => {
     if (p === 'basic') {
@@ -128,7 +162,7 @@ function getPurposes(req) {
               if (bs === 'other') {
                 return {
                   value: bs,
-                  hint: basicSubpurposesOther
+                  reveal: getOtherField('subpurposeOther', 'basicSubpurposesOther')
                 };
               }
               return bs;
@@ -150,35 +184,34 @@ function getPurposes(req) {
               if (rs === 'routine-other') {
                 return {
                   value: rs,
-                  hint: regulatorySubpurposesOther
+                  reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesOther')
                 };
               }
-              if (!nopes.includes(rs)) {
+              if (nopes.includes(rs)) {
+                return rs;
+              }
+              if (rs === 'other-efficacy') {
                 return {
                   value: rs,
-                  reveal: {
-                    regulatoryLegislation: {
-                      inputType: 'radioGroup',
-                      hint: false,
-                      options: regulatoryLegislation.map(rl => {
-                        if (rl === 'other') {
-                          return {
-                            value: rl,
-                            hint: regulatoryLegislationOther
-                          };
-                        }
-                        return rl;
-                      })
-                    },
-                    regulatoryLegislationOrigin: {
-                      inputType: 'radioGroup',
-                      hint: false,
-                      options: regulatoryLegislationOrigin
-                    }
-                  }
+                  reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesOtherEfficacy', legislationFields)
                 };
               }
-              return rs;
+              if (rs === 'other-toxicity-ecotoxicity') {
+                return {
+                  value: rs,
+                  reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesOtherToxicityEcotoxicity', legislationFields)
+                };
+              }
+              if (rs === 'other-toxicity') {
+                return {
+                  value: rs,
+                  reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesOtherToxicity', legislationFields)
+                };
+              }
+              return {
+                value: rs,
+                reveal: legislationFields
+              };
             })
           }
         }
@@ -191,12 +224,13 @@ function getPurposes(req) {
           translationalSubpurposes: {
             inputType: 'radioGroup',
             validate: ['required'],
+            automapReveals: true,
             hint: false,
             options: translationalSubpurposes.map(ts => {
               if (ts === 'other') {
                 return {
                   value: ts,
-                  hint: translationalSubpurposesOther
+                  reveal: getOtherField('subpurposeOther', 'translationalSubpurposesOther')
                 };
               }
               return ts;
