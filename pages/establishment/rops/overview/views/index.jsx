@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Snippet, Metric, Tabs, Datatable, Countdown } from '@asl/components';
+import { Header, Snippet, Metric, Tabs, Datatable, Countdown, Link } from '@asl/components';
 import projectFormatters from '../../../../project/formatters';
 import { formatDate } from '../../../../../lib/utils';
 import { dateFormat } from '../../../../../constants';
@@ -67,6 +67,10 @@ export default function Index() {
           )
         }
       </Tabs>
+
+      { ropsStatus === 'submitted' &&
+        <Link page="establishment.rops.download" year={year} label={<Snippet>actions.download</Snippet>} className="float-right" />
+      }
 
       <Datatable formatters={formatters} />
 
