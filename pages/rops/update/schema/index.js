@@ -8,17 +8,6 @@ module.exports = req => {
       opt = { value: opt };
     }
 
-    if (opt.reveal) {
-      const keys = Object.keys(opt.reveal);
-      const vals = flatten(keys.map(key => req.rop[key]));
-      if (intersection(vals, field).length) {
-        return {
-          ...opt,
-          disabled: true
-        };
-      }
-    }
-
     if (field.includes(opt.value)) {
       return {
         ...opt,
