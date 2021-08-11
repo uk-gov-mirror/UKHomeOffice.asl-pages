@@ -65,7 +65,11 @@ export default function Confirm() {
   const rop = useSelector(state => state.model);
   const ropSpecies = flatten(Object.values(rop.species || {})).filter(s => !s.match(/^other-/));
 
-  const species = (ropSpecies.length > 0 ? ropSpecies : projSpecies)
+  let species = rop.otherSpecies
+    ? projSpecies.concat(ropSpecies)
+    : (ropSpecies.length > 0 ? ropSpecies : projSpecies);
+
+  species = species
     .filter(s => !s.includes('other'))
     .map(val => {
       const knownSpecies = ALL_SPECIES.find(s => s.value === val);
