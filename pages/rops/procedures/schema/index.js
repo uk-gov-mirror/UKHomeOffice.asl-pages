@@ -190,6 +190,12 @@ function getPurposes(req) {
               if (nopes.includes(rs)) {
                 return rs;
               }
+              if (rs === 'qc-other') {
+                return {
+                  value: rs,
+                  reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesQcOther', legislationFields)
+                };
+              }
               if (rs === 'other-efficacy') {
                 return {
                   value: rs,
