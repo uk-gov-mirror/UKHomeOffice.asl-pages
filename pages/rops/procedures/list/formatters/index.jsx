@@ -99,7 +99,7 @@ const formatters = rop => {
         const value = model[field];
         const label = getRadioOption(field)(value);
 
-        if (value.includes('other')) {
+        if (value && value.includes('other')) {
           const otherId = model.subpurposeOther;
           other = (others.find(v => v.id === otherId) || {}).value;
         }
