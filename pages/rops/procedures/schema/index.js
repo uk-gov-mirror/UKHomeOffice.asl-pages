@@ -248,10 +248,7 @@ module.exports = (req, addMultiple) => {
   const ropSpecies = flatten(Object.values(get(req, 'rop.species') || {})).filter(s => !s.match(/^other-/));
 
   const hasGa = get(req, 'rop.ga', false);
-  const species = [
-    ...projectSpecies,
-    ...ropSpecies
-  ];
+  const species = ropSpecies.length > 0 ? ropSpecies : projectSpecies;
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
 
