@@ -24,6 +24,7 @@ export function formatSpecies(s) {
 export function getOtherValue(field, rop) {
   const otherFields = {
     'routine-other': 'regulatorySubpurposesOther',
+    'qc-other': 'regulatorySubpurposesQcOther',
     'other-efficacy': 'regulatorySubpurposesOtherEfficacy',
     'other-toxicity': 'regulatorySubpurposesOtherToxicity',
     'other-toxicity-ecotoxicity': 'regulatorySubpurposesOtherToxicityEcotoxicity'
@@ -78,6 +79,7 @@ const formatters = rop => {
         const others = [
           ...(rop.basicSubpurposesOther || []),
           ...(rop.regulatorySubpurposesOther || []),
+          ...(rop.regulatorySubpurposesQcOther || []),
           ...(rop.regulatorySubpurposesOtherEfficacy || []),
           ...(rop.regulatorySubpurposesOtherToxicityEcotoxicity || []),
           ...(rop.regulatorySubpurposesOtherToxicity || []),

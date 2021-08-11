@@ -243,6 +243,9 @@ export default function Confirm() {
                                   sub === 'routine-other' && <Inset><List items={rop.regulatorySubpurposesOther} /></Inset>
                                 }
                                 {
+                                  sub === 'qc-other' && <Inset><List items={rop.regulatorySubpurposesQcOther} /></Inset>
+                                }
+                                {
                                   sub === 'other-efficacy' && <Inset><List items={rop.regulatorySubpurposesOtherEfficacy} /></Inset>
                                 }
                                 {

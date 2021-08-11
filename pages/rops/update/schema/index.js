@@ -374,8 +374,12 @@ module.exports = req => {
         'qc-batch-safety',
         'qc-pyrogenicity',
         'qc-batch-potency',
-        // TODO: specify other
-        'qc-other',
+        {
+          value: 'qc-other',
+          reveal: {
+            regulatorySubpurposesQcOther: getOtherField('regulatorySubpurposes')
+          }
+        },
         {
           value: 'other-efficacy',
           reveal: {
