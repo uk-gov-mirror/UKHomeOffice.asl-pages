@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import get from 'lodash/get';
 import values from 'lodash/values';
 import flatten from 'lodash/flatten';
-import omit from 'lodash/omit';
 import without from 'lodash/without';
 import castArray from 'lodash/castArray';
 import { Snippet, Inset, Link } from '@asl/components';
@@ -65,22 +63,18 @@ function List({ items }) {
 export default function Confirm() {
   const { year, hasNhps, species: projSpecies } = useSelector(state => state.static);
   const rop = useSelector(state => state.model);
-  const ropSpecies = get(rop, 'species.precoded') || [];
-  const otherSpecies = get(rop, 'species.otherSpecies') || [];
+  const ropSpecies = flatten(Object.values(rop.species || {})).filter(s => !s.match(/^other-/));
 
-  const ropCustom = [
-    ...otherSpecies,
-    ...flatten(values(omit(rop.species, 'precoded', 'otherSpecies')))
-  ];
+  let species = rop.otherSpecies
+    ? projSpecies.concat(ropSpecies)
+    : (ropSpecies.length > 0 ? ropSpecies : projSpecies);
 
-  const precoded = [ ...projSpecies, ...ropSpecies ]
+  species = species
     .filter(s => !s.includes('other'))
-    .map(val => ALL_SPECIES.find(s => s.value === val).label);
-
-  const species = [
-    ...precoded,
-    ...ropCustom
-  ];
+    .map(val => {
+      const knownSpecies = ALL_SPECIES.find(s => s.value === val);
+      return knownSpecies ? knownSpecies.label : val;
+    });
 
   const yeps = [
     'routine-blood',

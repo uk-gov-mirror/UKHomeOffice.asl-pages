@@ -254,10 +254,11 @@ module.exports = (req, addMultiple) => {
   const ropSpecies = flatten(Object.values(get(req, 'rop.species') || {})).filter(s => !s.match(/^other-/));
 
   const hasGa = get(req, 'rop.ga', false);
-  const species = [
-    ...projectSpecies,
-    ...ropSpecies
-  ];
+
+  const species = req.rop.otherSpecies
+    ? projectSpecies.concat(ropSpecies) // user answered yes to "other animal types used" so merge project and rop species
+    : (ropSpecies.length > 0 ? ropSpecies : projectSpecies); // otherwise use rops species or fall back to proj species
+
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
 
