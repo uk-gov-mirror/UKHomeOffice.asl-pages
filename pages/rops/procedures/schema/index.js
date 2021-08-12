@@ -1,7 +1,7 @@
 const { get, flatten, omit } = require('lodash');
 const { projectSpecies } = require('@asl/constants');
 const { toArray, toBoolean } = require('../../../../lib/utils');
-const { hasNhps } = require('../../helpers');
+const { hasNhps, getSpecies } = require('../../helpers');
 const content = require('../create/content');
 
 const allSpecies = flatten(Object.values(projectSpecies));
@@ -250,15 +250,8 @@ function getPurposes(req) {
 }
 
 module.exports = (req, addMultiple) => {
-  const projectSpecies = (get(req, 'project.granted.data.species') || []).filter(s => !s.includes('other'));
-  const ropSpecies = flatten(Object.values(get(req, 'rop.species') || {})).filter(s => !s.match(/^other-/));
-
   const hasGa = get(req, 'rop.ga', false);
-
-  const species = req.rop.otherSpecies
-    ? projectSpecies.concat(ropSpecies) // user answered yes to "other animal types used" so merge project and rop species
-    : (ropSpecies.length > 0 ? ropSpecies : projectSpecies); // otherwise use rops species or fall back to proj species
-
+  const species = getSpecies(req);
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
 
