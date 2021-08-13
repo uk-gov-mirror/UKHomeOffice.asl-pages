@@ -492,15 +492,18 @@ details {
 .project-download-links {
   margin-bottom: $govuk-gutter;
 
-  h3 {
-    margin-top: $govuk-gutter;
-    margin-bottom: $govuk-gutter-half;
+  .download-section:not(:last-child) {
+    margin-bottom: $govuk-gutter * 2;
+  }
+
+  h4 {
+    margin-bottom: 0;
   }
 
   p {
     margin: 0;
 
-    &.govuk-hint {
+    &:last-child {
       margin-bottom: $govuk-gutter-half;
     }
   }
