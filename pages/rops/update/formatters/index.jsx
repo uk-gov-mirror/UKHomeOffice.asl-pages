@@ -56,19 +56,25 @@ function ProductTestingHint() {
   return (
     <ul className="product-testing-hint">
       <li>
-        <Snippet>fields.productTestingTypes.options.household</Snippet>
+        <p><Snippet>fields.productTestingTypes.options.household</Snippet></p>
       </li>
       <li>
-        <Snippet>fields.productTestingTypes.options.tobacco</Snippet><br />
-        <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.tobacco</Snippet></span>
+        <p>
+          <Snippet>fields.productTestingTypes.options.tobacco</Snippet><br />
+          <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.tobacco</Snippet></span>
+        </p>
       </li>
       <li>
-        <Snippet>fields.productTestingTypes.options.alcohol</Snippet><br />
-        <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.alcohol</Snippet></span>
+        <p>
+          <Snippet>fields.productTestingTypes.options.alcohol</Snippet><br />
+          <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.alcohol</Snippet></span>
+        </p>
       </li>
       <li>
-        <Snippet>fields.productTestingTypes.options.antibodies</Snippet><br />
-        <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.antibodies</Snippet></span>
+        <p>
+          <Snippet>fields.productTestingTypes.options.antibodies</Snippet><br />
+          <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.antibodies</Snippet></span>
+        </p>
       </li>
     </ul>
   );

@@ -18,7 +18,7 @@ export default function Step() {
           title={<Snippet>title</Snippet>}
           subtitle={project.title}
         />
-        <Snippet optional>content</Snippet>
+        <p className="optional-content"><Snippet optional>content</Snippet></p>
         {
           Component && <Component />
         }

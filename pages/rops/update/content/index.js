@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Return details',
-  playback: 'Currently or previously authorised on this project:',
+  playback: 'This licence:',
   guidance: {
     title: 'Detailed guidance',
     hint: 'Link opens in a new tab',
@@ -38,15 +38,15 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
         true: 'Yes, endangered species were used'
       },
       playback: {
-        true: 'Includes the use of endangered species',
-        false: 'Does not include the use of endangered species'
+        true: 'Authorises or has previously authorised use of endangered species',
+        false: 'Does not authorise use of endangered species'
       }
     },
     endangeredDetails: {
       label: 'Details of endangered animals used'
     },
     nmbas: {
-      label: 'Were neuromuscular blocking agents (NMBA) used in any procedures in the reported year?',
+      label: 'Were neuromuscular blocking agents (NMBA) used in any procedures in {{year}}?',
       options: {
         false: 'No, NMBAs were not used',
         true: 'Yes, NMBAs were used'
@@ -88,14 +88,13 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     },
     species: {
       label: 'Select {{#hasSpecies}}any other {{/hasSpecies}}animal types used',
-      playbackTitle: 'This project licence:',
-      playback: 'Authorises (or has previously authorised) use of the following animal types:'
+      playback: 'This licence authorises or has previously authorised use of the following animal types:'
     },
     reuse: {
       label: 'Did any of the procedures reuse animals in {{year}}?',
       playback: {
-        true: 'Includes the reuse of animals',
-        false: 'Does not include reuse of animals'
+        true: 'authorises or has previously authorised reuse of animals',
+        false: 'Does not authorise reuse of animals'
       },
       options: {
         false: 'No, animals were not reused',
@@ -129,7 +128,7 @@ Select all that apply`,
       hint: 'If not applicable, leave blank',
       intro: 'Confirm if any of the animals were Schedule 2 species and if you had prior authority to use non-purpose bred animals.',
       summary: 'Show list of Schedule 2 species',
-      details: `* mice
+      details: `* Mice
 * Rats
 * Guinea pigs
 * Hamsters (Syrian) (Mesocricetus auratus)
@@ -194,29 +193,21 @@ They do not include:
 * triploid fish, unless induction of triploidy is for a scientific purpose
 * animals with somatic genetic modification, such as by injection of viral vectors into tissues`,
       playback: {
-        true: 'Includes the use of genetically altered animals',
-        false: 'Does not include the use of genetically altered animals'
+        true: 'Authorises or has previously authorised use of genetically altered animals',
+        false: 'Does not authorise use of genetically altered animals'
       }
     },
     purposes: {
-      label: 'Select purpose of procedure',
+      label: 'Which purpose or purposes best apply to procedures completed in {{year}}?',
       hint: 'Select all that apply',
       options: {
         basic: {
           label: 'Basic research',
           hint: 'For studies of a fundamental nature, including physiology'
         },
-        regulatory: {
-          label: 'Regulatory use and routine production',
-          hint: 'For studies used to secure regulatory approval for new products or substances'
-        },
         translational: {
           label: 'Translational and applied research',
           hint: 'For practical applications of research and discovery toxicology'
-        },
-        breeding: {
-          label: 'Breeding and maintenance of colonies for established genetically altered animals, not used in other procedures',
-          hint: 'For breeding and maintaining stocks of GA animals'
         },
         protection: {
           label: 'Protection of the natural environment in the interests of the health or welfare of human beings or animals',
@@ -237,11 +228,19 @@ They do not include:
         forensic: {
           label: 'Forensic enquiries',
           hint: 'For forensic testing or the production of materials for forensic investigations'
+        },
+        breeding: {
+          label: 'Breeding and maintenance of colonies for established genetically altered animals, not used in other procedures',
+          hint: 'For breeding and maintaining stocks of GA animals'
+        },
+        regulatory: {
+          label: 'Regulatory use and routine production',
+          hint: 'For studies used to secure regulatory approval for new products or substances'
         }
       }
     },
     basicSubpurposes: {
-      label: 'Which of the following sub-purposes apply?',
+      label: 'Which sub-purpose best describes the research area?',
       hint: 'Select all that apply',
       options: {
         cardio: {
@@ -255,7 +254,7 @@ They do not include:
         },
         ethology: {
           label: 'Ethology',
-          hint: 'Including anmial behaviour and biology'
+          hint: 'Including animal behaviour and biology'
         },
         gastro: {
           label: 'Gastrointestinal system',
@@ -288,7 +287,7 @@ They do not include:
       label: 'Specify other research area'
     },
     regulatorySubpurposes: {
-      label: 'Which of the following sub-purposes apply?',
+      label: 'Which sub-purpose best describes the research area?',
       hint: 'Select all that apply',
       options: {
         'qc-batch-potency': 'Quality control: Batch potency testing',
@@ -319,7 +318,7 @@ They do not include:
         'toxicity-ecotoxicity-acute': 'Toxicity and ecotoxicity: Acute toxicity',
         'toxicity-ecotoxicity-chronic': 'Toxicity and ecotoxicity: Chronic toxicity',
         'toxicity-ecotoxicity-reproductive': 'Toxicity and ecotoxicity: Reproductive toxicity',
-        'toxicity-ecotoxicity-endochronic': 'Toxicity and ecotoxicity: Endochronic activity',
+        'toxicity-ecotoxicity-endochronic': 'Toxicity and ecotoxicity: Endocrine activity',
         'toxicity-ecotoxicity-bioaccumulation': 'Toxicity and ecotoxicity: Bioaccumulation',
         'other-toxicity-ecotoxicity': 'Toxicity and ecotoxicity: Other',
         'toxicity-safety-testing': 'Toxicity and safety testing in food and feed area',
@@ -329,24 +328,27 @@ They do not include:
       }
     },
     regulatorySubpurposesOther: {
-      label: 'Specify other'
+      label: 'Specify other routine production'
+    },
+    regulatorySubpurposesQcOther: {
+      label: 'Specify other quality controls'
     },
     regulatorySubpurposesOtherEfficacy: {
-      label: 'Specify other'
+      label: 'Specify other efficacy and tolerance testing'
     },
     regulatorySubpurposesOtherToxicity: {
       label: 'Specify other'
     },
     regulatorySubpurposesOtherToxicityEcotoxicity: {
-      label: 'Specify toxicity and ecotoxicity'
+      label: 'Specify other toxicity and ecotoxicity'
     },
     regulatoryLegislation: {
-      label: 'What type of legislation applies to regulatory research carried out?',
+      label: 'Which of the following types of legislation applies?',
       hint: 'Select all that apply',
       options: {
         biocides: 'Biocides legislation',
         cosmetics: 'Cosmetics legislation',
-        feed: 'Feed legislation including legislation for the safety of target animals, workers and environment',
+        feed: 'Feed legislation including legislation for the safety of target animals, workers and the environment',
         food: 'Food legislation including food contact material',
         'industrial-chemicals': 'Industrial chemicals legislation',
         'human-use': 'Legislation on medicinal products for human use',
@@ -357,7 +359,7 @@ They do not include:
       }
     },
     regulatoryLegislationOther: {
-      label: 'Specify other'
+      label: 'Specify other type of legislation'
     },
     regulatoryLegislationOrigin: {
       label: 'What’s the origin of the legislation?',
@@ -365,7 +367,7 @@ They do not include:
       options: {
         uk: 'Legislation satisfying UK requirements only',
         eu: 'Legislation satisfying EU requirements',
-        'non-eu': 'Legislation satisfying Non-EU requirements'
+        'non-eu': 'Legislation satisfying non-EU requirements'
       }
     },
     translationalSubpurposes: {
@@ -553,8 +555,8 @@ Crossing a genetically altered animal with a wild type animal will not normally 
     purposes: {
       title: 'Set up return: purposes',
       purpose: {
-        title: 'For the purpose',
-        subpurpose: 'For the sub-purposes'
+        title: 'For the purpose:',
+        subpurpose: 'For the sub-purposes:'
       }
     },
     techniques: {
