@@ -41,17 +41,14 @@ module.exports = ({ schema, config, root, postData = (req, res, next) => next() 
   });
 
   app.use((req, res, next) => {
-    const step = req.step;
     const allSteps = Object.keys(config);
 
-    const previousSteps = allSteps.slice(0, allSteps.indexOf(step));
-
-    const includedSteps = previousSteps.filter(s => {
+    const steps = allSteps.filter(s => {
       const include = config[s].include;
       return !include || include(req);
     });
 
-    const redirectStep = includedSteps.reduce((redirect, key) => {
+    const redirectTo = steps.reduce((redirect, key) => {
       if (redirect) {
         return redirect;
       }
@@ -70,18 +67,8 @@ module.exports = ({ schema, config, root, postData = (req, res, next) => next() 
       return null;
     }, null);
 
-    if (redirectStep) {
-      const prevStep = allSteps[allSteps.indexOf(redirectStep) - 1];
-      if (prevStep) {
-        const prevStepConfig = config[prevStep];
-        const target = prevStepConfig.target && prevStepConfig.target(req);
-        if (target) {
-          return res.redirect(target);
-        }
-      }
-
-      return res.redirect(req.buildRoute(root, { step: redirectStep }));
-    }
+    req.redirectTo = redirectTo;
+    res.locals.static.redirectTo = redirectTo;
     next();
   });
 

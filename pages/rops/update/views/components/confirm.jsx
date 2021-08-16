@@ -79,7 +79,7 @@ export default function Confirm() {
 
   function getRadioOption(field, val) {
     val = val || rop[field];
-    if (!field) {
+    if (!val) {
       return '-';
     }
     if (Array.isArray(val)) {
@@ -107,7 +107,7 @@ export default function Confirm() {
           <dd>{yn(rop.proceduresCompleted)}</dd>
 
           <dt>Only protected embryonic forms used</dt>
-          <dd>{rop.proceduresCompleted ? yn(!rop.postnatal) : '-'}</dd>
+          <dd>{yn(rop.postnatal)}</dd>
 
           <dt>Endangered animals used</dt>
           <dd>{yn(rop.endangered)}</dd>
