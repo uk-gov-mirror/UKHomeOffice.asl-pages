@@ -160,6 +160,11 @@ module.exports = {
     section: 'purposes'
   },
   confirm: {
-    target: req => req.buildRoute('rops.procedures')
+    target: req => {
+      if (req.redirectTo) {
+        return req.buildRoute('rops.update', { step: req.redirectTo });
+      }
+      return req.buildRoute('rops.procedures');
+    }
   }
 };

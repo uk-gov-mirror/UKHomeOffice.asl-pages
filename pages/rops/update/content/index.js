@@ -457,7 +457,7 @@ Crossing a genetically altered animal with a wild type animal will not normally 
     confirm: {
       title: 'Check setup details',
       buttons: {
-        submit: 'Continue to procedures'
+        submit: '{{#redirectTo}}Continue return setup{{/redirectTo}}{{^redirectTo}}Continue to procedures{{/redirectTo}}'
       }
     }
   },
