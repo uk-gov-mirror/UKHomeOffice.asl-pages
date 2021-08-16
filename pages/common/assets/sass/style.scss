@@ -789,6 +789,10 @@ section#rops {
   .govuk-hint {
     margin-top: $govuk-gutter-half;
     margin-bottom: $govuk-gutter-half;
+
+    summary {
+      margin-top: $govuk-gutter-half;
+    }
   }
 
   .product-testing-hint .govuk-hint,

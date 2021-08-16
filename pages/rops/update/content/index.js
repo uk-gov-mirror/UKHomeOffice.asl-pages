@@ -148,32 +148,58 @@ Select all that apply`,
 * Genetically modified sheep`
     },
     nhpsOrigin: {
-      label: 'Select non-human primate (NHP) place of birth',
+      label: 'What was the place of birth for non-human primates used in procedures in 2021?',
+      hint: 'Select all that apply',
       options: {
-        'uk-licenced': 'Animals born in UK at a licensed establishment',
-        'eu-licenced': 'Animals born in EU (non-UK) at a licensed establishment',
-        'uk-non-licenced': 'Animals born in UK but **NOT** at a licensed establishment',
-        'eu-non-licenced': 'Animals born in EU (non-UK) but **NOT** at a licensed establishment',
-        'europe': 'Animals born in the rest of Europe',
-        'asia': 'Animals born in Asia',
-        'america': 'Animals born in America',
-        'africa': 'Animals born in Africa',
-        'elsewhere': 'Animals born elsewhere'
+        'uk-licenced': {
+          label: 'In the UK at a licensed establishment',
+          hint: 'Including your own'
+        },
+        'eu-licenced': 'In the EU (non-UK) at a registered breeder',
+        'uk-non-licenced': 'In the UK **not** at a licensed establishment',
+        'eu-non-licenced': 'In the EU (non UK) **not** at a registered breeder',
+        'europe': 'In the rest of Europe',
+        'asia': {
+          label: 'In Asia',
+          hint: 'Including China'
+        },
+        'america': {
+          label: 'In America',
+          hint: 'Including North, Central and South America'
+        },
+        'africa': {
+          label: 'In Africa',
+          hint: 'Including Mauritius'
+        },
+        'elsewhere': {
+          label: 'In the rest of the world',
+          hint: 'Including Australasia'
+        }
       }
     },
     nhpsColonyStatus: {
-      label: 'Non-human primate (NHP) source colony details',
+      label: 'Where were they sourced from?',
+      hint: 'Select all that apply',
       options: {
         'self-sustaining': 'Self-sustaining colony',
         'non-self-sustaining': 'Non self-sustaining colony'
-      }
+      },
+      summary: 'Definitions of self-sustaining colonies',
+      details: `**Marmosets, tamarins and other new world primates**
+
+A self-sustaining colony is a colony that contains no wild caught animals, is kept in a way that ensures animals are used to humans, and is sustained using animals sourced from within or from other self sustaining colonies.
+
+**Macaques and other old world primates**
+
+A self-sustaining colony is a colony that no longer sources animals from the wild (it may contain some existing wild caught animals) and is sustained using only captive bred animals.`
     },
     nhpsGeneration: {
-      label: 'Non-human primate (NHP) generation',
+      label: 'What was their generation (maternal line)?',
+      hint: 'Select all that apply',
       options: {
-        f0: 'F0',
-        f1: 'F1',
-        f2: 'F2 or greater'
+        f0: 'F0 (wild caught)',
+        f1: 'F1 (progeny of wild caught females)',
+        f2: 'F2 or greater (progeny of captive bred females)'
       }
     },
     ga: {
