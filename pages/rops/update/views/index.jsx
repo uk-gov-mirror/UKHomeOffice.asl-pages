@@ -12,15 +12,17 @@ export default function Step() {
   const Component = components[step];
   const showGuidance = step !== 'confirm';
   return (
-    <FormLayout formatters={pick(formatters, Object.keys(schema || {}))} cancelLink={<CancelLink />} sidebar={showGuidance && <Guidance />}>
-      <Header
-        title={<Snippet>title</Snippet>}
-        subtitle={project.title}
-      />
-      <Snippet optional>content</Snippet>
-      {
-        Component && <Component />
-      }
-    </FormLayout>
+    <section id="rops">
+      <FormLayout formatters={pick(formatters, Object.keys(schema || {}))} cancelLink={<CancelLink />} sidebar={showGuidance && <Guidance />}>
+        <Header
+          title={<Snippet>title</Snippet>}
+          subtitle={project.title}
+        />
+        <p className="optional-content"><Snippet optional>content</Snippet></p>
+        {
+          Component && <Component />
+        }
+      </FormLayout>
+    </section>
   );
 }

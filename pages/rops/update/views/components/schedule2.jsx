@@ -5,7 +5,11 @@ import { Snippet, Details, Inset } from '@asl/components';
 
 export default function Schedule2() {
   const rop = useSelector(state => state.model);
-  const placesOfBirth = get(rop, 'placesOfBirth') || [];
+  const nopes = [
+    'uk-licenced',
+    'eu-registered'
+  ];
+  const placesOfBirth = (get(rop, 'placesOfBirth') || []).filter(p => !nopes.includes(p));
   return (
     <Fragment>
       <h3><Snippet>animals-born</Snippet></h3>

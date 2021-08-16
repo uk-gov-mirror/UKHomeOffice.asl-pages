@@ -61,20 +61,8 @@ function List({ items }) {
 }
 
 export default function Confirm() {
-  const { year, hasNhps, species: projSpecies } = useSelector(state => state.static);
+  const { year, hasNhps, species } = useSelector(state => state.static);
   const rop = useSelector(state => state.model);
-  const ropSpecies = flatten(Object.values(rop.species || {})).filter(s => !s.match(/^other-/));
-
-  let species = rop.otherSpecies
-    ? projSpecies.concat(ropSpecies)
-    : (ropSpecies.length > 0 ? ropSpecies : projSpecies);
-
-  species = species
-    .filter(s => !s.includes('other'))
-    .map(val => {
-      const knownSpecies = ALL_SPECIES.find(s => s.value === val);
-      return knownSpecies ? knownSpecies.label : val;
-    });
 
   const yeps = [
     'routine-blood',
@@ -172,7 +160,14 @@ export default function Confirm() {
               <dl className="inline">
                 <dt>Animal species</dt>
                 <dd>
-                  <ul>{species.map((s, i) => <li key={i}>{s}</li>)}</ul>
+                  <ul>
+                    {
+                      species.map((val, i) => {
+                        const knownSpecies = ALL_SPECIES.find(s => s.value === val);
+                        return <li key={i}>{knownSpecies ? knownSpecies.label : val}</li>;
+                      })
+                    }
+                  </ul>
                 </dd>
 
                 <dt>Re-use</dt>

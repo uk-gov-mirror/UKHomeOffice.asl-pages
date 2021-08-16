@@ -4,12 +4,18 @@ import { Snippet } from '@asl/components';
 
 export default function Endangered() {
   const rop = useSelector(state => state.model);
+  const nopes = [
+    'routine-blood',
+    'routine-monoclonal',
+    'routine-other'
+  ];
+  const subpurposes = (rop.regulatorySubpurposes || []).filter(s => !nopes.includes(s));
   return (
     <Fragment>
       <h3><Snippet>purpose.subpurpose</Snippet></h3>
       <ul>
         {
-          rop.regulatorySubpurposes.map((s, i) => (
+          subpurposes.map((s, i) => (
             <li key={i}><Snippet fallback={`fields.regulatorySubpurposes.options.${s}`}>{`fields.regulatorySubpurposes.options.${s}.label`}</Snippet></li>
           ))
         }

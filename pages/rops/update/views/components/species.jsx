@@ -5,7 +5,7 @@ import ReviewField from '@asl/projects/client/components/review-field';
 
 export default function Species() {
   const { schemaVersion } = useSelector(state => state.model.project);
-  const { hasOtherSpecies, species } = useSelector(state => state.static);
+  const { hasOtherSpecies, projectSpecies } = useSelector(state => state.static);
 
   if (schemaVersion === 0 || hasOtherSpecies) {
     return null;
@@ -13,10 +13,9 @@ export default function Species() {
 
   return (
     <Fragment>
-      <h3><Snippet>fields.species.playbackTitle</Snippet></h3>
-      <p><Snippet>fields.species.playback</Snippet></p>
+      <h3><Snippet>fields.species.playback</Snippet></h3>
       <ReviewField
-        project={{ species }}
+        project={{ species: projectSpecies }}
         type="species-selector"
       />
     </Fragment>

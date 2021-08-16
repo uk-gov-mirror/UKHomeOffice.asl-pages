@@ -316,14 +316,14 @@ module.exports = req => {
       ],
       options: [
         'basic',
-        'regulatory',
         'translational',
-        'breeding',
         'protection',
         'preservation',
         'education',
         'training',
-        'forensic'
+        'forensic',
+        'breeding',
+        'regulatory'
       ].map(disableProcOpts('purposes'))
     },
     basicSubpurposes: {

@@ -776,3 +776,27 @@ nav.bottom-nav {
     background-color: govuk-colour('black');
   }
 }
+
+section#rops {
+  .govuk-label {
+    font-weight: normal;
+  }
+
+  .control-panel {
+    margin-top: 0;
+  }
+
+  .govuk-hint {
+    margin-top: $govuk-gutter-half;
+    margin-bottom: $govuk-gutter-half;
+  }
+
+  .product-testing-hint .govuk-hint,
+  .govuk-checkboxes__item .govuk-hint {
+    margin-top: 0;
+  }
+
+  .optional-content {
+    margin-bottom: $govuk-gutter;
+  }
+}
