@@ -29,8 +29,8 @@ function DownloadSection({ project, version }) {
       {
         (isApplication || isAmendment) &&
           <Fragment>
-            <h2>Licence {downloadType}</h2>
-            <h3>{capitalize(downloadType)} started {format(version.createdAt, dateFormat.long)}</h3>
+            <h2><Snippet>{`downloads.${downloadType}.heading`}</Snippet></h2>
+            <h3><Snippet started={format(version.createdAt, dateFormat.long)}>{`downloads.${downloadType}.subHeading`}</Snippet></h3>
 
             <div>
               <h4>{capitalize(downloadType)}</h4>
@@ -39,9 +39,9 @@ function DownloadSection({ project, version }) {
             </div>
 
             <div>
-              <h4>Licence preview</h4>
-              <p className="govuk-hint">Download a preview of how this licence will appear if granted.</p>
-              <p><Link page="projectVersion.pdf" label="Download licence preview (PDF)" versionId={version.id} /></p>
+              <h4><Snippet>downloads.application.licence.heading</Snippet></h4>
+              <p className="govuk-hint"><Snippet>downloads.application.licence.hint</Snippet></p>
+              <p><Link page="projectVersion.pdf" label={<Snippet>downloads.application.licence.link</Snippet>} versionId={version.id} /></p>
             </div>
           </Fragment>
       }
@@ -52,24 +52,29 @@ function DownloadSection({ project, version }) {
             {
               superseded
                 ? <Fragment>
-                  <h3>Licence valid from {format(isFirstVersion ? project.issueDate : version.updatedAt, dateFormat.long)} until {format(nextVersion.updatedAt, dateFormat.long)}</h3>
+                  <h3>
+                    <Snippet
+                      start={format(isFirstVersion ? project.issueDate : version.updatedAt, dateFormat.long)}
+                      end={format(nextVersion.updatedAt, dateFormat.long)}
+                    >downloads.superseded.subHeading</Snippet>
+                  </h3>
                 </Fragment>
 
                 : <Fragment>
-                  <h2>Licence</h2>
-                  <h3>Licence granted {format(version.updatedAt, dateFormat.long)}</h3>
+                  <h2><Snippet>downloads.granted.heading</Snippet></h2>
+                  <h3><Snippet granted={format(version.updatedAt, dateFormat.long)}>downloads.granted.subHeading</Snippet></h3>
                 </Fragment>
             }
 
             <div>
-              <h4>Licence</h4>
-              <p><Link page="projectVersion.pdf" label="Download licence (PDF)" versionId={version.id} /></p>
+              <h4><Snippet>downloads.granted.licence.heading</Snippet></h4>
+              <p><Link page="projectVersion.pdf" label={<Snippet>downloads.granted.licence.link</Snippet>} versionId={version.id} /></p>
             </div>
 
             <div>
-              <h4>Licence {downloadType}</h4>
-              <p><Link page="projectVersion.docx" label={`Download ${downloadType} (DOCX)`} versionId={version.id} /></p>
-              <p><Link page="projectVersion.pdf" query={{ application: true }} label={`Download ${downloadType} (PDF)`} versionId={version.id} /></p>
+              <h4><Snippet>downloads.granted.application.heading</Snippet></h4>
+              <p><Link page="projectVersion.docx" label={<Snippet>downloads.granted.application.linkDocx</Snippet>} versionId={version.id} /></p>
+              <p><Link page="projectVersion.pdf" query={{ application: true }} label={<Snippet>downloads.granted.application.linkPdf</Snippet>} versionId={version.id} /></p>
             </div>
           </Fragment>
       }
@@ -77,9 +82,9 @@ function DownloadSection({ project, version }) {
       {
         !isLegacy &&
           <div>
-            <h4>Protocol steps</h4>
-            <p className="govuk-hint">Download a table of protocol steps, adverse effects, controls and limitations, and humane endpoints.</p>
-            <p><Link page="projectVersion.protocolsPdf" label="Download protocol steps (PDF)" versionId={version.id} /></p>
+            <h4><Snippet>downloads.protocols.heading</Snippet></h4>
+            <p className="govuk-hint"><Snippet>downloads.protocols.hint</Snippet></p>
+            <p><Link page="projectVersion.protocolsPdf" label={<Snippet>downloads.protocols.link</Snippet>} versionId={version.id} /></p>
           </div>
       }
 
@@ -89,9 +94,9 @@ function DownloadSection({ project, version }) {
       </div>
 
       <div>
-        <h4>Template</h4>
-        <p className="govuk-hint">Download a copy of the data that can be uploaded to use as a template for similar projects.</p>
-        <p><Link page="projectVersion.ppl" label="Download template (PPL)" versionId={version.id} /></p>
+        <h4><Snippet>downloads.template.heading</Snippet></h4>
+        <p className="govuk-hint"><Snippet>downloads.template.hint</Snippet></p>
+        <p><Link page="projectVersion.ppl" label={<Snippet>downloads.template.link</Snippet>} versionId={version.id} /></p>
       </div>
 
     </section>

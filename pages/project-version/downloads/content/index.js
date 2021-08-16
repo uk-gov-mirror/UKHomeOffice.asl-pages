@@ -1,76 +1,55 @@
 module.exports = {
   title: 'Downloads',
-  licence: {
-    inactive: {
+  application: {
+    heading: 'Licence application',
+    subHeading: 'Application started {{started}}',
+    licence: {
       heading: 'Licence preview',
-      link: 'Licence preview: {{title}} (.pdf)',
-      hint: 'Download a preview of how the licence will appear if granted. This doesn\'t include any restrictions the Home Office may add.',
-      back: 'Back to draft licence'
-    },
-    active: {
-      heading: 'Licence',
-      link: 'Licence: {{title}} (.pdf)',
-      hint: 'Download the official licence for this project.',
-      back: 'Back to licence'
-    },
-    granted: { // Linking to the active licence when amend in progress
-      heading: 'Granted licence',
-      link: 'Granted licence: {{title}} (.pdf)',
-      hint: 'Download the official licence for this project.'
-    },
-    expired: {
-      heading: 'Expired licence',
-      link: 'Expired licence: {{title}} (.pdf)',
-      hint: 'Download the expired licence for this project.',
-      back: 'Back to expired licence'
-    },
-    revoked: {
-      heading: 'Revoked licence',
-      link: 'Revoked licence: {{title}} (.pdf)',
-      hint: 'Download the revoked licence for this project.',
-      back: 'Back to revoked licence'
-    },
-    transferred: {
-      heading: 'Transferred licence',
-      link: 'Transferred licence: {{title}} (.pdf)',
-      hint: 'Download the transferred licence for this project.',
-      back: 'Back to transferred licence'
+      hint: 'Download a preview of how this licence will appear if granted.',
+      link: 'Download licence preview (PDF)'
     }
   },
-  application: {
-    heading: 'Application',
-    link: 'Full application (.docx)',
-    'pdf-link': 'Full application (.pdf)',
-    hint: 'Download the full application, including background information and justification not detailed in the licence.'
-  },
   amendment: {
-    heading: 'Amendment',
-    link: 'Amendment (.docx)',
-    'pdf-link': 'Amendment (.pdf)',
-    hint: 'Download the full amendment, including background information and justification not detailed in the licence.'
+    heading: 'Licence amendment',
+    subHeading: 'Amendment started {{started}}'
   },
-  template: {
-    heading: 'Template',
-    link: 'Template (.ppl)',
-    hint: 'Download a copy of the application data that can be used as a template for similar projects. The file can be uploaded to avoid creating new applications from scratch.'
+  granted: {
+    heading: 'Licence',
+    subHeading: 'Licence granted {{granted}}',
+    application: {
+      heading: 'Licence application',
+      linkPdf: 'Download application (PDF)',
+      linkDocx: 'Download application (DOCX)'
+    },
+    licence: {
+      heading: 'Licence',
+      link: 'Download licence (PDF)'
+    }
+  },
+  superseded: {
+    heading: 'Licence',
+    subHeading: 'Licence valid from {{start}} until {{end}}'
+  },
+  protocols: {
+    heading: 'Protocol steps',
+    link: 'Download Protocol steps (PDF)',
+    hint: 'Download a table of protocol steps, adverse effects, controls and limitations, and humane endpoints.'
   },
   nts: {
     heading: 'Non-technical summary',
-    link: 'Non-technical summary (PDF)',
-    hint: 'Download the project\'s non-technical summary.'
+    link: 'Non-technical summary (PDF)'
   },
   ntsRa: {
     heading: 'Non-technical summary and retrospective assessment',
-    link: 'Non-technical summary and retrospective assessment (PDF)',
-    hint: 'Download the project\'s non-technical summary and retrospective assessment.'
+    link: 'Non-technical summary and retrospective assessment (PDF)'
   },
   ntsDraftRa: {
-    link: 'Non-technical summary and draft retrospective assessment (PDF)',
-    hint: 'Download the project\'s non-technical summary and draft retrospective assessment.'
+    heading: 'Non-technical summary and draft retrospective assessment',
+    link: 'Non-technical summary and draft retrospective assessment (PDF)'
   },
-  protocols: {
-    heading: 'Protocols',
-    link: 'Steps and adverse effects (.pdf)',
-    hint: 'Download a table of each protocol’s steps, adverse effects, controls and limitations, and humane endpoints.'
+  template: {
+    heading: 'Template',
+    link: 'Download template (PPL)',
+    hint: 'Download a copy of the data that can be uploaded to use as a template for similar projects.'
   }
 };
