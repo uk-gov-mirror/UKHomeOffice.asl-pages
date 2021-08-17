@@ -27,8 +27,14 @@ module.exports = {
     }
   },
   superseded: {
-    heading: 'Licence',
     subHeading: 'Licence valid from {{start}} until {{end}}'
+  },
+  expired: {
+    heading: 'Expired licence',
+    subHeading: 'Licence valid from {{start}} until {{end}}'
+  },
+  revoked: {
+    heading: 'Revoked licence'
   },
   protocols: {
     heading: 'Protocol steps',

@@ -12,25 +12,44 @@ function DownloadSection({ project, version }) {
   const isAmendment = project.status === 'active' && version.status !== 'granted';
   const isGranted = version.status === 'granted';
   const isLegacy = project.schemaVersion === 0;
+  const isExpired = project.expiryDate && project.expiryDate < new Date().toISOString();
+  const isRevoked = project.revocationDate && project.revocationDate < new Date().toISOString();
+
   const ntsSnippet = project.grantedRa ? 'ntsRa' : 'nts';
+  const downloadType = isAmendment ? 'amendment' : 'application';
 
   const grantedVersions = sortBy(project.versions.filter(v => v.status === 'granted'), 'updatedAt');
-  const superseded = isGranted && project.granted.createdAt > version.createdAt;
+  const isSuperseded = isGranted && project.granted.createdAt > version.createdAt;
   const versionIndex = grantedVersions.map(v => v.id).indexOf(version.id);
-  const nextVersion = grantedVersions[versionIndex + 1];
   const isFirstVersion = versionIndex === 0;
+  const nextVersion = grantedVersions[versionIndex + 1];
 
-  const downloadType = isApplication
-    ? 'application'
-    : (isAmendment ? 'amendment' : 'application');
+  let startDate = project.amendedDate || project.issueDate;
+  let endDate;
+
+  if (isApplication || isAmendment) {
+    startDate = version.createdAt;
+  }
+
+  if (isSuperseded) {
+    startDate = isFirstVersion ? project.issueDate : version.updatedAt;
+  }
+
+  if (nextVersion) {
+    endDate = nextVersion.updatedAt;
+  }
+
+  if (isRevoked || isExpired) {
+    endDate = project.revocationDate || project.expiryDate;
+  }
 
   return (
-    <section className="download-section">
+    <section className="download-section" id={version.id}>
       {
         (isApplication || isAmendment) &&
           <Fragment>
             <h2><Snippet>{`downloads.${downloadType}.heading`}</Snippet></h2>
-            <h3><Snippet started={format(version.createdAt, dateFormat.long)}>{`downloads.${downloadType}.subHeading`}</Snippet></h3>
+            <h3><Snippet started={format(startDate, dateFormat.long)}>{`downloads.${downloadType}.subHeading`}</Snippet></h3>
 
             <div>
               <h4>{capitalize(downloadType)}</h4>
@@ -50,19 +69,22 @@ function DownloadSection({ project, version }) {
         isGranted &&
           <Fragment>
             {
-              superseded
-                ? <Fragment>
-                  <h3>
-                    <Snippet
-                      start={format(isFirstVersion ? project.issueDate : version.updatedAt, dateFormat.long)}
-                      end={format(nextVersion.updatedAt, dateFormat.long)}
-                    >downloads.superseded.subHeading</Snippet>
-                  </h3>
-                </Fragment>
+              isSuperseded
+                ? <h3><Snippet start={format(startDate, dateFormat.long)} end={format(endDate, dateFormat.long)}>downloads.superseded.subHeading</Snippet></h3>
 
                 : <Fragment>
-                  <h2><Snippet>downloads.granted.heading</Snippet></h2>
-                  <h3><Snippet granted={format(version.updatedAt, dateFormat.long)}>downloads.granted.subHeading</Snippet></h3>
+                  {
+                    (isRevoked || isExpired)
+                      ? <Fragment>
+                        <h2><Snippet>{`downloads.${isRevoked ? 'revoked' : 'expired'}.heading`}</Snippet></h2>
+                        <h3><Snippet start={format(startDate, dateFormat.long)} end={format(endDate, dateFormat.long)}>downloads.expired.subHeading</Snippet></h3>
+                      </Fragment>
+
+                      : <Fragment>
+                        <h2><Snippet>downloads.granted.heading</Snippet></h2>
+                        <h3><Snippet granted={format(startDate, dateFormat.long)}>downloads.granted.subHeading</Snippet></h3>
+                      </Fragment>
+                  }
                 </Fragment>
             }
 
@@ -128,7 +150,7 @@ export default function Downloads() {
           {
             // any previously granted versions
             supersededVersions.length > 0 &&
-            <details>
+            <details className="previous-licences">
               <summary>Show older licence versions</summary>
               <Inset>
                 <h2>Previous licences</h2>
