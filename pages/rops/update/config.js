@@ -1,45 +1,5 @@
-const { get, intersection, flatten, without } = require('lodash');
-const { hasNhps } = require('../helpers');
-
-function schedule2Applicable(req) {
-  const placesOfBirth = req.rop.placesOfBirth;
-  const nopes = [
-    'mice',
-    'rats',
-    'guinea-pigs',
-    'hamsters',
-    'gerbils',
-    'rabbits',
-    'cats',
-    'dogs',
-    'ferrets',
-    'other-domestic-fowl',
-    'other-birds',
-    'common-frogs',
-    'african-frogs',
-    'other-amphibians',
-    'zebra-fish',
-    'pigs',
-    'sheep'
-  ];
-  const yeps = [
-    'uk-non-licenced',
-    'eu-non-registered',
-    'europe',
-    'rest-of-world'
-  ];
-  const projectSpecies = get(req, 'rop.project.granted.data.species') || [];
-  const ropSpecies = get(req, 'rop.species', {}) || {};
-  const ropPrecoded = ropSpecies.precoded || [];
-  const ropOthers = flatten(Object.keys(ropSpecies).filter(k => k !== 'precoded').map(k => ropSpecies[k]));
-
-  const hasReqSpecies = !!intersection([...projectSpecies, ...ropPrecoded], nopes).length ||
-    !!ropOthers.length;
-
-  const hasReqPob = !!intersection(placesOfBirth, yeps).length;
-
-  return hasReqSpecies && hasReqPob;
-}
+const { get, without } = require('lodash');
+const { hasNhps, schedule2Applicable } = require('../helpers');
 
 const hasPurpose = purpose => req => {
   const purposes = req.rop.purposes || [];

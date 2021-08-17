@@ -61,7 +61,7 @@ function List({ items }) {
 }
 
 export default function Confirm() {
-  const { year, hasNhps, species } = useSelector(state => state.static);
+  const { year, hasNhps, species, schedule2Applicable } = useSelector(state => state.static);
   const rop = useSelector(state => state.model);
 
   const yeps = [
@@ -196,6 +196,15 @@ export default function Confirm() {
 
                 <dt>Genetically altered animals used</dt>
                 <dd>{yn(rop.ga)}</dd>
+
+                {
+                  schedule2Applicable && (
+                    <Fragment>
+                      <dt>Details of non-purpose bred Schedule 2 species used</dt>
+                      <dd>{rop.scheduleTwoDetails}</dd>
+                    </Fragment>
+                  )
+                }
               </dl>
             </Section>
             <Section title="Purposes" step="purposes">

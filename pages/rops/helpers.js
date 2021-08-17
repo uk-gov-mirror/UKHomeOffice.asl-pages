@@ -43,10 +43,51 @@ function hasOtherSpecies(req) {
     (get(req.project, 'granted.data.species') || []).find(s => s.includes('other'));
 }
 
+function schedule2Applicable(req) {
+  const placesOfBirth = req.rop.placesOfBirth;
+  const nopes = [
+    'mice',
+    'rats',
+    'guinea-pigs',
+    'hamsters',
+    'gerbils',
+    'rabbits',
+    'cats',
+    'dogs',
+    'ferrets',
+    'other-domestic-fowl',
+    'other-birds',
+    'common-frogs',
+    'african-frogs',
+    'other-amphibians',
+    'zebra-fish',
+    'pigs',
+    'sheep'
+  ];
+  const yeps = [
+    'uk-non-licenced',
+    'eu-non-registered',
+    'europe',
+    'rest-of-world'
+  ];
+  const projectSpecies = get(req, 'rop.project.granted.data.species') || [];
+  const ropSpecies = get(req, 'rop.species', {}) || {};
+  const ropPrecoded = ropSpecies.precoded || [];
+  const ropOthers = flatten(Object.keys(ropSpecies).filter(k => k !== 'precoded').map(k => ropSpecies[k]));
+
+  const hasReqSpecies = !!intersection([...projectSpecies, ...ropPrecoded], nopes).length ||
+    !!ropOthers.length;
+
+  const hasReqPob = !!intersection(placesOfBirth, yeps).length;
+
+  return hasReqSpecies && hasReqPob;
+}
+
 module.exports = {
   hasNhps,
   hasGeneticallyAltered,
   hasOtherSpecies,
   hasReUse,
-  getSpecies
+  getSpecies,
+  schedule2Applicable
 };

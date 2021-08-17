@@ -1,7 +1,14 @@
 const { Router } = require('express');
 const { get, omit, pick } = require('lodash');
 const routes = require('./routes');
-const { hasNhps, hasGeneticallyAltered, hasReUse, hasOtherSpecies, getSpecies } = require('./helpers');
+const {
+  hasNhps,
+  hasGeneticallyAltered,
+  hasReUse,
+  hasOtherSpecies,
+  getSpecies,
+  schedule2Applicable
+} = require('./helpers');
 
 module.exports = () => {
   const app = Router();
@@ -25,6 +32,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     res.locals.static.hasNhps = hasNhps(req);
+    res.locals.static.schedule2Applicable = schedule2Applicable(req);
     res.locals.static.hasGeneticallyAltered = hasGeneticallyAltered(req);
     res.locals.static.hasEndangeredSpecies = get(req.project, 'granted.data.endangered-animals', false);
     res.locals.static.hasReUse = hasReUse(req);
