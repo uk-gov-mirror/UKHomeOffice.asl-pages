@@ -546,9 +546,6 @@ Crossing a genetically altered animal with a wild type animal will not normally 
     details: {
       title: 'Return details'
     },
-    general: {
-      title: 'Set up return: general'
-    },
     animals: {
       title: 'Set up return: animals'
     },
