@@ -148,7 +148,7 @@ Select all that apply`,
 * Genetically modified sheep`
     },
     nhpsOrigin: {
-      label: 'What was the place of birth for non-human primates used in procedures in 2021?',
+      label: 'What was the place of birth for non-human primates used in procedures in {{year}}?',
       hint: 'Select all that apply',
       options: {
         'uk-licenced': {
