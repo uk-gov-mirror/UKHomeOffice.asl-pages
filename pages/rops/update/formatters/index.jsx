@@ -12,6 +12,17 @@ function PostnatalHint() {
   );
 }
 
+function NhpsColonyHint() {
+  return (
+    <Fragment>
+      <Details summary={<Snippet>fields.nhpsColonyStatus.summary</Snippet>}>
+        <Inset><Snippet>fields.nhpsColonyStatus.details</Snippet></Inset>
+      </Details>
+      <p><Snippet className="govuk-hint">fields.nhpsColonyStatus.hint</Snippet></p>
+    </Fragment>
+  );
+}
+
 function EndangeredHint() {
   return (
     <Fragment>
@@ -98,5 +109,8 @@ export default {
   },
   newGeneticLine: {
     formatHint: NewGeneticLineHint
+  },
+  nhpsColonyStatus: {
+    formatHint: NhpsColonyHint
   }
 };
