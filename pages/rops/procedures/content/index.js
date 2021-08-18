@@ -4,9 +4,9 @@ const { fields, guidance } = require('../../update/content/index');
 module.exports = merge({}, { fields, guidance }, {
   title: 'Return of procedures {{year}}',
   change: {
-    title: '{{#canEdit}}Change{{/canEdit}}{{^canEdit}}View{{/canEdit}} setup details',
+    title: '{{#canEdit}}Change{{/canEdit}}{{^canEdit}}View{{/canEdit}} set up details',
     content: 'View {{#canEdit}}and edit {{/canEdit}}details used to set up this return.',
-    summary: 'Show setup details'
+    summary: 'Show set up details'
   },
   procedures: {
     title: 'Procedures',

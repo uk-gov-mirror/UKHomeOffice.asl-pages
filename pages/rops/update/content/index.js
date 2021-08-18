@@ -481,9 +481,9 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       'animals-born': 'For animals born:'
     },
     confirm: {
-      title: 'Check setup details',
+      title: 'Check set up details',
       buttons: {
-        submit: '{{#redirectTo}}Continue return setup{{/redirectTo}}{{^redirectTo}}Continue to procedures{{/redirectTo}}'
+        submit: '{{#redirectTo}}Continue return set up{{/redirectTo}}{{^redirectTo}}Continue to procedures{{/redirectTo}}'
       }
     }
   },
