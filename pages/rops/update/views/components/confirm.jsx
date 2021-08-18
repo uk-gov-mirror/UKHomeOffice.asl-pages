@@ -107,7 +107,7 @@ export default function Confirm() {
           <dd>{yn(rop.proceduresCompleted)}</dd>
 
           <dt>Only protected embryonic forms used</dt>
-          <dd>{yn(rop.postnatal)}</dd>
+          <dd>{yn(rop.postnatal === null ? null : !rop.postnatal)}</dd>
 
           <dt>Endangered animals used</dt>
           <dd>{yn(rop.endangered)}</dd>
