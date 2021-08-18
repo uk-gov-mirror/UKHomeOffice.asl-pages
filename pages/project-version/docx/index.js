@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { get, pick } = require('lodash');
 const { Packer } = require('@joefitter/docx');
 const imageSize = require('image-size');
+const filenamify = require('filenamify');
 const renderer = require('@asl/projects/client/components/download-link/renderers/docx-renderer').default;
 const schema = require('@asl/projects/client/schema').default;
 
@@ -60,7 +61,8 @@ module.exports = () => {
     renderer(application, sections, values, updateImageDimensions)
       .then(pack)
       .then(buffer => {
-        res.attachment(`${values.title || 'Untitled project'}.docx`);
+        const isAmendment = req.project.status === 'active' && req.version.status !== 'granted';
+        res.attachment(`${filenamify(values.title || 'Untitled project')} (${isAmendment ? 'amendment' : 'application'}).docx`);
         res.end(Buffer.from(buffer));
       })
       .catch(next);

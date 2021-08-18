@@ -68,8 +68,19 @@ module.exports = settings => {
   const convertToPdf = (req, res, next) => {
     return pdf(req.pdf)
       .then(response => {
-        const filename = filenamify(req.pdf.filename || get(req.version, 'data.title') || 'Untitled project');
-        res.attachment(`${filename}.pdf`);
+        const isFullApplication = !!req.query.application && req.project.schemaVersion > 0;
+        const isPreview = req.version.status !== 'granted';
+        const isAmendment = req.project.status === 'active' && req.version.status !== 'granted';
+
+        let filename = get(req.version, 'data.title') || 'Untitled project';
+
+        if (isFullApplication) {
+          filename = `${filename} (${isAmendment ? 'amendment' : 'application'})`;
+        } else if (isPreview) {
+          filename = `${filename} (licence preview)`;
+        }
+
+        res.attachment(`${filenamify(req.pdf.filename || filename)}.pdf`);
         response.body.pipe(res);
       })
       .catch(next);
