@@ -106,7 +106,7 @@ export default function Confirm() {
           <dt>Procedures completed in {year}</dt>
           <dd>{yn(rop.proceduresCompleted)}</dd>
 
-          <dt>Only protected embryonic forms used</dt>
+          <dt>Postnatal or free feeding animals used</dt>
           <dd>{yn(rop.postnatal)}</dd>
 
           <dt>Endangered animals used</dt>
@@ -215,7 +215,7 @@ export default function Confirm() {
                       <dt>Purpose {index + 1}</dt>
                       <dd>{getRadioOption('purposes', purpose)}</dd>
                       {
-                        hasSubpurposes(purpose) && <dt>Subpurposes</dt>
+                        hasSubpurposes(purpose) && <dt>Sub-purposes</dt>
                       }
                       <dd>
                         <ul>
