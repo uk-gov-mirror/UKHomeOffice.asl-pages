@@ -30,6 +30,13 @@ const getDeclarationText = (task, values) => {
   }));
 };
 
+const transferWithReceivingEstablishment = task => {
+  const isTransfer = get(task, 'data.action') === 'transfer';
+  const isAwaitingEndorsement = get(task, 'status') === 'awaiting-endorsement';
+  const isWithReceivingEstablishment = get(task, 'data.data.establishmentId') === get(task, 'data.establishmentId');
+  return isTransfer && isAwaitingEndorsement && isWithReceivingEstablishment;
+};
+
 module.exports = () => {
   const app = Router();
 
@@ -43,7 +50,12 @@ module.exports = () => {
     }
     if (req.project) {
       req.askAwerb = askAwerb(req.task, status);
-      req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+
+      if (transferWithReceivingEstablishment(req.task)) {
+        req.awerbEstablishments = [get(req.task, 'data.establishment')];
+      } else {
+        req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+      }
 
       get(req.task, 'data.meta[awerb-dates]', []).map(awerb => {
         req.model[`awerb-${awerb.id}`] = awerb.date;

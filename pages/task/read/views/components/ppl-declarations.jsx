@@ -12,6 +12,7 @@ export default function PplDeclarations({ task }) {
 
   const status = task.status;
   const isAmendment = task.type === 'amendment';
+  const receivingEstablishmentId = get(task, 'data.action') === 'transfer' && get(task, 'data.data.establishmentId');
 
   // prefer the payload for declarations if available as it reflects the status at the time the task was actioned
   const declarations = get(task, 'meta.payload.meta') || get(task, 'data.meta') || {};
@@ -26,7 +27,8 @@ export default function PplDeclarations({ task }) {
 
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
   const primaryAwerb = displayAwerb && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
-  const aaAwerbs = (displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary))) || [];
+  const aaAwerbs = (displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary && awerb.id !== receivingEstablishmentId))) || [];
+  const receivingAwerb = displayAwerb && receivingEstablishmentId && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.id === receivingEstablishmentId)[0];
 
   return (
     <div className="declarations">
@@ -61,6 +63,13 @@ export default function PplDeclarations({ task }) {
           <dl className="inline-wide">
             <dt>AWERB review date:</dt>
             <dd>{format(primaryAwerb.date, dateFormat.long)}</dd>
+          </dl>
+      }
+      {
+        receivingAwerb &&
+          <dl className="inline-wide">
+            <dt>{receivingAwerb.name} AWERB review date:</dt>
+            <dd>{format(receivingAwerb.date, dateFormat.long)}</dd>
           </dl>
       }
       {
