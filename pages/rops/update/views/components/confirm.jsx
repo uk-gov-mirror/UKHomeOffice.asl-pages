@@ -107,7 +107,9 @@ export default function Confirm() {
           <dd>{yn(rop.proceduresCompleted)}</dd>
 
           <dt>Only protected embryonic forms used</dt>
-          // need to reverse the boolean for postnatal animals because the phrasing of the question changes
+          {
+            // need to reverse the boolean for postnatal animals because the phrasing of the question changes
+          }
           <dd>{yn(rop.postnatal === null ? null : !rop.postnatal)}</dd>
 
           <dt>Endangered animals used</dt>
