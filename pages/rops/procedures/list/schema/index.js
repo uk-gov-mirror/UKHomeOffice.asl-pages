@@ -90,7 +90,7 @@ const getSchema = rop => {
     subpurpose: {
       show: true,
       sortable: false,
-      label: 'Subpurpose',
+      label: 'Sub-purpose',
       toCSVString: (value, row) => {
         switch (row.purposes) {
           case 'basic':
