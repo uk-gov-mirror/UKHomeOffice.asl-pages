@@ -49,7 +49,9 @@ module.exports = () => {
       return res.redirect(req.buildRoute('task.read'));
     }
     if (req.project) {
+      const isLegacy = req.project.schemaVersion === 0;
       req.askAwerb = askAwerb(req.task, status);
+      req.processAwerbDates = req.askAwerb && !isLegacy;
 
       if (transferWithReceivingEstablishment(req.task)) {
         req.awerbEstablishments = [get(req.task, 'data.establishment')];
@@ -76,7 +78,7 @@ module.exports = () => {
       next();
     },
     process: (req, res, next) => {
-      if (req.askAwerb && req.form.values['awerb-exempt'] !== 'yes') {
+      if (req.askAwerb && req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
         req.awerbEstablishments.forEach(e => {
           req.form.values[`awerb-${e.id}`] = `${req.body[`awerb-${e.id}-year`]}-${req.body[`awerb-${e.id}-month`]}-${req.body[`awerb-${e.id}-day`]}`;
         });
@@ -84,7 +86,7 @@ module.exports = () => {
       next();
     },
     saveValues: (req, res, next) => {
-      if (req.askAwerb && req.form.values['awerb-exempt'] !== 'yes') {
+      if (req.askAwerb && req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
         const primaryEstablishment = req.project.establishment;
         req.session.form[req.model.id].values['awerb-dates'] = req.awerbEstablishments.map(e => {
           return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };
@@ -133,7 +135,7 @@ module.exports = () => {
         data: values.data,
         meta: {
           ...values.meta,
-          ...pick(values, 'comment', 'restrictions', 'awerb', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason', 'deadline-passed-reason', 'ra-awerb-date', 'declaration')
+          ...pick(values, 'comment', 'restrictions', 'awerb', 'awerb-exempt', 'awerb-dates', 'awerb-review-date', 'awerb-no-review-reason', 'deadline-passed-reason', 'ra-awerb-date', 'declaration')
         }
       }
     };
