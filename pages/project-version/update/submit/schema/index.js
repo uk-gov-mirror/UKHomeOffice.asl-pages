@@ -13,7 +13,7 @@ const getDateField = establishmentName => {
   };
 };
 
-const getAwerbQuestion = ({ isLegacy, isAmendment, awerbEstablishments }) => {
+const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) => {
   let awerbDateFields = {};
 
   if (isLegacy) {
@@ -32,7 +32,7 @@ const getAwerbQuestion = ({ isLegacy, isAmendment, awerbEstablishments }) => {
     }, {});
   }
 
-  if (!isAmendment) {
+  if (!canBeAwerbExempt) {
     return awerbDateFields;
   }
 
@@ -64,7 +64,7 @@ const getAwerbQuestion = ({ isLegacy, isAmendment, awerbEstablishments }) => {
   };
 };
 
-const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, awerbEstablishments }) => {
+const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments }) => {
   let schema = {
     comments: {
       inputType: 'textarea',
@@ -106,7 +106,7 @@ const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, 
   // awerb question should always be first if included
   if (includeAwerb) {
     schema = {
-      ...getAwerbQuestion({ isLegacy, isAmendment, awerbEstablishments }),
+      ...getAwerbQuestion({ isLegacy, isAmendment, canBeAwerbExempt, awerbEstablishments }),
       ...schema
     };
   }

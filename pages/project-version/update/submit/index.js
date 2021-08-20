@@ -70,8 +70,9 @@ module.exports = settings => {
         const includeAwerb = res.locals.static.canEndorse;
         const awerbEstablishments = req.awerbEstablishments;
         const isLegacy = req.project.schemaVersion === 0;
+        const canBeAwerbExempt = isAmendment;
         req.processAwerbDates = includeAwerb && !isLegacy;
-        req.form.schema = getSchema({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, awerbEstablishments });
+        req.form.schema = getSchema({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments });
         next();
       },
       process: (req, res, next) => {
