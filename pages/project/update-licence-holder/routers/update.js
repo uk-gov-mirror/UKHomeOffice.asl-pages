@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { isUndefined, omit } = require('lodash');
+const { isUndefined, omit, uniqBy } = require('lodash');
 const form = require('../../../common/routers/form');
 const getSchema = require('../schema');
 const experienceFields = require('../schema/experience-fields');
@@ -24,7 +24,9 @@ module.exports = () => {
       req.model.licenceHolderId = '';
       Promise.all([getProfiles(), getProjectVersion()])
         .then(([profiles, version]) => {
-          req.form.schema = getSchema(profiles);
+          const collabs = req.project.collaborators;
+          const visibleProfiles = uniqBy([...profiles, ...collabs], profile => profile.id);
+          req.form.schema = getSchema(visibleProfiles);
           req.form.experienceFields = experienceFields(version, req.project.schemaVersion);
           if (!req.project.isLegacyStub) {
             req.form.schema = {

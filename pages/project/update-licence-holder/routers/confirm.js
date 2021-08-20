@@ -40,8 +40,18 @@ module.exports = () => {
     locals(req, res, next) {
       res.locals.static.fields = req.project.isLegacyStub ? [] : req.form.experienceFields.fields;
       res.locals.static.project = req.project;
-      res.locals.static.values = get(req.session, `form.${req.model.id}.values`);
-      req.api(`/establishment/${req.establishmentId}/profiles/${res.locals.static.values.licenceHolderId}`)
+      const values = get(req.session, `form.${req.model.id}.values`);
+      const licenceHolderId = values.licenceHolderId;
+      res.locals.static.values = values;
+
+      const collab = req.project.collaborators.find(collab => collab.id === licenceHolderId);
+
+      if (collab) {
+        res.locals.static.proposedLicenceHolder = collab;
+        return next();
+      }
+
+      req.api(`/establishment/${req.establishmentId}/profiles/${values.licenceHolderId}`)
         .then(({ json: { data } }) => {
           res.locals.static.proposedLicenceHolder = data;
         })
