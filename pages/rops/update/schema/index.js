@@ -347,6 +347,7 @@ module.exports = req => {
         'endocrine',
         'multisystemic',
         'ethology',
+        'developmental',
         {
           value: 'other',
           reveal: {
