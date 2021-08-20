@@ -23,9 +23,9 @@ export default function PplDeclarations({ task }) {
     declarations.ready = get(task, 'data.meta.ready');
   }
 
-  const displayAwerb = declarations['awerb-exempt'] !== 'yes';
-
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
+  const displayAwerb = !legacyAwerbReviewDate && declarations['awerb-exempt'] !== 'yes';
+
   const primaryAwerb = displayAwerb && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
   const aaAwerbs = (displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary && awerb.id !== receivingEstablishmentId))) || [];
   const receivingAwerb = displayAwerb && receivingEstablishmentId && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.id === receivingEstablishmentId)[0];
@@ -61,7 +61,13 @@ export default function PplDeclarations({ task }) {
       {
         primaryAwerb &&
           <dl className="inline-wide">
-            <dt>AWERB review date:</dt>
+            <dt>
+              {
+                (receivingAwerb || aaAwerbs.length)
+                  ? `${primaryAwerb.name} AWERB review date:`
+                  : 'AWERB review date:'
+              }
+            </dt>
             <dd>{format(primaryAwerb.date, dateFormat.long)}</dd>
           </dl>
       }
