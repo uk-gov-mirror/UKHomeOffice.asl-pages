@@ -54,7 +54,7 @@ module.exports = () => {
       req.processAwerbDates = req.askAwerb && !isLegacy;
 
       if (transferWithReceivingEstablishment(req.task)) {
-        req.awerbEstablishments = [get(req.task, 'data.establishment')];
+        req.awerbEstablishments = [get(req.task, 'data.establishment')].concat(req.project.additionalEstablishments);
       } else {
         req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
       }
