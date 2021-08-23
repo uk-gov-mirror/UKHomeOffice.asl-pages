@@ -79,7 +79,7 @@ export default function Procedures() {
       </Details>
       <br />
 
-      { !editable && <ProceduresDownloadLink className="float-right" /> }
+      { !editable && hasProcedures && <ProceduresDownloadLink className="float-right" /> }
 
       <h2><Snippet>procedures.title</Snippet></h2>
       {
