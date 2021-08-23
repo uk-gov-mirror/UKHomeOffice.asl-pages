@@ -586,5 +586,6 @@ Crossing a genetically altered animal with a wild type animal will not normally 
     techniques: {
       title: 'Set up return: techniques'
     }
-  }
+  },
+  'exists-in-procs-warning': 'This item has already been cited in {{procedures}} procedure{{#isPlural}}s{{/isPlural}} and cannot be removed'
 };
