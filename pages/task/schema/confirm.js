@@ -19,11 +19,15 @@ module.exports = ({ task, chosenStatus, isLegacy, awerbEstablishments }) => {
     }
   };
 
-  const isAmendment = ['amendment', 'transfer'].includes(get(task, 'type'));
+  const taskType = get(task, 'type');
+  const isAmendment = taskType === 'amendment';
+  const isTransfer = taskType === 'transfer';
+  const isWithOutgoingEstablishment = task.data.establishmentId === task.data.modelData.establishmentId;
+  const canBeAwerbExempt = isAmendment || (isTransfer && isWithOutgoingEstablishment);
 
   if (askAwerb(task, chosenStatus)) {
     schema = {
-      ...getAwerbQuestion({ isLegacy, isAmendment, awerbEstablishments }),
+      ...getAwerbQuestion({ isLegacy, isAmendment, isTransfer, canBeAwerbExempt, awerbEstablishments }),
       ...schema
     };
   }
