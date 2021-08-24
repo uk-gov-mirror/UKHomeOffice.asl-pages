@@ -22,7 +22,8 @@ module.exports = ({ task, chosenStatus, isLegacy, awerbEstablishments }) => {
   const taskType = get(task, 'type');
   const isAmendment = taskType === 'amendment';
   const isTransfer = taskType === 'transfer';
-  const isWithOutgoingEstablishment = task.data.establishmentId === task.data.modelData.establishmentId;
+  const taskEstablishmentId = get(task, 'data.establishmentId');
+  const isWithOutgoingEstablishment = taskEstablishmentId && taskEstablishmentId === get(task, 'data.modelData.establishmentId');
   const canBeAwerbExempt = isAmendment || (isTransfer && isWithOutgoingEstablishment);
 
   if (askAwerb(task, chosenStatus)) {
