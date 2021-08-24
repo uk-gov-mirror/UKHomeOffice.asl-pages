@@ -9,18 +9,9 @@ module.exports = req => {
     }
 
     if (field.includes(opt.value)) {
-      const procedures = field.filter(f => f === opt.value);
       return {
         ...opt,
-        disabled: true,
-        reveal: {
-          warning: {
-            inputType: 'warning',
-            contentKey: 'exists-in-procs-warning',
-            procedures: procedures.length,
-            isPlural: procedures.length > 1
-          }
-        }
+        disabled: true
       };
     }
     return opt;
