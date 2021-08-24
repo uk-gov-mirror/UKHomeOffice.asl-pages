@@ -127,6 +127,10 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
 
+    if (transferWithReceivingEstablishment(req.task)) {
+      values['awerb-exempt'] = 'no'; // receiving establishment for transfers can never be 'awerb-exempt'
+    }
+
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
