@@ -16,6 +16,13 @@ import Guidance from '../../../components/guidance';
 function FormSection({ title, fields, step }) {
   const model = useSelector(state => state.model);
   const { schema, errors } = useSelector(state => state.static);
+  const filteredSchema = pick(schema, fields);
+
+  // hide sections if schema is empty
+  if (!Object.keys(filteredSchema).length) {
+    return null;
+  }
+
   return (
     <div className="form-section">
       {
@@ -29,7 +36,7 @@ function FormSection({ title, fields, step }) {
         )
       }
       <h2>{title}</h2>
-      <Fieldset schema={pick(schema, fields)} model={model} errors={errors} formatters={formatters} />
+      <Fieldset schema={filteredSchema} model={model} errors={errors} formatters={formatters} />
     </div>
   );
 }
@@ -80,7 +87,7 @@ export default function Create() {
             <input type="hidden" name="_csrf" value={csrfToken} />
             <FormSection title="Animals" step="species" fields={['species', 'ga']} />
             <FormSection title="Purposes" step="purposes" fields={['purposes', 'newGeneticLine']} />
-            <FormSection title="Techniques" step="product-testing" fields={['specialTechniqueUsed']} />
+            <FormSection title="Special techniques" step="product-testing" fields={['specialTechniqueUsed']} />
             <FormSection title="Outcomes" fields="severity" />
 
             <div className="control-panel">

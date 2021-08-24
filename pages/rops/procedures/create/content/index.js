@@ -84,7 +84,7 @@ module.exports = merge({}, baseContent, {
       }
     },
     specialTechniqueUsed: {
-      label: 'Were techniques of special interest used?',
+      label: 'Select if special technique used',
       options: {
         true: 'Yes',
         false: 'No'
