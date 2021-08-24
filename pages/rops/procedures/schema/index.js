@@ -158,6 +158,7 @@ function getPurposes(req) {
             inputType: 'radioGroup',
             automapReveals: true,
             validate: ['required'],
+            hint: false,
             options: basicSubpurposes.map(bs => {
               if (bs === 'other') {
                 return {
