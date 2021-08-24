@@ -27,7 +27,7 @@ function Section({ title, children, step }) {
       {
         editable && <Link
           className="float-right"
-          page="rops.update"
+          page="rops.confirm-update"
           label={`Edit ${title.toLowerCase()}`}
           step={step}
         />

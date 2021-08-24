@@ -3,8 +3,14 @@ const guidance = require('./guidance');
 const nilReturn = require('./nil-return');
 const procedures = require('./procedures');
 const submit = require('./submit');
+const confirmUpdate = require('./update/confirm');
 
 module.exports = {
+  'confirm-update': {
+    path: '/confirm-update/:step',
+    breadcrumb: false,
+    router: confirmUpdate
+  },
   update: {
     path: '/update/:step',
     breadcrumb: false,
