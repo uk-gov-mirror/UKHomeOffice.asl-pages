@@ -10,7 +10,7 @@ module.exports = merge({}, { fields, guidance }, {
   },
   procedures: {
     title: 'Procedures',
-    content: 'Add procedures completed in {{year}}',
+    content: 'Add procedures completed in {{year}}.',
     add: 'Add procedures'
   },
   fields: {
