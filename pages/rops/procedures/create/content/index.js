@@ -98,11 +98,11 @@ module.exports = merge({}, baseContent, {
       label: 'Select severities and enter number of procedures',
       hint: `Severities are those actually experienced by animals. A procedure carried out on 100 mice would be 100 procedures.
 
-      Select all that apply.`,
-      summary: 'Reporting re-use, tiny animals, NHPs and large numbers over 999',
+      Select all that apply`,
+      summary: 'Reporting re-use, tiny animals, NHPs and large numbers over 999.',
       details: `### Re-use
       If animals were used in the same procedure across multiple studies, you can give one figure for all the procedures
-      carried out. However you should record the first use of theanimals separately to subsequent re-uses. Be sure to check
+      carried out. However you should record the first use of the animals separately to subsequent re-uses. Be sure to check
       the detailed guidance on reporting re-use to ensure you record the figures correctly.
 
       ### Tiny animals
@@ -139,7 +139,7 @@ module.exports = merge({}, baseContent, {
       non: {
         label: 'Enter number of non-recovery procedures carried out',
         summary: 'Reporting non-recovery with new genetic lines or breeding purposes',
-        details: 'If you have non-recovery procedures in combination with new genetic lines being created or a purpose of breeding or maintaining colonies of GA animals, add an explanatory note to the Home Office.'
+        details: 'If you have non-recovery procedures in combination with new genetic lines being created, or a purpose of breeding or maintaining colonies of GA animals, add an explanatory note to the Home Office.'
       }
     },
     addNote: {
