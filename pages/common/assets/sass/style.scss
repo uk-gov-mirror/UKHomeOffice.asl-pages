@@ -807,3 +807,11 @@ section#rops {
     margin-bottom: $govuk-gutter;
   }
 }
+
+.rops-guidance-content {
+  margin-bottom: $govuk-gutter;
+
+  li {
+    margin-bottom: $govuk-gutter-half;
+  }
+}
