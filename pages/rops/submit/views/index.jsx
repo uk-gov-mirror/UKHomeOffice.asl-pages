@@ -10,7 +10,7 @@ export default function Submit() {
         title={<Snippet>title</Snippet>}
         subtitle={project.title}
       />
-      <p><Snippet>declaration</Snippet></p>
+      <Snippet>declaration</Snippet>
     </FormLayout>
   );
 }
