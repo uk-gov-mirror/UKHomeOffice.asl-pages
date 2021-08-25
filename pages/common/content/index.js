@@ -82,6 +82,7 @@ module.exports = {
       nts: 'Non-technical summary'
     },
     rops: 'Return of procedures {{year}}',
+    ropsReporting: 'Return of procedures {{year}}',
     account: {
       menu: 'Your account',
       update: 'Edit your details',

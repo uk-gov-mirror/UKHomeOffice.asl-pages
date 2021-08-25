@@ -86,7 +86,7 @@ export default function Procedures() {
         editable && (
           <Fragment>
             <p><Snippet>procedures.content</Snippet></p>
-            <ProceduresDownloadLink className="float-right" />
+            { hasProcedures && <ProceduresDownloadLink className="float-right" /> }
             <Link
               className="govuk-button"
               page="rops.procedures.create"
@@ -95,15 +95,9 @@ export default function Procedures() {
           </Fragment>
         )
       }
-      {
-        hasProcedures
-          ? (
-            <OverflowWrapper>
-              <Datatable formatters={formatters(rop)} Actions={editable && Actions} />
-            </OverflowWrapper>
-          )
-          : <p><em>No procedures added</em></p>
-      }
+      <OverflowWrapper>
+        <Datatable formatters={formatters(rop)} Actions={editable && Actions} noDataWarning={<Snippet>noDataWarning</Snippet>} />
+      </OverflowWrapper>
       <Submission />
     </div>
   );

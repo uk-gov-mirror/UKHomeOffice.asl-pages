@@ -29,7 +29,6 @@ module.exports = () => {
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/unsubmit`, params)
       .then(() => {
         set(res.locals, 'static.content.notifications', content.notifications);
-        req.notification({ key: 'success' });
         if (isNilReturn(req.rop)) {
           return res.redirect(req.buildRoute('rops.nil-return'));
         }

@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const { pickBy, some } = require('lodash');
+const { pickBy, pick, some } = require('lodash');
 const { datatable } = require('../../../common/routers');
 const getSchema = require('./schema');
 
@@ -28,12 +28,18 @@ module.exports = () => {
       next();
     },
     locals: (req, res, next) => {
-      // remove empty columns
-      res.locals.datatable.schema = pickBy(req.datatable.schema, (field, key) => {
-        return some(req.datatable.data.rows, row => {
-          return row[key] !== null;
+      if (req.datatable.data.rows.length > 0) {
+        // remove empty columns whem we have data
+        res.locals.datatable.schema = pickBy(req.datatable.schema, (field, key) => {
+          return some(req.datatable.data.rows, row => {
+            return row[key] !== null;
+          });
         });
-      });
+      } else {
+        // show a limited set of columns when the table is empty
+        res.locals.datatable.schema = pick(req.datatable.schema, ['rowNum', 'species', 'purposes', 'severity', 'severityNum']);
+      }
+
       req.datatable.data.rows = req.datatable.data.rows.map((row, idx) => ({ rowNum: idx + 1, ...row }));
       next();
     }
