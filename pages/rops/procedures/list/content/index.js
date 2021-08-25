@@ -148,4 +148,6 @@ const condensedFields = merge({}, baseContent.fields, {
   }
 });
 
-module.exports = merge({}, baseContent, { condensedFields });
+const content = { noDataWarning: '*No procedures added yet*' };
+
+module.exports = merge({}, baseContent, { condensedFields }, content);
