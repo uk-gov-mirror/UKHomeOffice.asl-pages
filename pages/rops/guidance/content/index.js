@@ -1,11 +1,14 @@
 module.exports = {
-  title: 'Guidance',
+  title: 'How to complete your return',
   subtitle: 'Return of procedures',
-  content: `A procedure is the series of techniques applied to an animal for a particular protocol or experiment.
+  content: `
+   * You will be asked to complete 4 sections of questions before adding details of completed procedures (if relevant). Answering these initial set up questions means you won’t be asked about information not relevant to your project later on.
 
-You should record the actual severity levels experienced by animals during procedures, even if these differ from what was projected in the licence.
+   * Data should be provided on each procedure, ie. each use of an animal. In most cases this means a single protocol.
 
-Include all procedures completed in {{year}} no matter when they started.
+   * You should record the actual severity levels experienced by animals during procedures, even if these differ from what was projected in the licence.
 
-Please note that some questions and options have changed from previous years.`
+   * Include all procedures completed in 2021 no matter when they started.
+
+   * Please note that some questions and options have changed from previous years.`
 };

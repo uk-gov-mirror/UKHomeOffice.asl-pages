@@ -8,7 +8,9 @@ export default function Guidance() {
         title={<Snippet>title</Snippet>}
         subtitle={<Snippet>subtitle</Snippet>}
       />
-      <Snippet>content</Snippet>
+      <div className="rops-guidance-content">
+        <Snippet>content</Snippet>
+      </div>
       <Link page="rops.update" step="procedures" className="govuk-button" label="Continue" />
     </WidthContainer>
   );
