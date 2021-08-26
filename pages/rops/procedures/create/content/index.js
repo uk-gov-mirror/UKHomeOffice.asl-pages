@@ -2,19 +2,6 @@ const { merge } = require('lodash');
 const baseContent = require('../../content');
 const { fields: { productTestingTypes } } = require('../../../update/content');
 
-const severityErrors = [
-  'sub',
-  'mild',
-  'moderate',
-  'severe',
-  'non'
-].reduce((content, severity) => {
-  return {
-    ...content,
-    [`${severity}-severityNum`]: { type: 'This must be an integer' }
-  };
-}, { severityNum: { type: 'This must be an integer' } });
-
 module.exports = merge({}, baseContent, {
   title: 'Add procedures',
   fields: {
@@ -157,7 +144,36 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    ...severityErrors
+    specialTechniqueUsed: {
+      required: 'Select if a special technique was used'
+    },
+    specialTechnique: {
+      required: 'Select the special technique used'
+    },
+    severityNum: {
+      required: 'Enter the number of procedures',
+      type: 'Number of procedures must be an integer'
+    },
+    'sub-severityNum': {
+      required: 'Enter the number of sub-threshold procedures',
+      type: 'Number of sub-threshold procedures must be an integer'
+    },
+    'mild-severityNum': {
+      required: 'Enter the number of mild procedures',
+      type: 'Number of mild procedures must be an integer'
+    },
+    'moderate-severityNum': {
+      required: 'Enter the number of moderate procedures',
+      type: 'Number of moderate procedures must be an integer'
+    },
+    'severe-severityNum': {
+      required: 'Enter the number of severe procedures',
+      type: 'Number of severe procedures must be an integer'
+    },
+    'non-severityNum': {
+      required: 'Enter the number of non-recovery procedures',
+      type: 'Number of non-recovery procedures must be an integer'
+    }
   },
   notifications: {
     added: '{{numAdded}} row{{#plural}}s{{/plural}} added: {{severities}}'
