@@ -20,6 +20,7 @@ module.exports = {
   },
   ropsStatus: {
     show: true,
-    title: 'Status'
+    title: 'Status',
+    sortable: false
   }
 };
