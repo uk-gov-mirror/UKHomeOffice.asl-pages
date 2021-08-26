@@ -97,13 +97,7 @@ export default function Create() {
           </form>
 
           {
-            deletable && (
-              <div className="govuk-grid-row">
-                <div className="govuk-grid-column-two-thirds">
-                  <DeleteButton />
-                </div>
-              </div>
-            )
+            deletable && <DeleteButton />
           }
         </div>
         <Sidebar>
