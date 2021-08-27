@@ -98,7 +98,7 @@ module.exports = {
         'routine-monoclonal',
         'routine-other'
       ];
-      return hasPurpose('regulatory')(req) && without(regulatorySubpurposes, nopes).length;
+      return hasPurpose('regulatory')(req) && without(regulatorySubpurposes, ...nopes).length;
     }
   },
   'translational-subpurposes': {
