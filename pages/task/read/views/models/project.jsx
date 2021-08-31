@@ -169,11 +169,7 @@ export default function Project({ task }) {
               !!additionalEstablishments.length && (
                 <Fragment>
                   <h3><Snippet>additional-establishments.title</Snippet></h3>
-                  <p>
-                    <Snippet>additional-establishments.content</Snippet>
-                    {' '}
-                    <EstablishmentLinks establishments={additionalEstablishments} showLink={isAsru} />
-                  </p>
+                  <EstablishmentLinks establishments={additionalEstablishments} showLink={isAsru} />
                 </Fragment>
               )
             }

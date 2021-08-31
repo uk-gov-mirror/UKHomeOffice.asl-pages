@@ -56,8 +56,7 @@ module.exports = {
     new: 'New establishment'
   },
   'additional-establishments': {
-    title: 'Additional establishments',
-    content: 'Consultation required with inspectors for'
+    title: 'Additional establishments'
   },
   declarations: {
     'pel-holder': {

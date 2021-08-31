@@ -22,21 +22,16 @@ function EstablishmentLink({ establishment, showLink }) {
 
 export default function EstablishmentLinks({ establishments, showLink }) {
   return (
-    <span>
+    <ul>
       {
         sortBy(establishments, 'name').map((establishment, index) => {
-          const isLastItem = index === establishments.length - 1;
-          const showComma = index > 0 && !isLastItem;
-          const showAnd = isLastItem && establishments.length > 1;
           return (
-            <Fragment key={index}>
-              { showComma && <span>, </span> }
-              { showAnd && <span> and </span> }
+            <li key={index}>
               <EstablishmentLink key={index} establishment={establishment} showLink={showLink} />
-            </Fragment>
+            </li>
           );
         })
       }
-    </span>
+    </ul>
   );
 }
