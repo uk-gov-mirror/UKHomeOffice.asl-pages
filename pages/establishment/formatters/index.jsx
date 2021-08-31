@@ -1,5 +1,6 @@
 import React from 'react';
 import capitalize from 'lodash/capitalize';
+import { Snippet } from '@asl/components';
 
 const listFormatter = list => {
   if (!list || list.length < 1) {
@@ -12,6 +13,9 @@ const listFormatter = list => {
 export default {
   address: {
     format: (value) => <span className="preserve-whitespace">{value}</span>
+  },
+  country: {
+    format: value => value ? <Snippet>{ `fields.country.options.${value}` }</Snippet> : '-'
   },
   licences: {
     format: listFormatter

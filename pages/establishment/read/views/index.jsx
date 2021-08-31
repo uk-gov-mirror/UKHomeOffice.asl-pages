@@ -60,6 +60,9 @@ const Index = ({
             <dt><Snippet>address</Snippet></dt>
             <dd>{ establishment.address ? establishment.address : '-' }</dd>
 
+            <dt><Snippet>country.label</Snippet></dt>
+            <dd><Snippet>{ `country.${establishment.country || 'unknown'}` }</Snippet></dd>
+
             {
               establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
             }
