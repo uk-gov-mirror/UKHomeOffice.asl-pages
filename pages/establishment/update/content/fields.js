@@ -5,6 +5,15 @@ module.exports = {
   address: {
     label: 'Address'
   },
+  country: {
+    label: 'Country',
+    options: {
+      england: 'England',
+      wales: 'Wales',
+      scotland: 'Scotland',
+      ni: 'Northern Ireland'
+    }
+  },
   licences: {
     label: 'Licensed to carry out',
     options: {

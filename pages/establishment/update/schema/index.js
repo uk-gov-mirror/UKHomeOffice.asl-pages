@@ -1,6 +1,7 @@
 const content = require('../content');
 const { toArray, toBoolean } = require('../../../../lib/utils');
 const { uniq } = require('lodash');
+const { establishmentCountries } = require('@asl/constants');
 
 const licenceOptions = ['supplying', 'breeding', 'procedure'];
 const authorisationTypeOptions = ['killing', 'rehomes'];
@@ -22,6 +23,11 @@ module.exports = {
   address: {
     inputType: 'textarea',
     validate: ['required']
+  },
+  country: {
+    inputType: 'radioGroup',
+    validate: ['required'],
+    options: establishmentCountries
   },
   licences: {
     inputType: 'checkboxGroup',

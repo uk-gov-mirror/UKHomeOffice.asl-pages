@@ -3,6 +3,14 @@ module.exports = {
     title: 'Establishment licence'
   },
   address: 'Address',
+  country: {
+    label: 'Country',
+    england: 'England',
+    wales: 'Wales',
+    scotland: 'Scotland',
+    ni: 'Northern Ireland',
+    unknown: 'Not specified'
+  },
   licenced: {
     title: 'Licensed to carry out',
     procedure: 'Regulated procedures on protected animals',
