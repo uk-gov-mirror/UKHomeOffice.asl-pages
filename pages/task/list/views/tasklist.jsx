@@ -34,7 +34,7 @@ function TaskFilters({ hasTasks, progressOptions }) {
     console.log({queryString, queryParams, filters, filterActive});
 
     setPplFilterActive(filterActive);
-  });
+  }, [pplFilterActive]);
 
   return (
     <div className="task-filters">
