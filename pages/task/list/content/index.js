@@ -20,6 +20,31 @@ module.exports = {
     completed: 'Completed',
     myTasks: 'My tasks'
   },
+  filters: {
+    progress: {
+      label: 'By status:',
+      options: {
+        outstanding: 'Outstanding',
+        inProgress: 'In progress',
+        completed: 'Completed',
+        myTasks: 'My tasks'
+      }
+    },
+    licence: {
+      label: 'By category:'
+    },
+    pplType: {
+      label: 'By PPL type:',
+      options: {
+        applications: 'Applications',
+        amendments: 'Amendments',
+        transfers: 'Transfers',
+        continuations: 'Project continuations',
+        hasDeadline: 'Deadline started',
+        ra: 'Retrospective assessments'
+      }
+    }
+  },
   'no-tasks': {
     outstanding: 'You have no outstanding tasks',
     inProgress: 'You have no tasks in progress',

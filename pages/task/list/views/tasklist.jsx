@@ -1,65 +1,86 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import {
-  Acronym,
-  Snippet,
-  LinkFilter,
-  FilterSummary,
-  Panel,
-  Tabs
-} from '@asl/components';
-
+import React, { Fragment, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { parse } from 'qs';
+import get from 'lodash/get';
+import { Acronym, Snippet, LinkFilter, FilterSummary, Panel, Tabs } from '@asl/components';
 import Table from './table';
 
 const selectivelyUppercase = filter => {
   return filter === 'profile' ? 'Profile' : filter.toUpperCase();
 };
 
-const Filters = () => (
-  <Fragment>
+function LicenceTypeFilter({ label }) {
+  return (
     <LinkFilter
       prop="licence"
+      label={label || <Snippet>filters.licence.label</Snippet>}
       formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
       append={['pil', 'ppl', 'pel', 'profile']}
     />
-    <div className="table-heading">
-      <FilterSummary resultType="tasks" />
-    </div>
-  </Fragment>
-);
+  );
+}
 
-const StatusFilters = ({ tabs, progress }) => {
-  if (!tabs.length) {
-    return null;
-  }
+function TaskFilters({ hasTasks, progressOptions }) {
+  const [pplFilterActive, setPplFilterActive] = useState(false);
+
+  useEffect(() => {
+    console.log('USE EFFECT!');
+
+    const queryString = window.location.search.replace('?', '');
+    const queryParams = parse(queryString);
+    const filters = queryParams.filters;
+    const filterActive = get(filters, 'licence', []).includes('ppl');
+
+    console.log({queryString, queryParams, filters, filterActive});
+
+    setPplFilterActive(filterActive);
+  });
 
   return (
-    <div className="link-filter no-margin">
-      <label>Status:</label>
-      <ul>
-        {
-          tabs.map(tab => (
-            <li key={tab}>
-              {
-                progress === tab
-                  ? <Snippet>{ `tabs.${tab}` }</Snippet>
-                  : <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>
-              }
-            </li>
-          ))
-        }
-      </ul>
+    <div className="task-filters">
+      <p>Filter results:</p>
+      <LinkFilter
+        label={<Snippet>filters.progress.label</Snippet>}
+        prop="progress"
+        formatter={filter => <Snippet>{`filters.progress.options.${filter}`}</Snippet>}
+        options={progressOptions}
+        showAll={false}
+      />
+
+      { hasTasks && <LicenceTypeFilter /> }
+
+      {
+        pplFilterActive &&
+          <LinkFilter
+            label={<Snippet>filters.pplType.label</Snippet>}
+            prop="pplType"
+            formatter={filter => <Snippet>{`filters.pplType.options.${filter}`}</Snippet>}
+            append={['applications', 'amendments', 'transfers', 'continuations', 'hasDeadline', 'ra']}
+          />
+      }
     </div>
   );
-};
+}
 
-const Tasklist = ({
-  workflowConnectionError,
-  tabs = [],
-  progress,
-  hasTasks,
-  displayTabs = true
-}) => {
+function TaskTabs({ tabs, selected, hasTasks }) {
+  return (
+    <Fragment>
+      {
+        !!tabs.length && <Tabs active={selected}>
+          { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
+        </Tabs>
+      }
+      { hasTasks && <LicenceTypeFilter label="Filter by" /> }
+    </Fragment>
+  );
+}
+
+export default function Tasklist() {
+  const { workflowConnectionError, isAsruUser, progressOptions = [] } = useSelector(state => state.static);
+  const taskCount = useSelector(state => state.datatable.pagination.totalCount);
+  const progress = useSelector(state => state.static.progress) || progressOptions[0];
+  const hasTasks = taskCount > 0;
+
   if (workflowConnectionError) {
     return (
       <Panel>
@@ -70,55 +91,28 @@ const Tasklist = ({
     );
   }
 
-  progress = progress || tabs[0];
-  const selected = tabs.indexOf(progress);
-
   return (
     <Fragment>
       {
-        displayTabs
-          ? (
-            <Fragment>
-              {
-                !!tabs.length && <Tabs active={selected}>
-                  { tabs.map(tab => <a key={tab} href={`?progress=${tab}`}><Snippet>{ `tabs.${tab}` }</Snippet></a>) }
-                </Tabs>
-              }
-            </Fragment>
-          )
-          : <StatusFilters tabs={tabs} progress={progress} />
+        isAsruUser
+          ? <TaskFilters hasTasks={hasTasks} progressOptions={progressOptions} />
+          : <TaskTabs hasTasks={hasTasks} tabs={progressOptions} selected={progressOptions.indexOf(progress)} />
       }
+
       {
-        hasTasks && <Fragment>
-          <Filters />
-          <Table />
-        </Fragment>
-      }
-      {
-        !hasTasks && <p><Snippet>{ `no-tasks.${progress}` }</Snippet></p>
+        hasTasks
+          ? <Fragment>
+            <div className="table-heading">
+              <FilterSummary resultType="tasks" />
+            </div>
+            <Table />
+          </Fragment>
+
+          : <Fragment>
+            <p><Snippet>{ `no-tasks.${progress}` }</Snippet></p>
+            <hr />
+          </Fragment>
       }
     </Fragment>
   );
-};
-
-const mapStateToProps = ({
-  static: {
-    workflowConnectionError,
-    tabs,
-    progress
-  },
-  datatable: {
-    pagination: {
-      totalCount: taskCount
-    }
-  }
-}) => {
-  return {
-    workflowConnectionError,
-    tabs,
-    progress,
-    hasTasks: taskCount > 0
-  };
-};
-
-export default connect(mapStateToProps)(Tasklist);
+}
