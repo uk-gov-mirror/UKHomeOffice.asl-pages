@@ -42,7 +42,7 @@ module.exports = merge({}, { fields, guidance }, {
   },
   unsubmit: {
     title: 'Correct return',
-    content: 'Tell the Home Office if there are errors in this return.',
+    content: 'Recall and resubmit this return if there are errors.',
     action: 'Correct return'
   },
   notifications: {
