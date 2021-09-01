@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { parse } from 'qs';
 import get from 'lodash/get';
 import { Acronym, Snippet, LinkFilter, FilterSummary, Panel, Tabs } from '@asl/components';
 import Table from './table';
@@ -21,20 +20,8 @@ function LicenceTypeFilter({ label }) {
 }
 
 function TaskFilters({ hasTasks, progressOptions }) {
-  const [pplFilterActive, setPplFilterActive] = useState(false);
-
-  useEffect(() => {
-    console.log('USE EFFECT!');
-
-    const queryString = window.location.search.replace('?', '');
-    const queryParams = parse(queryString);
-    const filters = queryParams.filters;
-    const filterActive = get(filters, 'licence', []).includes('ppl');
-
-    console.log({queryString, queryParams, filters, filterActive});
-
-    setPplFilterActive(filterActive);
-  }, [pplFilterActive]);
+  const filters = useSelector(state => state.datatable.filters);
+  const pplFilterActive = get(filters, 'active.licence', []).includes('ppl');
 
   return (
     <div className="task-filters">
