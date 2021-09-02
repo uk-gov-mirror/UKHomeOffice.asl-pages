@@ -1,14 +1,35 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
+import sortBy from 'lodash/sortBy';
 import { Link, ExpiryDate, Snippet, Countdown } from '@asl/components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
-import EstablishmentLinks from '../../task/read/views/components/establishment-links';
 
 const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended'];
 const good = ['active'];
+
+function EstablishmentList({ establishments }) {
+  return (
+    <Fragment>
+      {
+        sortBy(establishments, 'name').map((establishment, index) => {
+          const isLastItem = index === establishments.length - 1;
+          const showComma = index > 0 && !isLastItem;
+          const showAnd = isLastItem && establishments.length > 1;
+          return (
+            <Fragment key={index}>
+              { showComma && <Fragment>, </Fragment> }
+              { showAnd && <Fragment> and </Fragment> }
+              { establishment.name || establishment['establishment-name'] }
+            </Fragment>
+          );
+        })
+      }
+    </Fragment>
+  );
+}
 
 const formatters = establishmentId => ({
   title: {
@@ -33,8 +54,8 @@ const formatters = establishmentId => ({
                 {
                   hasAdditionalAvailability && (
                     <li>
-                      <span>Additional availability at </span>
-                      <EstablishmentLinks establishments={aaEstablishments} showLink={false} />
+                      <Fragment>Additional availability at </Fragment>
+                      <EstablishmentList establishments={aaEstablishments} />
                     </li>
                   )
                 }
