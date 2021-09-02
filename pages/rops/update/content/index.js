@@ -340,7 +340,7 @@ They do not include:
         'qc-pyrogenicity': 'Quality control: Pyrogenicity testing',
         'qc-other': 'Quality control: Other quality controls',
         'routine-blood': 'Routine production: Blood based products',
-        'routine-monoclonal': 'Routine production: Monoclonal antibodies',
+        'routine-monoclonal': 'Routine production: Monoclonal antibodies and polyclonal antisera',
         'routine-other': 'Routine production: Other',
         'toxicity-ld50': 'Toxicity and acute and sub-acute: LD50, LC50',
         'toxicity-other-lethal': 'Toxicity and acute and sub-acute: Other lethal methods',
