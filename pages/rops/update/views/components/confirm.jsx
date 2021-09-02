@@ -162,7 +162,7 @@ export default function Confirm() {
                 <dd>
                   <ul>
                     {
-                      species.map((val, i) => {
+                      (species || []).map((val, i) => {
                         const knownSpecies = ALL_SPECIES.find(s => s.value === val);
                         return <li key={i}>{knownSpecies ? knownSpecies.label : val}</li>;
                       })
@@ -220,7 +220,7 @@ export default function Confirm() {
                       <dd>
                         <ul>
                           {
-                            purpose === 'basic' && rop.basicSubpurposes.map((sub, subIndex) => (
+                            purpose === 'basic' && (rop.basicSubpurposes || []).map((sub, subIndex) => (
                               <li key={subIndex}>
                                 {
                                   getRadioOption('basicSubpurposes', sub)
@@ -232,7 +232,7 @@ export default function Confirm() {
                             ))
                           }
                           {
-                            purpose === 'regulatory' && rop.regulatorySubpurposes.map((sub, subIndex) => (
+                            purpose === 'regulatory' && (rop.regulatorySubpurposes || []).map((sub, subIndex) => (
                               <li key={subIndex}>
                                 {
                                   getRadioOption('regulatorySubpurposes', sub)
@@ -256,7 +256,7 @@ export default function Confirm() {
                             ))
                           }
                           {
-                            purpose === 'translational' && rop.translationalSubpurposes.map((sub, subIndex) => (
+                            purpose === 'translational' && (rop.translationalSubpurposes || []).map((sub, subIndex) => (
                               <li key={subIndex}>
                                 {
                                   getRadioOption('translationalSubpurposes', sub)
@@ -276,7 +276,7 @@ export default function Confirm() {
                             <dd>
                               <ul>
                                 {
-                                  rop.regulatoryLegislation.map((leg, index) => (
+                                  (rop.regulatoryLegislation || []).map((leg, index) => (
                                     <li key={index}>
                                       {
                                         getRadioOption('regulatoryLegislation', leg)
@@ -293,7 +293,7 @@ export default function Confirm() {
                             <dd>
                               <ul>
                                 {
-                                  rop.regulatoryLegislationOrigin.map((leg, index) => (
+                                  (rop.regulatoryLegislationOrigin || []).map((leg, index) => (
                                     <li key={index}>{getRadioOption('regulatoryLegislationOrigin', leg)}</li>
                                   ))
                                 }
