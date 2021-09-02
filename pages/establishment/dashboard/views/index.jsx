@@ -47,9 +47,6 @@ function DashboardLink ({ page, route, ...params }) {
 export default function Index() {
   const { establishment, allowedActions, profile } = useSelector(state => state.static);
   const asruUser = profile.asruUser;
-  const asruAdmin = asruUser && profile.asruAdmin;
-  const inspectors = sortBy(establishment.asru.filter(p => p.asruUser && p.asruInspector), 'lastName');
-  const spocs = sortBy(establishment.asru.filter(p => p.asruUser && p.asruLicensing), 'lastName');
   const holcs = sortBy(establishment.holc, p => p.profile.lastName);
   const openApplication = allowedActions.includes('establishment.update') && establishment.openTasks.find(task => task.data && task.data.model === 'establishment' && task.data.action === 'grant');
   const canApply = establishment.status !== 'active' && allowedActions.includes('establishment.update') && !openApplication;
@@ -107,44 +104,6 @@ export default function Index() {
                   </dd>
                 </Fragment>
             }
-
-            <dt><Snippet>inspectors</Snippet></dt>
-            <dd>
-              { inspectors.length < 1 &&
-                <p className="inspector">None</p>
-              }
-
-              {
-                inspectors.map(inspector => (
-                  <p key={`${inspector.id}`} className="inspector">
-                    <Link page="globalProfile" profileId={inspector.id} label={`${inspector.firstName} ${inspector.lastName}`} />
-                  </p>
-                ))
-              }
-
-              { asruAdmin &&
-                <Link page="establishment.asru" asruUser="inspectors" label={ <Snippet>pages.edit</Snippet> } />
-              }
-            </dd>
-
-            <dt><Snippet>spoc</Snippet></dt>
-            <dd>
-              { spocs.length < 1 &&
-                <p className="spoc">None</p>
-              }
-
-              {
-                spocs.map(spoc => (
-                  <p key={`${spoc.id}`} className="spoc">
-                    <Link page="globalProfile" profileId={spoc.id} label={`${spoc.firstName} ${spoc.lastName}`} />
-                  </p>
-                ))
-              }
-
-              { asruAdmin &&
-                <Link page="establishment.asru" asruUser="spocs" label={ <Snippet>pages.edit</Snippet> } />
-              }
-            </dd>
 
             {
               allowedActions.includes('establishment.sharedKey') && establishment.sharedKey &&
