@@ -1,4 +1,4 @@
-const { flatten, get, intersection, every } = require('lodash');
+const { flatten, get, intersection, every, omit } = require('lodash');
 const { toBoolean, toArray } = require('../../../../lib/utils');
 
 module.exports = req => {
@@ -107,7 +107,7 @@ module.exports = req => {
     };
   }
 
-  return {
+  const schema = {
     proceduresCompleted: {
       inputType: 'radioGroup',
       format: toBoolean,
@@ -523,4 +523,8 @@ module.exports = req => {
       ].map(disableProcOpts('specialTechnique'))
     }
   };
+
+  // new genetic line question should only be asked for basic or translational research
+  const purposes = get(req, 'rop.purposes', []);
+  return (purposes.includes('basic') || purposes.includes('translational')) ? schema : omit(schema, 'newGeneticLine');
 };
