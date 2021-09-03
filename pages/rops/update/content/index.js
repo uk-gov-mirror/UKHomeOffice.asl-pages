@@ -343,7 +343,7 @@ They do not include:
         'routine-monoclonal': 'Routine production: Monoclonal antibodies and polyclonal antisera',
         'routine-other': 'Routine production: Other',
         'toxicity-ld50': 'Toxicity and acute and sub-acute: LD50, LC50',
-        'toxicity-other-lethal': 'Toxicity and acute and sub-acute: Other lethal methods',
+        'other-toxicity-lethal': 'Toxicity and acute and sub-acute: Other lethal methods',
         'toxicity-non-lethal': 'Toxicity and acute and sub-acute: Non lethal methods',
         'toxicity-skin': 'Toxicity and skin irritation/corrosion',
         'other-efficacy': 'Other efficacy and tolerance testing',
@@ -386,6 +386,9 @@ They do not include:
     },
     regulatorySubpurposesOtherToxicityEcotoxicity: {
       label: 'Specify other toxicity and ecotoxicity'
+    },
+    regulatorySubpurposesOtherToxicityLethal: {
+      label: 'Specify other lethal methods'
     },
     regulatoryLegislation: {
       label: 'Which of the following types of legislation applies?',

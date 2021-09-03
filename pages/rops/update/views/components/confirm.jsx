@@ -252,6 +252,9 @@ export default function Confirm() {
                                 {
                                   sub === 'other-toxicity-ecotoxicity' && <Inset><List items={rop.regulatorySubpurposesOtherToxicityEcotoxicity} /></Inset>
                                 }
+                                {
+                                  sub === 'other-toxicity-lethal' && <Inset><List items={rop.regulatorySubpurposesOtherToxicityLethal} /></Inset>
+                                }
                               </li>
                             ))
                           }

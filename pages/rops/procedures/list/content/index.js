@@ -94,7 +94,7 @@ const condensedFields = merge({}, baseContent.fields, {
       'other-efficacy': 'Other efficacy/tolerance testing:',
       'toxicity-ld50': 'Acute/sub-acute toxicity: LD50, LC50',
       'toxicity-non-lethal': 'Acute/sub-acute toxicity: Non lethal method',
-      'toxicity-other-lethal': 'Acute/sub-acute toxicity: Other lethal method:',
+      'other-toxicity-lethal': 'Acute/sub-acute toxicity: Other lethal method:',
       'toxicity-skin': 'Toxicity & skin irritation',
       'toxicity-skin-sensation': 'Toxicity & skin sensation',
       'toxicity-eye-irritation': 'Toxicity & eye irritation',
