@@ -1,4 +1,4 @@
-const { get, omit } = require('lodash');
+const { get, set, omit } = require('lodash');
 const { NotFoundError } = require('@asl/service/errors');
 const defaultSchema = require('./schema');
 const datatable = require('../../common/routers/datatable');
@@ -23,8 +23,11 @@ module.exports = ({
       return next(new NotFoundError());
     }
 
+    if (!get(req.query, 'filters.progress[0]')) {
+      set(req.query, 'filters.progress', [progress]); // set a default progress (first progress option)
+    }
+
     res.locals.static.progressOptions = progressOptions;
-    req.datatable.progress = progress;
     req.datatable.sort = { column: 'updatedAt', ascending: false };
     if (req.user.profile.asruUser && ['myTasks', 'outstanding'].includes(progress)) {
       req.datatable.sort.ascending = true;
@@ -33,7 +36,7 @@ module.exports = ({
     next();
   },
   getApiPath: (req, res, next) => {
-    const progress = req.datatable.progress;
+    const progress = get(req.query, 'filters.progress[0]');
     req.datatable.apiPath = [req.datatable.apiPath, { query: { ...req.query, progress } }];
     next();
   },
@@ -47,14 +50,6 @@ module.exports = ({
     const lastName = get(req, 'user.profile.lastName');
     res.locals.static.profileName = `${firstName} ${lastName}`;
     res.locals.static.isAsruUser = req.user.profile.asruUser;
-    res.locals.static.activeFilters = req.query.filters;
-    res.locals.static.progress = req.datatable.progress;
-    res.locals.datatable.progress = req.datatable.progress;
-
-    if (req.datatable.progress === 'completed') {
-      res.locals.static.content.fields.updatedAt.label = 'Completed';
-    }
-
     next();
   }
 })({ schema, apiPath });
