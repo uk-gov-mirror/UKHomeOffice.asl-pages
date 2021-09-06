@@ -65,7 +65,7 @@ function Filters() {
         formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
         append={['pilh', 'pplh', 'admin']}
         prepend={['named']}
-        showAll={{ position: 'before', label: 'Show all' }}
+        showAll={{ position: 'before', label: 'All people' }}
       />
 
       {
