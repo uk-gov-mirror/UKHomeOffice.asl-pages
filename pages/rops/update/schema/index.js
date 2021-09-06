@@ -525,6 +525,6 @@ module.exports = req => {
   };
 
   // new genetic line question should only be asked for basic or translational research
-  const purposes = get(req, 'rop.purposes', []);
+  const purposes = get(req, 'rop.purposes') || [];
   return (purposes.includes('basic') || purposes.includes('translational')) ? schema : omit(schema, 'newGeneticLine');
 };
