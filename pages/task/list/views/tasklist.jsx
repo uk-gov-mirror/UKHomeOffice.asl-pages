@@ -64,9 +64,12 @@ function TaskTabs({ tabs, selected, hasTasks }) {
 
 export default function Tasklist() {
   const { workflowConnectionError, isAsruUser, progressOptions = [] } = useSelector(state => state.static);
-  const taskCount = useSelector(state => state.datatable.pagination.totalCount);
-  const progress = useSelector(state => state.static.progress) || progressOptions[0];
-  const hasTasks = taskCount > 0;
+  const { filters, pagination } = useSelector(state => state.datatable);
+  const progress = get(filters, 'active.progress[0]') || progressOptions[0];
+  const hasTasks = pagination.totalCount > 0;
+
+  // modify the updatedAt column label when looking at completed tasks
+  const formatters = (progress === 'completed') ? { updatedAt: { label: 'Completed' } } : {};
 
   if (workflowConnectionError) {
     return (
@@ -92,7 +95,7 @@ export default function Tasklist() {
             <div className="table-heading">
               <FilterSummary resultType="tasks" />
             </div>
-            <Table />
+            <Table formatters={formatters} />
           </Fragment>
 
           : <Fragment>

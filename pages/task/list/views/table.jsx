@@ -1,7 +1,8 @@
 import React from 'react';
+import merge from 'lodash/merge';
 import { Datatable } from '@asl/components';
-import formatters from '../formatters';
+import taskFormatters from '../formatters';
 
-export default function () {
-  return <Datatable formatters={formatters} className="tasklist" />;
+export default function ({ formatters = {} }) {
+  return <Datatable formatters={merge({}, taskFormatters, formatters)} className="tasklist" />;
 }
