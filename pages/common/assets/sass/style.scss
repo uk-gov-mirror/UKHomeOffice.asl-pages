@@ -815,3 +815,12 @@ section#rops {
     margin-bottom: $govuk-gutter-half;
   }
 }
+
+.task-filters {
+  .link-filter {
+    ul {
+      margin: 0;
+      margin-bottom: $govuk-gutter-half;
+    }
+  }
+}

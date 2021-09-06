@@ -83,7 +83,7 @@ export default function Projects() {
       {
         status === 'inactive-statuses' &&
           <LinkFilter
-            showAllLabel="Show all"
+            showAll={{ position: 'before', label: 'Show all' }}
             prop="retrospective-assessment"
             append={Object.keys(raFilters)}
             formatter={filterKey => (raFilters[filterKey])}
