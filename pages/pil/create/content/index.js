@@ -7,7 +7,7 @@ module.exports = {
   catE: {
     title: 'Category E',
     subtitle:
-      'To apply for a Category E personal licence, or to add category E procedures to an existing licence, please contact your establishment’s SPoC for advice or email [aspa.london@homeoffice.gov.uk](mailto:aspa.london@homeoffice.gov.uk).'
+      'To apply for an education and training (category E) licence, or to amend an existing licence to cover education and training, contact the course provider.'
   },
   buttons: {
     apply: 'Apply now'
