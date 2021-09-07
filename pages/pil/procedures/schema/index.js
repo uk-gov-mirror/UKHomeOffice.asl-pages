@@ -7,7 +7,12 @@ const procedureOptions = procedureCodes.map(code => (
     label: code + '. ' + procedureDefinitions[code],
     value: code,
     reveal: code === 'D' || code === 'F'
-      ? { notes: { inputType: 'textarea' } }
+      ? {
+        [`notesCat${code}`]: {
+          inputType: 'textarea',
+          validate: ['required']
+        }
+      }
       : null
   }
 ));

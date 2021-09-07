@@ -16,6 +16,12 @@ module.exports = {
   errors: {
     procedures: {
       required: 'You need to select at least one procedure'
+    },
+    notesCatD: {
+      required: 'Provide evidence of competency in the use of neuromuscular blocking agents'
+    },
+    notesCatF: {
+      required: 'Specify the type of regulated procedure'
     }
   },
   pil: {
