@@ -388,7 +388,12 @@ module.exports = req => {
           }
         },
         'toxicity-ld50',
-        'toxicity-other-lethal',
+        {
+          value: 'other-toxicity-lethal',
+          reveal: {
+            regulatorySubpurposesOtherToxicityLethal: getOtherField('regulatorySubpurposes')
+          }
+        },
         'toxicity-non-lethal',
         'toxicity-skin',
         'toxicity-skin-sensation',

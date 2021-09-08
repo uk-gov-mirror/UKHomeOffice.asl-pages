@@ -215,6 +215,12 @@ function getPurposes(req) {
                   reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesOtherToxicity', legislationFields)
                 };
               }
+              if (rs === 'other-toxicity-lethal') {
+                return {
+                  value: rs,
+                  reveal: getOtherField('subpurposeOther', 'regulatorySubpurposesOtherToxicityLethal', legislationFields)
+                };
+              }
               return {
                 value: rs,
                 reveal: legislationFields

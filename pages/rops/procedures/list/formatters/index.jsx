@@ -27,7 +27,8 @@ export function getOtherValue(field, rop) {
     'qc-other': 'regulatorySubpurposesQcOther',
     'other-efficacy': 'regulatorySubpurposesOtherEfficacy',
     'other-toxicity': 'regulatorySubpurposesOtherToxicity',
-    'other-toxicity-ecotoxicity': 'regulatorySubpurposesOtherToxicityEcotoxicity'
+    'other-toxicity-ecotoxicity': 'regulatorySubpurposesOtherToxicityEcotoxicity',
+    'other-toxicity-lethal': 'regulatorySubpurposesOtherToxicityLethal'
   };
   return get(rop, otherFields[field]);
 }
@@ -82,6 +83,7 @@ const formatters = rop => {
           ...(rop.regulatorySubpurposesQcOther || []),
           ...(rop.regulatorySubpurposesOtherEfficacy || []),
           ...(rop.regulatorySubpurposesOtherToxicityEcotoxicity || []),
+          ...(rop.regulatorySubpurposesOtherToxicityLethal || []),
           ...(rop.regulatorySubpurposesOtherToxicity || []),
           ...(rop.translationalSubpurposesOther || [])
         ];
