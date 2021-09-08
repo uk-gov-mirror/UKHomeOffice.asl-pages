@@ -108,7 +108,8 @@ module.exports = {
   },
   'new-genetic-line': {
     fields: ['newGeneticLine'],
-    section: 'purposes'
+    section: 'purposes',
+    include: req => hasPurpose('basic')(req) || hasPurpose('translational')(req)
   },
   'product-testing': {
     fields: ['productTesting'],
