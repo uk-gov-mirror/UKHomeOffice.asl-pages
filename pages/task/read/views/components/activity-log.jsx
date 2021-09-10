@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
-import { daysSinceDate, isDeadlineExtension } from '../../../../../lib/utils';
+import { daysSinceDate, isDeadlineExtension, isTrueish } from '../../../../../lib/utils';
 import PplDeclarations from './ppl-declarations';
 
 function ProfileLink({ id, name, establishmentId, asruUser }) {
@@ -144,8 +144,8 @@ function ExtraProjectMeta({ item, task }) {
   let versionId = get(item, 'event.data.data.version');
 
   const status = get(item, 'event.status');
-  const isEndorsed = get(item, 'event.data.meta.authority', '').toLowerCase() === 'yes';
-  const isAwerbed = get(item, 'event.data.meta.awerb', '').toLowerCase() === 'yes';
+  const isEndorsed = isTrueish(get(item, 'event.data.meta.authority'));
+  const isAwerbed = isTrueish(get(item, 'event.data.meta.awerb'));
   const requiresAdminInteraction = !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
 
   if (!versionId) {
