@@ -42,6 +42,24 @@ module.exports = () => {
             req.version = data;
             req.project = data.project;
           })
+          .then(() => {
+            if (req.project.transferEstablishmentId && req.project.transferProjectId) {
+              const params = {
+                id: req.project.transferProjectId,
+                establishmentId: req.project.transferEstablishmentId,
+                licenceHolderId: req.project.licenceHolderId
+              };
+              return req.user.can('project.read.single', params)
+                .then(can => {
+                  if (can) {
+                    return req.api(`/establishment/${req.project.transferEstablishmentId}/project/${req.project.transferProjectId}`)
+                      .then(({ json: { data } }) => {
+                        res.locals.static.transferredProject = data;
+                      });
+                  }
+                });
+            }
+          })
           .then(() => next())
           .catch(next);
       }
