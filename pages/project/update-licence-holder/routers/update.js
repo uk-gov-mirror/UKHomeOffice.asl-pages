@@ -43,9 +43,16 @@ module.exports = () => {
         .catch(next);
     },
     process(req, res, next) {
-      if (!isUndefined(req.form.values['experience-projects'])) {
-        req.form.values['experience-projects'] = req.form.values['experience-projects'] === 'true';
-      }
+      // map boolean radio button options to actual booleans
+      const fields = [
+        'experience-projects',
+        'training-has-delivered'
+      ];
+      fields.forEach(key => {
+        if (!isUndefined(req.form.values[key])) {
+          req.form.values[key] = req.form.values[key] === 'true';
+        }
+      });
       next();
     },
     locals(req, res, next) {
