@@ -2,7 +2,7 @@ module.exports = {
   fields: {
     procedures: {
       label: '',
-      hint: 'Select each category that you want your licence to cover.'
+      hint: 'Select all that apply'
     },
     notesCatD: {
       label: 'Evidence of competency',
@@ -32,5 +32,5 @@ module.exports = {
   buttons: {
     submit: 'Continue'
   },
-  'cat-e': 'To apply for category E, contact the course provider.'
+  'cat-e': 'To amend a licence to cover procedures carried out for education or training purposes (category E), contact the course provider.'
 };
