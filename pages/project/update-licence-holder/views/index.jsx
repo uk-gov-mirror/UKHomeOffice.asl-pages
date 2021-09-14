@@ -36,7 +36,7 @@ const FormBody = ({ fields, model, formFields, submit, project }) => {
       onFieldChange={(key, value) => setValues({ ...values, [key]: value })}
     />
     {
-      Object.keys(values).filter(key => !['licenceHolderId', 'experience-projects', 'comments'].includes(key)).map(key => (
+      Object.keys(values).filter(key => !['licenceHolderId', 'experience-projects', 'training-has-delivered', 'comments'].includes(key)).map(key => (
         <input key={key} type="hidden" name={key} value={typeof values[key] === 'string' ? values[key] : JSON.stringify(values[key])} />
       ))
     }
