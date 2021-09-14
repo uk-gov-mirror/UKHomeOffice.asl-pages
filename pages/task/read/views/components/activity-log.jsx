@@ -139,7 +139,10 @@ function ExtraProjectMeta({ item, task }) {
     return null;
   }
 
-  const versionId = get(item, 'event.data.data.version');
+  let establishmentId = get(item, 'event.data.modelData.establishmentId');
+  let projectId = get(item, 'event.data.modelData.id');
+  let versionId = get(item, 'event.data.data.version');
+
   const status = get(item, 'event.status');
   const isEndorsed = get(item, 'event.data.meta.authority', '').toLowerCase() === 'yes';
   const isAwerbed = get(item, 'event.data.meta.awerb', '').toLowerCase() === 'yes';
@@ -150,14 +153,24 @@ function ExtraProjectMeta({ item, task }) {
   }
 
   if (status === 'resolved') {
+    const transferredProject = useSelector(state => state.static.transferredProject);
+
+    if (transferredProject) {
+      // transferredProject is only set if the user has permission to view it
+      // otherwise we default to the version at the outgoing establishment
+      establishmentId = transferredProject.establishmentId;
+      projectId = transferredProject.id;
+      versionId = transferredProject.granted.id;
+    }
+
     return (
       <div className="version-links">
         <p>
           <Link
             page="projectVersion"
             versionId={versionId}
-            establishmentId={task.data.establishmentId}
-            projectId={task.data.id}
+            establishmentId={establishmentId}
+            projectId={projectId}
             label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.granted</Snippet>}
           />
         </p>
@@ -165,8 +178,8 @@ function ExtraProjectMeta({ item, task }) {
           <Link
             page="projectVersion.nts"
             versionId={versionId}
-            establishmentId={task.data.establishmentId}
-            projectId={task.data.id}
+            establishmentId={establishmentId}
+            projectId={projectId}
             label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.nts</Snippet>}
           />
         </p>
@@ -182,8 +195,8 @@ function ExtraProjectMeta({ item, task }) {
             <Link
               page="projectVersion"
               versionId={versionId}
-              establishmentId={task.data.establishmentId}
-              projectId={task.data.id}
+              establishmentId={establishmentId}
+              projectId={projectId}
               label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.version</Snippet>}
             />
           </p>
