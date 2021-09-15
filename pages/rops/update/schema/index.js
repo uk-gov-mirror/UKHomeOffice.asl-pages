@@ -304,8 +304,8 @@ module.exports = req => {
         'required'
       ],
       options: [
-        true,
-        false
+        false,
+        true
       ]
     },
     purposes: {
@@ -510,8 +510,8 @@ module.exports = req => {
         'required'
       ],
       options: [
-        true,
-        false
+        false,
+        true
       ]
     },
     productTestingTypes: {
