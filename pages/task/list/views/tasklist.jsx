@@ -42,7 +42,7 @@ function TaskFilters({ hasTasks, progressOptions }) {
             label={<Snippet>filters.pplType.label</Snippet>}
             prop="pplType"
             formatter={filter => <Snippet>{`filters.pplType.options.${filter}`}</Snippet>}
-            append={['applications', 'amendments', 'transfers', 'continuations', 'hasDeadline', 'ra']}
+            append={['applications', 'amendments', 'revocations', 'transfers', 'continuations', 'hasDeadline', 'ra']}
           />
       }
     </div>
