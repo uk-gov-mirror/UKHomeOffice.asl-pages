@@ -38,6 +38,7 @@ module.exports = {
       options: {
         applications: 'Applications',
         amendments: 'Amendments',
+        revocations: 'Revocations',
         transfers: 'Transfers',
         continuations: 'Project continuations',
         hasDeadline: 'Deadline started',
