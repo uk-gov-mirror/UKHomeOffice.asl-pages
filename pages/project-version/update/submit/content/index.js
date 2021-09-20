@@ -6,7 +6,9 @@ module.exports = {
   },
   declaration: {
     title: 'Declaration',
-    content: 'You confirm the establishment licence holder consents to you endorsing this application on their behalf.'
+    content: `By endorsing this {{type}}, I agree that:
+      * {{licenceHolder}}'s training record is accurate and up to date.
+      * The non-technical summary uses everyday language and contains no information that could identify people, places or intellectual property.`
   },
   fields: {
     authority: {
@@ -27,7 +29,11 @@ module.exports = {
     },
     'awerb-exempt': {
       label: 'Is this amendment exempt from a review by the AWERB of each relevant establishment?',
-      hint: 'Only amendments that don\'t change the meaning of the licence, such as spelling corrections are exempt from an AWERB review.'
+      hint: 'Only amendments that don\'t change the meaning of the licence, such as spelling corrections are exempt from an AWERB review.',
+      options: {
+        true: 'Yes',
+        false: 'No'
+      }
     },
     'awerb-dates': {
       label: 'Enter date of application\'s most recent AWERB review', // fallback (overridden by schema field label)
@@ -37,7 +43,11 @@ module.exports = {
       label: 'Why has this amendment not been reviewed by the AWERB of each relevant establishment?'
     },
     ready: {
-      label: 'Has an inspector advised you that this version of your application is ready for assessment?'
+      label: 'Has an inspector advised you that this version of your application is ready for assessment?',
+      options: {
+        true: 'Yes',
+        false: 'No'
+      }
     },
     comment: {
       label: 'Remarks (optional)',

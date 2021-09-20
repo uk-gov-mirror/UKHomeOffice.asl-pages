@@ -78,7 +78,7 @@ module.exports = () => {
       next();
     },
     process: (req, res, next) => {
-      if (req.askAwerb && req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
+      if (req.askAwerb && req.processAwerbDates && req.form.values['awerb-exempt'] !== true) {
         req.awerbEstablishments.forEach(e => {
           req.form.values[`awerb-${e.id}`] = `${req.body[`awerb-${e.id}-year`]}-${req.body[`awerb-${e.id}-month`]}-${req.body[`awerb-${e.id}-day`]}`;
         });
@@ -86,7 +86,7 @@ module.exports = () => {
       next();
     },
     saveValues: (req, res, next) => {
-      if (req.askAwerb && req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
+      if (req.askAwerb && req.processAwerbDates && req.form.values['awerb-exempt'] !== true) {
         const primaryEstablishment = req.project.establishment;
         req.session.form[req.model.id].values['awerb-dates'] = req.awerbEstablishments.map(e => {
           return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };
@@ -128,7 +128,7 @@ module.exports = () => {
     const values = req.session.form[req.model.id].values;
 
     if (transferWithReceivingEstablishment(req.task)) {
-      values['awerb-exempt'] = 'no'; // receiving establishment for transfers can never be 'awerb-exempt'
+      values['awerb-exempt'] = false; // receiving establishment for transfers can never be 'awerb-exempt'
     }
 
     const opts = {

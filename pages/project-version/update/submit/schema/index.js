@@ -1,4 +1,5 @@
 const { omit } = require('lodash');
+const { toBoolean } = require('../../../../../lib/utils');
 
 const getDateField = establishmentName => {
   return {
@@ -41,17 +42,16 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
       inputType: 'radioGroup',
       validate: ['required'],
       automapReveals: true,
+      format: toBoolean,
       options: [
         {
-          label: 'No',
-          value: 'no',
+          value: false,
           reveal: {
             ...awerbDateFields
           }
         },
         {
-          label: 'Yes',
-          value: 'yes',
+          value: true,
           reveal: {
             'awerb-no-review-reason': {
               inputType: 'textarea',
@@ -84,15 +84,10 @@ const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, 
       inputType: 'radioGroup',
       inline: true,
       className: 'smaller',
+      format: toBoolean,
       options: [
-        {
-          value: 'Yes',
-          label: 'Yes'
-        },
-        {
-          value: 'No',
-          label: 'No'
-        }
+        true,
+        false
       ],
       validate: ['required']
     };

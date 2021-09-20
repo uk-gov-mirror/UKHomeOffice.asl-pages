@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react';
 import get from 'lodash/get';
-import upperFirst from 'lodash/upperFirst';
 import { Markdown, Snippet } from '@asl/components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
+import { isTrueish } from '../../../../../lib/utils';
+
+function yn(val) {
+  return val ? 'Yes' : 'No';
+}
 
 export default function PplDeclarations({ task }) {
   if (task.data.model !== 'project') {
@@ -18,13 +22,13 @@ export default function PplDeclarations({ task }) {
   const declarations = get(task, 'meta.payload.meta') || get(task, 'data.meta') || {};
 
   if (!declarations.authority && status === 'endorsed') {
-    declarations.authority = 'Yes';
+    declarations.authority = true;
     // endorsed action needs to display ready status but does not submit it in payload
     declarations.ready = get(task, 'data.meta.ready');
   }
 
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
-  const displayAwerb = !legacyAwerbReviewDate && declarations['awerb-exempt'] !== 'yes';
+  const displayAwerb = !legacyAwerbReviewDate && declarations['awerb-exempt'] !== true;
 
   const primaryAwerb = displayAwerb && declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => awerb.primary)[0];
   const aaAwerbs = (displayAwerb && (declarations['awerb-dates'] && declarations['awerb-dates'].filter(awerb => !awerb.primary && awerb.id !== receivingEstablishmentId))) || [];
@@ -33,10 +37,10 @@ export default function PplDeclarations({ task }) {
   return (
     <div className="declarations">
       {
-        declarations.authority &&
+        isTrueish(declarations.authority) &&
           <dl className="inline-wide">
             <dt><Snippet>declarations.pel-holder.question</Snippet></dt>
-            <dd>{declarations.authority}</dd>
+            <dd>{yn(isTrueish(declarations.authority))}</dd>
           </dl>
       }
 
@@ -44,11 +48,11 @@ export default function PplDeclarations({ task }) {
         isAmendment
           ? <dl className="inline-wide">
             <dt><Snippet>declarations.awerb.question</Snippet></dt>
-            <dd>{upperFirst(declarations.awerb)}</dd>
+            <dd>{yn(isTrueish(declarations.awerb))}</dd>
           </dl>
           : <dl className="inline-wide">
             <dt><Snippet>declarations.ready-for-inspector.question</Snippet></dt>
-            <dd>{declarations.ready || 'No'}</dd>
+            <dd>{yn(isTrueish(declarations.ready))}</dd>
           </dl>
       }
       {
@@ -98,7 +102,7 @@ export default function PplDeclarations({ task }) {
           </Fragment>
       }
       {
-        ((declarations.awerb || '').toLowerCase() === 'no' || declarations['awerb-exempt'] === 'yes') &&
+        (declarations.awerb === false || declarations['awerb-exempt']) &&
           <Fragment>
             <p><strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong></p>
             <Markdown>{declarations['awerb-no-review-reason']}</Markdown>

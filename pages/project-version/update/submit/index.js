@@ -4,6 +4,16 @@ const { page } = require('@asl/service/ui');
 const form = require('../../../common/routers/form');
 const { getSchema } = require('./schema');
 const content = require('./content');
+const { render } = require('mustache');
+
+const trim = value => value.split('\n').map(s => s.trim()).join('\n').trim();
+
+function getDeclarationText(version) {
+  return trim(render(content.declaration.content, {
+    licenceHolder: `${version.licenceHolder.firstName} ${version.licenceHolder.lastName}`,
+    type: version.type
+  }));
+}
 
 module.exports = settings => {
   const app = page({
@@ -63,7 +73,7 @@ module.exports = settings => {
       configure: (req, res, next) => {
         const existingTask = get(req.project, 'openTasks[0]');
         // if application has previously been approved then this is a resubmission and we can show the inspector ready question
-        const hasAuthority = get(existingTask, 'data.meta.authority') === 'Yes';
+        const hasAuthority = get(existingTask, 'data.meta.authority');
         const isAmendment = req.version.type === 'amendment';
         const isAsru = req.user.profile.asruUser;
         const includeReady = hasAuthority && !isAmendment;
@@ -76,7 +86,7 @@ module.exports = settings => {
         next();
       },
       process: (req, res, next) => {
-        if (req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
+        if (req.processAwerbDates && req.form.values['awerb-exempt'] !== true) {
           req.awerbEstablishments.forEach(e => {
             req.form.values[`awerb-${e.id}`] = `${req.body[`awerb-${e.id}-year`]}-${req.body[`awerb-${e.id}-month`]}-${req.body[`awerb-${e.id}-day`]}`;
           });
@@ -84,7 +94,7 @@ module.exports = settings => {
         next();
       },
       saveValues: (req, res, next) => {
-        if (req.processAwerbDates && req.form.values['awerb-exempt'] !== 'yes') {
+        if (req.processAwerbDates && req.form.values['awerb-exempt'] !== true) {
           const primaryEstablishment = req.project.establishment;
           req.session.form[req.model.id].values['awerb-dates'] = req.awerbEstablishments.map(e => {
             return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };
@@ -98,6 +108,9 @@ module.exports = settings => {
           set(res.locals, `static.content.errors.awerb-${e.id}`, content.errors['awerb-dates']);
         });
         set(res.locals, 'static.content.buttons.submit', get(res.locals, `static.content.buttons.submit.${req.version.type}`));
+        const licenceHolder = req.version.licenceHolder;
+        res.locals.static.licenceHolder = `${licenceHolder.firstName} ${licenceHolder.lastName}`;
+        res.locals.static.type = req.version.type;
         next();
       }
     })
@@ -114,7 +127,7 @@ module.exports = settings => {
     };
 
     if (res.locals.static.canEndorse) {
-      json.meta.declaration = content.declaration.content;
+      json.meta.declaration = getDeclarationText(req.version);
     }
 
     Promise.resolve()
