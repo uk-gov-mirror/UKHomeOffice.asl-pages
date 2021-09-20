@@ -102,8 +102,6 @@ export default function PplDeclarations({ task }) {
           </Fragment>
       }
       {
-      }
-      {
         (declarations.awerb === false || declarations['awerb-exempt']) &&
           <Fragment>
             <p><strong><Snippet>declarations.awerb.no-review-reason</Snippet></strong></p>
