@@ -102,7 +102,6 @@ export default function PplDeclarations({ task }) {
           </Fragment>
       }
       {
-        console.log(declarations)
       }
       {
         (declarations.awerb === false || declarations['awerb-exempt']) &&
