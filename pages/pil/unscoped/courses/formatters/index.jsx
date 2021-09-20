@@ -1,5 +1,6 @@
 import React from 'react';
 import format from 'date-fns/format';
+import { Link } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 
 const formatDate = date => format(date, dateFormat.long);
@@ -16,7 +17,12 @@ export default {
   },
   projectId: {
     format: (id, values) => {
-      return values.project && values.project.licenceNumber;
+      return values.project && <Link
+        page="project.read"
+        projectId={id}
+        establishmentId={values.project.establishmentId}
+        label={values.project.licenceNumber}
+      />;
     }
   },
   species: {
