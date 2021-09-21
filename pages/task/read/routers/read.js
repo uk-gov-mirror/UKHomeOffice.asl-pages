@@ -336,6 +336,10 @@ module.exports = () => {
       return res.redirect(req.buildRoute('task.read.raAwerb'));
     }
 
+    if (model === 'project' && ['grant', 'transfer'].includes(action) && status === 'endorsed') {
+      return res.redirect(req.buildRoute('task.read.endorse'));
+    }
+
     return res.redirect(req.buildRoute('task.read', { suffix: 'confirm' }));
   });
 

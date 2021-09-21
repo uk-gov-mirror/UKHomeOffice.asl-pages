@@ -4,9 +4,8 @@ import { Snippet, Header, FormLayout } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 export default function Submit() {
-  const model = useSelector(state => state.model);
-  const { canEndorse } = useSelector(state => state.static);
-  const isApplication = model.type === 'application';
+  const { canEndorse, version } = useSelector(state => state.static);
+  const isApplication = version.type === 'application';
 
   const declaration = (
     <Fragment>
@@ -19,7 +18,7 @@ export default function Submit() {
     <FormLayout declaration={canEndorse && declaration}>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={model.data.title || 'Untitled project'}
+        subtitle={version.data.title || 'Untitled project'}
       />
       {isApplication && (
         <Warning>

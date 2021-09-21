@@ -1,7 +1,7 @@
 const { merge, pick } = require('lodash');
 const baseContent = require('./base');
 const tasks = require('../../content/tasks');
-const versionContent = require('../../../project-version/update/submit/content');
+const versionContent = require('../../../project-version/update/endorse/content');
 
 module.exports = merge({}, baseContent, {
   tasks,

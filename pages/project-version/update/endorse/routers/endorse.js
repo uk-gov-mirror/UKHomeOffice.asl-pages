@@ -1,9 +1,9 @@
+const { Router } = require('express');
 const { pick, get, set } = require('lodash');
 const moment = require('moment');
-const { page } = require('@asl/service/ui');
-const form = require('../../../common/routers/form');
-const { getSchema } = require('./schema');
-const content = require('./content');
+const form = require('../../../../common/routers/form');
+const { getSchema } = require('../schema');
+const content = require('../content');
 const { render } = require('mustache');
 
 const trim = value => value.split('\n').map(s => s.trim()).join('\n').trim();
@@ -15,15 +15,31 @@ function getDeclarationText(version) {
   }));
 }
 
-module.exports = settings => {
-  const app = page({
-    ...settings,
-    root: __dirname
+const transferWithReceivingEstablishment = task => {
+  const isTransfer = get(task, 'data.action') === 'transfer';
+  const isAwaitingEndorsement = get(task, 'status') === 'awaiting-endorsement';
+  const isWithReceivingEstablishment = get(task, 'data.data.establishmentId') === get(task, 'data.establishmentId');
+  return isTransfer && isAwaitingEndorsement && isWithReceivingEstablishment;
+};
+
+module.exports = (settings = {}) => {
+  const app = Router({ mergeParams: true });
+
+  app.use((req, res, next) => {
+    req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+    if (transferWithReceivingEstablishment(req.task)) {
+      req.awerbEstablishments = [get(req.task, 'data.establishment')].concat(req.project.additionalEstablishments);
+    } else {
+      req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+    }
+
+    next();
   });
 
   app.use((req, res, next) => {
-    req.version.type = req.project.status === 'active' ? 'amendment' : 'application';
-    req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+    get(req.task, 'data.meta[awerb-dates]', []).map(awerb => {
+      req.model[`awerb-${awerb.id}`] = awerb.date;
+    });
     next();
   });
 
@@ -43,46 +59,33 @@ module.exports = settings => {
   app.use((req, res, next) => {
     const declarations = get(req.project, 'openTasks[0].data.meta');
     if (declarations) {
-      Object.assign(req.version, pick(declarations, [
-        'authority',
-        'ready',
-        'authority-pelholder-name',
-        'authority-endorsement-date',
-        'awerb',
-        'awerb-review-date',
-        'awerb-exempt',
-        'awerb-dates',
-        'awerb-no-review-reason',
-        'comments'
-      ]));
-      (declarations['awerb-dates'] || []).forEach(awerb => set(req.version, `awerb-${awerb.id}`, awerb.date));
+      Object.assign(req.model, declarations);
+      (declarations['awerb-dates'] || []).forEach(awerb => set(req.model, `awerb-${awerb.id}`, awerb.date));
     }
-    next();
-  });
-
-  app.use((req, res, next) => {
-    req.model = {
-      ...req.version,
-      data: pick(req.version.data, 'title')
-    };
     next();
   });
 
   app.use(
     form({
       configure: (req, res, next) => {
-        const existingTask = get(req.project, 'openTasks[0]');
+        const existingTask = req.task || get(req.project, 'openTasks[0]');
+        let type = req.project.status === 'active' ? 'amendment' : 'application';
+        if (existingTask && existingTask.data.action === 'transfer') {
+          type = 'transfer request';
+        }
+        req.version.type = type;
         // if application has previously been approved then this is a resubmission and we can show the inspector ready question
         const hasAuthority = get(existingTask, 'data.meta.authority');
-        const isAmendment = req.version.type === 'amendment';
+        const isAmendment = req.version.type !== 'application';
         const isAsru = req.user.profile.asruUser;
         const includeReady = hasAuthority && !isAmendment;
-        const includeAwerb = res.locals.static.canEndorse;
+        const includeAwerb = transferWithReceivingEstablishment(req.task) || res.locals.static.canEndorse;
         const awerbEstablishments = req.awerbEstablishments;
         const isLegacy = req.project.schemaVersion === 0;
-        const canBeAwerbExempt = isAmendment;
+        const canBeAwerbExempt = isAmendment && !transferWithReceivingEstablishment(req.task);
+
         req.processAwerbDates = includeAwerb && !isLegacy;
-        req.form.schema = getSchema({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments });
+        req.form.schema = getSchema({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments, omitCommentsField: settings.omitCommentsField });
         next();
       },
       process: (req, res, next) => {
@@ -96,9 +99,15 @@ module.exports = settings => {
       saveValues: (req, res, next) => {
         if (req.processAwerbDates && req.form.values['awerb-exempt'] !== true) {
           const primaryEstablishment = req.project.establishment;
-          req.session.form[req.model.id].values['awerb-dates'] = req.awerbEstablishments.map(e => {
+          req.session.form[req.model.id].meta['awerb-dates'] = req.awerbEstablishments.map(e => {
             return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };
           });
+        }
+        if (res.locals.static.canEndorse) {
+          req.session.form[req.model.id].meta.declaration = getDeclarationText(req.version);
+        }
+        if (transferWithReceivingEstablishment(req.task)) {
+          req.session.form[req.model.id].meta['awerb-exempt'] = false; // receiving establishment for transfers can never be 'awerb-exempt'
         }
         next();
       },
@@ -107,40 +116,15 @@ module.exports = settings => {
         req.awerbEstablishments.forEach(e => {
           set(res.locals, `static.content.errors.awerb-${e.id}`, content.errors['awerb-dates']);
         });
-        set(res.locals, 'static.content.buttons.submit', get(res.locals, `static.content.buttons.submit.${req.version.type}`));
         const licenceHolder = req.version.licenceHolder;
         res.locals.static.licenceHolder = `${licenceHolder.firstName} ${licenceHolder.lastName}`;
         res.locals.static.type = req.version.type;
+        res.locals.static.version = req.version;
+        res.locals.static.isApplication = req.version.type === 'application';
         next();
       }
     })
   );
-
-  app.post('/', (req, res, next) => {
-    const values = req.session.form[req.model.id].values;
-
-    const json = {
-      meta: {
-        ...values,
-        version: req.version.id
-      }
-    };
-
-    if (res.locals.static.canEndorse) {
-      json.meta.declaration = getDeclarationText(req.version);
-    }
-
-    Promise.resolve()
-      .then(() => req.api(`/establishments/${req.establishmentId}/projects/${req.projectId}/grant`, { method: 'POST', json }))
-      .then(response => {
-        req.session.success = { taskId: get(response, 'json.data.id') };
-        delete req.session.form[req.model.id];
-        return res.redirect(req.buildRoute('projectVersion.update', { suffix: 'success' }));
-      })
-      .catch(next);
-  });
-
-  app.use((req, res) => res.sendResponse());
 
   return app;
 };
