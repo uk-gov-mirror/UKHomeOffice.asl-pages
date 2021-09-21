@@ -9,10 +9,20 @@ module.exports = {
   title: 'Task list',
   pageTitle: 'Task list',
   countdown: {
-    singular: '1 {{unit}} left',
-    plural: '{{diff}} {{unit}}s left',
-    expired: 'Deadline passed',
-    expiresToday: 'Deadline today'
+    deadline: {
+      singular: 'Statutory deadline: 1 {{unit}}',
+      plural: 'Statutory deadline: {{diff}} {{unit}}s',
+      expired: 'Statutory deadline: passed',
+      expiresToday: 'Statutory deadline: today'
+    },
+    continuation: {
+      singular: 'Project continuation: 1 {{unit}}',
+      plural: 'Project continuation: {{diff}} {{unit}}s',
+      expired: 'Project continuation: passed',
+      expiresToday: 'Project continuation: today',
+      unknown: 'Includes project continuation',
+      closed: 'Project continuation: done'
+    }
   },
   tabs: {
     outstanding: 'Outstanding',
@@ -52,6 +62,5 @@ module.exports = {
     completed: 'You have no completed tasks',
     myTasks: 'There are no tasks assigned to you'
   },
-  'tasklist-unavailable': 'Task list unavailable',
-  continuation: 'Includes project continuation'
+  'tasklist-unavailable': 'Task list unavailable'
 };
