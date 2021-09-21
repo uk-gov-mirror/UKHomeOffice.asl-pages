@@ -8,6 +8,39 @@ import { Snippet, Link, Countdown } from '@asl/components';
 const good = ['resolved'];
 const bad = ['rejected', 'discarded-by-applicant'];
 
+const ContinuationCountdown = ({ model }) => {
+  const continuation = get(model, 'data.continuation') && get(model, 'data.modelData.status') === 'inactive';
+
+  if (!continuation) {
+    return null;
+  }
+  // show done message if task is resolved
+  if (!model.isOpen) {
+    return model.status === 'resolved' ? <Snippet>countdown.continuation.closed</Snippet> : null;
+  }
+  // show unknown message if there are no expiry dates provided
+  if (!Array.isArray(model.data.continuation) || !model.data.continuation.filter(d => d['expiry-date']).length) {
+    return <Snippet>countdown.continuation.unknown</Snippet>;
+  }
+
+  // get the earliest expiry date provided
+  const continuationDate = model.data.continuation.map(d => d['expiry-date']).sort()[0];
+  return <Countdown expiry={continuationDate} unit="day" showUrgent={9} contentPrefix="countdown.continuation" />;
+};
+
+const DeadlineCountdown = ({ model }) => {
+  const deadline = get(model, 'data.deadline');
+
+  if (!deadline || !model.withASRU) {
+    return null;
+  }
+
+  const isExtended = get(deadline, 'isExtended', false);
+  const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
+
+  return <Countdown expiry={deadlineDate} unit="day" showUrgent={9} contentPrefix="countdown.deadline" />;
+};
+
 export default {
   updatedAt: {
     format: date => date ? format(date, dateFormat.medium) : '-'
@@ -44,10 +77,6 @@ export default {
   },
   status: {
     format: (status, model) => {
-      const deadline = get(model, 'data.deadline');
-      const isExtended = get(deadline, 'isExtended', false);
-      const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
-      const continuation = get(model, 'data.continuation') && get(model, 'data.modelData.status') === 'inactive';
       const isRop = get(model, 'data.model') === 'rop';
       const className = classnames({ badge: true, complete: good.includes(status || isRop), rejected: bad.includes(status) });
 
@@ -58,12 +87,8 @@ export default {
       return (
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
-          {
-            deadline && <Countdown expiry={deadlineDate} unit="day" showUrgent={9} />
-          }
-          {
-            continuation && <span className="notice"><Snippet>continuation</Snippet></span>
-          }
+          <DeadlineCountdown model={model} />
+          <ContinuationCountdown model={model} />
         </Fragment>
       );
     }
