@@ -14,6 +14,7 @@ const {
   pickBy,
   pick,
   omit,
+  omitBy,
   chain,
   reduce,
   castArray,
@@ -29,6 +30,19 @@ let _checkSecret = checkSecret;
 if (process.env.CSRF === 'false') {
   _generateSecret = defaultMiddleware;
   _checkSecret = defaultMiddleware;
+}
+
+function setValuesToSession(req) {
+  const schema = {
+    ...flattenDetailsReveals(req.form.schema),
+    ...getOptionReveals(req.form.schema, req.body)
+  };
+
+  const values = omitBy(req.form.values, (val, key) => schema[key].meta);
+  const meta = pickBy(req.form.values, (val, key) => schema[key].meta);
+
+  Object.assign(req.session.form[req.model.id].values, values);
+  Object.assign(req.session.form[req.model.id].meta, meta);
 }
 
 const getOptionReveals = (schema, values) => {
@@ -187,6 +201,7 @@ module.exports = ({
     req.session.form = req.session.form || {};
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
     req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
+    req.session.form[req.model.id].meta = req.session.form[req.model.id].meta || {};
     if (requiresDeclaration(req)) {
       req.form.schema.declaration = {
         inputType: 'declaration',
@@ -229,15 +244,24 @@ module.exports = ({
   };
 
   const _getValues = (req, res, next) => {
-    req.form.values = cleanModel(pickValues(req.model, req.form.schema));
+    const schema = {
+      ...flattenDetailsReveals(req.form.schema),
+      ...getOptionReveals(req.form.schema, req.body)
+    };
+
+    req.form.values = cleanModel(pickValues(req.model, schema));
     if (!isEmpty(req.session.form[req.model.id].values)) {
-      Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].values, req.form.schema)));
+      Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].values, schema)));
+    }
+    if (!isEmpty(req.session.form[req.model.id].meta)) {
+      Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].meta, schema)));
     }
     return getValues(req, res, next);
   };
 
   const _process = (req, res, next) => {
     req.form.schema = flattenDetailsReveals(req.form.schema);
+
     const reveals = getOptionReveals(req.form.schema, req.body);
     const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
 
@@ -315,7 +339,7 @@ module.exports = ({
       return field.inputType === 'conditionalReveal';
     });
 
-    Object.assign(req.session.form[req.model.id].values, req.form.values);
+    setValuesToSession(req);
 
     Object.keys(conditionalReveals).forEach(key => {
       if (req.form.values[key] !== 'true') {
@@ -353,7 +377,8 @@ module.exports = ({
   const errorHandler = (err, req, res, next) => {
     if (err.validation) {
       req.session.form[req.model.id].validationErrors = err.validation;
-      Object.assign(req.session.form[req.model.id].values, req.form.values);
+      setValuesToSession(req);
+
       return res.redirect(req.originalUrl);
     }
     return next(err);

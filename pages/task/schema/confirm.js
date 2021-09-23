@@ -1,16 +1,13 @@
-const { get } = require('lodash');
-const askAwerb = require('../helper/ask-awerb');
-const { getAwerbQuestion } = require('../../project-version/update/submit/schema');
-
 const commentRequired = (task, stepId) => {
   const nextStep = task.nextSteps.find(nextStep => nextStep.id === stepId);
   return nextStep && nextStep.commentRequired;
 };
 
-module.exports = ({ task, chosenStatus, isLegacy, awerbEstablishments }) => {
-  let schema = {
+module.exports = ({ task, chosenStatus }) => {
+  return {
     comment: {
       inputType: 'textarea',
+      meta: true,
       validate: [{
         customValidate: comment => {
           return commentRequired(task, chosenStatus) ? !!comment : true;
@@ -18,20 +15,4 @@ module.exports = ({ task, chosenStatus, isLegacy, awerbEstablishments }) => {
       }]
     }
   };
-
-  const taskType = get(task, 'type');
-  const isAmendment = taskType === 'amendment';
-  const isTransfer = taskType === 'transfer';
-  const taskEstablishmentId = get(task, 'data.establishmentId');
-  const isWithOutgoingEstablishment = taskEstablishmentId && taskEstablishmentId === get(task, 'data.modelData.establishmentId');
-  const canBeAwerbExempt = isAmendment || (isTransfer && isWithOutgoingEstablishment);
-
-  if (askAwerb(task, chosenStatus)) {
-    schema = {
-      ...getAwerbQuestion({ isLegacy, isAmendment, isTransfer, canBeAwerbExempt, awerbEstablishments }),
-      ...schema
-    };
-  }
-
-  return schema;
 };

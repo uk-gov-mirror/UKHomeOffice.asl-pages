@@ -1,4 +1,4 @@
-const { extend, confirm, read, discard, deadlinePassed } = require('./routers');
+const { extend, confirm, read, discard, deadlinePassed, endorse } = require('./routers');
 const raAwerb = require('./ra-awerb');
 const success = require('../../success');
 
@@ -27,6 +27,11 @@ module.exports = {
   confirm: {
     path: '/confirm',
     router: confirm
+  },
+  endorse: {
+    path: '/endorse',
+    breadcrumb: false,
+    router: endorse
   },
   success: {
     path: '/success',

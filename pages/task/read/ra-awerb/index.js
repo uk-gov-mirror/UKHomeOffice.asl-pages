@@ -30,8 +30,8 @@ module.exports = () => {
       next();
     },
     saveValues: (req, res, next) => {
-      req.session.form[req.model.id].values['ra-awerb-date'] = moment(req.form.values['ra-awerb-date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
-      req.session.form[req.model.id].values.declaration = content.declaration;
+      req.session.form[req.model.id].meta['ra-awerb-date'] = moment(req.form.values['ra-awerb-date'], 'YYYY-MM-DD').format('YYYY-MM-DD');
+      req.session.form[req.model.id].meta.declaration = content.declaration;
       next();
     }
   }));

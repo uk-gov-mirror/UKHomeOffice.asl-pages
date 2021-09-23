@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { set } = require('lodash');
 const update = require('./router');
-const submit = require('./submit');
+const endorse = require('./endorse');
 const success = require('./success');
 
 module.exports = settings => {
@@ -27,7 +27,7 @@ module.exports = settings => {
     next();
   });
 
-  app.use('/submit', submit());
+  app.use('/submit', endorse());
   app.use('/success', success());
 
   app.use((req, res, next) => {

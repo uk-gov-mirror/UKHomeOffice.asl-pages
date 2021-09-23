@@ -3,6 +3,7 @@ const { toBoolean } = require('../../../../../lib/utils');
 
 const getDateField = establishmentName => {
   return {
+    meta: true,
     inputType: 'inputDate',
     label: `Enter date of application's most recent AWERB review at ${establishmentName}`,
     hint: 'For example, 12 06 2020',
@@ -20,6 +21,7 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
   if (isLegacy) {
     awerbDateFields = {
       'awerb-review-date': {
+        meta: true,
         inputType: 'textarea',
         validate: ['required']
       }
@@ -39,6 +41,7 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
 
   return {
     'awerb-exempt': {
+      meta: true,
       inputType: 'radioGroup',
       validate: ['required'],
       automapReveals: true,
@@ -54,6 +57,7 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
           value: true,
           reveal: {
             'awerb-no-review-reason': {
+              meta: true,
               inputType: 'textarea',
               validate: ['required']
             }
@@ -64,16 +68,21 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
   };
 };
 
-const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments }) => {
+const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments, omitCommentsField = false }) => {
   let schema = {
     comments: {
       inputType: 'textarea',
       validate: ['required']
     },
     comment: {
-      inputType: 'textarea'
+      inputType: 'textarea',
+      meta: true
     }
   };
+
+  if (omitCommentsField) {
+    delete schema.comments;
+  }
 
   if (isAsru) {
     return schema; // no additional questions required
@@ -81,6 +90,7 @@ const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, 
 
   if (includeReady) {
     const readyQuestion = {
+      meta: true,
       inputType: 'radioGroup',
       inline: true,
       className: 'smaller',

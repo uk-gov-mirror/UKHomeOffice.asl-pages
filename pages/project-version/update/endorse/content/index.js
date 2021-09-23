@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Send {{model.type}}',
+  title: 'Send {{type}}',
   warning: {
     canEndorse: `This application needs to be endorsed by the establishment licence holder, and reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
     cantEndorse: `The primary establishment will need to endorse your application, and confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
@@ -93,9 +93,6 @@ module.exports = {
     }
   },
   buttons: {
-    submit: {
-      application: 'Submit {{#canEndorse}}to Home Office{{/canEndorse}}{{^canEndorse}}PPL application{{/canEndorse}}',
-      amendment: 'Submit PPL amendment'
-    }
+    submit: 'Submit {{^isApplication}}PPL {{type}}{{/isApplication}}{{#isApplication}}{{#canEndorse}}to Home Office{{/canEndorse}}{{^canEndorse}}PPL application{{/canEndorse}}{{/isApplication}}'
   }
 };
