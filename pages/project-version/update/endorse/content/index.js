@@ -93,6 +93,6 @@ module.exports = {
     }
   },
   buttons: {
-    submit: 'Submit {{^isApplication}}PPL {{type}}{{/isApplication}}{{#isApplication}}{{#canEndorse}}to Home Office{{/canEndorse}}{{^canEndorse}}PPL application{{/canEndorse}}{{/isApplication}}'
+    submit: 'Submit PPL {{type}}{{#canEndorse}} to Home Office{{/canEndorse}}'
   }
 };
