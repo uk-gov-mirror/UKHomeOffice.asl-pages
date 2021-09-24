@@ -4,7 +4,8 @@ const {
   canComment,
   getAllChanges,
   getProjectEstablishment,
-  getPreviousProtocols
+  getPreviousProtocols,
+  getPreviousAA
 } = require('../middleware');
 
 module.exports = settings => {
@@ -17,7 +18,8 @@ module.exports = settings => {
     canComment(),
     getAllChanges(),
     getProjectEstablishment(),
-    getPreviousProtocols()
+    getPreviousProtocols(),
+    getPreviousAA()
   );
 
   app.use((req, res, next) => {

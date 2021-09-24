@@ -375,6 +375,25 @@ const getPreviousProtocols = () => (req, res, next) => {
     .catch(next);
 };
 
+const getPreviousAA = () => (req, res, next) => {
+  Promise.all([
+    getFirstVersion(req),
+    getPreviousVersion(req),
+    getGrantedVersion(req)
+  ])
+    .then(([first, previous, granted]) => {
+      first = get(first, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+      previous = get(previous, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+      granted = get(granted, 'data.establishments', []).filter(Boolean).map(p => p.id);
+
+      const showDeleted = uniq([ ...previous, ...granted ]);
+
+      res.locals.static.previousAA = { first, previous, granted, showDeleted };
+    })
+    .then(() => next())
+    .catch(next);
+};
+
 const loadRa = (req, res, next) => {
   const raCompulsory = get(req, 'version.raCompulsory');
   const retrospectiveAssessment = get(req, 'version.retrospectiveAssessment');
@@ -410,5 +429,6 @@ module.exports = {
   getChangedValues,
   getProjectEstablishment,
   getPreviousProtocols,
+  getPreviousAA,
   loadRa
 };
