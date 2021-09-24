@@ -7,11 +7,6 @@ module.exports = () => {
 
   app.use(endorse({ omitCommentsField: true }));
 
-  app.use((req, res, next) => {
-    console.log(res.locals.static.content.buttons);
-    next();
-  });
-
   app.post('/', (req, res, next) => {
     const { values, meta } = req.session.form[req.model.id];
 
