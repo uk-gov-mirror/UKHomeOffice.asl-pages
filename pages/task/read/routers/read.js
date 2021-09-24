@@ -304,7 +304,9 @@ module.exports = () => {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
       json: {
-        status: 'recovered'
+        data: {
+          status: 'recovered'
+        }
       }
     };
     req.api(`/tasks/${req.taskId}/status`, params)
