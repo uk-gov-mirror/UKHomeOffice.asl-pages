@@ -60,11 +60,12 @@ export default function Project({ task }) {
     : (version ? version.licenceHolder : project.licenceHolder);
 
   const proposedAdditionalEstablishments = get(version, 'data.establishments', []).filter(e => e['establishment-id']);
+  const removedAAIds = get(version, 'data.establishments', []).filter(e => e.deleted).map(e => e['establishment-id']);
 
   const additionalEstablishments = uniqBy([
     ...project.additionalEstablishments,
     ...proposedAdditionalEstablishments
-  ], est => est['establishment-id'] || est.id);
+  ], est => est['establishment-id'] || est.id).filter(e => !removedAAIds.includes(e.id));
 
   const isComplete = !task.isOpen;
   const isDiscarded = task.status === 'discarded-by-applicant';
