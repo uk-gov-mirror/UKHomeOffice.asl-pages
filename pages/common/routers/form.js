@@ -38,8 +38,8 @@ function setValuesToSession(req) {
     ...getOptionReveals(req.form.schema, req.body)
   };
 
-  const values = omitBy(req.form.values, (val, key) => schema[key].meta);
-  const meta = pickBy(req.form.values, (val, key) => schema[key].meta);
+  const values = omitBy(req.form.values, (val, key) => schema[key] && schema[key].meta);
+  const meta = pickBy(req.form.values, (val, key) => schema[key] && schema[key].meta);
 
   Object.assign(req.session.form[req.model.id].values, values);
   Object.assign(req.session.form[req.model.id].meta, meta);
