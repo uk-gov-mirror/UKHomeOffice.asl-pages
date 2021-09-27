@@ -5,7 +5,18 @@ const endorse = require('../../../project-version/update/endorse/routers/endorse
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
+  app.use((req, res, next) => {
+    const meta = get(req.task, 'data.meta', {});
+    Object.assign(req.model, meta);
+    next();
+  });
+
   app.use(endorse({ omitCommentsField: true }));
+
+  app.use((req, res, next) => {
+    res.locals.static.task = req.task;
+    next();
+  });
 
   app.post('/', (req, res, next) => {
     const { values, meta } = req.session.form[req.model.id];
