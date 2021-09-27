@@ -271,7 +271,9 @@ module.exports = () => {
       if (req.task.data.model === 'place') {
         req.form.schema = {
           ...req.form.schema,
-          restrictions: {}
+          restrictions: {
+            meta: true
+          }
         };
       }
 
