@@ -30,6 +30,7 @@ start({
     schemaVersion: state.model.project.schemaVersion,
     newApplication: state.static.newApplication,
     previousProtocols: state.static.previousProtocols,
+    previousAA: state.static.previousAA,
     canTransfer: state.static.canTransfer,
     canUpdateTraining: state.static.canUpdateTraining,
     canSubmit: state.static.canSubmit,

@@ -35,6 +35,7 @@ start({
     isGranted: state.static.isGranted,
     legacyGranted: state.static.legacyGranted,
     previousProtocols: state.static.previousProtocols,
+    previousAA: state.static.previousAA,
     establishments: state.static.establishments || [],
     raCompulsory: state.model.raCompulsory,
     licenceHolder: state.model.licenceHolder,
