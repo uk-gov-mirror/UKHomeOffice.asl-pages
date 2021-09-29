@@ -16,11 +16,11 @@ const ContinuationCountdown = ({ model }) => {
   }
   // show done message if task is resolved
   if (!model.isOpen) {
-    return model.status === 'resolved' ? <Snippet>countdown.continuation.closed</Snippet> : null;
+    return model.status === 'resolved' ? <span className="notice"><Snippet>countdown.continuation.closed</Snippet></span> : null;
   }
   // show unknown message if there are no expiry dates provided
   if (!Array.isArray(model.data.continuation) || !model.data.continuation.filter(d => d['expiry-date']).length) {
-    return <Snippet>countdown.continuation.unknown</Snippet>;
+    return <span className="notice"><Snippet>countdown.continuation.unknown</Snippet></span>;
   }
 
   // get the earliest expiry date provided
