@@ -33,5 +33,8 @@ module.exports = {
     plural: '{{diff}} {{unit}}s left',
     expired: '{{diff}} {{unit}}s overdue',
     expiresToday: 'Deadline today'
+  },
+  actions: {
+    download: 'Download all returns as a CSV'
   }
 };
