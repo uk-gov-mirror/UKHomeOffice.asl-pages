@@ -4,12 +4,12 @@ module.exports = profile => {
   const alertOptions = [
     {
       value: 'pil',
-      label: 'all personal licences'
+      label: 'all personal licences and applications'
     },
     {
       value: 'ppl',
-      label: 'all project licences',
-      hint: 'This includes endorsement requests'
+      label: 'all project licences and applications',
+      hint: 'Includes endorsement requests'
     },
     {
       value: 'pel',
@@ -39,32 +39,5 @@ module.exports = profile => {
     return schema;
   }, {});
 
-  const newsletterOptions = [
-    {
-      value: 'operational',
-      label: 'Yes, I want to receive ASRU’s operational newsletter'
-    }
-  ];
-
-  const newsletterSchema = {
-    newsletters: {
-      inputType: 'checkboxGroup',
-      options: newsletterOptions,
-      nullValue: [],
-      format: toArray,
-      validate: [
-        {
-          definedValues: newsletterOptions.map(o => o.value)
-        }
-      ]
-    }
-  };
-
-  // HOLCs must receive newsletter
-  const canUnsubscribeNewsletter = !profile.roles.some(r => r.type === 'holc');
-
-  return {
-    ...alertsSchema,
-    ...canUnsubscribeNewsletter ? newsletterSchema : {}
-  };
+  return alertsSchema;
 };
