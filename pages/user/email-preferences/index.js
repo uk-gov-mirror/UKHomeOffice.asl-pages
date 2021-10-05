@@ -21,7 +21,7 @@ module.exports = settings => {
         res.locals.static.isAdmin = isAdmin;
         res.locals.static.isHolc = isHolc;
 
-        req.model.projectCollaborations = [get(data, 'preferences[projectCollaborations]', true)];
+        req.model.projectCollaborations = [get(data, 'preferences.projectCollaborations', true)];
 
         if (isAdmin) {
           req.profile.establishments.forEach(e => {
