@@ -4,8 +4,6 @@ const form = require('../../common/routers/form');
 const getSchema = require('./schema');
 
 const defaultAdminAlerts = ['pil', 'ppl', 'pel'];
-const defaultNewsletters = [];
-const holcNewsletters = ['operational'];
 
 module.exports = settings => {
   const app = page({
@@ -28,8 +26,6 @@ module.exports = settings => {
             req.model[`alerts-${e.id}`] = get(data, `preferences[alerts-${e.id}]`, defaultAdminAlerts);
           });
         }
-
-        req.model.newsletters = get(data, 'preferences.newsletters', defaultNewsletters);
       })
       .then(() => next())
       .catch(next);
@@ -49,11 +45,7 @@ module.exports = settings => {
   }));
 
   app.post('/', (req, res, next) => {
-    const isHolc = req.profile.roles.some(r => r.type === 'holc');
     const values = req.session.form[req.model.id].values;
-
-    // HOLCs must receive the asru newsletter
-    values.newsletters = isHolc ? holcNewsletters : values.newsletters;
 
     const opts = {
       method: 'PUT',
