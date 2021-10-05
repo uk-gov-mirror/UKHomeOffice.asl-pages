@@ -39,5 +39,17 @@ module.exports = profile => {
     return schema;
   }, {});
 
-  return alertsSchema;
+  return {
+    projectCollaborations: {
+      label: '',
+      inputType: 'checkboxGroup',
+      options: [
+        {
+          value: true,
+          label: 'Get alerts for licences or applications you\'re invited to collaborate on'
+        }
+      ]
+    },
+    ...alertsSchema
+  };
 };

@@ -712,7 +712,11 @@ nav.bottom-nav {
     padding-left: 1em;
   }
 }
+
 .email-preferences {
+  .govuk-label {
+    font-weight: normal;
+  }
   .control-panel {
     margin-top: 0;
   }
