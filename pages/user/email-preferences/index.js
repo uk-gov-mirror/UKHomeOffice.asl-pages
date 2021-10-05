@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const { get, forEach, omit } = require('lodash');
+const { get, forEach, omit, isEmpty } = require('lodash');
 const form = require('../../common/routers/form');
 const getSchema = require('./schema');
 
@@ -20,6 +20,8 @@ module.exports = settings => {
         const isHolc = req.profile.roles.some(r => r.type === 'holc');
         res.locals.static.isAdmin = isAdmin;
         res.locals.static.isHolc = isHolc;
+
+        req.model.projectCollaborations = [get(data, 'preferences.projectCollaborations', true)];
 
         if (isAdmin) {
           req.profile.establishments.forEach(e => {
@@ -46,6 +48,9 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const values = req.session.form[req.model.id].values;
+
+    // if the collab checkbox is unticked then empty array is returned, save as bool
+    values.projectCollaborations = !isEmpty(values.projectCollaborations);
 
     const opts = {
       method: 'PUT',
