@@ -1,19 +1,19 @@
 const { Router } = require('express');
-const { get, omit, merge } = require('lodash');
+const { get, merge } = require('lodash');
 const { BadRequestError } = require('@asl/service/errors');
 const form = require('../../../common/routers/form');
 const experienceFields = require('../schema/experience-fields');
 const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
+const { userCanEndorse } = require('../../../project-version/update/endorse/middleware');
+const endorseContent = require('../content/endorse');
 
 const sendData = (req, params = {}) => {
-  const values = get(req.session, `form.${req.model.id}.values`);
+  const { values, meta } = get(req.session, `form.${req.model.id}`);
   const opts = {
     method: 'PUT',
     json: merge({
-      data: {
-        licenceHolderId: values.licenceHolderId
-      },
-      meta: omit(values, 'licenceHolderId', 'declaration')
+      data: values,
+      meta
     }, params)
   };
 
@@ -23,10 +23,11 @@ const sendData = (req, params = {}) => {
 module.exports = () => {
   const app = Router();
 
+  app.use(userCanEndorse);
+
   app.post('/', updateDataFromTask(sendData));
 
   app.use(form({
-    requiresDeclaration: req => !req.user.profile.asruUser,
     configure(req, res, next) {
       const versionId = req.project.status === 'inactive' ? req.project.draft.id : req.project.granted.id;
       return req.api(`/establishment/${req.establishmentId}/projects/${req.project.id}/project-versions/${versionId}`)
@@ -45,18 +46,16 @@ module.exports = () => {
       res.locals.static.values = values;
 
       const collab = req.project.collaborators.find(collab => collab.id === licenceHolderId);
+      res.locals.static.proposedLicenceHolder = collab || req.proposedLicenceHolder;
+      res.locals.static.isDraft = req.project.draft && req.project.status === 'inactive';
 
-      if (collab) {
-        res.locals.static.proposedLicenceHolder = collab;
-        return next();
+      if (!req.canEndorse) {
+        res.locals.static.type = 'amendment';
+        // if user cannot endorse, the "submit" button from endorse should be used
+        res.locals.static.content.buttons.submit = endorseContent.buttons.submit;
       }
 
-      req.api(`/establishment/${req.establishmentId}/profiles/${values.licenceHolderId}`)
-        .then(({ json: { data } }) => {
-          res.locals.static.proposedLicenceHolder = data;
-        })
-        .then(() => next())
-        .catch(next);
+      return next();
     }
   }));
 
@@ -65,12 +64,27 @@ module.exports = () => {
       return false;
     }
     return true;
+  }, {
+    getSuffix: req => req.canEndorse ? 'endorse' : 'confirm'
   }));
 
   app.post('/', (req, res, next) => {
     if (req.project.draft && req.project.status === 'active') {
       return next(new BadRequestError('Cannot change licence holder while an amendment is in progress'));
     }
+
+    if (req.project.draft && req.project.status === 'inactive') {
+      return next();
+    }
+
+    if (req.canEndorse) {
+      return res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'endorse' }));
+    }
+
+    return next();
+  });
+
+  app.post('/', (req, res, next) => {
     sendData(req)
       .then(response => {
         req.session.success = { taskId: get(response, 'json.data.id') };

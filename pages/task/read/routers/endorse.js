@@ -1,19 +1,47 @@
 const { Router } = require('express');
-const { get } = require('lodash');
+const { get, omit } = require('lodash');
 const endorse = require('../../../project-version/update/endorse/routers/endorse');
+const endorseContent = require('../../../project-version/update/endorse/content');
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
 
   app.use((req, res, next) => {
-    const meta = get(req.task, 'data.meta', {});
+    const meta = omit(get(req.task, 'data.meta', {}), 'comment');
     Object.assign(req.model, meta);
     next();
   });
 
-  app.use(endorse({ omitCommentsField: true }));
+  app.use((req, res, next) => {
+    const modelId = req.task.data.id;
+    const licenceHolderId = get(req.session, `form[${modelId}].values.licenceHolderId`);
+    const licenceHolder = req.task.data.licenceHolder;
+    if (!licenceHolderId || licenceHolderId === licenceHolder.id) {
+      req.licenceHolder = licenceHolder;
+      return next();
+    }
+
+    const establishmentId = req.task.data.establishmentId;
+
+    req.api(`/establishment/${establishmentId}/profiles/${licenceHolderId}`)
+      .then(({ json: { data } }) => {
+        req.licenceHolder = data;
+      })
+      .then(() => next())
+      .catch(next);
+  });
+
+  app.use(endorse({
+    omitCommentsField: true,
+    getLicenceHolder: req => req.licenceHolder
+  }));
 
   app.use((req, res, next) => {
+    const values = req.session.form[req.model.id].values;
+    if (values.status && values.status === 'updated') {
+      // use submission content if resubmimssion
+      Object.assign(res.locals.static.content, endorseContent);
+    }
     res.locals.static.task = req.task;
     next();
   });
@@ -25,7 +53,10 @@ module.exports = () => {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
       json: {
-        data: values,
+        data: {
+          status: 'endorsed',
+          ...values
+        },
         meta
       }
     };

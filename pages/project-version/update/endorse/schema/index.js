@@ -68,7 +68,7 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
   };
 };
 
-const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments, omitCommentsField = false }) => {
+const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments, omitCommentsField }) => {
   let schema = {
     comments: {
       inputType: 'textarea',

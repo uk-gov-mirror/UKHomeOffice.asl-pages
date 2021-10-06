@@ -269,7 +269,7 @@ export default function Project({ task }) {
           <StaticRouter>
             <ReviewFields
               fields={experience(version, project.schemaVersion).fields}
-              values={task.data.meta}
+              values={task.data.data}
               project={version.data}
               readonly={true}
               noComments
