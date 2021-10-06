@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const { pick, get } = require('lodash');
+const { get } = require('lodash');
 const endorse = require('./routers/endorse');
 
 module.exports = settings => {
@@ -9,10 +9,7 @@ module.exports = settings => {
   });
 
   app.use((req, res, next) => {
-    req.model = {
-      ...req.version,
-      data: pick(req.version.data, 'title')
-    };
+    req.model = req.version || req.project;
     next();
   });
 

@@ -36,7 +36,9 @@ module.exports = () => {
           }
 
           if (req.project.granted && !req.project.isLegacyStub) {
-            req.form.schema.comments = {};
+            req.form.schema.comments = {
+              meta: true
+            };
           }
         })
         .then(() => next())

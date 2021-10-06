@@ -10,6 +10,7 @@ import {
   Inset,
   Link
 } from '@asl/components';
+import get from 'lodash/get';
 import { Warning } from '@ukhomeoffice/react-components';
 import Establishment from './establishment';
 import PIL from './pil';
@@ -60,7 +61,7 @@ export default function Model({ task, formFields, allowSubmit }) {
   const { schema, values, isAsru } = useSelector(selector, shallowEqual);
   const endorsingOwnPil = useSelector(state => state.static.endorsingOwnPil);
   const Model = models[task.data.model];
-  const hasComments = task.data.meta && task.data.meta.comments;
+  const comments = get(task.data, 'meta.comments', get(task.data, 'data.comments'));
 
   const hasNextSteps = task.nextSteps.length > 0;
   const hasTaskOptions = schema.status.options.length > 0;
@@ -79,11 +80,11 @@ export default function Model({ task, formFields, allowSubmit }) {
         Model({ task, schema, values, allowSubmit })
       }
       {
-        hasComments && (
+        comments && (
           <StickyNavAnchor id={`comments.${task.type}`}>
             <Field
               title={<Snippet fallback="sticky-nav.comments.default">{`sticky-nav.comments.${task.type}`}</Snippet>}
-              content={task.data.meta.comments}
+              content={comments}
             />
           </StickyNavAnchor>
         )

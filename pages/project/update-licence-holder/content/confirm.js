@@ -9,6 +9,6 @@ module.exports = merge({}, content, {
     }
   },
   buttons: {
-    submit: 'Submit'
+    submit: '{{#isDraft}}Submit{{/isDraft}}{{^isDraft}}Continue{{/isDraft}}'
   }
 });

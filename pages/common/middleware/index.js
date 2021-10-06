@@ -1,5 +1,5 @@
 const isUUID = require('uuid-validate');
-const { get, set } = require('lodash');
+const { get, set, omit } = require('lodash');
 const { NotFoundError } = require('@asl/service/errors');
 
 const hydrate = () => (req, res, next) => {
@@ -15,7 +15,7 @@ const hydrate = () => (req, res, next) => {
     set(req.session, `form.${req.model.id}`, {
       values: {
         ...data,
-        ...meta
+        ...omit(meta, 'comment') // comment is per task status change
       },
       taskId,
       hydrated: true
@@ -32,7 +32,7 @@ const updateDataFromTask = updateModel => (req, res, next) => {
       return next();
     }
     delete taskValues.returnTo;
-    const comment = get(taskValues, 'values.comment');
+    const comment = get(taskValues, 'meta.comment');
     return updateModel(req, { status: 'updated', taskId, meta: { comment } })
       .then(response => {
         req.session.success = { taskId: get(response, 'json.data.id') };
@@ -44,8 +44,8 @@ const updateDataFromTask = updateModel => (req, res, next) => {
   next();
 };
 
-const redirectToTaskIfOpen = (shouldRedirect = () => true) => (req, res, next) => {
-  if (!shouldRedirect(req)) {
+const redirectToTaskIfOpen = (shouldRedirect = () => true, settings = {}) => (req, res, next) => {
+  if (shouldRedirect && !shouldRedirect(req)) {
     return next();
   }
   const taskId = get(req.session, `form.${req.model.id}.taskId`);
@@ -60,7 +60,12 @@ const redirectToTaskIfOpen = (shouldRedirect = () => true) => (req, res, next) =
           returnTo: req.baseUrl
         });
       })
-      .then(() => res.redirect(req.buildRoute('task.read', { taskId, suffix: 'confirm' })))
+      .then(() => {
+        const suffix = settings.getSuffix
+          ? settings.getSuffix(req)
+          : 'confirm';
+        return res.redirect(req.buildRoute('task.read', { taskId, suffix }));
+      })
       // task doesn't exist, continue;
       .catch(() => next());
   }
