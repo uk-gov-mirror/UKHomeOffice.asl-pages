@@ -35,6 +35,7 @@ module.exports = {
       application: 'Comments',
       amendment: 'Reason for amendment',
       revocation: 'Reason for revocation',
+      transfer: 'Reason for transfer',
       review: 'Comments'
     },
     'next-steps': 'What do you want to do?',
