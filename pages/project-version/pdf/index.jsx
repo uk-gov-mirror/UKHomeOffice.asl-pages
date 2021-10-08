@@ -93,13 +93,13 @@ module.exports = settings => {
 
   const renderNts = (req, res, next) => {
     req.pdf.body = renderToStaticMarkup(<NTS store={req.pdf.store} nonce={req.pdf.nonce} schemaVersion={req.project.schemaVersion} />);
-    req.pdf.filename = `${get(req.version, 'data.title', 'Untitled project')} NTS`;
+    req.pdf.filename = `${get(req.version, 'data.title', 'Untitled project')} (non-technical summary)`;
     next();
   };
 
   const renderProtocols = (req, res, next) => {
     req.pdf.body = renderToStaticMarkup(<Protocols store={req.pdf.store} nonce={req.pdf.nonce} />);
-    req.pdf.filename = `Summary table of steps and adverse effects - ${get(req.version, 'data.title', 'Untitled project')}`;
+    req.pdf.filename = `${get(req.version, 'data.title', 'Untitled project')} (protocol steps)`;
     next();
   };
 

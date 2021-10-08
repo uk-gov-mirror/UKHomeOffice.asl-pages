@@ -21,7 +21,7 @@ module.exports = () => {
     }
 
     const values = req.version.data || {};
-    res.attachment(`${filenamify(values.title || 'Untitled project')}.ppl`);
+    res.attachment(`${filenamify(values.title || 'Untitled project')} (template).ppl`);
     res.end(JSON.stringify(clean(values)));
   });
 
