@@ -38,7 +38,7 @@ module.exports = {
   },
   protocols: {
     heading: 'Protocol steps',
-    link: 'Download Protocol steps (PDF)',
+    link: 'Download protocol steps (PDF)',
     hint: 'Download a table of protocol steps, adverse effects, controls and limitations, and humane endpoints.'
   },
   nts: {
