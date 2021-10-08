@@ -78,7 +78,7 @@ module.exports = {
     nullValue: [],
     showDiff: false
   },
-  comment: {
+  comments: {
     inputType: 'textarea',
     validate: 'required',
     showDiff: false
