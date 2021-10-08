@@ -20,7 +20,7 @@ module.exports = () => {
       json: merge({
         data: pick(values, ['name', 'address', 'country', 'procedure', 'breeding', 'supplying', 'authorisations', 'isTrainingEstablishment']),
         meta: {
-          comment: values.comment,
+          comments: values.comments,
           declaration: content.fields.declaration.label
         }
       }, params)
