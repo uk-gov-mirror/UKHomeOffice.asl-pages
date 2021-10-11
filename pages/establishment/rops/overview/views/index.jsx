@@ -10,6 +10,13 @@ export default function Index() {
 
   const formatters = {
     ...projectFormatters(establishment.id),
+    title: {
+      format: (title, project) => {
+        const page = ropsStatus === 'submitted' ? 'rops.procedures' : 'project.read';
+        const rop = project.rops.find(r => r.year.toString() === year.toString());
+        return <Link page={page} establishmentId={establishment.id} projectId={project.id} ropId={rop && rop.id} label={title} />;
+      }
+    },
     ropsDeadline: {
       format: (date, project) => {
         return (
