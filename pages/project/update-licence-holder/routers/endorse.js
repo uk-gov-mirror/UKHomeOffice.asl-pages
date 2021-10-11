@@ -22,7 +22,18 @@ module.exports = () => {
       }
     };
 
-    return req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/update-licence-holder`, opts);
+    return req.api(`/establishment/${req.establishmentId}/projects/${req.projectId}/update-licence-holder`, opts)
+      .then(response => {
+        req.session.success = { taskId: get(response, 'json.data.id') };
+        delete req.session.form[req.model.id];
+        next();
+      })
+      .catch(next);
+  });
+
+  app.post('/', (req, res, next) => {
+
+    return res.redirect(req.buildRoute('project.updateLicenceHolder', { suffix: 'success' }));
   });
 
   return app;
