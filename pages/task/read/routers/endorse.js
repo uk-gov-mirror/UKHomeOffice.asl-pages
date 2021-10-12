@@ -49,6 +49,8 @@ module.exports = () => {
   app.post('/', (req, res, next) => {
     const values = req.session.form[`${req.model.id}`];
     if (values.returnTo) {
+      const modelId = req.task.data.id;
+      Object.assign(req.session.form[modelId], values);
       // preserve http method
       return res.redirect(307, values.returnTo);
     }
