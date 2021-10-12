@@ -47,6 +47,15 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
+    const values = req.session.form[`${req.model.id}`];
+    if (values.returnTo) {
+      // preserve http method
+      return res.redirect(307, values.returnTo);
+    }
+    next();
+  });
+
+  app.post('/', (req, res, next) => {
     const { values, meta } = req.session.form[req.model.id];
 
     const opts = {
