@@ -50,7 +50,8 @@ module.exports = () => {
     const values = req.session.form[`${req.model.id}`];
     if (values.returnTo) {
       const modelId = req.task.data.id;
-      Object.assign(req.session.form[modelId], values);
+      Object.assign(req.session.form[modelId].meta, values.meta);
+      req.session.form[modelId].values.status = values.values.status;
       // preserve http method
       return res.redirect(307, values.returnTo);
     }
