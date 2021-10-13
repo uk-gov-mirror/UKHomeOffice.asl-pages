@@ -47,13 +47,13 @@ module.exports = () => {
   });
 
   app.post('/', (req, res, next) => {
-    const values = req.session.form[`${req.model.id}`];
-    if (values.returnTo) {
+    const session = req.session.form[`${req.model.id}`];
+    if (session.returnTo) {
       const modelId = req.task.data.id;
-      Object.assign(req.session.form[modelId].meta, values.meta);
-      req.session.form[modelId].values.status = values.values.status;
+      Object.assign(req.session.form[modelId].meta, session.meta);
+      req.session.form[modelId].values.status = session.values.status;
       // preserve http method
-      return res.redirect(307, values.returnTo);
+      return res.redirect(307, session.returnTo);
     }
     next();
   });
