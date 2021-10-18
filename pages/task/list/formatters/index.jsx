@@ -96,7 +96,7 @@ export default {
   type: {
     format: (type, task) => {
       const id = get(task, 'id');
-      const status = get(task, 'data.modelData.status') || get(task, 'status');
+      const status = get(task, 'data.modelData.status') || get(task, 'modelStatus');
       let licence = get(task, 'data.model') || get(task, 'model');
 
       if (licence === 'trainingPil') {
