@@ -132,9 +132,7 @@ module.exports = () => {
     merge(res.locals.static.content, { success });
     res.locals.static.taskId = req.taskId;
     res.locals.static.taskLabel = getTaskLabel(req.task);
-    res.locals.static.successType = successType;
     res.locals.static.establishment = req.establishment || get(req.task, 'data.establishment');
-    res.locals.static.taskIsOpen = get(req.task, 'isOpen');
     res.locals.static.isAsruUser = req.user.profile.asruUser;
     res.locals.static.additionalInfo = getAdditionalInfo(req);
 
