@@ -100,6 +100,10 @@ module.exports = {
       body: `This request has been approved.`,
       internal: 'The relevant people have been emailed.',
       external: ''
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
     }
   },
   'rejected': {
@@ -109,6 +113,10 @@ module.exports = {
     whatNext: {
       body: `This request has been rejected.`,
       internal: 'The relevant people have been emailed.'
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
     }
   },
   'revoked': {
@@ -118,6 +126,10 @@ module.exports = {
     whatNext: {
       body: `This licence has been revoked.`,
       internal: 'The relevant people have been emailed.'
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
     }
   }
 };
