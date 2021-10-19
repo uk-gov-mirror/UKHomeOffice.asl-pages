@@ -54,7 +54,7 @@ export default {
         return (
           <Fragment>
             <span>PIL</span>
-            <span className="block smaller">{get(task, 'data.modelData.licenceNumber')}</span>
+            <span className="block smaller">{get(task, 'data.modelData.licenceNumber') || get(task, 'licenceNumber')}</span>
           </Fragment>
         );
       }
@@ -62,7 +62,7 @@ export default {
         return (
           <Fragment>
             <span>PPL</span>
-            <span className="block smaller">{get(task, 'data.modelData.licenceNumber')}</span>
+            <span className="block smaller">{get(task, 'data.modelData.licenceNumber') || get(task, 'licenceNumber')}</span>
           </Fragment>
         );
       }
@@ -76,8 +76,8 @@ export default {
     }
   },
   status: {
-    format: (status, model) => {
-      const isRop = get(model, 'data.model') === 'rop';
+    format: (status, task) => {
+      const isRop = (get(task, 'data.model') || get(task, 'model')) === 'rop';
       const className = classnames({ badge: true, complete: good.includes(status || isRop), rejected: bad.includes(status) });
 
       if (isRop) {
@@ -87,17 +87,17 @@ export default {
       return (
         <Fragment>
           <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
-          <DeadlineCountdown model={model} />
-          <ContinuationCountdown model={model} />
+          <DeadlineCountdown model={task} />
+          <ContinuationCountdown model={task} />
         </Fragment>
       );
     }
   },
   type: {
-    format: (type, model) => {
-      const id = get(model, 'id');
-      const status = get(model, 'data.modelData.status');
-      let licence = get(model, 'data.model');
+    format: (type, task) => {
+      const id = get(task, 'id');
+      const status = get(task, 'data.modelData.status') || get(task, 'modelStatus');
+      let licence = get(task, 'data.model') || get(task, 'model');
 
       if (licence === 'trainingPil') {
         licence = 'pil';
@@ -110,7 +110,7 @@ export default {
       let contextLabel = null;
       let title = null;
       if (licence === 'project') {
-        title = get(model, 'data.modelData.title') || 'Untitled project';
+        title = get(task, 'data.modelData.title') || get(task, 'projectTitle') || 'Untitled project';
       }
 
       switch (licence) {
@@ -118,14 +118,14 @@ export default {
         case 'pil':
         case 'role':
         case 'profile':
-          const subject = get(model, 'data.subject');
+          const subject = get(task, 'data.subject') || get(task, 'subject');
           if (subject) {
             contextLabel = `${subject.firstName} ${subject.lastName}`;
           }
           break;
 
         case 'place':
-          const placeName = get(model, 'data.modelData.name') || get(model, 'data.data.name');
+          const placeName = get(task, 'data.modelData.name') || get(task, 'data.data.name') || get(task, 'placeName');
           if (placeName) {
             contextLabel = placeName;
           }
