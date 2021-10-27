@@ -1,7 +1,7 @@
 module.exports = {
   role: {
-    create: 'Add named person',
-    delete: 'Remove named person'
+    create: 'Add named person{{#type}} ({{type}}){{/type}}',
+    delete: 'Remove named person{{#type}} ({{type}}){{/type}}'
   },
   rop: {
     submit: 'Return of procedures'

@@ -97,6 +97,7 @@ export default {
     format: (type, task) => {
       const id = get(task, 'id');
       const status = get(task, 'data.modelData.status') || get(task, 'modelStatus');
+      const labelParams = {};
       let licence = get(task, 'data.model') || get(task, 'model');
 
       if (licence === 'trainingPil') {
@@ -111,6 +112,10 @@ export default {
       let title = null;
       if (licence === 'project') {
         title = get(task, 'data.modelData.title') || get(task, 'projectTitle') || 'Untitled project';
+      }
+
+      if (licence === 'role') {
+        labelParams.type = get(task, 'data.data.type', '').toUpperCase();
       }
 
       switch (licence) {
@@ -139,7 +144,7 @@ export default {
             taskId={id}
             // adding optional snippet for backwards compatibility
             // as some task types wont have content defined.
-            label={<Snippet optional>{`tasks.${licence}.${type}`}</Snippet>}
+            label={<Snippet {...labelParams} optional>{`tasks.${licence}.${type}`}</Snippet>}
           />
           {
             contextLabel && <span className="block smaller">{contextLabel}</span>
