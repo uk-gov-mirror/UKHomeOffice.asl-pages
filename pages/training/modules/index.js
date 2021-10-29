@@ -7,7 +7,8 @@ const getSchema = require('./schema');
 const SPECIES_MODULES = [
   'PILA (theory)',
   'PILA (skills)',
-  'K (skills)'
+  'K (skills)',
+  'PILF'
 ];
 
 module.exports = () => {

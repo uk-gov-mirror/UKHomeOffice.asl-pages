@@ -1,4 +1,5 @@
 const { merge } = require('lodash');
+const trainingModules = require('../../../common/content/training-modules');
 const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
@@ -9,7 +10,8 @@ module.exports = merge({}, baseContent, {
     },
     modules: {
       label: '{{#isExemption}}Modules exemption applies to{{/isExemption}}',
-      hint: 'Select all that apply'
+      hint: 'Select all that apply',
+      options: trainingModules
     }
   },
   errors: {

@@ -1,3 +1,5 @@
+const trainingModules = require('./training-modules');
+
 module.exports = {
   siteTitle: 'Research and testing using animals',
   beta: 'This is a new service - your [feedback](mailto:ASPELQueries@homeoffice.gov.uk) will help us to improve it.',
@@ -272,5 +274,6 @@ module.exports = {
   relatedTasks: {
     unavailable: 'Related tasks unavailable',
     noTasks: 'There are no related tasks.'
-  }
+  },
+  trainingModules
 };
