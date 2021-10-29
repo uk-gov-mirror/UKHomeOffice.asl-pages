@@ -16,7 +16,7 @@ function ProfileLink({ id, name, establishmentId, asruUser }) {
   }
 }
 
-function Action({ task, action, changedBy }) {
+function Action({ task, action, activity, changedBy }) {
   const type = task.type;
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
   if (action === 'autoresolved') {
@@ -28,11 +28,16 @@ function Action({ task, action, changedBy }) {
   if (task.data.model === 'rop') {
     action = 'resubmitted';
   }
+
+  const establishmentId = get(activity, 'event.data.establishmentId');
+  const profile = get(activity, 'event.meta.user.profile');
+  const establishment = profile.establishments.find(e => e.id === establishmentId) || {};
+
   return (
     <p>
-      <strong><Snippet fallback={`status.${action}.log`}>{`status.${action}.log.${type}`}</Snippet></strong>
+      <strong><Snippet fallback={`status.${action}.log`} establishmentName={establishment.name}>{`status.${action}.log.${type}`}</Snippet></strong>
       <strong>: </strong>
-      <ProfileLink id={changedBy.id} name={name} establishmentId={task.data.establishmentId} asruUser={changedBy.asruUser} />
+      <ProfileLink id={changedBy.id} name={name} establishmentId={establishment.id || task.data.establishmentId} asruUser={changedBy.asruUser} />
     </p>
   );
 }
@@ -239,7 +244,7 @@ function LogItem({ item, task }) {
   return (
     <div className="log-item" id={item.id}>
       <span className="date">{format(item.createdAt, dateFormat.long)}</span>
-      <Action task={task} action={action} changedBy={item.changedBy} />
+      <Action task={task} action={action} activity={item} changedBy={item.changedBy} />
       <InspectorRecommendation item={item} />
       { isExtension && <DeadlineDetails item={item} /> }
       { isRa && <AwerbDate item={item} /> }
