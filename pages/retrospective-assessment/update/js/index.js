@@ -34,5 +34,8 @@ start({
     schemaVersion: 'RA',
     licenceHolder: state.static.project.licenceHolder
   },
-  static: { urls: state.static.urls }
+  static: {
+    urls: state.static.urls,
+    content: state.static.content
+  }
 });

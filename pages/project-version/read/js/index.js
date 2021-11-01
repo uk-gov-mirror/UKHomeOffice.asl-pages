@@ -42,5 +42,8 @@ start({
     isActionable: state.static.isActionable,
     taskLink: state.static.taskLink
   },
-  static: { urls: state.static.urls }
+  static: {
+    urls: state.static.urls,
+    content: state.static.content
+  }
 });

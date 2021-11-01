@@ -45,5 +45,8 @@ start({
     training: state.static.training,
     licenceHolder: state.model.licenceHolder
   },
-  static: { urls: state.static.urls }
+  static: {
+    urls: state.static.urls,
+    content: state.static.content
+  }
 });
