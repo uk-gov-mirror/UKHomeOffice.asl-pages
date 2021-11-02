@@ -54,6 +54,15 @@ module.exports = {
     },
     router: read
   },
+  preview: {
+    path: '/preview',
+    breadcrumb: false,
+    before: (req, res, next) => {
+      req.isPreview = true;
+      next();
+    },
+    router: read
+  },
   read: {
     path: '/*',
     router: read
