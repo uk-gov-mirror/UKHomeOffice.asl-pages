@@ -7,6 +7,7 @@ module.exports = {
     link: 'Guidance on completing {{year}} annual return of procedures'
   },
   fields: {
+    disabledWarning: 'This item has already been cited in one or more procedures and cannot be removed',
     proceduresCompleted: {
       label: 'Were any procedures carried out and completed on any animals in {{year}}?',
       hint: 'Include regulated procedures only.',

@@ -1,5 +1,6 @@
 const { flatten, get, intersection, every, omit } = require('lodash');
 const { toBoolean, toArray } = require('../../../../lib/utils');
+const content = require('../content');
 
 module.exports = req => {
   const disableProcOpts = fieldName => opt => {
@@ -11,7 +12,8 @@ module.exports = req => {
     if (field.includes(opt.value)) {
       return {
         ...opt,
-        disabled: true
+        disabled: true,
+        warning: content.fields.disabledWarning
       };
     }
     return opt;
@@ -22,6 +24,7 @@ module.exports = req => {
     return {
       inputType: 'multiInput',
       disabled: procIds,
+      disabledWarning: content.fields.disabledWarning,
       nullValue: [],
       format: JSON.parse,
       objectItems: true,
