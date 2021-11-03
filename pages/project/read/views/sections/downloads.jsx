@@ -127,6 +127,8 @@ function DownloadSection({ project, version }) {
 
 export default function Downloads() {
   const project = useSelector(state => state.model);
+  const viewingAtAAEstablishment = useSelector(state => state.static.additionalAvailability);
+
   const latestVersion = project.versions[0];
   const grantedVersion = project.granted;
   const supersededVersions = project.versions.filter(v => v.status === 'granted' && v.id !== grantedVersion.id && !v.isLegacyStub);
@@ -138,7 +140,8 @@ export default function Downloads() {
 
           {
             // latest version might be application, amendment or granted
-            latestVersion && <DownloadSection project={project} version={latestVersion} />
+            latestVersion && !(grantedVersion.id !== latestVersion.id && viewingAtAAEstablishment) &&
+              <DownloadSection project={project} version={latestVersion} />
           }
 
           {
@@ -149,7 +152,7 @@ export default function Downloads() {
 
           {
             // any previously granted versions
-            supersededVersions.length > 0 &&
+            supersededVersions.length > 0 && !viewingAtAAEstablishment &&
             <details className="previous-licences">
               <summary>Show older licence versions</summary>
               <Inset>
