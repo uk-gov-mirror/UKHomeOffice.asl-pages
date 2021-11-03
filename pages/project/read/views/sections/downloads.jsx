@@ -7,7 +7,7 @@ import { dateFormat } from '../../../../../constants';
 import { Link, Snippet, Inset } from '@asl/components';
 import Subsection from '../components/subsection';
 
-function DownloadSection({ project, version }) {
+function DownloadSection({ project, version, viewingAtAAEstablishment }) {
   const isApplication = project.status === 'inactive';
   const isAmendment = project.status === 'active' && version.status !== 'granted';
   const isGranted = version.status === 'granted';
@@ -41,6 +41,10 @@ function DownloadSection({ project, version }) {
 
   if (isRevoked || isExpired) {
     endDate = project.revocationDate || project.expiryDate;
+  }
+
+  if (!isGranted && viewingAtAAEstablishment) {
+    return null; // AA users cannot access in-progress amendments
   }
 
   return (
@@ -127,6 +131,8 @@ function DownloadSection({ project, version }) {
 
 export default function Downloads() {
   const project = useSelector(state => state.model);
+  const viewingAtAAEstablishment = useSelector(state => state.static.additionalAvailability);
+
   const latestVersion = project.versions[0];
   const grantedVersion = project.granted;
   const supersededVersions = project.versions.filter(v => v.status === 'granted' && v.id !== grantedVersion.id && !v.isLegacyStub);
@@ -138,7 +144,8 @@ export default function Downloads() {
 
           {
             // latest version might be application, amendment or granted
-            latestVersion && <DownloadSection project={project} version={latestVersion} />
+            latestVersion &&
+              <DownloadSection project={project} version={latestVersion} viewingAtAAEstablishment={viewingAtAAEstablishment} />
           }
 
           {
@@ -149,7 +156,7 @@ export default function Downloads() {
 
           {
             // any previously granted versions
-            supersededVersions.length > 0 &&
+            supersededVersions.length > 0 && !viewingAtAAEstablishment &&
             <details className="previous-licences">
               <summary>Show older licence versions</summary>
               <Inset>
