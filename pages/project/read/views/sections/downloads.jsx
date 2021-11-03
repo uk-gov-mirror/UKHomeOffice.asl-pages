@@ -7,7 +7,7 @@ import { dateFormat } from '../../../../../constants';
 import { Link, Snippet, Inset } from '@asl/components';
 import Subsection from '../components/subsection';
 
-function DownloadSection({ project, version, viewingAtAAEstablishment }) {
+function DownloadSection({ project, version }) {
   const isApplication = project.status === 'inactive';
   const isAmendment = project.status === 'active' && version.status !== 'granted';
   const isGranted = version.status === 'granted';
@@ -41,10 +41,6 @@ function DownloadSection({ project, version, viewingAtAAEstablishment }) {
 
   if (isRevoked || isExpired) {
     endDate = project.revocationDate || project.expiryDate;
-  }
-
-  if (!isGranted && viewingAtAAEstablishment) {
-    return null; // AA users cannot access in-progress amendments
   }
 
   return (
@@ -144,8 +140,8 @@ export default function Downloads() {
 
           {
             // latest version might be application, amendment or granted
-            latestVersion &&
-              <DownloadSection project={project} version={latestVersion} viewingAtAAEstablishment={viewingAtAAEstablishment} />
+            latestVersion && !(grantedVersion.id !== latestVersion.id && viewingAtAAEstablishment) &&
+              <DownloadSection project={project} version={latestVersion} />
           }
 
           {
