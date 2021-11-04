@@ -27,5 +27,8 @@ module.exports = {
   },
   repeat: {
     title: 'Method {{index}}'
+  },
+  buttons: {
+    submit: 'Continue'
   }
 };

@@ -1,6 +1,9 @@
 module.exports = {
   page: {
-    title: 'Establishment licence'
+    title: {
+      granted: 'Establishment licence',
+      draft: 'Establishment details'
+    }
   },
   address: 'Address',
   country: {
@@ -48,6 +51,11 @@ module.exports = {
     }
   },
   action: {
+    draftAmend: {
+      summary: `## Amend establishment details
+      Amend details about this establishment’s address, activities and authorisations.`,
+      button: 'Amend establishment details'
+    },
     amend: {
       summary: `## Amend licence
         You can amend this establishment licence if you want to:
@@ -66,6 +74,11 @@ module.exports = {
       button: 'Revoke licence'
     },
     reapply: {
+      summary: `## Reapply for licence
+        You can amend this establishment licence if you want to:
+        * Change any of the licence details
+        * Add or remove authorisations
+      `,
       button: 'Reapply for licence'
     },
     approvedAreas: 'View approved areas',
