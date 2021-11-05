@@ -49,6 +49,13 @@ module.exports = settings => {
     req.pdf.store = createStore(initialState);
     req.pdf.nonce = res.locals.static.nonce;
 
+    const versionSuperseded = req.project.status === 'active' && req.project.granted.id !== req.version.id;
+
+    // nts pdf only needs banner if superseded or draft, licence pdf needs banner whenever it's not current active
+    req.pdf.hasStatusBanner = opts.isNts
+      ? (versionSuperseded || req.project.status === 'inactive')
+      : (versionSuperseded || req.project.status !== 'active');
+
     req.pdf.header = renderToStaticMarkup(<Header
       store={req.pdf.store}
       model={req.project}
@@ -56,11 +63,11 @@ module.exports = settings => {
       nonce={req.pdf.nonce}
       version={req.version}
       officialSensitive={req.pdf.officialSensitive}
+      hasStatusBanner={req.pdf.hasStatusBanner}
     />);
     req.pdf.footer = renderToStaticMarkup(<Footer
       officialSensitive={req.pdf.officialSensitive}
     />);
-    req.pdf.hasStatusBanner = req.project.status !== 'active' || (req.project.status === 'active' && req.project.granted.id !== req.version.id);
 
     next();
   };
@@ -105,7 +112,7 @@ module.exports = settings => {
 
   app.get('/nts',
     loadRa,
-    setupPdf({ officialSensitive: false }),
+    setupPdf({ officialSensitive: false, isNts: true }),
     renderNts,
     convertToPdf
   );

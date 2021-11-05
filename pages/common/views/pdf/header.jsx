@@ -7,13 +7,13 @@ import ProjectStatusBanner from '../../../project-version/components/project-sta
 
 const format = date => moment(date).format('DD MMM YY');
 
-const Header = ({ store, model, licenceType, nonce, version, officialSensitive = true }) => (
+const Header = ({ store, model, licenceType, nonce, version, officialSensitive = true, hasStatusBanner = true }) => (
   <Wrapper name="header" nonce={nonce}>
     <Provider store={store}>
       <header className="pdf-header">
         {
           licenceType === 'ppl'
-            ? <ProjectStatusBanner model={model} version={version} isPdf={true} />
+            ? (hasStatusBanner && <ProjectStatusBanner model={model} version={version} isPdf={true} />)
             : <LicenceStatusBanner licence={model} licenceType={licenceType} isPdf={true} />
         }
         {
