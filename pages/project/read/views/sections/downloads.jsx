@@ -131,6 +131,8 @@ export default function Downloads() {
 
   const latestVersion = project.versions[0];
   const grantedVersion = project.granted;
+  const latestIsGranted = grantedVersion && (grantedVersion.id === latestVersion.id);
+
   const supersededVersions = project.versions.filter(v => v.status === 'granted' && v.id !== grantedVersion.id && !v.isLegacyStub);
 
   return (
@@ -140,26 +142,26 @@ export default function Downloads() {
 
           {
             // latest version might be application, amendment or granted
-            latestVersion && !(grantedVersion.id !== latestVersion.id && viewingAtAAEstablishment) &&
+            latestVersion && (latestIsGranted || !viewingAtAAEstablishment) &&
               <DownloadSection project={project} version={latestVersion} />
           }
 
           {
             // if the latest version is not the granted version, show a section for the granted version
-            grantedVersion && (grantedVersion.id !== latestVersion.id) &&
+            grantedVersion && !latestIsGranted &&
               <DownloadSection project={project} version={grantedVersion} />
           }
 
           {
             // any previously granted versions
             supersededVersions.length > 0 && !viewingAtAAEstablishment &&
-            <details className="previous-licences">
-              <summary>Show older licence versions</summary>
-              <Inset>
-                <h2>Previous licences</h2>
-                { supersededVersions.map(v => <DownloadSection key={v.id} project={project} version={v} />) }
-              </Inset>
-            </details>
+              <details className="previous-licences">
+                <summary>Show older licence versions</summary>
+                <Inset>
+                  <h2>Previous licences</h2>
+                  { supersededVersions.map(v => <DownloadSection key={v.id} project={project} version={v} />) }
+                </Inset>
+              </details>
           }
 
         </Subsection>
