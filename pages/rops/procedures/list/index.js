@@ -2,11 +2,17 @@ const { page } = require('@asl/service/ui');
 const { pickBy, pick, some } = require('lodash');
 const { datatable } = require('../../../common/routers');
 const getSchema = require('./schema');
+const review = require('./routers/review');
 
 module.exports = () => {
-  const app = page({ root: __dirname });
+  const app = page({
+    root: __dirname,
+    paths: ['/review']
+  });
 
   app.use((req, res, next) => {
+    console.log('in here');
+
     const params = {
       projectId: req.projectId,
       licenceHolderId: req.project.licenceHolderId,
@@ -22,6 +28,7 @@ module.exports = () => {
 
   app.use(datatable({
     configure: (req, res, next) => {
+      console.log('in datatable config');
       req.datatable.apiPath = `/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedures`;
       req.datatable.schema = getSchema(req.rop);
       req.datatable.pagination = false;
@@ -44,6 +51,8 @@ module.exports = () => {
       next();
     }
   })());
+
+  app.use('/review', review());
 
   app.get('/', (req, res) => res.sendResponse());
 

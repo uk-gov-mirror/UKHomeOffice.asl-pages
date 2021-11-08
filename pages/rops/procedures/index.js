@@ -9,7 +9,7 @@ module.exports = () => {
   const app = Router({ mergeParams: true });
 
   app.param('procedureId', (req, res, next, procedureId) => {
-    if (procedureId === 'create' || procedureId === 'unsubmit') {
+    if (procedureId === 'create' || procedureId === 'unsubmit' || procedureId === 'review') {
       return next();
     }
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedure/${procedureId}`)

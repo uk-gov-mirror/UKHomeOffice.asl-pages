@@ -8,6 +8,11 @@ module.exports = {
     breadcrumb: false,
     router: list
   },
+  review: {
+    path: '/review',
+    breadcrumb: false,
+    router: list
+  },
   create: {
     path: '/create',
     breadcrumb: false,

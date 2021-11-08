@@ -51,7 +51,7 @@ function List({ items }) {
   );
 }
 
-export default function Confirm() {
+export default function Confirm({ isReview = false }) {
   const { year, hasNhps, species, schedule2Applicable } = useSelector(state => state.static);
   const rop = useSelector(state => state.model);
 
@@ -89,6 +89,7 @@ export default function Confirm() {
   }
 
   const nilReturn = !rop.proceduresCompleted || !rop.postnatal;
+  const generalOnly = isReview || nilReturn;
 
   return (
     <div className="rop-summary">
@@ -145,7 +146,7 @@ export default function Confirm() {
         </dl>
       </Section>
       {
-        !nilReturn && (
+        !generalOnly && (
           <Fragment>
             <Section title="Animals" step="species">
               <dl className="inline">
