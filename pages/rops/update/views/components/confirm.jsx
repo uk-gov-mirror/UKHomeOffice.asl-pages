@@ -6,16 +6,7 @@ import without from 'lodash/without';
 import castArray from 'lodash/castArray';
 import { Snippet, Inset, Link } from '@asl/components';
 import { projectSpecies } from '@asl/constants';
-
-function yn(val) {
-  if (val === true) {
-    return 'Yes';
-  }
-  if (val === false) {
-    return 'No';
-  }
-  return '-';
-}
+import { yesNoEmpty, yesNo } from '../../../procedures/list/formatters';
 
 const ALL_SPECIES = flatten(values(projectSpecies));
 
@@ -104,13 +95,13 @@ export default function Confirm() {
       <Section title="General details" step="procedures">
         <dl className="inline">
           <dt>Procedures completed in {year}</dt>
-          <dd>{yn(rop.proceduresCompleted)}</dd>
+          <dd>{yesNoEmpty(rop.proceduresCompleted)}</dd>
 
           <dt>Postnatal or free feeding animals used</dt>
-          <dd>{yn(rop.postnatal)}</dd>
+          <dd>{yesNoEmpty(rop.postnatal)}</dd>
 
           <dt>Endangered animals used</dt>
-          <dd>{yn(rop.endangered)}</dd>
+          <dd>{yesNoEmpty(rop.endangered)}</dd>
           {
             rop.endangered && (
               <Fragment>
@@ -120,12 +111,12 @@ export default function Confirm() {
             )
           }
           <dt>NMBAs used</dt>
-          <dd>{yn(rop.nmbas)}</dd>
+          <dd>{yesNoEmpty(rop.nmbas)}</dd>
           {
             rop.nmbas && (
               <Fragment>
                 <dt>General anaesthesia used throughout</dt>
-                <dd>{yn(rop.generalAnaesthesia)}</dd>
+                <dd>{yesNoEmpty(rop.generalAnaesthesia)}</dd>
                 {
                   !rop.generalAnaesthesia && (
                     <Fragment>
@@ -139,7 +130,7 @@ export default function Confirm() {
           }
 
           <dt>Rodenticide trials carried out</dt>
-          <dd>{yn(rop.rodenticide)}</dd>
+          <dd>{yesNoEmpty(rop.rodenticide)}</dd>
           {
             rop.rodenticide && (
               <Fragment>
@@ -150,7 +141,7 @@ export default function Confirm() {
           }
 
           <dt>Special techniques used</dt>
-          <dd>{yn(rop.productTesting)}</dd>
+          <dd>{yesNoEmpty(rop.productTesting)}</dd>
         </dl>
       </Section>
       {
@@ -171,7 +162,7 @@ export default function Confirm() {
                 </dd>
 
                 <dt>Re-use</dt>
-                <dd>{yn(rop.reuse)}</dd>
+                <dd>{yesNo(rop.reuse)}</dd>
 
                 <dt>Place of birth for animals not reused</dt>
                 <dd>
@@ -195,7 +186,7 @@ export default function Confirm() {
                 }
 
                 <dt>Genetically altered animals used</dt>
-                <dd>{yn(rop.ga)}</dd>
+                <dd>{yesNoEmpty(rop.ga)}</dd>
 
                 {
                   schedule2Applicable && (
@@ -309,7 +300,7 @@ export default function Confirm() {
                   ))
                 }
                 <dt>Creation of new genetic line</dt>
-                <dd>{yn(rop.newGeneticLine)}</dd>
+                <dd>{yesNoEmpty(rop.newGeneticLine)}</dd>
               </dl>
             </Section>
             {
