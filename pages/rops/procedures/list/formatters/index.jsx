@@ -6,7 +6,7 @@ import { Snippet } from '@asl/components';
 
 const allSpecies = flatten(Object.values(projectSpecies));
 
-export function yn(v) {
+export function yesNoEmpty(v) {
   if (v) {
     return 'Yes';
   }
@@ -14,6 +14,10 @@ export function yn(v) {
     return 'No';
   }
   return '-';
+}
+
+export function yesNo(v) {
+  return v ? 'Yes' : 'No';
 }
 
 export function formatSpecies(s) {
@@ -47,7 +51,7 @@ const formatters = rop => {
       format: formatSpecies
     },
     reuse: {
-      format: yn
+      format: yesNo
     },
     placesOfBirth: {
       format: getRadioOption('placesOfBirth')
@@ -65,7 +69,7 @@ const formatters = rop => {
       format: getRadioOption('ga')
     },
     newGeneticLine: {
-      format: yn
+      format: yesNoEmpty
     },
     purposes: {
       format: getRadioOption('purposes')
