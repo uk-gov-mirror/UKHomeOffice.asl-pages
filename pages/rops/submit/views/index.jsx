@@ -1,11 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet, Header, FormLayout } from '@asl/components';
+import { Snippet, Header, FormLayout, Link } from '@asl/components';
 
 export default function Submit() {
   const project = useSelector(state => state.model.project);
+
+  const cancelLink = <Link page="rops.procedures.list" suffix="review" label="Back" />;
+
   return (
-    <FormLayout cancelLink="rops.procedures">
+    <FormLayout cancelLink={cancelLink}>
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={project.title}
