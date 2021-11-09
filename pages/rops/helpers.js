@@ -1,12 +1,14 @@
-const { get, intersection, flatten } = require('lodash');
+const { get, intersection, flatten, uniq } = require('lodash');
 
 function getSpecies(req) {
   const projectSpecies = (get(req, 'project.granted.data.species') || []).filter(s => !s.includes('other'));
   const ropSpecies = flatten(Object.values(get(req, 'rop.species') || {})).filter(s => !s.match(/^other-/));
 
-  return req.rop.otherSpecies
+  const species = req.rop.otherSpecies
     ? projectSpecies.concat(ropSpecies) // user answered yes to "other animal types used" so merge project and rop species
     : (ropSpecies.length > 0 ? ropSpecies : projectSpecies); // otherwise use rops species or fall back to proj species
+
+  return uniq(species);
 }
 
 function hasNhps(req, option) {
