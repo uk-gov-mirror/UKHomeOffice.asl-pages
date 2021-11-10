@@ -2,9 +2,13 @@ const { page } = require('@asl/service/ui');
 const { pickBy, pick, some } = require('lodash');
 const { datatable } = require('../../../common/routers');
 const getSchema = require('./schema');
+const review = require('./routers/review');
 
 module.exports = () => {
-  const app = page({ root: __dirname });
+  const app = page({
+    root: __dirname,
+    paths: ['/review']
+  });
 
   app.use((req, res, next) => {
     const params = {
@@ -20,7 +24,7 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use(datatable({
+  const proceduresTable = datatable({
     configure: (req, res, next) => {
       req.datatable.apiPath = `/establishment/${req.establishmentId}/project/${req.projectId}/rop/${req.ropId}/procedures`;
       req.datatable.schema = getSchema(req.rop);
@@ -43,7 +47,12 @@ module.exports = () => {
       req.datatable.data.rows = req.datatable.data.rows.map((row, idx) => ({ rowNum: idx + 1, ...row }));
       next();
     }
-  })());
+  });
+
+  app.use('/', proceduresTable());
+
+  app.use('/review', proceduresTable());
+  app.use('/review', review());
 
   app.get('/', (req, res) => res.sendResponse());
 

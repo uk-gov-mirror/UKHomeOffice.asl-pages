@@ -47,7 +47,8 @@ const Submission = () => {
               <p><Snippet>submit.content</Snippet></p>
               <p>
                 <Link
-                  page="rops.submit"
+                  page="rops.procedures.list"
+                  suffix="review"
                   className="govuk-button"
                   label={<Snippet>submit.action</Snippet>}
                 />
