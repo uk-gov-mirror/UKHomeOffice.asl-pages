@@ -4,6 +4,12 @@ import { Snippet } from '@asl/components';
 
 export default function Reuse() {
   const reuse = useSelector(state => state.static.hasReUse);
+
+  const isLegacy = useSelector(state => state.model.project.schemaVersion === 0);
+  if (isLegacy) {
+    return null;
+  }
+
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>

@@ -4,6 +4,12 @@ import { Snippet } from '@asl/components';
 
 export default function GA() {
   const { hasGeneticallyAltered } = useSelector(state => state.static);
+
+  const isLegacy = useSelector(state => state.model.project.schemaVersion === 0);
+  if (isLegacy) {
+    return null;
+  }
+
   return (
     <Fragment>
       <h3><Snippet>playback</Snippet></h3>

@@ -4,10 +4,10 @@ import { Snippet } from '@asl/components';
 import ReviewField from '@asl/projects/client/components/review-field';
 
 export default function Species() {
-  const { schemaVersion } = useSelector(state => state.model.project);
+  const isLegacy = useSelector(state => state.model.project.schemaVersion === 0);
   const { hasOtherSpecies, projectSpecies } = useSelector(state => state.static);
 
-  if (schemaVersion === 0 || hasOtherSpecies) {
+  if (isLegacy || hasOtherSpecies) {
     return null;
   }
 
