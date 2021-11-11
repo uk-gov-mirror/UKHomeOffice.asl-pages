@@ -1,7 +1,6 @@
 module.exports = {
   pageTitle: 'Returns of procedures',
   title: 'Returns of procedures',
-  reportingPeriod: 'Reporting period: 1 January {{year}} to 31 December {{year}}',
   overview: {
     due: 'returns due in {{year}}',
     submitted: 'returns submitted',
@@ -12,6 +11,9 @@ module.exports = {
     submitted: 'Submitted'
   },
   fields: {
+    year: {
+      label: 'Reporting period: '
+    },
     title: {
       label: 'Project title'
     },

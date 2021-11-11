@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Header, Snippet, Metric, Tabs, Datatable, Countdown, Link } from '@asl/components';
+import DateSelector from '../../components/date-selector';
 import projectFormatters from '../../../../project/formatters';
 import { formatDate } from '../../../../../lib/utils';
 import { dateFormat } from '../../../../../constants';
@@ -53,7 +54,7 @@ export default function Index() {
         subtitle={establishment.name}
       />
 
-      <p><Snippet year={year}>reportingPeriod</Snippet></p>
+      <DateSelector year={year} />
 
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-third">
