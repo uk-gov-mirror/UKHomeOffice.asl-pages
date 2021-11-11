@@ -1,6 +1,7 @@
 const { set, omit } = require('lodash');
 const { page } = require('@asl/service/ui');
 const datatable = require('../../../common/routers/datatable');
+const { redirectOnPost } = require('../middleware');
 const schema = require('./schema');
 
 module.exports = settings => {
@@ -39,6 +40,8 @@ module.exports = settings => {
       .then(() => next())
       .catch(next);
   });
+
+  app.use(redirectOnPost({ target: 'establishment.rops.overview' }));
 
   return app;
 };

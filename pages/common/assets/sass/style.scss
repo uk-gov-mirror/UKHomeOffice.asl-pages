@@ -66,6 +66,17 @@ dl.continuation {
   margin-left: 1em;
 }
 
+.govuk-form-group.inline-label {
+  > select, > label, .govuk-hint {
+    display: inline-block;
+    width: auto;
+  }
+
+  > label {
+    margin-right: 1em;
+  }
+}
+
 .subtitle {
   font-size: 1.1em;
 }
