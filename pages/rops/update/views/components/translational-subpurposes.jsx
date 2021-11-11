@@ -6,7 +6,7 @@ export default function Endangered() {
     <Fragment>
       <h3><Snippet>purpose.title</Snippet></h3>
       <ul>
-        <li>Translational/Applied research</li>
+        <li>Translational and applied research</li>
       </ul>
     </Fragment>
   );

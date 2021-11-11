@@ -35,6 +35,7 @@ module.exports = () => {
     res.locals.static.schedule2Applicable = schedule2Applicable(req);
     res.locals.static.hasGeneticallyAltered = hasGeneticallyAltered(req);
     res.locals.static.hasEndangeredSpecies = get(req.project, 'granted.data.endangered-animals', false);
+    res.locals.static.hasNMBAs = get(req.project, 'granted.data.nmbas-used', false);
     res.locals.static.hasReUse = hasReUse(req);
     res.locals.static.projectSpecies = get(req.project, 'granted.data.species', []);
     res.locals.static.species = getSpecies(req);
