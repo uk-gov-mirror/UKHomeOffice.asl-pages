@@ -6,7 +6,6 @@ module.exports = {
     datetime: 'DD MMMM YYYY HH:mm'
   },
   ropsYears: [
-    2022,
     2021
   ]
 };

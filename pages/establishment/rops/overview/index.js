@@ -10,6 +10,13 @@ module.exports = settings => {
     root: __dirname
   });
 
+  app.use((req, res, next) => {
+    if (req.query.include2022) {
+      res.locals.static.include2022 = true;
+    }
+    next();
+  });
+
   app.use(datatable({
     configure: (req, res, next) => {
       const sortColumn = req.query.ropsStatus === 'submitted' ? 'ropsSubmittedDate' : 'ropsDeadline';
