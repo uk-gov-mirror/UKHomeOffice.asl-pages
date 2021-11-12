@@ -35,6 +35,7 @@ module.exports = () => {
 
   app.use((req, res, next) => {
     req.model = req.procedure;
+    res.locals.static.rowNum = req.query.rowNum;
     next();
   });
 
