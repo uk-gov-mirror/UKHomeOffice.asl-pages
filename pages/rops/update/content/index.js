@@ -32,14 +32,14 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     },
     endangered: {
       label: 'Were any endangered species used in procedures in {{year}}?',
-      summary: 'Show list of endangered species',
+      summary: 'Where to find the endangered species list',
       details: 'The list of endangered species can be found in [Annex A to Council Regulation EC 338/97](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R1320). Captive bred animals of these species do not count as endangered.',
       options: {
         false: 'No, endangered species were not used',
         true: 'Yes, endangered species were used'
       },
       playback: {
-        true: 'Authorises or has previously authorised use of endangered species',
+        true: 'Authorises or previously authorised use of endangered species',
         false: 'Does not authorise use of endangered species'
       }
     },
@@ -47,10 +47,14 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
       label: 'Details of endangered animals used'
     },
     nmbas: {
-      label: 'Were neuromuscular blocking agents (NMBA) used in any procedures in {{year}}?',
+      label: 'Were neuromuscular blocking agents (NMBAs) used in any procedures in {{year}}?',
       options: {
         false: 'No, NMBAs were not used',
         true: 'Yes, NMBAs were used'
+      },
+      playback: {
+        true: 'Authorises or previously authorised use of NMBAs',
+        false: 'Does not authorise use of NMBAs'
       }
     },
     generalAnaesthesia: {
@@ -89,7 +93,8 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     },
     species: {
       label: 'Select {{#hasSpecies}}any other {{/hasSpecies}}animal types used',
-      playback: 'This licence authorises or has previously authorised use of the following animal types:'
+      hint: 'Select all that apply',
+      playback: 'This licence authorises or previously authorised use of the following animal types:'
     },
     'species-other-rodents': {
       label: 'Specify other rodents'
@@ -112,7 +117,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     reuse: {
       label: 'Did any of the procedures reuse animals in {{year}}?',
       playback: {
-        true: 'authorises or has previously authorised reuse of animals',
+        true: 'authorises or previously authorised reuse of animals',
         false: 'Does not authorise reuse of animals'
       },
       options: {
@@ -120,7 +125,7 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
         true: 'Yes, animals were reused'
       },
       summary: 'Guidance on reuse of animals',
-      details: 'Re-use is when animals are used again for a new experiment when you could equally use a naïve animal to get the same results. It is not the same as using animals in several protocols in order to achieve your scientific aims. Animals can be reused from one year to the next, so animals reused in {{year}} could have first been used in {{lastYear}} or earlier.'
+      details: 'Reuse is when animals are used again for a new experiment when you could equally use a naïve animal to get the same results. It is not the same as using animals in several protocols in order to achieve your scientific aims. Animals can be reused from one year to the next, so animals reused in {{year}} could have first been used in {{lastYear}} or earlier.'
     },
     placesOfBirth: {
       label: 'What was the place of birth for animals used in procedures in {{year}}?',
@@ -130,7 +135,7 @@ Select all that apply`,
       options: {
         'uk-licenced': {
           label: 'In the UK at a licensed establishment',
-          hint: 'Including your own establishment'
+          hint: 'Including your own'
         },
         'eu-registered': 'In the EU (non-UK) at a registered breeder',
         'uk-non-licenced': {
@@ -138,7 +143,10 @@ Select all that apply`,
           hint: 'For example, cattle sourced at a commercial farm or wild caught animals'
         },
         'eu-non-registered': 'In the EU (non-UK) **not** at a registered breeder',
-        'europe': 'In the rest of Europe',
+        'europe': {
+          label: 'In the rest of Europe',
+          hint: 'These are the Council of Europe countries and Israel'
+        },
         'rest-of-world': 'In the rest of the world'
       }
     },
@@ -206,7 +214,7 @@ Select all that apply`,
       summary: 'Definitions of self-sustaining colonies',
       details: `**Marmosets, tamarins and other new world primates**
 
-A self-sustaining colony is a colony that contains no wild caught animals, is kept in a way that ensures animals are used to humans, and is sustained using animals sourced from within or from other self sustaining colonies.
+A self-sustaining colony is a colony that contains no wild caught animals, is kept in a way that ensures animals are used to humans, and is sustained using animals sourced from within or from other self-sustaining colonies.
 
 **Macaques and other old world primates**
 
@@ -238,7 +246,7 @@ They do not include:
 * triploid fish, unless induction of triploidy is for a scientific purpose
 * animals with somatic genetic modification, such as by injection of viral vectors into tissues`,
       playback: {
-        true: 'Authorises or has previously authorised use of genetically altered animals',
+        true: 'Authorises or previously authorised use of genetically altered animals',
         false: 'Does not authorise use of genetically altered animals'
       }
     },

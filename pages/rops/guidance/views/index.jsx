@@ -1,9 +1,10 @@
 import React from 'react';
 import { Snippet, Link, Header, WidthContainer } from '@asl/components';
+import Sidebar from '../../components/guidance';
 
 export default function Guidance() {
   return (
-    <WidthContainer>
+    <WidthContainer sidebar={<Sidebar />}>
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={<Snippet>subtitle</Snippet>}

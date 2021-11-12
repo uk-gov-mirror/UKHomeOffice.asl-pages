@@ -1,4 +1,5 @@
 import Endangered from './endandered';
+import NMBAs from './nmbas';
 import Species from './species';
 import Reuse from './reuse';
 import GA from './ga';
@@ -11,6 +12,7 @@ import Confirm from './confirm';
 
 export default {
   endangered: Endangered,
+  nmbas: NMBAs,
   species: Species,
   reuse: Reuse,
   ga: GA,

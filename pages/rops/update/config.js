@@ -83,6 +83,11 @@ module.exports = {
     section: 'purposes',
     include: hasPurpose('basic')
   },
+  'translational-subpurposes': {
+    fields: ['translationalSubpurposes'],
+    section: 'purposes',
+    include: hasPurpose('translational')
+  },
   'regulatory-subpurposes': {
     fields: ['regulatorySubpurposes'],
     section: 'purposes',
@@ -100,11 +105,6 @@ module.exports = {
       ];
       return hasPurpose('regulatory')(req) && without(regulatorySubpurposes, ...nopes).length;
     }
-  },
-  'translational-subpurposes': {
-    fields: ['translationalSubpurposes'],
-    section: 'purposes',
-    include: hasPurpose('translational')
   },
   'new-genetic-line': {
     fields: ['newGeneticLine'],

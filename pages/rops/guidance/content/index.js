@@ -1,6 +1,9 @@
+const { guidance } = require('../../update/content');
+
 module.exports = {
   title: 'How to complete your return',
   subtitle: 'Return of procedures',
+  guidance,
   content: `
    * You will be asked to complete 4 sections of questions before adding details of completed procedures (if relevant). Answering these initial set up questions means you won’t be asked about information not relevant to your project later on.
 
