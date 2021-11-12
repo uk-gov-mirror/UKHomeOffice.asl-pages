@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
-import { Fieldset } from '@asl/components';
-import { ropsYears } from '../../../../constants';
+import React, { useRef, Fragment } from 'react';
+import { useSelector } from 'react-redux';
+import { Fieldset, Snippet } from '@asl/components';
 
 export default function DateSelector({ year }) {
+  const { ropsYears } = useSelector(state => state.static);
   const form = useRef(null);
 
   function onYearChange(fields) {
@@ -26,9 +27,16 @@ export default function DateSelector({ year }) {
     }
   };
 
+  if (ropsYears.length === 1) {
+    return <p><Snippet>fields.year.static</Snippet></p>;
+  }
+
   return (
-    <form method="POST" ref={form}>
-      <Fieldset schema={schema} model={{ year }} onChange={onYearChange} />
-    </form>
+    <Fragment>
+      <form method="POST" ref={form}>
+        <Fieldset schema={schema} model={{ year }} onChange={onYearChange} />
+      </form>
+    </Fragment>
+
   );
 }

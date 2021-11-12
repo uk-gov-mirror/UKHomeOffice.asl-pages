@@ -1,5 +1,6 @@
 const { set, omit } = require('lodash');
 const { page } = require('@asl/service/ui');
+const { ropsYears } = require('../../../../constants');
 const datatable = require('../../../common/routers/datatable');
 const { redirectOnPost } = require('../middleware');
 const schema = require('./schema');
@@ -19,6 +20,7 @@ module.exports = settings => {
     },
     locals: (req, res, next) => {
       set(res.locals, 'static.ropsStatus', req.query.ropsStatus || 'outstanding');
+      res.locals.static.ropsYears = ropsYears;
       next();
     },
     getApiPath: (req, res, next) => {
