@@ -17,7 +17,7 @@ import formatters from '../formatters';
 function Actions({ model }) {
   return (
     <Fragment>
-      <Link page="rops.procedures.update" procedureId={model.id} label="Edit" />
+      <Link page="rops.procedures.update" query={{ rowNum: model.rowNum }} procedureId={model.id} label="Edit" />
     </Fragment>
   );
 }

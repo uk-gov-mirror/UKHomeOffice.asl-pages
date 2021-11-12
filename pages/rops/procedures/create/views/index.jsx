@@ -54,14 +54,14 @@ function DeleteButton() {
 
   return (
     <form method="POST" action={deleteUrl} className="float-right">
-      <button className="govuk-button button-warning push-up" onClick={onDelete}>Delete procedure</button>
+      <button className="govuk-button button-warning push-up" onClick={onDelete}><Snippet>buttons.delete</Snippet></button>
     </form>
   );
 }
 
 export default function Create() {
   const model = useSelector(state => state.model);
-  const { project, csrfToken } = useSelector(state => state.static);
+  const { project, csrfToken, rowNum } = useSelector(state => state.static);
   const [disabled, setDisabled] = useState(false);
   const deletable = model.id !== 'new-procedure';
 
@@ -77,7 +77,7 @@ export default function Create() {
     <Fragment>
       <ErrorSummary />
       <Header
-        title={<Snippet>title</Snippet>}
+        title={<Snippet rowNum={rowNum}>title</Snippet>}
         subtitle={project.title}
       />
 
