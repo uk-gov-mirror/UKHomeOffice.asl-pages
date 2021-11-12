@@ -14,8 +14,6 @@ export default function DateSelector({ year }) {
     }
   }
 
-  console.log(ropsYears)
-
   const options = ropsYears.map(y => ({
     value: y,
     label: `1 January ${y} to 31 December ${y}`
@@ -30,7 +28,7 @@ export default function DateSelector({ year }) {
   };
 
   if (ropsYears.length === 1) {
-    return <p><Snippet>fields.year.static</Snippet></p>
+    return <p><Snippet>fields.year.static</Snippet></p>;
   }
 
   return (
