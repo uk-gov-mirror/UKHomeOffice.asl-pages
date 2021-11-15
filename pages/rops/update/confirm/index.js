@@ -8,5 +8,13 @@ module.exports = () => {
     next();
   });
 
+  app.use((req, res, next) => {
+    if ((req.model.procedures.length || []).length === 0) {
+      // skip this warning page if no completed procedure rows have been added yet
+      return res.redirect(req.buildRoute('rops.update', { step: req.params.step }));
+    }
+    next();
+  });
+
   return app;
 };
