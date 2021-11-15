@@ -6,17 +6,18 @@ import formatters from '../formatters';
 import components from './components';
 import CancelLink from '../../components/cancel-link';
 import Guidance from '../../components/guidance';
+import RopHeader from '../../components/header';
 
 export default function Step() {
-  const { step, schema, project } = useSelector(state => state.static);
+  const { step, schema } = useSelector(state => state.static);
   const Component = components[step];
   const showGuidance = step !== 'confirm';
   return (
     <section id="rops">
+      <RopHeader />
       <FormLayout formatters={pick(formatters, Object.keys(schema || {}))} cancelLink={<CancelLink />} sidebar={showGuidance && <Guidance />}>
         <Header
           title={<Snippet>title</Snippet>}
-          subtitle={project.title}
         />
         <p className="optional-content"><Snippet optional>content</Snippet></p>
         {

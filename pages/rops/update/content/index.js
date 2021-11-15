@@ -1,4 +1,7 @@
 module.exports = {
+  ropHeader: {
+    title: 'Return of procedures {{year}}'
+  },
   title: 'Return details',
   playback: 'This licence:',
   guidance: {

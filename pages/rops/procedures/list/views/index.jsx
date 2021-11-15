@@ -8,7 +8,7 @@ import {
   Datatable
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
-import Header from '../../../components/header';
+import RopHeader from '../../../components/header';
 import ProceduresDownloadLink from '../../../components/procedures-download-link';
 import Confirm from '../../../update/views/components/confirm';
 import OverflowWrapper from '../../../../common/components/overflow-wrapper';
@@ -69,7 +69,7 @@ export default function Procedures() {
 
   return (
     <div className="rop-procedures-list force-show-scrollbars">
-      <Header />
+      <RopHeader />
 
       <h2><Snippet canEdit={editable}>change.title</Snippet></h2>
       <p><Snippet canEdit={editable}>change.content</Snippet></p>
