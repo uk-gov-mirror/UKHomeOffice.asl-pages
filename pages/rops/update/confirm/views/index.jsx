@@ -2,14 +2,16 @@ import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Header, Snippet, Link } from '@asl/components';
 import CancelLink from '../../../components/cancel-link';
+import RopHeader from '../../../components/header';
 
 export default function Confirm() {
-  const { project, step } = useSelector(state => state.static, shallowEqual);
+  const { step } = useSelector(state => state.static, shallowEqual);
+  const titleStep = step === 'species' ? 'animals' : step;
   return (
     <Fragment>
+      <RopHeader />
       <Header
-        title={<Snippet>title</Snippet>}
-        subtitle={project.title}
+        title={<Snippet titleStep={titleStep}>title</Snippet>}
       />
       <Snippet>content</Snippet>
       <div className="control-panel">

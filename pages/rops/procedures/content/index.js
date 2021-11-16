@@ -2,7 +2,9 @@ const { merge } = require('lodash');
 const { fields, guidance } = require('../../update/content/index');
 
 module.exports = merge({}, { fields, guidance }, {
-  title: 'Return of procedures {{year}}',
+  ropHeader: {
+    title: 'Return of procedures {{year}}'
+  },
   change: {
     title: '{{#canEdit}}Change set{{/canEdit}}{{^canEdit}}Set{{/canEdit}} up details',
     content: 'View {{#canEdit}}and edit {{/canEdit}}details used to set up this return.',

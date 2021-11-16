@@ -11,7 +11,7 @@ export default function RopHeader() {
 
   return (
     <DocumentHeader
-      title={<Snippet>title</Snippet>}
+      title={<Snippet>ropHeader.title</Snippet>}
       subtitle={project.title}
       detailsLabel="details and downloads"
       backLink={<Link page="project.read" label="Go to project overview" />}
