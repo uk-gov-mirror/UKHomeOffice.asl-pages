@@ -52,7 +52,8 @@ module.exports = {
         transfers: 'Transfers',
         continuations: 'Project continuations',
         hasDeadline: 'Deadline started',
-        ra: 'Retrospective assessments'
+        ra: 'Retrospective assessments',
+        changeLicenceHolder: 'Change licence holder'
       }
     }
   },
