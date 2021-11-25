@@ -3,5 +3,6 @@ module.exports = {
   moduleDirectories: ['pages/common', 'node_modules', 'lib'],
   transformIgnorePatterns: [
     'node_modules/(?!@asl)'
-  ]
+  ],
+  setupTestFrameworkScriptFile: '<rootDir>/enzyme.setup.js'
 };

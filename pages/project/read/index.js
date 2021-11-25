@@ -3,7 +3,7 @@ const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canViewTransferredProject } = require('../middleware');
 const { relatedTasks } = require('../../common/routers');
-const { ropsYears } = require('../../../constants')
+const { ropsYears } = require('../../../constants');
 
 module.exports = settings => {
   const app = page({
@@ -112,7 +112,7 @@ module.exports = settings => {
           year: req.body.year
         }
       }
-    }
+    };
     req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops`, params)
       .then(response => {
         req.ropId = get(response, 'json.data.data.data.ropId');
