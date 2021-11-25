@@ -201,12 +201,18 @@ module.exports = merge({}, baseContent, {
   },
   rops: {
     title: 'Return of procedures',
-    content: 'Complete this project’s return of procedures for {{year}}.',
-    submitted: 'A return of procedures has been submitted for {{year}}.',
-    deadline: '**Deadline for submission:** {{deadline}}',
-    start: 'Start return',
-    continue: 'Continue editing return',
-    read: 'View submitted return',
-    'not-due': 'Return of procedures are no longer due for this project'
+    subtitle: 'Return of procedures for {{year}}.',
+    incomplete: `Reporting period: 1st January to {{endDate}}
+
+Deadline for submission: {{deadline}}`,
+    submitted: `The return for {{year}} was submitted on {{submitted}}
+
+You can view and resubmit this return, for example if there are errors`,
+    start: 'Start return for {{year}}',
+    continue: 'Continue return for {{year}}',
+    read: 'View submitted return for {{year}}',
+
+    'not-due': 'No further returns of procedures required',
+    previous: 'Previous returns of procedures'
   }
 });
