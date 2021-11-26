@@ -1,7 +1,9 @@
+const bodyParser = require('body-parser');
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canViewTransferredProject } = require('../middleware');
 const { relatedTasks } = require('../../common/routers');
+const { ropsYears } = require('../../../constants');
 
 module.exports = settings => {
   const app = page({
@@ -19,6 +21,7 @@ module.exports = settings => {
   app.use((req, res, next) => {
     res.locals.model = req.project;
     res.locals.static.establishment = req.establishment;
+    res.locals.static.ropsYears = ropsYears;
     if (req.project.establishmentId !== req.establishmentId) {
       res.locals.static.additionalAvailability = (req.project.additionalEstablishments || []).find(e => e.id === req.establishmentId);
     }
@@ -101,8 +104,16 @@ module.exports = settings => {
       .catch(next);
   });
 
-  app.post('/rops', (req, res, next) => {
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops`, { method: 'POST' })
+  app.post('/rops', bodyParser.urlencoded({ extended: false }), (req, res, next) => {
+    const params = {
+      method: 'POST',
+      json: {
+        data: {
+          year: req.body.year
+        }
+      }
+    };
+    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops`, params)
       .then(response => {
         req.ropId = get(response, 'json.data.data.data.ropId');
         res.redirect(req.buildRoute('rops.guidance'));

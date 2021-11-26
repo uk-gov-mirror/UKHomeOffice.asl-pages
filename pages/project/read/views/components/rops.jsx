@@ -5,64 +5,161 @@ import { Button } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 import isBefore from 'date-fns/is_before';
+import isAfter from 'date-fns/is_after';
+import endOfDay from 'date-fns/end_of_day';
+import addDays from 'date-fns/add_days';
+import subMilliseconds from 'date-fns/sub_milliseconds';
+import partition from 'lodash/partition';
+import pick from 'lodash/pick';
 import Subsection from '../components/subsection';
 
-const START_DATE = '2021-01-01';
+export function Rop({ rop, project, active, ropNotRequired, url }) {
 
-export default function Rops() {
-  const { url, project } = useSelector(state => state.static);
+  const endOfYear = new Date(`${rop.year}-12-31`);
+  const projEnd = project.revocationDate || project.expiryDate;
+  const expiresMidYear = isBefore(projEnd, endOfYear);
+  const endDate = format(expiresMidYear ? projEnd : endOfYear, dateFormat.long);
 
-  const draftRop = project.rops.find(rop => rop.status === 'draft');
-  const submittedRop = project.rops.find(rop => rop.status === 'submitted');
+  let cta;
 
-  const endDate = project.revocationDate || project.expiryDate;
-  const ropNotRequired = isBefore(new Date(endDate), new Date(START_DATE));
-
-  if (ropNotRequired) {
-    return (
-      <Subsection
-        title={<Snippet>rops.title</Snippet>}
-        content={<strong><Snippet>rops.not-due</Snippet></strong>}
-      />
+  if (rop.status === 'submitted') {
+    cta = (
+      <p>
+        <Link
+          page="rops.procedures"
+          ropId={rop.id}
+          label={<Snippet year={rop.year}>rops.read</Snippet>}
+        />
+      </p>
+    );
+  } else if (rop.status === 'draft') {
+    cta = (
+      <p>
+        <Link
+          page="rops.update"
+          step="confirm"
+          ropId={rop.id}
+          label={<Snippet year={rop.year}>rops.continue</Snippet>}
+        />
+      </p>
+    );
+  } else {
+    cta = (
+      <form method="POST" action={`${url}/rops`}>
+        <input type="hidden" name="year" value={rop.year} />
+        <Button className="button-secondary">
+          <Snippet year={rop.year}>rops.start</Snippet>
+        </Button>
+      </form>
     );
   }
+
+  if (ropNotRequired) {
+    return <p><strong><Snippet>rops.not-due</Snippet></strong></p>;
+  }
+
+  function getDeadline() {
+    const endOfJan = endOfDay(new Date(`${rop.year + 1}-01-31`));
+
+    function getRefDate(date) {
+      return subMilliseconds(addDays(new Date(date), 29), 1);
+    }
+
+    switch (project.status) {
+      case 'active':
+        const refDate = getRefDate(project.expiryDate);
+        return isBefore(refDate, endOfJan) ? refDate : endOfJan;
+      case 'expired':
+        return getRefDate(project.expiryDate);
+      case 'revoked':
+        return getRefDate(project.revocationDate);
+    }
+  }
+
+  const ropsDeadline = getDeadline();
+
+  const content = (
+    <Fragment>
+      <h3>Return of procedures for {rop.year}</h3>
+      <p>
+        <Snippet
+          submittedDate={format(rop.submittedDate, dateFormat.long)}
+          endDate={endDate}
+          deadline={format(ropsDeadline, dateFormat.long)}
+        >{ rop.status === 'submitted' ? 'rops.submitted' : 'rops.incomplete' }</Snippet>
+      </p>
+    </Fragment>
+
+  );
+
+  return (
+    <Fragment>
+      { active && content }
+      { cta }
+    </Fragment>
+  );
+}
+
+export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) {
+  const thisYear = today.getFullYear();
+  const latestYear = Math.max(...ropsYears);
+
+  const deadline = subMilliseconds(new Date(`${latestYear + 1}-02-01`), 1);
+
+  const showNextYear = isAfter(today, deadline);
+  let years = ropsYears;
+
+  if (showNextYear) {
+    years = [
+      latestYear + 1,
+      ...years
+    ];
+  }
+
+  const activeYears = years.filter(year => year >= thisYear);
+
+  const rops = project.rops;
+
+  const startDate = `${thisYear}-01-01`;
+  const endDate = project.revocationDate || project.expiryDate;
+  const ropNotRequired = endDate && isBefore(new Date(endDate), new Date(startDate));
+
+  if (!ropNotRequired) {
+    // add templates for each missing rop
+    years.forEach(year => {
+      if (!rops.find(ar => ar.year === year)) {
+        rops.unshift({ year });
+      }
+    });
+  }
+
+  const [activeRops, previousRops] = partition(project.rops, rop => {
+    return activeYears.includes(rop.year) || rop.status !== 'submitted';
+  });
 
   return (
     <Subsection
       title={<Snippet>rops.title</Snippet>}
-      content={<Snippet year="2021">{ submittedRop ? 'rops.submitted' : 'rops.content' }</Snippet>}
     >
       {
-        submittedRop
-          ? <Link
-            className="govuk-button button-secondary"
-            page="rops.procedures"
-            ropId={submittedRop.id}
-            label={<Snippet>rops.read</Snippet>}
-          />
-          : (
-            <Fragment>
-              <p><Snippet deadline={format(project.ropsDeadline, dateFormat.long)}>rops.deadline</Snippet></p>
-              {
-                draftRop
-                  ? <Link
-                    className="govuk-button button-secondary"
-                    page="rops.update"
-                    step="confirm"
-                    ropId={draftRop.id}
-                    label={<Snippet>rops.continue</Snippet>}
-                  />
-                  : (
-                    <form method="POST" action={`${url}/rops`}>
-                      <Button className="button-secondary">
-                        <Snippet>rops.start</Snippet>
-                      </Button>
-                    </form>
-                  )
-              }
-            </Fragment>
-          )
+        activeRops.map((rop, index) => <Rop key={index} project={project} rop={rop} active={true} ropNotRequired={ropNotRequired} url={url} />)
       }
+      {
+        !!previousRops.length && (
+          <Fragment>
+            <h3><Snippet>rops.previous</Snippet></h3>
+            {
+              previousRops.map((rop, index) => <Rop key={index} project={project} rop={rop} url={url} />)
+            }
+          </Fragment>
+        )
+      }
+
     </Subsection>
   );
+}
+
+export default function () {
+  const props = pick(useSelector(state => state.static), 'project', 'ropsYears', 'url');
+  return <Rops {...props} />;
 }
