@@ -82,10 +82,12 @@ export default function Model({ task, formFields, allowSubmit }) {
       {
         comments && (
           <StickyNavAnchor id={`comments.${task.type}`}>
-            <Field
-              title={<Snippet fallback="sticky-nav.comments.default">{`sticky-nav.comments.${task.type}`}</Snippet>}
-              content={comments}
-            />
+            <div className="gutter">
+              <Field
+                title={<Snippet fallback="sticky-nav.comments.default">{`sticky-nav.comments.${task.type}`}</Snippet>}
+                content={comments}
+              />
+            </div>
           </StickyNavAnchor>
         )
       }

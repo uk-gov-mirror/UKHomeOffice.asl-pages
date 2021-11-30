@@ -55,12 +55,12 @@ export default function TrainingPil({ task }) {
   return [
     <StickyNavAnchor id="establishment" key="establishment">
       <h2><Snippet>sticky-nav.establishment</Snippet></h2>
-      <p>{establishment.name}</p>
+      <p className="gutter">{establishment.name}</p>
     </StickyNavAnchor>,
 
     <StickyNavAnchor id="applicant" key="applicant">
       <h2><Snippet>sticky-nav.applicant</Snippet></h2>
-      <p>{`${profile.firstName} ${profile.lastName}`}</p>
+      <p className="gutter">{`${profile.firstName} ${profile.lastName}`}</p>
       <dl>
         <dt><Snippet>applicant-over-18</Snippet></dt>
         <dd>
@@ -74,15 +74,17 @@ export default function TrainingPil({ task }) {
     </StickyNavAnchor>,
 
     <StickyNavAnchor id="procedures" key="procedures">
-      <h2><Snippet>sticky-nav.procedures</Snippet></h2>
-      <PilProcedures task={task} />
+      <div className="gutter">
+        <h2><Snippet>sticky-nav.procedures</Snippet></h2>
+        <PilProcedures task={task} />
+      </div>
     </StickyNavAnchor>,
 
     (
       action === 'grant' && (
         <StickyNavAnchor id="training-need" key="training-need">
           <h2><Snippet>sticky-nav.training-need</Snippet></h2>
-          <p>{ data.trainingNeed }</p>
+          <p className="gutter">{ data.trainingNeed }</p>
         </StickyNavAnchor>
       )
     )
