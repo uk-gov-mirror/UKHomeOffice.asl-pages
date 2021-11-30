@@ -34,7 +34,7 @@ function Action({ task, action, activity, changedBy }) {
   const establishment = profile.establishments.find(e => e.id === establishmentId) || {};
 
   return (
-    <p>
+    <p className="gutter">
       <strong><Snippet fallback={`status.${action}.log`} establishmentName={establishment.name}>{`status.${action}.log.${type}`}</Snippet></strong>
       <strong>: </strong>
       <ProfileLink id={changedBy.id} name={name} establishmentId={establishment.id || task.data.establishmentId} asruUser={changedBy.asruUser} />

@@ -39,7 +39,7 @@ export default function TaskStatus({ task }) {
   return (
     <div className="task-status">
       <h2><Snippet>sticky-nav.status</Snippet></h2>
-      <p>
+      <p className="gutter">
         {getStatusBadge(status, model)}
         <span className="currently-with"><Snippet optional>{snippetContent}</Snippet></span>
       </p>

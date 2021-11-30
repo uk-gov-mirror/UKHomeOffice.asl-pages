@@ -21,6 +21,10 @@ $hint-colour: #696F73;
   font-size: 0.9em;
 }
 
+.gutter {
+  margin-bottom: $govuk-gutter;
+}
+
 .profile-section {
   border-top: 1px solid #333;
   padding-top: $govuk-gutter;

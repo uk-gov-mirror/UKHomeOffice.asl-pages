@@ -33,7 +33,9 @@ export default function Role({ task, values, schema }) {
 
     <StickyNavAnchor id="applicant" key="applicant">
       <h2><Snippet>sticky-nav.applicant</Snippet></h2>
-      <Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
+      <p className="gutter">
+        <Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
+      </p>
     </StickyNavAnchor>,
 
     (

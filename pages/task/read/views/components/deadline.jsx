@@ -21,7 +21,7 @@ export default function Deadline({ task }) {
 
       {
         deadline.daysSince >= 0 &&
-          <p className="deadline-passed">
+          <p className="deadline-passed gutter">
             {
               deadline.daysSince === 0 && <Snippet>deadline.today</Snippet>
             }
@@ -33,15 +33,17 @@ export default function Deadline({ task }) {
       }
 
       { isInspector && deadline && deadline.isExtendable &&
-        <Details summary="Extend deadline">
-          <p><Snippet>deadline.hint</Snippet></p>
-          <Link
-            page="task.read.extend"
-            taskId={task.id}
-            label={<Snippet>deadline.extend.button</Snippet>}
-            className="govuk-button button-secondary"
-          />
-        </Details>
+        <div className="gutter">
+          <Details summary="Extend deadline">
+            <p><Snippet>deadline.hint</Snippet></p>
+            <Link
+              page="task.read.extend"
+              taskId={task.id}
+              label={<Snippet>deadline.extend.button</Snippet>}
+              className="govuk-button button-secondary"
+            />
+          </Details>
+        </div>
       }
     </div>
   );

@@ -12,7 +12,7 @@ export default function Project({ task }) {
     (
       <StickyNavAnchor id="licence-holder" key="licence-holder">
         <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
-        <p>
+        <p className="gutter">
           <Link
             page="profile.read"
             establishmentId={establishment.id}
@@ -26,14 +26,16 @@ export default function Project({ task }) {
       <StickyNavAnchor id="latest-return" key="latest-return">
         <h2><Snippet>sticky-nav.latest-return</Snippet></h2>
         <p><Snippet date={format(task.createdAt, dateFormat.long)}>view-return.content</Snippet></p>
-        <Link
-          className="govuk-button"
-          page="rops.procedures"
-          establishmentId={establishment.id}
-          projectId={values.project.id}
-          ropId={values.id}
-          label={<Snippet>view-return.action</Snippet>}
-        />
+        <p className="gutter">
+          <Link
+            className="govuk-button"
+            page="rops.procedures"
+            establishmentId={establishment.id}
+            projectId={values.project.id}
+            ropId={values.id}
+            label={<Snippet>view-return.action</Snippet>}
+          />
+        </p>
       </StickyNavAnchor>
     )
   ];

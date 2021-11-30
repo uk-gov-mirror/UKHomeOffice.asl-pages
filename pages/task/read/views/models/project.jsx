@@ -117,7 +117,7 @@ export default function Project({ task }) {
       (task.data.action === 'grant' || task.data.action === 'grant-ra') && (
         <StickyNavAnchor id="licence-holder" key="licence-holder">
           <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
-          <p>
+          <p className="gutter">
             <Link
               page="profile.read"
               establishmentId={establishment.id}
@@ -140,7 +140,7 @@ export default function Project({ task }) {
           }
           <Link
             page="retrospectiveAssessment.update"
-            className="govuk-button button-secondary"
+            className="govuk-button button-secondary gutter"
             label={<Snippet>ra.view</Snippet>}
             raId={ra.id}
             establishmentId={project.establishmentId}
@@ -153,7 +153,9 @@ export default function Project({ task }) {
     (
       task.data.action === 'transfer' && (
         <StickyNavAnchor id="establishment" key="establishment">
-          <EstablishmentDiff task={task} />
+          <div className="gutter">
+            <EstablishmentDiff task={task} />
+          </div>
         </StickyNavAnchor>
       )
     ),
@@ -165,7 +167,7 @@ export default function Project({ task }) {
           {
             task.status === 'with-inspectorate' && <PplDeclarations task={task} />
           }
-          <p>
+          <p className="gutter">
             {
               !!additionalEstablishments.length && (
                 <Fragment>
@@ -225,7 +227,7 @@ export default function Project({ task }) {
           }
           {
             continuationRTE && (
-              <Fragment>
+              <div className="gutter">
                 <h3><Snippet>continuation.rte</Snippet></h3>
                 <label className="govuk-hint"><Snippet>continuation.label</Snippet></label>
                 <ReviewFields
@@ -239,7 +241,7 @@ export default function Project({ task }) {
                   readonly={true}
                   noComments
                 />
-              </Fragment>
+              </div>
             )
           }
         </StickyNavAnchor>
@@ -285,7 +287,7 @@ export default function Project({ task }) {
         <StickyNavAnchor id="granted" key="granted">
           <h2><Snippet>sticky-nav.granted</Snippet></h2>
           <p><Snippet>versions.granted.info</Snippet></p>
-          <p>
+          <p className="gutter">
             <Link
               page="projectVersion"
               className="govuk-button button-secondary"
@@ -304,7 +306,7 @@ export default function Project({ task }) {
         <StickyNavAnchor id="reopen" key="reopen">
           <h2><Snippet>sticky-nav.reopen</Snippet></h2>
           <p><Snippet>reopen.content</Snippet></p>
-          <form action={`${url}/reopen`} method="POST" onSubmit={onFormSubmit}>
+          <form action={`${url}/reopen`} method="POST" onSubmit={onFormSubmit} className="gutter">
             <button className="govuk-button button-secondary" onClick={onReopen}><Snippet>reopen.button</Snippet></button>
           </form>
         </StickyNavAnchor>
