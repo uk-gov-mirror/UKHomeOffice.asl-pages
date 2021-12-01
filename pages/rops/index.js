@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { get, omit, pick } = require('lodash');
+const { get, omit } = require('lodash');
 const routes = require('./routes');
 const {
   hasNhps,
@@ -47,7 +47,7 @@ module.exports = () => {
     req.model = req.rop;
     res.locals.static.year = req.rop.year;
     res.locals.static.lastYear = req.rop.year - 1;
-    res.locals.static.project = pick(req.model.project, 'title');
+    res.locals.static.project = omit(req.project, 'granted');
     res.locals.model = {
       ...req.model,
       project: omit(req.model.project, 'granted') // remove full project data from payload sent to the client

@@ -9,7 +9,7 @@ import Guidance from '../../components/guidance';
 import RopHeader from '../../components/header';
 
 export default function Step() {
-  const { step, schema } = useSelector(state => state.static);
+  const { step, schema, section } = useSelector(state => state.static);
   const Component = components[step];
   const showGuidance = step !== 'confirm';
   return (
@@ -18,6 +18,7 @@ export default function Step() {
       <FormLayout formatters={pick(formatters, Object.keys(schema || {}))} cancelLink={<CancelLink />} sidebar={showGuidance && <Guidance />}>
         <Header
           title={<Snippet>title</Snippet>}
+          subtitle={!!section && <Snippet section={section}>subtitle</Snippet>}
         />
         <p className="optional-content"><Snippet optional>content</Snippet></p>
         {

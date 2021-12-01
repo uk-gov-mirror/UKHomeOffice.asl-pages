@@ -10,6 +10,7 @@ import {
   ErrorSummary,
   Sidebar
 } from '@asl/components';
+import RopsHeader from '../../../components/header';
 import formatters from '../formatters';
 import Guidance from '../../../components/guidance';
 
@@ -61,7 +62,7 @@ function DeleteButton() {
 
 export default function Create() {
   const model = useSelector(state => state.model);
-  const { project, csrfToken, rowNum } = useSelector(state => state.static);
+  const { csrfToken, rowNum } = useSelector(state => state.static);
   const [disabled, setDisabled] = useState(false);
   const deletable = model.id !== 'new-procedure';
 
@@ -75,10 +76,10 @@ export default function Create() {
 
   return (
     <Fragment>
+      <RopsHeader />
       <ErrorSummary />
       <Header
         title={<Snippet rowNum={rowNum}>title</Snippet>}
-        subtitle={project.title}
       />
 
       <div className="govuk-grid-row">
