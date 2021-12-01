@@ -49,9 +49,9 @@ module.exports = {
         applications: 'Applications',
         amendments: 'Amendments',
         revocations: 'Revocations',
-        transfers: 'Transfers',
+        transfers: 'Establishment transfers',
         continuations: 'Project continuations',
-        hasDeadline: 'Deadline started',
+        hasDeadline: 'Statutory deadlines',
         ra: 'Retrospective assessments',
         changeLicenceHolder: 'Change licence holder'
       }
