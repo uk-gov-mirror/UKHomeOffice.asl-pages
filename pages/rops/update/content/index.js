@@ -3,6 +3,7 @@ module.exports = {
     title: 'Return of procedures {{year}}'
   },
   title: 'Return details',
+  subtitle: 'Section {{section}} of 4',
   playback: 'This licence:',
   guidance: {
     title: 'Detailed guidance',

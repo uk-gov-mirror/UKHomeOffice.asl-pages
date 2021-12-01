@@ -4,7 +4,7 @@ const validator = require('../../../lib/validation');
 const form = require('./form');
 const { getOptionReveals } = form;
 
-module.exports = ({ schema, config, root, postData = (req, res, next) => next() }) => {
+module.exports = ({ schema, config, root, postData = (req, res, next) => next(), locals = (req, res, next) => next() }) => {
 
   function nextStep(req, res) {
     const step = req.step;
@@ -71,6 +71,8 @@ module.exports = ({ schema, config, root, postData = (req, res, next) => next() 
     res.locals.static.redirectTo = redirectTo;
     next();
   });
+
+  app.use(locals);
 
   app.use(form({
     configure(req, res, next) {

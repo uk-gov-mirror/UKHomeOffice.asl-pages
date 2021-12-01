@@ -10,6 +10,16 @@ module.exports = () => {
     config,
     schema,
     root: 'rops.update',
+    locals: (req, res, next) => {
+      const sections = [
+        'details',
+        'animals',
+        'purposes',
+        'techniques'
+      ];
+      res.locals.static.section = sections.indexOf(req.config.section) + 1;
+      next();
+    },
     postData: (req, res, next) => {
       const params = {
         method: 'PUT',
