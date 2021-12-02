@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Acronym, Snippet, LinkFilter, FilterSummary, Panel, Tabs } from '@asl/components';
+import { Acronym, Snippet, LinkFilter, FilterSummary, Panel, Tabs, LinkFilterList } from '@asl/components';
 import Table from './table';
 
 const selectivelyUppercase = filter => {
@@ -23,28 +23,38 @@ function TaskFilters({ hasTasks, progressOptions }) {
   const filters = useSelector(state => state.datatable.filters);
   const pplFilterActive = get(filters, 'active.licence', []).includes('ppl');
 
+  const filterOpts = [
+    {
+      label: <Snippet>filters.progress.label</Snippet>,
+      prop: 'progress',
+      formatter: filter => <Snippet>{`filters.progress.options.${filter}`}</Snippet>,
+      options: progressOptions,
+      showAll: false
+    }
+  ];
+
+  if (hasTasks) {
+    filterOpts.push({
+      label: <Snippet>filters.licence.label</Snippet>,
+      prop: 'licence',
+      formatter: filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>,
+      append: ['pil', 'ppl', 'pel', 'profile']
+    });
+  }
+
+  if (pplFilterActive) {
+    filterOpts.push({
+      label: <Snippet>filters.pplType.label</Snippet>,
+      prop: 'pplType',
+      formatter: filter => <Snippet>{`filters.pplType.options.${filter}`}</Snippet>,
+      append: ['applications', 'amendments', 'revocations', 'transfers', 'changeLicenceHolder', 'continuations', 'hasDeadline', 'ra']
+    });
+  }
+
   return (
     <div className="task-filters">
       <p>Filter results:</p>
-      <LinkFilter
-        label={<Snippet>filters.progress.label</Snippet>}
-        prop="progress"
-        formatter={filter => <Snippet>{`filters.progress.options.${filter}`}</Snippet>}
-        options={progressOptions}
-        showAll={false}
-      />
-
-      { hasTasks && <LicenceTypeFilter /> }
-
-      {
-        pplFilterActive &&
-          <LinkFilter
-            label={<Snippet>filters.pplType.label</Snippet>}
-            prop="pplType"
-            formatter={filter => <Snippet>{`filters.pplType.options.${filter}`}</Snippet>}
-            append={['applications', 'amendments', 'revocations', 'transfers', 'changeLicenceHolder', 'continuations', 'hasDeadline', 'ra']}
-          />
-      }
+      <LinkFilterList filters={filterOpts} />
     </div>
   );
 }
