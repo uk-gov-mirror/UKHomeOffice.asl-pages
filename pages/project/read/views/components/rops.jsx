@@ -161,6 +161,12 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
 }
 
 export default function () {
+  const canAccessRops = useSelector(state => state.static.canAccessRops);
+
+  if (!canAccessRops) {
+    return null;
+  }
+
   const props = pick(useSelector(state => state.static), 'project', 'ropsYears', 'url');
   return <Rops {...props} />;
 }

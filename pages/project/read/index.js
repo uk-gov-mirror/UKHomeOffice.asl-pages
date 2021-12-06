@@ -55,12 +55,13 @@ module.exports = settings => {
         const isCorrectEstablishment = req.establishmentId === req.project.establishmentId;
         const ropExists = req.project.rops.length;
         const canAccessRops = ropExists ? canUpdateRops : canCreateRops;
-        const showReporting = isCorrectEstablishment && canAccessRops && (!['inactive', 'transferred'].includes(req.project.status));
+        const showReporting = isCorrectEstablishment && (canAccessRops || canUpdateRa) && (!['inactive', 'transferred'].includes(req.project.status));
 
         res.locals.static.canUpdateRa = canUpdateRa;
         res.locals.static.canManageAccess = canManageAccess;
         res.locals.static.canUpdate = canUpdate && isCorrectEstablishment;
         res.locals.static.canUpdateStub = canUpdateStub;
+        res.locals.static.canAccessRops = canAccessRops;
         res.locals.static.showReporting = showReporting;
         res.locals.static.canTransfer = canTransfer;
         res.locals.static.editable = editable;
