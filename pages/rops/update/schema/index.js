@@ -2,6 +2,8 @@ const { flatten, get, intersection, every, omit } = require('lodash');
 const { toBoolean, toArray } = require('../../../../lib/utils');
 const content = require('../content');
 
+const { projectSpecies } = require('@asl/constants');
+
 module.exports = req => {
   const disableProcOpts = fieldName => opt => {
     const field = req.rop.procedures.map(p => p[fieldName]);
@@ -33,10 +35,16 @@ module.exports = req => {
   }
 
   function getSpeciesField() {
+    const species = omit(projectSpecies, 'deprecated');
+    species.OTHER = [
+      { label: 'Other carnivores', value: 'other-carnivores' },
+      { label: 'Other mammals', value: 'other-mammals' }
+    ];
     return {
       species: {
         inputType: 'speciesSelector',
         projectSpecies: true,
+        species,
         presets: (req.version.data.species || []).find(s => s.includes('other'))
           // don't add species from project if "other" values are selected
           ? req.rop.procedures.map(p => p.species)
