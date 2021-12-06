@@ -91,13 +91,13 @@ export default function NTS() {
           <dd>{title}</dd>
 
           <dt>Licence holder</dt>
-          <dd>{`${version.licenceHolder.firstName} ${version.licenceHolder.lastName}`}</dd>
+          <dd><Link page="profile.read" establishmentId={project.establishment.id} profileId={version.licenceHolder.id} label={`${version.licenceHolder.firstName} ${version.licenceHolder.lastName}`} /></dd>
 
           <dt>Licence number</dt>
           <dd>{project.licenceNumber}</dd>
 
           <dt>Primary establishment</dt>
-          <dd>{project.establishment.name}</dd>
+          <dd><Link page="establishment.dashboard" establishmentId={project.establishment.id} label={project.establishment.name} /></dd>
 
           { project.expiryDate &&
             <Fragment>
