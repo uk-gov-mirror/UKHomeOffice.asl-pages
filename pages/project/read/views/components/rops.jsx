@@ -83,8 +83,9 @@ export function Rop({ rop, project, active, ropNotRequired, url }) {
       <h3>Return of procedures for {rop.year}</h3>
       <p>
         <Snippet
-          submittedDate={format(rop.submittedDate, dateFormat.long)}
+          submitted={format(rop.submittedDate, dateFormat.long)}
           endDate={endDate}
+          year={rop.year}
           deadline={format(ropsDeadline, dateFormat.long)}
         >{ rop.status === 'submitted' ? 'rops.submitted' : 'rops.incomplete' }</Snippet>
       </p>
