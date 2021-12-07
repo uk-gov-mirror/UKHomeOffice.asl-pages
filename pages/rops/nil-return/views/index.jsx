@@ -41,7 +41,7 @@ export default function NilReturn() {
               <td><Link page="rops.update" label="Change" step="procedures" /></td>
             </tr>
             {
-              !isUndefined(rop.postnatal) && !isNull(rop.postnatal) && (
+              rop.proceduresCompleted && !isUndefined(rop.postnatal) && !isNull(rop.postnatal) && (
                 <tr>
                   <td><strong>{`Postnatal or free feeding animals used`}</strong></td>
                   <td>{rop.postnatal ? 'Yes' : 'No'}</td>
