@@ -4,6 +4,7 @@ import values from 'lodash/values';
 import flatten from 'lodash/flatten';
 import without from 'lodash/without';
 import castArray from 'lodash/castArray';
+import pick from 'lodash/pick';
 import { Snippet, Inset, Link } from '@asl/components';
 import { projectSpecies } from '@asl/constants';
 import { yesNoEmpty, yesNo } from '../../../procedures/list/formatters';
@@ -53,7 +54,13 @@ function List({ items }) {
 
 export default function Confirm({ isReview = false }) {
   const { year, hasNhps, species, schedule2Applicable } = useSelector(state => state.static);
-  const rop = useSelector(state => state.model);
+  let rop = useSelector(state => state.model);
+  const nilReturn = !rop.proceduresCompleted || !rop.postnatal;
+
+  if (nilReturn) {
+    // if the user configured the setup and then went back and submitted a nil return, ignore any setup after postnatal
+    rop = pick(rop, ['id', 'projectId', 'status', 'year', 'proceduresCompleted', 'postnatal']);
+  }
 
   const yeps = [
     'routine-blood',
@@ -88,7 +95,6 @@ export default function Confirm({ isReview = false }) {
     return <Snippet fallback={`fields.${field}.options.${val}`}>{`fields.${field}.options.${val}.label`}</Snippet>;
   }
 
-  const nilReturn = !rop.proceduresCompleted || !rop.postnatal;
   const generalOnly = isReview || nilReturn;
 
   return (
@@ -99,7 +105,7 @@ export default function Confirm({ isReview = false }) {
           <dd>{yesNoEmpty(rop.proceduresCompleted)}</dd>
 
           <dt>Postnatal or free feeding animals used</dt>
-          <dd>{yesNoEmpty(rop.postnatal)}</dd>
+          <dd>{yesNoEmpty(rop.proceduresCompleted ? rop.postnatal : undefined)}</dd>
 
           <dt>Endangered animals used</dt>
           <dd>{yesNoEmpty(rop.endangered)}</dd>
