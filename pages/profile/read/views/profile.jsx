@@ -9,11 +9,11 @@ import LeaveEstablishment from './leave-establishment';
 import { dateFormat } from '../../../../constants';
 
 function ProjectDetails({ project, establishment }) {
-  const additionalEstablishments = (project.additionalEstablishments || []).filter(aa => aa.status === 'active');
+  const isDraft = project.status === 'inactive';
+  const additionalEstablishments = (project.additionalEstablishments || []).filter(aa => isDraft || aa.status === 'active');
   const isAdditionalAvailability = project.establishmentId !== establishment.id;
   const hasAdditionalAvailability = additionalEstablishments.length > 0;
   const aaEstablishmentNames = additionalEstablishments.map(e => e.name).sort().join(', ');
-  const isDraft = project.status === 'inactive';
   const showInfo = !isDraft || project.isLegacyStub || hasAdditionalAvailability || isAdditionalAvailability;
 
   return (
