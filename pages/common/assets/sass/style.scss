@@ -127,6 +127,16 @@ form.procedures {
       font-size: 16px;
       white-space: nowrap;
       padding: 5px 10px 5px 0;
+      vertical-align: top;
+
+      .markdown {
+        white-space: normal;
+        width: 500px;
+
+        p, ul, ol {
+          margin-top: 0;
+        }
+      }
     }
   }
 }

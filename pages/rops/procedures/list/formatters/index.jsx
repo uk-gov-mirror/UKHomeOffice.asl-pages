@@ -2,7 +2,7 @@ import React from 'react';
 import flatten from 'lodash/flatten';
 import get from 'lodash/get';
 import { projectSpecies } from '@asl/constants';
-import { Snippet } from '@asl/components';
+import { Snippet, Markdown } from '@asl/components';
 
 const allSpecies = flatten(Object.values(projectSpecies));
 
@@ -43,6 +43,13 @@ const getRadioOption = field => v => {
   }
 
   return <Snippet fallback={`condensedFields.${field}.options.${v}`}>{`condensedFields.${field}.options.${v}.label`}</Snippet>;
+};
+
+const formatNote = value => {
+  if (!value) {
+    return null;
+  }
+  return <div className="markdown"><Markdown>{ value }</Markdown></div>;
 };
 
 const formatters = rop => {
@@ -134,6 +141,12 @@ const formatters = rop => {
     },
     severity: {
       format: getRadioOption('severity')
+    },
+    severityHoNote: {
+      format: formatNote
+    },
+    severityPersonalNote: {
+      format: formatNote
     }
   };
 };
