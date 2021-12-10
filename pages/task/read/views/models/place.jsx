@@ -38,7 +38,7 @@ export default function Playback({ task, values, allowSubmit }) {
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
   const placeSchema = baseSchema();
-  const diffSchema = omit(placeSchema, 'nacwos', 'nvssqps');
+  const diffSchema = task.onlyRolesChanged ? placeSchema : omit(placeSchema, 'nacwos', 'nvssqps');
 
   const isComplete = !task.isOpen;
 
