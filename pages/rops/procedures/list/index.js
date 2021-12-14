@@ -1,5 +1,5 @@
 const { page } = require('@asl/service/ui');
-const { pickBy, pick, some } = require('lodash');
+const { pickBy, pick, some, get } = require('lodash');
 const { datatable } = require('../../../common/routers');
 const getSchema = require('./schema');
 const review = require('./routers/review');
@@ -42,6 +42,13 @@ module.exports = () => {
       } else {
         // show a limited set of columns when the table is empty
         res.locals.datatable.schema = pick(req.datatable.schema, ['rowNum', 'species', 'purposes', 'severity', 'severityNum']);
+      }
+
+      const noProceduresCompleted = get(req, 'rop.proceduresCompleted', req.rop.proceduresCompleted) === false;
+      const noPostnatal = get(req, 'rop.postnatal', req.rop.postnatal) === false;
+
+      if (noProceduresCompleted || noPostnatal) {
+        res.locals.static.nilReturn = true;
       }
 
       req.datatable.data.rows = req.datatable.data.rows.map((row, idx) => ({ rowNum: idx + 1, ...row }));
