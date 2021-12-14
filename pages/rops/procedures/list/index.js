@@ -44,6 +44,13 @@ module.exports = () => {
         res.locals.datatable.schema = pick(req.datatable.schema, ['rowNum', 'species', 'purposes', 'severity', 'severityNum']);
       }
 
+      const noProceduresCompleted = req.rop.proceduresCompleted === false;
+      const noPostnatal = req.rop.postnatal === false;
+
+      if (noProceduresCompleted || noPostnatal) {
+        res.locals.static.nilReturn = true;
+      }
+
       req.datatable.data.rows = req.datatable.data.rows.map((row, idx) => ({ rowNum: idx + 1, ...row }));
       next();
     }
