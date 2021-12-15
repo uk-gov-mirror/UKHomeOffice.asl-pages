@@ -1,8 +1,8 @@
 module.exports = {
   title: 'Send {{type}}',
   warning: {
-    canEndorse: `This application needs to be endorsed by the establishment licence holder, and reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
-    cantEndorse: `The primary establishment will need to endorse your application, and confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
+    canEndorse: `This {{type}} needs to be endorsed by the establishment licence holder, and reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
+    cantEndorse: `The primary establishment will need to endorse your {{type}}, and confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
   },
   declaration: {
     title: 'Declaration',
