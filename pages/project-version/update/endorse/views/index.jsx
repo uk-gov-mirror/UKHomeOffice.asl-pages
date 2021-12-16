@@ -6,6 +6,7 @@ import { Warning } from '@ukhomeoffice/react-components';
 export default function Submit() {
   const { canEndorse, project } = useSelector(state => state.static);
   const isApplication = project.type === 'application';
+  const type = isApplication ? 'application' : 'amendment';
 
   const declaration = (
     <Fragment>
@@ -20,11 +21,9 @@ export default function Submit() {
         title={<Snippet>title</Snippet>}
         subtitle={project.title || 'Untitled project'}
       />
-      {isApplication && (
-        <Warning>
-          <Snippet>{`warning.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
-        </Warning>
-      )}
+      <Warning>
+        <Snippet>{`warning.${type}.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
+      </Warning>
     </FormLayout>
   );
 }
