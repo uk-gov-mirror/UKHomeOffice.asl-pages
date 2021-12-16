@@ -22,7 +22,7 @@ export default function Submit() {
         subtitle={project.title || 'Untitled project'}
       />
       <Warning>
-        <Snippet type={type}>{`warning.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
+        <Snippet>{`warning.${type}.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
       </Warning>
     </FormLayout>
   );
