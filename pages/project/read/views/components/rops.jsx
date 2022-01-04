@@ -13,7 +13,7 @@ import partition from 'lodash/partition';
 import pick from 'lodash/pick';
 import Subsection from '../components/subsection';
 
-export function Rop({ rop, project, active, ropNotRequired, url }) {
+export function Rop({ rop, project, active, url }) {
 
   const endOfYear = new Date(`${rop.year}-12-31`);
   const projEnd = project.revocationDate || project.expiryDate;
@@ -52,10 +52,6 @@ export function Rop({ rop, project, active, ropNotRequired, url }) {
         </Button>
       </form>
     );
-  }
-
-  if (ropNotRequired) {
-    return <p><strong><Snippet>rops.not-due</Snippet></strong></p>;
   }
 
   function getDeadline() {
@@ -103,19 +99,10 @@ export function Rop({ rop, project, active, ropNotRequired, url }) {
 
 export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) {
   const thisYear = today.getFullYear();
-  const latestYear = Math.max(...ropsYears);
-
-  const deadline = subMilliseconds(new Date(`${latestYear + 1}-02-01`), 1);
-
-  const showNextYear = isAfter(today, deadline);
-  let years = ropsYears;
-
-  if (showNextYear) {
-    years = [
-      latestYear + 1,
-      ...years
-    ];
-  }
+  const years = ropsYears.filter(y => {
+    const deadline = subMilliseconds(new Date(`${y}-02-01`), 1);
+    return isAfter(today, deadline);
+  });
 
   const activeYears = years.filter(year => {
     // the previous year should be "active" for the first part of the year
@@ -124,20 +111,24 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
 
   const rops = project.rops;
 
-  const startDate = `${thisYear}-01-01`;
   const endDate = project.revocationDate || project.expiryDate;
-  const ropNotRequired = endDate && isBefore(new Date(endDate), new Date(startDate));
 
-  if (!ropNotRequired) {
-    // add templates for each missing rop
-    years.forEach(year => {
-      if (!rops.find(ar => ar.year === year)) {
-        rops.unshift({ year });
-      }
-    });
+  // add templates for each missing rop
+  years.forEach(year => {
+    if (!rops.find(ar => ar.year === year)) {
+      rops.unshift({ year });
+    }
+  });
+
+  const requiredRops = rops.filter(rop => {
+    return !endDate || isAfter(new Date(endDate), new Date(`${rop.year}-01-01`));
+  });
+
+  if (!requiredRops.length) {
+    return <p><strong><Snippet>rops.not-due</Snippet></strong></p>;
   }
 
-  const [activeRops, previousRops] = partition(project.rops, rop => {
+  const [activeRops, previousRops] = partition(requiredRops, rop => {
     return activeYears.includes(rop.year) || rop.status !== 'submitted';
   });
 
@@ -146,7 +137,7 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
       title={<Snippet>rops.title</Snippet>}
     >
       {
-        activeRops.map((rop, index) => <Rop key={index} project={project} rop={rop} active={true} ropNotRequired={ropNotRequired} url={url} />)
+        activeRops.map((rop, index) => <Rop key={index} project={project} rop={rop} active={true} url={url} />)
       }
       {
         !!previousRops.length && (
