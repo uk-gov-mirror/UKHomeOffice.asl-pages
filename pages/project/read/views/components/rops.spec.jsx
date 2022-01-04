@@ -10,15 +10,16 @@ describe('<Rops />', () => {
       project: {
         rops: []
       },
-      url: 'http://localhost:8080/'
+      url: 'http://localhost:8080/',
+      today: new Date('2022-12-01')
     };
     const wrapper = shallow(<Rops {...props} />);
     expect(wrapper.find(Rop).length).toBe(2);
   });
 
-  test('renders a single rop if not past 1st feb', () => {
+  test('does not render rop for the current year if not past 1st feb', () => {
     const props = {
-      ropsYears: [2021],
+      ropsYears: [2021, 2022],
       project: {
         rops: []
       },
@@ -29,20 +30,7 @@ describe('<Rops />', () => {
     expect(wrapper.find(Rop).length).toBe(1);
   });
 
-  test('renders a rop for next year if past 1st feb', () => {
-    const props = {
-      ropsYears: [2021],
-      project: {
-        rops: []
-      },
-      url: 'http://localhost:8080/',
-      today: new Date('2022-02-01')
-    };
-    const wrapper = shallow(<Rops {...props} />);
-    expect(wrapper.find(Rop).length).toBe(2);
-  });
-
-  test('doesn\'t render an extra rop if ropsYears updated', () => {
+  test('renders a rop for the current year if past 1st feb', () => {
     const props = {
       ropsYears: [2021, 2022],
       project: {
@@ -53,19 +41,6 @@ describe('<Rops />', () => {
     };
     const wrapper = shallow(<Rops {...props} />);
     expect(wrapper.find(Rop).length).toBe(2);
-  });
-
-  test('renders a third rop if past 1st feb the following year', () => {
-    const props = {
-      ropsYears: [2021, 2022],
-      project: {
-        rops: []
-      },
-      url: 'http://localhost:8080/',
-      today: new Date('2023-02-01')
-    };
-    const wrapper = shallow(<Rops {...props} />);
-    expect(wrapper.find(Rop).length).toBe(3);
   });
 
   test('renders an active rop per unsubmitted year', () => {
@@ -133,5 +108,84 @@ describe('<Rops />', () => {
     expect(rops.get(2).props.rop.status).toBe('submitted');
     expect(rops.get(2).props.rop.year).toBe(2020);
     expect(rops.get(2).props.active).toBe(undefined);
+  });
+
+  test('renders an active for last years ROP if in first half of the year', () => {
+    const props = {
+      ropsYears: [2020, 2021, 2022],
+      project: {
+        rops: [
+        {
+          year: 2020,
+          status: 'submitted'
+        },
+        {
+          year: 2021,
+          status: 'submitted'
+        },
+        {
+          year: 2022,
+          status: 'draft'
+        }]
+      },
+      url: 'http://localhost:8080/',
+      today: new Date('2022-02-01')
+    };
+    const wrapper = shallow(<Rops {...props} />);
+    const rops = wrapper.find(Rop);
+
+    expect(rops.length).toBe(3);
+
+    expect(rops.get(0).props.rop.status).toBe('submitted');
+    expect(rops.get(0).props.rop.year).toBe(2021);
+    expect(rops.get(0).props.active).toBe(true);
+
+    expect(rops.get(1).props.rop.status).toBe('draft');
+    expect(rops.get(1).props.rop.year).toBe(2022);
+    expect(rops.get(1).props.active).toBe(true);
+
+    expect(rops.get(2).props.rop.status).toBe('submitted');
+    expect(rops.get(2).props.rop.year).toBe(2020);
+    expect(rops.get(2).props.active).toBe(undefined);
+  });
+
+  test('renders an active for last years ROP if in first half of the year', () => {
+    const props = {
+      ropsYears: [2020, 2021, 2022],
+      project: {
+        rops: [
+        {
+          year: 2020,
+          status: 'submitted'
+        },
+        {
+          year: 2021,
+          status: 'submitted'
+        },
+        {
+          year: 2022,
+          status: 'draft'
+        }]
+      },
+      url: 'http://localhost:8080/',
+      today: new Date('2022-08-01')
+    };
+    const wrapper = shallow(<Rops {...props} />);
+    const rops = wrapper.find(Rop);
+
+    expect(rops.length).toBe(3);
+
+    expect(rops.get(0).props.rop.status).toBe('draft');
+    expect(rops.get(0).props.rop.year).toBe(2022);
+    expect(rops.get(0).props.active).toBe(true);
+
+    expect(rops.get(1).props.rop.status).toBe('submitted');
+    expect(rops.get(1).props.rop.year).toBe(2020);
+    expect(rops.get(1).props.active).toBe(undefined);
+
+    expect(rops.get(2).props.rop.status).toBe('submitted');
+    expect(rops.get(2).props.rop.year).toBe(2021);
+    expect(rops.get(2).props.active).toBe(undefined);
+
   });
 });
