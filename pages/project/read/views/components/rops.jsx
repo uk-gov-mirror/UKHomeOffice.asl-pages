@@ -117,7 +117,10 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
     ];
   }
 
-  const activeYears = years.filter(year => year >= thisYear);
+  const activeYears = years.filter(year => {
+    // the previous year should be "active" for the first part of the year
+    return year >= thisYear || (year === thisYear - 1 && today.getMonth() < 6);
+  });
 
   const rops = project.rops;
 

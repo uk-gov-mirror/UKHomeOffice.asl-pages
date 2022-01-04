@@ -1,11 +1,7 @@
 function getRopsYears(start) {
-  let stop = (new Date()).getFullYear() + 1;
-
-  if (process.env.INCLUDE_NEXT_YEAR_ROPS) {
-    stop = stop + 1;
-  }
-
-  const years = Array.from({ length: stop - start }, (num, i) => start + i);
+  let end = (new Date()).getFullYear();
+  // array length should be 1 when start and end are the same
+  const years = Array.from({ length: 1 + end - start }, (num, i) => start + i);
 
   return years.reverse();
 }
