@@ -1,4 +1,4 @@
-const { get, remove, isEqual, uniq, mapValues, sortBy, pickBy, isEmpty } = require('lodash');
+const { get, remove, isEqual, uniq, mapValues, sortBy, pickBy, isEmpty, castArray } = require('lodash');
 const isUUID = require('uuid-validate');
 const extractComments = require('../lib/extract-comments');
 const { mapSpecies, mapPermissiblePurpose, mapAnimalQuantities } = require('@asl/projects/client/helpers');
@@ -25,7 +25,7 @@ const getVersion = () => (req, res, next) => {
     .catch(next);
 };
 
-const getComments = (action = 'grant') => (req, res, next) => {
+const getComments = (actions = ['grant', 'transfer']) => (req, res, next) => {
   if (!req.project || !req.project.openTasks || !req.project.openTasks.length) {
     return next();
   }
@@ -33,7 +33,7 @@ const getComments = (action = 'grant') => (req, res, next) => {
     // the application task for AA projects won't be visible so don't try to load it
     return next();
   }
-  const task = get(req.project, 'openTasks', []).find(task => get(task, 'data.action') === action);
+  const task = get(req.project, 'openTasks', []).find(task => castArray(actions).includes(get(task, 'data.action')));
   if (!task) {
     return next();
   }

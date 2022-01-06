@@ -11,7 +11,7 @@ module.exports = settings => {
 
   app.use(bodyParser.json({ limit: settings.bodySizeLimit }));
 
-  app.use(getVersion(), getComments(), (req, res, next) => {
+  app.use(getVersion(), getComments(['grant', 'transfer']), (req, res, next) => {
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.project = {
       ...req.project,
