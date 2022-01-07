@@ -11,7 +11,11 @@ module.exports = settings => {
   });
 
   app.get('/', (req, res, next) => {
-    res.redirect(req.buildRoute('establishment.rops.overview', { year: 2021 }));
+    const now = new Date();
+    res.redirect(req.buildRoute('establishment.rops.overview', {
+      // default to previous year in Jan-Jun
+      year: now.getMonth() < 6 ? now.getFullYear() - 1 : now.getFullYear()
+    }));
   });
 
   return app;
