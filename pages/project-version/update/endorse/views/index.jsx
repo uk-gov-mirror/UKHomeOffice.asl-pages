@@ -4,7 +4,8 @@ import { Snippet, Header, FormLayout } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 export default function Submit() {
-  const { canEndorse, project } = useSelector(state => state.static);
+  const { canEndorse } = useSelector(state => state.static);
+  const project = useSelector(state => state.model);
   const isApplication = project.type === 'application';
   const type = isApplication ? 'application' : 'amendment';
 
