@@ -112,6 +112,9 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     'species-other-birds': {
       label: 'Specify other birds'
     },
+    'species-other-camelids': {
+      label: 'Specify camelids'
+    },
     'species-other-equidae': {
       label: 'Specify other equidae'
     },
@@ -123,6 +126,9 @@ Octopus and squid should be counted as free feeding from when they hatch, and cu
     },
     'species-other-carnivores': {
       label: 'Specify other carnivores'
+    },
+    'species-other-reptiles': {
+      label: 'Specify reptiles'
     },
     'species-other-mammals': {
       label: 'Specify other mammals'
