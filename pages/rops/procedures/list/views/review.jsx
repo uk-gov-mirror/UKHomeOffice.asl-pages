@@ -5,9 +5,9 @@ import {
   Link,
   Datatable,
   Header,
-  WidthContainer
+  WidthContainer,
+  OverflowWrapper
 } from '@asl/components';
-import OverflowWrapper from '../../../../common/components/overflow-wrapper';
 import Confirm from '../../../update/views/components/confirm';
 import formatters from '../formatters';
 

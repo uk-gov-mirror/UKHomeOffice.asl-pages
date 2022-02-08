@@ -5,13 +5,13 @@ import {
   Details,
   WidthContainer,
   Link,
-  Datatable
+  Datatable,
+  OverflowWrapper
 } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import RopHeader from '../../../components/header';
 import ProceduresDownloadLink from '../../../components/procedures-download-link';
 import Confirm from '../../../update/views/components/confirm';
-import OverflowWrapper from '../../../../common/components/overflow-wrapper';
 import formatters from '../formatters';
 
 function Actions({ model }) {

@@ -746,38 +746,6 @@ nav.bottom-nav {
   display: none !important;
 }
 
-.overflow-wrapper {
-  position: relative;
-  margin-bottom: $govuk-gutter;
-
-  .overflow-inner {
-    overflow: auto;
-  }
-
-  &:before, &:after {
-    content: " ";
-    height: 100%;
-    position: absolute;
-    top: 0;
-    width: 10px;
-    display: none;
-  }
-  &:before {
-    background: radial-gradient(ellipse farthest-side at left 50%, rgba(0,0,0,0.3), transparent);
-    left: 0;
-  }
-  &:after {
-    background: radial-gradient(ellipse farthest-side at right 50%, rgba(0,0,0,0.3), transparent);
-    right: 0;
-  }
-  &.overflow-left:before {
-    display: block;
-  }
-  &.overflow-right:after {
-    display: block;
-  }
-}
-
 .push-up {
   margin-top: -38px;
 }
