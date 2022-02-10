@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import isUndefined from 'lodash/isUndefined';
-import omit from 'lodash/omit';
 import { useSelector, shallowEqual } from 'react-redux';
 import {
   Diff,
@@ -38,7 +37,6 @@ export default function Playback({ task, values, allowSubmit }) {
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
   const placeSchema = baseSchema();
-  const diffSchema = task.onlyRolesChanged ? placeSchema : omit(placeSchema, 'nacwos', 'nvssqps');
 
   const isComplete = !task.isOpen;
 
@@ -84,7 +82,7 @@ export default function Playback({ task, values, allowSubmit }) {
           <Diff
             after={task.data.data}
             before={values}
-            schema={diffSchema}
+            schema={placeSchema}
             formatters={formatters}
             comparator={hasChanged}
             currentLabel={isComplete && <Snippet>diff.previous</Snippet>}

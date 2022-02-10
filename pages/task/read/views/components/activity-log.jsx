@@ -32,10 +32,16 @@ function Action({ task, action, activity, changedBy }) {
   const establishmentId = get(activity, 'event.data.establishmentId');
   const profile = get(activity, 'event.meta.user.profile');
   const establishment = profile.establishments.find(e => e.id === establishmentId) || {};
+  let approvedByMsg = `status.${action}.log.${type}`;
+
+  if (!profile.asruUser && action === 'resolved') {
+    const approvedByPELH = profile.roles.find(r => r.type === 'pelh' && r.establishmentId === establishmentId);
+    approvedByMsg = approvedByPELH ? `status.${action}.by-pelh` : `status.${action}.on-behalf-of-pelh`;
+  }
 
   return (
     <p className="gutter">
-      <strong><Snippet fallback={`status.${action}.log`} establishmentName={establishment.name}>{`status.${action}.log.${type}`}</Snippet></strong>
+      <strong><Snippet fallback={`status.${action}.log`} establishmentName={establishment.name}>{approvedByMsg}</Snippet></strong>
       <strong>: </strong>
       <ProfileLink id={changedBy.id} name={name} establishmentId={establishment.id || task.data.establishmentId} asruUser={changedBy.asruUser} />
     </p>

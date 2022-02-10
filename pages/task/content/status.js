@@ -218,7 +218,9 @@ module.exports = {
       transfer: 'Approved by',
       review: 'Reviewed by',
       ra: 'Approved by'
-    }
+    },
+    'by-pelh': 'Approved by establishment licence holder',
+    'on-behalf-of-pelh': 'Approved on behalf of establishment licence holder by'
   },
   rejected: {
     state: 'Rejected',
