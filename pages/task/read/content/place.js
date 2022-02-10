@@ -9,7 +9,7 @@ module.exports = merge({}, place, {
     details: 'Establishment details',
     create: 'Approved area to add',
     delete: 'Approved area to remove',
-    diff: 'Amendment requested',
+    diff: 'Amendment details',
     restrictions: 'Restrictions',
     'changes-to-restrictions': 'Requested changes to restrictions',
     'new-restrictions': 'New restrictions'

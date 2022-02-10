@@ -4,7 +4,7 @@ module.exports = {
   namedRoles,
   'sticky-nav': {
     applicant: 'Applicant',
-    role: 'Named role details'
+    role: 'Amendment details'
   },
   fields: {
     role: {
@@ -14,8 +14,12 @@ module.exports = {
       label: 'RCVS number'
     }
   },
+  action: {
+    assigned: 'Assigned to',
+    removed: 'Removed from'
+  },
   remaining: {
-    some: 'Remaining users with this role at this establishment',
-    none: 'There are no other users at this establishment currently holding this role'
+    some: 'Remaining users with this role',
+    none: 'There are no other users currently holding this role'
   }
 };

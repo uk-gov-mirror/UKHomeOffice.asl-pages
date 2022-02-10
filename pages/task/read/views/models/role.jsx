@@ -31,20 +31,17 @@ export default function Role({ task, values, schema }) {
       </dl>
     </StickyNavAnchor>,
 
-    <StickyNavAnchor id="applicant" key="applicant">
-      <h2><Snippet>sticky-nav.applicant</Snippet></h2>
-      <p className="gutter">
-        <Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
-      </p>
-    </StickyNavAnchor>,
-
     (
       task.data.action === 'create' && (
         <StickyNavAnchor id="role" key="role">
           <h2><Snippet>sticky-nav.role</Snippet></h2>
-          <dl>
+          <dl className="inline">
             <dt><Snippet>fields.role.label</Snippet></dt>
             <dd><Snippet>{`namedRoles.${task.data.data.type}`}</Snippet></dd>
+            <dt><Snippet>action.assigned</Snippet></dt>
+            <dd>
+              <Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
+            </dd>
             {
               task.data.data.rcvsNumber && (
                 <Fragment>
@@ -62,22 +59,29 @@ export default function Role({ task, values, schema }) {
       task.data.action === 'delete' && (
         <StickyNavAnchor id="role" key="role">
           <h2><Snippet>sticky-nav.role</Snippet></h2>
-          <p><strong><Snippet>fields.role.label</Snippet></strong></p>
-          <p><Snippet>{`namedRoles.${values.type}`}</Snippet></p>
-
-          {
-            remainingRoles !== 'BC_NO_DATA' && (remainingRoles || []).length > 0 &&
-              <Fragment>
-                <p><strong><Snippet>remaining.some</Snippet></strong></p>
-                <ul>
-                  {
-                    remainingRoles.map(role => (
-                      <li key={role.id}>{`${role.profile.firstName} ${role.profile.lastName}`}</li>
-                    ))
-                  }
-                </ul>
-              </Fragment>
-          }
+          <dl className="inline">
+            <dt><Snippet>fields.role.label</Snippet></dt>
+            <dd><Snippet>{`namedRoles.${values.type}`}</Snippet></dd>
+            <dt><Snippet>action.removed</Snippet></dt>
+            <dd>
+              <Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} />
+            </dd>
+            {
+              remainingRoles !== 'BC_NO_DATA' && (remainingRoles || []).length > 0 &&
+                <Fragment>
+                  <dt><Snippet>remaining.some</Snippet></dt>
+                  <dd>
+                    <ul>
+                      {
+                        remainingRoles.map(role => (
+                          <li key={role.id}>{`${role.profile.firstName} ${role.profile.lastName}`}</li>
+                        ))
+                      }
+                    </ul>
+                  </dd>
+                </Fragment>
+            }
+          </dl>
           {
             remainingRoles !== 'BC_NO_DATA' && (remainingRoles || []).length === 0 &&
               <Warning><Snippet>remaining.none</Snippet></Warning>
