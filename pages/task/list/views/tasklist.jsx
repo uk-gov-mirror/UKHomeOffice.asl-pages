@@ -22,6 +22,7 @@ function LicenceTypeFilter({ label }) {
 function TaskFilters({ hasTasks, progressOptions }) {
   const filters = useSelector(state => state.datatable.filters);
   const pplFilterActive = get(filters, 'active.licence', []).includes('ppl');
+  const pelFilterActive = get(filters, 'active.licence', []).includes('pel');
 
   const filterOpts = [
     {
@@ -48,6 +49,15 @@ function TaskFilters({ hasTasks, progressOptions }) {
       prop: 'pplType',
       formatter: filter => <Snippet>{`filters.pplType.options.${filter}`}</Snippet>,
       append: ['applications', 'amendments', 'revocations', 'transfers', 'changeLicenceHolder', 'continuations', 'hasDeadline', 'ra']
+    });
+  }
+
+  if (pelFilterActive) {
+    filterOpts.push({
+      label: <Snippet>filters.pelType.label</Snippet>,
+      prop: 'pelType',
+      formatter: filter => <Snippet>{`filters.pelType.options.${filter}`}</Snippet>,
+      append: ['places', 'roles', 'amendments', 'applications']
     });
   }
 

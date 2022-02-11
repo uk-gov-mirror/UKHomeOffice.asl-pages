@@ -55,6 +55,15 @@ module.exports = {
         ra: 'Retrospective assessments',
         changeLicenceHolder: 'Change licence holder'
       }
+    },
+    pelType: {
+      label: 'By PEL type:',
+      options: {
+        places: 'Schedule of premises',
+        roles: 'Named roles',
+        amendments: 'Establishment details',
+        applications: 'Submitted applications'
+      }
     }
   },
   'no-tasks': {
