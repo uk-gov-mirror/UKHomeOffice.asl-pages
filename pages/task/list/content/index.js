@@ -60,9 +60,8 @@ module.exports = {
       label: 'By PEL type:',
       options: {
         places: 'Areas',
-        roles: 'Named people',
-        amendments: 'Establishment details',
-        applications: 'Submitted applications'
+        pelh: 'PEL holders',
+        roles: 'All named people'
       }
     }
   },

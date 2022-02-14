@@ -57,7 +57,7 @@ function TaskFilters({ hasTasks, progressOptions }) {
       label: <Snippet>filters.pelType.label</Snippet>,
       prop: 'pelType',
       formatter: filter => <Snippet>{`filters.pelType.options.${filter}`}</Snippet>,
-      append: ['places', 'roles', 'amendments', 'applications']
+      append: ['places', 'pelh', 'roles']
     });
   }
 
