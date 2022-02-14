@@ -59,8 +59,8 @@ module.exports = {
     pelType: {
       label: 'By PEL type:',
       options: {
-        places: 'Schedule of premises',
-        roles: 'Named roles',
+        places: 'Areas',
+        roles: 'Named people',
         amendments: 'Establishment details',
         applications: 'Submitted applications'
       }
