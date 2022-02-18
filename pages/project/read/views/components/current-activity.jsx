@@ -66,9 +66,15 @@ export default function CurrentActivity() {
               <tr>
                 <th>Last changed</th>
                 <th>Establishment</th>
-                <th>Licence</th>
                 <th>Type</th>
                 <th>Status</th>
+                {
+                  asruUser &&
+                    <Fragment>
+                      <th>Deadline</th>
+                      <th>Assigned to</th>
+                    </Fragment>
+                }
               </tr>
             </thead>
             <tbody>
@@ -77,9 +83,15 @@ export default function CurrentActivity() {
                   <tr key={task.id}>
                     <td>{format('updatedAt', task.updatedAt, task)}</td>
                     <td>{format('establishment', task.data.establishment.name, task)}</td>
-                    <td>{format('licence', task.data.model, task)}</td>
                     <td>{format('type', task.data.action, task)}</td>
                     <td>{format('status', task.status, task)}</td>
+                    {
+                      asruUser &&
+                        <Fragment>
+                          <td>{format('activeDeadline', task.activeDeadline, task)}</td>
+                          <td>{format('assignedTo', task.assignedTo, task)}</td>
+                        </Fragment>
+                    }
                   </tr>
                 ))
               }
