@@ -44,7 +44,7 @@ module.exports = getQuery => {
   app.use(datatable({
     configure: (req, res, next) => {
       if (!req.user.profile.asruUser) {
-        req.datatable.schema = omit(req.datatable.schema, 'assignedTo');
+        req.datatable.schema = omit(req.datatable.schema, ['activeDeadline', 'assignedTo']);
       }
       next();
     },

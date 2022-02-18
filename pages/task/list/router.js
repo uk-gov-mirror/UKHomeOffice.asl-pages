@@ -14,7 +14,7 @@ module.exports = ({
 } = {}) => datatable({
   configure: (req, res, next) => {
     if (!req.user.profile.asruUser) {
-      req.datatable.schema = omit(req.datatable.schema, 'assignedTo');
+      req.datatable.schema = omit(req.datatable.schema, ['activeDeadline', 'assignedTo']);
     }
     const progressOptions = getProgressOptions(req.user.profile);
     const progress = get(req.query, 'filters.progress[0]') || get(req.query, 'progress') || progressOptions[0];
