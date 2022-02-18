@@ -11,36 +11,32 @@ const good = ['resolved'];
 const bad = ['rejected', 'discarded-by-applicant'];
 
 const Deadline = ({ task }) => {
-  if (!task.withASRU) {
+  const activeDeadline = task.activeDeadline;
+
+  if (!task.withASRU || !activeDeadline) {
     return <p className="govuk-hint">No deadline</p>;
   }
 
-  const activeDeadline = task.activeDeadline;
+  const now = new Date();
+  const statutoryDeadline = get(task, 'data.deadline');
+  const isExtended = get(statutoryDeadline, 'isExtended', false);
+  const statutoryDate = get(statutoryDeadline, isExtended ? 'extended' : 'standard');
+  const overdue = isBefore(activeDeadline, now);
+  const urgent = overdue || differenceInDays(activeDeadline, now) <= 9;
 
-  if (activeDeadline) {
-    const now = new Date();
-    const statutoryDeadline = get(task, 'data.deadline');
-    const isExtended = get(statutoryDeadline, 'isExtended', false);
-    const statutoryDate = get(statutoryDeadline, isExtended ? 'extended' : 'standard');
-    const overdue = isBefore(activeDeadline, now);
-    const urgent = overdue || differenceInDays(activeDeadline, now) <= 9;
-
-    return (
-      <span className={classnames('notice', { urgent })}>
-        {
-          overdue
-            ? <span title={format(activeDeadline, dateFormat.medium)}>Overdue</span>
-            : <span>{format(activeDeadline, dateFormat.medium)}</span>
-        }
-        {
-          activeDeadline === statutoryDate &&
-            <Fragment><br/><span>(statutory)</span></Fragment>
-        }
-      </span>
-    );
-  }
-
-  return <p className="govuk-hint">No deadline</p>;
+  return (
+    <span className={classnames('notice', { urgent })}>
+      {
+        overdue
+          ? <span title={format(activeDeadline, dateFormat.medium)}>Overdue</span>
+          : <span>{format(activeDeadline, dateFormat.medium)}</span>
+      }
+      {
+        activeDeadline === statutoryDate &&
+          <Fragment><br/><span>(statutory)</span></Fragment>
+      }
+    </span>
+  );
 };
 
 export default {
