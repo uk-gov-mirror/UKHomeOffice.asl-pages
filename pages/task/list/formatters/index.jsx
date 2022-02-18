@@ -2,43 +2,41 @@ import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
 import format from 'date-fns/format';
+import isBefore from 'date-fns/is_before';
+import differenceInDays from 'date-fns/difference_in_calendar_days';
 import { dateFormat } from '../../../../constants';
-import { Snippet, Link, Countdown } from '@asl/components';
+import { Snippet, Link } from '@asl/components';
 
 const good = ['resolved'];
 const bad = ['rejected', 'discarded-by-applicant'];
 
-const ContinuationCountdown = ({ model }) => {
-  const continuation = get(model, 'data.continuation') && get(model, 'data.modelData.status') === 'inactive';
+const Deadline = ({ task }) => {
+  const activeDeadline = task.activeDeadline;
 
-  if (!continuation) {
-    return null;
-  }
-  // show done message if task is resolved
-  if (!model.isOpen) {
-    return model.status === 'resolved' ? <span className="notice"><Snippet>countdown.continuation.closed</Snippet></span> : null;
-  }
-  // show unknown message if there are no expiry dates provided
-  if (!Array.isArray(model.data.continuation) || !model.data.continuation.filter(d => d['expiry-date']).length) {
-    return <span className="notice"><Snippet>countdown.continuation.unknown</Snippet></span>;
+  if (!task.withASRU || !activeDeadline) {
+    return <p className="govuk-hint">No deadline</p>;
   }
 
-  // get the earliest expiry date provided
-  const continuationDate = model.data.continuation.map(d => d['expiry-date']).sort()[0];
-  return <Countdown expiry={continuationDate} unit="day" showUrgent={9} contentPrefix="countdown.continuation" />;
-};
+  const now = new Date();
+  const statutoryDeadline = get(task, 'data.deadline');
+  const isExtended = get(statutoryDeadline, 'isExtended', false);
+  const statutoryDate = get(statutoryDeadline, isExtended ? 'extended' : 'standard');
+  const overdue = isBefore(activeDeadline, now);
+  const urgent = overdue || differenceInDays(activeDeadline, now) <= 9;
 
-const DeadlineCountdown = ({ model }) => {
-  const deadline = get(model, 'data.deadline');
-
-  if (!deadline || !model.withASRU) {
-    return null;
-  }
-
-  const isExtended = get(deadline, 'isExtended', false);
-  const deadlineDate = get(deadline, isExtended ? 'extended' : 'standard');
-
-  return <Countdown expiry={deadlineDate} unit="day" showUrgent={9} contentPrefix="countdown.deadline" />;
+  return (
+    <span className={classnames('notice', { urgent })}>
+      {
+        overdue
+          ? <span title={format(activeDeadline, dateFormat.medium)}>Overdue</span>
+          : <span>{format(activeDeadline, dateFormat.medium)}</span>
+      }
+      {
+        activeDeadline === statutoryDate &&
+          <Fragment><br/><span>(statutory)</span></Fragment>
+      }
+    </span>
+  );
 };
 
 export default {
@@ -47,33 +45,6 @@ export default {
   },
   establishment: {
     format: (establishment, model) => establishment || '-'
-  },
-  licence: {
-    format: (licence, task) => {
-      if (licence === 'pil' || licence === 'trainingPil') {
-        return (
-          <Fragment>
-            <span>PIL</span>
-            <span className="block smaller">{get(task, 'data.modelData.licenceNumber') || get(task, 'licenceNumber')}</span>
-          </Fragment>
-        );
-      }
-      if (licence === 'project') {
-        return (
-          <Fragment>
-            <span>PPL</span>
-            <span className="block smaller">{get(task, 'data.modelData.licenceNumber') || get(task, 'licenceNumber')}</span>
-          </Fragment>
-        );
-      }
-      if (licence === 'rop') {
-        return 'PPL';
-      }
-      if (licence === 'place' || licence === 'role' || licence === 'establishment') {
-        return 'PEL';
-      }
-      return '-';
-    }
   },
   status: {
     format: (status, task) => {
@@ -85,11 +56,14 @@ export default {
       }
 
       return (
-        <Fragment>
-          <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
-          <DeadlineCountdown model={task} />
-          <ContinuationCountdown model={task} />
-        </Fragment>
+        <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
+      );
+    }
+  },
+  activeDeadline: {
+    format: (deadline, task) => {
+      return (
+        <Deadline task={task} />
       );
     }
   },
