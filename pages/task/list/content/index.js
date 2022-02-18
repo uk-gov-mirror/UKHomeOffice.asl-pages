@@ -8,22 +8,6 @@ module.exports = {
   tasks,
   title: 'Task list',
   pageTitle: 'Task list',
-  countdown: {
-    deadline: {
-      singular: 'Statutory deadline: 1 {{unit}}',
-      plural: 'Statutory deadline: {{diff}} {{unit}}s',
-      expired: 'Statutory deadline: passed',
-      expiresToday: 'Statutory deadline: today'
-    },
-    continuation: {
-      singular: 'Project continuation: 1 {{unit}}',
-      plural: 'Project continuation: {{diff}} {{unit}}s',
-      expired: 'Project continuation: passed',
-      expiresToday: 'Project continuation: today',
-      unknown: 'Includes project continuation',
-      closed: 'Project continuation: done'
-    }
-  },
   tabs: {
     outstanding: 'Outstanding',
     inProgress: 'In progress',

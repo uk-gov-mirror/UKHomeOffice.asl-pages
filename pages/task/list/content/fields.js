@@ -5,14 +5,14 @@ module.exports = {
   establishment: {
     label: 'Establishment'
   },
-  licence: {
-    label: 'Licence'
-  },
   type: {
     label: 'Type'
   },
   status: {
     label: 'Status'
+  },
+  activeDeadline: {
+    label: 'Deadline (closest)'
   },
   assignedTo: {
     label: 'Assigned to'
