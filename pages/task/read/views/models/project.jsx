@@ -52,8 +52,6 @@ export default function Project({ task }) {
   const { project, establishment, version, ra, values, isAsru, allowedActions, url } = useSelector(state => state.static, shallowEqual);
   const [disabled, setDisabled] = useState(false);
 
-  const continuation = task.data.continuation;
-  const continuationRTE = get(version, 'data.expiring-yes');
   // always use licence holder from project for applications
   const licenceHolder = project.status === 'inactive'
     ? project.licenceHolder
@@ -195,55 +193,6 @@ export default function Project({ task }) {
             }
 
           </p>
-        </StickyNavAnchor>
-      )
-    ),
-
-    (
-      continuation && (
-        <StickyNavAnchor id="continuation" key="continuation">
-          <h2><Snippet>continuation.title</Snippet></h2>
-          {
-            continuation.map((item, index) => (
-              <dl className="inline continuation" key={index}>
-                <dt><Snippet>continuation.licence</Snippet></dt>
-                <dd>
-                  {
-                    item['licence-number']
-                      ? item['licence-number']
-                      : <em>No answer provided</em>
-                  }
-                </dd>
-                <dt><Snippet>continuation.expiry</Snippet></dt>
-                <dd>
-                  {
-                    item['expiry-date']
-                      ? format(item['expiry-date'], dateFormat.long)
-                      : <em>No answer provided</em>
-                  }
-                </dd>
-              </dl>
-            ))
-          }
-          {
-            continuationRTE && (
-              <div className="gutter">
-                <h3><Snippet>continuation.rte</Snippet></h3>
-                <label className="govuk-hint"><Snippet>continuation.label</Snippet></label>
-                <ReviewFields
-                  fields={[{
-                    name: 'expiring-yes',
-                    type: 'texteditor'
-                  }]}
-                  values={{
-                    'expiring-yes': continuationRTE
-                  }}
-                  readonly={true}
-                  noComments
-                />
-              </div>
-            )
-          }
         </StickyNavAnchor>
       )
     ),
