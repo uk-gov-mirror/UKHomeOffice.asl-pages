@@ -18,11 +18,11 @@ module.exports = {
     view: 'View retrospective assessment'
   },
   continuation: {
-    title: 'This is a project continuation',
+    title: 'Project continuation',
     licence: 'From the licence',
-    expiry: 'Expiry',
-    rte: 'Original input',
-    label: 'Please state the licence number and expiry date of all these licences.'
+    rte: 'Original continuation input',
+    from: 'From project licence {{licenceNumber}}',
+    expiry: 'expiring on {{expiry}}'
   },
   fields: {
     status: {
@@ -83,8 +83,15 @@ module.exports = {
     button: 'Reopen task'
   },
   deadline: {
-    title: 'Deadline for decision: ',
+    decision: 'Deadline for decision: {{date}}',
+    processBy: 'Process by: {{date}}',
+    internal: 'Internal deadline',
+    statutory: {
+      standard: 'Statutory deadline for decision',
+      extended: 'Extended deadline for decision'
+    },
     extension: {
+      action: 'Extend deadline',
       from: 'Deadline extended from: ',
       to: 'Deadline extended to: '
     },
