@@ -1,5 +1,12 @@
 const { Router } = require('express');
 const csv = require('csv-stringify');
+const { flatten } = require('lodash');
+const { projectSpecies } = require('@asl/constants');
+
+const lookupSpecies = row => {
+  const species = flatten(Object.values(projectSpecies)).find(s => s.value === row.species);
+  return { ...row, species: (species ? species.label : row.species) };
+};
 
 const columns = [
   { key: 'ropId', header: 'return_id' },
@@ -52,6 +59,7 @@ module.exports = settings => {
   router.get('/', (req, res, next) => {
     req.api(`/establishment/${req.establishmentId}/rops/download`, { query: { year: req.year } })
       .then(response => response.json.data)
+      .then(rows => rows.map(lookupSpecies))
       .then(rows => {
         res.attachment(`returns-of-procedures-${req.year}.csv`);
         const stringifier = csv({ bom: true, header: true, columns });
