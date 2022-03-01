@@ -5,7 +5,14 @@ const schema = require('./schema');
 module.exports = () => {
   const app = page({ root: __dirname });
 
-  app.use(form({ schema }));
+  app.use(form({
+    schema,
+    saveValues: (req, res, next) => {
+      // remove possible certificate values from session when adding an exemption and vice versa
+      req.session.form[req.model.id].values = req.form.values;
+      next();
+    }
+  }));
 
   app.post('/', (req, res, next) => {
     const { isExemption } = req.form.values;
