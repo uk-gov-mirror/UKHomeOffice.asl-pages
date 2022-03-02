@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import differenceInYears from 'date-fns/difference_in_years';
 import {
   Snippet,
   StickyNavAnchor,
@@ -28,9 +26,6 @@ function PilProcedures({ task }) {
 }
 
 export default function PIL({ task, values }) {
-  const profile = useSelector(state => state.static.profile);
-  const establishment = useSelector(state => state.static.establishment);
-  const over18 = profile.dob ? differenceInYears(new Date(), new Date(profile.dob)) >= 18 : 'unknown';
   const isTransfer = task.type === 'transfer';
   const isReview = task.type === 'review';
   const certificates = task.data.certificates || [];
@@ -43,13 +38,11 @@ export default function PIL({ task, values }) {
     pil = task.data.modelData;
   }
 
-  const applicantKey = `applicant.${task.type === 'application' ? 'application' : 'other'}`;
-
   return [
-    <StickyNavAnchor id="establishment" key="establishment">
-      <h2><Snippet>{`sticky-nav.${isTransfer ? 'transfer' : 'establishment'}`}</Snippet></h2>
-      {
-        isTransfer &&
+    (
+      isTransfer &&
+        <StickyNavAnchor id="establishment" key="establishment">
+          <h2><Snippet>{`sticky-nav.${isTransfer ? 'transfer' : 'establishment'}`}</Snippet></h2>
           <table className="govuk-table compare">
             <thead>
               <tr>
@@ -78,32 +71,8 @@ export default function PIL({ task, values }) {
               </tr>
             </tbody>
           </table>
-      }
-      {
-        !isTransfer && <p>
-          <Link
-            page="establishment.dashboard"
-            establishmentId={establishment.id}
-            label={establishment.name}
-          />
-        </p>
-      }
-    </StickyNavAnchor>,
-
-    <StickyNavAnchor id={applicantKey} key={applicantKey}>
-      <h2><Snippet>{`sticky-nav.${applicantKey}`}</Snippet></h2>
-      <p><Link page="profile.read" establishmentId={task.data.establishmentId} profileId={profile.id} label={`${profile.firstName} ${profile.lastName}`} /></p>
-      {
-        task.type === 'application' && <dl>
-          <dt><Snippet>pil.applicant.over18</Snippet></dt>
-          <dd>{
-            over18 === 'unknown'
-              ? <Snippet>pil.applicant.missingDob</Snippet>
-              : over18 === true ? 'Yes' : 'No'
-          }</dd>
-        </dl>
-      }
-    </StickyNavAnchor>,
+        </StickyNavAnchor>
+    ),
 
     <StickyNavAnchor id="procedures" key="procedures">
       <h2><Snippet>sticky-nav.procedures</Snippet></h2>

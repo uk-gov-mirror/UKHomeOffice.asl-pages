@@ -12,31 +12,31 @@ module.exports = {
     delete: 'Area removal'
   },
   pil: {
-    grant: 'PIL application',
-    update: 'PIL amendment',
-    revoke: 'PIL revocation',
+    grant: 'Personal licence application',
+    update: 'Personal licence amendment',
+    revoke: 'Personal licence revocation',
     'update-conditions': 'Update conditions',
-    transfer: 'PIL transfer',
-    review: 'PIL review'
+    transfer: 'Personal licence transfer',
+    review: 'Personal licence review'
   },
   trainingPil: {
-    grant: 'Training PIL application',
-    revoke: 'Training PIL revocation'
+    grant: 'Training Personal licence application',
+    revoke: 'Training Personal licence revocation'
   },
   profile: {
     update: 'Profile amendment'
   },
   project: {
-    grant: 'PPL application',
-    transfer: 'PPL transfer',
-    update: 'PPL amendment',
-    revoke: 'PPL revocation',
+    grant: 'Project licence application',
+    transfer: 'Project licence transfer',
+    update: 'Project licence amendment',
+    revoke: 'Project licence revocation',
     'grant-ra': 'Retrospective assessment'
   },
   establishment: {
     grant: 'Establishment application',
     update: 'Establishment amendment',
-    revoke: 'PEL revocation',
+    revoke: 'Establishment revocation',
     'update-conditions': 'Update conditions'
   }
 };

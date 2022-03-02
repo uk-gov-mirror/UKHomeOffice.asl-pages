@@ -28,6 +28,7 @@ module.exports = {
     'discarded-by-asru': 'discarding'
   },
   'sticky-nav': {
+    details: 'Details',
     status: 'Status',
     activity: 'Latest activity',
     establishment: 'Establishment details',
@@ -85,7 +86,16 @@ module.exports = {
     submit: 'Continue'
   },
   diff: {
+    current: 'Current',
+    proposed: 'Proposed',
     previous: 'Previous',
     'changed-to': 'Changed to'
+  },
+  profileLink: {
+    global: 'Name',
+    applicant: 'Applicant',
+    licenceHolder: 'Licence holder',
+    pelh: 'Establishment licence holder',
+    nprc: 'Named person responsible for compliance'
   }
 };

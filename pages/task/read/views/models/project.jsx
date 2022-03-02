@@ -52,11 +52,6 @@ export default function Project({ task }) {
   const { project, establishment, version, ra, values, isAsru, allowedActions, url } = useSelector(state => state.static, shallowEqual);
   const [disabled, setDisabled] = useState(false);
 
-  // always use licence holder from project for applications
-  const licenceHolder = project.status === 'inactive'
-    ? project.licenceHolder
-    : (version ? version.licenceHolder : project.licenceHolder);
-
   const proposedAdditionalEstablishments = get(version, 'data.establishments', []).filter(e => e['establishment-id']);
   const removedAAIds = get(version, 'data.establishments', []).filter(e => e.deleted).map(e => e['establishment-id']);
 
@@ -112,22 +107,6 @@ export default function Project({ task }) {
 
   return [
     (
-      (task.data.action === 'grant' || task.data.action === 'grant-ra') && (
-        <StickyNavAnchor id="licence-holder" key="licence-holder">
-          <h2><Snippet>sticky-nav.licence-holder</Snippet></h2>
-          <p className="gutter">
-            <Link
-              page="profile.read"
-              establishmentId={establishment.id}
-              profileId={licenceHolder.id}
-              label={`${licenceHolder.firstName} ${licenceHolder.lastName}`}
-            />
-          </p>
-        </StickyNavAnchor>
-      )
-    ),
-
-    (
       task.data.action === 'grant-ra' && (
         <StickyNavAnchor id="ra" key="ra">
           <h2><Snippet>sticky-nav.ra</Snippet></h2>
@@ -151,6 +130,7 @@ export default function Project({ task }) {
     (
       task.data.action === 'transfer' && (
         <StickyNavAnchor id="establishment" key="establishment">
+          <h2><Snippet>sticky-nav.establishment</Snippet></h2>
           <div className="gutter">
             <EstablishmentDiff task={task} />
           </div>
@@ -206,8 +186,8 @@ export default function Project({ task }) {
             after={{ licenceHolder: task.data.licenceHolder }}
             schema={pick(projectSchema, 'licenceHolder')}
             formatters={formatters}
-            currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
-            proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
+            currentLabel={<Snippet>{`diff.${isComplete ? 'previous' : 'current'}`}</Snippet>}
+            proposedLabel={<Snippet>{`diff.${isComplete ? 'changed-to' : 'proposed'}`}</Snippet>}
           />
         </StickyNavAnchor>
       )

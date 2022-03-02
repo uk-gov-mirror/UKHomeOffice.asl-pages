@@ -6,7 +6,6 @@ module.exports = merge({}, place, {
     /* overwrites title property from place content with an emptyobject for a safe merge */
   },
   'sticky-nav': {
-    details: 'Establishment details',
     create: 'Approved area to add',
     delete: 'Approved area to remove',
     diff: 'Amendment details',
