@@ -39,13 +39,8 @@ const Task = ({ task, project }) => {
         </div>
       </div>
 
-      <Header
-        title={<Snippet type={task.type} fallback="title.default">{`title.${task.type}`}</Snippet>}
-        subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
-      />
-      {
-        project && <h3>{project.title || 'Untitled project'}</h3>
-      }
+      <Header title={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>} />
+
       {
         task.nextSteps.length > 0
           ? (

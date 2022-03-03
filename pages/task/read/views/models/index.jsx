@@ -21,6 +21,7 @@ import Role from './role';
 import Rop from './rop';
 import TrainingPil from './training-pil';
 
+import TaskDetails from '../components/task-details';
 import TaskStatus from '../components/task-status';
 import ActivityLog from '../components/activity-log';
 import AsruAssignment from '../components/asru-assignment';
@@ -69,6 +70,10 @@ export default function Model({ task, formFields, allowSubmit }) {
 
   return (
     <StickyNavPage>
+      <StickyNavAnchor id="details">
+        <TaskDetails task={task} />
+      </StickyNavAnchor>
+
       <StickyNavAnchor id="status">
         <TaskStatus task={task} />
       </StickyNavAnchor>

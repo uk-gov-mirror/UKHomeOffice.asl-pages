@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import isUndefined from 'lodash/isUndefined';
 import { useSelector, shallowEqual } from 'react-redux';
 import {
@@ -7,31 +7,16 @@ import {
   Field,
   EditableField,
   StickyNavAnchor,
-  ModelSummary,
-  Link
+  ModelSummary
 } from '@asl/components';
 import { baseSchema } from '../../../../place/schema';
 import formatters from '../../../../place/formatters';
 import { hasChanged } from '../../../../../lib/utils';
 
-const LicenceHolder = ({ type, profile, establishment }) => (
-  <Fragment>
-    <dt><Snippet>{type}</Snippet></dt>
-    <dd>
-      <Link
-        page="profile.read"
-        establishmentId={establishment.id}
-        profileId={profile.id}
-        label={`${profile.firstName} ${profile.lastName}`}
-      />
-    </dd>
-  </Fragment>
-);
-
 const selector = ({ model, static: { establishment, isAsru } }) => ({ establishment, isAsru, model });
 
 export default function Playback({ task, values, allowSubmit }) {
-  const { model, establishment, isAsru } = useSelector(selector, shallowEqual);
+  const { model, isAsru } = useSelector(selector, shallowEqual);
   const [dirty, setDirty] = useState(false);
   const nopes = ['recalled-by-applicant', 'discarded-by-applicant'];
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
@@ -52,29 +37,6 @@ export default function Playback({ task, values, allowSubmit }) {
   }, [dirty, allowSubmit]);
 
   return [
-    <StickyNavAnchor id="details" key="details">
-      <h2><Snippet>sticky-nav.details</Snippet></h2>
-      <dl className="inline">
-        <dt><Snippet>establishment</Snippet></dt>
-        <dd>
-          <Link
-            page="establishment.dashboard"
-            establishmentId={establishment.id}
-            label={establishment.name}
-          />
-        </dd>
-
-        <dt><Snippet>licenceNumber</Snippet></dt>
-        <dd>{ establishment.licenceNumber }</dd>
-        {
-          establishment.pelh && <LicenceHolder type="pelh" establishment={establishment} profile={establishment.pelh} />
-        }
-        {
-          establishment.nprc && <LicenceHolder type="nprc" establishment={establishment} profile={establishment.nprc} />
-        }
-      </dl>
-    </StickyNavAnchor>,
-
     (
       task.data.action === 'update' && (
         <StickyNavAnchor id="diff" key="diff">
