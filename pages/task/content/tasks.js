@@ -20,8 +20,8 @@ module.exports = {
     review: 'Personal licence review'
   },
   trainingPil: {
-    grant: 'Training Personal licence application',
-    revoke: 'Training Personal licence revocation'
+    grant: 'Training personal licence application',
+    revoke: 'Training personal licence revocation'
   },
   profile: {
     update: 'Profile amendment'
