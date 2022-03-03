@@ -5,7 +5,26 @@ const tasks = require('../../content/tasks');
 module.exports = {
   status,
   fields,
-  tasks,
+  tasks: {
+    ...tasks,
+    pil: {
+      grant: 'PIL application',
+      update: 'PIL amendment',
+      revoke: 'PIL revocation',
+      transfer: 'PIL transfer',
+      review: 'PIL review'
+    },
+    trainingPil: {
+      grant: 'Training PIL application',
+      revoke: 'Training PIL revocation'
+    },
+    project: {
+      grant: 'PPL application',
+      transfer: 'PPL transfer',
+      update: 'PPL amendment',
+      revoke: 'PPL revocation'
+    }
+  },
   title: 'Task list',
   pageTitle: 'Task list',
   tabs: {
