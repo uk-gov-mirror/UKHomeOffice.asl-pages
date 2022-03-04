@@ -1,30 +1,32 @@
 const fields = require('./fields');
 const status = require('../../content/status');
 const tasks = require('../../content/tasks');
+const { merge } = require('lodash');
+
+const shortTaskLabels = {
+  pil: {
+    grant: 'PIL application',
+    update: 'PIL amendment',
+    revoke: 'PIL revocation',
+    transfer: 'PIL transfer',
+    review: 'PIL review'
+  },
+  trainingPil: {
+    grant: 'Training PIL application',
+    revoke: 'Training PIL revocation'
+  },
+  project: {
+    grant: 'PPL application',
+    transfer: 'PPL transfer',
+    update: 'PPL amendment',
+    revoke: 'PPL revocation'
+  }
+};
 
 module.exports = {
   status,
   fields,
-  tasks: {
-    ...tasks,
-    pil: {
-      grant: 'PIL application',
-      update: 'PIL amendment',
-      revoke: 'PIL revocation',
-      transfer: 'PIL transfer',
-      review: 'PIL review'
-    },
-    trainingPil: {
-      grant: 'Training PIL application',
-      revoke: 'Training PIL revocation'
-    },
-    project: {
-      grant: 'PPL application',
-      transfer: 'PPL transfer',
-      update: 'PPL amendment',
-      revoke: 'PPL revocation'
-    }
-  },
+  tasks: merge({}, tasks, shortTaskLabels),
   title: 'Task list',
   pageTitle: 'Task list',
   tabs: {

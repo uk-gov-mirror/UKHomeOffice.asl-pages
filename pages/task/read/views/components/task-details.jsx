@@ -113,7 +113,7 @@ function ProjectDetails({ task }) {
 function PilDetails({ task }) {
   const profile = useSelector(state => state.static.profile) || get(task, 'data.modelData.profile');
   const pil = profile.pil;
-  const establishment = pil ? pil.establishment : get(task, 'data.establishment');
+  const establishment = (pil && pil.establishment) ? pil.establishment : get(task, 'data.establishment');
   const isApplication = task.type === 'application';
   const profileType = isApplication ? 'applicant' : 'licenceHolder';
 
