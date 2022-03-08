@@ -3,7 +3,6 @@ import get from 'lodash/get';
 import classnames from 'classnames';
 import { Snippet } from '@asl/components';
 import Deadline from './deadline';
-import { isDeadlineExtension } from '../../../../../lib/utils';
 
 const getStatusBadge = (status, model) => {
   const good = ['resolved'];
@@ -14,21 +13,7 @@ const getStatusBadge = (status, model) => {
 
 export default function TaskStatus({ task }) {
   const model = get(task, 'data.model');
-  const latestActivity = task.activityLog.filter(a => a.eventName !== 'assign')[0];
-  let { action, status } = latestActivity;
-
-  if (model === 'project') {
-    const isExtension = isDeadlineExtension(latestActivity);
-
-    if (action === 'update' && isExtension) {
-      status = 'with-inspectorate';
-      action = 'with-inspectorate';
-    }
-  }
-
-  if (model === 'rop') {
-    status = 'resubmitted';
-  }
+  const status = task.status;
 
   let snippetContent = `status.${status}.currentlyWith`;
 

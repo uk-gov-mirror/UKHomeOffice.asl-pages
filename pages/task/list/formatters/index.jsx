@@ -49,11 +49,7 @@ export default {
   status: {
     format: (status, task) => {
       const isRop = (get(task, 'data.model') || get(task, 'model')) === 'rop';
-      const className = classnames({ badge: true, complete: good.includes(status || isRop), rejected: bad.includes(status) });
-
-      if (isRop) {
-        status = 'resubmitted';
-      }
+      const className = classnames({ badge: true, complete: good.includes(status) || isRop, rejected: bad.includes(status) });
 
       return (
         <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
@@ -108,6 +104,9 @@ export default {
           if (placeName) {
             contextLabel = placeName;
           }
+          break;
+        case 'rop':
+          contextLabel = get(task, 'data.modelData.year');
           break;
       }
 

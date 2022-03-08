@@ -89,6 +89,17 @@ function EstablishmentsList({ establishments }) {
   );
 }
 
+function ROPYear({ task }) {
+  if (task.data.model !== 'rop') {
+    return null;
+  }
+  const year = useSelector(state => state.static.values.year);
+  return <Fragment>
+    <dt>Return for year</dt>
+    <dd>{ year }</dd>
+  </Fragment>;
+}
+
 function ProjectDetails({ task }) {
   const project = useSelector(state => state.static.project) || useSelector(state => state.static.values.project);
   const version = useSelector(state => state.static.version);
@@ -106,6 +117,7 @@ function ProjectDetails({ task }) {
       <ProfileLink profile={profile} establishment={establishment} type={profileType} />
       <LicenceNumber>{project.licenceNumber}</LicenceNumber>
       <EstablishmentLink establishment={establishment} />
+      { task.data.model === 'rop' && <ROPYear task={task} /> }
     </dl>
   );
 }
