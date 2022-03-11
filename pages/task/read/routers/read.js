@@ -10,6 +10,7 @@ const { cleanModel } = require('../../../../lib/utils');
 const getContent = require('../content');
 const { getEstablishment } = require('../../../common/helpers');
 const updateData = require('../middleware/update-data');
+const ropStatus = require('../../middleware/rop-status');
 
 const endorsingOwnPil = (task, profile) => {
   const isNtco = !!profile.roles.find(r => r.type === 'ntco' && r.establishmentId === task.data.establishmentId);
@@ -18,6 +19,8 @@ const endorsingOwnPil = (task, profile) => {
 
 module.exports = () => {
   const app = Router({ mergeParams: true });
+
+  app.use(ropStatus());
 
   // get relevant versionId if task is for a project.
   app.use((req, res, next) => {

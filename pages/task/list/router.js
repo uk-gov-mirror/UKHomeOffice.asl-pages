@@ -2,6 +2,7 @@ const { get, set, omit } = require('lodash');
 const { NotFoundError } = require('@asl/service/errors');
 const defaultSchema = require('./schema');
 const datatable = require('../../common/routers/datatable');
+const ropStatus = require('../middleware/rop-status');
 
 const getProgressOptions = profile => {
   const options = ['outstanding', 'inProgress', 'completed'];
@@ -40,6 +41,7 @@ module.exports = ({
     req.datatable.apiPath = [req.datatable.apiPath, { query: { ...req.query, progress } }];
     next();
   },
+  getValues: ropStatus(),
   errorHandler: (err, req, res, next) => {
     req.log('error', { ...err, message: err.message, stack: err.stack });
     res.locals.static.workflowConnectionError = true;
