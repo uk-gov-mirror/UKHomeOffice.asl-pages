@@ -48,8 +48,8 @@ export default {
   },
   status: {
     format: (status, task) => {
-      const isRop = (get(task, 'data.model') || get(task, 'model')) === 'rop';
-      const className = classnames({ badge: true, complete: good.includes(status) || isRop, rejected: bad.includes(status) });
+      const isRopSubmission = (get(task, 'data.model') || get(task, 'model')) === 'rop' && get(task, 'data.action') === 'submit';
+      const className = classnames({ badge: true, complete: good.includes(status) || isRopSubmission, rejected: bad.includes(status) });
 
       return (
         <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
@@ -89,6 +89,10 @@ export default {
       }
 
       switch (licence) {
+        case 'rop':
+          labelParams.year = get(task, 'data.modelData.year');
+          // don't break, allow ROPs to also use the subject as the context label
+          // eslint-ignore-next-line no-fallthrough
         case 'project':
         case 'pil':
         case 'role':
@@ -104,9 +108,6 @@ export default {
           if (placeName) {
             contextLabel = placeName;
           }
-          break;
-        case 'rop':
-          contextLabel = get(task, 'data.modelData.year');
           break;
       }
 
