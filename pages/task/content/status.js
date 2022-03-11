@@ -240,6 +240,10 @@ module.exports = {
     },
     log: 'Rejected by'
   },
+  reopened: {
+    state: 'Reopened',
+    log: 'Reopened by'
+  },
   recovered: {
     state: 'Reopened',
     log: 'Reopened by'

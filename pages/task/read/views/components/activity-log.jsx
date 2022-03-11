@@ -26,7 +26,7 @@ function Action({ task, action, activity, changedBy }) {
     return <p><strong><Snippet>status.autodiscarded.log</Snippet></strong></p>;
   }
   if (task.data.model === 'rop') {
-    action = 'resubmitted';
+    action = task.status;
   }
 
   const establishmentId = get(activity, 'event.data.establishmentId');

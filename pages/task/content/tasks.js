@@ -4,7 +4,8 @@ module.exports = {
     delete: 'Remove named person{{#type}} ({{type}}){{/type}}'
   },
   rop: {
-    submit: 'Return of procedures'
+    submit: 'Return of procedures{{#year}} ({{year}}){{/year}}',
+    unsubmit: 'Return of procedures{{#year}} ({{year}}){{/year}}'
   },
   place: {
     create: 'New approved area',

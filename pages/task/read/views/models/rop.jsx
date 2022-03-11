@@ -10,7 +10,7 @@ export default function ROP({ task }) {
   return (
     <StickyNavAnchor id="latest-return" key="latest-return">
       <h2><Snippet>sticky-nav.latest-return</Snippet></h2>
-      <p><Snippet date={format(task.createdAt, dateFormat.long)}>view-return.content</Snippet></p>
+      { task.status !== 'reopened' && <p><Snippet date={format(task.createdAt, dateFormat.long)}>view-return.content</Snippet></p> }
       <p className="gutter">
         <Link
           className="govuk-button"
