@@ -68,6 +68,7 @@ module.exports = (settings = {}) => {
           type = 'transfer request';
         }
         req.model.type = type;
+        req.model.data = null;
         // if application has previously been approved then this is a resubmission and we can show the inspector ready question
         const hasAuthority = get(existingTask, 'data.meta.authority');
         const isAmendment = req.model.type !== 'application';
