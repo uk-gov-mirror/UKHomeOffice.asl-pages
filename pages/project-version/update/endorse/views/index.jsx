@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import get from 'lodash/get';
 import { Snippet, Header, FormLayout } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 export default function Submit() {
   const { canEndorse } = useSelector(state => state.static);
-  const { type, project } = useSelector(state => state.model);
+  const type = useSelector(state => state.model.type);
+  const title = useSelector(state => state.model.title || get(state, 'model.project.title') || 'Untitled project');
   const isApplication = type === 'application';
   const taskType = isApplication ? 'application' : 'amendment';
 
@@ -20,7 +22,7 @@ export default function Submit() {
     <FormLayout declaration={canEndorse && declaration}>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={project.title || 'Untitled project'}
+        subtitle={title}
       />
       <Warning>
         <Snippet>{`warning.${taskType}.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
