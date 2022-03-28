@@ -79,7 +79,7 @@ function EstablishmentsList({ establishments }) {
       <dd>
         <ul className="establishments">
           {
-            establishments.map(e =>
+            (establishments || []).map(e =>
               <li key={e.id}><Link page="establishment" establishmentId={e.id} label={`${e.name}`} /></li>
             )
           }
