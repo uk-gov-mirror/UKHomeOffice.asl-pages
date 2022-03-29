@@ -155,7 +155,7 @@ module.exports = ({
       header: true,
       cast: {
         string: (value) => {
-          if (value && /[0-9]+/.test(value) && !value.includes('"') && !value.includes(',')) {
+          if (value && /[0-9]+/.test(value) && !value.includes('"') && !value.includes(',') && !value.includes('\n')) {
             return { value: `="${value}"`, quote: false };
           } else {
             return value;
