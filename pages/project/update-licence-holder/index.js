@@ -25,6 +25,17 @@ module.exports = () => {
       .then(({ json: { data } }) => {
         req.proposedLicenceHolder = data;
       })
+      .catch(err => {
+        // if profile returns 404 it is likely a collaborator
+        if (err.status === 404) {
+          const recipient = req.project.collaborators.find(collab => collab.id === licenceHolderId);
+          if (recipient) {
+            req.proposedLicenceHolder = recipient;
+            return;
+          }
+        }
+        throw err;
+      })
       .then(() => next())
       .catch(next);
   });
