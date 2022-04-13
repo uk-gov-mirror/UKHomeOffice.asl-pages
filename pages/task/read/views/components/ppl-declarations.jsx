@@ -86,7 +86,7 @@ export default function PplDeclarations({ task }) {
         aaAwerbs.length > 0 &&
           <Fragment>
             <dl className="inline-wide">
-              <dt>Additonal availability at:</dt>
+              <dt>Additional availability at:</dt>
               <dd>{ aaAwerbs.map(awerb => <span key={awerb.id} className="aa-establishment">{awerb.name}</span>) }</dd>
             </dl>
             <dl className="inline-wide">
