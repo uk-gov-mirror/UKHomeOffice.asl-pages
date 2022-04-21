@@ -12,7 +12,7 @@
     "build": "npm run build:css",
     "build:css": "npm run build:css:app && npm run build:css:pdf",
     "build:css:app": "npm-sass ./pages/common/assets/sass/style.scss > ./pages/common/dist/css/app.css",
-    "build:css:pdf": "node-sass ./pages/common/assets/sass/pdf -o ./pages/common/dist/css/pdf",
+    "build:css:pdf": "sass ./pages/common/assets/sass/pdf/index.scss:./pages/common/dist/css/pdf/index.css ./pages/common/assets/sass/pdf/header.scss:./pages/common/dist/css/pdf/header.css ./pages/common/assets/sass/pdf/footer.scss:./pages/common/dist/css/pdf/footer.css",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -26,14 +26,14 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
-    "@asl/components": "^10.12.1",
+    "@asl/components": "^10.12.2",
     "@asl/constants": "^1.1.1",
     "@asl/dictionary": "^1.1.5",
-    "@asl/projects": "^10.3.0",
+    "@asl/projects": "^10.3.3",
     "@asl/service": "^8.8.5",
     "@joefitter/docx": "^4.7.0",
     "@ukhomeoffice/frontend-toolkit": "^2.13.1",
-    "@ukhomeoffice/react-components": "^0.10.1",
+    "@ukhomeoffice/react-components": "^0.10.5",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
     "csrf": "^3.0.6",
@@ -76,9 +76,9 @@
     "eslint": "^4.19.1",
     "eslint-config-lennym": "^2.2.1",
     "jest": "^24.9.0",
-    "node-sass": "^7.0.1",
-    "npm-sass": "^3.0.0",
+    "npm-sass": "^3.1.0",
     "reqres": "^2.1.0",
+    "sass": "^1.50.1",
     "sinon": "^6.3.5"
   },
   "publishConfig": {
