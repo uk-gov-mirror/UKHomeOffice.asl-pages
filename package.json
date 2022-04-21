@@ -12,7 +12,7 @@
     "build": "npm run build:css",
     "build:css": "npm run build:css:app && npm run build:css:pdf",
     "build:css:app": "npm-sass ./pages/common/assets/sass/style.scss > ./pages/common/dist/css/app.css",
-    "build:css:pdf": "sass --no-source-map ./pages/common/assets/sass/pdf/index.scss:./pages/common/dist/css/pdf/index.css ./pages/common/assets/sass/pdf/header.scss:./pages/common/dist/css/pdf/header.css ./pages/common/assets/sass/pdf/footer.scss:./pages/common/dist/css/pdf/footer.css",
+    "build:css:pdf": "sass --no-source-map ./pages/common/assets/sass/pdf:./pages/common/dist/css/pdf",
     "prepublish": "npm run build"
   },
   "repository": {
