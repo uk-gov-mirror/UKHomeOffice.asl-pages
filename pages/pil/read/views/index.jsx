@@ -16,6 +16,7 @@ import {
 import ProceduresDiff from '../../procedures/views/diff';
 import { Warning } from '@ukhomeoffice/react-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 export default function PIL({ pil }) {
   pil = pil || useSelector(state => state.static.pil);
@@ -121,6 +122,7 @@ export default function PIL({ pil }) {
   return (
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
+      <EnforcementFlags model={pil} />
       {
         pilReviewRequired && (
           <Warning className="info pil-review">

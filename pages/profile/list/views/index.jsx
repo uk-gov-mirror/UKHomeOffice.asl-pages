@@ -14,6 +14,7 @@ import {
   Tabs,
   LicenceStatusBanner
 } from '@asl/components';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -96,6 +97,7 @@ export default function PeopleList({ formatters = peopleFormatters, showFilters 
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
+      <EnforcementFlags model={establishment} modelType="role" />
 
       <Header
         title={<Snippet>pages.profile.list</Snippet>}

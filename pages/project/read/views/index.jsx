@@ -12,6 +12,7 @@ import History from './sections/history';
 import Downloads from './sections/downloads';
 import Reporting from './sections/reporting';
 import AdditionalAvailabilityWarning from './components/additional-availability-warning';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 function SectionNav({ sections, activeSection, setActiveSection }) {
   const activeTab = Object.keys(sections).indexOf(activeSection);
@@ -99,6 +100,7 @@ export default function ProjectLandingPage() {
 
   return (
     <div className="project-landing-page">
+      <EnforcementFlags model={project} />
       {
         showRaWarning && (
           <Warning className="info">
