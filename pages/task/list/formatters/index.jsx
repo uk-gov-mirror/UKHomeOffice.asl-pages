@@ -51,8 +51,19 @@ export default {
       const isRopSubmission = (get(task, 'data.model') || get(task, 'model')) === 'rop' && get(task, 'data.action') === 'submit';
       const className = classnames({ badge: true, complete: good.includes(status) || isRopSubmission, rejected: bad.includes(status) });
 
+      const hasEnforcementCase = task.enforcementFlags && task.enforcementFlags.length > 0;
+      const enforcementStatus = hasEnforcementCase && (task.enforcementFlags.some(f => f.status === 'open') ? 'open' : 'closed');
+
       return (
-        <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
+        <div className="badges">
+          <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>
+          {
+            hasEnforcementCase &&
+              <span className={`badge enforcement ${enforcementStatus}`}>
+                <Snippet>{`enforcementCase.badge.${enforcementStatus}`}</Snippet>
+              </span>
+          }
+        </div>
       );
     }
   },

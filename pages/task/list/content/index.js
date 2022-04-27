@@ -76,5 +76,11 @@ module.exports = {
     completed: 'You have no completed tasks',
     myTasks: 'There are no tasks assigned to you'
   },
-  'tasklist-unavailable': 'Task list unavailable'
+  'tasklist-unavailable': 'Task list unavailable',
+  enforcementCase: {
+    badge: {
+      open: 'Ongoing enforcement',
+      closed: 'Closed enforcement'
+    }
+  }
 };

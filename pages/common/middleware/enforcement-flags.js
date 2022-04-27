@@ -12,8 +12,7 @@ module.exports = (req, res, next) => {
   return req.api(`/enforcement/flags/${model.id}`)
     .then(response => {
       model.enforcementFlags = response.json.data;
-      res.locals.static.isAsruUser = req.user.profile.asruUser;
-      console.log('ENFORCEMENT FLAGS MIDDLEWARE HIT');
+      res.locals.static.isAsru = req.user.profile.asruUser;
     })
     .then(() => next())
     .catch(next);

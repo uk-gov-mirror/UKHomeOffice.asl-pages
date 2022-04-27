@@ -242,6 +242,16 @@ form.procedures {
   white-space: pre-wrap;
 }
 
+td.status .badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .badge {
+    margin-bottom: 2px;
+  }
+}
+
 .badge {
   padding: 3px 6px;
   background: #6F777B;
@@ -255,6 +265,11 @@ form.procedures {
   }
   &.rejected {
     background: $govuk-error-colour;
+  }
+
+  // enforcement flags should never be present in task data for non-asru users but hide them anyway
+  &.enforcement {
+    display: none;
   }
 }
 
