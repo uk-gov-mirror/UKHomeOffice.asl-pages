@@ -12,7 +12,6 @@ module.exports = (req, res, next) => {
   return req.api(`/enforcement/flags/${model.id}`)
     .then(response => {
       model.enforcementFlags = response.json.data;
-      res.locals.static.isAsru = req.user.profile.asruUser;
     })
     .then(() => next())
     .catch(next);
