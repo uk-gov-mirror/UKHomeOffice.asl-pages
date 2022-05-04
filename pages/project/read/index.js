@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { canViewTransferredProject } = require('../middleware');
+const { enforcementFlags } = require('../../common/middleware');
 const { relatedTasks } = require('../../common/routers');
 const { ropsYears } = require('../../../constants');
 
@@ -75,6 +76,11 @@ module.exports = settings => {
       .then(() => next())
       .catch(next);
   });
+
+  app.get('/', (req, res, next) => {
+    res.enforcementModel = req.project;
+    next();
+  }, enforcementFlags);
 
   app.get('/', (req, res, next) => {
     res.locals.static.confirmMessage = req.project.status === 'active'

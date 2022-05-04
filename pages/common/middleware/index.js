@@ -1,6 +1,8 @@
 const isUUID = require('uuid-validate');
 const { get, set, omit } = require('lodash');
 const { NotFoundError } = require('@asl/service/errors');
+const loadPermissions = require('./load-permissions');
+const enforcementFlags = require('./enforcement-flags');
 
 const hydrate = () => (req, res, next) => {
   const task = get(req.model, 'openTasks[0]');
@@ -115,5 +117,7 @@ module.exports = {
   redirectToTaskIfOpen,
   clearSessionIfNotFromTask,
   populateNamedPeople,
-  validateUuidParam
+  validateUuidParam,
+  loadPermissions,
+  enforcementFlags
 };

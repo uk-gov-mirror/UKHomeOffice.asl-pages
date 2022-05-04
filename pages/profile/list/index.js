@@ -1,5 +1,6 @@
 const { get, some } = require('lodash');
 const { page } = require('@asl/service/ui');
+const { enforcementFlags } = require('../../common/middleware');
 const datatable = require('../../common/routers/datatable');
 const schema = require('./schema');
 
@@ -8,6 +9,11 @@ module.exports = settings => {
     ...settings,
     root: __dirname
   });
+
+  app.get('/', (req, res, next) => {
+    res.enforcementModel = req.establishment;
+    next();
+  }, enforcementFlags);
 
   app.use((req, res, next) => {
     res.locals.pageTitle = `People - ${req.establishment.name}`;

@@ -5,18 +5,19 @@ import { Header, Link, Snippet, TrainingSummary } from '@asl/components';
 import Profile from './profile';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import { dateFormat } from '../../../../constants';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 const Index = ({
   allowedActions,
   model,
   establishment,
   isOwnProfile,
-  showRelatedTasks,
-  projectTab
+  showRelatedTasks
 }) => {
   const certificates = model.certificates || [];
   return (
     <Fragment>
+      <EnforcementFlags model={model} />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <Header

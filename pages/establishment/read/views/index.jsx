@@ -13,6 +13,7 @@ import {
 } from '@asl/components';
 import ProfileLink from '../../components/profile-link';
 import RelatedTasks from '../../../task/list/views/related-tasks';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 const Index = ({
   establishment,
@@ -33,6 +34,7 @@ const Index = ({
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
+      <EnforcementFlags model={establishment} />
 
       <DocumentHeader
         subtitle={establishment.name}

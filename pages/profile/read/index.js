@@ -1,7 +1,7 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { relatedTasks } = require('../../common/routers');
-const loadPermissions = require('../../common/middleware/load-permissions');
+const { loadPermissions, enforcementFlags } = require('../../common/middleware');
 
 module.exports = settings => {
   const app = page({
@@ -44,6 +44,11 @@ module.exports = settings => {
       establishmentId: req.establishmentId
     };
   }));
+
+  app.get('/', (req, res, next) => {
+    res.enforcementModel = req.profile;
+    next();
+  }, enforcementFlags);
 
   app.get('/', (req, res) => res.sendResponse());
 

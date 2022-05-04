@@ -275,5 +275,50 @@ module.exports = {
     unavailable: 'Related tasks unavailable',
     noTasks: 'There are no related tasks.'
   },
-  trainingModules
+  trainingModules,
+  enforcementBanner: {
+    subject: {
+      open: 'This subject is related to ongoing enforcement case {{number}}',
+      closed: 'This subject is related to a confirmed non-compliance under case {{number}}'
+    },
+    profile: {
+      open: 'Person is subject to ongoing enforcement activity under case {{number}}',
+      closed: 'Person is related to a confirmed non-compliance under case {{number}}'
+    },
+    pil: {
+      open: 'This personal licence is subject to ongoing enforcement activity under case {{number}}',
+      closed: 'This personal licence is related to a confirmed non-compliance under case {{number}}'
+    },
+    project: {
+      open: 'This project licence is subject to ongoing enforcement activity under case {{number}}',
+      closed: 'This project licence is related to a confirmed non-compliance under case {{number}}'
+    },
+    establishment: {
+      open: 'This establishment is subject to ongoing enforcement activity under case {{number}}',
+      closed: 'This establishment is related to a confirmed non-compliance under case {{number}}'
+    },
+    place: {
+      open: `This establishment's approved areas are subject to ongoing enforcement activity under case {{number}}`,
+      closed: `This establishment's approved areas are related to a confirmed non-compliance under case {{number}}`
+    },
+    role: {
+      open: `This establishment's named people are subject to ongoing enforcement activity under case {{number}}`,
+      closed: `This establishment's named people are related to a confirmed non-compliance under case {{number}}`
+    },
+    moreInfo: 'For more information speak to the enforcement team at [enforcement@homeoffice.gov.uk](mailto:enforcement@homeoffice.gov.uk)',
+    caseDetails: 'Case details',
+    flagExpires: 'Enforcement flag in place until:',
+    remedialAction: {
+      applied: 'Remedial action applied:',
+      actions: {
+        'inspector-advice': 'Inspector advice',
+        'letter-of-reprimand': 'Letter of reprimand',
+        'reprimand-retraining': 'Letter of reprimand and retraining',
+        'compliance-notice': 'Compliance notice',
+        'suspension-retraining': 'Suspension and retraining',
+        'licence-revocation': 'Revocation of licence',
+        'other': 'Other'
+      }
+    }
+  }
 };

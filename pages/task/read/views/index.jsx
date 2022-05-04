@@ -7,6 +7,7 @@ import {
   Form
 } from '@asl/components';
 import Model from './models';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 let form;
 
@@ -38,6 +39,8 @@ const Task = ({ task, project }) => {
           <ErrorSummary />
         </div>
       </div>
+
+      <EnforcementFlags model={task} />
 
       <Header title={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>} />
 

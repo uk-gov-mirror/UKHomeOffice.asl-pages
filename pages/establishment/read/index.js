@@ -1,6 +1,7 @@
 const { page } = require('@asl/service/ui');
 const { get } = require('lodash');
 const { form, relatedTasks } = require('../../common/routers');
+const { enforcementFlags } = require('../../common/middleware');
 const schema = require('./schema');
 
 module.exports = settings => {
@@ -16,6 +17,11 @@ module.exports = settings => {
   });
 
   app.use(form({ schema }));
+
+  app.get('/', (req, res, next) => {
+    res.enforcementModel = req.establishment;
+    next();
+  }, enforcementFlags);
 
   app.get('/', relatedTasks(req => {
     return {

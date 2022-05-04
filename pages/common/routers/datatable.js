@@ -139,7 +139,7 @@ module.exports = ({
   const _locals = (req, res, next) => {
     Object.assign(res.locals, { datatable: pick(req.datatable, ['data', 'pagination', 'sort', 'filters', 'schema']) });
     if (res.establishment) {
-      Object.assign(res.locals.static, { establishment: res.establishment });
+      res.locals.static.establishment = merge({}, res.locals.static.establishment, res.establishment);
     }
     return locals(req, res, next);
   };

@@ -2,7 +2,7 @@ const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { NotFoundError } = require('@asl/service/errors');
 const { form, relatedTasks } = require('../../common/routers');
-const { hydrate } = require('../../common/middleware');
+const { hydrate, enforcementFlags } = require('../../common/middleware');
 
 module.exports = settings => {
   const app = page({
@@ -28,7 +28,6 @@ module.exports = settings => {
       res.locals.static.pilReviewRequired = true;
       res.locals.static.reviewUrl = req.buildRoute('pil.review', { pilId: req.pil.id });
     }
-
     next();
   });
 
@@ -109,6 +108,11 @@ module.exports = settings => {
     }
     res.redirect(req.buildRoute('pil.read'));
   });
+
+  app.get('/', (req, res, next) => {
+    res.enforcementModel = req.model;
+    next();
+  }, enforcementFlags);
 
   app.get('/', (req, res) => res.sendResponse());
 

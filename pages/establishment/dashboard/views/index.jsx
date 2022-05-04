@@ -10,6 +10,7 @@ import {
   LicenceStatusBanner
 } from '@asl/components';
 import ProfileLink from '../../components/profile-link';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 
 const links = [
   { page: 'establishment.read', permissions: 'establishment.read' },
@@ -54,6 +55,7 @@ export default function Index() {
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
+      <EnforcementFlags model={establishment} />
 
       <DocumentHeader
         title={<Snippet>dashboard.title</Snippet>}

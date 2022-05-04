@@ -9,6 +9,7 @@ import {
   LicenceStatusBanner,
   Search
 } from '@asl/components';
+import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 import formatters from '../../formatters';
 
 const pageFormatters = {
@@ -70,6 +71,8 @@ export default function Places() {
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
+      <EnforcementFlags model={establishment} modelType="place" />
+
       <Header
         title={<Snippet>pages.place.list</Snippet>}
         subtitle={establishment.name}
