@@ -562,6 +562,10 @@ details {
   .govuk-hint {
     padding-left: $govuk-gutter-half;
   }
+
+  .govuk-fieldset__legend + .govuk-hint {
+    padding-left: 0;
+  }
 }
 
 .govuk-table {
