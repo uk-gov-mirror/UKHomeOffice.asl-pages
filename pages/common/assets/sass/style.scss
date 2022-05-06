@@ -848,3 +848,19 @@ section#rops {
     }
   }
 }
+
+.govuk-warning-text {
+  background: white;
+
+  &.info {
+    .govuk-warning-text__icon {
+      top: 50%;
+      left: 10px;
+      margin-top: -20px;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+}
