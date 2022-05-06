@@ -39,7 +39,6 @@ module.exports = settings => {
     res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.isActionable = get(task, 'data.data.version') === req.versionId;
-    res.locals.static.user = req.user.profile;
     res.locals.static.showComments = !req.isPreview && showComments;
     res.locals.static.commentable = !req.isPreview && showComments && req.user.profile.asruUser && res.locals.static.isCommentable;
 

@@ -74,7 +74,6 @@ module.exports = settings => {
     res.locals.static.basename = req.buildRoute('projectVersion.update');
     res.locals.static.projectUrl = req.buildRoute('project.read');
     res.locals.static.establishment = req.project.establishment;
-    res.locals.static.user = req.user.profile;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && res.locals.static.isCommentable;
 

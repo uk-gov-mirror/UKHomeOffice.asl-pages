@@ -73,7 +73,6 @@ module.exports = settings => {
     res.locals.static.establishment = req.project.establishment;
     res.locals.static.project = req.project;
     res.locals.static.grantedVersion = req.version;
-    res.locals.static.user = req.user.profile;
     res.locals.static.taskId = task && task.id;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && res.locals.static.isCommentable;

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import EnforcementBanner from './enforcement-banner';
 
 function EnforcementFlags({ model, modelType }) {
-  const isAsru = useSelector(state => state.static.user.asruUser);
+  const isAsru = useSelector(state => state.static.user && state.static.user.asruUser);
 
   if (!isAsru || !model || !model.enforcementFlags) {
     return null;
