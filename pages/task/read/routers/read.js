@@ -286,7 +286,6 @@ module.exports = () => {
       res.locals.static.schema = req.schema;
       res.locals.static.task = req.task;
       res.locals.static.profile = req.profile;
-      res.locals.static.user = req.user.profile;
       res.locals.static.isAsru = req.user.profile.asruUser;
       res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
       res.locals.static.endorsingOwnPil = endorsingOwnPil(req.task, req.user.profile);
