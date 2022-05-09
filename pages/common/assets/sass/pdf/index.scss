@@ -84,7 +84,7 @@ section > h2 {
 }
 
 .protocol-content .expanding-panel header h3 {
-  @extend h2;
+  @include h2;
 }
 
 .purple-inset, .condition {
@@ -167,7 +167,7 @@ dl dd {
 
 .objective-review {
   h2 {
-    @extend h3;
+    @include h3;
     display: block;
   }
 }
@@ -219,7 +219,7 @@ dl dd {
 }
 
 h3.steps {
-  @extend h2;
+  @include h2;
   border-bottom: 0 !important;
   margin-bottom: 0;
 }
@@ -264,7 +264,7 @@ h3.steps {
   }
 
   .animals h3.title {
-    @extend h2;
+    @include h2;
   }
 
   > thead {
@@ -352,7 +352,7 @@ h3.steps {
 
     .granted-steps {
       h2.step-number {
-        @extend h2;
+        @include h2;
       }
     }
   }
