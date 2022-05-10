@@ -84,7 +84,11 @@ section > h2 {
 }
 
 .protocol-content .expanding-panel header h3 {
-  @include h2;
+  font-size: 24px;
+  border-bottom: 1px solid $dark-grey;
+  padding-bottom: $govuk-gutter / 2;
+  margin-top: 40px;
+  margin-bottom: 0px;
 }
 
 .purple-inset, .condition {
@@ -264,7 +268,9 @@ h3.steps {
   }
 
   .animals h3.title {
-    @include h2;
+    font-size: 24px;
+    border-bottom: 1px solid $dark-grey;
+    padding-bottom: $govuk-gutter / 2;
   }
 
   > thead {
