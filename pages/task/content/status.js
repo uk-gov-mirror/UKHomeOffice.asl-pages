@@ -181,6 +181,7 @@ module.exports = {
     action: {
       application: 'Submit application',
       amendment: 'Submit amendment',
+      'role-amendment': 'Add remark and resubmit the amendment',
       revocation: 'Submit revocation',
       transfer: 'Submit transfer',
       review: 'Submit review',
