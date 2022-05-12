@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
   Snippet,
@@ -16,14 +16,6 @@ import SectionDetails from './section-details';
 import ProceduresDiff from '../../procedures/views/diff';
 import SpeciesDiff from '../../species/views/diff';
 
-function confirmDelete(e) {
-  e.preventDefault();
-
-  if (window.confirm('Are you sure you want to delete this draft PIL application?')) {
-    e.target.submit();
-  }
-}
-
 const Index = ({
   pil,
   establishment,
@@ -36,6 +28,17 @@ const Index = ({
 
   const beforeProcs = pil.procedures.map(p => (p.key ? p : { key: p }));
   const afterProcs = model.procedures.map(p => (p.key ? p : { key: p }));
+
+  const [disableDiscard, setDisableDiscard] = useState(false);
+
+  function confirmDelete(e) {
+    e.preventDefault();
+
+    if (window.confirm('Are you sure you want to delete this draft PIL application?')) {
+      setDisableDiscard(true);
+      e.target.submit();
+    }
+  }
 
   const sections = [
     {
@@ -115,7 +118,7 @@ const Index = ({
             onSubmit={confirmDelete}
             className="control-panel"
           >
-            <button className="link"><span>Discard draft application</span></button>
+            <button className="link" disabled={disableDiscard}><span>Discard draft application</span></button>
           </form>
         )
       }
