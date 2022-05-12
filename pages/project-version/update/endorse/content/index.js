@@ -2,19 +2,24 @@ module.exports = {
   title: 'Send {{type}}',
   warning: {
     application: {
-      canEndorse: `This application needs to be endorsed by the establishment licence holder, and reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
-      cantEndorse: `The primary establishment will need to endorse your application, and confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
+      isEndorsement: `This application needs to be endorsed by the establishment licence holder, and reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
+      needsEndorsement: `The primary establishment will need to endorse your application, and confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
     },
     amendment: {
-      canEndorse: `This amendment needs to be endorsed by the establishment licence holder, and, if relevant, reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
-      cantEndorse: `The primary establishment will need to endorse your amendment, and, if relevant, confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
+      isEndorsement: `This amendment needs to be endorsed by the establishment licence holder, and, if relevant, reviewed by the Animal Welfare and Ethical Review Body (AWERB) at the primary and any additional establishments, before a licence can be granted.`,
+      needsEndorsement: `The primary establishment will need to endorse your amendment, and, if relevant, confirm it’s been reviewed by the relevant Animal Welfare and Ethical Review Bodies (AWERBs), before a licence can be granted.`
     }
   },
   declaration: {
     title: 'Declaration',
-    content: `By endorsing this {{type}}, I agree that:
+    content: `By endorsing this {{type}} on behalf of {{establishment.name}}, I agree that:
       * {{licenceHolder}}'s training record is accurate and up to date.
-      * The non-technical summary uses everyday language and contains no information that could identify people, places or intellectual property.`
+      * The non-technical summary uses everyday language and contains no information that could identify people, places or intellectual property.
+      {{#onBehalfOf}}
+
+      By submitting this {{type}} on behalf of {{licenceHolder}}, I agree that:
+      * they are aware I am making this submission and I have their permission to do so.
+      {{/onBehalfOf}}`
   },
   fields: {
     authority: {

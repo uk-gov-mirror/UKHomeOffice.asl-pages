@@ -5,7 +5,7 @@ import { Snippet, Header, FormLayout } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 export default function Submit() {
-  const { canEndorse } = useSelector(state => state.static);
+  const { isEndorsement } = useSelector(state => state.static);
   const type = useSelector(state => state.model.type);
   const title = useSelector(state => state.model.title || get(state, 'model.project.title') || 'Untitled project');
   const isApplication = type === 'application';
@@ -19,13 +19,13 @@ export default function Submit() {
   );
 
   return (
-    <FormLayout declaration={canEndorse && declaration}>
+    <FormLayout declaration={isEndorsement && declaration}>
       <Header
         title={<Snippet>title</Snippet>}
         subtitle={title}
       />
       <Warning>
-        <Snippet>{`warning.${taskType}.${canEndorse ? 'canEndorse' : 'cantEndorse'}`}</Snippet>
+        <Snippet>{`warning.${taskType}.${isEndorsement ? 'isEndorsement' : 'needsEndorsement'}`}</Snippet>
       </Warning>
     </FormLayout>
   );

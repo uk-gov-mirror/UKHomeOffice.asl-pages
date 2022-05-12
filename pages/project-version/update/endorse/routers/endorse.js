@@ -9,11 +9,8 @@ const { render } = require('mustache');
 
 const trim = value => value.split('\n').map(s => s.trim()).join('\n').trim();
 
-function getDeclarationText(licenceHolder, type) {
-  return trim(render(content.declaration.content, {
-    licenceHolder: `${licenceHolder.firstName} ${licenceHolder.lastName}`,
-    type
-  }));
+function getDeclarationText(props) {
+  return trim(render(content.declaration.content, props));
 }
 
 const transferWithReceivingEstablishment = task => {
@@ -78,6 +75,14 @@ module.exports = (settings = {}) => {
         const awerbEstablishments = req.awerbEstablishments;
         const isLegacy = req.project.schemaVersion === 0;
         const canBeAwerbExempt = isAmendment && !transferWithReceivingEstablishment(req.task);
+        const isEndorsement = get(req.task, 'status') === 'awaiting-endorsement';
+
+        const taskEstablishment = get(req.task, 'data.establishment');
+        res.locals.static.establishment = taskEstablishment || req.project.establishment;
+        res.locals.static.onBehalfOf = !isEndorsement && (req.licenceHolder.id !== req.user.profile.id);
+        res.locals.static.isEndorsement = res.locals.static.canEndorse || isEndorsement;
+        res.locals.static.licenceHolder = `${req.licenceHolder.firstName} ${req.licenceHolder.lastName}`;
+        res.locals.static.type = req.model.type;
 
         req.processAwerbDates = includeAwerb && !isLegacy;
         req.form.schema = getSchema({
@@ -107,8 +112,8 @@ module.exports = (settings = {}) => {
             return { ...pick(e, 'id', 'name'), date: moment(req.form.values[`awerb-${e.id}`], 'YYYY-MM-DD').format('YYYY-MM-DD'), primary: e.id === primaryEstablishment.id };
           });
         }
-        if (res.locals.static.canEndorse) {
-          req.session.form[req.model.id].meta.declaration = getDeclarationText(req.licenceHolder, req.model.type);
+        if (res.locals.static.isEndorsement) {
+          req.session.form[req.model.id].meta.declaration = getDeclarationText(res.locals.static);
         }
         if (transferWithReceivingEstablishment(req.task)) {
           req.session.form[req.model.id].meta['awerb-exempt'] = false; // receiving establishment for transfers can never be 'awerb-exempt'
@@ -120,8 +125,6 @@ module.exports = (settings = {}) => {
         req.awerbEstablishments.forEach(e => {
           set(res.locals, `static.content.errors.awerb-${e.id}`, content.errors['awerb-dates']);
         });
-        res.locals.static.licenceHolder = `${req.licenceHolder.firstName} ${req.licenceHolder.lastName}`;
-        res.locals.static.type = req.model.type;
         res.locals.static.project = req.project;
         next();
       }
