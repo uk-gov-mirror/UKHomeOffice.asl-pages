@@ -68,7 +68,7 @@ export default function StartAmendment() {
         </Button>
         {
           canChangeLicenceHolder &&
-            <span style={{ 'line-height': '2' }}>
+            <span style={{ 'lineHeight': '2' }}>
               &nbsp;or <Link page="project.updateLicenceHolder" label="change licence holder only" />
             </span>
         }
