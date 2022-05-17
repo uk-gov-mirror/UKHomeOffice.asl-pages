@@ -34,7 +34,7 @@ export default function RaSummary({ project, fields, includeDraftRa = false, isP
           return (
             <Fragment key={index}>
               <h3>{field.label}</h3>
-              <Field field={field} version={ra.data} />
+              <Field field={field} version={ra.data || {}} />
             </Fragment>
           );
         })
