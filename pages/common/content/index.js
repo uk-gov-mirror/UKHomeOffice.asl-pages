@@ -305,7 +305,7 @@ module.exports = {
       open: `This establishment's named people are subject to ongoing enforcement activity under case {{number}}`,
       closed: `This establishment's named people are related to a confirmed non-compliance under case {{number}}`
     },
-    moreInfo: 'For more information speak to the enforcement team at [enforcement@homeoffice.gov.uk](mailto:enforcement@homeoffice.gov.uk)',
+    moreInfo: 'For more information speak to the enforcement team at [ASRUEnforcement@homeoffice.gov.uk](mailto:ASRUEnforcement@homeoffice.gov.uk)',
     caseDetails: 'Case details',
     flagExpires: 'Enforcement flag in place until:',
     remedialAction: {
