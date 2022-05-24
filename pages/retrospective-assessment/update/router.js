@@ -1,4 +1,5 @@
 const { page } = require('@asl/service/ui');
+const { BadRequestError } = require('@asl/service/errors');
 const bodyParser = require('body-parser');
 const { getAllChanges } = require('../../project-version/middleware');
 const { get } = require('lodash');
@@ -67,6 +68,16 @@ module.exports = settings => {
     const task = get(req.project, 'openTasks', []).find(task => task.data.action === 'grant-ra');
     const showComments = req.retrospectiveAssessment.status !== 'granted' && !!task;
 
+    let editable = req.retrospectiveAssessment.status === 'draft';
+    // check that there's not a task awaiting endorsement
+    if (task && task.editable === false) {
+      editable = false;
+    }
+    // check that this is the most recent version
+    if (req.project.draftRa && req.retrospectiveAssessment.id !== req.project.draftRa.id) {
+      editable = false;
+    }
+
     res.locals.static.isActionable = req.user.profile.asruUser && get(task, 'data.data.raVersion') === req.raId;
     res.locals.static.basename = req.buildRoute('retrospectiveAssessment');
     res.locals.static.projectUrl = req.buildRoute('project.read');
@@ -76,7 +87,7 @@ module.exports = settings => {
     res.locals.static.taskId = task && task.id;
     res.locals.static.showComments = showComments;
     res.locals.static.commentable = showComments && res.locals.static.isCommentable;
-    res.locals.static.readonly = req.retrospectiveAssessment.status !== 'draft' || !res.locals.static.canUpdate;
+    res.locals.static.readonly = !editable || !res.locals.static.canUpdate;
 
     const params = { versionId: req.version.id };
 
@@ -94,6 +105,13 @@ module.exports = settings => {
   });
 
   app.put('/', bodyParser.json({ limit: settings.bodySizeLimit }));
+
+  app.put('/', (req, res, next) => {
+    if (req.project.draftRa && req.retrospectiveAssessment.id !== req.project.draftRa.id) {
+      return next(new BadRequestError());
+    }
+    next();
+  });
 
   app.put('/', (req, res, next) => {
     const opts = {
