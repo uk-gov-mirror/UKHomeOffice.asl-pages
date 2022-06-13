@@ -21,6 +21,9 @@ function hasNhps(req, option) {
   if (option) {
     return yeps.includes(option);
   }
+  if ((get(req, 'rop.species.precoded') || []).includes('other-nhps')) {
+    return true;
+  }
   const species = getSpecies(req);
   return !!intersection(species, yeps).length;
 }
