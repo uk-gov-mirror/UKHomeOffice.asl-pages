@@ -28,6 +28,10 @@ function EnforcementBanner({ flag, modelType }) {
     return null;
   }
 
+  if (flag.modelType === 'establishment' && !flag.modelOptions.includes(modelType)) {
+    return null;
+  }
+
   const { status, subject } = flag;
   const enforcementCase = subject.enforcementCase;
 

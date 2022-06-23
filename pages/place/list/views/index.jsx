@@ -71,7 +71,7 @@ export default function Places() {
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
-      <EnforcementFlags model={establishment} modelType="place" />
+      <EnforcementFlags model={establishment} modelType="places" />
 
       <Header
         title={<Snippet>pages.place.list</Snippet>}

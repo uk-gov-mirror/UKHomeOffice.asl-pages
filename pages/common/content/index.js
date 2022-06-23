@@ -297,11 +297,15 @@ module.exports = {
       open: 'This establishment is subject to ongoing enforcement activity under case {{number}}',
       closed: 'This establishment is related to a confirmed non-compliance under case {{number}}'
     },
-    place: {
+    details: {
+      open: 'This establishment is subject to ongoing enforcement activity under case {{number}}',
+      closed: 'This establishment is related to a confirmed non-compliance under case {{number}}'
+    },
+    places: {
       open: `This establishment's approved areas are subject to ongoing enforcement activity under case {{number}}`,
       closed: `This establishment's approved areas are related to a confirmed non-compliance under case {{number}}`
     },
-    role: {
+    roles: {
       open: `This establishment's named people are subject to ongoing enforcement activity under case {{number}}`,
       closed: `This establishment's named people are related to a confirmed non-compliance under case {{number}}`
     },

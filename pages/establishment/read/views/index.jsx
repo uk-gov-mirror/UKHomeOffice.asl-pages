@@ -34,7 +34,7 @@ const Index = ({
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
-      <EnforcementFlags model={establishment} />
+      <EnforcementFlags model={establishment} modelType="details" />
 
       <DocumentHeader
         subtitle={establishment.name}
