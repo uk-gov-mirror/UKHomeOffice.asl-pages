@@ -97,7 +97,7 @@ export default function PeopleList({ formatters = peopleFormatters, showFilters 
   return (
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
-      <EnforcementFlags model={establishment} modelType="role" />
+      <EnforcementFlags model={establishment} modelType="roles" />
 
       <Header
         title={<Snippet>pages.profile.list</Snippet>}
