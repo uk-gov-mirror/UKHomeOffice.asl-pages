@@ -4,6 +4,7 @@ import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import omit from 'lodash/omit';
+import isEmpty from 'lodash/isEmpty';
 import schema from '../schema';
 import {
   Link,
@@ -17,9 +18,11 @@ import ProceduresDiff from '../../procedures/views/diff';
 import { Warning } from '@ukhomeoffice/react-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
+import Reminders from '../../../common/components/reminders';
 
 export default function PIL({ pil }) {
   pil = pil || useSelector(state => state.static.pil);
+
   const {
     profile,
     canUpdate,
@@ -31,7 +34,8 @@ export default function PIL({ pil }) {
     pilReviewRequired,
     reviewUrl,
     showRelatedTasks,
-    canApply
+    canApply,
+    errors
   } = useSelector(state => state.static, shallowEqual);
 
   const pilSchema = pil.status === 'revoked' ? omit(schema, 'reviewDate', 'updatedAt') : omit(schema, 'revocationDate');
@@ -92,6 +96,8 @@ export default function PIL({ pil }) {
             canUpdate={!openTask && canUpdateConditions && canUpdateModel(pil)}
             label={<Snippet>conditions.hasConditions</Snippet>}
             noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+            editing={!isEmpty(errors)}
+            reminders={pil.reminders}
           >
             {
               openTask && canUpdateConditions && (
@@ -123,6 +129,7 @@ export default function PIL({ pil }) {
     <Fragment>
       <LicenceStatusBanner licence={pil} licenceType="pil" />
       <EnforcementFlags model={pil} />
+      <Reminders model={pil} licenceType="Personal" />
       {
         pilReviewRequired && (
           <Warning className="info pil-review">

@@ -1,8 +1,11 @@
+const { v4: uuid } = require('uuid');
+const moment = require('moment');
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { NotFoundError } = require('@asl/service/errors');
 const { form, relatedTasks } = require('../../common/routers');
 const { hydrate, enforcementFlags } = require('../../common/middleware');
+const schema = require('./schema/form');
 
 module.exports = settings => {
   const app = page({
@@ -71,22 +74,59 @@ module.exports = settings => {
     };
   }));
 
+  app.use((req, res, next) => {
+    const reminder = get(req, 'pil.reminders[0]');
+    if (reminder) {
+      req.model.setReminder = 'yes';
+      req.model.deadline = reminder.deadline;
+      req.model.reminderId = reminder.id;
+    }
+    next();
+  });
+
   app.use(form({
-    schema: {
-      conditions: {
-        inputType: 'textarea'
-      }
+    schema,
+    process: (req, res, next) => {
+      const day = req.body['deadline-day'];
+      const month = req.body['deadline-month'];
+      const year = req.body['deadline-year'];
+
+      Object.assign(req.form.values, {
+        deadline: `${year}-${month}-${day}`
+      });
+
+      next();
+    },
+    saveValues: (req, res, next) => {
+      req.session.form[req.model.id].values.deadline = req.form.values.setReminder
+        ? moment(req.form.values.deadline, 'YYYY-MM-DD').format('YYYY-MM-DD')
+        : undefined;
+      next();
     }
   }));
 
   app.post('/', (req, res, next) => {
-    const conditions = get(req.form, 'values.conditions');
+    const { conditions, setReminder, deadline } = req.session.form[req.model.id].values;
+
+    let reminder = req.model.reminderId
+      ? { id: req.model.reminderId, deadline: deadline || req.model.deadline }
+      : { id: uuid(), deadline };
+
+    if (!setReminder) {
+      if (req.model.reminderId) {
+        reminder.deleted = new Date().toISOString();
+      } else {
+        reminder = undefined;
+      }
+    }
+
     const params = {
       method: 'PUT',
       json: {
-        data: { conditions }
+        data: { conditions, reminder }
       }
     };
+
     req.api(`/profile/${req.profileId}/pil/${req.pil.id}/conditions`, params)
       .then(() => next())
       .catch(next);

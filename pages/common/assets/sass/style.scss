@@ -862,3 +862,11 @@ section#rops {
       margin: 0;
     }
 }
+
+.govuk-inset-text.condition {
+  border-color: $purple;
+}
+
+.condition-reminders {
+  margin-bottom: $govuk-gutter;
+}

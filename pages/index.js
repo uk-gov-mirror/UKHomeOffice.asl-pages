@@ -13,5 +13,6 @@ module.exports = {
   task: require('./task'),
   training: require('./training'),
   user: require('./user'),
-  rops: require('./rops')
+  rops: require('./rops'),
+  reminders: require('./reminders')
 };
