@@ -1,7 +1,7 @@
 module.exports = {
   feedback: {
     title: 'Feedback',
-    content: `Please send any feedback to [aspelqueries@homeoffice.gov.uk](mailto:aspelqueries@homeoffice.gov.uk).
+    content: `Please send any feedback to [aspeltechnicalqueries@homeoffice.gov.uk](mailto:aspeltechnicalqueries@homeoffice.gov.uk).
 
 All feedback will be read and considered, but may not be dealt with immediately.
 
