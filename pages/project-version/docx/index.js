@@ -3,6 +3,7 @@ const { get, pick } = require('lodash');
 const { Packer } = require('@joefitter/docx');
 const imageSize = require('image-size');
 const filenamify = require('filenamify');
+const fetch = require('node-fetch');
 const renderer = require('@asl/projects/client/components/download-link/renderers/docx-renderer').default;
 const schema = require('@asl/projects/client/schema').default;
 
@@ -19,8 +20,27 @@ const scaleAndPreserveAspectRatio = (srcWidth, srcHeight, maxWidth, maxHeight) =
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 };
 
-const updateImageDimensions = node => {
-  const src = node.data.src.substring(node.data.src.indexOf(',') + 1);
+const getDataUrl = async (attachmentHost, src) => {
+  if (src.match(/^data:/)) {
+    return src;
+  }
+  const isAttachment = src.match(/^\/attachment\/([0-9a-z]+)/);
+  if (attachmentHost && isAttachment) {
+    const token = isAttachment[1];
+    const response = await fetch(`${attachmentHost}/${token}`);
+    if (response.status === 200) {
+      const data = Buffer.from(await response.arrayBuffer()).toString('base64');
+      return `data:${response.headers.get('content-type')};base64,${data}`;
+    }
+  }
+};
+
+const loadImages = attachmentHost => async node => {
+  const url = await getDataUrl(attachmentHost, node.data.src);
+  if (!url) {
+    return node;
+  }
+  const src = url.substring(url.indexOf(',') + 1);
   const buffer = Buffer.from(src, 'base64');
   let dimensions = imageSize(buffer);
   dimensions = scaleAndPreserveAspectRatio(
@@ -31,11 +51,11 @@ const updateImageDimensions = node => {
   );
   node.data.width = dimensions.width;
   node.data.height = dimensions.height;
-  node.data.src = src;
+  node.data.src = url;
   return node;
 };
 
-module.exports = () => {
+module.exports = (settings) => {
   const app = Router();
 
   app.get('/', (req, res, next) => {
@@ -58,7 +78,7 @@ module.exports = () => {
       application.establishments.push(pick(receivingEstablishment, 'id', 'name'));
     }
 
-    renderer(application, sections, values, updateImageDimensions)
+    renderer(application, sections, values, loadImages(settings.attachments))
       .then(pack)
       .then(buffer => {
         const isAmendment = req.project.status === 'active' && req.version.status !== 'granted';
