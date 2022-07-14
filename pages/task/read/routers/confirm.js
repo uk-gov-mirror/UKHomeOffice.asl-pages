@@ -46,6 +46,9 @@ module.exports = () => {
   app.use(form({
     configure: (req, res, next) => {
       const chosenStatus = get(req, `session.form[${req.task.id}].values.status`);
+      if (!chosenStatus) {
+        return res.redirect(req.buildRoute('task.read'));
+      }
       res.locals.static.commentRequired = req.task.nextSteps.find(s => s.id === chosenStatus).commentRequired;
       res.locals.static.commentLabel = content.commentLabels[chosenStatus];
       req.schema = getSchema({ task: req.task, chosenStatus });
