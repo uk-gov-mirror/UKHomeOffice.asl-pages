@@ -40,6 +40,7 @@ module.exports = settings => {
       },
       static: {
         content,
+        imageRoot: settings.attachments,
         isPdf: true
       }
     };

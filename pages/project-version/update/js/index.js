@@ -47,6 +47,7 @@ start({
   },
   static: {
     urls: state.static.urls,
+    imageRoot: '/attachment',
     content: state.static.content
   }
 });
