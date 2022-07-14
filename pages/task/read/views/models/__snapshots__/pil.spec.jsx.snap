@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PIL /> renders only conditions when action is update-conditions 1`] = `
+<ForwardRef
+  id="conditions"
+  key="conditions"
+>
+  <h2>
+    <Connect(Snippet)>
+      sticky-nav.conditions
+    </Connect(Snippet)>
+  </h2>
+  <DiffText
+    currentLabel={
+      <UNDEFINED>
+        diff.previous
+      </UNDEFINED>
+    }
+    newValue="old-conditions"
+    oldValue="new-conditions"
+    proposedLabel={
+      <UNDEFINED>
+        diff.changed-to
+      </UNDEFINED>
+    }
+  />
+</ForwardRef>
+`;
+
+exports[`<PIL /> renders when action is update 1`] = `
+Array [
+  <ForwardRef
+    id="procedures"
+    key="procedures"
+  >
+    <h2>
+      <Connect(Snippet)>
+        sticky-nav.procedures
+      </Connect(Snippet)>
+    </h2>
+    <PilProcedures
+      task={
+        Object {
+          "data": Object {
+            "data": Object {
+              "certificates": Array [
+                Object {},
+                Object {},
+              ],
+            },
+          },
+          "isOpen": false,
+        }
+      }
+    />
+  </ForwardRef>,
+  <ForwardRef
+    id="species"
+    key="species"
+  >
+    <h2>
+      <Connect(Snippet)>
+        sticky-nav.species
+      </Connect(Snippet)>
+    </h2>
+    <SpeciesDiff
+      after={
+        Object {
+          "certificates": Array [
+            Object {},
+            Object {},
+          ],
+        }
+      }
+    />
+  </ForwardRef>,
+  <ForwardRef
+    id="training"
+    key="training"
+  >
+    <h2>
+      <Connect(Snippet)>
+        sticky-nav.training
+      </Connect(Snippet)>
+    </h2>
+    <SummaryTable
+      certificates={Array []}
+    />
+  </ForwardRef>,
+]
+`;
