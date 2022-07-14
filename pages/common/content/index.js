@@ -282,8 +282,8 @@ module.exports = {
       closed: 'This subject is related to a confirmed non-compliance under case {{number}}'
     },
     profile: {
-      open: 'Person is subject to ongoing enforcement activity under case {{number}}',
-      closed: 'Person is related to a confirmed non-compliance under case {{number}}'
+      open: 'This person is subject to ongoing enforcement activity under case {{number}}',
+      closed: 'This person is related to a confirmed non-compliance under case {{number}}'
     },
     pil: {
       open: 'This personal licence is subject to ongoing enforcement activity under case {{number}}',
