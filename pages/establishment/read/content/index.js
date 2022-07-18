@@ -87,5 +87,11 @@ module.exports = {
     download: {
       pdf: 'Download licence as a PDF'
     }
+  },
+  errors: {
+    deadline: {
+      validDate: 'Please provide a valid date',
+      dateIsAfter: 'The deadline must be in the future'
+    }
   }
 };

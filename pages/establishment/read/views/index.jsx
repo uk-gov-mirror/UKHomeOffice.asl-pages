@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 import { Warning } from '@ukhomeoffice/react-components';
 import {
   Accordion,
@@ -14,13 +15,11 @@ import {
 import ProfileLink from '../../components/profile-link';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
+import Reminders from '../../../common/components/reminders';
 
-const Index = ({
-  establishment,
-  allowedActions,
-  openTask,
-  showRelatedTasks
-}) => {
+function Index() {
+  const { establishment, allowedActions, openTask, showRelatedTasks, errors } = useSelector(state => state.static);
+
   const killing = establishment.authorisations.filter(({ type }) => type === 'killing');
   const rehomes = establishment.authorisations.filter(({ type }) => type === 'rehomes');
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
@@ -35,6 +34,7 @@ const Index = ({
     <Fragment>
       <LicenceStatusBanner licence={establishment} licenceType="pel" />
       <EnforcementFlags model={establishment} modelType="details" />
+      <Reminders model={establishment} licenceType="Establishment" />
 
       <DocumentHeader
         subtitle={establishment.name}
@@ -99,13 +99,15 @@ const Index = ({
             <dd><Link page="profile.list" label={<Snippet>action.namedPeople</Snippet>} query={{ filters: { roles: ['named'] } }} /></dd>
           </dl>
           <Accordion>
-            <ExpandingPanel title={<Snippet>conditions.title</Snippet>}>
+            <ExpandingPanel title={<Snippet>conditions.title</Snippet>} isOpen={!isEmpty(errors)}>
               {
                 <Conditions
                   conditions={establishment.conditions}
                   canUpdate={canUpdateConditions && !openTask}
                   label={<Snippet>conditions.hasConditions</Snippet>}
                   noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+                  editing={!isEmpty(errors)}
+                  reminders={establishment.reminders}
                 >
                   {
                     openTask && canUpdateConditions && (
@@ -207,22 +209,6 @@ const Index = ({
       { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );
-};
+}
 
-const mapStateToProps = ({
-  static: {
-    establishment,
-    allowedActions,
-    openTask,
-    currentPath,
-    showRelatedTasks
-  }
-}) => ({
-  establishment,
-  allowedActions,
-  openTask,
-  currentPath,
-  showRelatedTasks
-});
-
-export default connect(mapStateToProps)(Index);
+export default Index;

@@ -13,6 +13,7 @@ import Downloads from './sections/downloads';
 import Reporting from './sections/reporting';
 import AdditionalAvailabilityWarning from './components/additional-availability-warning';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
+import Reminders from '../../../common/components/reminders';
 
 function SectionNav({ sections, activeSection, setActiveSection }) {
   const activeTab = Object.keys(sections).indexOf(activeSection);
@@ -125,6 +126,7 @@ export default function ProjectLandingPage() {
           </Warning>
         )
       }
+      <Reminders model={project} licenceType="Project" />
       <ProjectStatusBanner model={project} version={project.granted || project.versions[0]} />
 
       <DocumentHeader
