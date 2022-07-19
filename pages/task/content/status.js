@@ -249,6 +249,14 @@ module.exports = {
     },
     log: 'Rejected by'
   },
+  'intention-to-refuse': {
+    state: 'Returned',
+    action: 'Notify of intention to refuse',
+    hint: {
+      application: 'The applicant will be sent a notice with 28 days to respond'
+    },
+    log: 'Refused by'
+  },
   reopened: {
     state: 'Reopened',
     log: 'Reopened by'

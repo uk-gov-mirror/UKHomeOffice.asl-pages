@@ -25,6 +25,7 @@ module.exports = {
     'referred-to-inspector': 'inspector referral',
     'inspector-rejected': 'refusal',
     'rejected': 'refusal',
+    'intention-to-refuse': 'refusal',
     'discarded-by-asru': 'discarding'
   },
   'sticky-nav': {

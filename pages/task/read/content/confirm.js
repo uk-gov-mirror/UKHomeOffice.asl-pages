@@ -2,6 +2,7 @@ const { merge, pick } = require('lodash');
 const baseContent = require('./base');
 const tasks = require('../../content/tasks');
 const versionContent = require('../../../project-version/update/endorse/content');
+const refusalNotice = require('./refusal-notice');
 
 module.exports = merge({}, baseContent, {
   tasks,
@@ -34,5 +35,9 @@ module.exports = merge({}, baseContent, {
   },
   errors: {
     ...pick(versionContent.errors, ['awerb', 'awerb-review-date', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason'])
+  },
+  refusalNotice: {
+    ...refusalNotice,
+    summaryLabel: 'Show where the reason appears in the refusal notice'
   }
 });

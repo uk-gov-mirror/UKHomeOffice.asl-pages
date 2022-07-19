@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, Snippet, Header, Link, Field, ErrorSummary } from '@asl/components';
 import get from 'lodash/get';
 import { Button } from '@ukhomeoffice/react-components';
+import RefusalNotice from './components/refusal-notice';
 
-function CommentForm({ formFields, task, errors, values }) {
-  const { requiresDeclaration } = useSelector(state => state.static);
+function CommentForm({ formFields, task, errors, values, comment }) {
+  const { requiresDeclaration, inspector } = useSelector(state => state.static);
   const model = task.data.model;
   let action = task.data.action;
   if (action === 'grant' && task.type === 'amendment') {
@@ -28,6 +29,20 @@ function CommentForm({ formFields, task, errors, values }) {
           content={values.restrictions}
         />
       }
+
+      {
+        values.status === 'intention-to-refuse' &&
+          <details className="gutter">
+            <summary><Snippet>refusalNotice.summaryLabel</Snippet></summary>
+            <RefusalNotice
+              project={get(task, 'data.modelData')}
+              licenceHolder={licenceHolder}
+              inspector={inspector}
+              refusalReason={comment}
+            />
+          </details>
+      }
+
       { formFields }
       { requiresDeclaration &&
         <div className="task-declaration">
@@ -45,11 +60,17 @@ function CommentForm({ formFields, task, errors, values }) {
 
 export default function Confirm() {
   const { task, values, errors } = useSelector(state => state.static);
+  const [comment, setComment] = useState('');
+
+  const onChange = values => {
+    setComment(values.comment);
+  };
+
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
-        <Form detachFields submit={false}>
-          <CommentForm values={values} task={task} errors={errors} />
+        <Form detachFields submit={false} onChange={onChange}>
+          <CommentForm values={values} task={task} errors={errors} comment={comment} />
         </Form>
       </div>
     </div>

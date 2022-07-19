@@ -6,5 +6,6 @@ module.exports = {
   deadlinePassed: require('./deadline-passed'),
   discard: require('./discard'),
   confirm: require('./confirm'),
-  endorse: require('./endorse')
+  endorse: require('./endorse'),
+  review: require('./review')
 };

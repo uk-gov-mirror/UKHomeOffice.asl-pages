@@ -92,6 +92,14 @@ module.exports = {
       body: `This request has been referred to an inspector.`
     }
   },
+  'intention-to-refuse': {
+    panel: {
+      title: 'Sent'
+    },
+    whatNext: {
+      body: `The application has been returned and the notice of intention to refuse has been sent to the applicant and establishment.`
+    }
+  },
   'resolved': {
     panel: {
       title: 'Approved'

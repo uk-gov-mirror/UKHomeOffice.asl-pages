@@ -101,6 +101,8 @@ module.exports = {
         removeDeadline: 'Remove deadline',
         reinstateDeadline: 'Reinstate deadline',
         confirm: 'Confirm',
+        confirmRefuse: 'Confirm',
+        review: 'Review',
         success: 'Success',
         deadlinePassed: 'Deadline passed reason'
       }
