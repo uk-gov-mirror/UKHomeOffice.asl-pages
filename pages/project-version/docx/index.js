@@ -20,23 +20,21 @@ const scaleAndPreserveAspectRatio = (srcWidth, srcHeight, maxWidth, maxHeight) =
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 };
 
-const getDataUrl = async (attachmentHost, src) => {
-  if (src.match(/^data:/)) {
-    return src;
+const getDataUrl = async (attachmentHost, data) => {
+  if (data.src && data.src.match(/^data:/)) {
+    return data.src;
   }
-  const isAttachment = src.match(/^\/attachment\/([0-9a-z]+)/);
-  if (attachmentHost && isAttachment) {
-    const token = isAttachment[1];
-    const response = await fetch(`${attachmentHost}/${token}`);
+  if (attachmentHost && data.token) {
+    const response = await fetch(`${attachmentHost}/${data.token}`);
     if (response.status === 200) {
-      const data = Buffer.from(await response.arrayBuffer()).toString('base64');
-      return `data:${response.headers.get('content-type')};base64,${data}`;
+      const base64 = Buffer.from(await response.arrayBuffer()).toString('base64');
+      return `data:${response.headers.get('content-type')};base64,${base64}`;
     }
   }
 };
 
 const loadImages = attachmentHost => async node => {
-  const url = await getDataUrl(attachmentHost, node.data.src);
+  const url = await getDataUrl(attachmentHost, node.data);
   if (!url) {
     return node;
   }
