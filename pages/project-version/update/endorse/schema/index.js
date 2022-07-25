@@ -68,7 +68,7 @@ const getAwerbQuestion = ({ isLegacy, canBeAwerbExempt, awerbEstablishments }) =
   };
 };
 
-const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, canBeAwerbExempt, awerbEstablishments, omitCommentsField }) => {
+const getSchema = ({ isLegacy, isAmendment, isAsru, includeAwerb, canBeAwerbExempt, awerbEstablishments, omitCommentsField }) => {
   let schema = {
     comments: {
       inputType: 'textarea',
@@ -86,26 +86,6 @@ const getSchema = ({ isLegacy, isAmendment, isAsru, includeReady, includeAwerb, 
 
   if (isAsru) {
     return schema; // no additional questions required
-  }
-
-  if (includeReady) {
-    const readyQuestion = {
-      meta: true,
-      inputType: 'radioGroup',
-      inline: true,
-      className: 'smaller',
-      format: toBoolean,
-      options: [
-        true,
-        false
-      ],
-      validate: ['required']
-    };
-
-    schema = {
-      ready: readyQuestion,
-      ...schema
-    };
   }
 
   // awerb question should always be first if included

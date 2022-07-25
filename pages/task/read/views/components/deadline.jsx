@@ -42,6 +42,8 @@ export default function Deadline({ task }) {
   const continuation = get(task, 'data.continuation');
   const continuationRTE = get(version, 'data.expiring-yes');
 
+  const removedStatutoryDeadline = get(task, 'data.removedDeadline');
+
   if (!activeDeadlineDate) {
     return null;
   }
@@ -72,6 +74,18 @@ export default function Deadline({ task }) {
               <DaysSince days={statutoryDeadline.daysSince} />
 
               {
+                isInspector && <Details summary="Application not complete and correct">
+                  <p><Snippet>removeDeadline.hint</Snippet></p>
+                  <Link
+                    page="task.read.removeDeadline"
+                    taskId={task.id}
+                    label={<Snippet>removeDeadline.button</Snippet>}
+                    className="govuk-button button-warning"
+                  />
+                </Details>
+              }
+
+              {
                 statutoryDeadline.isExtendable && isInspector &&
                   <Details summary="Extend deadline">
                     <p><Snippet>deadline.hint</Snippet></p>
@@ -82,6 +96,29 @@ export default function Deadline({ task }) {
                       className="govuk-button button-secondary"
                     />
                   </Details>
+              }
+            </dd>
+          </Fragment>
+        }
+
+        {
+          removedStatutoryDeadline &&
+          <Fragment>
+            <dt><Snippet>{`deadline.statutory.${removedStatutoryDeadline.isExtended ? 'extended' : 'standard'}`}</Snippet></dt>
+            <dd>
+              <p><Snippet>reinstateDeadline.text</Snippet></p>
+
+              {
+                isInspector &&
+                <Details summary="Reinstate deadline">
+                  <p><Snippet>reinstateDeadline.hint</Snippet></p>
+                  <Link
+                    page="task.read.reinstateDeadline"
+                    taskId={task.id}
+                    label={<Snippet>reinstateDeadline.button</Snippet>}
+                    className="govuk-button button-secondary"
+                  />
+                </Details>
               }
             </dd>
           </Fragment>

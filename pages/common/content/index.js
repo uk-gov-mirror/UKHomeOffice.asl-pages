@@ -98,6 +98,8 @@ module.exports = {
       read: {
         root: 'View task',
         extend: 'Extend deadline',
+        removeDeadline: 'Remove deadline',
+        reinstateDeadline: 'Reinstate deadline',
         confirm: 'Confirm',
         success: 'Success',
         deadlinePassed: 'Deadline passed reason'
