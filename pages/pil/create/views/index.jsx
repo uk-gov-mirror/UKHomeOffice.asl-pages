@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Warning } from '@ukhomeoffice/react-components';
 import {
   Snippet,
   ApplyChanges,
@@ -35,6 +36,7 @@ const Index = ({ establishment }) => (
     />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">
+        <Warning>If the applicant has ever had a personal licence granted previously you should contact ASRU at ASPELTechnicalQueries@homeoffice.gov.uk</Warning>
         <PanelList panels={ types.map(type => <Category type={type} key={type} />) } />
       </div>
     </div>
