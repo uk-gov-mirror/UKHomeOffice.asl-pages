@@ -253,7 +253,23 @@ module.exports = {
     state: 'Returned',
     action: 'Notify of intention to refuse',
     hint: {
-      application: 'The applicant will be sent a notice with 28 days to respond'
+      application: 'The applicant will be sent a notice with 28 days to respond.'
+    },
+    log: {
+      application: 'Notice of intention to refuse issued by'
+    },
+    warning: {
+      future: `The Home Office are planning to refuse this application. You have until {{respondBy}} to respond.`,
+      futureAsru: `The Home Office are planning to refuse this application. The applicant has until {{respondBy}} to respond.`,
+      passed: 'The 28 day deadline for responding to the intention to refuse notice has passed.',
+      passedAsru: 'The 28 day deadline for responding to the intention to refuse notice has passed. If the applicant has not responded you should refuse the licence.'
+    }
+  },
+  refused: {
+    state: 'Refused',
+    action: 'Refuse licence',
+    hint: {
+      application: 'The 28 day deadline for responding to the refusal notice has passed. If the applicant has not responded you should refuse the licence.'
     },
     log: 'Refused by'
   },

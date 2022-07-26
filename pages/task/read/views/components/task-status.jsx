@@ -3,10 +3,11 @@ import get from 'lodash/get';
 import classnames from 'classnames';
 import { Snippet } from '@asl/components';
 import Deadline from './deadline';
+import RefusalNoticeWarning from './refusal-notice-warning';
 
 const getStatusBadge = (status, model) => {
   const good = ['resolved'];
-  const bad = ['rejected', 'withdrawn'];
+  const bad = ['rejected', 'withdrawn', 'discarded-by-applicant', 'refused'];
   const className = classnames({ badge: true, complete: good.includes(status) || model === 'rop', rejected: bad.includes(status) });
   return <span className={ className }><Snippet>{ `status.${status}.state` }</Snippet></span>;
 };
@@ -28,6 +29,7 @@ export default function TaskStatus({ task }) {
         {getStatusBadge(status, model)}
         <span className="currently-with"><Snippet optional>{snippetContent}</Snippet></span>
       </p>
+      { model === 'project' && <RefusalNoticeWarning task={task} /> }
       { model === 'project' && <Deadline task={task} /> }
     </div>
   );

@@ -231,6 +231,7 @@ module.exports = {
       inactive: 'Draft',
       pending: 'Draft',
       revoked: 'Revoked',
+      refused: 'Refused',
       expired: 'Expired',
       active: 'Amendment in progress',
       superseded: 'Superseded',

@@ -303,8 +303,6 @@ export default function ActivityLog({ task }) {
 
   const latestActivity = activityLog[0];
 
-  console.log(latestActivity);
-
   return (
     <div className="activity-log">
       <h2><Snippet>sticky-nav.activity</Snippet></h2>

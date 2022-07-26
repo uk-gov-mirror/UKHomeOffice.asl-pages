@@ -48,7 +48,8 @@ module.exports = () => {
 
     meta.refusalNotice = {
       deadline: moment().add(28, 'days').format('YYYY-MM-DD'),
-      markdown: getRefusalNoticeMarkdown(req.task, req.user.profile, meta.comment)
+      markdown: getRefusalNoticeMarkdown(req.task, req.user.profile, meta.comment),
+      inspectorId: req.user.profile.id
     };
 
     console.log({ values, meta });

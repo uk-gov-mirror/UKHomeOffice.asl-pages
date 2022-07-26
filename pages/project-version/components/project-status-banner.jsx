@@ -8,6 +8,7 @@ import { dateFormat } from '../../../constants';
 export default function ProjectStatusBanner({ model = {}, version = {}, isPdf }) {
   const { canViewTransferredProject, additionalAvailability } = useSelector(state => state.static);
   const additionalAvailabilityRemoved = additionalAvailability && additionalAvailability.status === 'removed';
+
   if (model.status === 'transferred') {
     return (
       <LicenceStatusBanner title={<Snippet>invalidLicence.status.transferred</Snippet>} licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour="red">
@@ -22,6 +23,18 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
       </LicenceStatusBanner>
     );
   }
+
+  if (model.refusedAt) {
+    return (
+      <LicenceStatusBanner title={<Snippet>invalidLicence.status.refused</Snippet>} licence={model} colour="red" isPdf={isPdf}>
+        <Fragment>
+          <p><strong>Refused: <span>{format(model.refusedAt, dateFormat.long)}</span></strong></p>
+          <p><Snippet>invalidLicence.summary.ppl</Snippet></p>
+        </Fragment>
+      </LicenceStatusBanner>
+    );
+  }
+
   if (model.status === 'active') {
     if (model.isLegacyStub) {
       return (
@@ -35,6 +48,7 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
     if (model.granted && model.granted.id === version.id && !additionalAvailabilityRemoved) {
       return null;
     }
+
     model.versions = model.versions || [];
 
     const grantedVersions = sortBy(model.versions.filter(v => v.status === 'granted'), 'updatedAt');
@@ -67,5 +81,5 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
     );
   }
 
-  return <LicenceStatusBanner licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} colour={model.status === 'transferred' && 'red'} />;
+  return <LicenceStatusBanner licence={model} licenceType="ppl" version={version.id} isPdf={isPdf} />;
 }

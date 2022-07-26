@@ -139,5 +139,17 @@ module.exports = {
       before: 'You can ',
       linkText: 'view the history of this request.'
     }
+  },
+  'refused': {
+    panel: {
+      title: 'Refused'
+    },
+    whatNext: {
+      body: `This application for a licence has been refused. The applicant and establishment admins have been notified.`
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
   }
 };
