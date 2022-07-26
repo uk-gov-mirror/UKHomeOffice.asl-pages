@@ -152,7 +152,7 @@ function ProfileDetails({ task }) {
     <dl className="inline-wide">
       <ProfileLink profile={profile} type="global" />
       { isApplication && <Over18 profile={profile} /> }
-      { !isApplication && profile.pilLicenceNumber &&
+      { !isApplication && profile.pilLicenceNumber && profile.pil &&
         <LicenceNumber>
           <Link page="pil.read" establishmentId={profile.pil.establishmentId} profileId={profile.id} label={profile.pilLicenceNumber} />
         </LicenceNumber>
