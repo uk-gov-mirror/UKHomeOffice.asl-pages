@@ -5,7 +5,7 @@ import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
-import { daysSinceDate, isDeadlineExtension, isTrueish } from '../../../../../lib/utils';
+import { daysSinceDate, isDeadlineExtension, isDeadlineRemove, isDeadlineReinstate, isTrueish } from '../../../../../lib/utils';
 import PplDeclarations from './ppl-declarations';
 
 function ProfileLink({ id, name, establishmentId, asruUser }) {
@@ -243,8 +243,14 @@ function LogItem({ item, task }) {
   const isRa = task.data.action === 'grant-ra';
   const isAssignment = item.eventName === 'assign';
 
-  if (action === 'update' && isExtension) {
-    action = 'deadline-extended';
+  if (action === 'update') {
+    if (isExtension) {
+      action = 'deadline-extended';
+    } else if (isDeadlineRemove(item)) {
+      action = 'deadline-removed';
+    } else if (isDeadlineReinstate(item)) {
+      action = 'deadline-reinstated';
+    }
   }
 
   return (

@@ -63,9 +63,22 @@ module.exports = {
       button: 'Extend deadline'
     }
   },
+  removeDeadline: {
+    hint: 'The statutory target deadline for applications that are not complete and correct can be removed. You will still be able to continue your assessment.',
+    title: 'Mark as not complete and correct',
+    button: 'Remove deadline',
+    markIncompleteButton: 'Mark incomplete or incorrect'
+  },
+  reinstateDeadline: {
+    text: 'The application is not complete and correct so the statutory deadline is not applicable.',
+    hint: 'You can reinstate the statutory deadline if the statutory deadline was removed in error. You will still be able to continue your assessment.',
+    title: 'Reinstate statutory deadline',
+    button: 'Reinstate deadline'
+  },
   actions: {
     change: 'Change',
-    withdraw: 'Withdraw'
+    withdraw: 'Withdraw',
+    cancel: 'Cancel'
   },
   asruDiscardTask: {
     summary: 'Discard this task',

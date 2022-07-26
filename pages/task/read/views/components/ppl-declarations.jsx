@@ -26,6 +26,7 @@ export default function PplDeclarations({ task }) {
     // endorsed action needs to display ready status but does not submit it in payload
     declarations.ready = get(task, 'data.meta.ready');
   }
+  const hasReadyDeclaration = declarations.ready !== undefined;
 
   const legacyAwerbReviewDate = declarations['awerb-review-date'];
   const displayAwerb = !legacyAwerbReviewDate && declarations['awerb-exempt'] !== true;
@@ -50,7 +51,7 @@ export default function PplDeclarations({ task }) {
             <dt><Snippet>declarations.awerb.question</Snippet></dt>
             <dd>{yn(isTrueish(declarations.awerb))}</dd>
           </dl>
-          : <dl className="inline-wide">
+          : hasReadyDeclaration && <dl className="inline-wide">
             <dt><Snippet>declarations.ready-for-inspector.question</Snippet></dt>
             <dd>{yn(isTrueish(declarations.ready))}</dd>
           </dl>

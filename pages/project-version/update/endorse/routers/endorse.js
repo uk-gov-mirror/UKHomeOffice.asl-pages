@@ -67,10 +67,8 @@ module.exports = (settings = {}) => {
         req.model.type = type;
         req.model.data = null;
         // if application has previously been approved then this is a resubmission and we can show the inspector ready question
-        const hasAuthority = get(existingTask, 'data.meta.authority');
         const isAmendment = req.model.type !== 'application';
         const isAsru = req.user.profile.asruUser;
-        const includeReady = hasAuthority && !isAmendment;
         const includeAwerb = transferWithReceivingEstablishment(req.task) || res.locals.static.canEndorse;
         const awerbEstablishments = req.awerbEstablishments;
         const isLegacy = req.project.schemaVersion === 0;
@@ -89,7 +87,6 @@ module.exports = (settings = {}) => {
           isLegacy,
           isAmendment,
           isAsru,
-          includeReady,
           includeAwerb,
           canBeAwerbExempt,
           awerbEstablishments,
