@@ -107,6 +107,12 @@ const getAdditionalInfo = ({ task, project }) => {
   }
 };
 
+const getProjectLink = ({ project }) => {
+  const projectId = get(project, 'id');
+  const establishmentId = get(project, 'establishment.id');
+  return `establishments/${establishmentId}/projects/${projectId}`;
+};
+
 module.exports = () => {
   const app = Router();
 
@@ -135,7 +141,9 @@ module.exports = () => {
     res.locals.static.establishment = req.establishment || get(req.task, 'data.establishment');
     res.locals.static.isAsruUser = req.user.profile.asruUser;
     res.locals.static.additionalInfo = getAdditionalInfo(req);
-
+    if (req.task.data.model === 'project') {
+      res.locals.static.projectLink = getProjectLink(req);
+    }
     next();
   });
 

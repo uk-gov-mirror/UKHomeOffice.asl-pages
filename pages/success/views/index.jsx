@@ -8,7 +8,8 @@ const Index = ({ onwardLink }) => {
     taskLabel,
     taskId,
     isAsruUser,
-    additionalInfo
+    additionalInfo,
+    projectLink
   } = useSelector(state => state.static);
 
   return (
@@ -18,9 +19,13 @@ const Index = ({ onwardLink }) => {
           title={taskLabel}
           subtitle={establishment.name}
         />
-
         {
-          additionalInfo && <h2 className="additional-info">{additionalInfo}</h2>
+          additionalInfo && <h2 className="additional-info">
+            {
+              projectLink ? <Link url={''} path={projectLink} label={additionalInfo}></Link>
+                : {additionalInfo}
+            }
+          </h2>
         }
 
         <Panel title={<Snippet>success.panel.title</Snippet>} className="green-bg success" />
