@@ -115,12 +115,14 @@ function DownloadSection({ project, version }) {
         <p><Link page="projectVersion.ntsPdf" label={<Snippet>{`downloads.${ntsSnippet}.link`}</Snippet>} versionId={version.id} /></p>
       </div>
 
-      <div>
-        <h4><Snippet>downloads.template.heading</Snippet></h4>
-        <p className="govuk-hint"><Snippet>downloads.template.hint</Snippet></p>
-        <p><Link page="projectVersion.ppl" label={<Snippet>downloads.template.link</Snippet>} versionId={version.id} /></p>
-      </div>
-
+      {
+        !isLegacy &&
+        <div>
+          <h4><Snippet>downloads.template.heading</Snippet></h4>
+          <p className="govuk-hint"><Snippet>downloads.template.hint</Snippet></p>
+          <p><Link page="projectVersion.ppl" label={<Snippet>downloads.template.link</Snippet>} versionId={version.id} /></p>
+        </div>
+      }
     </section>
   );
 }
