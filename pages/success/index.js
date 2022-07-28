@@ -135,7 +135,9 @@ module.exports = () => {
     res.locals.static.establishment = req.establishment || get(req.task, 'data.establishment');
     res.locals.static.isAsruUser = req.user.profile.asruUser;
     res.locals.static.additionalInfo = getAdditionalInfo(req);
-
+    if (req.task.data.model === 'project') {
+      res.locals.static.projectId = get(req.project, 'id');
+    }
     next();
   });
 
