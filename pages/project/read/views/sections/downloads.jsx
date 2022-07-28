@@ -116,7 +116,7 @@ function DownloadSection({ project, version }) {
       </div>
 
       {
-        isLegacy &&
+        !isLegacy &&
         <div>
           <h4><Snippet>downloads.template.heading</Snippet></h4>
           <p className="govuk-hint"><Snippet>downloads.template.hint</Snippet></p>
