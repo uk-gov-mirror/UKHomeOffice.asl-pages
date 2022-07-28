@@ -9,7 +9,7 @@ const Index = ({ onwardLink }) => {
     taskId,
     isAsruUser,
     additionalInfo,
-    projectLink
+    projectId
   } = useSelector(state => state.static);
 
   return (
@@ -22,8 +22,8 @@ const Index = ({ onwardLink }) => {
         {
           additionalInfo && <h2 className="additional-info">
             {
-              projectLink ? <Link url={''} path={projectLink} label={additionalInfo}></Link>
-                : {additionalInfo}
+              projectId ? <Link page="project.read" establishmentId={establishment.id} projectId={projectId} label={additionalInfo}></Link>
+                : additionalInfo
             }
           </h2>
         }
