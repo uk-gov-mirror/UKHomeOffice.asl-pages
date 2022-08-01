@@ -40,7 +40,7 @@ const Task = ({ task, project }) => {
         </div>
       </div>
 
-      <EnforcementFlags model={task} />
+      <EnforcementFlags model={task} modelType={task.enforcementFlagModelType} useFlagModelType={true} />
 
       <Header title={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>} />
 

@@ -23,13 +23,19 @@ function CaseDetails({ flag }) {
   );
 }
 
-function EnforcementBanner({ flag, modelType }) {
+function EnforcementBanner({ flag, modelType, useFlagModelType }) {
   if (!flag) {
     return null;
   }
 
-  if (flag.modelType === 'establishment' && !flag.modelOptions.includes(modelType)) {
-    return null;
+  let displayModelType;
+  if (flag.modelType === 'establishment') {
+    if (!flag.modelOptions.includes(modelType)) {
+      return null;
+    }
+    displayModelType = modelType;
+  } else {
+    displayModelType = useFlagModelType ? flag.modelType : modelType || flag.modelType;
   }
 
   const { status, subject } = flag;
@@ -37,7 +43,7 @@ function EnforcementBanner({ flag, modelType }) {
 
   return (
     <Warning className={classnames('enforcement', status)}>
-      <p><Snippet number={enforcementCase.caseNumber}>{`enforcementBanner.${modelType || flag.modelType}.${status}`}</Snippet></p>
+      <p><Snippet number={enforcementCase.caseNumber}>{`enforcementBanner.${displayModelType}.${status}`}</Snippet></p>
       {
         status === 'open' && <p className="more-info"><Snippet>enforcementBanner.moreInfo</Snippet></p>
       }
