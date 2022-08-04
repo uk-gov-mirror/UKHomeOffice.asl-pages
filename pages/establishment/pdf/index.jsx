@@ -7,6 +7,7 @@ import groupBy from 'lodash/groupBy';
 import Body from './views';
 import Header from '../../common/views/pdf/header';
 import Footer from '../../common/views/pdf/footer';
+import { populateNamedPeople } from '../../common/middleware';
 import content from './content';
 import PDF from '../../common/helpers/pdf';
 
@@ -25,6 +26,8 @@ const stateReducer = (state = {}) => state;
 module.exports = settings => {
   const app = Router({ mergeParams: true });
   const pdf = PDF(settings);
+
+  app.get('/', populateNamedPeople);
 
   app.get('/', (req, res, next) => {
     const establishment = {

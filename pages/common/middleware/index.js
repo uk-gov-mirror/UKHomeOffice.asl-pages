@@ -86,22 +86,37 @@ const clearSessionIfNotFromTask = () => (req, res, next) => {
 };
 
 const populateNamedPeople = (req, res, next) => {
-  if (req.establishment) {
-    const pelh = req.establishment.roles.find(r => r.type === 'pelh');
-    const nprc = req.establishment.roles.find(r => r.type === 'nprc');
-
-    if (pelh) {
-      req.establishment.pelh = pelh.profile;
-    }
-    if (nprc && (!pelh || nprc.profile.id !== pelh.profile.id)) {
-      req.establishment.nprc = nprc.profile;
-    }
-
-    ['holc', 'nacwo', 'nio', 'nvs', 'ntco', 'sqp'].map(roleName => {
-      req.establishment[roleName] = req.establishment.roles.filter(r => r.type === roleName);
-    });
+  if (!req.establishment) {
+    return next();
   }
-  next();
+  return Promise.resolve()
+    .then(() => {
+      if (!req.establishment.roles) {
+        return req.api(`/establishment/${req.establishment.id}/named-people`)
+          .then(result => {
+            const roles = result.json.data;
+            req.establishment.roles = roles;
+          })
+          .catch(next);
+      }
+    })
+    .then(() => {
+      req.establishment.roles = req.establishment.roles || [];
+      const pelh = req.establishment.roles.find(r => r.type === 'pelh');
+      const nprc = req.establishment.roles.find(r => r.type === 'nprc');
+
+      if (pelh) {
+        req.establishment.pelh = pelh.profile;
+      }
+      if (nprc && (!pelh || nprc.profile.id !== pelh.profile.id)) {
+        req.establishment.nprc = nprc.profile;
+      }
+
+      ['holc', 'nacwo', 'nio', 'nvs', 'ntco', 'sqp'].map(roleName => {
+        req.establishment[roleName] = req.establishment.roles.filter(r => r.type === roleName);
+      });
+      next();
+    });
 };
 
 const validateUuidParam = () => (req, res, next, param) => {

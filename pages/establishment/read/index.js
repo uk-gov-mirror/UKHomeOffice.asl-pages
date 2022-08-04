@@ -3,7 +3,8 @@ const moment = require('moment');
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form, relatedTasks } = require('../../common/routers');
-const { enforcementFlags } = require('../../common/middleware');
+const { enforcementFlags, populateNamedPeople } = require('../../common/middleware');
+
 const schema = require('./schema');
 
 module.exports = settings => {
@@ -46,6 +47,8 @@ module.exports = settings => {
       next();
     }
   }));
+
+  app.get('/', populateNamedPeople);
 
   app.get('/', (req, res, next) => {
     res.enforcementModel = req.establishment;
