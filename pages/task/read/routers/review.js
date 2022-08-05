@@ -52,8 +52,6 @@ module.exports = () => {
       inspectorId: req.user.profile.id
     };
 
-    console.log({ values, meta });
-
     const opts = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
