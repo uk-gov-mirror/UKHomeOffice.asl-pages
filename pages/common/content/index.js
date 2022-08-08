@@ -101,6 +101,8 @@ module.exports = {
         removeDeadline: 'Remove deadline',
         reinstateDeadline: 'Reinstate deadline',
         confirm: 'Confirm',
+        confirmRefuse: 'Confirm',
+        review: 'Review',
         success: 'Success',
         deadlinePassed: 'Deadline passed reason'
       }
@@ -229,6 +231,7 @@ module.exports = {
       inactive: 'Draft',
       pending: 'Draft',
       revoked: 'Revoked',
+      refused: 'Refused',
       expired: 'Expired',
       active: 'Amendment in progress',
       superseded: 'Superseded',

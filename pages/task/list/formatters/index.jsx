@@ -8,7 +8,7 @@ import { dateFormat } from '../../../../constants';
 import { Snippet, Link } from '@asl/components';
 
 const good = ['resolved'];
-const bad = ['rejected', 'discarded-by-applicant'];
+const bad = ['rejected', 'withdrawn', 'discarded-by-applicant', 'refused'];
 
 const Deadline = ({ task }) => {
   const activeDeadline = task.activeDeadline;

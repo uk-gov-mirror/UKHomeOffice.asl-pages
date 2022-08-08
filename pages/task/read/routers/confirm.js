@@ -1,32 +1,9 @@
 const form = require('../../../common/routers/form');
 const { Router } = require('express');
 const { set, get } = require('lodash');
-const { render } = require('mustache');
 const getSchema = require('../../schema/confirm');
 const content = require('../content/confirm');
-
-const requiresDeclaration = (task, values) => {
-  const model = task.data.model;
-  let action = task.data.action;
-  if (action === 'grant' && task.type === 'amendment') {
-    action = 'update';
-  }
-  if (action === 'grant-ra') {
-    return false;
-  }
-  return ['pil', 'trainingPil', 'project'].includes(model) && values.status === 'endorsed' && action !== 'review';
-};
-
-const trim = value => value.split('\n').map(s => s.trim()).join('\n').trim();
-
-const getDeclarationText = (task, values) => {
-  const declaration = get(content, `declaration.${values.status}.${task.data.model}`);
-  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder');
-  return trim(render(declaration, {
-    name: `${get(licenceHolder, 'firstName')} ${get(licenceHolder, 'lastName')}`,
-    type: task.type
-  }));
-};
+const { requiresDeclaration, getDeclarationText } = require('../helpers/declarations');
 
 module.exports = () => {
   const app = Router();
@@ -65,13 +42,23 @@ module.exports = () => {
         values
       });
 
+      if (values.status === 'intention-to-refuse') {
+        set(res.locals.static, 'inspector', req.user.profile);
+        set(res.locals.static, 'content.status.intention-to-refuse.action', 'Give reason for refusal');
+      }
+
       next();
     }
   }));
 
   app.post('/', (req, res, next) => {
-    const values = req.session.form[`${req.model.id}`];
-    if (values.returnTo) {
+    const { values, returnTo } = req.session.form[`${req.model.id}`];
+
+    if (values.status === 'intention-to-refuse') {
+      return res.redirect('review');
+    }
+
+    if (returnTo) {
       // preserve http method
       return res.redirect(307, values.returnTo);
     }

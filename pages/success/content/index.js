@@ -92,6 +92,14 @@ module.exports = {
       body: `This request has been referred to an inspector.`
     }
   },
+  'intention-to-refuse': {
+    panel: {
+      title: 'Sent'
+    },
+    whatNext: {
+      body: `The application has been returned and the notice of intention to refuse has been sent to the applicant and establishment.`
+    }
+  },
   'resolved': {
     panel: {
       title: 'Approved'
@@ -126,6 +134,18 @@ module.exports = {
     whatNext: {
       body: `This licence has been revoked.`,
       internal: 'The relevant people have been emailed.'
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
+  },
+  'refused': {
+    panel: {
+      title: 'Refused'
+    },
+    whatNext: {
+      body: `This application for a licence has been refused. The applicant and establishment admins have been notified.`
     },
     taskLink: {
       before: 'You can ',

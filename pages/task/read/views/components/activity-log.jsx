@@ -232,6 +232,21 @@ function Comment({ changedBy, comment }) {
   );
 }
 
+function IntentionToRefuse({ task }) {
+  const intentionToRefuse = get(task, 'data.intentionToRefuse');
+
+  if (!intentionToRefuse) {
+    return null;
+  }
+
+  return (
+    <Fragment>
+      <p><strong>Refusal notice:</strong></p>
+      <Inset><Markdown>{intentionToRefuse.markdown}</Markdown></Inset>
+    </Fragment>
+  );
+}
+
 const showPplDeclarations = (item) => {
   const status = get(item, 'event.status');
   return ['endorsed', 'resubmitted'].includes(status);
@@ -242,6 +257,7 @@ function LogItem({ item, task }) {
   const isExtension = isDeadlineExtension(item);
   const isRa = task.data.action === 'grant-ra';
   const isAssignment = item.eventName === 'assign';
+  const isIntentionToRefuse = action === 'intention-to-refuse';
 
   if (action === 'update') {
     if (isExtension) {
@@ -261,7 +277,8 @@ function LogItem({ item, task }) {
       { isExtension && <DeadlineDetails item={item} /> }
       { isRa && <AwerbDate item={item} /> }
       { isAssignment && <Assignment item={item} />}
-      <Comment changedBy={item.changedBy} comment={item.comment} />
+      { isIntentionToRefuse && <IntentionToRefuse task={task} /> }
+      { !isIntentionToRefuse && <Comment changedBy={item.changedBy} comment={item.comment} /> }
       { showPplDeclarations(item) && <PplDeclarations task={item.event} /> }
       <DeclarationMeta item={item} />
       <ExtraProjectMeta item={item} task={task} />

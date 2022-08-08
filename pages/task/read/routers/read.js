@@ -280,6 +280,10 @@ module.exports = () => {
         };
       }
 
+      if (req.task.nextSteps && req.task.nextSteps.length === 1 && req.task.nextSteps[0].id === 'refused') {
+        set(res, 'locals.static.content.buttons.submit', 'Refuse licence');
+      }
+
       next();
     },
     locals: (req, res, next) => {

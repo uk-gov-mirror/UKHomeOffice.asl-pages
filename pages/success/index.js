@@ -66,6 +66,10 @@ const getSuccessType = task => {
     return 'endorsed';
   }
 
+  if (latestActivity && get(latestActivity, 'event.status') === 'intention-to-refuse') {
+    return 'intention-to-refuse';
+  }
+
   if (task.status === 'resolved' && action === 'revoke') {
     return 'revoked';
   }

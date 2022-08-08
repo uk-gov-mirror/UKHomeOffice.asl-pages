@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
-    "@asl/components": "^10.14.6",
+    "@asl/components": "^10.14.7",
     "@asl/constants": "^1.2.1",
     "@asl/dictionary": "^1.1.5",
     "@asl/projects": "^10.7.6",

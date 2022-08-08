@@ -7,7 +7,7 @@ import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
 
-const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended'];
+const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended', 'refused'];
 const good = ['active'];
 
 function EstablishmentList({ establishments }) {
@@ -75,6 +75,11 @@ const formatters = establishmentId => ({
       if (additionalAvailabilityEnded) {
         status = 'additional-availability-ended';
       }
+
+      if (model.refusedDate) {
+        status = 'refused';
+      }
+
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });
       return (
         <Fragment>
