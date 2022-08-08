@@ -340,10 +340,20 @@ const getProjectEstablishment = () => (req, res, next) => {
   if (!req.project) {
     return next();
   }
-  req.api(`/establishment/${req.project.establishmentId}`)
-    .then(({ json: { data } }) => {
-      req.project.establishment = data;
-      req.project.establishment.licenceHolder = (data.roles.find(r => r.type === 'pelh' || r.type === 'nprc') || {}).profile;
+  Promise.resolve()
+    .then(() => {
+      if (!req.project.establishment) {
+        return req.api(`/establishment/${req.project.establishmentId}`)
+          .then(({ json: { data } }) => {
+            req.project.establishment = data;
+          });
+      }
+    })
+    .then(() => {
+      return req.api(`/establishment/${req.project.establishmentId}/named-people`)
+        .then(({ json: { data } }) => {
+          req.project.establishment.licenceHolder = (data.find(r => r.type === 'pelh' || r.type === 'nprc') || {}).profile;
+        });
     })
     .then(() => next())
     .catch(() => {
