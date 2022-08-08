@@ -24,11 +24,11 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
     );
   }
 
-  if (model.refusedAt) {
+  if (model.refusedDate) {
     return (
       <LicenceStatusBanner title={<Snippet>invalidLicence.status.refused</Snippet>} licence={model} colour="red" isPdf={isPdf}>
         <Fragment>
-          <p><strong>Refused: <span>{format(model.refusedAt, dateFormat.long)}</span></strong></p>
+          <p><strong>Refused: <span>{format(model.refusedDate, dateFormat.long)}</span></strong></p>
           <p><Snippet>invalidLicence.summary.ppl</Snippet></p>
         </Fragment>
       </LicenceStatusBanner>
