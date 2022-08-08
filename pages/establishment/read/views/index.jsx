@@ -27,8 +27,8 @@ function Index() {
   const canDownloadPDF = allowedActions.includes('establishment.pdf');
   const canSeeRevoke = allowedActions.includes('establishment.revoke') && establishment.status === 'active';
   const canActionRevoke = canSeeRevoke && !establishment.hasActiveLicences;
-  const isDraft = establishment.status === 'inactive';
-  const actionKey = isDraft ? 'draftAmend' : (establishment.status === 'active' ? 'amend' : 'reapply');
+  const isActive = establishment.status === 'active';
+  const actionKey = isActive ? 'amend' : 'draftAmend';
 
   return (
     <Fragment>
@@ -38,7 +38,7 @@ function Index() {
 
       <DocumentHeader
         subtitle={establishment.name}
-        title={<Snippet>{`page.title.${isDraft ? 'draft' : 'granted'}`}</Snippet>}
+        title={<Snippet>{`page.title.${isActive ? 'granted' : 'draft'}`}</Snippet>}
         backLink={<Link page="establishment.dashboard" label={<Snippet>action.backToDash</Snippet>} />}
       >
         {

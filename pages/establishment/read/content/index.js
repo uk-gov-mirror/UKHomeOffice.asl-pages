@@ -73,14 +73,6 @@ module.exports = {
         The establishment will need to revoke them or transfer them to another establishment first.`,
       button: 'Revoke licence'
     },
-    reapply: {
-      summary: `## Reapply for licence
-        You can amend this establishment licence if you want to:
-        * Change any of the licence details
-        * Add or remove authorisations
-      `,
-      button: 'Reapply for licence'
-    },
     approvedAreas: 'View approved areas',
     namedPeople: 'View named people',
     backToDash: 'Go to establishment overview',
