@@ -60,7 +60,7 @@ module.exports = () => {
 
     if (returnTo) {
       // preserve http method
-      return res.redirect(307, values.returnTo);
+      return res.redirect(307, returnTo);
     }
     next();
   });
