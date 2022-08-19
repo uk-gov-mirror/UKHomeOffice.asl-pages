@@ -24,7 +24,7 @@ const representations = `
   the right to make representations in writing or in person against the Secretary of State's proposal to refuse your
   application for a licence. Should you wish to make representations to a person appointed by the Secretary of State,
   you must respond to this notice by {{respondByDate}}. You may give notice of your intention to make representations
-  by contacting your SPoC or emailing [aspa.london@homeoffice.gov.uk](mailto:aspa.london@homeoffice.gov.uk).
+  by emailing [ASRULicensing@homeoffice.gov.uk](mailto:ASRULicensing@homeoffice.gov.uk).
 `;
 
 const outro = `
