@@ -226,7 +226,9 @@ module.exports = {
       revocation: 'Revoked by',
       transfer: 'Approved by',
       review: 'Reviewed by',
-      ra: 'Approved by'
+      ra: 'Approved by',
+      suspension: 'Suspended by',
+      reinstatement: 'Reinstated by'
     },
     'by-pelh': 'Approved by establishment licence holder',
     'on-behalf-of-pelh': 'Approved on behalf of establishment licence holder by'

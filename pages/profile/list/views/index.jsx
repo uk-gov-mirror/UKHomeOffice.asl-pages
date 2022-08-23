@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import classnames from 'classnames';
 import some from 'lodash/some';
 import {
   Search,
@@ -50,6 +51,19 @@ export const peopleFormatters = {
         return pil;
       }
       return '-';
+    }
+  },
+  pilStatus: {
+    format: (_, profile) => {
+      const pil = profile.pil;
+
+      if (!pil) {
+        return '-';
+      }
+
+      const status = pil.suspendedDate ? 'suspended' : pil.status;
+      const className = classnames({ badge: true, complete: status === 'active', rejected: ['revoked', 'suspended'].includes(status) });
+      return <span className={ className }>{ status }</span>;
     }
   }
 };

@@ -43,6 +43,15 @@ module.exports = {
   pilLicenceNumber: {
     show: true
   },
+  pilStatus: {
+    show: true,
+    toCSVString: (_, row) => {
+      if (!row.pil) {
+        return '';
+      }
+      return row.pil.suspendedDate ? 'suspended' : row.pil.status;
+    }
+  },
   pilHoldingEstablishment: {
     show: false,
     toCSVString: (_, row) => get(row, 'pil.establishment.name')

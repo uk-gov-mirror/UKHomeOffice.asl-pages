@@ -252,6 +252,10 @@ td.status .badges {
   }
 }
 
+td.reviewStatus .overdue {
+  color: $red;
+}
+
 .badge {
   padding: 3px 6px;
   background: #6F777B;

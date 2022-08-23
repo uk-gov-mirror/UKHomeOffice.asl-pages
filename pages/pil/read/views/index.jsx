@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
+import classnames from 'classnames';
 import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
@@ -19,6 +20,24 @@ import { Warning } from '@ukhomeoffice/react-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 import Reminders from '../../../common/components/reminders';
+
+function SuspendReinstateLicence({ pil }) {
+  const isSuspended = !!pil.suspendedDate;
+  const action = isSuspended ? 'reinstate' : 'suspend';
+
+  return (
+    <section className={`${action}-licence`}>
+      <Snippet>{`action.${action}.summary`}</Snippet>
+      <Link
+        page={`pil.${action}`}
+        className={classnames('govuk-button', action === 'suspend' ? 'button-suspend' : 'button-primary')}
+        pilId={pil.id}
+        establishmentId={pil.establishmentId}
+        label={<Snippet>{`action.${action}.button`}</Snippet>}
+      />
+    </section>
+  );
+}
 
 export default function PIL({ pil }) {
   pil = pil || useSelector(state => state.static.pil);
@@ -184,71 +203,78 @@ export default function PIL({ pil }) {
             <Fragment>
               {
                 openTask &&
-                  <section className="open-task">
-                    <h2><Snippet>{`openTask.${openTask.type}.title`}</Snippet></h2>
-                    <p><Snippet>{`openTask.${openTask.type}.description`}</Snippet></p>
-                    <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
+                  <Fragment>
+                    <section className="open-task">
+                      <h2><Snippet>{`openTask.${openTask.type}.title`}</Snippet></h2>
+                      <p><Snippet>{`openTask.${openTask.type}.description`}</Snippet></p>
+                      <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
+                    </section>
+                    {
+                      pil.status === 'active' &&
+                        <SuspendReinstateLicence pil={pil} />
+                    }
+                  </Fragment>
+              }
+
+              {
+                !openTask && pil.status === 'active' &&
+                  <Fragment>
+                    <section className="amend-licence">
+                      <Snippet>{amendIntroSnippet}</Snippet>
+                      <Link
+                        page="pil.update"
+                        className="govuk-button button-secondary"
+                        pilId={pil.id}
+                        establishmentId={pil.establishmentId}
+                        label={<Snippet>{amendButtonSnippet}</Snippet>}
+                      />
+                    </section>
+
+                    <SuspendReinstateLicence pil={pil} />
+
+                    <section className="revoke-licence">
+                      <Snippet>action.revoke.summary</Snippet>
+                      <Link
+                        page="pil.revoke"
+                        className="govuk-button button-warning"
+                        pilId={pil.id}
+                        establishmentId={pil.establishmentId}
+                        label={<Snippet>action.revoke.button</Snippet>}
+                      />
+                    </section>
+                  </Fragment>
+              }
+
+              {
+                !openTask && pil.status === 'revoked' && canReapply &&
+                  <section className="amend-licence">
+                    <Snippet>{`action.amend.reapply.summary`}</Snippet>
+                    <Link
+                      page="pil.update"
+                      pilId={pil.id}
+                      className="govuk-button button-secondary"
+                      establishmentId={pil.establishmentId}
+                      label={<Snippet>action.amend.reapply.button</Snippet>}
+                    />
                   </section>
               }
 
               {
-                !openTask &&
-                  <Fragment>
-                    {
-                      pil.status === 'active' &&
-                      <Fragment>
-                        <section className="amend-licence">
-                          <Snippet>{amendIntroSnippet}</Snippet>
-                          <Link
-                            page="pil.update"
-                            className="govuk-button button-secondary"
-                            pilId={pil.id}
-                            establishmentId={pil.establishmentId}
-                            label={<Snippet>{amendButtonSnippet}</Snippet>}
-                          />
-                        </section>
-                        <section className="revoke-licence">
-                          <Snippet>action.revoke.summary</Snippet>
-                          <Link
-                            page="pil.revoke"
-                            className="govuk-button button-warning"
-                            pilId={pil.id}
-                            establishmentId={pil.establishmentId}
-                            label={<Snippet>action.revoke.button</Snippet>}
-                          />
-                        </section>
-                      </Fragment>
-                    }
-                    {
-                      pil.status === 'revoked' && canReapply &&
-                      <section className="amend-licence">
-                        <Snippet>{`action.amend.reapply.summary`}</Snippet>
-                        <Link
-                          page="pil.update"
-                          pilId={pil.id}
-                          className="govuk-button button-secondary"
-                          establishmentId={pil.establishmentId}
-                          label={<Snippet>action.amend.reapply.button</Snippet>}
-                        />
-                      </section>
-                    }
-                    {
-                      pil.status === 'revoked' && !canReapply && profile.over18 &&
-                      <section className="apply-licence">
-                        <Snippet>{`action.reapply.summary`}</Snippet>
-                        <Link
-                          page="pil.create"
-                          className="govuk-button button-secondary"
-                          label={<Snippet>action.reapply.button</Snippet>}
-                        />
-                      </section>
-                    }
-                  </Fragment>
+                !openTask && pil.status === 'revoked' && !canReapply && profile.over18 &&
+                  <section className="apply-licence">
+                    <Snippet>{`action.reapply.summary`}</Snippet>
+                    <Link
+                      page="pil.create"
+                      className="govuk-button button-secondary"
+                      label={<Snippet>action.reapply.button</Snippet>}
+                    />
+                  </section>
               }
             </Fragment>
           </div>
         )
       }
+
       { showRelatedTasks && <RelatedTasks /> }
     </Fragment>
   );

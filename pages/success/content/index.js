@@ -151,5 +151,35 @@ module.exports = {
       before: 'You can ',
       linkText: 'view the history of this request.'
     }
+  },
+  'suspended': {
+    panel: {
+      title: 'Suspended'
+    },
+    whatNext: {
+      body: `This licence has been suspended. The licence holder is not authorised to carry out the regulated procedures
+      in the categories stated in this licence.
+
+      The relevant people have been emailed.`
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
+  },
+  'reinstated': {
+    panel: {
+      title: 'Reinstated'
+    },
+    whatNext: {
+      body: `This licence has been reinstated. The licence holder is now authorised to carry out the regulated procedures
+      in the categories stated in this licence.
+
+      The relevant people have been emailed.`
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
   }
 };

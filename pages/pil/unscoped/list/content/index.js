@@ -16,6 +16,9 @@ module.exports = merge({}, baseContent, {
     licenceNumber: {
       label: 'Licence number'
     },
+    status: {
+      label: 'Licence status'
+    },
     issueDate: {
       label: 'Valid from'
     },

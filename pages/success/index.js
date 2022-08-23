@@ -51,8 +51,15 @@ const getSuccessType = task => {
   const action = get(task, 'data.action');
   const latestActivity = get(task, 'activityLog[0]');
 
-  if (task.status === 'resolved' && model === 'pil' && action === 'review') {
-    return 'review-complete';
+  if (task.status === 'resolved' && model === 'pil') {
+    switch (action) {
+      case 'review':
+        return 'review-complete';
+      case 'suspend':
+        return 'suspended';
+      case 'reinstate':
+        return 'reinstated';
+    }
   }
 
   if (model === 'rop') {

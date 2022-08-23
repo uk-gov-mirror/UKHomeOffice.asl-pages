@@ -1,4 +1,5 @@
 const revoke = require('./revoke');
+const suspend = require('../suspend');
 const update = require('./update');
 const remove = require('./delete');
 const pdf = require('./pdf');
@@ -14,9 +15,18 @@ module.exports = {
   },
   revoke: {
     path: '/:pilId/revoke',
-    // TODO: add revoke permission
-    permissions: 'pil.update',
+    permissions: 'pil.revoke',
     router: revoke
+  },
+  suspend: {
+    path: '/:pilId/suspend',
+    permissions: 'pil.suspend',
+    router: suspend({ modelType: 'pil', action: 'suspend' })
+  },
+  reinstate: {
+    path: '/:pilId/reinstate',
+    permissions: 'pil.suspend',
+    router: suspend({ modelType: 'pil', action: 'reinstate' })
   },
   update: {
     path: '/:pilId/edit',

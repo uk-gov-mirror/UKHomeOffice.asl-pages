@@ -26,7 +26,9 @@ module.exports = {
         species: 'Animal types',
         establishment: 'Establishment'
       },
-      revoke: 'Revoke personal licence'
+      revoke: 'Revoke personal licence',
+      suspend: 'Suspend personal licence',
+      reinstate: 'Reinstate personal licence'
     },
     globalProfile: 'Profile',
     pils: {
@@ -234,6 +236,7 @@ module.exports = {
       revoked: 'Revoked',
       refused: 'Refused',
       expired: 'Expired',
+      suspended: 'Suspended',
       active: 'Amendment in progress',
       superseded: 'Superseded',
       stub: 'Partial record',

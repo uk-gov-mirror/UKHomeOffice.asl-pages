@@ -267,7 +267,6 @@ function LogItem({ item, task }) {
       action = 'deadline-reinstated';
     }
   }
-
   return (
     <div className="log-item" id={item.id}>
       <span className="date">{format(item.createdAt, dateFormat.long)}</span>

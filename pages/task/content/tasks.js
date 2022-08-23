@@ -18,7 +18,9 @@ module.exports = {
     revoke: 'Personal licence revocation',
     'update-conditions': 'Update conditions',
     transfer: 'Personal licence transfer',
-    review: 'Personal licence review'
+    review: 'Personal licence review',
+    suspend: 'Personal licence suspension',
+    reinstate: 'Personal licence reinstatement'
   },
   trainingPil: {
     grant: 'Training personal licence application',
