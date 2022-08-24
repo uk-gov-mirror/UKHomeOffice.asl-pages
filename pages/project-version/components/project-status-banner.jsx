@@ -44,6 +44,12 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
       );
     }
 
+    if (model.suspendedDate) {
+      return (
+        <LicenceStatusBanner title={<Snippet>invalidLicence.status.suspended</Snippet>} licence={model} licenceType="ppl" colour="red" isPdf={isPdf} />
+      );
+    }
+
     // viewing active version
     if (model.granted && model.granted.id === version.id && !additionalAvailabilityRemoved) {
       return null;

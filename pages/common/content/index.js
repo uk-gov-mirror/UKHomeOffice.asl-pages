@@ -73,6 +73,8 @@ module.exports = {
       updateLicenceHolder: 'Update licence holder',
       upload: 'Upload draft application',
       revoke: 'Revoke licence',
+      suspend: 'Suspend project licence',
+      reinstate: 'Reinstate project licence',
       import: 'Import project',
       addUser: 'Give access to this PPL',
       transferDraft: 'Transfer draft project'

@@ -34,7 +34,9 @@ module.exports = {
     transfer: 'Project licence transfer',
     update: 'Project licence amendment',
     revoke: 'Project licence revocation',
-    'grant-ra': 'Retrospective assessment'
+    'grant-ra': 'Retrospective assessment',
+    suspend: 'Project licence suspension',
+    reinstate: 'Project licence reinstatement'
   },
   establishment: {
     grant: 'Establishment application',

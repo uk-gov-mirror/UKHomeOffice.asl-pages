@@ -157,10 +157,19 @@ module.exports = {
       title: 'Suspended'
     },
     whatNext: {
-      body: `This licence has been suspended. The licence holder is not authorised to carry out the regulated procedures
-      in the categories stated in this licence.
+      body: {
+        pil: `This licence has been suspended. The licence holder is not authorised to carry out the regulated procedures
+        in the categories stated in this licence.
 
-      The relevant people have been emailed.`
+        The relevant people have been emailed.`,
+
+        project: `This licence has been suspended. The licence holder is not authorised to carry out the programme of
+        work as stated in this licence.
+
+        The relevant people have been emailed.`,
+
+        establishment: ``
+      }
     },
     taskLink: {
       before: 'You can ',
@@ -172,10 +181,19 @@ module.exports = {
       title: 'Reinstated'
     },
     whatNext: {
-      body: `This licence has been reinstated. The licence holder is now authorised to carry out the regulated procedures
-      in the categories stated in this licence.
+      body: {
+        pil: `This licence has been reinstated. The licence holder is now authorised to carry out the regulated procedures
+        in the categories stated in this licence.
 
-      The relevant people have been emailed.`
+        The relevant people have been emailed.`,
+
+        project: `This licence has been reinstated. Regulated procedures are now authorised to be carried out under
+        this licence.
+
+        The relevant people have been emailed.`,
+
+        establishment: ``
+      }
     },
     taskLink: {
       before: 'You can ',

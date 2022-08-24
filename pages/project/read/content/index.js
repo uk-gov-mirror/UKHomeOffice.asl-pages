@@ -128,6 +128,8 @@ module.exports = merge({}, baseContent, {
     viewTask: 'View task',
     continue: 'Edit amendment',
     amend: 'Amend licence',
+    suspend: 'Suspend licence',
+    reinstate: 'Reinstate licence',
     revoke: 'Revoke licence',
     discardTask: 'View task to discard',
     discard: {
@@ -161,6 +163,14 @@ module.exports = merge({}, baseContent, {
   revoke: {
     title: 'Revoke licence',
     description: 'Cancel this licence if it is no longer needed.'
+  },
+  suspend: {
+    title: 'Suspend licence',
+    description: 'Suspend this licence if regulated procedures should not be authorised to be carried out under this licence.'
+  },
+  reinstate: {
+    title: 'Reinstate licence',
+    description: 'Reinstate this suspended icence if regulated procedures should be authorised to be carried out under this licence.'
   },
   manageAccess: {
     title: 'Guest access',

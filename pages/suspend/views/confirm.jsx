@@ -10,11 +10,11 @@ const licenceType = {
 };
 
 export default function ConfirmSuspension() {
-  const { model, static: { modelType, profile } } = useSelector(state => state);
+  const { model, static: { modelType, licence, licenceHolder } } = useSelector(state => state);
 
   const subtitle = modelType === 'pil'
-    ? `${profile.firstName} ${profile.lastName}`
-    : model.name || model.title;
+    ? `${licenceHolder.firstName} ${licenceHolder.lastName}`
+    : licence.name || licence.title;
 
   return (
     <FormLayout cancelLink={`${modelType}.read`}>
@@ -25,12 +25,12 @@ export default function ConfirmSuspension() {
 
       <dl>
         {
-          modelType === 'pil' &&
+          ['pil', 'project'].includes(modelType) &&
             <Fragment>
               <dt>Licence holder</dt>
-              <dd>{`${profile.firstName} ${profile.lastName}`}</dd>
+              <dd>{`${licenceHolder.firstName} ${licenceHolder.lastName}`}</dd>
               <dt>Licence number</dt>
-              <dd>{profile.pilLicenceNumber}</dd>
+              <dd>{modelType === 'pil' ? licenceHolder.pilLicenceNumber : licence.licenceNumber}</dd>
             </Fragment>
         }
         <dt><Snippet>reason</Snippet></dt>

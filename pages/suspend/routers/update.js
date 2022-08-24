@@ -10,7 +10,8 @@ module.exports = ({ modelType, action }) => {
   app.use(form({
     schema,
     locals(req, res, next) {
-      res.locals.static.profile = req.profile;
+      res.locals.static.model = req.model;
+      res.locals.static.licenceHolder = req.model.licenceHolder || req.profile;
       res.locals.static.content = merge({}, res.locals.static.content, content[action]);
       next();
     }

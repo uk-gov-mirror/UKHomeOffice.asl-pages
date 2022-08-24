@@ -8,8 +8,9 @@ module.exports = ({ modelType, action }) => {
 
   app.use(form({
     locals(req, res, next) {
-      res.locals.static.profile = req.profile;
       res.locals.model = get(req.session, `form.${req.model.id}.values`);
+      res.locals.static.licence = req.model;
+      res.locals.static.licenceHolder = req.model.licenceHolder || req.profile;
       res.locals.static.content = merge({}, res.locals.static.content, content[action]);
       next();
     }
@@ -29,7 +30,7 @@ module.exports = ({ modelType, action }) => {
 
     const endpoints = {
       pil: `/profile/${req.profileId}/pil/${req.model.id}/${action}`,
-      project: `/establishment/${req.establishmentId}/projects/${req.model.id}/${action}`,
+      project: `/project/${req.model.id}/${action}`,
       establishment: `/establishment/${req.model.id}/${action}`
     };
 

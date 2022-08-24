@@ -8,18 +8,23 @@ const licenceType = {
   project: 'project'
 };
 
-export default function SuspendOrReinstateLicence({ children }) {
-  const { model, modelType, profile } = useSelector(state => state.static);
+const getLicenceName = ({ modelType, model, licenceHolder }) => {
+  const licenceName = {
+    pil: `${licenceHolder.firstName} ${licenceHolder.lastName}`,
+    establishment: model.name,
+    project: model.title
+  };
+  return licenceName[modelType];
+};
 
-  const subtitle = modelType === 'pil'
-    ? `${profile.firstName} ${profile.lastName}`
-    : model.name || model.title;
+export default function SuspendOrReinstateLicence({ children }) {
+  const { modelType, model, licenceHolder } = useSelector(state => state.static);
 
   return (
     <FormLayout cancelLink={`${modelType}.read`}>
       <Header
         title={<Snippet licenceType={licenceType[modelType]}>title</Snippet>}
-        subtitle={subtitle}
+        subtitle={getLicenceName({ modelType, model, licenceHolder })}
       />
       { children }
     </FormLayout>

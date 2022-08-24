@@ -4,6 +4,7 @@ const read = require('./read');
 const updateLicenceHolder = require('./update-licence-holder');
 const remove = require('./delete');
 const revoke = require('./revoke');
+const suspend = require('../suspend');
 const addUser = require('./add-user');
 const removeUser = require('./remove-user');
 const transferDraft = require('./transfer-draft');
@@ -47,6 +48,16 @@ module.exports = {
     path: '/:projectId/revoke',
     permissions: 'project.revoke',
     router: revoke
+  },
+  suspend: {
+    path: '/:projectId/suspend',
+    permissions: 'project.suspend',
+    router: suspend({ modelType: 'project', action: 'suspend' })
+  },
+  reinstate: {
+    path: '/:projectId/reinstate',
+    permissions: 'project.suspend',
+    router: suspend({ modelType: 'project', action: 'reinstate' })
   },
   transferDraft: {
     path: '/:projectId/transfer-draft',
