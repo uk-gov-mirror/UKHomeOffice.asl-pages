@@ -3,9 +3,7 @@ const { page } = require('@asl/service/ui');
 const {
   canComment,
   getAllChanges,
-  getProjectEstablishment,
-  getPreviousProtocols,
-  getPreviousAA
+  getProjectEstablishment
 } = require('../middleware');
 
 module.exports = settings => {
@@ -17,9 +15,7 @@ module.exports = settings => {
   app.use(
     canComment(),
     getAllChanges(),
-    getProjectEstablishment(),
-    getPreviousProtocols(),
-    getPreviousAA()
+    getProjectEstablishment()
   );
 
   app.use((req, res, next) => {
