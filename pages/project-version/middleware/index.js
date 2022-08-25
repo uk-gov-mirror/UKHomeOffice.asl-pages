@@ -293,6 +293,30 @@ const hasChanged = (before, after, key) => {
   return valueChanged;
 };
 
+const getVersionChanges = (current, firstVersion, previousVersion, grantedVersion) => {
+  return {
+    first: getChanges(current, firstVersion),
+    latest: getChanges(current, previousVersion),
+    granted: getChanges(current, grantedVersion)
+  };
+};
+
+const getPreviousProtocols = (firstVersion, previousVersion, grantedVersion) => {
+  const firstProtocols = get(firstVersion, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const previousProtocols = get(previousVersion, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const grantedProtocols = get(grantedVersion, 'data.protocols', []).filter(Boolean).map(p => p.id);
+  const showDeletedProtocols = uniq([ ...previousProtocols, ...grantedProtocols ]);
+  return { firstProtocols, previousProtocols, grantedProtocols, showDeletedProtocols };
+};
+
+const getPreviousAA = (firstVersion, previousVersion, grantedVersion) => {
+  const firstEstablishments = get(firstVersion, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const previousEstablishments = get(previousVersion, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const grantedEstablishments = get(grantedVersion, 'data.establishments', []).filter(Boolean).map(p => p.id);
+  const showDeletedEstablishments = uniq([ ...previousEstablishments, ...grantedEstablishments ]);
+  return { firstEstablishments, previousEstablishments, grantedEstablishments, showDeletedEstablishments };
+};
+
 const getAllChanges = (type = 'project-versions') => (req, res, next) => {
   const model = type === 'project-versions' ? 'version' : 'retrospectiveAssessment';
   Promise.all([
@@ -301,14 +325,9 @@ const getAllChanges = (type = 'project-versions') => (req, res, next) => {
     getGrantedVersion(req, type)
   ])
     .then(([firstVersion, previousVersion, grantedVersion]) => {
-      return {
-        first: getChanges(req[model], firstVersion),
-        latest: getChanges(req[model], previousVersion),
-        granted: getChanges(req[model], grantedVersion)
-      };
-    })
-    .then(changes => {
-      res.locals.static.changes = changes;
+      res.locals.static.changes = getVersionChanges(req[model], firstVersion, previousVersion, grantedVersion);
+      res.locals.static.previousProtocols = getPreviousProtocols(firstVersion, previousVersion, grantedVersion);
+      res.locals.static.previousAA = getPreviousAA(firstVersion, previousVersion, grantedVersion);
     })
     .then(() => next())
     .catch(next);
@@ -366,44 +385,6 @@ const getProjectEstablishment = () => (req, res, next) => {
     });
 };
 
-const getPreviousProtocols = () => (req, res, next) => {
-  Promise.all([
-    getFirstVersion(req),
-    getPreviousVersion(req),
-    getGrantedVersion(req)
-  ])
-    .then(([first, previous, granted]) => {
-      first = get(first, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-      previous = get(previous, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-      granted = get(granted, 'data.protocols', []).filter(Boolean).map(p => p.id);
-
-      const showDeleted = uniq([ ...previous, ...granted ]);
-
-      res.locals.static.previousProtocols = { first, previous, granted, showDeleted };
-    })
-    .then(() => next())
-    .catch(next);
-};
-
-const getPreviousAA = () => (req, res, next) => {
-  Promise.all([
-    getFirstVersion(req),
-    getPreviousVersion(req),
-    getGrantedVersion(req)
-  ])
-    .then(([first, previous, granted]) => {
-      first = get(first, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-      previous = get(previous, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-      granted = get(granted, 'data.establishments', []).filter(Boolean).map(p => p.id);
-
-      const showDeleted = uniq([ ...previous, ...granted ]);
-
-      res.locals.static.previousAA = { first, previous, granted, showDeleted };
-    })
-    .then(() => next())
-    .catch(next);
-};
-
 const loadRa = (req, res, next) => {
   const raCompulsory = get(req, 'version.raCompulsory');
   const retrospectiveAssessment = get(req, 'version.retrospectiveAssessment');
@@ -438,7 +419,5 @@ module.exports = {
   getAllChanges,
   getChangedValues,
   getProjectEstablishment,
-  getPreviousProtocols,
-  getPreviousAA,
   loadRa
 };

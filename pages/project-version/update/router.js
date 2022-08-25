@@ -6,9 +6,7 @@ const { get } = require('lodash');
 const {
   canComment,
   getAllChanges,
-  getProjectEstablishment,
-  getPreviousProtocols,
-  getPreviousAA
+  getProjectEstablishment
 } = require('../middleware');
 
 module.exports = settings => {
@@ -20,9 +18,7 @@ module.exports = settings => {
   app.get('/',
     canComment(),
     getAllChanges(),
-    getProjectEstablishment(),
-    getPreviousProtocols(),
-    getPreviousAA()
+    getProjectEstablishment()
   );
 
   app.get('/', (req, res, next) => {
