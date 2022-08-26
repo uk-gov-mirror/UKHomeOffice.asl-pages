@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
+import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { Warning } from '@ukhomeoffice/react-components';
 import {
@@ -27,8 +28,10 @@ function Index() {
   const canDownloadPDF = allowedActions.includes('establishment.pdf');
   const canSeeRevoke = allowedActions.includes('establishment.revoke') && establishment.status === 'active';
   const canActionRevoke = canSeeRevoke && !establishment.hasActiveLicences;
+  const canSuspend = allowedActions.includes('establishment.suspend');
   const isActive = establishment.status === 'active';
   const actionKey = isActive ? 'amend' : 'draftAmend';
+  const suspendAction = establishment.suspendedDate ? 'reinstate' : 'suspend';
 
   return (
     <Fragment>
@@ -180,6 +183,18 @@ function Index() {
                 page="establishment.update"
                 label={<Snippet>{`action.${actionKey}.button`}</Snippet>}
                 className="govuk-button button-secondary"
+              />
+            </section>
+          )
+        }
+        {
+          canSuspend && (
+            <section className={`${suspendAction}-licence`}>
+              <Snippet>{`action.${suspendAction}.summary`}</Snippet>
+              <Link
+                page={`establishment.${suspendAction}`}
+                className={classnames('govuk-button', suspendAction === 'suspend' ? 'button-suspend' : 'button-primary')}
+                label={<Snippet>{`action.${suspendAction}.button`}</Snippet>}
               />
             </section>
           )

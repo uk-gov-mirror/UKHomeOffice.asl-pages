@@ -10,7 +10,6 @@ module.exports = ({ modelType, action }) => {
     locals(req, res, next) {
       res.locals.model = get(req.session, `form.${req.model.id}.values`);
       res.locals.static.licence = req.model;
-      res.locals.static.licenceHolder = req.model.licenceHolder || req.profile;
       res.locals.static.content = merge({}, res.locals.static.content, content[action]);
       next();
     }

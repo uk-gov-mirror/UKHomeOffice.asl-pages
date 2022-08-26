@@ -13,7 +13,9 @@ module.exports = {
       update: 'Amend establishment details',
       apply: 'Apply for licence',
       fees: 'Estimated licence fees',
-      rops: 'Returns of procedures'
+      rops: 'Returns of procedures',
+      suspend: 'Suspend establishment licence',
+      reinstate: 'Reinstate establishment licence'
     },
     pil: {
       read: 'View personal licence',
