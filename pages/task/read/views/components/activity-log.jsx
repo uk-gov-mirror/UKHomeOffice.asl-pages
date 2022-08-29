@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import classnames from 'classnames';
 import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@asl/components';
 import { dateFormat } from '../../../../../constants';
@@ -291,7 +290,6 @@ export default function ActivityLog({ task }) {
   const isAsru = useSelector(state => state.static.isAsru);
 
   function toggle(e) {
-    e.preventDefault();
     setOpen(!open);
   }
 
@@ -310,18 +308,12 @@ export default function ActivityLog({ task }) {
       <LogItem key={latestActivity.id} item={latestActivity} task={task} />
 
       { activityLog.length > 1 &&
-        <Fragment>
-          <p className={classnames('toggle-switch', { open })}>
-            <a href="#" onClick={toggle}>
-              {
-                open
-                  ? <Snippet>activityLog.close</Snippet>
-                  : <Snippet>activityLog.open</Snippet>
-              }
-            </a>
-          </p>
+        <details>
+          <summary onClick={toggle}>
+            <Snippet>{ open ? 'activityLog.close' : 'activityLog.open' }</Snippet>
+          </summary>
 
-          <div className={classnames('older-activity', { hidden: !open })}>
+          <div className="older-activity">
             <ul className="task-activity">
               {
                 activityLog.slice(1).map(item => (
@@ -332,7 +324,7 @@ export default function ActivityLog({ task }) {
               }
             </ul>
           </div>
-        </Fragment>
+        </details>
       }
     </div>
   );
