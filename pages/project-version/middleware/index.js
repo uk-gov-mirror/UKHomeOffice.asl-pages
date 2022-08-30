@@ -302,19 +302,19 @@ const getVersionChanges = (current, firstVersion, previousVersion, grantedVersio
 };
 
 const getPreviousProtocols = (firstVersion, previousVersion, grantedVersion) => {
-  const firstProtocols = get(firstVersion, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-  const previousProtocols = get(previousVersion, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-  const grantedProtocols = get(grantedVersion, 'data.protocols', []).filter(Boolean).map(p => p.id);
-  const showDeletedProtocols = uniq([ ...previousProtocols, ...grantedProtocols ]);
-  return { firstProtocols, previousProtocols, grantedProtocols, showDeletedProtocols };
+  const first = get(firstVersion, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const previous = get(previousVersion, 'data.protocols', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const granted = get(grantedVersion, 'data.protocols', []).filter(Boolean).map(p => p.id);
+  const showDeleted = uniq([ ...previous, ...granted ]);
+  return { first, previous, granted, showDeleted };
 };
 
 const getPreviousAA = (firstVersion, previousVersion, grantedVersion) => {
-  const firstEstablishments = get(firstVersion, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-  const previousEstablishments = get(previousVersion, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
-  const grantedEstablishments = get(grantedVersion, 'data.establishments', []).filter(Boolean).map(p => p.id);
-  const showDeletedEstablishments = uniq([ ...previousEstablishments, ...grantedEstablishments ]);
-  return { firstEstablishments, previousEstablishments, grantedEstablishments, showDeletedEstablishments };
+  const first = get(firstVersion, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const previous = get(previousVersion, 'data.establishments', []).filter(Boolean).filter(p => !p.deleted).map(p => p.id);
+  const granted = get(grantedVersion, 'data.establishments', []).filter(Boolean).map(p => p.id);
+  const showDeleted = uniq([ ...previous, ...granted ]);
+  return { first, previous, granted, showDeleted };
 };
 
 const getAllChanges = (type = 'project-versions') => (req, res, next) => {
