@@ -15,7 +15,7 @@ module.exports = settings => {
     const opts = {
       method: 'PUT',
       json: merge({
-        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species'),
+        data: pick(req.model, 'procedures', 'notesCatD', 'notesCatF', 'species', 'training'),
         meta: {
           declaration: content.fields.declaration.label
         }
@@ -60,7 +60,7 @@ module.exports = settings => {
       .filter(e => e.id !== req.establishment.id)
       .find(e => e.id === get(req.model, 'establishmentId'));
 
-    const trainingUpToDate = get(req.session, `form[${req.model.id}-training].values.update`) === false;
+    const trainingUpToDate = get(req.model, `training.update`) === false;
     res.locals.static.trainingUpToDate = trainingUpToDate;
 
     req.model.establishment = {

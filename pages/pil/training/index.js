@@ -1,4 +1,4 @@
-const { set } = require('lodash');
+const { set, get } = require('lodash');
 const { page } = require('@asl/service/ui');
 const { form } = require('../../common/routers');
 const { buildModel } = require('../../../lib/utils');
@@ -21,6 +21,9 @@ module.exports = settings => {
     const { update } = req.form.values;
 
     if (!update) {
+      const training = get(req.session, `form[${req.model.id}].values`);
+      const savedValues = get(req.session, `form[${req.pil.id}].values`);
+      set(req.session, `form[${req.pil.id}].values`, Object.assign({}, savedValues, { training: training }));
       return res.redirect(req.buildRoute('pil.update'));
     }
     const type = req.pil.status === 'active' ? 'amendment' : 'application';
