@@ -50,6 +50,7 @@ export default function PIL({ pil }) {
     canDownload,
     openTask,
     isLicenceHolder,
+    isInspector,
     pilReviewRequired,
     reviewUrl,
     showRelatedTasks,
@@ -210,8 +211,7 @@ export default function PIL({ pil }) {
                       <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
                     </section>
                     {
-                      pil.status === 'active' &&
-                        <SuspendReinstateLicence pil={pil} />
+                      pil.status === 'active' && isInspector && <SuspendReinstateLicence pil={pil} />
                     }
                   </Fragment>
               }
@@ -230,7 +230,9 @@ export default function PIL({ pil }) {
                       />
                     </section>
 
-                    <SuspendReinstateLicence pil={pil} />
+                    {
+                      isInspector && <SuspendReinstateLicence pil={pil} />
+                    }
 
                     <section className="revoke-licence">
                       <Snippet>action.revoke.summary</Snippet>

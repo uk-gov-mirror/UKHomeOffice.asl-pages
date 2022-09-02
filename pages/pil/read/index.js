@@ -63,6 +63,7 @@ module.exports = settings => {
     res.locals.static.profile = req.profile;
     res.locals.static.currentPath = req.originalUrl;
     res.locals.static.isLicenceHolder = req.user.profile.id === req.profileId;
+    res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
     next();
   });
 
