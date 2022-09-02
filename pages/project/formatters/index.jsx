@@ -7,7 +7,7 @@ import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';
 
-const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended', 'refused'];
+const bad = ['expired', 'transferred', 'revoked', 'additional-availability-ended', 'refused', 'suspended'];
 const good = ['active'];
 
 function EstablishmentList({ establishments }) {
@@ -78,6 +78,10 @@ const formatters = establishmentId => ({
 
       if (model.refusedDate) {
         status = 'refused';
+      }
+
+      if (model.suspendedDate) {
+        status = 'suspended';
       }
 
       const className = classnames({ badge: true, complete: good.includes(status), rejected: bad.includes(status) });

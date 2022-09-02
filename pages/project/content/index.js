@@ -75,7 +75,8 @@ module.exports = {
     expired: 'Expired',
     revoked: 'Revoked',
     'additional-availability-ended': 'Availability removed',
-    refused: 'Refused'
+    refused: 'Refused',
+    suspended: 'Suspended'
   },
   tabs: {
     inactive: 'Drafts'
