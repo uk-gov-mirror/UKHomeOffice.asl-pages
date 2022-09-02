@@ -12,9 +12,12 @@ module.exports = ({ modelType, action }) => () => {
 
   const getLicenceHolder = ({ req, modelType }) => {
     switch (modelType) {
-      case 'pil': return req.profile;
-      case 'project': return get(req, 'model.licenceHolder');
-      case 'establishment': return get(req, 'establishment.pelh') || get(req, 'establishment.nprc');
+      case 'pil':
+        return req.profile;
+      case 'project':
+        return get(req, 'model.licenceHolder');
+      case 'establishment':
+        return get(req, 'establishment.pelh') || get(req, 'establishment.nprc') || { firstName: 'None', lastName: '' };
     }
   };
 
