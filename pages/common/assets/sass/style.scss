@@ -874,3 +874,11 @@ section#rops {
 .condition-reminders {
   margin-bottom: $govuk-gutter;
 }
+
+.button-suspend {
+  background-color: #E3733B;
+
+  &:hover {
+    background-color: #E3733B;
+  }
+}
