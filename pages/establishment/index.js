@@ -23,7 +23,7 @@ module.exports = settings => {
     next();
   });
 
-  app.use('/suspend|reinstate',
+  app.use(['/suspend', '/reinstate'],
     populateNamedPeople,
     (req, res, next) => {
       req.model = req.establishment;
