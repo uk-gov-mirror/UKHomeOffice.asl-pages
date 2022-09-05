@@ -195,7 +195,10 @@ module.exports = {
 
         The relevant people have been emailed.`,
 
-        establishment: ``
+        establishment: `This licence has been reinstated. The establishment is now authorised to apply regulated procedures
+        to protected animals, or to breed, supply, or keep protected animals in any area at the establishment.
+
+        The relevant people have been emailed.`
       }
     },
     taskLink: {

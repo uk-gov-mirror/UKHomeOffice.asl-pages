@@ -42,6 +42,8 @@ module.exports = {
     grant: 'Establishment application',
     update: 'Establishment amendment',
     revoke: 'Establishment revocation',
-    'update-conditions': 'Update conditions'
+    'update-conditions': 'Update conditions',
+    suspend: 'Establishment licence suspension',
+    reinstate: 'Establishment licence reinstatement'
   }
 };
