@@ -49,7 +49,7 @@ module.exports = {
       if (!row.pil) {
         return '';
       }
-      return row.pil.suspendedDate ? 'suspended' : row.pil.status;
+      return (row.pil.status === 'active' && row.pil.suspendedDate) ? 'suspended' : row.pil.status;
     }
   },
   pilHoldingEstablishment: {
