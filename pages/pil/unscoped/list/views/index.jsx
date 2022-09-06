@@ -23,7 +23,7 @@ const formatters = {
   },
   status: {
     format: (_, pil) => {
-      const status = pil.suspendedDate ? 'suspended' : pil.status;
+      const status = (pil.status === 'active' && pil.suspendedDate) ? 'suspended' : pil.status;
       const className = classnames({ badge: true, complete: status === 'active', rejected: ['revoked', 'suspended'].includes(status) });
       return <span className={ className }>{ status }</span>;
     }
