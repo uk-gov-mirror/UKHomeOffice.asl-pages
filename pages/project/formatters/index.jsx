@@ -80,7 +80,7 @@ const formatters = establishmentId => ({
         status = 'refused';
       }
 
-      if (model.suspendedDate) {
+      if (status === 'active' && model.suspendedDate) {
         status = 'suspended';
       }
 
