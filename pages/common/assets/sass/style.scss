@@ -875,10 +875,13 @@ section#rops {
   margin-bottom: $govuk-gutter;
 }
 
-.button-suspend {
-  background-color: #E3733B;
+.govuk-button {
+  &.button-suspend {
+    background-color: #E3733B;
 
-  &:hover {
-    background-color: #AE4B19;
+    &:hover {
+      background-color: #AE4B19;
+    }
   }
+
 }
