@@ -24,9 +24,15 @@ module.exports = () => {
     configure: (req, res, next) => {
       const chosenStatus = get(req, `session.form[${req.task.id}].values.status`);
       if (!chosenStatus) {
+        req.notification({ key: 'form-session-error', type: 'error' });
         return res.redirect(req.buildRoute('task.read'));
       }
-      res.locals.static.commentRequired = req.task.nextSteps.find(s => s.id === chosenStatus).commentRequired;
+      const nextStep = req.task.nextSteps.find(s => s.id === chosenStatus);
+      if (!nextStep) {
+        req.notification({ key: 'form-session-error', type: 'error' });
+        return res.redirect(req.buildRoute('task.read'));
+      }
+      res.locals.static.commentRequired = nextStep.commentRequired;
       res.locals.static.commentLabel = content.commentLabels[chosenStatus];
       req.schema = getSchema({ task: req.task, chosenStatus });
       req.form.schema = req.schema;

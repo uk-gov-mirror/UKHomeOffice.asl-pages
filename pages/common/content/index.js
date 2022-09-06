@@ -220,7 +220,8 @@ module.exports = {
     }
   },
   notifications: {
-    success: 'Changes saved.'
+    success: 'Changes saved.',
+    'form-session-error': 'There was a problem processing this form. Please try again.'
   },
   warnings: {
     openTask: 'This item is currently being edited'
