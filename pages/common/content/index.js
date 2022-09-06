@@ -241,6 +241,7 @@ module.exports = {
       refused: 'Refused',
       expired: 'Expired',
       suspended: 'Suspended',
+      establishmentSuspended: 'Related establishment licence suspended',
       active: 'Amendment in progress',
       superseded: 'Superseded',
       stub: 'Partial record',
@@ -255,7 +256,10 @@ module.exports = {
       superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
       stub: 'This is not the full granted licence for this project, it is a partial record. To view the granted licence, refer to offline records or contact the Home Office.',
       transferred: 'This licence has been transferred to another establishment.',
-      'additional-availability-removed': 'This is the most recent version of the licence that {{establishmentName}} is authorised to see.'
+      'additional-availability-removed': 'This is the most recent version of the licence that {{establishmentName}} is authorised to see.',
+      establishmentSuspended: `{{establishmentName}}'s establishment licence is not active. The establishment is not
+      authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals
+      in any area at the establishment.`
     },
     view: 'View granted licence',
     viewTransferred: 'View the latest version of this licence'
