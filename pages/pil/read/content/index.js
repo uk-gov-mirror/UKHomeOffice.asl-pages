@@ -36,6 +36,16 @@ module.exports = merge({}, baseContent, {
       summary: `## Apply for a new licence`,
       button: 'Reapply for licence'
     },
+    suspend: {
+      summary: `## Suspend licence
+      Suspend this licence if the licence holder should temporarily not be authorised to carry out regulated procedures in the categories stated in this licence.`,
+      button: 'Suspend licence'
+    },
+    reinstate: {
+      summary: `## Reinstate licence
+      Reinstate this suspended licence if the licence holder should be authorised to carry out regulated procedures in the categories stated in this licence.`,
+      button: 'Reinstate licence'
+    },
     amend: {
       licenceHolder: {
         summary: `## Amend or transfer licence

@@ -18,7 +18,9 @@ module.exports = {
     revoke: 'Personal licence revocation',
     'update-conditions': 'Update conditions',
     transfer: 'Personal licence transfer',
-    review: 'Personal licence review'
+    review: 'Personal licence review',
+    suspend: 'Personal licence suspension',
+    reinstate: 'Personal licence reinstatement'
   },
   trainingPil: {
     grant: 'Training personal licence application',
@@ -32,12 +34,16 @@ module.exports = {
     transfer: 'Project licence transfer',
     update: 'Project licence amendment',
     revoke: 'Project licence revocation',
-    'grant-ra': 'Retrospective assessment'
+    'grant-ra': 'Retrospective assessment',
+    suspend: 'Project licence suspension',
+    reinstate: 'Project licence reinstatement'
   },
   establishment: {
     grant: 'Establishment application',
     update: 'Establishment amendment',
     revoke: 'Establishment revocation',
-    'update-conditions': 'Update conditions'
+    'update-conditions': 'Update conditions',
+    suspend: 'Establishment licence suspension',
+    reinstate: 'Establishment licence reinstatement'
   }
 };

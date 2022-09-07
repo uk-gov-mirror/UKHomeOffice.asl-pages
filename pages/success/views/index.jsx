@@ -9,7 +9,9 @@ const Index = ({ onwardLink }) => {
     taskId,
     isAsruUser,
     additionalInfo,
-    projectId
+    projectId,
+    modelType,
+    action
   } = useSelector(state => state.static);
 
   return (
@@ -32,7 +34,11 @@ const Index = ({ onwardLink }) => {
 
         <div className="what-next">
           <h2><Snippet>success.whatNext.title</Snippet></h2>
-          <p><Snippet optional>success.whatNext.body</Snippet></p>
+          {
+            ['suspend', 'reinstate'].includes(action)
+              ? <p><Snippet optional>{`success.whatNext.body.${modelType}`}</Snippet></p>
+              : <p><Snippet optional>success.whatNext.body</Snippet></p>
+          }
           <p><Snippet optional>{`success.whatNext.${isAsruUser ? 'internal' : 'external'}`}</Snippet></p>
 
           <p><Snippet>success.taskLink.before</Snippet> <Link page="task.read" label={<Snippet>success.taskLink.linkText</Snippet>} taskId={taskId} /></p>

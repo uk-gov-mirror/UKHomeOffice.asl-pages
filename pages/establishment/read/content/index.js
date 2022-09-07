@@ -64,6 +64,20 @@ module.exports = {
       `,
       button: 'Amend licence'
     },
+    suspend: {
+      summary: `## Suspend licence
+
+      Suspend this licence if the establishment should temporarily not be authorised to apply regulated procedures to
+      protected animals, or to breed, supply, or keep protected animals in any approved area.`,
+      button: 'Suspend licence'
+    },
+    reinstate: {
+      summary: `## Reinstate licence
+
+      Reinstate this suspended licence if the licence holder should be authorised to apply regulated procedures to
+      protected animals, or to breed, supply, or keep protected animals in any approved area.`,
+      button: 'Reinstate licence'
+    },
     revoke: {
       summary: `## Revoke licence
         Cancel this licence if it is no longer needed.`,

@@ -34,6 +34,10 @@ module.exports = {
     title: 'Licence number',
     sort: 'profile.pilLicenceNumber'
   },
+  status: {
+    show: true,
+    title: 'Licence status'
+  },
   procedures: {
     title: 'Categories',
     toCSVString: concatArray
@@ -41,9 +45,6 @@ module.exports = {
   species: {
     title: 'Animal types',
     toCSVString: concatArray
-  },
-  status: {
-    title: 'Licence status'
   },
   issueDate: {
     title: 'Grant date',

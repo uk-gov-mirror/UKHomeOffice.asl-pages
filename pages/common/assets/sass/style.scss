@@ -252,6 +252,10 @@ td.status .badges {
   }
 }
 
+td.reviewStatus .overdue {
+  color: $red;
+}
+
 .badge {
   padding: 3px 6px;
   background: #6F777B;
@@ -869,4 +873,15 @@ section#rops {
 
 .condition-reminders {
   margin-bottom: $govuk-gutter;
+}
+
+.govuk-button {
+  &.button-suspend {
+    background-color: #E3733B;
+
+    &:hover {
+      background-color: #AE4B19;
+    }
+  }
+
 }

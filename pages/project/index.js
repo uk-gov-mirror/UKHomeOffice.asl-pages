@@ -20,6 +20,7 @@ module.exports = settings => {
     return req.api(`/establishment/${req.establishmentId}/projects/${projectId}`)
       .then(({ json: { data, meta } }) => {
         req.project = data;
+        req.model = data; // used by generic suspend router
         req.project.openTasks = meta.openTasks;
         req.establishment = meta.establishment;
         res.locals.static.project = req.project;

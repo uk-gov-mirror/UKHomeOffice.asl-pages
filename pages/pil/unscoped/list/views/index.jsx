@@ -21,6 +21,13 @@ const formatters = {
   licenceNumber: {
     format: (licenceNumber, pil) => <Link page="pil.read" profileId={pil.profileId} pilId={pil.id} label={licenceNumber} />
   },
+  status: {
+    format: (_, pil) => {
+      const status = (pil.status === 'active' && pil.suspendedDate) ? 'suspended' : pil.status;
+      const className = classnames({ badge: true, complete: status === 'active', rejected: ['revoked', 'suspended'].includes(status) });
+      return <span className={ className }>{ status }</span>;
+    }
+  },
   issueDate: {
     format: date => format(date, dateFormat.medium)
   },
@@ -30,15 +37,14 @@ const formatters = {
   reviewStatus: {
     format: (status, model) => {
       if (model.reviewOverdue) {
-        status = 'overdue';
+        status = 'Overdue';
       } else if (model.reviewDue) {
-        status = 'due soon';
+        status = 'Due soon';
       }
       if (!status) {
         return null;
       }
-      const className = classnames({ badge: true, rejected: model.reviewOverdue });
-      return <span className={ className }>{ status }</span>;
+      return <span className={classnames({ overdue: model.reviewOverdue })}>{ status }</span>;
     }
   }
 };

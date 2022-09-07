@@ -16,13 +16,19 @@ function PilProcedures({ task }) {
   const pil = get(task, 'data.modelData');
   const data = get(task, 'data.data');
   const isReview = action === 'review';
+  const showDiff = !isReview && !['suspension', 'reinstatement'].includes(task.type);
 
   const catEs = get(pil, 'profile.trainingPils', []).map(p => ({ ...p, key: 'E' }));
 
   const fromModelData = sortBy((pil.procedures || []).map(p => (p.key ? p : { key: p })).concat(catEs), 'key');
   const fromData = sortBy((data.procedures || []).map(p => (p.key ? p : { key: p })).concat(catEs), 'key');
 
-  return <ProceduresDiff before={!isReview && fromModelData} after={isReview ? fromModelData : fromData} beforePil={pil} afterPil={isReview ? pil : data} />;
+  return <ProceduresDiff
+    before={showDiff && fromModelData}
+    after={showDiff ? fromData : fromModelData}
+    beforePil={pil}
+    afterPil={showDiff ? data : pil}
+  />;
 }
 
 export default function PIL({ task, values }) {
@@ -99,6 +105,7 @@ export default function PIL({ task, values }) {
         <h2><Snippet>sticky-nav.species</Snippet></h2>
         <SpeciesDiff before={task.data.modelData} after={task.data.data} taskType={task.type} />
       </StickyNavAnchor>,
+
       showTraining && (
         <StickyNavAnchor id="training" key="training">
           <h2><Snippet>sticky-nav.training</Snippet></h2>

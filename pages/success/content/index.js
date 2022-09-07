@@ -151,5 +151,59 @@ module.exports = {
       before: 'You can ',
       linkText: 'view the history of this request.'
     }
+  },
+  'suspended': {
+    panel: {
+      title: 'Suspended'
+    },
+    whatNext: {
+      body: {
+        pil: `This licence has been suspended. The licence holder is not authorised to carry out the regulated procedures
+        in the categories stated in this licence.
+
+        The relevant people have been emailed.`,
+
+        project: `This licence has been suspended. The licence holder is not authorised to carry out the programme of
+        work as stated in this licence.
+
+        The relevant people have been emailed.`,
+
+        establishment: `This licence has been suspended. The establishment is no longer authorised to apply regulated
+        procedures to protected animals, or to breed, supply, or keep protected animals in any area at the establishment.
+
+        The relevant people have been emailed.`
+      }
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
+  },
+  'reinstated': {
+    panel: {
+      title: 'Reinstated'
+    },
+    whatNext: {
+      body: {
+        pil: `This licence has been reinstated. The licence holder is now authorised to carry out the regulated procedures
+        in the categories stated in this licence.
+
+        The relevant people have been emailed.`,
+
+        project: `This licence has been reinstated. Regulated procedures are now authorised to be carried out under
+        this licence.
+
+        The relevant people have been emailed.`,
+
+        establishment: `This licence has been reinstated. The establishment is now authorised to apply regulated procedures
+        to protected animals, or to breed, supply, or keep protected animals in any area at the establishment.
+
+        The relevant people have been emailed.`
+      }
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
   }
 };

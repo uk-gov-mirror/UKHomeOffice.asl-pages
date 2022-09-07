@@ -67,5 +67,8 @@ module.exports = {
   },
   pilLicenceNumber: {
     label: 'PIL number'
+  },
+  pilStatus: {
+    label: 'PIL status'
   }
 };

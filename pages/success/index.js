@@ -55,6 +55,14 @@ const getSuccessType = task => {
     return 'review-complete';
   }
 
+  if (task.status === 'resolved' && action === 'suspend') {
+    return 'suspended';
+  }
+
+  if (task.status === 'resolved' && action === 'reinstate') {
+    return 'reinstated';
+  }
+
   if (model === 'rop') {
     return 'rop-submitted';
   }

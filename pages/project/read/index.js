@@ -40,6 +40,7 @@ module.exports = settings => {
     Promise.all([
       req.user.can('project.update', params),
       req.user.can('project.stub.update', params),
+      req.user.can('project.suspend', params),
       req.user.can('project.revoke', params),
       req.user.can('project.transfer', params),
       req.user.can('project.manageAccess', params),
@@ -47,7 +48,7 @@ module.exports = settings => {
       req.user.can('project.rops.create', params),
       req.user.can('retrospectiveAssessment.update', params)
     ])
-      .then(([canUpdate, canUpdateStub, canRevoke, canTransfer, canManageAccess, canUpdateRops, canCreateRops, canUpdateRa]) => {
+      .then(([canUpdate, canUpdateStub, canSuspend, canRevoke, canTransfer, canManageAccess, canUpdateRops, canCreateRops, canUpdateRa]) => {
         const openTasks = req.project.openTasks;
         const openTask = openTasks && openTasks.find(t => t.data.action !== 'grant-ra');
         const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
@@ -68,9 +69,10 @@ module.exports = settings => {
         res.locals.static.editable = editable;
         res.locals.static.openTask = openTask;
         res.locals.static.openRaTask = openRaTask;
+        res.locals.static.canSuspend = canSuspend;
         res.locals.static.canRevoke = canRevoke;
         res.locals.static.asruUser = req.user.profile.asruUser;
-        res.locals.static.showManageSection = canUpdate || canRevoke || canTransfer || canManageAccess;
+        res.locals.static.showManageSection = canUpdate || canRevoke || canTransfer || canManageAccess || canSuspend;
         res.locals.static.removeUserUrl = req.buildRoute('project.removeUser');
       })
       .then(() => next())

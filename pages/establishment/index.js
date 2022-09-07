@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const routes = require('./routes');
+const { populateNamedPeople } = require('../common/middleware');
 
 module.exports = settings => {
   const app = Router({ mergeParams: true });
@@ -21,6 +22,14 @@ module.exports = settings => {
     res.locals.pageTitle = req.establishment.name;
     next();
   });
+
+  app.use(['/suspend', '/reinstate'],
+    populateNamedPeople,
+    (req, res, next) => {
+      req.model = req.establishment;
+      next();
+    }
+  );
 
   return app;
 };
