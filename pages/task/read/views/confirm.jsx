@@ -13,7 +13,7 @@ function CommentForm({ formFields, task, errors, values, comment }) {
     action = 'update';
   }
   const title = <Snippet fallback={`status.${values.status}.action`}>{`status.${values.status}.action.${task.type}`}</Snippet>;
-  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder');
+  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder') || get(task, 'data.licenceHolder');
   const name = `${get(licenceHolder, 'firstName')} ${get(licenceHolder, 'lastName')}`;
 
   return (
