@@ -43,12 +43,14 @@ module.exports = settings => {
     Promise.all([
       req.user.can('pil.create', params),
       req.user.can('pil.update', params),
-      req.user.can('pil.pdf', params)
+      req.user.can('pil.pdf', params),
+      req.user.can('pil.suspend', params)
     ])
-      .then(([canApply, canUpdate, canDownload]) => {
+      .then(([canApply, canUpdate, canDownload, canSuspend]) => {
         res.locals.static.canApply = !req.pil.id && canApply;
         res.locals.static.canUpdate = canUpdate;
         res.locals.static.canDownload = canDownload;
+        res.locals.static.canSuspend = canSuspend;
       })
       .then(() => next())
       .catch(next);
@@ -63,7 +65,6 @@ module.exports = settings => {
     res.locals.static.profile = req.profile;
     res.locals.static.currentPath = req.originalUrl;
     res.locals.static.isLicenceHolder = req.user.profile.id === req.profileId;
-    res.locals.static.isInspector = req.user.profile.asruUser && req.user.profile.asruInspector;
     next();
   });
 

@@ -22,8 +22,13 @@ import EnforcementFlags from '../../../enforcement/components/enforcement-flags'
 import Reminders from '../../../common/components/reminders';
 
 function SuspendReinstateLicence({ pil }) {
+  const canSuspend = useSelector(state => state.static.canSuspend);
   const isSuspended = !!pil.suspendedDate;
   const action = isSuspended ? 'reinstate' : 'suspend';
+
+  if (pil.status !== 'active' || !canSuspend) {
+    return null;
+  }
 
   return (
     <section className={`${action}-licence`}>
@@ -50,7 +55,6 @@ export default function PIL({ pil }) {
     canDownload,
     openTask,
     isLicenceHolder,
-    isInspector,
     pilReviewRequired,
     reviewUrl,
     showRelatedTasks,
@@ -210,9 +214,7 @@ export default function PIL({ pil }) {
                       <p><Snippet>{`openTask.${openTask.type}.description`}</Snippet></p>
                       <Link page="task.read" taskId={openTask.id} label={<Snippet>view-task</Snippet>} className="govuk-button button-secondary" />
                     </section>
-                    {
-                      pil.status === 'active' && isInspector && <SuspendReinstateLicence pil={pil} />
-                    }
+                    <SuspendReinstateLicence pil={pil} />
                   </Fragment>
               }
 
@@ -230,9 +232,7 @@ export default function PIL({ pil }) {
                       />
                     </section>
 
-                    {
-                      isInspector && <SuspendReinstateLicence pil={pil} />
-                    }
+                    <SuspendReinstateLicence pil={pil} />
 
                     <section className="revoke-licence">
                       <Snippet>action.revoke.summary</Snippet>
