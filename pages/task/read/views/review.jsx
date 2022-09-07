@@ -6,7 +6,7 @@ import RefusalNotice from './components/refusal-notice';
 
 export default function Review() {
   const { task, inspector, refusalReason, editUrl, csrfToken } = useSelector(state => state.static);
-  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder');
+  const licenceHolder = get(task, 'data.modelData.profile') || get(task, 'data.modelData.licenceHolder') || get(task, 'data.licenceHolder');
 
   return (
     <div className="govuk-grid-row">
