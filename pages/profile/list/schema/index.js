@@ -45,6 +45,7 @@ module.exports = {
   },
   pilStatus: {
     show: true,
+    sortable: false,
     toCSVString: (_, row) => {
       if (!row.pil) {
         return '';
