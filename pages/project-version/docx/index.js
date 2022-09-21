@@ -38,6 +38,7 @@ const loadImages = attachmentHost => async node => {
   if (!url) {
     return node;
   }
+  // url is in the format data:image/type; so we use characters between index 11 and ; as the file type
   const imageType = url.substring(11, url.indexOf(';'));
   if (imageType === 'png' || imageType === 'jpeg') {
     const src = url.substring(url.indexOf(',') + 1);
