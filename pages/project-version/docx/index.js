@@ -38,19 +38,28 @@ const loadImages = attachmentHost => async node => {
   if (!url) {
     return node;
   }
-  const src = url.substring(url.indexOf(',') + 1);
-  const buffer = Buffer.from(src, 'base64');
-  let dimensions = imageSize(buffer);
-  dimensions = scaleAndPreserveAspectRatio(
-    dimensions.width,
-    dimensions.height,
-    MAX_IMAGE_WIDTH,
-    MAX_IMAGE_HEIGHT
-  );
-  node.data.width = dimensions.width;
-  node.data.height = dimensions.height;
-  node.data.src = url;
-  return node;
+  // url starts with the format data:image/type; so we use characters between index 11 and ; as the file type
+  const imageType = url.substring(11, url.indexOf(';'));
+  if (imageType === 'png' || imageType === 'jpeg') {
+    const src = url.substring(url.indexOf(',') + 1);
+    const buffer = Buffer.from(src, 'base64');
+    let dimensions = imageSize(buffer);
+    dimensions = scaleAndPreserveAspectRatio(
+      dimensions.width,
+      dimensions.height,
+      MAX_IMAGE_WIDTH,
+      MAX_IMAGE_HEIGHT
+    );
+    node.data.width = dimensions.width;
+    node.data.height = dimensions.height;
+    node.data.src = url;
+    return node;
+  } else {
+    return {
+      type: 'error',
+      nodes: [ { text: 'Image type unsupported. Please use a JPG or PNG image for DOCX exports.', marks: [], object: 'text' } ]
+    };
+  }
 };
 
 module.exports = (settings) => {
