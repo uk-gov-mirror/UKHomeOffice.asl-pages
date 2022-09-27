@@ -21,12 +21,13 @@ function ProjectTitle({ project, establishment }) {
 }
 
 function ProfileLink({ profile, establishment, type }) {
+  const { isAsru } = useSelector(state => state.static);
   const label = `${profile.firstName} ${profile.lastName}`;
   return (
     <Fragment>
       <dt><Snippet>{`profileLink.${type}`}</Snippet></dt>
       <dd>
-        { type === 'global'
+        { (type === 'global' || isAsru)
           ? <Link page="globalProfile" profileId={profile.id} label={label} />
           : <Link page="profile.read" establishmentId={establishment.id} profileId={profile.id} label={label} />
         }
