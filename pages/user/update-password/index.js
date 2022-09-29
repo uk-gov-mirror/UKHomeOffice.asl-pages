@@ -5,8 +5,9 @@ const schema = require('./schema');
 
 module.exports = settings => {
   const app = page({
+    ...settings,
     root: __dirname,
-    ...settings
+    paths: ['/success']
   });
 
   app.use((req, res, next) => {
@@ -62,9 +63,15 @@ module.exports = settings => {
     return req.api('/me/password', opts)
       .then(() => {
         delete req.session.form[req.model.id];
-        req.notification({ key: 'success' });
-        return res.redirect(req.buildRoute('account.menu'));
+        return res.redirect(req.buildRoute('account.updatePassword', { suffix: 'success' }));
       })
+      .catch(next);
+  });
+
+  app.get('/success', (req, res, next) => {
+    return req.api('/me/logout', { method: 'POST' })
+      .then(() => req.session.destroy())
+      .then(() => res.sendResponse())
       .catch(next);
   });
 
