@@ -4,6 +4,8 @@ const baseContent = require('../../../profile/content');
 module.exports = merge({}, baseContent, {
   title: 'Change your password',
   pageTitle: 'Change your password',
+  logoutWarning: `Upon a successful password change you will be immediately logged out and will have to
+  log in again with your new password.`,
   summary: `Your new password must contain:
   * at least ten characters
   * at least one uppercase character
