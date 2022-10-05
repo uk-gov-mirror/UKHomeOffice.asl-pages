@@ -4,6 +4,7 @@ const form = require('../../common/routers/form');
 const success = require('../../success');
 const schema = require('./schema');
 const content = require('./content');
+const { populateNamedPeople } = require('../../common/middleware');
 
 module.exports = settings => {
   const app = page({
@@ -17,6 +18,8 @@ module.exports = settings => {
     req.model.id = `${req.establishment.id}-grant`;
     next();
   });
+
+  app.get('/', populateNamedPeople);
 
   app.use(form({
     schema,
