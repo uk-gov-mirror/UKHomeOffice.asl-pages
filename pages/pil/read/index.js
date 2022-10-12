@@ -136,9 +136,7 @@ module.exports = settings => {
 
   app.post('/', (req, res, next) => {
     const id = req.model.id;
-    req.notification({
-      key: req.user.profile.asruLicensing ? 'conditions-updated' : 'update-requested'
-    });
+    req.notification({ key: 'conditions-updated' });
     delete req.session.form[id];
     res.redirect(req.buildRoute('pil.read'));
   });

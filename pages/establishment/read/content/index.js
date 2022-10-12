@@ -42,8 +42,7 @@ module.exports = {
   approvedAreas: 'Approved areas',
   namedPeople: 'Named people',
   notifications: {
-    'conditions-updated': 'The conditions on this licence have been updated.',
-    'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
+    'conditions-updated': 'The conditions on this licence have been updated.'
   },
   fields: {
     conditions: {
