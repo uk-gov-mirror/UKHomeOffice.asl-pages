@@ -80,8 +80,7 @@ module.exports = merge({}, baseContent, {
     noConditions: '[The standard conditions apply.](https://www.gov.uk/government/publications/personal-licence-standard-conditions/personal-licence-standard-conditions)'
   },
   notifications: {
-    'conditions-updated': 'The conditions on this licence have been updated.',
-    'update-requested': 'Your update to conditions will be reviewed by a Licensing Officer.'
+    'conditions-updated': 'The conditions on this licence have been updated.'
   },
   warnings: {
     pilReviewRequired: `**This personal licence is {{#overdue}}overdue{{/overdue}}{{^overdue}}due{{/overdue}} a 5 year review**

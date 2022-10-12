@@ -90,9 +90,7 @@ module.exports = settings => {
   });
 
   app.post('/', (req, res, next) => {
-    req.notification({
-      key: req.user.profile.asruLicensing ? 'conditions-updated' : 'update-requested'
-    });
+    req.notification({ key: 'conditions-updated' });
     delete req.session.form[req.model.id];
     res.redirect(req.buildRoute('establishment.read'));
   });
