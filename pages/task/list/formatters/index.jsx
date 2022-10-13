@@ -6,6 +6,7 @@ import isBefore from 'date-fns/is_before';
 import differenceInDays from 'date-fns/difference_in_calendar_days';
 import { dateFormat } from '../../../../constants';
 import { Snippet, Link } from '@asl/components';
+import AssignTask from '../components/assign-task';
 
 const good = ['resolved'];
 const bad = ['rejected', 'withdrawn', 'discarded-by-applicant', 'refused'];
@@ -141,11 +142,6 @@ export default {
     }
   },
   assignedTo: {
-    format: assignedTo => {
-      if (!assignedTo) {
-        return <em>Unassigned</em>;
-      }
-      return <Link page="globalProfile" label={`${assignedTo.firstName} ${assignedTo.lastName}`} profileId={assignedTo.id} />;
-    }
+    format: (assignedTo, task) => <AssignTask task={task} />
   }
 };
