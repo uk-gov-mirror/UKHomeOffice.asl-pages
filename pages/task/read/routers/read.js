@@ -148,12 +148,22 @@ module.exports = () => {
             .then(canReadAllProfiles => {
               if (!canReadAllProfiles) {
                 const content = getContent(req.task);
-                next(new UnauthorisedError(content.errors.permissions));
-              } else {
-                next(error);
+                throw new UnauthorisedError(content.errors.permissions);
               }
+              throw error;
             });
-        });
+        })
+        .catch(error => {
+          if (req.user.profile.asruUser) {
+            return req.api(`/profile/${profileId}`)
+              .then(({ json: { data } }) => {
+                req.profile = cleanModel(data);
+              })
+              .then(() => next());
+          }
+          throw error;
+        })
+        .catch(next);
     }
     next();
   });
