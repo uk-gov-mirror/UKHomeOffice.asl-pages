@@ -131,6 +131,72 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
   return (
     <Fragment>
       {
+        (isOwnProfile || allowedActions.includes('pil.read')) && (
+          <section className="profile-section">
+            <h3>
+              <Snippet>pil.title</Snippet>
+            </h3>
+            {
+              hasPil && (
+                <p>
+                  <Link
+                    page='pil.read'
+                    establishmentId={establishment.id}
+                    profileId={profile.id}
+                    label={pilLicenceNumber}
+                  />
+                  {
+                    pil && pil.status !== 'active' && <span> ({pil.status})</span>
+                  }
+                </p>
+              )
+            }
+            {
+              !pil && over18 && (
+                <p>
+                  <Snippet>pil.noPil</Snippet>
+                </p>
+              )
+            }
+            {
+              pil && pilIncomplete && (
+                <p>
+                  <Snippet>{`pil.${correctEstablishment ? 'incompletePil' : 'incompleteOtherEst'}`}</Snippet>
+                </p>
+              )
+            }
+            {
+              (!dob || !over18) && (
+                <Fragment>
+                  {
+                    dob && !over18 && <p><Snippet>pil.under18</Snippet></p>
+                  }
+                  {
+                    !dob && !isOwnProfile && <p><Snippet>pil.noDob.otherProfile</Snippet></p>
+                  }
+                  {
+                    !dob && isOwnProfile && <p><Link page='account.update' label={<Snippet>pil.addDob</Snippet>} /></p>
+                  }
+                </Fragment>
+              )
+            }
+            {
+              canApply && (
+                <p className="control-panel">
+                  <Link
+                    page='pil.create'
+                    establishmentId={establishment.id}
+                    profileId={profile.id}
+                    className='govuk-button button-secondary'
+                    label={<Snippet>{applyText}</Snippet>}
+                  />
+                </p>
+              )
+            }
+          </section>
+        )
+      }
+      {
         canSeeProjects && (
           <section className="profile-section">
 
@@ -248,72 +314,6 @@ export default function Profile({ profile, establishment = {}, allowedActions = 
           )
         }
       </section>
-      {
-        (isOwnProfile || allowedActions.includes('pil.read')) && (
-          <section className="profile-section">
-            <h3>
-              <Snippet>pil.title</Snippet>
-            </h3>
-            {
-              hasPil && (
-                <p>
-                  <Link
-                    page='pil.read'
-                    establishmentId={establishment.id}
-                    profileId={profile.id}
-                    label={pilLicenceNumber}
-                  />
-                  {
-                    pil && pil.status !== 'active' && <span> ({pil.status})</span>
-                  }
-                </p>
-              )
-            }
-            {
-              !pil && over18 && (
-                <p>
-                  <Snippet>pil.noPil</Snippet>
-                </p>
-              )
-            }
-            {
-              pil && pilIncomplete && (
-                <p>
-                  <Snippet>{`pil.${correctEstablishment ? 'incompletePil' : 'incompleteOtherEst'}`}</Snippet>
-                </p>
-              )
-            }
-            {
-              (!dob || !over18) && (
-                <Fragment>
-                  {
-                    dob && !over18 && <p><Snippet>pil.under18</Snippet></p>
-                  }
-                  {
-                    !dob && !isOwnProfile && <p><Snippet>pil.noDob.otherProfile</Snippet></p>
-                  }
-                  {
-                    !dob && isOwnProfile && <p><Link page='account.update' label={<Snippet>pil.addDob</Snippet>} /></p>
-                  }
-                </Fragment>
-              )
-            }
-            {
-              canApply && (
-                <p className="control-panel">
-                  <Link
-                    page='pil.create'
-                    establishmentId={establishment.id}
-                    profileId={profile.id}
-                    className='govuk-button button-secondary'
-                    label={<Snippet>{applyText}</Snippet>}
-                  />
-                </p>
-              )
-            }
-          </section>
-        )
-      }
       {
         allowedActions.includes('profile.permissions') && (
           <section className="profile-section">
