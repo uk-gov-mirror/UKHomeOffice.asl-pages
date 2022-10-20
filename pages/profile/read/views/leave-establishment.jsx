@@ -11,7 +11,7 @@ export default function LeaveEstablishment({ establishment, profile }) {
 
   return (
     <Fragment>
-      <h2><Snippet>leaveEstablishment.title</Snippet></h2>
+      <h3><Snippet>leaveEstablishment.title</Snippet></h3>
       <p><Snippet establishment={establishment}>{`leaveEstablishment.${canLeave ? 'content' : 'cannot-leave'}`}</Snippet></p>
       {
         canLeave && (
