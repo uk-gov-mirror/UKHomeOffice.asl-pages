@@ -39,10 +39,6 @@ const ProfileMerges = ({ profile }) => {
     return null;
   }
 
-  profile.profileMerges.map(merge => {
-    console.log(merge.profile);
-  });
-
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-three-quarters">
@@ -51,9 +47,7 @@ const ProfileMerges = ({ profile }) => {
             <Inset key={merge.id}>
               <Snippet
                 label={`${merge.profile.name} (${merge.profile.email})`}
-                wtf={merge.profile.id}
-                profileId={merge.profile.id}
-                url={`/profile/${merge.profile.id}`}
+                mergedProfileUrl={`/profile/${merge.profile.id}`}
               >profileMerge.info</Snippet>
             </Inset>
           )

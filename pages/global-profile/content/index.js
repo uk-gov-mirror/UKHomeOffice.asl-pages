@@ -31,15 +31,7 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
     }
   },
   profileMerge: {
-    info: `wtf: {{wtf}}
-
-    profileId: {{profileId}}
-
-    url: {{url}}
-
-    [{{label}}]({{url}})
-    `
-    // info: `This profile has been merged with another. If anything doesn't look right, check the other
-    // merged profile for [{{label}}]({{url}}).`
+    info: `This profile has been merged with another. If anything doesn't look right, check the other
+    merged profile for [{{label}}]({{mergedProfileUrl}}).`
   }
 });
