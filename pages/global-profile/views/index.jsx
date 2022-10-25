@@ -52,7 +52,7 @@ const ProfileMerges = ({ profile }) => {
               <Snippet
                 label={`${merge.profile.name} (${merge.profile.email})`}
                 wtf={merge.profile.id}
-                proifleId={merge.profile.id}
+                profileId={merge.profile.id}
                 url={`/profile/${merge.profile.id}`}
               >profileMerge.info</Snippet>
             </Inset>
