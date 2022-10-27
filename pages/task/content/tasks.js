@@ -1,6 +1,7 @@
 module.exports = {
   role: {
     create: 'Add named person{{#type}} ({{type}}){{/type}}',
+    replace: 'Replace named person{{#type}} ({{type}}){{/type}}',
     delete: 'Remove named person{{#type}} ({{type}}){{/type}}'
   },
   rop: {

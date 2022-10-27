@@ -38,6 +38,32 @@ export default function Role({ task, values, schema }) {
     ),
 
     (
+      task.data.action === 'replace' && (
+        <StickyNavAnchor id="role" key="role">
+          <h2><Snippet>sticky-nav.role</Snippet></h2>
+          <table className="govuk-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th><Snippet>diff.current</Snippet></th>
+                <th><Snippet>diff.proposed</Snippet></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  PELH or NRPC
+                </td>
+                <td>{task.data.data.replaceProfile.firstName} {task.data.data.replaceProfile.lastName}</td>
+                <td><span className="highlight">{`${profile.firstName} ${profile.lastName}`}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </StickyNavAnchor>
+      )
+    ),
+
+    (
       task.data.action === 'delete' && (
         <StickyNavAnchor id="role" key="role">
           <h2><Snippet>sticky-nav.role</Snippet></h2>

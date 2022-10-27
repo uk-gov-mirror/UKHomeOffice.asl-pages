@@ -14,6 +14,9 @@ const getTaskLabel = task => {
       if (action === 'create') {
         return 'Add named person';
       }
+      if (action === 'replace') {
+        return 'Replace named person';
+      }
       if (action === 'delete') {
         return 'Remove named person';
       }

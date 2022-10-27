@@ -97,9 +97,9 @@ export default {
       }
 
       if (licence === 'role') {
-        labelParams.type = type === 'create'
-          ? get(task, 'data.data.type', '').toUpperCase()
-          : get(task, 'data.modelData.type', '').toUpperCase();
+        labelParams.type = type === 'delete'
+          ? get(task, 'data.modelData.type', '').toUpperCase()
+          : get(task, 'data.data.type', '').toUpperCase();
       }
 
       switch (licence) {

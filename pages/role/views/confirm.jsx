@@ -13,6 +13,7 @@ import namedRoles from '../content/named-roles';
 const Confirm = ({
   establishment,
   profile,
+  profileReplaced,
   values,
   children,
   ...props
@@ -27,6 +28,10 @@ const Confirm = ({
 
       <h2><Snippet>onBehalfOf</Snippet></h2>
       <p>{`${profile.firstName} ${profile.lastName}`}</p>
+
+      { profileReplaced && props.action !== 'remove' &&
+        <Warning>The existing {profileReplaced.type.toUpperCase()} {profileReplaced.firstName} {profileReplaced.lastName} will be removed from the role when this request is approved.</Warning>
+      }
 
       { values.rcvsNumber &&
         <Fragment>
@@ -56,11 +61,13 @@ const mapStateToProps = ({
   static: {
     establishment,
     profile,
+    profileReplaced,
     values
   }
 }) => ({
   establishment,
   profile,
+  profileReplaced,
   values
 });
 
