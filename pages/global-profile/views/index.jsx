@@ -35,7 +35,7 @@ const selector = ({
 const formatDate = (date, format) => (date ? dateFormatter(date, format) : '-');
 
 const ProfileMerges = ({ profile }) => {
-  if (profile.profileMerges.length === 0) {
+  if (!profile.profileMerges || profile.profileMerges.length === 0) {
     return null;
   }
 
