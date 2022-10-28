@@ -7,7 +7,8 @@ import {
   Link,
   ExpandingPanel,
   Snippet,
-  TrainingSummary
+  TrainingSummary,
+  Inset
 } from '@asl/components';
 
 import dateFormatter from 'date-fns/format';
@@ -32,6 +33,29 @@ const selector = ({
 });
 
 const formatDate = (date, format) => (date ? dateFormatter(date, format) : '-');
+
+const ProfileMerges = ({ profile }) => {
+  if (!profile.profileMerges || profile.profileMerges.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-three-quarters">
+        {
+          profile.profileMerges.map(merge =>
+            <Inset key={merge.id}>
+              <Snippet
+                label={`${merge.profile.name} (${merge.profile.email})`}
+                mergedProfileUrl={`/profile/${merge.profile.id}`}
+              >profileMerge.info</Snippet>
+            </Inset>
+          )
+        }
+      </div>
+    </div>
+  );
+};
 
 export default function Index({ dedupe, AsruRolesComponent, children }) {
   const { model, allowedActions, asruUser, isOwnProfile } = useSelector(selector, shallowEqual);
@@ -61,7 +85,11 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
   return (
     <Fragment>
       <Header title={`${model.firstName} ${model.lastName}`} />
+
+      <ProfileMerges profile={model} />
+
       { dedupe }
+
       <dl>
         {
           showEmail && (

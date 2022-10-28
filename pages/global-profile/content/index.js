@@ -29,5 +29,9 @@ module.exports = merge({}, pilContent, profileContent, tasklistContent, {
       },
       none: '{{name}} hasn’t been assigned any roles.'
     }
+  },
+  profileMerge: {
+    info: `This profile has been merged with another. If anything doesn't look right, check the other
+    merged profile for [{{label}}]({{mergedProfileUrl}}).`
   }
 });
