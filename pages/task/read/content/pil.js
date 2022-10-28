@@ -20,6 +20,7 @@ module.exports = merge({}, baseContent, {
       hint: {
         application: 'Your application will be sent to an NTCO for endorsement',
         amendment: 'Your amendment will be sent to an NTCO for endorsement',
+        updateConditions: 'Your amendment will be reviewed by a licensing officer',
         review: 'Your request will be reviewed by a named training and competency officer'
       }
     },
