@@ -57,6 +57,11 @@ module.exports = merge({}, baseContent, {
           You can ask for this licence to be amended but only the licence holder can transfer it.`,
         button: 'Amend licence'
       },
+      asru: {
+        summary: `## Amend or transfer licence
+          You can amend or transfer this licence.`,
+        button: 'Amend licence'
+      },
       apply: {
         summary: `## Amend licence
          You can apply to add categories A, B, C, D, or F to this personal licence`,

@@ -55,6 +55,7 @@ export default function PIL({ pil }) {
     canDownload,
     openTask,
     isLicenceHolder,
+    user,
     pilReviewRequired,
     reviewUrl,
     showRelatedTasks,
@@ -138,12 +139,15 @@ export default function PIL({ pil }) {
   };
 
   let amendButtonSnippet = 'action.reapply.button';
+  let userType = user.asruUser
+    ? 'asru'
+    : (isLicenceHolder ? 'licenceHolder' : 'other');
 
   if (pil.status === 'active') {
-    amendButtonSnippet = `action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.button`;
+    amendButtonSnippet = `action.amend.${userType}.button`;
   }
 
-  let amendIntroSnippet = `action.amend.${isLicenceHolder ? 'licenceHolder' : 'other'}.summary`;
+  let amendIntroSnippet = `action.amend.${userType}.summary`;
   if (pil.procedures.find(p => p.key === 'E')) {
     amendIntroSnippet = 'action.amend.update.summary';
     amendButtonSnippet = 'action.amend.update.button';
