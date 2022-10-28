@@ -55,7 +55,7 @@ export default function PIL({ pil }) {
     canDownload,
     openTask,
     isLicenceHolder,
-    isAsruUser,
+    user,
     pilReviewRequired,
     reviewUrl,
     showRelatedTasks,
@@ -139,7 +139,7 @@ export default function PIL({ pil }) {
   };
 
   let amendButtonSnippet = 'action.reapply.button';
-  let userType = isAsruUser
+  let userType = user.asruUser
     ? 'asru'
     : (isLicenceHolder ? 'licenceHolder' : 'other');
 
