@@ -16,7 +16,8 @@ module.exports = {
   email: {
     inputType: 'inputEmail',
     validate: [
-      'required'
+      'required',
+      'email'
     ]
   },
   role: {
