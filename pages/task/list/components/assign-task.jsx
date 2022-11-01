@@ -45,7 +45,7 @@ export default function AssignTask({ task }) {
   return (
     <Fragment>
       <em className="block">Unassigned</em>
-      <button className="link" disabled={disabled} onClick={assignToMe}><span>Assign to me</span></button>
+      <button className="link assignedTobutton" disabled={disabled} onClick={assignToMe}><span>Assign to me</span></button>
     </Fragment>
   );
 }
