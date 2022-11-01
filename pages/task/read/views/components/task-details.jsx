@@ -68,6 +68,7 @@ function EstablishmentLink({ establishment }) {
       <dt>Establishment</dt>
       <dd>
         <Link page="establishment" establishmentId={establishment.id} label={`${establishment.name}`} />
+        { establishment.status === 'inactive' && <span> (Draft)</span> }
       </dd>
     </Fragment>
   );
