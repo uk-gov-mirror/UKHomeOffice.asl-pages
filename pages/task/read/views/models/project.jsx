@@ -145,7 +145,7 @@ export default function Project({ task }) {
           {
             task.status === 'with-inspectorate' && <PplDeclarations task={task} />
           }
-          <p className="gutter">
+          <div className="gutter">
             {
               !!additionalEstablishments.length && (
                 <Fragment>
@@ -172,7 +172,7 @@ export default function Project({ task }) {
                 )
             }
 
-          </p>
+          </div>
         </StickyNavAnchor>
       )
     ),
