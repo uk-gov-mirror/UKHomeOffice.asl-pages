@@ -14,7 +14,6 @@ import pick from 'lodash/pick';
 import Subsection from '../components/subsection';
 
 export function Rop({ rop, project, active, url }) {
-
   const endOfYear = new Date(`${rop.year}-12-31`);
   const projEnd = project.revocationDate || project.expiryDate;
   const expiresMidYear = isBefore(projEnd, endOfYear);
@@ -77,14 +76,12 @@ export function Rop({ rop, project, active, url }) {
   const content = (
     <Fragment>
       <h3>Return of procedures for {rop.year}</h3>
-      <p>
-        <Snippet
-          submitted={format(rop.submittedDate, dateFormat.long)}
-          endDate={endDate}
-          year={rop.year}
-          deadline={format(ropsDeadline, dateFormat.long)}
-        >{ rop.status === 'submitted' ? 'rops.submitted' : 'rops.incomplete' }</Snippet>
-      </p>
+      <Snippet
+        submitted={format(rop.submittedDate, dateFormat.long)}
+        endDate={endDate}
+        year={rop.year}
+        deadline={format(ropsDeadline, dateFormat.long)}
+      >{ rop.status === 'submitted' ? 'rops.submitted' : 'rops.incomplete' }</Snippet>
     </Fragment>
 
   );
@@ -99,6 +96,7 @@ export function Rop({ rop, project, active, url }) {
 
 export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) {
   const thisYear = today.getFullYear();
+
   const years = ropsYears.filter(y => {
     const deadline = subMilliseconds(new Date(`${y}-02-01`), 1);
     return isAfter(today, deadline);
@@ -133,9 +131,7 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
   });
 
   return (
-    <Subsection
-      title={<Snippet>rops.title</Snippet>}
-    >
+    <Subsection title={<Snippet>rops.title</Snippet>}>
       {
         activeRops.map((rop, index) => <Rop key={index} project={project} rop={rop} active={true} url={url} />)
       }

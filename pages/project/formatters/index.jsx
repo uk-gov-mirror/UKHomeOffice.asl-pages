@@ -13,6 +13,7 @@ const good = ['active'];
 function EstablishmentList({ establishments }) {
   return (
     <Fragment>
+      <span>Additional availability at </span>
       {
         sortBy(establishments, 'name').map((establishment, index) => {
           const isLastItem = index === establishments.length - 1;
@@ -54,7 +55,6 @@ const formatters = establishmentId => ({
                 {
                   hasAdditionalAvailability && (
                     <li>
-                      <Fragment>Additional availability at </Fragment>
                       <EstablishmentList establishments={aaEstablishments} />
                     </li>
                   )

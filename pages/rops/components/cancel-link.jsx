@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function CancelLink() {
-  if (typeof window === 'undefined' || window.history.length <= 1) {
-    return null;
-  }
+  const [renderLink, setRenderLink] = useState(false);
+
+  useEffect(() => {
+    setRenderLink(process.browser && window.history.length > 1);
+  });
 
   function onClick(e) {
     e.preventDefault();
     window.history.back();
   }
 
-  return <a href="#" onClick={onClick}>Back</a>;
+  return renderLink
+    ? <a href="#" onClick={onClick}>Back</a>
+    : null;
 }
