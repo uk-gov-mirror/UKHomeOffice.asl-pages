@@ -44,7 +44,8 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
       );
     }
 
-    if (model.suspendedDate || model.establishment.suspendedDate) {
+    const suspendedEstablishment = [model.establishment, ...model.additionalEstablishments].find(e => !!e.suspendedDate);
+    if (model.suspendedDate || !!suspendedEstablishment) {
       return (
         <LicenceStatusBanner
           title={<Snippet>{`invalidLicence.status.${model.suspendedDate ? 'suspended' : 'establishmentSuspended'}`}</Snippet>}
@@ -52,6 +53,7 @@ export default function ProjectStatusBanner({ model = {}, version = {}, isPdf })
           licenceType="ppl"
           colour="red"
           isPdf={isPdf}
+          suspendedEstablishment={suspendedEstablishment}
         />
       );
     }
