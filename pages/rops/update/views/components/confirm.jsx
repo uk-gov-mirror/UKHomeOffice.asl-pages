@@ -101,7 +101,7 @@ export default function Confirm({ isReview = false }) {
     <div className="rop-summary">
       <Section title="General details" step="procedures">
         <dl className="inline">
-          <dt>Procedures completed in {year}</dt>
+          <dt>{`Procedures completed in ${year}`}</dt>
           <dd>{yesNoEmpty(rop.proceduresCompleted)}</dd>
 
           <dt>Postnatal or free feeding animals used</dt>
@@ -210,7 +210,7 @@ export default function Confirm({ isReview = false }) {
                 {
                   (rop.purposes || []).map((purpose, index) => (
                     <Fragment key={index}>
-                      <dt>Purpose {index + 1}</dt>
+                      <dt>{`Purpose ${index + 1}`}</dt>
                       <dd>{getRadioOption('purposes', purpose)}</dd>
                       {
                         hasSubpurposes(purpose) && <dt>Sub-purposes</dt>
