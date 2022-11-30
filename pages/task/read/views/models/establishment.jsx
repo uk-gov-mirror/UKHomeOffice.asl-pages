@@ -4,17 +4,21 @@ import {
   StickyNavAnchor,
   Snippet,
   Diff,
-  DiffText
+  DiffText,
+  Conditions
 } from '@asl/components';
 import { hasChanged } from '../../../../../lib/utils';
 import establishmentSchema from '../../../../establishment/update/schema';
 import NamedPeople from '../../../../establishment/components/named-people';
 import formatters from '../../../../establishment/formatters';
 import Authorisations from '../../../../establishment/update/views/authorisations';
+import isEmpty from 'lodash/isEmpty';
 
 export default function Establishment({ task, values }) {
-  const establishment = useSelector(state => state.static.establishment);
+  const { establishment, allowedActions, openTask, errors } = useSelector(state => state.static);
   const isComplete = !task.isOpen;
+  const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
+  const taskData = task.data.data;
 
   return [
     (
@@ -51,6 +55,21 @@ export default function Establishment({ task, values }) {
             currentLabel={isComplete ? <Snippet>diff.previous</Snippet> : undefined}
             proposedLabel={isComplete ? <Snippet>diff.changed-to</Snippet> : undefined}
           />
+
+          <div className="sticky-nav-anchor">
+            <h2><Snippet>conditions.title</Snippet></h2>
+            <Conditions
+              conditions={taskData.conditions ? taskData.conditions : establishment.conditions }
+              reminders={taskData.conditions ? [JSON.parse(taskData.reminder)] : establishment.reminders}
+              label={<Snippet>conditions.hasConditions</Snippet>}
+              noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+              canUpdate={canUpdateConditions && !openTask}
+              editing={!isEmpty(errors)}
+              taskData={taskData}
+              isComplete={isComplete}
+            >
+            </Conditions>
+          </div>
 
           <Authorisations
             before={values}

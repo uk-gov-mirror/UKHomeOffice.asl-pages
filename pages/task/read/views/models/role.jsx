@@ -3,14 +3,17 @@ import { useSelector, shallowEqual } from 'react-redux';
 import {
   StickyNavAnchor,
   Snippet,
-  Link
+  Link, Conditions
 } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
+import isEmpty from 'lodash/isEmpty';
 
-const selector = ({ static: { establishment, profile, remainingRoles } }) => ({ establishment, profile, remainingRoles });
+const selector = ({ static: { establishment, profile, remainingRoles, allowedActions, openTask, errors } }) => ({ establishment, profile, remainingRoles, allowedActions, openTask, errors });
 
 export default function Role({ task, values, schema }) {
-  const { establishment, profile, remainingRoles } = useSelector(selector, shallowEqual);
+  const { establishment, profile, remainingRoles, allowedActions, openTask, errors } = useSelector(selector, shallowEqual);
+  const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
+  const taskData = task.data.data;
 
   return [
     (
@@ -96,6 +99,22 @@ export default function Role({ task, values, schema }) {
           }
         </StickyNavAnchor>
       )
+    ),
+    (
+      <StickyNavAnchor id="conditions" key="conditions">
+        <h2><Snippet>conditions.title</Snippet></h2>
+        <Conditions
+          conditions={taskData.conditions ? taskData.conditions : establishment.conditions }
+          reminders={taskData.conditions ? [JSON.parse(taskData.reminder)] : establishment.reminders}
+          label={<Snippet>conditions.hasConditions</Snippet>}
+          noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+          canUpdate={canUpdateConditions && !openTask}
+          editing={!isEmpty(errors)}
+          taskData={taskData}
+          isComplete={!task.isOpen}
+        >
+        </Conditions>
+      </StickyNavAnchor>
     )
   ];
 }
