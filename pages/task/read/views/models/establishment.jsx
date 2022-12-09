@@ -60,7 +60,7 @@ export default function Establishment({ task, values }) {
             <h2><Snippet>conditions.title</Snippet></h2>
             <Conditions
               conditions={taskData.conditions ? taskData.conditions : establishment.conditions }
-              reminders={taskData.reminder !== '' ? [JSON.parse(taskData.reminder)] : establishment.reminders}
+              reminders={taskData.reminder && taskData.reminder !== '' ? [JSON.parse(taskData.reminder)] : establishment.reminders}
               label={<Snippet>conditions.hasConditions</Snippet>}
               noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
               canUpdate={canUpdateConditions && !openTask}
