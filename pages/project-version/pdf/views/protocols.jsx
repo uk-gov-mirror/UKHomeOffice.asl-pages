@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider, useSelector } from 'react-redux';
 import { Protocol } from '@asl/projects/client/pages/sections/granted/pdf-protocols';
-import { hydrateSteps } from '@asl/projects//client/helpers/steps';
+import { hydrateSteps } from '@asl/projects/client/helpers/steps';
 import ProtocolConditions from '@asl/projects/client/pages/sections/protocols/protocol-conditions';
 import Review from '@asl/projects/client/components/review-field';
 import Wrapper from '../../../common/views/pdf/wrapper';
