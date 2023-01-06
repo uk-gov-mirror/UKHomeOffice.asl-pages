@@ -41,7 +41,7 @@ module.exports = {
         content: `### A retrospective assessment of these aims will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
   * Is there a plan for this work to continue under another licence?
-  * Did the project achieve it's aims and if not, why not?`
+  * Did the project achieve its aims and if not, why not?`
       },
       {
         heading: `Potential benefits likely to derive from the project, for example how science might be advanced or how humans,
