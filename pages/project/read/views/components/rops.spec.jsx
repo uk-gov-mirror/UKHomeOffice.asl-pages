@@ -21,6 +21,7 @@ describe('<Rops />', () => {
     const props = {
       ropsYears: [2021, 2022],
       project: {
+        expiryDate: new Date('2025-01-31'),
         rops: []
       },
       url: 'http://localhost:8080/',
@@ -38,6 +39,34 @@ describe('<Rops />', () => {
       },
       url: 'http://localhost:8080/',
       today: new Date('2022-02-01')
+    };
+    const wrapper = shallow(<Rops {...props} />);
+    expect(wrapper.find(Rop).length).toBe(2);
+  });
+
+  test('renders rop for the current year if project is expired and not past 1st feb', () => {
+    const props = {
+      ropsYears: [2021, 2022],
+      project: {
+        expiryDate: new Date('2022-01-30 23:59:59'),
+        rops: []
+      },
+      url: 'http://localhost:8080/',
+      today: new Date('2022-01-31')
+    };
+    const wrapper = shallow(<Rops {...props} />);
+    expect(wrapper.find(Rop).length).toBe(2);
+  });
+
+  test('renders rop for the current year if project is revoked and not past 1st feb', () => {
+    const props = {
+      ropsYears: [2021, 2022],
+      project: {
+        revocationDate: new Date('2022-01-30 23:59:59'),
+        rops: []
+      },
+      url: 'http://localhost:8080/',
+      today: new Date('2022-01-31')
     };
     const wrapper = shallow(<Rops {...props} />);
     expect(wrapper.find(Rop).length).toBe(2);
