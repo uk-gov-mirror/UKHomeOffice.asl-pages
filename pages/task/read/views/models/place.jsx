@@ -7,21 +7,24 @@ import {
   Field,
   EditableField,
   StickyNavAnchor,
-  ModelSummary
+  ModelSummary, Conditions
 } from '@asl/components';
 import { baseSchema } from '../../../../place/schema';
 import formatters from '../../../../place/formatters';
 import { hasChanged } from '../../../../../lib/utils';
+import isEmpty from 'lodash/isEmpty';
 
-const selector = ({ model, static: { establishment, isAsru } }) => ({ establishment, isAsru, model });
+const selector = ({ model, static: { establishment, isAsru, allowedActions, openTask, errors } }) => ({ establishment, isAsru, model, allowedActions, openTask, errors });
 
 export default function Playback({ task, values, allowSubmit }) {
-  const { model, isAsru } = useSelector(selector, shallowEqual);
+  const { model, isAsru, allowedActions, openTask, establishment, errors } = useSelector(selector, shallowEqual);
   const [dirty, setDirty] = useState(false);
   const nopes = ['recalled-by-applicant', 'discarded-by-applicant'];
   const actionableNextSteps = task.nextSteps.filter(step => !nopes.includes(step.id));
   const canEditRestictions = isAsru && !!actionableNextSteps.length;
   const placeSchema = baseSchema();
+  const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
+  const taskData = task.data.data;
 
   const isComplete = !task.isOpen;
 
@@ -96,6 +99,22 @@ export default function Playback({ task, values, allowSubmit }) {
           proposed={!isUndefined(model.restrictions) ? model.restrictions : task.data.data.restrictions}
           setDirty={setDirty}
         />
+      </StickyNavAnchor>
+    ),
+    (
+      <StickyNavAnchor id="conditions" key="conditions">
+        <h2><Snippet>conditions.title</Snippet></h2>
+        <Conditions
+          conditions={taskData.conditions ? taskData.conditions : establishment.conditions }
+          reminders={taskData.reminder && taskData.reminder !== '' ? [JSON.parse(taskData.reminder)] : establishment.reminders}
+          label={<Snippet>conditions.hasConditions</Snippet>}
+          noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
+          canUpdate={canUpdateConditions && !openTask}
+          editing={!isEmpty(errors)}
+          taskData={taskData}
+          isComplete={isComplete}
+        >
+        </Conditions>
       </StickyNavAnchor>
     )
   ];

@@ -286,6 +286,24 @@ module.exports = () => {
           ...req.form.schema,
           restrictions: {
             meta: true
+          },
+          conditions: {
+            meta: true
+          },
+          reminders: {
+            meta: true
+          }
+        };
+      }
+
+      if (req.task.data.model === 'establishment' || req.task.data.model === 'role') {
+        req.form.schema = {
+          ...req.form.schema,
+          conditions: {
+            meta: true
+          },
+          reminders: {
+            meta: true
           }
         };
       }
