@@ -4,6 +4,7 @@ import { Snippet, Link } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
+import getYear from 'date-fns/get_year';
 import isBefore from 'date-fns/is_before';
 import isAfter from 'date-fns/is_after';
 import endOfDay from 'date-fns/end_of_day';
@@ -96,10 +97,20 @@ export function Rop({ rop, project, active, url }) {
 
 export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) {
   const thisYear = today.getFullYear();
+  const projectGrantedYear = (project.issueDate && getYear(project.issueDate));
+  const projectEndDate = project.revocationDate || project.expiryDate;
 
-  const years = ropsYears.filter(y => {
-    const deadline = subMilliseconds(new Date(`${y}-02-01`), 1);
-    return isAfter(today, deadline);
+  function projectActiveIn(year) {
+    return !projectGrantedYear || projectGrantedYear <= year;
+  }
+
+  function projectEndedOrTodayAfter(deadline) {
+    return (projectEndDate && isAfter(today, projectEndDate)) || isAfter(today, deadline);
+  }
+
+  const years = ropsYears.filter(year => {
+    const startOfFeb = subMilliseconds(new Date(`${year}-02-01`), 1);
+    return projectActiveIn(year) && projectEndedOrTodayAfter(startOfFeb);
   });
 
   const activeYears = years.filter(year => {
@@ -109,8 +120,6 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
 
   const rops = project.rops;
 
-  const endDate = project.revocationDate || project.expiryDate;
-
   // add templates for each missing rop
   years.forEach(year => {
     if (!rops.find(ar => ar.year === year)) {
@@ -119,7 +128,7 @@ export function Rops({ project = {}, ropsYears = [], url, today = new Date() }) 
   });
 
   const requiredRops = rops.filter(rop => {
-    return !endDate || isAfter(new Date(endDate), new Date(`${rop.year}-01-01`));
+    return !projectEndDate || isAfter(new Date(projectEndDate), new Date(`${rop.year}-01-01`));
   });
 
   if (!requiredRops.length) {
