@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
-import uniqBy from 'lodash/uniqBy';
 import pick from 'lodash/pick';
 import get from 'lodash/get';
 import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
@@ -14,6 +13,7 @@ import { dateFormat } from '../../../../../constants';
 import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';
 import { schema as projectSchema } from '../../../../project/schema';
+import { getAdditionalEstablishments } from '../../../../project-version/helpers/project';
 
 function EstablishmentDiff({ task }) {
   const isComplete = !task.isOpen;
@@ -52,13 +52,7 @@ export default function Project({ task }) {
   const { project, establishment, version, ra, values, isAsru, allowedActions, url } = useSelector(state => state.static, shallowEqual);
   const [disabled, setDisabled] = useState(false);
 
-  const proposedAdditionalEstablishments = get(version, 'data.establishments', []).filter(e => e['establishment-id']);
-  const removedAAIds = get(version, 'data.establishments', []).filter(e => e.deleted).map(e => e['establishment-id']);
-
-  const additionalEstablishments = uniqBy([
-    ...project.additionalEstablishments,
-    ...proposedAdditionalEstablishments
-  ], est => est['establishment-id'] || est.id).filter(e => !removedAAIds.includes(e.id));
+  const additionalEstablishments = getAdditionalEstablishments(project, version);
 
   const isComplete = !task.isOpen;
   const isDiscarded = task.status === 'discarded-by-applicant';
