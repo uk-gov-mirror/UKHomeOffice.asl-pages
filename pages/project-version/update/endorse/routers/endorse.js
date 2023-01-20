@@ -6,6 +6,7 @@ const { userCanEndorse } = require('../middleware');
 const { getSchema } = require('../schema');
 const content = require('../content');
 const { render } = require('mustache');
+const { getAdditionalEstablishments } = require('../../../helpers/project');
 
 const trim = value => value.split('\n').map(s => s.trim()).join('\n').trim();
 
@@ -24,11 +25,11 @@ module.exports = (settings = {}) => {
   const app = Router({ mergeParams: true });
 
   app.use((req, res, next) => {
-    req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+    const additionalEstablishments = getAdditionalEstablishments(req.project, req.version);
     if (transferWithReceivingEstablishment(req.task)) {
-      req.awerbEstablishments = [get(req.task, 'data.establishment')].concat(req.project.additionalEstablishments);
+      req.awerbEstablishments = [get(req.task, 'data.establishment')].concat(additionalEstablishments);
     } else {
-      req.awerbEstablishments = [req.project.establishment].concat(req.project.additionalEstablishments);
+      req.awerbEstablishments = [req.project.establishment].concat(additionalEstablishments);
     }
 
     req.licenceHolder = settings.getLicenceHolder
