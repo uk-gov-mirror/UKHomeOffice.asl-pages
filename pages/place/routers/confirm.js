@@ -11,7 +11,7 @@ module.exports = settings => {
     const opts = {
       method: settings.method,
       json: merge({
-        data: omit(values, 'comments', 'comment', 'establishmentId', 'changesToRestrictions', 'nacwos', 'nvssqps'),
+        data: omit(values, 'comments', 'comment', 'establishmentId', 'changesToRestrictions', 'nacwos', 'nvssqps', 'conditions', 'reminder'),
         meta: {
           ...pick(values, 'comments', 'changesToRestrictions')
         }
