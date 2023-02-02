@@ -26,6 +26,10 @@ export default function Playback({ task, values, allowSubmit }) {
   const canUpdateConditions = allowedActions.includes('establishment.updateConditions');
   const taskData = task.data.data;
 
+  if (!taskData.conditions && taskData.conditions !== '') {
+    taskData.conditions = establishment.conditions;
+  }
+
   const isComplete = !task.isOpen;
 
   useEffect(() => {
@@ -105,7 +109,7 @@ export default function Playback({ task, values, allowSubmit }) {
       <StickyNavAnchor id="conditions" key="conditions">
         <h2><Snippet>conditions.title</Snippet></h2>
         <Conditions
-          conditions={taskData.conditions ? taskData.conditions : establishment.conditions }
+          conditions={taskData.conditions}
           reminders={taskData.reminder && taskData.reminder !== '' ? [JSON.parse(taskData.reminder)] : establishment.reminders}
           label={<Snippet>conditions.hasConditions</Snippet>}
           noConditionsLabel={<Snippet>conditions.noConditions</Snippet>}
