@@ -467,6 +467,78 @@ describe('Form Router', () => {
         form({ schema })(req, res);
       });
 
+      test('includes fields within fieldset', done => {
+        const schema = {
+          fieldset1: {
+            inputType: 'fieldset',
+            fields: {
+              field1: {
+                inputType: 'inputText',
+                validate: ['required']
+              },
+              field2: {
+                inputType: 'inputText',
+                validate: ['required']
+              }
+            }
+          }
+        };
+        const expected = {
+          field1: 'required',
+          field2: 'required'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+        form({ schema })(req, res);
+      });
+
+      test('includes fields from fieldset with reveal', done => {
+        const schema = {
+          fieldWithOptionsReveal: {
+            options: [{
+              value: 'valueWithReveal',
+              reveal: {
+                fieldset1: {
+                  inputType: 'fieldset',
+                  fields: {
+                    field1: {
+                      inputType: 'inputText',
+                      validate: ['required']
+                    },
+                    field2: {
+                      inputType: 'inputText',
+                      validate: ['required']
+                    }
+                  }
+                }
+              }
+            }]
+          }
+        };
+        req.body = {
+          fieldWithOptionsReveal: ['valueWithReveal']
+        };
+        const expected = {
+          field1: 'required',
+          field2: 'required'
+        };
+        res.redirect = jest.fn().mockImplementation(() => {
+          try {
+            expect(req.session.form['test-model'].validationErrors).toEqual(expected);
+            done();
+          } catch (e) {
+            done(e);
+          }
+        });
+        form({ schema })(req, res);
+      });
+
       test('includes multiple reveal fields', done => {
         const schema = {
           field1: {

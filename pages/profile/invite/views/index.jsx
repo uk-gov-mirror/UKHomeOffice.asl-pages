@@ -7,6 +7,7 @@ import {
   ErrorSummary
 } from '@asl/components';
 import { Warning, Button } from '@ukhomeoffice/react-components';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const formatters = {
   role: {
@@ -36,7 +37,7 @@ const Page = ({ establishment }) => (
       <ErrorSummary />
       <Header
         title={<Snippet>pages.profile.invite</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
       <Form formatters={formatters} detachFields submit={false}>
         <InviteForm />

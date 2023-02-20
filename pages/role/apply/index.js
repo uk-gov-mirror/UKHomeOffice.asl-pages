@@ -78,7 +78,7 @@ module.exports = settings => {
       const rolesRequested = addRoleTasks.map(task => task.type).concat(pelOrNprcTasks.length > 0 ? PELH_OR_NPRC_ROLES : []);
 
       req.form.schema = {
-        ...getSchema(rolesHeld.concat(rolesRequested)),
+        ...getSchema(rolesHeld.concat(rolesRequested), req.establishment),
         rcvsNumber: {}
       };
 

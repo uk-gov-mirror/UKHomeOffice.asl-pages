@@ -15,6 +15,7 @@ import InProgressWarning from '../../../common/components/in-progress-warning';
 import SectionDetails from './section-details';
 import ProceduresDiff from '../../procedures/views/diff';
 import SpeciesDiff from '../../species/views/diff';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const Index = ({
   pil,
@@ -101,7 +102,7 @@ const Index = ({
             ? <Snippet>pil.titleAmend</Snippet>
             : <Snippet>pil.title</Snippet>
         }
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
       <p><Snippet>pil.summary</Snippet></p>
       <SectionList sections={sections.map(s => ({ ...s, Component: SectionDetails }))} />

@@ -6,6 +6,7 @@ import {
   Header,
   Tabs
 } from '@asl/components';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 export default function Page({ children, activeTab }) {
   const { establishment, allowedActions } = useSelector(state => state.static, shallowEqual);
@@ -26,7 +27,7 @@ export default function Page({ children, activeTab }) {
     <Fragment>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
       {
         showTraining && (

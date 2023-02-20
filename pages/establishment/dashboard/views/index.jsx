@@ -84,6 +84,9 @@ export default function Index() {
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
             <dd>{ establishment.licenceNumber || '-' }</dd>
 
+            <dt><Snippet>establishmentCorporateStatus</Snippet></dt>
+            <dd>{ (establishment.corporateStatus && <Snippet>{`corporateStatus.${establishment.corporateStatus}`}</Snippet>) || '-' }</dd>
+
             {
               establishment.pelh && <ProfileLink type="pelh" profile={establishment.pelh} />
             }

@@ -1,16 +1,9 @@
-import React, { Fragment } from 'react';
-import { useSelector } from 'react-redux';
-import {
-  Acronym,
-  FilterTable,
-  Snippet,
-  Link,
-  Header,
-  LicenceStatusBanner,
-  Search
-} from '@asl/components';
+import React, {Fragment} from 'react';
+import {useSelector} from 'react-redux';
+import {Acronym, FilterTable, Header, LicenceStatusBanner, Link, Search, Snippet} from '@asl/components';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 import formatters from '../../formatters';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const pageFormatters = {
   name: {
@@ -75,7 +68,7 @@ export default function Places() {
 
       <Header
         title={<Snippet>pages.place.list</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
       <Search label={<Snippet>searchText</Snippet>} />
       <FilterTable

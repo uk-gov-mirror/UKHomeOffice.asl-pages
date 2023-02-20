@@ -14,6 +14,14 @@ import formatters from '../../../../establishment/formatters';
 import Authorisations from '../../../../establishment/update/views/authorisations';
 import isEmpty from 'lodash/isEmpty';
 
+function legalPersonFrom(value) {
+  return value.corporateStatus === 'corporate' ? {
+    legalName: value.legalName,
+    legalPhone: value.legalPhone,
+    legalEmail: value.legalEmail
+  } : undefined;
+}
+
 export default function Establishment({ task, values }) {
   const { establishment, allowedActions, openTask, errors } = useSelector(state => state.static);
   const isComplete = !task.isOpen;
@@ -23,6 +31,27 @@ export default function Establishment({ task, values }) {
   if (!taskData.conditions && taskData.conditions !== '') {
     taskData.conditions = establishment.conditions;
   }
+
+  const diffValues = {
+    ...values,
+    legalPerson: legalPersonFrom(values)
+  };
+  const diffTaskValues = {
+    ...taskData,
+    legalPerson: legalPersonFrom(taskData)
+  };
+
+  const legalPersonSchemaProperties = values.corporateStatus === 'corporate' || taskData.corporateStatus === 'corporate' ? {
+    legalPerson: {}
+  } : {};
+
+  const nprcSchemaProperties = values.nprc || taskData.nprc ? {
+    nprc: {}
+  } : {};
+
+  const pelhSchemaProperties = values.pelh || taskData.pelh ? {
+    pelh: {}
+  } : {};
 
   return [
     (
@@ -51,10 +80,10 @@ export default function Establishment({ task, values }) {
         <StickyNavAnchor id="diff" key="diff">
           <h2><Snippet>sticky-nav.diff</Snippet></h2>
           <Diff
-            before={values}
-            after={task.data.data}
-            schema={{ ...establishmentSchema, isTrainingEstablishment: {} }}
-            formatters={formatters}
+            before={diffValues}
+            after={diffTaskValues}
+            schema={{ ...establishmentSchema([]), isTrainingEstablishment: {}, ...legalPersonSchemaProperties, ...nprcSchemaProperties, ...pelhSchemaProperties }}
+            formatters={formatters(establishment.profiles)}
             comparator={hasChanged}
             currentLabel={isComplete ? <Snippet>diff.previous</Snippet> : undefined}
             proposedLabel={isComplete ? <Snippet>diff.changed-to</Snippet> : undefined}
@@ -77,7 +106,7 @@ export default function Establishment({ task, values }) {
 
           <Authorisations
             before={values}
-            after={task.data.data}
+            after={taskData}
             currentTitle={isComplete && <Snippet>authorisations.previous</Snippet>}
             proposedTitle={isComplete && <Snippet>authorisations.new</Snippet>}
           />
@@ -91,7 +120,7 @@ export default function Establishment({ task, values }) {
           <h2><Snippet>sticky-nav.conditions</Snippet></h2>
           <DiffText
             oldValue={values.conditions}
-            newValue={task.data.data.conditions}
+            newValue={taskData.conditions}
             currentLabel={isComplete && <Snippet>diff.previous</Snippet>}
             proposedLabel={isComplete && <Snippet>diff.changed-to</Snippet>}
           />

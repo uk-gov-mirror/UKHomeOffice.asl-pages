@@ -6,6 +6,7 @@ import Profile from './profile';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import { dateFormat } from '../../../../constants';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const Index = ({
   allowedActions,
@@ -22,7 +23,7 @@ const Index = ({
         <div className="govuk-grid-column-two-thirds">
           <Header
             title={`${model.firstName} ${model.lastName}`}
-            subtitle={establishment.name}
+            subtitle={<EstablishmentHeader establishment={establishment}/>}
           />
           <Fragment>
             <dl>

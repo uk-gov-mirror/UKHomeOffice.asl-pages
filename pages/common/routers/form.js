@@ -35,7 +35,8 @@ if (process.env.CSRF === 'false') {
 function setValuesToSession(req) {
   const schema = {
     ...flattenDetailsReveals(req.form.schema),
-    ...getOptionReveals(req.form.schema, req.body)
+    ...flattenFieldsets(req.form.schema),
+    ...flattenFieldsets(getOptionReveals(req.form.schema, req.body))
   };
 
   const values = omitBy(req.form.values, (val, key) => schema[key] && schema[key].meta);
@@ -148,6 +149,25 @@ const flattenDetailsReveals = schema => {
   }, {});
 };
 
+const flattenFieldsets = schema => {
+  // if we don't clone the schema here it gets modified in place because object refs...
+  schema = cloneDeep(schema);
+
+  return reduce(schema, (flattenedSchema, field, key) => {
+    if (field.fields) {
+      return {
+        ...flattenedSchema,
+        ...field.fields
+      };
+    } else {
+      return {
+        ...flattenedSchema,
+        [key]: field
+      };
+    }
+  }, {});
+};
+
 const schemaWithReveals = schema => reduce(schema, (obj, value, key) => {
   return {
     ...obj,
@@ -246,6 +266,7 @@ module.exports = ({
   const _getValues = (req, res, next) => {
     const schema = {
       ...flattenDetailsReveals(req.form.schema),
+      ...flattenFieldsets(req.form.schema),
       ...getOptionReveals(req.form.schema, req.body)
     };
 
@@ -260,9 +281,9 @@ module.exports = ({
   };
 
   const _process = (req, res, next) => {
-    req.form.schema = flattenDetailsReveals(req.form.schema);
+    req.form.schema = flattenFieldsets(flattenDetailsReveals(req.form.schema));
 
-    const reveals = getOptionReveals(req.form.schema, req.body);
+    const reveals = flattenFieldsets(getOptionReveals(req.form.schema, req.body));
     const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
 
     const schema = {
@@ -321,7 +342,7 @@ module.exports = ({
       };
     }, {});
 
-    const reveals = getOptionReveals(req.form.schema, req.form.values);
+    const reveals = flattenFieldsets(getOptionReveals(req.form.schema, req.form.values));
 
     const fileKeys = Object.keys(schema).filter(k => schema[k].inputType === 'inputFile');
     const validation = {
@@ -358,7 +379,7 @@ module.exports = ({
 
   const _getValidationErrors = (req, res, next) => {
     const fields = Object.keys(schemaWithReveals(req.form.schema));
-    const reveals = Object.keys(getOptionReveals(req.form.schema));
+    const reveals = Object.keys(flattenFieldsets(getOptionReveals(req.form.schema)));
     req.form.validationErrors = pick(req.session.form[req.model.id].validationErrors, [ ...fields, ...reveals, 'form' ]);
     return getValidationErrors(req, res, next);
   };

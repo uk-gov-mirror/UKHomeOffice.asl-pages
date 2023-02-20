@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Header, Link, Snippet, Form } from '@asl/components';
 import { Warning } from '@ukhomeoffice/react-components';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const Index = () => {
   const isOwnProfile = useSelector(state => state.static.isOwnProfile, shallowEqual);
@@ -16,7 +17,7 @@ const Index = () => {
           <Form cancelLink={isOwnProfile ? 'dashboard' : 'profile.permission'} submit={{ className: 'button-warning' }}>
             <Header
               title={<Snippet>title</Snippet>}
-              subtitle={establishment.name}
+              subtitle={<EstablishmentHeader establishment={establishment}/>}
             />
             <p><Snippet>intro</Snippet></p>
 

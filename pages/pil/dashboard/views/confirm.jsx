@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Header, Snippet, Form, ControlBar } from '@asl/components';
 import { Button } from '@ukhomeoffice/react-components';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 function SubmitPIL({ formFields }) {
   const model = useSelector(state => state.model);
@@ -44,7 +45,7 @@ export default function Confirm() {
             ? <Snippet>pil.titleAmend</Snippet>
             : <Snippet>pil.title</Snippet>
         }
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
 
       <Form detachFields submit={false}>

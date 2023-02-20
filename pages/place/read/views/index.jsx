@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { ModelSummary, Header, Snippet, Link } from '@asl/components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import formatters from '../../formatters';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 function OpenTask() {
   const { openTask, canUpdate } = useSelector(state => state.static);
@@ -74,7 +75,7 @@ const Place = function () {
         <div className="govuk-grid-column-two-thirds">
           <Header
             title={model.name}
-            subtitle={establishment.name}
+            subtitle={<EstablishmentHeader establishment={establishment}/>}
           />
           <ModelSummary schema={summarySchema} formatters={formatters} formatNullValue={true} />
         </div>

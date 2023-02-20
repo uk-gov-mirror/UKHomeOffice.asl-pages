@@ -109,6 +109,18 @@ dl.continuation {
   }
 }
 
+.legal-responsible-person {
+  fieldset {
+    .govuk-form-group {
+      margin-bottom: $govuk-gutter-half;
+    }
+
+    .govuk-label {
+      font-weight: 400;
+    }
+  }
+}
+
 form.procedures {
   .form-section {
     border-top: 3px solid $govuk-border-colour;

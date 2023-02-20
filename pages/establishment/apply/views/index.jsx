@@ -21,6 +21,9 @@ const Index = ({ model, establishment }) => {
           <dt><Snippet>section.details.fields.name.label</Snippet></dt>
           <dd>{establishment.name || '-'}</dd>
 
+          <dt><Snippet>section.details.fields.corporateStatus.label</Snippet></dt>
+          <dd>{(establishment.corporateStatus && <Snippet>{`section.details.fields.corporateStatus.options.${establishment.corporateStatus}`}</Snippet>) || '-'}</dd>
+
           <dt><Snippet>section.details.fields.address.label</Snippet></dt>
           <dd>{establishment.address || '-'}</dd>
 

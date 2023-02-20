@@ -16,6 +16,7 @@ import format from 'date-fns/format';
 import isFuture from 'date-fns/is_future';
 import { dateFormat } from '../../../../constants';
 import { numberWithCommas } from '../../../../lib/utils';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 function Fee({ type }) {
   const fees = useSelector(state => state.static.fees);
@@ -82,7 +83,7 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
         <ErrorSummary />
         <Header
           title={<Snippet>fees.title</Snippet>}
-          subtitle={establishment ? establishment.name : subtitle}
+          subtitle={establishment ? <EstablishmentHeader establishment={establishment}/> : subtitle}
         />
         <div className="subtitle">
           <Snippet>fees.period</Snippet>
