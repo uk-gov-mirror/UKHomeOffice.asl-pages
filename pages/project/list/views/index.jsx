@@ -16,6 +16,7 @@ import {
 } from '@asl/components';
 
 import formatters from '../../formatters';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const tabs = [
   'active',
@@ -40,7 +41,7 @@ export default function Projects() {
 
       <Header
         title={<Snippet>pages.project.list</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
 
       {

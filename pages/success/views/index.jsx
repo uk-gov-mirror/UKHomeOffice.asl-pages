@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Header, Panel, Snippet, Link } from '@asl/components';
+import EstablishmentHeader from '../../common/components/establishment-header';
 
 const Index = ({ onwardLink }) => {
   const {
@@ -19,7 +20,7 @@ const Index = ({ onwardLink }) => {
       <div className="govuk-grid-column-two-thirds">
         <Header
           title={taskLabel}
-          subtitle={establishment.name}
+          subtitle={<EstablishmentHeader establishment={establishment}/>}
         />
         {
           additionalInfo && <h2 className="additional-info">

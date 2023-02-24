@@ -11,6 +11,13 @@ module.exports = {
         name: {
           label: 'Name'
         },
+        corporateStatus: {
+          label: 'Type',
+          options: {
+            corporate: 'Corporate',
+            'non-profit': 'Non-profit'
+          }
+        },
         address: {
           label: 'Address'
         },
@@ -35,7 +42,7 @@ module.exports = {
     },
     namedPeople: {
       title: 'Named people',
-      hint: 'You must have either an NPRC or a PEL holder (but not both), and at least one person in each of the other named roles.',
+      hint: 'You must have at least one person in each of the named roles.',
       actions: {
         add: 'Add {{role}}'
       }

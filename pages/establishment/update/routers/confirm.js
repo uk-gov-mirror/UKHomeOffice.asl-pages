@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { get, pick, merge, isEmpty } = require('lodash');
 const form = require('../../../common/routers/form');
 const schema = require('../schema');
-const { updateDataFromTask, redirectToTaskIfOpen } = require('../../../common/middleware');
+const { updateDataFromTask, redirectToTaskIfOpen, populateEstablishmentProfiles, populateNamedPeople } = require('../../../common/middleware');
 const content = require('../../../common/content');
 
 module.exports = () => {
@@ -18,7 +18,7 @@ module.exports = () => {
     const opts = {
       method: 'PUT',
       json: merge({
-        data: pick(values, ['name', 'address', 'country', 'procedure', 'breeding', 'supplying', 'authorisations', 'isTrainingEstablishment']),
+        data: pick(values, ['name', 'corporateStatus', 'legalName', 'legalPhone', 'legalEmail', 'address', 'country', 'procedure', 'breeding', 'supplying', 'authorisations', 'isTrainingEstablishment', 'pelh', 'nprc']),
         meta: {
           comments: values.comments,
           declaration: content.fields.declaration.label
@@ -33,7 +33,7 @@ module.exports = () => {
 
   app.post('/', updateDataFromTask(sendData));
 
-  app.use(form({
+  app.use(populateNamedPeople, populateEstablishmentProfiles, form({
     requiresDeclaration: req => !req.user.profile.asruUser,
     checkSession: (req, res, next) => {
       const values = get(req.session, `form.${req.model.id}.values`);
@@ -54,9 +54,10 @@ module.exports = () => {
 
   app.get('/', (req, res, next) => {
     Object.assign(res.locals.static, {
-      diffSchema: schema,
+      diffSchema: schema(),
       before: req.model,
-      after: req.session.form[req.model.id].values
+      after: req.session.form[req.model.id].values,
+      establishmentProfiles: req.establishment.profiles
     });
     next();
   });

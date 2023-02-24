@@ -4,6 +4,7 @@ import { ControlBar, Header, Snippet, FormLayout, ModelSummary } from '@asl/comp
 import { Warning } from '@ukhomeoffice/react-components';
 import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const formatters = {
   issueDate: {
@@ -25,7 +26,7 @@ export default function ConvertProjectConfirm() {
     <FormLayout>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
 
       <p><Snippet>description</Snippet></p>

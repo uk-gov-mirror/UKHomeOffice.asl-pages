@@ -1,8 +1,16 @@
 const namedRoles = require('../../content/named-roles');
 const hintText = require('../../content/hint-text');
 
-module.exports = roles => {
-  roles = Object.keys(namedRoles).filter(r => !roles.includes(r));
+const excludedRoles = {
+  corporate: ['pelh'],
+  'non-profit': ['nprc']
+};
+
+module.exports = (roles, establishment) => {
+  const excludeRoles = (establishment.corporateStatus && excludedRoles[establishment.corporateStatus]) || [];
+  roles = Object.keys(namedRoles)
+    .filter(r => !roles.includes(r))
+    .filter(r => !excludeRoles.includes(r));
 
   const options = roles.map(role => {
     return {

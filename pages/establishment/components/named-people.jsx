@@ -20,29 +20,33 @@ const renderNames = (roles, showLinks, role) => {
 export default function NamedPeople({ establishment, showLinks = false }) {
   return (
     <dl className="inline">
-      <dt>{content.namedRoles.pelh}</dt>
-      <dd>
-        {
-          establishment.pelh && renderNames([establishment.pelh], showLinks, 'pelh')
-        }
-        {
-          !establishment.pelh && (
-            establishment.nprc || !showLinks ? '-' : <Link page="profile.list" label="Add PEL holder" />
-          )
-        }
-      </dd>
+      {establishment.corporateStatus !== 'corporate' && (<Fragment>
+        <dt>{content.namedRoles.pelh}</dt>
+        <dd>
+          {
+            establishment.pelh && renderNames([establishment.pelh], showLinks, 'pelh')
+          }
+          {
+            !establishment.pelh && (
+              establishment.nprc || !showLinks ? '-' : <Link page="profile.list" label="Add PEL holder" />
+            )
+          }
+        </dd>
+      </Fragment>)}
 
-      <dt>{content.namedRoles.nprc}</dt>
-      <dd>
-        {
-          establishment.nprc && renderNames([establishment.nprc], showLinks, 'nprc')
-        }
-        {
-          !establishment.nprc && (
-            establishment.pelh || !showLinks ? '-' : <Link page="profile.list" label="Add NPRC" />
-          )
-        }
-      </dd>
+      {establishment.corporateStatus !== 'non-profit' && (<Fragment>
+        <dt>{content.namedRoles.nprc}</dt>
+        <dd>
+          {
+            establishment.nprc && renderNames([establishment.nprc], showLinks, 'nprc')
+          }
+          {
+            !establishment.nprc && (
+              establishment.pelh || !showLinks ? '-' : <Link page="profile.list" label="Add NPRC" />
+            )
+          }
+        </dd>
+      </Fragment>)}
 
       {
         ['nacwo', 'nio', 'nvs', 'ntco'].map(role =>

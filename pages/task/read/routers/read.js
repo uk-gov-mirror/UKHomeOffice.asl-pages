@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { merge, set, get, concat } = require('lodash');
 
 const UnauthorisedError = require('@asl/service/errors/unauthorised');
-const { populateNamedPeople } = require('../../../common/middleware');
+const { populateNamedPeople, populateEstablishmentProfiles } = require('../../../common/middleware');
 const form = require('../../../common/routers/form');
 const getSchema = require('../../schema/view');
 const getAssignSchema = require('../../schema/assign');
@@ -133,6 +133,14 @@ module.exports = () => {
   app.use(populateNamedPeople);
 
   app.use((req, res, next) => {
+    // Populate the establishmentProfiles for establishment update
+    if (req.task.data.model === 'establishment' && req.task.data.action === 'update') {
+      return populateEstablishmentProfiles(req, res, next);
+    }
+    next();
+  });
+
+  app.use((req, res, next) => {
     const profileId = get(req.task, 'data.data.profileId');
     const establishmentId = get(req.task, 'data.data.establishmentId');
 
@@ -181,6 +189,11 @@ module.exports = () => {
         if (model === 'establishment') {
           if (!res.locals.static.values.authorisations) {
             res.locals.static.values.authorisations = [];
+          }
+
+          if (action === 'update') {
+            res.locals.static.values.pelh = get(req.task, 'data.meta.pelh');
+            res.locals.static.values.nprc = get(req.task, 'data.meta.nprc');
           }
         }
 
@@ -234,6 +247,31 @@ module.exports = () => {
     }
 
     next();
+  });
+
+  app.use((req, res, next) => {
+    if (req.task.isOpen && req.task.data.model === 'establishment' && req.task.data.action === 'update') {
+      Promise.resolve()
+        .then(() => {
+          return req.api(`/establishment/${req.establishment.id}/named-people`)
+            .then(result => {
+              const roles = result.json.data;
+              req.establishment.roles = roles;
+            })
+            .catch(next);
+        })
+        .then(() => {
+          req.establishment.roles = req.establishment.roles || [];
+          const pelh = req.establishment.roles.find(r => r.type === 'pelh');
+          const nprc = req.establishment.roles.find(r => r.type === 'nprc');
+          res.locals.static.values.pelh = pelh && pelh.profile;
+          res.locals.static.values.nprc = nprc && nprc.profile;
+
+          next();
+        });
+    } else {
+      next();
+    }
   });
 
   app.use((req, res, next) => {

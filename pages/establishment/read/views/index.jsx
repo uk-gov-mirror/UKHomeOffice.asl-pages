@@ -63,6 +63,9 @@ function Index() {
             <dt><Snippet>establishmentLicenceNumber</Snippet></dt>
             <dd>{ establishment.licenceNumber ? establishment.licenceNumber : '-' }</dd>
 
+            <dt><Snippet>establishmentCorporateStatus</Snippet></dt>
+            <dd>{ establishment.corporateStatus ? <Snippet>{`corporateStatus.${establishment.corporateStatus}`}</Snippet> : '-' }</dd>
+
             <dt><Snippet>address</Snippet></dt>
             <dd>{ establishment.address ? establishment.address : '-' }</dd>
 
@@ -167,6 +170,18 @@ function Index() {
                     </dl>
                   </Fragment>
                 }
+              </ExpandingPanel>
+            }
+            {
+              establishment.corporateStatus === 'corporate' && <ExpandingPanel title="Legally responsible person">
+                <dl>
+                  <dt>Name</dt>
+                  <dd>{establishment.legalName}</dd>
+                  <dt>Email</dt>
+                  <dd>{establishment.legalEmail}</dd>
+                  <dt>Phone number</dt>
+                  <dd>{establishment.legalPhone}</dd>
+                </dl>
               </ExpandingPanel>
             }
           </Accordion>

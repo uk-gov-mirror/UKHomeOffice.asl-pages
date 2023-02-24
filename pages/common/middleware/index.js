@@ -119,6 +119,19 @@ const populateNamedPeople = (req, res, next) => {
     });
 };
 
+const populateEstablishmentProfiles = (req, res, next) => {
+  if (!req.establishment || req.establishment.profiles) {
+    return next();
+  }
+
+  return req.api(`/establishment/${req.establishmentId}/profiles`, { query: { limit: 'all' } })
+    .then(({ json: { data } }) => {
+      req.establishment.profiles = data;
+      next();
+    })
+    .catch(next);
+};
+
 const validateUuidParam = () => (req, res, next, param) => {
   if (!isUUID(param)) {
     return next(new NotFoundError());
@@ -132,6 +145,7 @@ module.exports = {
   redirectToTaskIfOpen,
   clearSessionIfNotFromTask,
   populateNamedPeople,
+  populateEstablishmentProfiles,
   validateUuidParam,
   loadPermissions,
   enforcementFlags

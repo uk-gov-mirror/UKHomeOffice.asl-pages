@@ -5,6 +5,7 @@ import DateSelector from '../../components/date-selector';
 import projectFormatters from '../../../../project/formatters';
 import { formatDate } from '../../../../../lib/utils';
 import { dateFormat } from '../../../../../constants';
+import EstablishmentHeader from '../../../../common/components/establishment-header';
 
 export default function Index() {
   const { establishment, year, ropsOverview, ropsStatus } = useSelector(state => state.static);
@@ -51,7 +52,7 @@ export default function Index() {
     <div>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
 
       <DateSelector year={year} />

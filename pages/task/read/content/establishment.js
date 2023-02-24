@@ -10,6 +10,31 @@ module.exports = {
     name: {
       label: 'Name'
     },
+    corporateStatus: {
+      label: 'What type of establishment is this?',
+      options: {
+        corporate: 'Corporate',
+        'non-profit': 'Non-profit'
+      }
+    },
+    legalName: {
+      label: 'Name'
+    },
+    legalPhone: {
+      label: 'Phone'
+    },
+    legalEmail: {
+      label: 'Email'
+    },
+    nprc: {
+      label: 'Named Person Responsible for Compliance (NPRC)'
+    },
+    pelh: {
+      label: 'Establishment Licence Holder (PELH)'
+    },
+    legalPerson: {
+      label: 'Legally responsible person'
+    },
     address: {
       label: 'Address'
     },

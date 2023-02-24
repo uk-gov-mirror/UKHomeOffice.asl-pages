@@ -6,6 +6,24 @@ module.exports = {
     name: {
       required: 'Establishment name cannot be empty.'
     },
+    corporateStatus: {
+      required: 'Please enter the type of your new establishment'
+    },
+    legalName: {
+      required: 'Legally responsible person name cannot be empty.'
+    },
+    legalPhone: {
+      required: 'Legally responsible person phone cannot be empty.'
+    },
+    legalEmail: {
+      required: 'Legally responsible person email cannot be empty.'
+    },
+    pelh: {
+      required: 'Please select an Establishment Licence Holder (PELH)'
+    },
+    nprc: {
+      required: 'Please select a Named Person Responsible for Compliance (NPRC)'
+    },
     address: {
       required: 'Please provide an address.'
     },

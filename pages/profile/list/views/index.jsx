@@ -16,6 +16,7 @@ import {
   LicenceStatusBanner
 } from '@asl/components';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 const joinAcronyms = data => {
   if (Array.isArray(data)) {
@@ -115,7 +116,7 @@ export default function PeopleList({ formatters = peopleFormatters, showFilters 
 
       <Header
         title={<Snippet>pages.profile.list</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
       {
         allowedActions.includes('profile.invite') && <Invite activeTab={activeTab} />

@@ -5,6 +5,7 @@ import {
   Header,
   Snippet
 } from '@asl/components';
+import EstablishmentHeader from '../../../common/components/establishment-header';
 
 export default function ConvertProject() {
   const establishment = useSelector(state => state.static.establishment);
@@ -13,7 +14,7 @@ export default function ConvertProject() {
     <FormLayout>
       <Header
         title={<Snippet>title</Snippet>}
-        subtitle={establishment.name}
+        subtitle={<EstablishmentHeader establishment={establishment}/>}
       />
       <p><Snippet>description</Snippet></p>
     </FormLayout>

@@ -6,6 +6,7 @@ import {
   PanelList,
   Link
 } from '@asl/components';
+import EstablishmentHeader from '../../../../common/components/establishment-header';
 
 const types = ['catAF', 'catE'];
 
@@ -30,7 +31,7 @@ const Index = ({ establishment }) => (
   <Fragment>
     <Header
       title={<Snippet>pages.pil.categories</Snippet>}
-      subtitle={establishment.name}
+      subtitle={<EstablishmentHeader establishment={establishment}/>}
     />
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-two-thirds">

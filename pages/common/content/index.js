@@ -179,6 +179,7 @@ module.exports = {
   },
   licenceNumber: 'Licence number',
   establishmentLicenceNumber: 'Establishment licence number',
+  establishmentCorporateStatus: 'Establishment type',
   personalLicenceNumber: 'Personal licence number',
   licenceHolder: 'Licence holder',
   pelh: 'Establishment licence holder',
@@ -341,5 +342,9 @@ module.exports = {
         'other': 'Other'
       }
     }
+  },
+  corporateStatus: {
+    corporate: 'Corporate',
+    'non-profit': 'Non-profit'
   }
 };

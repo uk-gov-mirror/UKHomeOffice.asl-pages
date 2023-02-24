@@ -6,7 +6,39 @@ import schema from '../schema';
 import formatters from '../../formatters';
 import Authorisations from './authorisations';
 
-const Confirm = ({ before, after }) => {
+function legalPersonFrom(value) {
+  return value.corporateStatus === 'corporate' ? {
+    legalName: value.legalName,
+    legalPhone: value.legalPhone,
+    legalEmail: value.legalEmail
+  } : undefined;
+}
+
+const Confirm = ({ before, after, establishmentProfiles }) => {
+
+  const diffValues = {
+    ...before,
+    pelh: before.pelh && before.pelh.id,
+    nprc: before.nprc && before.nprc.id,
+    legalPerson: legalPersonFrom(before)
+  };
+  const diffAfterValues = {
+    ...after,
+    legalPerson: legalPersonFrom(after)
+  };
+
+  const legalPersonSchemaProperties = before.corporateStatus === 'corporate' || after.corporateStatus === 'corporate' ? {
+    legalPerson: {}
+  } : {};
+
+  const nprcSchemaProperties = before.nprc || after.nprc ? {
+    nprc: {}
+  } : {};
+
+  const pelhSchemaProperties = before.pelh || after.pelh ? {
+    pelh: {}
+  } : {};
+
   return (
     <FormLayout>
       <Header
@@ -15,11 +47,11 @@ const Confirm = ({ before, after }) => {
       />
 
       <Diff
-        schema={{ ...schema, isTrainingEstablishment: {} }}
-        before={before}
-        after={after}
+        schema={{ ...schema(), isTrainingEstablishment: {}, ...legalPersonSchemaProperties, ...nprcSchemaProperties, ...pelhSchemaProperties }}
+        before={diffValues}
+        after={diffAfterValues}
         comparator={hasChanged}
-        formatters={formatters}
+        formatters={formatters(establishmentProfiles)}
       />
 
       <Authorisations before={before} after={after} />
@@ -42,6 +74,6 @@ const Confirm = ({ before, after }) => {
   );
 };
 
-const mapStateToProps = ({ static: { before, after } }) => ({ before, after });
+const mapStateToProps = ({ static: { before, after, establishmentProfiles } }) => ({ before, after, establishmentProfiles });
 
 export default connect(mapStateToProps)(Confirm);

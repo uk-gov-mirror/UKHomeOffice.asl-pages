@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { omit } = require('lodash');
 const schema = require('../schema');
 const form = require('../../../common/routers/form');
-const { hydrate } = require('../../../common/middleware');
+const { hydrate, populateEstablishmentProfiles, populateNamedPeople } = require('../../../common/middleware');
 
 function ungroupFlags(values) {
   const licenceOptions = ['supplying', 'breeding', 'procedure'];
@@ -55,8 +55,17 @@ module.exports = () => {
 
   app.get('/', hydrate());
 
-  app.use(form({
-    schema,
+  app.use(populateNamedPeople, populateEstablishmentProfiles, form({
+    configure: (req, res, next) => {
+      const establishmentProfiles = req.establishment.profiles;
+      req.form.schema = schema(establishmentProfiles);
+      next();
+    },
+    getValues: (req, res, next) => {
+      req.form.values.nprc = (req.form.values.nprc && req.form.values.nprc.id) || (req.establishment.nprc && req.establishment.nprc.id);
+      req.form.values.pelh = (req.form.values.pelh && req.form.values.pelh.id) || (req.establishment.pelh && req.establishment.pelh.id);
+      next();
+    },
     process(req, res, next) {
       // if the checkbox for the auth type is unticked, remove those authorisations
       req.form.values.authorisations = fieldsToAuthorisations(req.body).filter(authorisation => {
