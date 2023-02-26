@@ -15,7 +15,7 @@ import Authorisations from '../../../../establishment/update/views/authorisation
 import isEmpty from 'lodash/isEmpty';
 
 function legalPersonFrom(value) {
-  return value.corporateStatus === 'corporate' ? {
+  return value && value.corporateStatus === 'corporate' ? {
     legalName: value.legalName,
     legalPhone: value.legalPhone,
     legalEmail: value.legalEmail
@@ -41,15 +41,15 @@ export default function Establishment({ task, values }) {
     legalPerson: legalPersonFrom(taskData)
   };
 
-  const legalPersonSchemaProperties = values.corporateStatus === 'corporate' || taskData.corporateStatus === 'corporate' ? {
+  const legalPersonSchemaProperties = values && (values.corporateStatus === 'corporate' || taskData.corporateStatus === 'corporate') ? {
     legalPerson: {}
   } : {};
 
-  const nprcSchemaProperties = values.nprc || taskData.nprc ? {
+  const nprcSchemaProperties = values && (values.nprc || taskData.nprc) ? {
     nprc: {}
   } : {};
 
-  const pelhSchemaProperties = values.pelh || taskData.pelh ? {
+  const pelhSchemaProperties = values && (values.pelh || taskData.pelh) ? {
     pelh: {}
   } : {};
 
