@@ -3,10 +3,10 @@ module.exports = {
     label: 'Establishment name'
   },
   corporateStatus: {
-    label: 'What type of establishment is this?',
+    label: 'What type of establishment licence is this?',
     options: {
-      corporate: 'Corporate',
-      'non-profit': 'Non-profit'
+      corporate: 'Corporate PEL',
+      'non-profit': 'Individual PEL'
     }
   },
   legalName: {
@@ -27,7 +27,7 @@ module.exports = {
     hint: 'If the person you’re looking for doesn’t appear in the list, they need to be invited to the establishment.'
   },
   legalPerson: {
-    label: 'Legally responsible person'
+    label: 'Individual legally accountable for the corporate entity'
   },
   address: {
     label: 'Address'

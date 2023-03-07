@@ -27,12 +27,12 @@ module.exports = (profiles = []) => {
       automapReveals: true,
       options: [{
         value: 'corporate',
-        label: 'Corporate',
+        label: 'Corporate PEL',
         hint: 'A legal person is responsible. We will contact a representative about any problems.',
         reveal: {
           'legal-responsible-person': {
             inputType: 'fieldset',
-            label: 'Enter the legally responsible person details',
+            label: 'Enter the individual legally accountable for the corporate entity details',
             fields: {
               legalName: {
                 inputType: 'inputText',
@@ -59,7 +59,7 @@ module.exports = (profiles = []) => {
         }
       }, {
         value: 'non-profit',
-        label: 'Non-profit',
+        label: 'Individual PEL',
         hint: 'A natural person is responsible for this establishment',
         reveal: {
           pelh: {

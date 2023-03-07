@@ -179,11 +179,11 @@ module.exports = {
   },
   licenceNumber: 'Licence number',
   establishmentLicenceNumber: 'Establishment licence number',
-  establishmentCorporateStatus: 'Establishment type',
+  establishmentCorporateStatus: 'Establishment licence type',
   personalLicenceNumber: 'Personal licence number',
   licenceHolder: 'Licence holder',
   pelh: 'Establishment licence holder',
-  nprc: 'Named Person Responsible for Compliance',
+  nprc: 'Named Person Responsible for Compliance (NPRC)',
   holc: 'Home Office Liaison Contact (HOLC)',
   inspectors: 'Inspectors',
   spoc: 'Single Point of Contact (SPoC)',
@@ -344,7 +344,7 @@ module.exports = {
     }
   },
   corporateStatus: {
-    corporate: 'Corporate',
-    'non-profit': 'Non-profit'
+    corporate: 'Corporate PEL',
+    'non-profit': 'Individual PEL'
   }
 };
