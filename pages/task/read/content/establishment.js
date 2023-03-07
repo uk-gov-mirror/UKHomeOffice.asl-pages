@@ -11,10 +11,10 @@ module.exports = {
       label: 'Name'
     },
     corporateStatus: {
-      label: 'What type of establishment is this?',
+      label: 'What type of establishment licence is this?',
       options: {
-        corporate: 'Corporate',
-        'non-profit': 'Non-profit'
+        corporate: 'Corporate PEL',
+        'non-profit': 'Individual PEL'
       }
     },
     legalName: {
@@ -33,7 +33,7 @@ module.exports = {
       label: 'Establishment Licence Holder (PELH)'
     },
     legalPerson: {
-      label: 'Legally responsible person'
+      label: 'Individual legally accountable for the corporate entity'
     },
     address: {
       label: 'Address'

@@ -173,7 +173,7 @@ function Index() {
               </ExpandingPanel>
             }
             {
-              establishment.corporateStatus === 'corporate' && <ExpandingPanel title="Legally responsible person">
+              establishment.corporateStatus === 'corporate' && <ExpandingPanel title="Individual legally accountable for the corporate entity">
                 <dl>
                   <dt>Name</dt>
                   <dd>{establishment.legalName}</dd>

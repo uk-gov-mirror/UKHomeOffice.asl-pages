@@ -14,8 +14,8 @@ module.exports = {
         corporateStatus: {
           label: 'Type',
           options: {
-            corporate: 'Corporate',
-            'non-profit': 'Non-profit'
+            corporate: 'Corporate PEL',
+            'non-profit': 'Individual PEL'
           }
         },
         address: {
