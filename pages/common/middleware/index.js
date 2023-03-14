@@ -3,13 +3,27 @@ const { get, set, omit } = require('lodash');
 const { NotFoundError } = require('@asl/service/errors');
 const loadPermissions = require('./load-permissions');
 const enforcementFlags = require('./enforcement-flags');
+const { cleanModel } = require('../../../lib/utils');
 
-const hydrate = () => (req, res, next) => {
+const hydrate = () => async (req, res, next) => {
   const task = get(req.model, 'openTasks[0]');
 
   const shouldHydrate = task &&
     task.editable &&
     !get(req.session, `form.${req.model.id}.hydrated`);
+
+  // Because we use the autocomplete for the PEL & NPRC the data saves and hydrates differently,
+  // so we have to get the details from the ID and also delete the unused one
+  if (task.data.model === 'establishment' && task.data.action === 'update') {
+    if (task.data.data.nprc) {
+      task.data.meta.nprc = await getUserInfo(task.data.data.nprc, req);
+      delete task.data.meta.pelh;
+    }
+    if (task.data.data.pelh) {
+      task.data.meta.pelh = await getUserInfo(task.data.data.pelh, req);
+      delete task.data.meta.nprc;
+    }
+  }
 
   if (shouldHydrate) {
     const { data, meta } = task.data;
@@ -24,6 +38,18 @@ const hydrate = () => (req, res, next) => {
     });
   }
   next();
+};
+
+const getUserInfo = (profileId, req) => {
+  return req.api(`/establishment/${req.establishmentId}/profile/${profileId}`)
+    .then(({ json: { data } }) => {
+      const model = cleanModel(data);
+      return {
+        id: profileId,
+        firstName: model.firstName,
+        lastName: model.lastName
+      };
+    });
 };
 
 const updateDataFromTask = updateModel => (req, res, next) => {
