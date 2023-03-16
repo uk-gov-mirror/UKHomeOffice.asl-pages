@@ -14,7 +14,7 @@ const hydrate = () => async (req, res, next) => {
 
   // Because we use the autocomplete for the PEL & NPRC the data saves and hydrates differently,
   // so we have to get the details from the ID and also delete the unused one
-  if (task.data.model === 'establishment' && task.data.action === 'update') {
+  if (task && task.data.model === 'establishment' && task.data.action === 'update') {
     if (task.data.data.nprc) {
       task.data.meta.nprc = await getUserInfo(task.data.data.nprc, req);
       delete task.data.meta.pelh;
