@@ -5,7 +5,7 @@ import {
   Header,
   PanelList,
   Link
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import EstablishmentHeader from '../../../../common/components/establishment-header';
 
 const types = ['catAF', 'catE'];

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from '@asl/components';
+import { Link } from '@ukhomeoffice/asl-components';
 
 export default function RA() {
   const { isActionable, taskId } = useSelector(state => state.static);

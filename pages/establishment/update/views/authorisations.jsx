@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Inset, Snippet } from '@asl/components';
+import { Inset, Snippet } from '@ukhomeoffice/asl-components';
 
 const Authorisations = ({ before, after, currentTitle, proposedTitle }) => {
   const currentKillingAuthorisations = (before.authorisations || []).filter(a => a.type === 'killing');

@@ -1,5 +1,5 @@
 const { pick } = require('lodash');
-const { moduleCodes } = require('@asl/constants');
+const { moduleCodes } = require('@ukhomeoffice/asl-constants');
 const { toArray } = require('../../../../lib/utils');
 
 const schema = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ControlBar, Header, Snippet, FormLayout, ModelSummary } from '@asl/components';
+import { ControlBar, Header, Snippet, FormLayout, ModelSummary } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';

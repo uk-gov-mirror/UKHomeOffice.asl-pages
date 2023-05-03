@@ -2,7 +2,7 @@ import React from 'react';
 import concat from 'lodash/concat';
 import flatten from 'lodash/flatten';
 import values from 'lodash/values';
-import { projectSpecies as SPECIES } from '@asl/constants';
+import { projectSpecies as SPECIES } from '@ukhomeoffice/asl-constants';
 
 const speciesLabels = flatten(values(SPECIES));
 

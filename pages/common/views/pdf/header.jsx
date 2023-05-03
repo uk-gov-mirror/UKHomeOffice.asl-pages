@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
 import moment from 'moment';
 import Wrapper from './wrapper';
-import { LicenceStatusBanner } from '@asl/components';
+import { LicenceStatusBanner } from '@ukhomeoffice/asl-components';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 
 const format = date => moment(date).format('DD MMM YY');

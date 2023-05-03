@@ -5,7 +5,7 @@ import {
   Snippet,
   Link,
   FormLayout
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import LicensedToCarryOut from '../../components/licensed-to-carry-out';
 import NamedPeople from '../../components/named-people';
 

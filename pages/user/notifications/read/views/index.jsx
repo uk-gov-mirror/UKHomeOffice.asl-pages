@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Snippet } from '@asl/components';
+import { Header, Snippet } from '@ukhomeoffice/asl-components';
 import ReactMarkdown from 'react-markdown';
 
 export default function Notification() {

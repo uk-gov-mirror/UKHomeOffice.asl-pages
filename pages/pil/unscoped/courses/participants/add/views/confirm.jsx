@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import pick from 'lodash/pick';
-import { FormLayout, Header, Snippet, ModelSummary } from '@asl/components';
+import { FormLayout, Header, Snippet, ModelSummary } from '@ukhomeoffice/asl-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../../../constants';
 import participantSchema from '../schema';

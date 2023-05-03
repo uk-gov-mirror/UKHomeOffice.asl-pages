@@ -4,7 +4,7 @@ import {
   FormLayout,
   Header,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import EstablishmentHeader from '../../../common/components/establishment-header';
 
 export default function ConvertProject() {

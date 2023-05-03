@@ -7,7 +7,7 @@ import {
   Header,
   WidthContainer,
   OverflowWrapper
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import Confirm from '../../../update/views/components/confirm';
 import formatters from '../formatters';
 

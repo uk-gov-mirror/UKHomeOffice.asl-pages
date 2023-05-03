@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Link, Snippet } from '@asl/components';
+import { Link, Snippet } from '@ukhomeoffice/asl-components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 
 const ProjectDownloads = () => {

@@ -14,7 +14,7 @@ import {
   Conditions,
   DocumentHeader,
   LicenceStatusBanner
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import ProceduresDiff from '../../procedures/views/diff';
 import { Warning } from '@ukhomeoffice/react-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Header, Snippet, FormLayout } from '@asl/components';
+import { Header, Snippet, FormLayout } from '@ukhomeoffice/asl-components';
 
 const RevokePIL = ({ profile, children }) => (
   <FormLayout>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Header, FormLayout, Snippet } from '@asl/components';
+import { Header, FormLayout, Snippet } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 const licenceType = {

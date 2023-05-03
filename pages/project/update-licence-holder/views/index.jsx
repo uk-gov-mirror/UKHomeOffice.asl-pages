@@ -8,7 +8,7 @@ import {
   WidthContainer,
   Fieldset,
   Link
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Button } from '@ukhomeoffice/react-components';
 import RTEFieldset from '@asl/projects/client/components/fieldset';
 

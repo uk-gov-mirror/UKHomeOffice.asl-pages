@@ -1,6 +1,6 @@
 import React, { useRef, Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Fieldset, Snippet } from '@asl/components';
+import { Fieldset, Snippet } from '@ukhomeoffice/asl-components';
 
 export default function DateSelector({ year }) {
   const { ropsYears } = useSelector(state => state.static);

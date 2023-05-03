@@ -1,7 +1,7 @@
 const content = require('../content');
 const { toArray, toBoolean } = require('../../../../lib/utils');
 const { uniq } = require('lodash');
-const { establishmentCountries } = require('@asl/constants');
+const { establishmentCountries } = require('@ukhomeoffice/asl-constants');
 
 const licenceOptions = ['supplying', 'breeding', 'procedure'];
 const authorisationTypeOptions = ['killing', 'rehomes'];

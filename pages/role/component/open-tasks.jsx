@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Snippet } from '@asl/components';
+import { Link, Snippet } from '@ukhomeoffice/asl-components';
 import namedRoles from '../content/named-roles';
 
 const OpenTasks = ({ roleTasks }) => {

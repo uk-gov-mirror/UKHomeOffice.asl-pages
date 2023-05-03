@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 import Subsection from './subsection';
 
 export default function UserCannotEdit() {

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { ControlBar, Header, Snippet } from '@asl/components';
+import { ControlBar, Header, Snippet } from '@ukhomeoffice/asl-components';
 
 const Confirm = ({ profile, csrfToken, values }) => {
   return (

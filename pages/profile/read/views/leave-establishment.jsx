@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import some from 'lodash/some';
-import { Link, Snippet } from '@asl/components';
+import { Link, Snippet } from '@ukhomeoffice/asl-components';
 
 export default function LeaveEstablishment({ establishment, profile }) {
   const hasRoles = some(profile.roles, role => role.establishmentId === establishment.id);

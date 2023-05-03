@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import { Snippet, DocumentHeader, Link } from '@asl/components';
+import { Snippet, DocumentHeader, Link } from '@ukhomeoffice/asl-components';
 import ProjectStatusBanner from '../../components/project-status-banner';
 import getSchema from '../schema';
 import Field from './components/field';

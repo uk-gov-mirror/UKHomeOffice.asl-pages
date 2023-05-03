@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from '@asl/components';
+import { Link } from '@ukhomeoffice/asl-components';
 import content from './content';
 
 const renderNames = (roles, showLinks, role) => {

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { formatDate } from '../../../../lib/utils';
-import { Header, Link, Snippet, TrainingSummary } from '@asl/components';
+import { Header, Link, Snippet, TrainingSummary } from '@ukhomeoffice/asl-components';
 import Profile from './profile';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import { dateFormat } from '../../../../constants';

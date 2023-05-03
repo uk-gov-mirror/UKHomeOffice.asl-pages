@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from '@asl/components';
-import { showNotification } from '@asl/components/src/notification/actions';
+import { Link } from '@ukhomeoffice/asl-components';
+import { showNotification } from '@ukhomeoffice/asl-components/src/notification/actions';
 
 export default function AssignTask({ task }) {
   const { user } = useSelector(state => state.static);

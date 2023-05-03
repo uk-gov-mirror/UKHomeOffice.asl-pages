@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Snippet, FormLayout, Header } from '@asl/components';
+import { Snippet, FormLayout, Header } from '@ukhomeoffice/asl-components';
 
 const RevokeProject = ({ project, children }) => (
   <FormLayout>

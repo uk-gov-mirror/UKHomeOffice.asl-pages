@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 
 export default function Roles({ roles = ['asruLicensing', 'asruInspector'] }) {
   const model = useSelector(state => state.model);

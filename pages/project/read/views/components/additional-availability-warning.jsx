@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 export default function AdditionalAvailabilityWarning() {

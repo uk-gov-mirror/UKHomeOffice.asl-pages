@@ -87,7 +87,7 @@ module.exports = {
 #### `./views/index.jsx`
 ```jsx
 import React from 'react';
-import { FormLayout } from '@asl/components';
+import { FormLayout } from '@ukhomeoffice/asl-components';
 
 const Page = () => (
   <FormLayout>
@@ -155,7 +155,7 @@ module.exports = {
 #### `./views/index.jsx`
 ```jsx
 import React from 'react';
-import { Datatable } from '@asl/components';
+import { Datatable } from '@ukhomeoffice/asl-components';
 
 const formatters = {
   firstName: {

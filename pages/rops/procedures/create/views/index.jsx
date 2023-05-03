@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import pick from 'lodash/pick';
-import { getUrl } from '@asl/components/src/link';
+import { getUrl } from '@ukhomeoffice/asl-components/src/link';
 import {
   Fieldset,
   Header,
@@ -9,7 +9,7 @@ import {
   Link,
   ErrorSummary,
   Sidebar
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import RopsHeader from '../../../components/header';
 import formatters from '../formatters';
 import Guidance from '../../../components/guidance';

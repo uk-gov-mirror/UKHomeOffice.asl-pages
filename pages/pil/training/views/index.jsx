@@ -6,7 +6,7 @@ import {
   ErrorSummary,
   Header,
   TrainingSummary
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 export default function Page() {
   const profile = useSelector(state => state.static.profile);

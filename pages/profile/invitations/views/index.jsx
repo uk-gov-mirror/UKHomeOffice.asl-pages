@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import PeopleList from '../../list/views/index';
-import { ExpiryDate, Snippet } from '@asl/components';
+import { ExpiryDate, Snippet } from '@ukhomeoffice/asl-components';
 import addDays from 'date-fns/add_days';
 import isBefore from 'date-fns/is_before';
 import format from 'date-fns/format';

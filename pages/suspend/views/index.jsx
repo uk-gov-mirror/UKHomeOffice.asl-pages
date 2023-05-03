@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Snippet, FormLayout } from '@asl/components';
+import { Header, Snippet, FormLayout } from '@ukhomeoffice/asl-components';
 
 const licenceType = {
   pil: 'personal',

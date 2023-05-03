@@ -6,7 +6,7 @@ import {
   Header,
   Link,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 import namedRoles from '../content/named-roles';
 

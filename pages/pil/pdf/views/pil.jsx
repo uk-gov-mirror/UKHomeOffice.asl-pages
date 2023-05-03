@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';
 import ProceduresDiff from '../../procedures/views/diff';
-import { Markdown } from '@asl/components';
+import { Markdown } from '@ukhomeoffice/asl-components';
 
 const PIL = ({ pil, content }) => {
   const licenceHolder = pil.licenceHolder;

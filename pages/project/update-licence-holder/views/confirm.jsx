@@ -6,7 +6,7 @@ import {
   Snippet,
   FormLayout,
   Link
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import ReviewFields from '@asl/projects/client/components/review-fields';
 
 const editLink = <Link page="project.updateLicenceHolder" label="Edit" />;

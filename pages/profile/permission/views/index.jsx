@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Snippet, Form, ErrorSummary, Header } from '@asl/components';
+import { Link, Snippet, Form, ErrorSummary, Header } from '@ukhomeoffice/asl-components';
 import { Warning, Button } from '@ukhomeoffice/react-components';
 
 const formatters = {

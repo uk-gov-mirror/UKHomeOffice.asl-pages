@@ -1,5 +1,5 @@
 const { get, flatten, omit } = require('lodash');
-const { projectSpecies } = require('@asl/constants');
+const { projectSpecies } = require('@ukhomeoffice/asl-constants');
 const { toArray, toBoolean } = require('../../../../lib/utils');
 const { hasNhps, getSpecies } = require('../../helpers');
 const content = require('../create/content');

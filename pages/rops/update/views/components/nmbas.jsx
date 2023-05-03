@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 
 export default function NMBAs() {
   const nmbas = useSelector(state => state.static.hasNMBAs);

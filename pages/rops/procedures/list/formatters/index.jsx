@@ -1,8 +1,8 @@
 import React from 'react';
 import flatten from 'lodash/flatten';
 import get from 'lodash/get';
-import { projectSpecies } from '@asl/constants';
-import { Snippet, Markdown } from '@asl/components';
+import { projectSpecies } from '@ukhomeoffice/asl-constants';
+import { Snippet, Markdown } from '@ukhomeoffice/asl-components';
 
 const allSpecies = flatten(Object.values(projectSpecies));
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Snippet, Link, Header, WidthContainer } from '@asl/components';
+import { Snippet, Link, Header, WidthContainer } from '@ukhomeoffice/asl-components';
 import Sidebar from '../../components/guidance';
 
 export default function Guidance() {

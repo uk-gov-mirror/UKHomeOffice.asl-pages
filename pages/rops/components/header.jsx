@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { DocumentHeader, Link, Snippet } from '@asl/components';
+import { DocumentHeader, Link, Snippet } from '@ukhomeoffice/asl-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../constants';
 import ProceduresDownloadLink from './procedures-download-link';

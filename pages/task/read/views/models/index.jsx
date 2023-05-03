@@ -9,7 +9,7 @@ import {
   Field,
   Inset,
   Link
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import get from 'lodash/get';
 import { Warning } from '@ukhomeoffice/react-components';
 import Establishment from './establishment';

@@ -9,9 +9,9 @@ import {
   Link,
   Inset,
   ErrorSummary
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Warning, Select } from '@ukhomeoffice/react-components';
-import { getUrl } from '@asl/components/src/link';
+import { getUrl } from '@ukhomeoffice/asl-components/src/link';
 import format from 'date-fns/format';
 import isFuture from 'date-fns/is_future';
 import { dateFormat } from '../../../../constants';

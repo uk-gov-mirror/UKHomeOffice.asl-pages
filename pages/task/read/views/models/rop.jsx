@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { Link, StickyNavAnchor, Snippet } from '@asl/components';
+import { Link, StickyNavAnchor, Snippet } from '@ukhomeoffice/asl-components';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 

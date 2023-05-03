@@ -9,7 +9,7 @@ import {
   Link,
   OpenTaskWarning,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const currentEstablishment = establishment => {
   return (

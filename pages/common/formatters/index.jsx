@@ -1,6 +1,6 @@
 import React from 'react';
 import dict from '@asl/dictionary';
-import { JoinAcronyms } from '@asl/components';
+import { JoinAcronyms } from '@ukhomeoffice/asl-components';
 
 export const joinAcronyms = val => {
   return <JoinAcronyms>{ val }</JoinAcronyms>;

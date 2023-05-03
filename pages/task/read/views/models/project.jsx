@@ -3,7 +3,7 @@ import { StaticRouter } from 'react-router';
 import { useSelector, shallowEqual } from 'react-redux';
 import pick from 'lodash/pick';
 import get from 'lodash/get';
-import { Link, StickyNavAnchor, Snippet, Diff } from '@asl/components';
+import { Link, StickyNavAnchor, Snippet, Diff } from '@ukhomeoffice/asl-components';
 import EstablishmentLinks from '../components/establishment-links';
 
 // need unconnected ReviewFields component and not default

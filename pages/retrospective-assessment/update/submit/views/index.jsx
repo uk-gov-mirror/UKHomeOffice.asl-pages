@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet, Header, FormLayout } from '@asl/components';
+import { Snippet, Header, FormLayout } from '@ukhomeoffice/asl-components';
 
 export default function Submit() {
   const { canEndorse, project } = useSelector(state => state.static);

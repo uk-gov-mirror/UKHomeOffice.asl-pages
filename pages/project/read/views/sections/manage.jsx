@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 import OpenTask from '../components/open-task';
 import UserCannotEdit from '../components/user-cannot-edit';
 import StartAmendment from '../components/start-amendment';

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Header, Snippet } from '@asl/components';
+import { Header, Snippet } from '@ukhomeoffice/asl-components';
 
 const Index = () => (
   <Fragment>

@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import differenceInYears from 'date-fns/difference_in_years';
 import { Button } from '@ukhomeoffice/react-components';
-import { Snippet, Link, Tabs } from '@asl/components';
+import { Snippet, Link, Tabs } from '@ukhomeoffice/asl-components';
 import { formatDate } from '../../../../lib/utils';
 import { defineValue, projectTitle } from '../../../common/formatters';
 import LeaveEstablishment from './leave-establishment';

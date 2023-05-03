@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Fieldset } from '@asl/components';
+import { Fieldset } from '@ukhomeoffice/asl-components';
 
 export default function AsruAssignment() {
   const { url, user, assignmentSchema } = useSelector(state => state.static);

@@ -1,7 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
 import classnames from 'classnames';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 import Deadline from './deadline';
 import RefusalNoticeWarning from './refusal-notice-warning';
 

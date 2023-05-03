@@ -3,7 +3,7 @@ import {
   FormLayout,
   Header,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 export default function Species() {
   return (

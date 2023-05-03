@@ -4,7 +4,7 @@ import TaskList from './tasklist';
 import {
   Header,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const TaskListPage = ({ profileName }) => (
   <Fragment>

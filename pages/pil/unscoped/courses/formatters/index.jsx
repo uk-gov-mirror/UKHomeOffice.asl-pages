@@ -1,6 +1,6 @@
 import React from 'react';
 import format from 'date-fns/format';
-import { Link } from '@asl/components';
+import { Link } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 
 const formatDate = date => format(date, dateFormat.long);

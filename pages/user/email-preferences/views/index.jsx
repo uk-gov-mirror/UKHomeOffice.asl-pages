@@ -2,7 +2,7 @@ import React, { useState, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
-import { Header, Snippet, Fieldset } from '@asl/components';
+import { Header, Snippet, Fieldset } from '@ukhomeoffice/asl-components';
 
 export default function EmailPreferences() {
   const model = useSelector(state => state.model);

@@ -1,6 +1,6 @@
 import React from 'react';
 import merge from 'lodash/merge';
-import { Datatable } from '@asl/components';
+import { Datatable } from '@ukhomeoffice/asl-components';
 import taskFormatters from '../formatters';
 
 export default function ({ formatters = {} }) {

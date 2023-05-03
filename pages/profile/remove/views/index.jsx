@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { Header, Link, Snippet, Form } from '@asl/components';
+import { Header, Link, Snippet, Form } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 import EstablishmentHeader from '../../../common/components/establishment-header';
 

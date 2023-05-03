@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Acronym, Snippet, LinkFilter, FilterSummary, Panel, Tabs, LinkFilterList } from '@asl/components';
+import { Acronym, Snippet, LinkFilter, FilterSummary, Panel, Tabs, LinkFilterList } from '@ukhomeoffice/asl-components';
 import Table from './table';
 
 const selectivelyUppercase = filter => {
