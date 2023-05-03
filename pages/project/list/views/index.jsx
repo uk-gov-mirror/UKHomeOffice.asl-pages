@@ -13,7 +13,7 @@ import {
   LicenceStatusBanner,
   Details,
   Inset
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 import formatters from '../../formatters';
 import EstablishmentHeader from '../../../common/components/establishment-header';

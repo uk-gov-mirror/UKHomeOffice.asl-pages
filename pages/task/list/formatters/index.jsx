@@ -5,7 +5,7 @@ import format from 'date-fns/format';
 import isBefore from 'date-fns/is_before';
 import differenceInDays from 'date-fns/difference_in_calendar_days';
 import { dateFormat } from '../../../../constants';
-import { Snippet, Link } from '@asl/components';
+import { Snippet, Link } from '@ukhomeoffice/asl-components';
 import AssignTask from '../components/assign-task';
 
 const good = ['resolved'];

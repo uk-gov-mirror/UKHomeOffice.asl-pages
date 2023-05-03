@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from '@asl/components';
+import { Link } from '@ukhomeoffice/asl-components';
 
 export default ({ task }) => {
   if (task.action === 'failed') {

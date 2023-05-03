@@ -9,7 +9,7 @@ import {
   Datatable,
   Details,
   Inset
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import Page from '../../components/page';
 import format from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';

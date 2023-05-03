@@ -5,7 +5,7 @@ import flatten from 'lodash/flatten';
 import without from 'lodash/without';
 import castArray from 'lodash/castArray';
 import pick from 'lodash/pick';
-import { Snippet, Inset, Link } from '@asl/components';
+import { Snippet, Inset, Link } from '@ukhomeoffice/asl-components';
 import { projectSpecies } from '@asl/constants';
 import { yesNoEmpty, yesNo } from '../../../procedures/list/formatters';
 

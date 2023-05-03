@@ -9,7 +9,7 @@ import {
   Header,
   ControlBar,
   RestrictionsField
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import formatters from '../../formatters';
 import { hasChanged } from '../../../../lib/utils';
 import LicenceHolder from '../../../common/components/licence-holder';

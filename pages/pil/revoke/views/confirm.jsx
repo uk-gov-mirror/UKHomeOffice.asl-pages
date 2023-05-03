@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Revoke from './';
-import { Field, Snippet } from '@asl/components';
+import { Field, Snippet } from '@ukhomeoffice/asl-components';
 
 const Confirm = ({ model }) => (
   <Revoke>

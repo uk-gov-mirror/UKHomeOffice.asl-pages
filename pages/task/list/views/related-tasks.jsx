@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet, Panel } from '@asl/components';
+import { Snippet, Panel } from '@ukhomeoffice/asl-components';
 import Table from './table';
 
 export default function RelatedTasks () {

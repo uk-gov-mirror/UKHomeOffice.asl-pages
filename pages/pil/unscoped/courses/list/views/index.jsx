@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import merge from 'lodash/merge';
-import { Snippet, Link, Datatable } from '@asl/components';
+import { Snippet, Link, Datatable } from '@ukhomeoffice/asl-components';
 import Page from '../../../components/page';
 import formatters from '../../formatters';
 

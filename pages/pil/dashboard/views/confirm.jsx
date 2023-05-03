@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Snippet, Form, ControlBar } from '@asl/components';
+import { Header, Snippet, Form, ControlBar } from '@ukhomeoffice/asl-components';
 import { Button } from '@ukhomeoffice/react-components';
 import EstablishmentHeader from '../../../common/components/establishment-header';
 

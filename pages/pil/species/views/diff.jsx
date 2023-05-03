@@ -1,6 +1,6 @@
 import React from 'react';
 import isEqual from 'lodash/isEqual';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 
 const Item = ({species, before, after, diffClassName = 'diff'}) => {
   const speciesChanged = before.species.includes(species) !== after.species.includes(species);

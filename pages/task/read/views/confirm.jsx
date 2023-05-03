@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Form, Snippet, Header, Link, Field, ErrorSummary } from '@asl/components';
+import { Form, Snippet, Header, Link, Field, ErrorSummary } from '@ukhomeoffice/asl-components';
 import get from 'lodash/get';
 import { Button } from '@ukhomeoffice/react-components';
 import RefusalNotice from './components/refusal-notice';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet, Header, FormLayout } from '@asl/components';
+import { Snippet, Header, FormLayout } from '@ukhomeoffice/asl-components';
 
 export default function Submit() {
   const project = useSelector(state => state.model.project);

@@ -6,7 +6,7 @@ import {
   Diff,
   DiffText,
   Conditions
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { hasChanged } from '../../../../../lib/utils';
 import establishmentSchema from '../../../../establishment/update/schema';
 import NamedPeople from '../../../../establishment/components/named-people';

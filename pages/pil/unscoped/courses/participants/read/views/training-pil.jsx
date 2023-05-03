@@ -2,7 +2,7 @@ import React from 'react';
 import pick from 'lodash/pick';
 import schema from '../../../schema';
 import trainingPilSchema from '../../schema';
-import { ModelSummary, Inset } from '@asl/components';
+import { ModelSummary, Inset } from '@ukhomeoffice/asl-components';
 import formatters from '../../../formatters';
 
 export default function TrainingPil({ className, trainingPil }) {

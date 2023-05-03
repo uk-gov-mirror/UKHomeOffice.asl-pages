@@ -7,7 +7,7 @@ import {
   SectionList,
   Form,
   TrainingSummary
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { canUpdateModel } from '../../../../lib/utils';
 
 import InProgressWarning from '../../../common/components/in-progress-warning';

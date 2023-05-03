@@ -2,7 +2,7 @@ import React from 'react';
 import get from 'lodash/get';
 import sortBy from 'lodash/sortBy';
 import ProceduresDiff from '../../../../pil/procedures/views/diff';
-import { StickyNavAnchor, Snippet } from '@asl/components';
+import { StickyNavAnchor, Snippet } from '@ukhomeoffice/asl-components';
 import TrainingPilView from '../../../../pil/unscoped/courses/participants/read/views/training-pil';
 
 export function PilProcedures({ task, isPil = false }) {

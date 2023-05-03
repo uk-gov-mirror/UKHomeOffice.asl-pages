@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 
 const LicenceHolder = ({ type, profile }) => (
   <Fragment>

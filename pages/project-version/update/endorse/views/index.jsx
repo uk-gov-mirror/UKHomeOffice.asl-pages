@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Snippet, Header, FormLayout } from '@asl/components';
+import { Snippet, Header, FormLayout } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 
 export default function Submit() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import format from 'date-fns/format';
-import { Markdown } from '@asl/components';
+import { Markdown } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 import { render } from 'mustache';
 

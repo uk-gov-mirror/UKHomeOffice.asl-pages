@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Snippet, FormLayout, ModelSummary } from '@asl/components';
+import { Header, Snippet, FormLayout, ModelSummary } from '@ukhomeoffice/asl-components';
 import formatters from '../formatters';
 import schema from '../read/schema';
 

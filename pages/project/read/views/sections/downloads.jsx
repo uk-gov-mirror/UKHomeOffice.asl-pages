@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import capitalize from 'lodash/capitalize';
 import sortBy from 'lodash/sortBy';
 import { dateFormat } from '../../../../../constants';
-import { Link, Snippet, Inset } from '@asl/components';
+import { Link, Snippet, Inset } from '@ukhomeoffice/asl-components';
 import Subsection from '../components/subsection';
 
 function DownloadSection({ project, version }) {

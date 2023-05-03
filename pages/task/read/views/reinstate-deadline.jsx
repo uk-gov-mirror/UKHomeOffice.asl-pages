@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Form, Snippet, Header, Link } from '@asl/components';
+import { Form, Snippet, Header, Link } from '@ukhomeoffice/asl-components';
 import { Button } from '@ukhomeoffice/react-components';
 
 const CommentForm = ({ task, formFields }) => {

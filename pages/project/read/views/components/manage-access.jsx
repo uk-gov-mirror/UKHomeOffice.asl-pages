@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Snippet, Link } from '@asl/components';
+import { Snippet, Link } from '@ukhomeoffice/asl-components';
 import Subsection from './subsection';
 import Collaborators from '../../../components/collaborators';
 

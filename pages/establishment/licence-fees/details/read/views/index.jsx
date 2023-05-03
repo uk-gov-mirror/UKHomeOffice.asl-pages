@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../../views';
-import { ModelSummary, Link, Snippet } from '@asl/components';
+import { ModelSummary, Link, Snippet } from '@ukhomeoffice/asl-components';
 
 export default function Details() {
   return (

@@ -5,7 +5,7 @@ import {
   Snippet,
   Header,
   Form
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import Model from './models';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 

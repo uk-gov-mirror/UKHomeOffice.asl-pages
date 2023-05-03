@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import isEqual from 'lodash/isEqual';
-import { Snippet, Inset, Markdown } from '@asl/components';
+import { Snippet, Inset, Markdown } from '@ukhomeoffice/asl-components';
 import TrainingPil from '../../unscoped/courses/participants/read/views/training-pil';
 
 const Item = ({

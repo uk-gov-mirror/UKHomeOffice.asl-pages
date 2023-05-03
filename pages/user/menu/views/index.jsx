@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Snippet, Header } from '@asl/components';
+import { Link, Snippet, Header } from '@ukhomeoffice/asl-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 
 export default function Index() {

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { Header, Snippet, Link } from '@asl/components';
+import { Header, Snippet, Link } from '@ukhomeoffice/asl-components';
 import CancelLink from '../../../components/cancel-link';
 import RopHeader from '../../../components/header';
 

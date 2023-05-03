@@ -4,7 +4,7 @@ import {
   Form,
   Header,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 export default function ConvertProject() {
   const project = useSelector(state => state.static.project);

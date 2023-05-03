@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
-import { Snippet, Inset } from '@asl/components';
+import { Snippet, Inset } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 import addYears from 'date-fns/add_years';
 import formatDate from 'date-fns/format';

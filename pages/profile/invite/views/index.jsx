@@ -5,7 +5,7 @@ import {
   Form,
   Header,
   ErrorSummary
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Warning, Button } from '@ukhomeoffice/react-components';
 import EstablishmentHeader from '../../../common/components/establishment-header';
 

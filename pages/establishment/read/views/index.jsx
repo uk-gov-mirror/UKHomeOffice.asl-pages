@@ -12,7 +12,7 @@ import {
   DocumentHeader,
   LicenceStatusBanner,
   Inset
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import ProfileLink from '../../components/profile-link';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Snippet } from '@asl/components';
+import { Link, Snippet } from '@ukhomeoffice/asl-components';
 import get from 'lodash/get';
 import { Button } from '@ukhomeoffice/react-components';
 import { formatDate } from '../../../../../lib/utils';

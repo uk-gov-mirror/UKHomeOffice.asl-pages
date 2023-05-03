@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Form, Snippet, Header } from '@asl/components';
+import { Form, Snippet, Header } from '@ukhomeoffice/asl-components';
 import { formatDate } from '../../../../lib/utils';
 
 export default function DeadlinePassedReason() {

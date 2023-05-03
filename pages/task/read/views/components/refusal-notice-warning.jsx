@@ -4,7 +4,7 @@ import get from 'lodash/get';
 import formatDate from 'date-fns/format';
 import { dateFormat } from '../../../../../constants';
 import { Warning } from '@ukhomeoffice/react-components';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 
 export default function RefusalNoticeWarning({ task }) {
   const { isAsru } = useSelector(state => state.static);

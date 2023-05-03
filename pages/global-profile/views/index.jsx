@@ -9,7 +9,7 @@ import {
   Snippet,
   TrainingSummary,
   Inset
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 import dateFormatter from 'date-fns/format';
 import { dateFormat } from '../../../constants';

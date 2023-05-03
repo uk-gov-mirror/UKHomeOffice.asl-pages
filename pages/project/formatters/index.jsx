@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy';
-import { Link, ExpiryDate, Snippet, Countdown } from '@asl/components';
+import { Link, ExpiryDate, Snippet, Countdown } from '@ukhomeoffice/asl-components';
 import { formatDate } from '../../../lib/utils';
 import { dateFormat } from '../../../constants';
 import { projectTitle } from '../../common/formatters';

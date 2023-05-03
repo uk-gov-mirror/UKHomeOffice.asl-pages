@@ -1,5 +1,5 @@
 import React from 'react';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../constants';
 import { formatDate } from '../../../../lib/utils';
 

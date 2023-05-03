@@ -14,7 +14,7 @@ import {
   Header,
   Tabs,
   LicenceStatusBanner
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 import EstablishmentHeader from '../../../common/components/establishment-header';
 

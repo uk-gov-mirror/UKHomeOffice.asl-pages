@@ -8,7 +8,7 @@ import {
   DocumentHeader,
   PanelList,
   LicenceStatusBanner
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import ProfileLink from '../../components/profile-link';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 

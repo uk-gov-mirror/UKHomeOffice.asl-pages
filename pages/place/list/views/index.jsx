@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {useSelector} from 'react-redux';
-import {Acronym, FilterTable, Header, LicenceStatusBanner, Link, Search, Snippet} from '@asl/components';
+import {Acronym, FilterTable, Header, LicenceStatusBanner, Link, Search, Snippet} from '@ukhomeoffice/asl-components';
 import EnforcementFlags from '../../../enforcement/components/enforcement-flags';
 import formatters from '../../formatters';
 import EstablishmentHeader from '../../../common/components/establishment-header';

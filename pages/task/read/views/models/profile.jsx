@@ -4,7 +4,7 @@ import {
   Snippet,
   StickyNavAnchor,
   Diff
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import userSchema from '../../../../user/update/schema';
 import { dateFormat } from '../../../../../constants';
 import { formatDate } from '../../../../../lib/utils';

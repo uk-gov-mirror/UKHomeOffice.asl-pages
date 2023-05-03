@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import isUndefined from 'lodash/isUndefined';
 import isNull from 'lodash/isNull';
 import Header from '../../components/header';
-import { Snippet, Link, WidthContainer } from '@asl/components';
+import { Snippet, Link, WidthContainer } from '@ukhomeoffice/asl-components';
 import CancelLink from '../../components/cancel-link';
 
 export default function NilReturn() {

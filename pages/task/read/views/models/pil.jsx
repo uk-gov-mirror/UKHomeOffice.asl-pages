@@ -5,7 +5,7 @@ import {
   Link,
   DiffText,
   TrainingSummary
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import get from 'lodash/get';
 import sortBy from 'lodash/sortBy';
 import ProceduresDiff from '../../../../pil/procedures/views/diff';

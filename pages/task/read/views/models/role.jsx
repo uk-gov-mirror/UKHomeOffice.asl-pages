@@ -4,7 +4,7 @@ import {
   StickyNavAnchor,
   Snippet,
   Link, Conditions
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
 import isEmpty from 'lodash/isEmpty';
 

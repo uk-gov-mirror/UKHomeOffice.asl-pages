@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Snippet, Metric, Tabs, Datatable, Countdown, Link } from '@asl/components';
+import { Header, Snippet, Metric, Tabs, Datatable, Countdown, Link } from '@ukhomeoffice/asl-components';
 import DateSelector from '../../components/date-selector';
 import projectFormatters from '../../../../project/formatters';
 import { formatDate } from '../../../../../lib/utils';

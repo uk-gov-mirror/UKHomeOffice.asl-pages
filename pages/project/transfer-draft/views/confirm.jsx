@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import { ControlBar, Header, Snippet } from '@asl/components';
+import { ControlBar, Header, Snippet } from '@ukhomeoffice/asl-components';
 
 const Confirm = () => {
   const { establishment, targetEstablishment, csrfToken } = useSelector(state => state.static);

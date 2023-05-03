@@ -10,7 +10,7 @@ import {
   Header,
   Inset,
   Fieldset
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Button } from '@ukhomeoffice/react-components';
 import InProgressWarning from '../../../common/components/in-progress-warning';
 

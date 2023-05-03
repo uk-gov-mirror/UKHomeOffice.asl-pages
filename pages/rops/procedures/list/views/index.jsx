@@ -7,7 +7,7 @@ import {
   Link,
   Datatable,
   OverflowWrapper
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { Button } from '@ukhomeoffice/react-components';
 import RopHeader from '../../../components/header';
 import ProceduresDownloadLink from '../../../components/procedures-download-link';

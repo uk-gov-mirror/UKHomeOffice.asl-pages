@@ -1,5 +1,5 @@
 import React from 'react';
-import { Markdown } from '@asl/components';
+import { Markdown } from '@ukhomeoffice/asl-components';
 
 const StandardConditions = ({ conditions, className, title = 'Standard conditions' }) => (
   <section className={`section standard-conditions ${className}`}>

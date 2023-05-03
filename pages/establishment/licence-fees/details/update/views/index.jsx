@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FormLayout, Header, Snippet, Inset } from '@asl/components';
+import { FormLayout, Header, Snippet, Inset } from '@ukhomeoffice/asl-components';
 import EstablishmentHeader from '../../../../../common/components/establishment-header';
 
 export default function Details() {

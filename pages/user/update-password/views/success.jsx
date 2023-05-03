@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Panel, Snippet, Link } from '@asl/components';
+import { Header, Panel, Snippet, Link } from '@ukhomeoffice/asl-components';
 
 export default function Index() {
   return (

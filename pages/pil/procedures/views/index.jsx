@@ -7,7 +7,7 @@ import {
   Fieldset,
   Inset,
   Header
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const connectComponent = key => {
   const mapStateToProps = ({ model, static: { schema, errors } }) => {

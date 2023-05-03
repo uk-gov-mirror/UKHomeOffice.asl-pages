@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Snippet, Details, Inset } from '@asl/components';
+import { Snippet, Details, Inset } from '@ukhomeoffice/asl-components';
 
 export default function Schedule2() {
   const rop = useSelector(state => state.model);

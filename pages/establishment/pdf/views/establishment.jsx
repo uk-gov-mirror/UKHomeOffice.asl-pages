@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Markdown } from '@asl/components';
+import { Markdown } from '@ukhomeoffice/asl-components';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import StandardConditions from '../../../common/views/pdf/standard-conditions';

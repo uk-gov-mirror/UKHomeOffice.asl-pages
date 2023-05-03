@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { Header, Snippet, Link, TrainingSummary } from '@asl/components';
+import { Header, Snippet, Link, TrainingSummary } from '@ukhomeoffice/asl-components';
 
 export default function Training() {
   const { profile, referrer, basePage } = useSelector(state => state.static, shallowEqual);

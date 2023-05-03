@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Link,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const RoleRemove = ({ allowedActions }) => {
   if (!allowedActions.includes('profile.roles')) {

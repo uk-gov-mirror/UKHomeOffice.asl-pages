@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { ModelSummary, Header, Snippet, Link } from '@asl/components';
+import { ModelSummary, Header, Snippet, Link } from '@ukhomeoffice/asl-components';
 import RelatedTasks from '../../../task/list/views/related-tasks';
 import formatters from '../../formatters';
 import EstablishmentHeader from '../../../common/components/establishment-header';

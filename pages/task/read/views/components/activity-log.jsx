@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Link, Snippet, Markdown, Inset } from '@asl/components';
+import { Link, Snippet, Markdown, Inset } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
 import { daysSinceDate, isDeadlineExtension, isDeadlineRemove, isDeadlineReinstate, isTrueish } from '../../../../../lib/utils';

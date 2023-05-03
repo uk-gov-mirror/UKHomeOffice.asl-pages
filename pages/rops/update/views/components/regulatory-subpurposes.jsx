@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Snippet } from '@asl/components';
+import { Snippet } from '@ukhomeoffice/asl-components';
 
 export default function RegulatorySubpurposes() {
   return (

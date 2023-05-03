@@ -4,7 +4,7 @@ import {
   FormLayout,
   Header,
   Snippet
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import InProgressWarning from '../../../common/components/in-progress-warning';
 import { canUpdateModel } from '../../../../lib/utils';
 

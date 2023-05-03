@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import get from 'lodash/get';
 import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
-import { Link, Snippet, Details } from '@asl/components';
+import { Link, Snippet, Details } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 import { formatDate } from '../../../../../lib/utils';
 

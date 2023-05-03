@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Header, Panel, Snippet, Link } from '@asl/components';
+import { Header, Panel, Snippet, Link } from '@ukhomeoffice/asl-components';
 import EstablishmentHeader from '../../common/components/establishment-header';
 
 const Index = ({ onwardLink }) => {

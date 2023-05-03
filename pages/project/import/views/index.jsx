@@ -4,7 +4,7 @@ import {
   Header,
   Snippet,
   FormLayout
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const ImportPage = ({ establishment: { name } }) => (
   <FormLayout>

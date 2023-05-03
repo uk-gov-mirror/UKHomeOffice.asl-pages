@@ -6,7 +6,7 @@ import {
   Snippet,
   Details,
   Inset
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const Page = () => {
   const { project, schema } = useSelector(state => state.static);

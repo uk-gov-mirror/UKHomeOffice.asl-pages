@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ControlBar, Diff, Field, Header, Snippet, FormLayout } from '@asl/components';
+import { ControlBar, Diff, Field, Header, Snippet, FormLayout } from '@ukhomeoffice/asl-components';
 import { hasChanged } from '../../../../lib/utils';
 import schema from '../schema';
 import formatters from '../../formatters';

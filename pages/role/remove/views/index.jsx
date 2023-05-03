@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Link, Snippet, FormLayout, Header } from '@asl/components';
+import { Link, Snippet, FormLayout, Header } from '@ukhomeoffice/asl-components';
 import OpenTasks from '../../component/open-tasks';
 
 const Page = ({ removeRoleTasks, schema }) => {

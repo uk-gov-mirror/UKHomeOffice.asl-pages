@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import { Snippet, Header, Link } from '@asl/components';
+import { Snippet, Header, Link } from '@ukhomeoffice/asl-components';
 import RefusalNotice from './components/refusal-notice';
 
 export default function Review() {

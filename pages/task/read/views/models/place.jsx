@@ -8,7 +8,7 @@ import {
   EditableField,
   StickyNavAnchor,
   ModelSummary, Conditions
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import { baseSchema } from '../../../../place/schema';
 import formatters from '../../../../place/formatters';
 import { hasChanged } from '../../../../../lib/utils';

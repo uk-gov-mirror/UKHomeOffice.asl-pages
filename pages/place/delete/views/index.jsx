@@ -5,7 +5,7 @@ import {
   ModelSummary,
   Header,
   ControlBar
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 import InProgressWarning from '../../../common/components/in-progress-warning';
 import { TextArea } from '@ukhomeoffice/react-components';
 import formatters from '../../formatters';

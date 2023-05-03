@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from '@asl/components';
+import { Link } from '@ukhomeoffice/asl-components';
 import format from 'date-fns/format';
 
 export default function ProceduresDownloadLink({ className }) {

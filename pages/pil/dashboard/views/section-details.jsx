@@ -6,7 +6,7 @@ import {
   ModelSummary,
   Completable,
   Link
-} from '@asl/components';
+} from '@ukhomeoffice/asl-components';
 
 const SectionDetails = ({
   models = [],

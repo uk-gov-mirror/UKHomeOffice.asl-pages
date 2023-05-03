@@ -1,6 +1,6 @@
 import React from 'react';
 import capitalize from 'lodash/capitalize';
-import {Snippet} from '@asl/components';
+import {Snippet} from '@ukhomeoffice/asl-components';
 
 const listFormatter = list => {
   if (!list || list.length < 1) {

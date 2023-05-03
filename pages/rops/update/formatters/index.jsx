@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Snippet, Details, Inset } from '@asl/components';
+import { Snippet, Details, Inset } from '@ukhomeoffice/asl-components';
 
 function PostnatalHint() {
   return (

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Form, Header, Snippet } from '@asl/components';
+import { Form, Header, Snippet } from '@ukhomeoffice/asl-components';
 import { Button, Warning } from '@ukhomeoffice/react-components';
 
 function PasswordChange({ formFields }) {
