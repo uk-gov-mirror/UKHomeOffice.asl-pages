@@ -1,4 +1,4 @@
-const { procedureCodes } = require('@asl/constants');
+const { procedureCodes } = require('@ukhomeoffice/asl-constants');
 const { procedureDefinitions } = require('../../content');
 const { toArray } = require('../../../../lib/utils');
 

@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const csv = require('csv-stringify');
 const { flatten } = require('lodash');
-const { projectSpecies } = require('@asl/constants');
+const { projectSpecies } = require('@ukhomeoffice/asl-constants');
 
 const lookupSpecies = row => {
   const species = flatten(Object.values(projectSpecies)).find(s => s.value === row.species);

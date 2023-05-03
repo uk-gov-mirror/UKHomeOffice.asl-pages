@@ -2,7 +2,7 @@ const { flatten, get, intersection, every, omit } = require('lodash');
 const { toBoolean, toArray } = require('../../../../lib/utils');
 const content = require('../content');
 
-const { projectSpecies } = require('@asl/constants');
+const { projectSpecies } = require('@ukhomeoffice/asl-constants');
 
 module.exports = req => {
   const disableProcOpts = fieldName => opt => {

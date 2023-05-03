@@ -1,4 +1,4 @@
-const { externalPermissions } = require('@asl/constants');
+const { externalPermissions } = require('@ukhomeoffice/asl-constants');
 
 module.exports = {
   role: {

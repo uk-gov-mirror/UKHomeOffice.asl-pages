@@ -1,5 +1,5 @@
 const { merge, concat } = require('lodash');
-const { suitabilityCodes, holdingCodes } = require('@asl/constants');
+const { suitabilityCodes, holdingCodes } = require('@ukhomeoffice/asl-constants');
 const { toArray } = require('../../../lib/utils');
 
 const baseSchema = (sites, areas) => {

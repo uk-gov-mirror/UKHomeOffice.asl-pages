@@ -1,4 +1,4 @@
-const { accreditingBodies } = require('@asl/constants');
+const { accreditingBodies } = require('@ukhomeoffice/asl-constants');
 
 module.exports = {
   certificateNumber: {
