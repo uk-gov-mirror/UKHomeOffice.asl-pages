@@ -50,6 +50,7 @@ describe('Project Helper', () => {
     it('returns additional establishments', () => {
       const version = {
         data: {
+          'other-establishments': true,
           establishments: [
             PROPOSED_DELETE_ESTABLISHMENT,
             PROPOSED_ESTABLISHMENT
@@ -76,5 +77,57 @@ describe('Project Helper', () => {
       );
     });
 
+    it('doesn\'t include additional establishments from the version if other-establishements is false', () => {
+      const version = {
+        data: {
+          'other-establishments': false,
+          establishments: [
+            PROPOSED_ESTABLISHMENT
+          ]
+        }
+      };
+
+      const project = {
+        additionalEstablishments: [
+          ACTIVE_PROJECT_ESTABLISHMENT
+        ]
+      };
+
+      const result = getAdditionalEstablishments(project, version);
+
+      expect(result).toHaveLength(1);
+      expect(result).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({id: 8201, name: 'Active Establishment'})
+        ])
+      );
+    });
+
+    it('includes additional establishments from the version if other-establishements is true', () => {
+      const version = {
+        data: {
+          'other-establishments': true,
+          establishments: [
+            PROPOSED_ESTABLISHMENT
+          ]
+        }
+      };
+
+      const project = {
+        additionalEstablishments: [
+          ACTIVE_PROJECT_ESTABLISHMENT
+        ]
+      };
+
+      const result = getAdditionalEstablishments(project, version);
+
+      expect(result).toHaveLength(2);
+      expect(result).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({id: 8201, name: 'Active Establishment'}),
+          expect.objectContaining({'establishment-id': 8204, name: 'Proposed Establishment'})
+        ])
+      );
+    });
   });
 });
