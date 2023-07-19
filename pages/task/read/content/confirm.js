@@ -17,8 +17,15 @@ module.exports = merge({}, baseContent, {
     restrictions: {
       label: 'Restrictions'
     },
-    ...pick(versionContent.fields, ['awerb', 'awerb-review-date', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason'])
+    ...pick(versionContent.fields, [
+      'awerb',
+      'awerb-review-date',
+      'awerb-exempt',
+      'awerb-dates',
+      'awerb-no-review-reason'
+    ])
   },
+  hba: 'Selected harm benefit analysis file: ',
   declaration: {
     title: 'Declaration',
     endorsed: {
@@ -34,7 +41,13 @@ module.exports = merge({}, baseContent, {
     }
   },
   errors: {
-    ...pick(versionContent.errors, ['awerb', 'awerb-review-date', 'awerb-exempt', 'awerb-dates', 'awerb-no-review-reason'])
+    ...pick(versionContent.errors, [
+      'awerb',
+      'awerb-review-date',
+      'awerb-exempt',
+      'awerb-dates',
+      'awerb-no-review-reason'
+    ])
   },
   refusalNotice: {
     ...refusalNotice,

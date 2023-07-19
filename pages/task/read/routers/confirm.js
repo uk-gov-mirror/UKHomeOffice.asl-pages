@@ -3,9 +3,13 @@ const { Router } = require('express');
 const { set, get } = require('lodash');
 const getSchema = require('../../schema/confirm');
 const content = require('../content/confirm');
-const { requiresDeclaration, getDeclarationText } = require('../helpers/declarations');
+const {
+  requiresDeclaration,
+  getDeclarationText
+} = require('../helpers/declarations');
+const { default: axios } = require('axios');
 
-module.exports = () => {
+module.exports = (config) => {
   const app = Router();
 
   app.use((req, res, next) => {
@@ -20,42 +24,70 @@ module.exports = () => {
     next();
   });
 
-  app.use(form({
-    configure: (req, res, next) => {
-      const chosenStatus = get(req, `session.form[${req.task.id}].values.status`);
-      if (!chosenStatus) {
-        req.notification({ key: 'form-session-error', type: 'error' });
-        return res.redirect(req.buildRoute('task.read'));
-      }
-      const nextStep = req.task.nextSteps.find(s => s.id === chosenStatus);
-      if (!nextStep) {
-        req.notification({ key: 'form-session-error', type: 'error' });
-        return res.redirect(req.buildRoute('task.read'));
-      }
-      res.locals.static.commentRequired = nextStep.commentRequired;
-      res.locals.static.commentLabel = content.commentLabels[chosenStatus];
-      req.schema = getSchema({ task: req.task, chosenStatus });
-      req.form.schema = req.schema;
-      next();
-    },
-    locals: (req, res, next) => {
-      const values = get(req, `session.form[${req.model.id}].values`);
-
-      set(res, 'locals.static', {
-        ...res.locals.static,
-        task: req.task,
-        requiresDeclaration: req.requiresDeclaration,
-        values
-      });
-
-      if (values.status === 'intention-to-refuse') {
-        set(res.locals.static, 'inspector', req.user.profile);
-        set(res.locals.static, 'content.status.intention-to-refuse.action', 'Give reason for refusal');
-      }
-
-      next();
+  app.get('/', async (req, res, next) => {
+    const hbaTokenFromTask = req.task.data.meta.hbaToken;
+    if (!hbaTokenFromTask) {
+      return res.redirect(req.buildRoute('task.read'));
     }
-  }));
+
+    const { headers } = await axios.get(
+      `${config.attachments}/${hbaTokenFromTask}`
+    );
+    const filename = headers['x-original-filename'];
+
+    res.locals.static.hba = {
+      hbaToken: hbaTokenFromTask,
+      hbaFilename: filename
+    };
+
+    next();
+  });
+
+  app.use(
+    form({
+      configure: (req, res, next) => {
+        const chosenStatus = get(
+          req,
+          `session.form[${req.task.id}].values.status`
+        );
+        if (!chosenStatus) {
+          req.notification({ key: 'form-session-error', type: 'error' });
+          return res.redirect(req.buildRoute('task.read'));
+        }
+        const nextStep = req.task.nextSteps.find((s) => s.id === chosenStatus);
+        if (!nextStep) {
+          req.notification({ key: 'form-session-error', type: 'error' });
+          return res.redirect(req.buildRoute('task.read'));
+        }
+        res.locals.static.commentRequired = nextStep.commentRequired;
+        res.locals.static.commentLabel = content.commentLabels[chosenStatus];
+        req.schema = getSchema({ task: req.task, chosenStatus });
+        req.form.schema = req.schema;
+        next();
+      },
+      locals(req, res, next) {
+        const values = get(req, `session.form[${req.model.id}].values`);
+
+        set(res, 'locals.static', {
+          ...res.locals.static,
+          task: req.task,
+          requiresDeclaration: req.requiresDeclaration,
+          values
+        });
+
+        if (values.status === 'intention-to-refuse') {
+          set(res.locals.static, 'inspector', req.user.profile);
+          set(
+            res.locals.static,
+            'content.status.intention-to-refuse.action',
+            'Give reason for refusal'
+          );
+        }
+
+        next();
+      }
+    })
+  );
 
   app.post('/', (req, res, next) => {
     const { values, returnTo } = req.session.form[`${req.model.id}`];
@@ -87,8 +119,9 @@ module.exports = () => {
       opts.json.meta.declaration = getDeclarationText(req.task, values);
     }
 
-    return req.api(`/tasks/${req.task.id}/status`, opts)
-      .then(response => {
+    return req
+      .api(`/tasks/${req.task.id}/status`, opts)
+      .then((response) => {
         req.session.success = { taskId: get(response, 'json.data.id') };
         delete req.session.form[req.model.id];
         return res.redirect('success');

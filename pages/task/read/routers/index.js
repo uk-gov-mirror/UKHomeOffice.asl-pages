@@ -7,5 +7,7 @@ module.exports = {
   discard: require('./discard'),
   confirm: require('./confirm'),
   endorse: require('./endorse'),
+  uploadHba: require('./upload-hba'),
+  confirmHba: require('./confirm-hba'),
   review: require('./review')
 };

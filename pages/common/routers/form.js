@@ -39,8 +39,14 @@ function setValuesToSession(req) {
     ...flattenFieldsets(getOptionReveals(req.form.schema, req.body))
   };
 
-  const values = omitBy(req.form.values, (val, key) => schema[key] && schema[key].meta);
-  const meta = pickBy(req.form.values, (val, key) => schema[key] && schema[key].meta);
+  const values = omitBy(
+    req.form.values,
+    (val, key) => schema[key] && schema[key].meta
+  );
+  const meta = pickBy(
+    req.form.values,
+    (val, key) => schema[key] && schema[key].meta
+  );
 
   Object.assign(req.session.form[req.model.id].values, values);
   Object.assign(req.session.form[req.model.id].meta, meta);
@@ -59,7 +65,7 @@ const getOptionReveals = (schema, values) => {
       return obj;
     }
     const valueKey = field.prefix ? `${field.prefix}-${key}` : key;
-    const selectedOptions = field.options.filter(opt => {
+    const selectedOptions = field.options.filter((opt) => {
       if (!values) {
         return true;
       }
@@ -69,7 +75,7 @@ const getOptionReveals = (schema, values) => {
     return selectedOptions.reduce((o, opt) => {
       return {
         ...o,
-        ...mapKeys((opt.reveal || {}), (v, k) => {
+        ...mapKeys(opt.reveal || {}, (v, k) => {
           return v.prefix ? `${v.prefix}-${k}` : k;
         }),
         ...getOptionReveals(opt.reveal || {}, values)
@@ -89,7 +95,9 @@ const getFormValues = (data, schema) => {
 };
 
 const getPseudoFields = (data, schema) => {
-  const keys = Object.keys(schema).filter(key => !Object.keys(data).includes(key));
+  const keys = Object.keys(schema).filter(
+    (key) => !Object.keys(data).includes(key)
+  );
   return keys.reduce((obj, key) => {
     const options = schema[key];
     if (!options.getValue) {
@@ -110,83 +118,112 @@ const pickValues = (values, schema) => {
   };
 };
 
-const getConditionalRevealKeys = schema => chain(schema)
-  .filter(field => field.inputType === 'conditionalReveal')
-  .map(field => Object.keys(field.reveal))
-  .flatten()
-  .value();
+const getConditionalRevealKeys = (schema) =>
+  chain(schema)
+    .filter((field) => field.inputType === 'conditionalReveal')
+    .map((field) => Object.keys(field.reveal))
+    .flatten()
+    .value();
 
-const flattenDetailsReveals = schema => {
+const flattenDetailsReveals = (schema) => {
   // if we don't clone the schema here it gets modified in place because object refs...
   schema = cloneDeep(schema);
 
-  return reduce(schema, (flattenedSchema, field, key) => {
-    if (field.options) {
-      field.options = map(field.options, option => {
-        return (option.options || option.reveal) ? flattenDetailsReveals({option}).option : option;
-      });
-    }
+  return reduce(
+    schema,
+    (flattenedSchema, field, key) => {
+      if (field.options) {
+        field.options = map(field.options, (option) => {
+          return option.options || option.reveal
+            ? flattenDetailsReveals({ option }).option
+            : option;
+        });
+      }
 
-    if (field.reveal) {
-      field.reveal = reduce(field.reveal, (fields, revealedField, revealedKey) => {
-        // if the field is a details reveal, remove it and copy the revealed fields to the parent object
-        if (revealedField.inputType === 'detailsReveal') {
-          return {
-            ...fields,
-            ...revealedField.reveal
-          };
-        }
+      if (field.reveal) {
+        field.reveal = reduce(
+          field.reveal,
+          (fields, revealedField, revealedKey) => {
+            // if the field is a details reveal, remove it and copy the revealed fields to the parent object
+            if (revealedField.inputType === 'detailsReveal') {
+              return {
+                ...fields,
+                ...revealedField.reveal
+              };
+            }
+            return {
+              ...fields,
+              [revealedKey]: revealedField
+            };
+          },
+          {}
+        );
+      }
+
+      flattenedSchema[key] = field;
+
+      return flattenedSchema;
+    },
+    {}
+  );
+};
+
+const flattenFieldsets = (schema) => {
+  // if we don't clone the schema here it gets modified in place because object refs...
+  schema = cloneDeep(schema);
+
+  return reduce(
+    schema,
+    (flattenedSchema, field, key) => {
+      if (field.fields) {
         return {
-          ...fields,
-          [revealedKey]: revealedField
+          ...flattenedSchema,
+          ...field.fields
         };
-      }, {});
-    }
-
-    flattenedSchema[key] = field;
-
-    return flattenedSchema;
-  }, {});
+      } else {
+        return {
+          ...flattenedSchema,
+          [key]: field
+        };
+      }
+    },
+    {}
+  );
 };
 
-const flattenFieldsets = schema => {
-  // if we don't clone the schema here it gets modified in place because object refs...
-  schema = cloneDeep(schema);
-
-  return reduce(schema, (flattenedSchema, field, key) => {
-    if (field.fields) {
+const schemaWithReveals = (schema) =>
+  reduce(
+    schema,
+    (obj, value, key) => {
       return {
-        ...flattenedSchema,
-        ...field.fields
+        ...obj,
+        [key]: value,
+        ...(value.reveal || {})
       };
-    } else {
+    },
+    {}
+  );
+
+const filterFieldProps = (schema) =>
+  reduce(
+    schema,
+    (obj, value, key) => {
       return {
-        ...flattenedSchema,
-        [key]: field
+        ...obj,
+        [key]: omit(value, ['checkChanged', 'showDiff'])
       };
-    }
-  }, {});
-};
+    },
+    {}
+  );
 
-const schemaWithReveals = schema => reduce(schema, (obj, value, key) => {
-  return {
-    ...obj,
-    [key]: value,
-    ...(value.reveal || {})
-  };
-}, {});
-
-const filterFieldProps = schema => reduce(schema, (obj, value, key) => {
-  return {
-    ...obj,
-    [key]: omit(value, ['checkChanged', 'showDiff'])
-  };
-}, {});
-
-const trim = value => {
+const trim = (value) => {
   if (typeof value === 'string') {
     // split input into lines, trim each one, and then rejoin
-    return value.split('\n').map(s => s.trim()).join('\n').trim();
+    return value
+      .split('\n')
+      .map((s) => s.trim())
+      .join('\n')
+      .trim();
   } else if (Array.isArray(value)) {
     return value.map(trim);
   }
@@ -205,7 +242,7 @@ module.exports = ({
   process = defaultMiddleware,
   validate = defaultMiddleware,
   saveValues = defaultMiddleware,
-  requiresDeclaration = req => false,
+  requiresDeclaration = (req) => false,
   cancelEdit = (req, res, next) => {
     return res.redirect(cancelPath);
   },
@@ -220,8 +257,10 @@ module.exports = ({
     req.form.schema = cloneDeep(schema);
     req.session.form = req.session.form || {};
     req.session.form[req.model.id] = req.session.form[req.model.id] || {};
-    req.session.form[req.model.id].values = req.session.form[req.model.id].values || {};
-    req.session.form[req.model.id].meta = req.session.form[req.model.id].meta || {};
+    req.session.form[req.model.id].values =
+      req.session.form[req.model.id].values || {};
+    req.session.form[req.model.id].meta =
+      req.session.form[req.model.id].meta || {};
     if (requiresDeclaration(req)) {
       req.form.schema.declaration = {
         inputType: 'declaration',
@@ -235,12 +274,15 @@ module.exports = ({
     const contentType = req.get('content-type');
     if (contentType && contentType.match(/multipart\/form-data/)) {
       const storage = multer.memoryStorage();
-      const options = map(pickBy(req.form.schema, field => field.inputType === 'inputFile'), (value, name) => {
-        return {
-          name,
-          maxCount: value.maxCount || 1
-        };
-      });
+      const options = map(
+        pickBy(req.form.schema, (field) => field.inputType === 'inputFile'),
+        (value, name) => {
+          return {
+            name,
+            maxCount: value.maxCount || 1
+          };
+        }
+      );
       return multer({ storage }).fields(options)(req, res, next);
     }
     return bodyParser.urlencoded({ extended: false })(req, res, next);
@@ -272,18 +314,27 @@ module.exports = ({
 
     req.form.values = cleanModel(pickValues(req.model, schema));
     if (!isEmpty(req.session.form[req.model.id].values)) {
-      Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].values, schema)));
+      Object.assign(
+        req.form.values,
+        cleanModel(pickValues(req.session.form[req.model.id].values, schema))
+      );
     }
     if (!isEmpty(req.session.form[req.model.id].meta)) {
-      Object.assign(req.form.values, cleanModel(pickValues(req.session.form[req.model.id].meta, schema)));
+      Object.assign(
+        req.form.values,
+        cleanModel(pickValues(req.session.form[req.model.id].meta, schema))
+      );
     }
+
     return getValues(req, res, next);
   };
 
   const _process = (req, res, next) => {
     req.form.schema = flattenFieldsets(flattenDetailsReveals(req.form.schema));
 
-    const reveals = flattenFieldsets(getOptionReveals(req.form.schema, req.body));
+    const reveals = flattenFieldsets(
+      getOptionReveals(req.form.schema, req.body)
+    );
     const conditionalRevealKeys = getConditionalRevealKeys(req.form.schema);
 
     const schema = {
@@ -299,7 +350,7 @@ module.exports = ({
 
     req.form.values = mapValues(req.form.values, (value, key) => {
       const nullValue = schema[key].nullValue;
-      return (value || isUndefined(nullValue)) ? value : nullValue;
+      return value || isUndefined(nullValue) ? value : nullValue;
     });
     req.form.values = mapValues(req.form.values, (value, key) => {
       const format = schema[key].format || identity;
@@ -316,10 +367,15 @@ module.exports = ({
       return next();
     }
 
-    const changedFields = pickBy(schemaWithReveals(req.form.schema), (field, key) => {
-      return field.checkChanged !== false &&
-        hasChanged(req.form.values[key], req.model[key], field);
-    });
+    const changedFields = pickBy(
+      schemaWithReveals(req.form.schema),
+      (field, key) => {
+        return (
+          field.checkChanged !== false &&
+          hasChanged(req.form.values[key], req.model[key], field)
+        );
+      }
+    );
 
     if (size(changedFields)) {
       return next();
@@ -329,24 +385,39 @@ module.exports = ({
   };
 
   const _validate = (req, res, next) => {
-    const schema = reduce(req.form.schema, (obj, value, key) => {
-      if (value.inputType === 'conditionalReveal' && req.form.values[key] === 'true') {
+    const schema = reduce(
+      req.form.schema,
+      (obj, value, key) => {
+        if (
+          value.inputType === 'conditionalReveal' &&
+          req.form.values[key] === 'true'
+        ) {
+          return {
+            ...obj,
+            ...value.reveal
+          };
+        }
         return {
           ...obj,
-          ...value.reveal
+          [key]: value
         };
-      }
-      return {
-        ...obj,
-        [key]: value
-      };
-    }, {});
+      },
+      {}
+    );
 
-    const reveals = flattenFieldsets(getOptionReveals(req.form.schema, req.form.values));
+    const reveals = flattenFieldsets(
+      getOptionReveals(req.form.schema, req.form.values)
+    );
 
-    const fileKeys = Object.keys(schema).filter(k => schema[k].inputType === 'inputFile');
+    const fileKeys = Object.keys(schema).filter(
+      (k) => schema[k].inputType === 'inputFile'
+    );
     const validation = {
-      ...validator(req.form.values, omit({ ...schema, ...reveals }, fileKeys), req.model),
+      ...validator(
+        req.form.values,
+        omit({ ...schema, ...reveals }, fileKeys),
+        req.model
+      ),
       ...validator(req.files, pick(schema, fileKeys), req.model)
     };
     if (size(validation)) {
@@ -356,18 +427,19 @@ module.exports = ({
   };
 
   const _saveValues = (req, res, next) => {
-    const conditionalReveals = pickBy(req.form.schema, field => {
+    const conditionalReveals = pickBy(req.form.schema, (field) => {
       return field.inputType === 'conditionalReveal';
     });
 
     setValuesToSession(req);
 
-    Object.keys(conditionalReveals).forEach(key => {
+    Object.keys(conditionalReveals).forEach((key) => {
       if (req.form.values[key] !== 'true') {
-        Object.keys(conditionalReveals[key].reveal).forEach(revealKey => {
+        Object.keys(conditionalReveals[key].reveal).forEach((revealKey) => {
           const reveal = conditionalReveals[key].reveal[revealKey];
           // remove value if parent conditional reveal is not 'true'
-          req.session.form[req.model.id].values[revealKey] = reveal.nullValue || null;
+          req.session.form[req.model.id].values[revealKey] =
+            reveal.nullValue || null;
         });
       }
       // remove pseudo fields
@@ -379,8 +451,13 @@ module.exports = ({
 
   const _getValidationErrors = (req, res, next) => {
     const fields = Object.keys(schemaWithReveals(req.form.schema));
-    const reveals = Object.keys(flattenFieldsets(getOptionReveals(req.form.schema)));
-    req.form.validationErrors = pick(req.session.form[req.model.id].validationErrors, [ ...fields, ...reveals, 'form' ]);
+    const reveals = Object.keys(
+      flattenFieldsets(getOptionReveals(req.form.schema))
+    );
+    req.form.validationErrors = pick(
+      req.session.form[req.model.id].validationErrors,
+      [...fields, ...reveals, 'form']
+    );
     return getValidationErrors(req, res, next);
   };
 
@@ -405,7 +482,8 @@ module.exports = ({
     return next(err);
   };
 
-  form.get('/',
+  form.get(
+    '/',
     checkSession,
     _configure,
     _generateSecret,
@@ -415,7 +493,8 @@ module.exports = ({
     _locals
   );
 
-  form.post('/',
+  form.post(
+    '/',
     _configure,
     _parse,
     _checkSecret,

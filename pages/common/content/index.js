@@ -110,7 +110,9 @@ module.exports = {
         confirmRefuse: 'Confirm',
         review: 'Review',
         success: 'Success',
-        deadlinePassed: 'Deadline passed reason'
+        deadlinePassed: 'Deadline passed reason',
+        uploadHba: 'Upload harm benefit analysis file',
+        confirmHba: 'Confirm harm benefit analysis file'
       }
     },
     training: {
@@ -197,7 +199,8 @@ module.exports = {
   },
   fields: {
     declaration: {
-      label: 'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
+      label:
+        'By submitting this change, I confirm that I also have the consent of the Establishment Licence holder'
     }
   },
   errors: {
@@ -228,7 +231,8 @@ module.exports = {
   },
   notifications: {
     success: 'Changes saved.',
-    'form-session-error': 'There was a problem processing this form. Please try again.'
+    'form-session-error':
+      'There was a problem processing this form. Please try again.'
   },
   warnings: {
     openTask: 'This item is currently being edited'
@@ -254,10 +258,13 @@ module.exports = {
       pil: `This licence is not active. The licence holder or applicant is not authorised to carry out regulated procedures in the categories stated in this licence/application.`,
       ppl: `This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.`,
       ppl_active: `This amendment has not been approved yet.`,
-      superseded: 'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
+      superseded:
+        'This licence is not active. The licence holder or applicant is not authorised to carry out the programme of work as stated in this licence/application.',
       stub: 'This is not the full granted licence for this project, it is a partial record. To view the granted licence, refer to offline records or contact the Home Office.',
-      transferred: 'This licence has been transferred to another establishment.',
-      'additional-availability-removed': 'This is the most recent version of the licence that {{establishmentName}} is authorised to see.',
+      transferred:
+        'This licence has been transferred to another establishment.',
+      'additional-availability-removed':
+        'This is the most recent version of the licence that {{establishmentName}} is authorised to see.',
       establishmentSuspended: `{{establishmentName}}'s establishment licence is not active. The establishment is not
       authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals
       in any area at the establishment.`
@@ -270,23 +277,28 @@ module.exports = {
   openTask: {
     application: {
       title: 'Application in progress',
-      description: 'An application has been submitted and is being reviewed. You can view or recall the application.'
+      description:
+        'An application has been submitted and is being reviewed. You can view or recall the application.'
     },
     amendment: {
       title: 'Amendment in progress',
-      description: 'An amendment to this licence has been submitted and is being reviewed. You can view or recall the amendment.'
+      description:
+        'An amendment to this licence has been submitted and is being reviewed. You can view or recall the amendment.'
     },
     revocation: {
       title: 'Revocation in progress',
-      description: 'A request to revoke this licence has been submitted and is being reviewed. You can view or recall the revocation.'
+      description:
+        'A request to revoke this licence has been submitted and is being reviewed. You can view or recall the revocation.'
     },
     transfer: {
       title: 'Transfer in progress',
-      description: 'A request to transfer this licence to another establishment has been submitted and is being reviewed. You can view or recall the licence transfer.'
+      description:
+        'A request to transfer this licence to another establishment has been submitted and is being reviewed. You can view or recall the licence transfer.'
     },
     review: {
       title: 'Review in progress',
-      description: 'A request to review this licence has been submitted and is being reviewed. You can view or recall the review request.'
+      description:
+        'A request to review this licence has been submitted and is being reviewed. You can view or recall the review request.'
     }
   },
   relatedTasks: {
@@ -297,27 +309,33 @@ module.exports = {
   enforcementBanner: {
     subject: {
       open: 'This subject is related to ongoing enforcement case {{number}}',
-      closed: 'This subject is related to a confirmed non-compliance under case {{number}}'
+      closed:
+        'This subject is related to a confirmed non-compliance under case {{number}}'
     },
     profile: {
       open: 'This person is subject to ongoing enforcement activity under case {{number}}',
-      closed: 'This person is related to a confirmed non-compliance under case {{number}}'
+      closed:
+        'This person is related to a confirmed non-compliance under case {{number}}'
     },
     pil: {
       open: 'This personal licence is subject to ongoing enforcement activity under case {{number}}',
-      closed: 'This personal licence is related to a confirmed non-compliance under case {{number}}'
+      closed:
+        'This personal licence is related to a confirmed non-compliance under case {{number}}'
     },
     project: {
       open: 'This project licence is subject to ongoing enforcement activity under case {{number}}',
-      closed: 'This project licence is related to a confirmed non-compliance under case {{number}}'
+      closed:
+        'This project licence is related to a confirmed non-compliance under case {{number}}'
     },
     establishment: {
       open: 'This establishment is subject to ongoing enforcement activity under case {{number}}',
-      closed: 'This establishment is related to a confirmed non-compliance under case {{number}}'
+      closed:
+        'This establishment is related to a confirmed non-compliance under case {{number}}'
     },
     details: {
       open: 'This establishment is subject to ongoing enforcement activity under case {{number}}',
-      closed: 'This establishment is related to a confirmed non-compliance under case {{number}}'
+      closed:
+        'This establishment is related to a confirmed non-compliance under case {{number}}'
     },
     places: {
       open: `This establishment's approved areas are subject to ongoing enforcement activity under case {{number}}`,
@@ -327,7 +345,8 @@ module.exports = {
       open: `This establishment's named people are subject to ongoing enforcement activity under case {{number}}`,
       closed: `This establishment's named people are related to a confirmed non-compliance under case {{number}}`
     },
-    moreInfo: 'For more information speak to the compliance assurance team at [ASRUEnforcement@homeoffice.gov.uk](mailto:ASRUEnforcement@homeoffice.gov.uk)',
+    moreInfo:
+      'For more information speak to the compliance assurance team at [ASRUEnforcement@homeoffice.gov.uk](mailto:ASRUEnforcement@homeoffice.gov.uk)',
     caseDetails: 'Case details',
     flagExpires: 'Enforcement flag in place until:',
     remedialAction: {
@@ -339,7 +358,7 @@ module.exports = {
         'compliance-notice': 'Compliance notice',
         'suspension-retraining': 'Suspension and retraining',
         'licence-revocation': 'Revocation of licence',
-        'other': 'Other'
+        other: 'Other'
       }
     }
   },

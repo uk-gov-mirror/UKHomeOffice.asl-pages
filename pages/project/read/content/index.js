@@ -57,25 +57,28 @@ module.exports = merge({}, baseContent, {
   openTask: {
     application: {
       title: 'Application in progress',
-      description: 'This application has been submitted and is being reviewed. You can either view the details of this task, or recall the application.'
+      description:
+        'This application has been submitted and is being reviewed. You can either view the details of this task, or recall the application.'
     },
     amendment: {
       title: 'Amendment in progress',
-      description: 'An amendment to this licence has been submitted and is being reviewed. You can either view the details of this task, or recall the amendment.'
+      description:
+        'An amendment to this licence has been submitted and is being reviewed. You can either view the details of this task, or recall the amendment.'
     },
     revocation: {
       title: 'Revocation in progress',
-      description: 'A request to revoke this licence has been submitted and is being reviewed.'
+      description:
+        'A request to revoke this licence has been submitted and is being reviewed.'
     },
     'update-licence-holder': {
       title: 'Amendment in progress',
-      // TODO: Devs do content
-      description: 'A request to change the licence holder is currently in progress, you can view the task to see a list of available steps.'
+      description:
+        'A request to change the licence holder is currently in progress, you can view the task to see a list of available steps.'
     },
     'returned-draft': {
       title: 'Application in progress',
-      // TODO: Devs do content
-      description: 'There is an application in progress, you can continue authoring the application above or view the task to see a list of available steps.'
+      description:
+        'There is an application in progress, you can continue authoring the application above or view the task to see a list of available steps.'
     },
     'cannot-update': {
       title: '{{status}} in progress',
@@ -89,8 +92,10 @@ module.exports = merge({}, baseContent, {
     },
     description: {
       start: 'Start an amendment for this project licence.',
-      continue: 'An amendment to this licence was started on {{amendmentStartDate}}. You can either continue editing this amendment, or discard it.',
-      asruCannotContinue: 'This licence cannot be amended because the establishment has initiated an amendment to this project which hasn\'t yet been submitted.',
+      continue:
+        'An amendment to this licence was started on {{amendmentStartDate}}. You can either continue editing this amendment, or discard it.',
+      asruCannotContinue:
+        "This licence cannot be amended because the establishment has initiated an amendment to this project which hasn't yet been submitted.",
       transfer: `You can amend this project licence if you want to:
 
       * Change any of the licence details
@@ -108,15 +113,18 @@ module.exports = merge({}, baseContent, {
   },
   amendStub: {
     title: 'Continue adding details',
-    description: 'Continue filling in the licence details. Changes will only be visible to the ASRU licensing team until the licence has been fully converted.'
+    description:
+      'Continue filling in the licence details. Changes will only be visible to the ASRU licensing team until the licence has been fully converted.'
   },
   actions: {
     view: {
       granted: {
         licence: 'View licence',
         pdf: 'Download licence (PDF)',
-        'additional-availability-removed': 'View last available version of this licence',
-        'additional-availability-removed-pdf': 'Download last available version of this licence (PDF)'
+        'additional-availability-removed':
+          'View last available version of this licence',
+        'additional-availability-removed-pdf':
+          'Download last available version of this licence (PDF)'
       },
       application: {
         draft: 'Open application',
@@ -138,11 +146,13 @@ module.exports = merge({}, baseContent, {
       stub: 'Cancel licence conversion'
     },
     amendStub: 'Edit record',
-    cantChangeHolder: 'An amendment is in progress so the PPL holder cannot be changed'
+    cantChangeHolder:
+      'An amendment is in progress so the PPL holder cannot be changed'
   },
   confirm: {
     application: 'Are you sure you want to discard this draft project?',
-    amendment: 'Are you sure you want to discard this amendment? Any changes you have made will be deleted.',
+    amendment:
+      'Are you sure you want to discard this amendment? Any changes you have made will be deleted.',
     stub: 'Are you sure you want to discard this partial project record? Any changes you have made will be deleted.'
   },
   discard: {
@@ -152,12 +162,14 @@ module.exports = merge({}, baseContent, {
     },
     stub: {
       title: 'Cancel conversion',
-      description: 'Any information that has been added to the partial record for this licence will be deleted.'
+      description:
+        'Any information that has been added to the partial record for this licence will be deleted.'
     }
   },
   previousVersions: {
     title: 'Previous versions of this licence',
-    description: 'View previous versions of the licence and their full applications.',
+    description:
+      'View previous versions of the licence and their full applications.',
     version: 'View the {{type}} granted on {{updatedAt}}.'
   },
   revoke: {
@@ -166,17 +178,21 @@ module.exports = merge({}, baseContent, {
   },
   suspend: {
     title: 'Suspend licence',
-    description: 'Suspend this licence if regulated procedures should not be authorised to be carried out under this licence.'
+    description:
+      'Suspend this licence if regulated procedures should not be authorised to be carried out under this licence.'
   },
   reinstate: {
     title: 'Reinstate licence',
-    description: 'Reinstate this suspended icence if regulated procedures should be authorised to be carried out under this licence.'
+    description:
+      'Reinstate this suspended icence if regulated procedures should be authorised to be carried out under this licence.'
   },
   manageAccess: {
     title: 'Guest access',
     content: {
-      application: 'Allow colleagues to view this application. Administrators and other staff with oversight of this project will have access by default.',
-      granted: 'Allow colleagues to view this project. Administrators and other staff with oversight of this project will have access by default.'
+      application:
+        'Allow colleagues to view this application. Administrators and other staff with oversight of this project will have access by default.',
+      granted:
+        'Allow colleagues to view this project. Administrators and other staff with oversight of this project will have access by default.'
     },
     action: 'Grant access'
   },
@@ -184,11 +200,13 @@ module.exports = merge({}, baseContent, {
     heading: 'Other documents',
     links: {
       nts: 'Non-technical summary',
-      ra: 'Non-technical summary and retrospective assessment'
+      ra: 'Non-technical summary and retrospective assessment',
+      hba: 'Download harm benefit analysis'
     }
   },
   manage: {
-    noPermissions: 'You don\'t have permission to amend, revoke or grant other users access to this licence.'
+    noPermissions:
+      "You don't have permission to amend, revoke or grant other users access to this licence."
   },
   ra: {
     title: 'Retrospective assessment',

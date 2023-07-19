@@ -214,7 +214,7 @@ module.exports = {
       ra: 'Approve retrospective assessment'
     },
     hint: {
-      application: 'A new licence will be granted.',
+      application: 'Upload the harm benefit analysis and a new licence will be granted.',
       amendment: 'The existing licence will be updated.',
       revocation: 'The existing licence will be revoked.',
       transfer: 'The licence will be transferred to the proposed establishment.',

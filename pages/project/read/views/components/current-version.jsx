@@ -4,7 +4,7 @@ import { Link, Snippet } from '@ukhomeoffice/asl-components';
 import Subsection from './subsection';
 
 export default function CurrentVersion() {
-  const project = useSelector(state => state.model);
+  const project = useSelector((state) => state.model);
   const version = project.granted || project.versions[0];
   let versionId = version.id;
 
@@ -15,9 +15,11 @@ export default function CurrentVersion() {
   if (project.isLegacyStub) {
     return null;
   }
-  const { additionalAvailability, canUpdate, asruUser, openTask, editable } = useSelector(state => state.static);
+  const { additionalAvailability, canUpdate, asruUser, openTask, editable } =
+    useSelector((state) => state.static);
 
-  const showEditLink = project.status === 'inactive' && project.draft && canUpdate && !asruUser;
+  const showEditLink =
+    project.status === 'inactive' && project.draft && canUpdate && !asruUser;
   const page = showEditLink ? 'projectVersion.update' : 'projectVersion';
   const returned = openTask && editable && canUpdate;
 
@@ -27,7 +29,8 @@ export default function CurrentVersion() {
 
   let labelKeyPdf = `${project.granted ? 'granted' : 'application'}.pdf`;
 
-  const additionalAvailabilityRemoved = additionalAvailability && additionalAvailability.status === 'removed';
+  const additionalAvailabilityRemoved =
+    additionalAvailability && additionalAvailability.status === 'removed';
 
   if (additionalAvailabilityRemoved) {
     versionId = additionalAvailability.versionId;
@@ -35,7 +38,11 @@ export default function CurrentVersion() {
     labelKeyPdf = 'granted.additional-availability-removed-pdf';
   }
 
-  const subsectionTitle = <Snippet>{`details.${project.granted ? 'granted' : 'application'}.subsectionTitle`}</Snippet>;
+  const subsectionTitle = (
+    <Snippet>{`details.${
+      project.granted ? 'granted' : 'application'
+    }.subsectionTitle`}</Snippet>
+  );
 
   return (
     <Subsection title={subsectionTitle} className="licence">
@@ -57,16 +64,27 @@ export default function CurrentVersion() {
         />
       </p>
 
-      <h3><Snippet>otherDocuments.heading</Snippet></h3>
-      <ul className="other-documents">
-        <li>
-          <Link
-            page="projectVersion.nts"
-            versionId={versionId}
-            label={<Snippet>{`otherDocuments.links.${project.grantedRa ? 'ra' : 'nts'}`}</Snippet>}
-          />
-        </li>
-      </ul>
+      <h3>
+        <Snippet>otherDocuments.heading</Snippet>
+      </h3>
+      <p>
+        <Link
+          page="projectVersion.nts"
+          versionId={versionId}
+          label={
+            <Snippet>{`otherDocuments.links.${
+              project.grantedRa ? 'ra' : 'nts'
+            }`}</Snippet>
+          }
+        />
+      </p>
+      {version.hbaToken && (
+        <p>
+          <a href={`/attachment/${version.hbaToken}`}>
+            <Snippet>otherDocuments.links.hba</Snippet>
+          </a>
+        </p>
+      )}
     </Subsection>
   );
 }

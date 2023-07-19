@@ -14,7 +14,8 @@ module.exports = {
   },
   ra: {
     due: '**Deadline for submission: {{date}}**',
-    content: 'This is the retrospective assessment that has been submitted for approval.',
+    content:
+      'This is the retrospective assessment that has been submitted for approval.',
     view: 'View retrospective assessment'
   },
   continuation: {
@@ -64,7 +65,7 @@ module.exports = {
       name: 'PEL Holder:',
       'endorsement-date': 'Endorsement date: '
     },
-    'awerb': {
+    awerb: {
       question: 'AWERB required:',
       'review-date': 'AWERB review date:',
       'no-review-reason': 'Reason for no review:'
@@ -76,7 +77,8 @@ module.exports = {
   view: {
     granted: 'View granted licence',
     version: 'View this version ({{date}})',
-    nts: 'View non-technical summary'
+    nts: 'View non-technical summary',
+    hba: 'Download harm benefit analysis'
   },
   reopen: {
     content: 'Reopen this task',

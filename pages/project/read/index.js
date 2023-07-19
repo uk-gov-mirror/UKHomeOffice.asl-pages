@@ -6,7 +6,7 @@ const { enforcementFlags } = require('../../common/middleware');
 const { relatedTasks } = require('../../common/routers');
 const { ropsYears } = require('../../../constants');
 
-module.exports = settings => {
+module.exports = (settings) => {
   const app = page({
     ...settings,
     root: __dirname
@@ -24,7 +24,9 @@ module.exports = settings => {
     res.locals.static.establishment = req.establishment;
     res.locals.static.ropsYears = ropsYears;
     if (req.project.establishmentId !== req.establishmentId) {
-      res.locals.static.additionalAvailability = (req.project.additionalEstablishments || []).find(e => e.id === req.establishmentId);
+      res.locals.static.additionalAvailability = (
+        req.project.additionalEstablishments || []
+      ).find((e) => e.id === req.establishmentId);
     }
     next();
   });
@@ -48,46 +50,83 @@ module.exports = settings => {
       req.user.can('project.rops.create', params),
       req.user.can('retrospectiveAssessment.update', params)
     ])
-      .then(([canUpdate, canUpdateStub, canSuspend, canRevoke, canTransfer, canManageAccess, canUpdateRops, canCreateRops, canUpdateRa]) => {
-        const openTasks = req.project.openTasks;
-        const openTask = openTasks && openTasks.find(t => t.data.action !== 'grant-ra');
-        const openRaTask = openTasks && openTasks.find(t => t.data.action === 'grant-ra');
-        const editable = (!openTask || (openTask && openTask.editable));
+      .then(
+        ([
+          canUpdate,
+          canUpdateStub,
+          canSuspend,
+          canRevoke,
+          canTransfer,
+          canManageAccess,
+          canUpdateRops,
+          canCreateRops,
+          canUpdateRa
+        ]) => {
+          const openTasks = req.project.openTasks;
+          const openTask =
+            openTasks && openTasks.find((t) => t.data.action !== 'grant-ra');
+          const openRaTask =
+            openTasks && openTasks.find((t) => t.data.action === 'grant-ra');
+          const editable = !openTask || (openTask && openTask.editable);
 
-        const isCorrectEstablishment = req.establishmentId === req.project.establishmentId;
-        const ropExists = req.project.rops.length;
-        const canAccessRops = ropExists ? canUpdateRops : canCreateRops;
-        const showReporting = isCorrectEstablishment && (canAccessRops || canUpdateRa) && (!['inactive', 'transferred'].includes(req.project.status));
+          const isCorrectEstablishment =
+            req.establishmentId === req.project.establishmentId;
+          const ropExists = req.project.rops.length;
+          const canAccessRops = ropExists ? canUpdateRops : canCreateRops;
+          const showReporting =
+            isCorrectEstablishment &&
+            (canAccessRops || canUpdateRa) &&
+            !['inactive', 'transferred'].includes(req.project.status);
 
-        res.locals.static.canUpdateRa = canUpdateRa;
-        res.locals.static.canManageAccess = canManageAccess;
-        res.locals.static.canUpdate = canUpdate && isCorrectEstablishment;
-        res.locals.static.canUpdateStub = canUpdateStub;
-        res.locals.static.canAccessRops = canAccessRops;
-        res.locals.static.showReporting = showReporting;
-        res.locals.static.canTransfer = canTransfer;
-        res.locals.static.editable = editable;
-        res.locals.static.openTask = openTask;
-        res.locals.static.openRaTask = openRaTask;
-        res.locals.static.canSuspend = canSuspend;
-        res.locals.static.canRevoke = canRevoke;
-        res.locals.static.asruUser = req.user.profile.asruUser;
-        res.locals.static.showManageSection = canUpdate || canRevoke || canTransfer || canManageAccess || canSuspend;
-        res.locals.static.removeUserUrl = req.buildRoute('project.removeUser');
-      })
+          res.locals.static.canUpdateRa = canUpdateRa;
+          res.locals.static.canManageAccess = canManageAccess;
+          res.locals.static.canUpdate = canUpdate && isCorrectEstablishment;
+          res.locals.static.canUpdateStub = canUpdateStub;
+          res.locals.static.canAccessRops = canAccessRops;
+          res.locals.static.showReporting = showReporting;
+          res.locals.static.canTransfer = canTransfer;
+          res.locals.static.editable = editable;
+          res.locals.static.openTask = openTask;
+          res.locals.static.openRaTask = openRaTask;
+          res.locals.static.canSuspend = canSuspend;
+          res.locals.static.canRevoke = canRevoke;
+          res.locals.static.asruUser = req.user.profile.asruUser;
+          res.locals.static.showManageSection =
+            canUpdate ||
+            canRevoke ||
+            canTransfer ||
+            canManageAccess ||
+            canSuspend;
+          res.locals.static.removeUserUrl =
+            req.buildRoute('project.removeUser');
+        }
+      )
       .then(() => next())
       .catch(next);
   });
 
   app.get('/', (req, res, next) => {
-    res.enforcementModel = req.project;
+    if (!req.user.profile.asruUser) {
+      return next();
+    }
+
     next();
-  }, enforcementFlags);
+  });
+
+  app.get(
+    '/',
+    (req, res, next) => {
+      res.enforcementModel = req.project;
+      next();
+    },
+    enforcementFlags
+  );
 
   app.get('/', (req, res, next) => {
-    res.locals.static.confirmMessage = req.project.status === 'active'
-      ? res.locals.static.content.confirm.amendment
-      : res.locals.static.content.confirm.application;
+    res.locals.static.confirmMessage =
+      req.project.status === 'active'
+        ? res.locals.static.content.confirm.amendment
+        : res.locals.static.content.confirm.application;
 
     res.locals.static.confirmMessage = req.project.isLegacyStub
       ? res.locals.static.content.confirm.stub
@@ -95,44 +134,63 @@ module.exports = settings => {
     next();
   });
 
-  app.get('/', relatedTasks(req => {
-    return {
-      model: 'project',
-      modelId: req.projectId,
-      establishmentId: req.establishmentId,
-      onlyClosed: true // history panel only shows closed tasks, current activity uses openTasks prop
-    };
-  }));
+  app.get(
+    '/',
+    relatedTasks((req) => {
+      return {
+        model: 'project',
+        modelId: req.projectId,
+        establishmentId: req.establishmentId,
+        onlyClosed: true // history panel only shows closed tasks, current activity uses openTasks prop
+      };
+    })
+  );
 
   app.post('/ra', (req, res, next) => {
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork-ra`, { method: 'POST' })
-      .then(response => {
+    req
+      .api(
+        `/establishment/${req.establishmentId}/project/${req.projectId}/fork-ra`,
+        { method: 'POST' }
+      )
+      .then((response) => {
         req.raId = get(response, 'json.data.data.data.raVersion');
         res.redirect(req.buildRoute('retrospectiveAssessment.update'));
       })
       .catch(next);
   });
 
-  app.post('/rops', bodyParser.urlencoded({ extended: false }), (req, res, next) => {
-    const params = {
-      method: 'POST',
-      json: {
-        data: {
-          year: req.body.year
+  app.post(
+    '/rops',
+    bodyParser.urlencoded({ extended: false }),
+    (req, res, next) => {
+      const params = {
+        method: 'POST',
+        json: {
+          data: {
+            year: req.body.year
+          }
         }
-      }
-    };
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/rops`, params)
-      .then(response => {
-        req.ropId = get(response, 'json.data.data.data.ropId');
-        res.redirect(req.buildRoute('rops.guidance'));
-      })
-      .catch(next);
-  });
+      };
+      req
+        .api(
+          `/establishment/${req.establishmentId}/project/${req.projectId}/rops`,
+          params
+        )
+        .then((response) => {
+          req.ropId = get(response, 'json.data.data.data.ropId');
+          res.redirect(req.buildRoute('rops.guidance'));
+        })
+        .catch(next);
+    }
+  );
 
   app.post('/', (req, res, next) => {
-    req.api(`/establishment/${req.establishmentId}/project/${req.projectId}/fork`, { method: 'POST' })
-      .then(response => {
+    req
+      .api(
+        `/establishment/${req.establishmentId}/project/${req.projectId}/fork`,
+        { method: 'POST' }
+      )
+      .then((response) => {
         // bc - we previously used the modelId, which is now the project, not the version.
         const modelId = get(response, 'json.data.data.id');
         req.versionId = get(response, 'json.data.data.data.version', modelId);

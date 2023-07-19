@@ -32,6 +32,7 @@ module.exports = {
   },
   project: {
     grant: 'Project licence application',
+    application: 'Project licence application',
     transfer: 'Project licence transfer',
     update: 'Project licence amendment',
     revoke: 'Project licence revocation',

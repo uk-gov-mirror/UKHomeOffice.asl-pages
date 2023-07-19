@@ -4,12 +4,25 @@ import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 import format from 'date-fns/format';
-import { daysSinceDate, isDeadlineExtension, isDeadlineRemove, isDeadlineReinstate, isTrueish } from '../../../../../lib/utils';
+import {
+  daysSinceDate,
+  isDeadlineExtension,
+  isDeadlineRemove,
+  isDeadlineReinstate,
+  isTrueish
+} from '../../../../../lib/utils';
 import PplDeclarations from './ppl-declarations';
 
 function ProfileLink({ id, name, establishmentId, asruUser }) {
   if (establishmentId && !asruUser) {
-    return <Link page="profile.read" profileId={id} establishmentId={establishmentId} label={name} />;
+    return (
+      <Link
+        page="profile.read"
+        profileId={id}
+        establishmentId={establishmentId}
+        label={name}
+      />
+    );
   } else {
     return <Link page="globalProfile" profileId={id} label={name} />;
   }
@@ -19,10 +32,22 @@ function Action({ task, action, activity, changedBy }) {
   const type = task.type;
   const name = `${changedBy.firstName} ${changedBy.lastName}`;
   if (action === 'autoresolved') {
-    return <p><strong><Snippet>status.autoresolved.log</Snippet></strong></p>;
+    return (
+      <p>
+        <strong>
+          <Snippet>status.autoresolved.log</Snippet>
+        </strong>
+      </p>
+    );
   }
   if (action === 'discarded-by-asru' && !changedBy.id) {
-    return <p><strong><Snippet>status.autodiscarded.log</Snippet></strong></p>;
+    return (
+      <p>
+        <strong>
+          <Snippet>status.autodiscarded.log</Snippet>
+        </strong>
+      </p>
+    );
   }
   if (task.data.model === 'rop') {
     action = task.status;
@@ -30,19 +55,36 @@ function Action({ task, action, activity, changedBy }) {
 
   const establishmentId = get(activity, 'event.data.establishmentId');
   const profile = get(activity, 'event.meta.user.profile');
-  const establishment = profile.establishments.find(e => e.id === establishmentId) || {};
+  const establishment =
+    profile.establishments.find((e) => e.id === establishmentId) || {};
   let approvedByMsg = `status.${action}.log.${type}`;
 
   if (!profile.asruUser && action === 'resolved') {
-    const approvedByPELH = profile.roles.find(r => r.type === 'pelh' && r.establishmentId === establishmentId);
-    approvedByMsg = approvedByPELH ? `status.${action}.by-pelh` : `status.${action}.on-behalf-of-pelh`;
+    const approvedByPELH = profile.roles.find(
+      (r) => r.type === 'pelh' && r.establishmentId === establishmentId
+    );
+    approvedByMsg = approvedByPELH
+      ? `status.${action}.by-pelh`
+      : `status.${action}.on-behalf-of-pelh`;
   }
 
   return (
     <p className="gutter">
-      <strong><Snippet fallback={`status.${action}.log`} establishmentName={establishment.name}>{approvedByMsg}</Snippet></strong>
+      <strong>
+        <Snippet
+          fallback={`status.${action}.log`}
+          establishmentName={establishment.name}
+        >
+          {approvedByMsg}
+        </Snippet>
+      </strong>
       <strong>: </strong>
-      <ProfileLink id={changedBy.id} name={name} establishmentId={establishment.id || task.data.establishmentId} asruUser={changedBy.asruUser} />
+      <ProfileLink
+        id={changedBy.id}
+        name={name}
+        establishmentId={establishment.id || task.data.establishmentId}
+        asruUser={changedBy.asruUser}
+      />
     </p>
   );
 }
@@ -53,12 +95,15 @@ function Assignment({ item }) {
     <p>
       <strong>Assigned to</strong>
       <strong>: </strong>
-      {
-        assignedTo
-          ? <ProfileLink id={assignedTo.id} name={`${assignedTo.firstName} ${assignedTo.lastName}`} asruUser={true} />
-          : <em>Unassigned</em>
-      }
-
+      {assignedTo ? (
+        <ProfileLink
+          id={assignedTo.id}
+          name={`${assignedTo.firstName} ${assignedTo.lastName}`}
+          asruUser={true}
+        />
+      ) : (
+        <em>Unassigned</em>
+      )}
     </p>
   );
 }
@@ -73,25 +118,35 @@ function InspectorRecommendation({ item }) {
 
   if (deadlineAtTimeOfRecommendation) {
     const isExtended = get(deadlineAtTimeOfRecommendation, 'isExtended', false);
-    const deadlineDate = get(deadlineAtTimeOfRecommendation, isExtended ? 'extended' : 'standard');
+    const deadlineDate = get(
+      deadlineAtTimeOfRecommendation,
+      isExtended ? 'extended' : 'standard'
+    );
     daysSinceDeadline = daysSinceDate(deadlineDate, item.createdAt);
   }
 
-  return <Fragment>
-    {
-      daysSinceDeadline > 0 &&
+  return (
+    <Fragment>
+      {daysSinceDeadline > 0 && (
         <p className="deadline-passed">
-          <Snippet days={daysSinceDeadline}>{`deadline.lateDecision.${daysSinceDeadline > 1 ? 'plural' : 'singular'}`}</Snippet>
+          <Snippet days={daysSinceDeadline}>{`deadline.lateDecision.${
+            daysSinceDeadline > 1 ? 'plural' : 'singular'
+          }`}</Snippet>
         </p>
-    }
-    <p><Snippet>{`status.${item.status}.recommendation`}</Snippet></p>
-  </Fragment>;
+      )}
+      <p>
+        <Snippet>{`status.${item.status}.recommendation`}</Snippet>
+      </p>
+    </Fragment>
+  );
 }
 
-const actionPerformedByAdmin = item => {
+const actionPerformedByAdmin = (item) => {
   const establishmentId = get(item, 'event.data.establishmentId');
   const profile = get(item, 'event.meta.user.profile');
-  return !!profile.establishments.find(e => e.id === establishmentId && e.role === 'admin');
+  return !!profile.establishments.find(
+    (e) => e.id === establishmentId && e.role === 'admin'
+  );
 };
 
 function DeadlineDetails({ item }) {
@@ -105,10 +160,16 @@ function DeadlineDetails({ item }) {
   return (
     <Fragment>
       <p>
-        <strong><Snippet>deadline.extension.from</Snippet></strong> <span>{format(standardDeadline, dateFormat.long)}</span>
+        <strong>
+          <Snippet>deadline.extension.from</Snippet>
+        </strong>{' '}
+        <span>{format(standardDeadline, dateFormat.long)}</span>
       </p>
       <p>
-        <strong><Snippet>deadline.extension.to</Snippet></strong> <span>{format(extendedDeadline, dateFormat.long)}</span>
+        <strong>
+          <Snippet>deadline.extension.to</Snippet>
+        </strong>{' '}
+        <span>{format(extendedDeadline, dateFormat.long)}</span>
       </p>
     </Fragment>
   );
@@ -122,7 +183,11 @@ function AwerbDate({ item }) {
   }
 
   return (
-    <p>Date of the most recent AWERB review<br />{format(awerb, dateFormat.long)}</p>
+    <p>
+      Date of the most recent AWERB review
+      <br />
+      {format(awerb, dateFormat.long)}
+    </p>
   );
 }
 
@@ -141,10 +206,10 @@ function DeclarationMeta({ item }) {
       </Inset>
     </div>
   );
-
 }
 
 function ExtraProjectMeta({ item, task }) {
+  const { isAsru } = useSelector((state) => state.static);
   if (task.data.model !== 'project') {
     return null;
   }
@@ -156,14 +221,18 @@ function ExtraProjectMeta({ item, task }) {
   const status = get(item, 'event.status');
   const isEndorsed = isTrueish(get(item, 'event.data.meta.authority'));
   const isAwerbed = isTrueish(get(item, 'event.data.meta.awerb'));
-  const requiresAdminInteraction = !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
+  const hbaToken = get(item, 'event.data.meta.hbaToken');
+  const requiresAdminInteraction =
+    !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
 
   if (!versionId) {
     return null;
   }
 
   if (status === 'resolved') {
-    const transferredProject = useSelector(state => state.static.transferredProject);
+    const transferredProject = useSelector(
+      (state) => state.static.transferredProject
+    );
 
     if (transferredProject) {
       // transferredProject is only set if the user has permission to view it
@@ -181,7 +250,11 @@ function ExtraProjectMeta({ item, task }) {
             versionId={versionId}
             establishmentId={establishmentId}
             projectId={projectId}
-            label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.granted</Snippet>}
+            label={
+              <Snippet date={format(item.createdAt, dateFormat.long)}>
+                view.granted
+              </Snippet>
+            }
           />
         </p>
         <p>
@@ -190,14 +263,28 @@ function ExtraProjectMeta({ item, task }) {
             versionId={versionId}
             establishmentId={establishmentId}
             projectId={projectId}
-            label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.nts</Snippet>}
+            label={
+              <Snippet date={format(item.createdAt, dateFormat.long)}>
+                view.nts
+              </Snippet>
+            }
           />
         </p>
+        {isAsru && hbaToken && (
+          <p>
+            <a href={`/attachment/${hbaToken}`}>
+              <Snippet>view.hba</Snippet>
+            </a>
+          </p>
+        )}
       </div>
     );
   }
 
-  if (status === 'endorsed' || (status === 'resubmitted' && !requiresAdminInteraction)) {
+  if (
+    status === 'endorsed' ||
+    (status === 'resubmitted' && !requiresAdminInteraction)
+  ) {
     return (
       <Fragment>
         <div className="version-links">
@@ -207,7 +294,11 @@ function ExtraProjectMeta({ item, task }) {
               versionId={versionId}
               establishmentId={establishmentId}
               projectId={projectId}
-              label={<Snippet date={format(item.createdAt, dateFormat.long)}>view.version</Snippet>}
+              label={
+                <Snippet date={format(item.createdAt, dateFormat.long)}>
+                  view.version
+                </Snippet>
+              }
             />
           </p>
         </div>
@@ -219,15 +310,17 @@ function ExtraProjectMeta({ item, task }) {
 }
 
 function Comment({ changedBy, comment }) {
-  return comment && (
-    <div className="comment">
-      {
-        changedBy.id && <p className="author">{`${changedBy.firstName} ${changedBy.lastName} remarked:`}</p>
-      }
-      <Inset>
-        <Markdown className="content">{comment}</Markdown>
-      </Inset>
-    </div>
+  return (
+    comment && (
+      <div className="comment">
+        {changedBy.id && (
+          <p className="author">{`${changedBy.firstName} ${changedBy.lastName} remarked:`}</p>
+        )}
+        <Inset>
+          <Markdown className="content">{comment}</Markdown>
+        </Inset>
+      </div>
+    )
   );
 }
 
@@ -240,8 +333,12 @@ function IntentionToRefuse({ task }) {
 
   return (
     <Fragment>
-      <p><strong>Refusal notice:</strong></p>
-      <Inset><Markdown>{intentionToRefuse.markdown}</Markdown></Inset>
+      <p>
+        <strong>Refusal notice:</strong>
+      </p>
+      <Inset>
+        <Markdown>{intentionToRefuse.markdown}</Markdown>
+      </Inset>
     </Fragment>
   );
 }
@@ -270,14 +367,21 @@ function LogItem({ item, task }) {
   return (
     <div className="log-item" id={item.id}>
       <span className="date">{format(item.createdAt, dateFormat.long)}</span>
-      <Action task={task} action={action} activity={item} changedBy={item.changedBy} />
+      <Action
+        task={task}
+        action={action}
+        activity={item}
+        changedBy={item.changedBy}
+      />
       <InspectorRecommendation item={item} />
-      { isExtension && <DeadlineDetails item={item} /> }
-      { isRa && <AwerbDate item={item} /> }
-      { isAssignment && <Assignment item={item} />}
-      { isIntentionToRefuse && <IntentionToRefuse task={task} /> }
-      { !isIntentionToRefuse && <Comment changedBy={item.changedBy} comment={item.comment} /> }
-      { showPplDeclarations(item) && <PplDeclarations task={item.event} /> }
+      {isExtension && <DeadlineDetails item={item} />}
+      {isRa && <AwerbDate item={item} />}
+      {isAssignment && <Assignment item={item} />}
+      {isIntentionToRefuse && <IntentionToRefuse task={task} />}
+      {!isIntentionToRefuse && (
+        <Comment changedBy={item.changedBy} comment={item.comment} />
+      )}
+      {showPplDeclarations(item) && <PplDeclarations task={item.event} />}
       <DeclarationMeta item={item} />
       <ExtraProjectMeta item={item} task={task} />
     </div>
@@ -286,7 +390,7 @@ function LogItem({ item, task }) {
 
 export default function ActivityLog({ task }) {
   const [open, setOpen] = useState(false);
-  const isAsru = useSelector(state => state.static.isAsru);
+  const isAsru = useSelector((state) => state.static.isAsru);
 
   function toggle(e) {
     setOpen(!open);
@@ -296,35 +400,37 @@ export default function ActivityLog({ task }) {
     return null;
   }
 
-  const activityLog = isAsru ? task.activityLog : task.activityLog.filter(a => a.eventName !== 'assign');
+  const activityLog = isAsru
+    ? task.activityLog
+    : task.activityLog.filter((a) => a.eventName !== 'assign');
 
   const latestActivity = activityLog[0];
 
   return (
     <div className="activity-log">
-      <h2><Snippet>sticky-nav.activity</Snippet></h2>
+      <h2>
+        <Snippet>sticky-nav.activity</Snippet>
+      </h2>
 
       <LogItem key={latestActivity.id} item={latestActivity} task={task} />
 
-      { activityLog.length > 1 &&
+      {activityLog.length > 1 && (
         <details>
           <summary onClick={toggle}>
-            <Snippet>{ open ? 'activityLog.close' : 'activityLog.open' }</Snippet>
+            <Snippet>{open ? 'activityLog.close' : 'activityLog.open'}</Snippet>
           </summary>
 
           <div className="older-activity">
             <ul className="task-activity">
-              {
-                activityLog.slice(1).map(item => (
-                  <li key={item.id}>
-                    <LogItem item={item} task={task} />
-                  </li>
-                ))
-              }
+              {activityLog.slice(1).map((item) => (
+                <li key={item.id}>
+                  <LogItem item={item} task={task} />
+                </li>
+              ))}
             </ul>
           </div>
         </details>
-      }
+      )}
     </div>
   );
 }

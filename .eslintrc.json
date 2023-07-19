@@ -1,0 +1,6 @@
+{
+  "extends": ["lennym"],
+  "parserOptions": {
+    "ecmaVersion": 2020
+  }
+}
