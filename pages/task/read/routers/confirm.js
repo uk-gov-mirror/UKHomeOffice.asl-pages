@@ -7,7 +7,6 @@ const {
   requiresDeclaration,
   getDeclarationText
 } = require('../helpers/declarations');
-const { default: axios } = require('axios');
 
 module.exports = (config) => {
   const app = Router();
@@ -25,19 +24,15 @@ module.exports = (config) => {
   });
 
   app.get('/', async (req, res, next) => {
-    const hbaTokenFromTask = req.task.data.meta.hbaToken;
-    if (!hbaTokenFromTask) {
+    const {hbaToken, hbaFilename} = req.task.data.meta;
+
+    if (!hbaToken) {
       return res.redirect(req.buildRoute('task.read'));
     }
 
-    const { headers } = await axios.get(
-      `${config.attachments}/${hbaTokenFromTask}`
-    );
-    const filename = headers['x-original-filename'];
-
     res.locals.static.hba = {
-      hbaToken: hbaTokenFromTask,
-      hbaFilename: filename
+      hbaToken: hbaToken,
+      hbaFilename
     };
 
     next();

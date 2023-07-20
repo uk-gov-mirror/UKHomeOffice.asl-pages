@@ -1,23 +1,17 @@
 const { Router } = require('express');
 const { form } = require('../../../common/routers');
 const schema = require('../../schema/confirm-hba');
-const { default: axios } = require('axios');
 const { get } = require('lodash');
 
 module.exports = (config) => {
   const app = Router({ mergeParams: true });
 
   app.get('/', async (req, res, next) => {
-    const hbaTokenFromTask = req.task.data.meta.hbaToken;
-    if (hbaTokenFromTask) {
-      const { headers } = await axios.get(
-        `${config.attachments}/${hbaTokenFromTask}`
-      );
-      const filename = headers["'x-original-filename"];
-
+    const { hbaToken, hbaFilename } = req.task.data.meta;
+    if (hbaToken && hbaFilename) {
       res.locals.static.hba = {
-        hbaToken: hbaTokenFromTask,
-        hbaFilename: filename
+        hbaToken,
+        hbaFilename
       };
     } else {
       const { hbaToken, hbaFilename } = req.session.form[req.task.id].values;
