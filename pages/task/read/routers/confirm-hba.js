@@ -66,7 +66,7 @@ module.exports = (config) => {
         )
         .catch(next);
     } else if (confirmHba === 'yes') {
-      const { hbaToken } = req.session.form[req.task.id].values;
+      const { hbaToken, hbaFilename } = req.session.form[req.task.id].values;
 
       if (!hbaToken) {
         return next(new Error('Missing HBA token'));
@@ -76,7 +76,8 @@ module.exports = (config) => {
         headers: { 'Content-type': 'application/json' },
         json: {
           data: {
-            hbaToken
+            hbaToken,
+            hbaFilename
           }
         }
       };

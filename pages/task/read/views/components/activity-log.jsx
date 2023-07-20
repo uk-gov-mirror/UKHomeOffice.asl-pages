@@ -222,6 +222,7 @@ function ExtraProjectMeta({ item, task }) {
   const isEndorsed = isTrueish(get(item, 'event.data.meta.authority'));
   const isAwerbed = isTrueish(get(item, 'event.data.meta.awerb'));
   const hbaToken = get(item, 'event.data.meta.hbaToken');
+  const hbaFilename = get(item, 'event.data.meta.hbaFilename');
   const requiresAdminInteraction =
     !isEndorsed || (!isAwerbed && !actionPerformedByAdmin(item));
 
@@ -270,9 +271,9 @@ function ExtraProjectMeta({ item, task }) {
             }
           />
         </p>
-        {isAsru && hbaToken && (
+        {isAsru && hbaToken && hbaFilename && (
           <p>
-            <a href={`/attachment/${hbaToken}`}>
+            <a href={`/attachment/${hbaToken}`} download={`${hbaFilename}`}>
               <Snippet>view.hba</Snippet>
             </a>
           </p>

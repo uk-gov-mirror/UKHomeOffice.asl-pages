@@ -42,7 +42,7 @@ const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
             <Snippet>fields.hbaFilename.label</Snippet>
           </strong>
           <br />
-          <a href={`/attachment/${hba.hbaToken}`}>{hba.hbaFilename}</a>{' '}
+          <a href={`/attachment/${hba.hbaToken}`} download={`${hba.hbaFilename}`}>{hba.hbaFilename}</a>{' '}
         </p>
         <Warning>
           <Snippet>warning</Snippet>

@@ -240,7 +240,7 @@ function DownloadSection({ project, version }) {
             <Snippet>downloads.hba.hint</Snippet>
           </p>
           <p>
-            <a href={`/attachment/${version.hbaToken}`}>
+            <a href={`/attachment/${version.hbaToken}`} download={`${version.hbaFilename}`}>
               <Snippet>downloads.hba.link</Snippet>
             </a>
           </p>

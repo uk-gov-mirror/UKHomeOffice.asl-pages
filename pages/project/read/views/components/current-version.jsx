@@ -80,7 +80,7 @@ export default function CurrentVersion() {
       </p>
       {version.hbaToken && (
         <p>
-          <a href={`/attachment/${version.hbaToken}`}>
+          <a href={`/attachment/${version.hbaToken}`} download={`${version.hbaFilename}`}>
             <Snippet>otherDocuments.links.hba</Snippet>
           </a>
         </p>
