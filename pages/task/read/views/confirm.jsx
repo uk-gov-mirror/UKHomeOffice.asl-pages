@@ -13,7 +13,7 @@ import { Button } from '@ukhomeoffice/react-components';
 import RefusalNotice from './components/refusal-notice';
 
 function CommentForm({ formFields, task, errors, values, comment }) {
-  const { hbaToken, hbaFilename } = useSelector((state) => state.static.hba);
+  const hba = useSelector((state) => state.static.hba);
   const { requiresDeclaration, inspector } = useSelector(
     (state) => state.static
   );
@@ -43,13 +43,18 @@ function CommentForm({ formFields, task, errors, values, comment }) {
         subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
       />
       <ErrorSummary errors={errors} />
-      {hbaToken && hbaFilename && (
+      {hba && (
         <>
           <label className="govuk-label">
             <Snippet>hba</Snippet>
           </label>
           <p>
-            <a href={`/attachment/${hbaToken}`} download={`${hbaFilename}`}>{hbaFilename}</a>
+            <a
+              href={`/attachment/${hba.hbaToken}`}
+              download={`${hba.hbaFilename}`}
+            >
+              {hba.hbaFilename}
+            </a>
           </p>
         </>
       )}

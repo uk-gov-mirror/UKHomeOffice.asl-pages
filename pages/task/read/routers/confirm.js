@@ -24,17 +24,23 @@ module.exports = (config) => {
   });
 
   app.get('/', async (req, res, next) => {
-    const {hbaToken, hbaFilename} = req.task.data.meta;
+    const model = get(req.task, 'data.model');
+    const action = get(req.task, 'data.action');
 
-    if (!hbaToken) {
-      return res.redirect(req.buildRoute('task.read'));
+    const values = get(req, `session.form[${req.task.id}].values`, {});
+    const status = values.status;
+    if (model === 'project' && action === 'grant' && status === 'resolved') {
+      const { hbaToken, hbaFilename } = req.task.data.meta;
+
+      if (!hbaToken) {
+        return res.redirect(req.buildRoute('task.read'));
+      }
+
+      res.locals.static.hba = {
+        hbaToken: hbaToken,
+        hbaFilename
+      };
     }
-
-    res.locals.static.hba = {
-      hbaToken: hbaToken,
-      hbaFilename
-    };
-
     next();
   });
 
