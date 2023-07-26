@@ -499,6 +499,41 @@ module.exports = () => {
       return res.redirect(req.buildRoute('task.read.uploadHba'));
     }
 
+    next();
+  });
+
+  app.post('/', (req, res, next) => {
+    const daysSinceDeadline = get(req.task, 'data.deadline.daysSince');
+    const hasDeadlinePassedReason = get(
+      req.task,
+      'data.meta.deadline-passed-reason'
+    );
+    const model = get(req.task, 'data.model');
+    const action = get(req.task, 'data.action');
+    const status = get(req.form, 'values.status');
+    const isAsruUser = req.user.profile.asruUser;
+
+    if (
+      model === 'project' &&
+      isAsruUser &&
+      daysSinceDeadline > 0 &&
+      !hasDeadlinePassedReason
+    ) {
+      return res.redirect(req.buildRoute('task.read.deadlinePassed'));
+    }
+
+    if (model === 'project' && action === 'grant-ra' && status === 'endorsed') {
+      return res.redirect(req.buildRoute('task.read.raAwerb'));
+    }
+
+    if (
+      model === 'project' &&
+      ['grant', 'transfer', 'update'].includes(action) &&
+      status === 'endorsed'
+    ) {
+      return res.redirect(req.buildRoute('task.read.endorse'));
+    }
+
     return res.redirect(req.buildRoute('task.read', { suffix: 'confirm' }));
   });
 
