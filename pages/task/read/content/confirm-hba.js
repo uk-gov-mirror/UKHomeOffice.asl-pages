@@ -4,7 +4,7 @@ const tasks = require('../../content/tasks');
 
 module.exports = merge({}, baseContent, {
   tasks,
-  title: 'Confirm harm benefit analysis file',
+  title: 'Confirm HBA file',
 
   fields: {
     establishment: {
@@ -14,19 +14,20 @@ module.exports = merge({}, baseContent, {
       label: 'Applicant:'
     },
     hbaFilename: {
-      label: 'Selected harm benefit analysis file:',
+      label: 'Selected HBA file:',
       download: 'Download file'
     },
     confirmHba: {
       label: 'What do you want to do?',
       options: {
         yes: 'Confirm and continue to grant licence',
+        yesAmend: 'Confirm and continue to amend licence',
         no: 'Discard selected file and choose another'
       }
     }
   },
   warning:
-    'Once confirmed, this file will become the single source of truth of the harm benefit analysis for this application',
+    'Once confirmed, this HBA file in ASPeL (not SharePoint) will be the single point of reference for this application, for future assessment and audit purposes',
   errors: {
     confirmHba: {
       required: 'Select an option',

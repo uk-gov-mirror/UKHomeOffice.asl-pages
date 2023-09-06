@@ -215,7 +215,7 @@ module.exports = {
     },
     hint: {
       application: 'Upload the harm benefit analysis and a new licence will be granted.',
-      amendment: 'The existing licence will be updated.',
+      amendment: 'Upload the harm benefit analysis file and the existing licence will be updated.',
       revocation: 'The existing licence will be revoked.',
       transfer: 'The licence will be transferred to the proposed establishment.',
       ra: 'The assessment will be added to the project\'s non-technical summary'

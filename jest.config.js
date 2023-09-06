@@ -4,6 +4,6 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(@ukhomeoffice|@asl))'
   ],
-  setupTestFrameworkScriptFile: '<rootDir>/enzyme.setup.js',
+  setupFilesAfterEnv: ['<rootDir>/enzyme.setup.js'],
   snapshotSerializers: ['enzyme-to-json/serializer']
 };

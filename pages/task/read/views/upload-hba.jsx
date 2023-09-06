@@ -10,8 +10,12 @@ import {
 
 const UploadHba = ({ hba, task }) => {
   let action = task.data.action;
+  let uploadAction = action;
+  let uploadType = 'application';
   if (action === 'grant' && task.type === 'amendment') {
     action = 'update';
+    uploadAction = 'amend';
+    uploadType = 'amendment';
   }
   return (
     <WidthContainer>
@@ -22,7 +26,7 @@ const UploadHba = ({ hba, task }) => {
           subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
         />
         <p>
-          <Snippet>intro</Snippet>
+          <Snippet action={uploadAction} type={uploadType}>intro</Snippet>
         </p>
         {hba && (
           <p>
