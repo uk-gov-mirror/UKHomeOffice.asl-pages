@@ -5,6 +5,7 @@ const { form } = require('../../../common/routers');
 const schema = require('../../schema/upload-hba');
 const FormData = require('form-data');
 const { default: axios } = require('axios');
+const { getActionAdjustedWording } = require('../views/adjusted-wording');
 
 module.exports = (config) => {
   const app = Router({ mergeParams: true });
@@ -55,6 +56,7 @@ module.exports = (config) => {
           });
           req.form.values.hbaToken = data.token;
           req.form.values.hbaFilename = file.originalname;
+          req.form.values.action = getActionAdjustedWording(req.task.data.action, req.task.type);
           next();
         } catch (error) {
           return next(error);

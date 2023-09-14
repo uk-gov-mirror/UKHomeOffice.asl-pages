@@ -7,15 +7,18 @@ import {
   WidthContainer,
   ErrorSummary
 } from '@ukhomeoffice/asl-components';
+import {
+  getActionAdjustedWording,
+  getTypeAdjustedWording,
+  isAmendment
+} from './adjusted-wording';
 
 const UploadHba = ({ hba, task }) => {
   let action = task.data.action;
-  let uploadAction = action;
-  let uploadType = 'application';
-  if (action === 'grant' && task.type === 'amendment') {
+  const uploadAction = getActionAdjustedWording(action, task.type);
+  const uploadType = getTypeAdjustedWording(action, task.type);
+  if (isAmendment(action, task.type)) {
     action = 'update';
-    uploadAction = 'amend';
-    uploadType = 'amendment';
   }
   return (
     <WidthContainer>

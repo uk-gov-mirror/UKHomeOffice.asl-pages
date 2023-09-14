@@ -8,10 +8,12 @@ import {
   ErrorSummary
 } from '@ukhomeoffice/asl-components';
 import { Warning } from '../../../common/components/warning';
+import { getTypeAdjustedWording, isAmendment } from './adjusted-wording';
 
 const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
   let action = task.data.action;
-  if (action === 'grant' && task.type === 'amendment') {
+  const uploadType = getTypeAdjustedWording(action, task.type);
+  if (isAmendment(action, task.type)) {
     action = 'update';
   }
   return (
@@ -45,7 +47,7 @@ const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
           <a href={`/attachment/${hba.hbaToken}`} download={`${hba.hbaFilename}`}>{hba.hbaFilename}</a>{' '}
         </p>
         <Warning>
-          <Snippet>warning</Snippet>
+          <Snippet type={uploadType}>warning</Snippet>
         </Warning>
       </Form>
     </WidthContainer>

@@ -11,7 +11,7 @@ module.exports = merge({}, baseContent, {
   fields: {
     upload: {
       label: 'Upload {{#model.hbaToken}}new {{/model.hbaToken}}file',
-      hint: "You can review and confirm the file you've chosen before granting the licence. You can also update the file in the future, if required."
+      hint: "You can review and confirm the file you've chosen before {{model.action}}ing the licence. You can also update the file in the future, if required."
     },
     hba: {
       label: 'Selected harm benefit analysis file'
