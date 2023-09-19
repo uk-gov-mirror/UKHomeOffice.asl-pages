@@ -38,6 +38,7 @@ module.exports = (config) => {
       locals(req, res, next) {
         res.locals.static.establishment = req.establishment;
         res.locals.static.task = req.task;
+        req.form.values.action = getActionAdjustedWording(req.task.data.action, req.task.type);
         next();
       },
       process: async (req, res, next) => {
@@ -56,7 +57,6 @@ module.exports = (config) => {
           });
           req.form.values.hbaToken = data.token;
           req.form.values.hbaFilename = file.originalname;
-          req.form.values.action = getActionAdjustedWording(req.task.data.action, req.task.type);
           next();
         } catch (error) {
           return next(error);
