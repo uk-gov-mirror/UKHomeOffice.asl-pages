@@ -37,6 +37,12 @@ module.exports = {
     endorsed: {
       hint: 'Confirm the PEL holder approves this application.',
       log: 'Endorsed on behalf of the PEL holder at {{establishmentName}} by'
+    },
+    resolved: {
+      hint: {
+        application: 'Upload the harm benefit analysis and a new licence will be granted.',
+        amendment: 'Upload the harm benefit analysis file and the existing licence will be updated.'
+      }
     }
   },
   versions: {
