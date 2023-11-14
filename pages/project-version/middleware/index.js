@@ -120,10 +120,6 @@ const getNode = (tree, path) => {
     return establishment && (establishment.name || establishment['establishment-name']);
   }
   let keys = path.split('.');
-  if (path.match(/protocols\.(.*)\.reusableSteps\./)) {
-    const position = path.lastIndexOf('reusableSteps.');
-    keys = path.substring(position).split('.');
-  }
   let node = tree[keys[0]];
   for (let i = 1; i < keys.length; i++) {
     let parent = node;
