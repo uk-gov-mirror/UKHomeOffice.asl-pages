@@ -13,8 +13,8 @@ function LicenceTypeFilter({ label }) {
     <LinkFilter
       prop="licence"
       label={label || <Snippet>filters.licence.label</Snippet>}
-      formatter={filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>}
-      append={['pil', 'ppl', 'pel', 'profile']}
+      formatter={filter => <Acronym usePlural>{selectivelyUppercase(filter)}</Acronym>}
+      append={['pil', 'pil-e', 'ppl', 'pel', 'profile']}
     />
   );
 }
@@ -38,8 +38,8 @@ function TaskFilters({ hasTasks, progressOptions }) {
     filterOpts.push({
       label: <Snippet>filters.licence.label</Snippet>,
       prop: 'licence',
-      formatter: filter => <Acronym>{selectivelyUppercase(filter)}</Acronym>,
-      append: ['pil', 'ppl', 'pel', 'profile']
+      formatter: filter => <Acronym usePlural>{selectivelyUppercase(filter)}</Acronym>,
+      append: ['pil', 'pil-e', 'ppl', 'pel', 'profile']
     });
   }
 

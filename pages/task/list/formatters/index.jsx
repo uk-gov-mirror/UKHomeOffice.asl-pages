@@ -45,7 +45,7 @@ export default {
     format: date => date ? format(date, dateFormat.medium) : '-'
   },
   establishment: {
-    format: (establishment, model) => establishment || '-'
+    format: (establishment) => establishment || '-'
   },
   status: {
     format: (status, task) => {
@@ -82,13 +82,7 @@ export default {
       const labelParams = {};
       let licence = get(task, 'data.model') || get(task, 'model');
 
-      if (licence === 'trainingPil') {
-        licence = 'pil';
-      }
-
-      if (type === 'grant' && status === 'active') {
-        type = 'update';
-      }
+      const normalisedType = type === 'grant' && status === 'active' ? 'update' : type;
 
       let contextLabel = null;
       let title = null;
@@ -97,7 +91,7 @@ export default {
       }
 
       if (licence === 'role') {
-        labelParams.type = type === 'delete'
+        labelParams.type = normalisedType === 'delete'
           ? get(task, 'data.modelData.type', '').toUpperCase()
           : get(task, 'data.data.type', '').toUpperCase();
       }
@@ -109,6 +103,7 @@ export default {
           // eslint-ignore-next-line no-fallthrough
         case 'project':
         case 'pil':
+        case 'trainingPil':
         case 'role':
         case 'profile':
           const subject = get(task, 'data.subject') || get(task, 'subject');
@@ -131,8 +126,8 @@ export default {
             page="task.read"
             taskId={id}
             // adding optional snippet for backwards compatibility
-            // as some task types wont have content defined.
-            label={<Snippet {...labelParams} optional>{`tasks.${licence}.${type}`}</Snippet>}
+            // as some task types won't have content defined.
+            label={<Snippet {...labelParams} optional>{`tasks.${licence}.${normalisedType}`}</Snippet>}
           />
           {
             contextLabel && <span className="block smaller">{contextLabel}</span>

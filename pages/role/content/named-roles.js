@@ -1,4 +1,4 @@
-const dictionary = require('@asl/dictionary');
+const dictionary = require('@ukhomeoffice/asl-dictionary');
 
 const roles = [
   'nacwo',

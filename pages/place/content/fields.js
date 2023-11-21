@@ -1,4 +1,4 @@
-const dictionary = require('@asl/dictionary');
+const dictionary = require('@ukhomeoffice/asl-dictionary');
 
 module.exports = {
   site: {
@@ -22,7 +22,7 @@ module.exports = {
     label: `${dictionary.NACWO}s (NACWOs)`
   },
   nvssqps: {
-    label: 'Named Veterinary Surgeon (NVS) or Suitably Qualified Person (SQP)'
+    label: `${dictionary.NVS} (NVS) or ${dictionary.SQP} (SQP)`
   },
   restrictions: {
     label: 'Restrictions',

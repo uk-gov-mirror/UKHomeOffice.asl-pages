@@ -1,5 +1,5 @@
 import React from 'react';
-import dict from '@asl/dictionary';
+import dict from '@ukhomeoffice/asl-dictionary';
 import { JoinAcronyms } from '@ukhomeoffice/asl-components';
 
 export const joinAcronyms = val => {

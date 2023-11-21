@@ -12,8 +12,11 @@ const shortTaskLabels = {
     review: 'PIL review'
   },
   trainingPil: {
-    grant: 'Training PIL application',
-    revoke: 'Training PIL revocation'
+    grant: 'PIL-E application',
+    update: 'PIL-E amendment',
+    revoke: 'PIL-E revocation',
+    transfer: 'PIL-E transfer',
+    review: 'PIL-E review'
   },
   project: {
     grant: 'PPL application',
