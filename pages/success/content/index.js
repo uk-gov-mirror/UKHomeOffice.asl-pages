@@ -116,10 +116,10 @@ module.exports = {
   },
   'rejected': {
     panel: {
-      title: 'Rejected'
+      title: 'Refused'
     },
     whatNext: {
-      body: `This request has been rejected.`,
+      body: `This request has been refused.`,
       internal: 'The relevant people have been emailed.'
     },
     taskLink: {
