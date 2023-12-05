@@ -41,8 +41,7 @@ module.exports = {
     resolved: {
       hint: {
         application: 'Upload the harm benefit analysis and a new licence will be granted.',
-        amendment: 'Upload the harm benefit analysis file and the existing licence will be updated.',
-        transfer: 'Upload the harm benefit analysis and the licence will be transferred to the proposed establishment.'
+        amendment: 'Upload the harm benefit analysis file and the existing licence will be updated.'
       }
     }
   },

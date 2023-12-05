@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
 import differenceInYears from 'date-fns/difference_in_years';
-import { Link, Snippet } from '@ukhomeoffice/asl-components';
+import { Snippet, Link } from '@ukhomeoffice/asl-components';
 
 function ProjectTitle({ project, establishment }) {
   return (
@@ -107,8 +107,6 @@ function ProjectDetails({ task }) {
   const version = useSelector(state => state.static.version);
   const establishment = useSelector(state => state.static.establishment) || task.data.establishment;
   const isApplication = task.type === 'application';
-  const isTransfer = task?.data?.action === 'transfer';
-  const isRop = task.data.model === 'rop';
   const profileType = isApplication ? 'applicant' : 'licenceHolder';
 
   const profile = isApplication
@@ -120,8 +118,8 @@ function ProjectDetails({ task }) {
       <ProjectTitle project={project} establishment={establishment} />
       <ProfileLink profile={profile} establishment={establishment} type={profileType} />
       <LicenceNumber>{project.licenceNumber}</LicenceNumber>
-      { !isTransfer ? <EstablishmentLink establishment={establishment} /> : null }
-      { isRop && <ROPYear task={task} /> }
+      <EstablishmentLink establishment={establishment} />
+      { task.data.model === 'rop' && <ROPYear task={task} /> }
     </dl>
   );
 }

@@ -51,7 +51,15 @@ module.exports = {
   },
   'returned-to-applicant': {
     state: 'Returned',
-    action: 'Return transfer request with comments',
+    action: 'Return to applicant',
+    hint: {
+      application: 'The application will be returned to the applicant with your comments.',
+      amendment: 'The amendment will be returned to the applicant with your comments.',
+      revocation: 'The revocation request will be returned to the applicant with your comments.',
+      transfer: 'The transfer request will be returned to the applicant with your comments.',
+      review: 'The review request will be returned to the applicant with your comments.',
+      ra: 'The assessment will be returned to the applicant with your comments.'
+    },
     log: 'Returned by',
     currentlyWith: '**Currently with:** Applicant'
   },
@@ -228,20 +236,20 @@ module.exports = {
   rejected: {
     state: 'Rejected',
     action: {
-      application: 'Refuse application',
-      amendment: 'Refuse amendment',
-      revocation: 'Refuse revocation',
-      transfer: 'Refuse transfer request',
-      ra: 'Refuse retrospective assessment'
+      application: 'Reject application',
+      amendment: 'Reject amendment',
+      revocation: 'Reject revocation',
+      transfer: 'Reject transfer request',
+      ra: 'Reject retrospective assessment'
     },
     hint: {
       application: 'The applicant will need to create a new application to apply for this type of licence in the future.',
       amendment: 'The applicant will need to create a new amendment to submit these changes again.',
       revocation: 'The applicant will need to create a new revocation request for this licence to be revoked.',
-      transfer: 'The applicant will need to create a new transfer request in the future, if required.',
+      transfer: 'The applicant will need to create a new transfer request.',
       ra: 'The applicant will need to create a new assessment.'
     },
-    log: 'Refused by'
+    log: 'Rejected by'
   },
   'intention-to-refuse': {
     state: 'Returned',
