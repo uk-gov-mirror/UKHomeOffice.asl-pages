@@ -289,13 +289,9 @@ They do not include:
           label: 'Preservation of species',
           hint: 'For studies where the main goal is preservation of a species'
         },
-        education: {
-          label: 'Higher education',
-          hint: 'For educational courses delivered in universities and colleges, for example'
-        },
-        training: {
-          label: 'Training for the acquisition, maintenance or improvement of vocational skills',
-          hint: 'For training courses in microsurgery and other skills'
+        education_or_training: {
+          label: 'Higher education or training courses',
+          hint: 'For educational courses delivered by universities and colleges, or vocational training in surgical procedures and other skills'
         },
         forensic: {
           label: 'Forensic enquiries',

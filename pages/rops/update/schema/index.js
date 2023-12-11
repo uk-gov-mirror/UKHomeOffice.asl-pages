@@ -5,11 +5,9 @@ const content = require('../content');
 const { projectSpecies } = require('@ukhomeoffice/asl-constants');
 
 module.exports = req => {
-  const disableProcOpts = fieldName => opt => {
+  const disableProcOpts = fieldName => optParam => {
     const field = req.rop.procedures.map(p => p[fieldName]);
-    if (typeof opt === 'string') {
-      opt = { value: opt };
-    }
+    const opt = typeof optParam === 'string' ? { value: optParam } : optParam;
 
     if (field.includes(opt.value)) {
       return {
@@ -21,7 +19,7 @@ module.exports = req => {
     return opt;
   };
 
-  function getOtherField(fieldName) {
+  function getOtherField(_fieldName) {
     const procIds = flatten(req.rop.procedures.map(p => [p.subpurposeOther, p.legislationOther])).filter(Boolean);
     return {
       inputType: 'multiInput',
@@ -95,11 +93,7 @@ module.exports = req => {
                 ...(req.rop.procedures.map(p => p.species))
               ];
 
-              if (value === false && projectSpecies.length === 0) {
-                return false; // user must add species if none are present
-              }
-
-              return true;
+              return !(value === false && projectSpecies.length === 0);
             }
           }
         ],
@@ -330,8 +324,7 @@ module.exports = req => {
         'translational',
         'protection',
         'preservation',
-        'education',
-        'training',
+        'education_or_training',
         'forensic',
         'breeding',
         'regulatory'
