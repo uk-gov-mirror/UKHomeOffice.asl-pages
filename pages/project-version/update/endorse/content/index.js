@@ -13,13 +13,13 @@ module.exports = {
   declaration: {
     title: 'Declaration',
     content: `By endorsing this {{type}} on behalf of {{establishment.name}}, I agree that:
-      * {{licenceHolder}}'s training record is accurate and up to date.
-      * The non-technical summary uses everyday language and contains no information that could identify people, places or intellectual property.
-      {{#onBehalfOf}}
+* {{licenceHolder}}'s training record is accurate and up to date.
+* The non-technical summary uses everyday language and contains no information that could identify people, places or intellectual property.
+{{#onBehalfOf}}
 
-      By submitting this {{type}} on behalf of {{licenceHolder}}, I agree that:
-      * they are aware I am making this submission and I have their permission to do so.
-      {{/onBehalfOf}}`
+By submitting this {{type}} on behalf of {{licenceHolder}}, I agree that:
+* they are aware I am making this submission and I have their permission to do so.
+{{/onBehalfOf}}`
   },
   fields: {
     authority: {

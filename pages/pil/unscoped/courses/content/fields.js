@@ -7,7 +7,7 @@ module.exports = {
     label: 'Course start date',
     hint: `This helps ensure the licences are approved in time. Licences will be valid for 3 months from the date of approval.
 
-    For example, 12 11 2020`
+For example, 12 11 2020`
   },
   species: {
     label: 'Animals to be used'

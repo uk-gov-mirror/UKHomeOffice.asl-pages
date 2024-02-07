@@ -2,7 +2,7 @@ module.exports = {
   page: {
     title: 'Submit establishment application',
     summary: `Please check the information you have provided so far for your project licence application. We have stated
-    the minimum amount of information required for each below.`
+the minimum amount of information required for each below.`
   },
   section: {
     details: {

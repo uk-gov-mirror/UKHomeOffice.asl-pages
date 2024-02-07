@@ -6,7 +6,7 @@ module.exports = {
       hint: {
         summary: 'Help if your establishment\'s not listed',
         details: `You need to be invited to an establishment before you can make them your primary establishment.
-        Ask the Home Office Liaison Contact (HOLC) at your chosen establishment to send you an invitation.`
+Ask the Home Office Liaison Contact (HOLC) at your chosen establishment to send you an invitation.`
       }
     }
   },

@@ -22,6 +22,7 @@ const Deadline = ({ task }) => {
   const statutoryDeadline = get(task, 'data.deadline');
   const isExtended = get(statutoryDeadline, 'isExtended', false);
   const statutoryDate = get(statutoryDeadline, isExtended ? 'extended' : 'standard');
+  console.log({ activeDeadline, now });
   const overdue = isBefore(activeDeadline, now);
   const urgent = overdue || differenceInDays(activeDeadline, now) <= 9;
 

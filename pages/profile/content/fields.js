@@ -34,28 +34,28 @@ module.exports = {
       basic: {
         label: 'Personal (Basic access)',
         hint: `* manage own licences
-               * view named people and Home Office liaison contacts (HOLCs)`
+* view named people and Home Office liaison contacts (HOLCs)`
       },
       read: {
         label: 'Overview (Intermediate access)',
         hint: `* manage own licences
-               * view all people
-               * view all licences
-               * view the establishment’s approved areas`
+* view all people
+* view all licences
+* view the establishment’s approved areas`
       },
       admin: {
         label: 'Admin (PEL holder delegate)',
         hint: `* manage all licences
-               * manage user accounts and permissions
-               * manage establishment details, approved areas and named roles
-               * view annual licence fee information
-               * endorse project applications on behalf of applicants`
+* manage user accounts and permissions
+* manage establishment details, approved areas and named roles
+* view annual licence fee information
+* endorse project applications on behalf of applicants`
       },
       blocked: {
         label: 'Blocked',
         hint: `* cannot view any licences
-               * cannot view named people and Home Office liaison contacts (HOLCs)
-               * cannot view any other establishment details`
+* cannot view named people and Home Office liaison contacts (HOLCs)
+* cannot view any other establishment details`
       }
     }
   },

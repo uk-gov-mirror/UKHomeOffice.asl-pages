@@ -21,7 +21,7 @@ module.exports = merge({}, baseContent, {
 {{#hasRoles}}* they hold one or more named roles here - roles must be reassigned first{{/hasRoles}}
 {{#hasAdditionalProjects}}* they hold one or more projects with additional availability here - additional availability must be removed first{{/hasAdditionalProjects}}`,
     warning: `If you remove this person from this establishment, they will no longer be able to view any of this
-      establishment's data.`
+establishment's data.`
   },
   notifications: {
     changed: 'Permission level changed',

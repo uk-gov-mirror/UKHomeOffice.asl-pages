@@ -6,8 +6,8 @@ module.exports = merge({}, baseContent, {
   tasks,
   title: 'Upload harm benefit analysis file',
   intro: `To {{action}} this licence you must upload the PPL assessment form containing the harm benefit analysis (HBA) for this {{type}}.
-    
-  The HBA will be visible to ASRU only.`,
+
+The HBA will be visible to ASRU only.`,
   fields: {
     upload: {
       label: 'Upload {{#model.hbaToken}}new {{/model.hbaToken}}file',

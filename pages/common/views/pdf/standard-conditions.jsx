@@ -9,7 +9,7 @@ const StandardConditions = ({ conditions, className, title = 'Standard condition
         conditions.map((condition, index) => (
           <li key={index}>
             <div className="purple-inset">
-              <Markdown>{condition}</Markdown>
+              <Markdown significantLineBreaks>{condition}</Markdown>
             </div>
           </li>
         ))

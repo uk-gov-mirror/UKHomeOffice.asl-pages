@@ -266,8 +266,8 @@ module.exports = {
       'additional-availability-removed':
         'This is the most recent version of the licence that {{establishmentName}} is authorised to see.',
       establishmentSuspended: `{{establishmentName}}'s establishment licence is not active. The establishment is not
-      authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals
-      in any area at the establishment.`
+authorised to apply regulated procedures to protected animals, or to breed, supply, or keep protected animals
+in any area at the establishment.`
     },
     view: 'View granted licence',
     viewTransferred: 'View the latest version of this licence'

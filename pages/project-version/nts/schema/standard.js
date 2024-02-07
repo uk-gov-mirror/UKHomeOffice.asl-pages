@@ -31,7 +31,7 @@ module.exports = {
   objectives: {
     title: 'Objectives and benefits',
     subtitle: `Description of the projects objectives, for example the scientific unknowns or clinical or scientific needs
-    it's addressing.`,
+it's addressing.`,
     fields: [
       {
         name: 'project-aim',
@@ -45,13 +45,13 @@ module.exports = {
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of these aims will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
-  * Is there a plan for this work to continue under another licence?
-  * Did the project achieve its aims and if not, why not?`
+* Is there a plan for this work to continue under another licence?
+* Did the project achieve its aims and if not, why not?`
       },
       {
         heading: `Potential benefits likely to derive from the project, for example how science might be advanced or how humans,
-        animals or the environment might benefit - these could be short-term benefits within the duration of the project
-        or long-term benefits that accrue after the project has finished.`
+animals or the environment might benefit - these could be short-term benefits within the duration of the project
+or long-term benefits that accrue after the project has finished.`
       },
       {
         name: 'project-importance',
@@ -101,7 +101,7 @@ The PPL holder will be required to disclose:
   harms: {
     title: 'Predicted harms',
     subtitle: `Typical procedures done to animals, for example injections or surgical procedures, including duration of the
-    experiment and number of procedures.`,
+experiment and number of procedures.`,
     fields: [
       {
         name: 'project-harms-animals',
@@ -141,7 +141,7 @@ The PPL holder will be required to disclose:
   replacement: {
     title: 'Replacement',
     subtitle: `State what non-animal alternatives are available in this field, which alternatives you have considered
-    and why they cannot be used for this purpose.`,
+and why they cannot be used for this purpose.`,
     fields: [
       {
         name: 'replacement-why',
@@ -176,9 +176,9 @@ The PPL holder will be required to disclose:
   reduction: {
     title: 'Reduction',
     subtitle: `Explain how the numbers of animals for this project were determined. Describe steps that have been taken
-    to reduce animal numbers, and principles used to design studies. Describe practices that are used throughout the
-    project to minimise numbers consistent with scientific objectives, if any. These may include e.g. pilot studies,
-    computer modelling, sharing of tissue and reuse.`,
+to reduce animal numbers, and principles used to design studies. Describe practices that are used throughout the
+project to minimise numbers consistent with scientific objectives, if any. These may include e.g. pilot studies,
+computer modelling, sharing of tissue and reuse.`,
     fields: [
       {
         name: 'reduction-estimation',
@@ -187,13 +187,13 @@ The PPL holder will be required to disclose:
       {
         name: 'reduction-steps',
         label: `What steps did you take during the experimental design phase to reduce the number of animals being used
-        in this project?`,
+in this project?`,
         training: false
       },
       {
         name: 'reduction-review',
         label: `What measures, apart from good experimental design, will you use to optimise the number of animals you
-        plan to use in your project?`,
+plan to use in your project?`,
         training: false,
         raSummary: ['reduction']
       },
@@ -217,20 +217,20 @@ The PPL holder will be required to disclose:
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of reduction will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
-  * How did you minimise the numbers of animals used on your project and is there anything others can learn from your experience?`
+* How did you minimise the numbers of animals used on your project and is there anything others can learn from your experience?`
       }
     ]
   },
   refinement: {
     title: 'Refinement',
     subtitle: `Give examples of the specific measures (e.g., increased monitoring, post-operative care, pain management,
-    training of animals) to be taken, in relation to the procedures, to minimise welfare costs (harms) to the animals.
-    Describe the mechanisms in place to take up emerging refinement techniques during the lifetime of the project.`,
+training of animals) to be taken, in relation to the procedures, to minimise welfare costs (harms) to the animals.
+Describe the mechanisms in place to take up emerging refinement techniques during the lifetime of the project.`,
     fields: [
       {
         name: 'refinement-models',
         label: `Which animal models and methods will you use during this project?
-        Explain why these models and methods cause the least pain, suffering, distress, or lasting harm to the animals.`
+Explain why these models and methods cause the least pain, suffering, distress, or lasting harm to the animals.`
       },
       {
         name: 'refinement-less-sentient',
@@ -253,7 +253,7 @@ The PPL holder will be required to disclose:
         type: 'RetrospectivePlaceholder',
         content: `### A retrospective assessment of refinement will be due {{#hasRaDate}}by {{raDate}}{{/hasRaDate}}{{^hasRaDate}}within 6 months of the licence's revocation date{{/hasRaDate}}
 The PPL holder will be required to disclose:
-  * With the knowledge you have now, could the choice of animals or model(s) used be improved for future work of this kind?
+* With the knowledge you have now, could the choice of animals or model(s) used be improved for future work of this kind?
   During the project, how did you minimise harm to the animals?`
       }
     ]

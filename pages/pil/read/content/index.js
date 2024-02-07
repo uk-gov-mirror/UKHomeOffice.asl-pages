@@ -29,7 +29,7 @@ module.exports = merge({}, baseContent, {
     },
     revoke: {
       summary: `## Revoke licence
-        Cancel this licence if it is no longer needed. If the licence includes category E, this can be removed by viewing the relevant training course.`,
+Cancel this licence if it is no longer needed. If the licence includes category E, this can be removed by viewing the relevant training course.`,
       button: 'Revoke licence'
     },
     reapply: {
@@ -38,43 +38,43 @@ module.exports = merge({}, baseContent, {
     },
     suspend: {
       summary: `## Suspend licence
-      Suspend this licence if the licence holder should temporarily not be authorised to carry out regulated procedures in the categories stated in this licence.`,
+Suspend this licence if the licence holder should temporarily not be authorised to carry out regulated procedures in the categories stated in this licence.`,
       button: 'Suspend licence'
     },
     reinstate: {
       summary: `## Reinstate licence
-      Reinstate this suspended licence if the licence holder should be authorised to carry out regulated procedures in the categories stated in this licence.`,
+Reinstate this suspended licence if the licence holder should be authorised to carry out regulated procedures in the categories stated in this licence.`,
       button: 'Reinstate licence'
     },
     amend: {
       licenceHolder: {
         summary: `## Amend or transfer licence
-          Ask for your licence to be amended, or transferred if you’re moving to a new establishment.`,
+Ask for your licence to be amended, or transferred if you’re moving to a new establishment.`,
         button: 'Amend or transfer licence'
       },
       other: {
         summary: `## Amend or transfer licence
-          You can ask for this licence to be amended but only the licence holder can transfer it.`,
+You can ask for this licence to be amended but only the licence holder can transfer it.`,
         button: 'Amend licence'
       },
       asru: {
         summary: `## Amend or transfer licence
-          You can amend or transfer this licence.`,
+You can amend or transfer this licence.`,
         button: 'Amend licence'
       },
       apply: {
         summary: `## Amend licence
-         You can apply to add categories A, B, C, D, or F to this personal licence`,
+You can apply to add categories A, B, C, D, or F to this personal licence`,
         button: 'Amend licence'
       },
       update: {
         summary: `## Amend licence
-          You add or remove categories A, B, C, D, or F from this personal licence`,
+You add or remove categories A, B, C, D, or F from this personal licence`,
         button: 'Amend licence'
       },
       reapply: {
         summary: `## Reapply for licence
-          Reapply for a personal licence at {{establishment.name}}`,
+Reapply for a personal licence at {{establishment.name}}`,
         button: 'Reapply for licence'
       }
     }
@@ -90,11 +90,11 @@ module.exports = merge({}, baseContent, {
   warnings: {
     pilReviewRequired: `**This personal licence is {{#overdue}}overdue{{/overdue}}{{^overdue}}due{{/overdue}} a 5 year review**
 
-    {{#openTask}}
-      Someone has checked the licence to verify that it’s up to date, but it’s still waiting to be approved.
-    {{/openTask}}
-    {{^openTask}}
-      It needs to be [confirmed as up to date and in use]({{reviewUrl}}), or amended to remove procedures or animal types that aren’t being used.
-    {{/openTask}}`
+{{#openTask}}
+Someone has checked the licence to verify that it’s up to date, but it’s still waiting to be approved.
+{{/openTask}}
+{{^openTask}}
+It needs to be [confirmed as up to date and in use]({{reviewUrl}}), or amended to remove procedures or animal types that aren’t being used.
+{{/openTask}}`
   }
 });

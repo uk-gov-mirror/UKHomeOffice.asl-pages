@@ -52,38 +52,37 @@ module.exports = {
   action: {
     draftAmend: {
       summary: `## Amend establishment details
-      Amend details about this establishment’s address, activities and authorisations.`,
+Amend details about this establishment’s address, activities and authorisations.`,
       button: 'Amend establishment details'
     },
     amend: {
       summary: `## Amend licence
-        You can amend this establishment licence if you want to:
-        * Change any of the licence details
-        * Add or remove authorisations
-      `,
+You can amend this establishment licence if you want to:
+* Change any of the licence details
+* Add or remove authorisations`,
       button: 'Amend licence'
     },
     suspend: {
       summary: `## Suspend licence
 
-      Suspend this licence if the establishment should temporarily not be authorised to apply regulated procedures to
-      protected animals, or to breed, supply, or keep protected animals in any approved area.`,
+Suspend this licence if the establishment should temporarily not be authorised to apply regulated procedures to
+protected animals, or to breed, supply, or keep protected animals in any approved area.`,
       button: 'Suspend licence'
     },
     reinstate: {
       summary: `## Reinstate licence
 
-      Reinstate this suspended licence if the licence holder should be authorised to apply regulated procedures to
-      protected animals, or to breed, supply, or keep protected animals in any approved area.`,
+Reinstate this suspended licence if the licence holder should be authorised to apply regulated procedures to
+protected animals, or to breed, supply, or keep protected animals in any approved area.`,
       button: 'Reinstate licence'
     },
     revoke: {
       summary: `## Revoke licence
-        Cancel this licence if it is no longer needed.`,
+Cancel this licence if it is no longer needed.`,
       unavailable: `## Revoke licence
-        You can't revoke this licence as there are still personal or project licences held at this establishment.
+You can't revoke this licence as there are still personal or project licences held at this establishment.
 
-        The establishment will need to revoke them or transfer them to another establishment first.`,
+The establishment will need to revoke them or transfer them to another establishment first.`,
       button: 'Revoke licence'
     },
     approvedAreas: 'View approved areas',
