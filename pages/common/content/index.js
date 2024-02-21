@@ -204,14 +204,14 @@ module.exports = {
     }
   },
   errors: {
-    heading: 'Please fix the following error',
-    headingPlural: 'Please fix the following errors',
+    heading: 'There is a problem',
+    headingPlural: 'There is a problem',
     form: {
       unchanged: 'No changes have been made',
       csrf: 'This form data has been changed somewhere else.'
     },
     declaration: {
-      required: 'Please confirm that you understand.'
+      required: 'Select to confirm that you understand.'
     },
     default: {
       maxLength: 'This field is limited to 256 characters',

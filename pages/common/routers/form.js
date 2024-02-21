@@ -198,7 +198,14 @@ const schemaWithReveals = (schema) =>
       return {
         ...obj,
         [key]: value,
-        ...(value.reveal || {})
+        ...(value.reveal || {}),
+        ...(value.options || []).reduce(
+          (acc, opt) => ({
+            ...acc,
+            ...(opt.reveal ? schemaWithReveals(opt.reveal) : {})
+          }),
+          {}
+        )
       };
     },
     {}
@@ -242,11 +249,11 @@ module.exports = ({
   process = defaultMiddleware,
   validate = defaultMiddleware,
   saveValues = defaultMiddleware,
-  requiresDeclaration = (req) => false,
-  cancelEdit = (req, res, next) => {
+  requiresDeclaration = () => false,
+  cancelEdit = (req, res) => {
     return res.redirect(cancelPath);
   },
-  editAnswers = (req, res, next) => {
+  editAnswers = (req, res) => {
     return res.redirect(req.baseUrl.replace(/\/confirm/, ''));
   }
 } = {}) => {

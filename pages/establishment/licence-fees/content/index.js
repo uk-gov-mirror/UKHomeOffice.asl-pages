@@ -4,7 +4,7 @@ module.exports = {
   },
   fees: {
     title: 'Estimated licence fees',
-    period: 'Covering the period:',
+    period: 'Covering the financial year:',
     disclaimer: 'These projections are based on the number of billable licences held and may differ from the final numbers.',
     details: {
       summary: 'How these fees are calculated',

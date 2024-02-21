@@ -94,7 +94,7 @@ export default function Fees({ tab, tabs, children, subtitle = '' }) {
             className="inline"
             onChange={onYearSelect}
             value={year}
-            nullOption={false}
+            nullOption={null}
           />
         </div>
         <Warning><Snippet>fees.disclaimer</Snippet></Warning>
