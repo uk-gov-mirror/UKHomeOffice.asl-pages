@@ -26,7 +26,7 @@ const relativeTime = deadline => {
 function Reminder({ reminder, licenceType, licenceNumber }) {
   const { profile } = useSelector(state => state.static);
   const previouslyDismissed = !!(reminder.dismissed || []).find(dismissal => dismissal.profileId === profile.id);
-  const oneMonthFromNow = formatDate(addMonths(new Date(), 1), 'YYYY-MM-DD');
+  const oneMonthFromNow = formatDate(addMonths(new Date(), 1), 'yyyy-MM-dd');
 
   if (previouslyDismissed || reminder.deadline > oneMonthFromNow) {
     return null;
