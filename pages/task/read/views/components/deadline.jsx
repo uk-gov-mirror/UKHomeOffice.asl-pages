@@ -72,7 +72,7 @@ export default function Deadline({ task }) {
             <dt><Snippet>{`deadline.statutory.${statutoryDeadline.isExtended ? 'extended' : 'standard'}`}</Snippet></dt>
             <dd>
               {formatDate(statutoryDeadlineDate, dateFormat.long)}
-              <DaysSince days={statutoryDeadlineDate} />
+              <DaysSince date={statutoryDeadlineDate} />
 
               {
                 isInspector && <Details summary="Application not complete and correct">
