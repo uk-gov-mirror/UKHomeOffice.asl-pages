@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import capitalize from 'lodash/capitalize';
 import sortBy from 'lodash/sortBy';
 import { dateFormat } from '../../../../../constants';

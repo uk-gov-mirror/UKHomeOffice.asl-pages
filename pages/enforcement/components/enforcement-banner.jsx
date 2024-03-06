@@ -2,8 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { Snippet, Inset } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
-import addYears from 'date-fns/add_years';
-import formatDate from 'date-fns/format';
+import { addYears, format as formatDate } from 'date-fns';
 import { dateFormat } from '../../../constants';
 import content from '../../common/content';
 

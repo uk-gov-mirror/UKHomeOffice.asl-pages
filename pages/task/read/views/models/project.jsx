@@ -8,7 +8,7 @@ import EstablishmentLinks from '../components/establishment-links';
 
 // need unconnected ReviewFields component and not default
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../../../constants';
 import PplDeclarations from '../components/ppl-declarations';
 import experience from '../../../../project/update-licence-holder/schema/experience-fields';

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import get from 'lodash/get';
 import { Markdown, Snippet } from '@ukhomeoffice/asl-components';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../../../constants';
 import { isTrueish } from '../../../../../lib/utils';
 

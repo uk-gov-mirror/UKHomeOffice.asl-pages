@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import get from 'lodash/get';
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import { differenceInCalendarDays, isSameDay, isBefore } from 'date-fns';
 import { ReviewFields } from '@asl/projects/client/components/review-fields';
-import { Link, Snippet, Details } from '@ukhomeoffice/asl-components';
+import { Details, Link, Snippet } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 import { formatDate } from '../../../../../lib/utils';
 
-function DaysSince({ days }) {
-  if (days === 0) {
+function DaysSince({ date }) {
+  if (isSameDay(date, new Date())) {
     return (
       <span className="deadline-passed">
         <br />
@@ -17,7 +17,8 @@ function DaysSince({ days }) {
     );
   }
 
-  if (days > 0) {
+  if (isBefore(date, new Date()) > 0) {
+    const days = differenceInCalendarDays(new Date(), date);
     return (
       <span className="deadline-passed">
         <br />
@@ -61,7 +62,7 @@ export default function Deadline({ task }) {
             <dt><Snippet>deadline.internal</Snippet></dt>
             <dd>
               {formatDate(internalDeadlineDate, dateFormat.long)}
-              <DaysSince days={differenceInCalendarDays(new Date(), internalDeadlineDate)} />
+              <DaysSince date={internalDeadlineDate} />
             </dd>
           </Fragment>
         }
@@ -71,7 +72,7 @@ export default function Deadline({ task }) {
             <dt><Snippet>{`deadline.statutory.${statutoryDeadline.isExtended ? 'extended' : 'standard'}`}</Snippet></dt>
             <dd>
               {formatDate(statutoryDeadlineDate, dateFormat.long)}
-              <DaysSince days={statutoryDeadline.daysSince} />
+              <DaysSince days={statutoryDeadlineDate} />
 
               {
                 isInspector && <Details summary="Application not complete and correct">

@@ -1,5 +1,5 @@
 import React from 'react';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { Link } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
 

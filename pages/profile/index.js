@@ -1,6 +1,6 @@
 const { reduce, isUndefined } = require('lodash');
 const { Router } = require('express');
-const differenceInYears = require('date-fns/difference_in_years');
+const { differenceInYears } = require('date-fns');
 const { schema } = require('./list/schema');
 const { cleanModel } = require('../../lib/utils');
 const { validateUuidParam } = require('../common/middleware');

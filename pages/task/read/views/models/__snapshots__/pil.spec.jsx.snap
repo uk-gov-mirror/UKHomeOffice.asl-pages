@@ -12,23 +12,23 @@ exports[`<PIL /> renders only conditions when action is update-conditions 1`] = 
   </h2>
   <DiffText
     currentLabel={
-      <UNDEFINED>
+      <Memo(Connect(Snippet))>
         diff.previous
-      </UNDEFINED>
+      </Memo(Connect(Snippet))>
     }
     newValue="old-conditions"
     oldValue="new-conditions"
     proposedLabel={
-      <UNDEFINED>
+      <Memo(Connect(Snippet))>
         diff.changed-to
-      </UNDEFINED>
+      </Memo(Connect(Snippet))>
     }
   />
 </ForwardRef>
 `;
 
 exports[`<PIL /> renders when action is update 1`] = `
-Array [
+[
   <ForwardRef
     id="procedures"
     key="procedures"
@@ -40,12 +40,12 @@ Array [
     </h2>
     <PilProcedures
       task={
-        Object {
-          "data": Object {
-            "data": Object {
-              "certificates": Array [
-                Object {},
-                Object {},
+        {
+          "data": {
+            "data": {
+              "certificates": [
+                {},
+                {},
               ],
             },
           },
@@ -65,10 +65,10 @@ Array [
     </h2>
     <SpeciesDiff
       after={
-        Object {
-          "certificates": Array [
-            Object {},
-            Object {},
+        {
+          "certificates": [
+            {},
+            {},
           ],
         }
       }
@@ -84,7 +84,7 @@ Array [
       </Connect(Snippet)>
     </h2>
     <SummaryTable
-      certificates={Array []}
+      certificates={[]}
     />
   </ForwardRef>,
 ]

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Link, StickyNavAnchor, Snippet } from '@ukhomeoffice/asl-components';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../../../constants';
 
 export default function ROP({ task }) {

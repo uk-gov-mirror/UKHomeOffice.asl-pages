@@ -11,7 +11,7 @@ import {
   Inset
 } from '@ukhomeoffice/asl-components';
 
-import dateFormatter from 'date-fns/format';
+import { format as dateFormatter } from 'date-fns';
 import { dateFormat } from '../../../constants';
 
 import Profile from '../../profile/read/views/profile';

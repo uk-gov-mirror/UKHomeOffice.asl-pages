@@ -85,5 +85,11 @@ module.exports = {
       open: 'Ongoing enforcement',
       closed: 'Closed enforcement'
     }
+  },
+  deadline: {
+    none: 'No deadline',
+    statutory: '(statutory)',
+    due: 'Due today',
+    overdue: 'Overdue'
   }
 };

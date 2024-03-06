@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import pick from 'lodash/pick';
 import { FormLayout, Header, Snippet, ModelSummary } from '@ukhomeoffice/asl-components';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../../../../../constants';
 import participantSchema from '../schema';
 import courseSchema from '../../../schema';

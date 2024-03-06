@@ -11,7 +11,7 @@ import {
   Inset
 } from '@ukhomeoffice/asl-components';
 import Page from '../../components/page';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../../../constants';
 
 const formatters = {

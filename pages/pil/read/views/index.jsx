@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import classnames from 'classnames';
 import { dateFormat } from '../../../../constants';
 import { formatDate, canUpdateModel } from '../../../../lib/utils';
-import differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
+import { differenceInCalendarDays } from 'date-fns';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import schema from '../schema';

@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import classnames from 'classnames';
 import get from 'lodash/get';
-import format from 'date-fns/format';
-import isBefore from 'date-fns/is_before';
-import differenceInDays from 'date-fns/difference_in_calendar_days';
+import { format, isBefore, differenceInCalendarDays, isSameDay } from 'date-fns';
 import { dateFormat } from '../../../../constants';
 import { Snippet, Link } from '@ukhomeoffice/asl-components';
 import AssignTask from '../components/assign-task';
@@ -11,31 +9,39 @@ import AssignTask from '../components/assign-task';
 const good = ['resolved'];
 const bad = ['rejected', 'withdrawn', 'discarded-by-applicant', 'refused'];
 
+const DeadlineMessage = ({ deadline }) => {
+  const today = new Date();
+  const formattedDeadline = format(deadline, dateFormat.medium);
+
+  if (isSameDay(deadline, today)) {
+    return <span title={formattedDeadline}><Snippet>deadline.due</Snippet></span>;
+  } else if (isBefore(deadline, today)) {
+    return <span title={formattedDeadline}><Snippet>deadline.overdue</Snippet></span>;
+  } else {
+    return <span>{formattedDeadline}</span>;
+  }
+};
+
 const Deadline = ({ task }) => {
   const activeDeadline = task.activeDeadline;
 
   if (!task.withASRU || !activeDeadline) {
-    return <p className="govuk-hint">No deadline</p>;
+    return <p className="govuk-hint"><Snippet>deadline.none</Snippet></p>;
   }
 
   const now = new Date();
   const statutoryDeadline = get(task, 'data.deadline');
   const isExtended = get(statutoryDeadline, 'isExtended', false);
   const statutoryDate = get(statutoryDeadline, isExtended ? 'extended' : 'standard');
-  console.log({ activeDeadline, now });
   const overdue = isBefore(activeDeadline, now);
-  const urgent = overdue || differenceInDays(activeDeadline, now) <= 9;
+  const urgent = overdue || differenceInCalendarDays(activeDeadline, now) <= 9;
 
   return (
     <span className={classnames('notice', { urgent })}>
-      {
-        overdue
-          ? <span title={format(activeDeadline, dateFormat.medium)}>Overdue</span>
-          : <span>{format(activeDeadline, dateFormat.medium)}</span>
-      }
+      <DeadlineMessage deadline={activeDeadline} />
       {
         activeDeadline === statutoryDate &&
-          <Fragment><br/><span>(statutory)</span></Fragment>
+        <Fragment><br/><span><Snippet>deadline.statutory</Snippet></span></Fragment>
       }
     </span>
   );

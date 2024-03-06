@@ -8,10 +8,10 @@ function getRopsYears(start) {
 
 module.exports = {
   dateFormat: {
-    short: 'D/M/YYYY',
-    medium: 'D MMM YYYY',
-    long: 'D MMMM YYYY',
-    datetime: 'D MMMM YYYY HH:mm'
+    short: 'd/M/yyyy',
+    medium: 'd MMM yyyy',
+    long: 'd MMMM yyyy',
+    datetime: 'd MMMM yyyy h:mm'
   },
   ropsYears: getRopsYears(2021)
 };

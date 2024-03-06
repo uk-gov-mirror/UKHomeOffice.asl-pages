@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash/get';
-import differenceInYears from 'date-fns/difference_in_years';
+import { differenceInYears } from 'date-fns';
 import { Snippet, Link } from '@ukhomeoffice/asl-components';
 
 function ProjectTitle({ project, establishment }) {

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import differenceInYears from 'date-fns/difference_in_years';
+import { differenceInYears } from 'date-fns';
 import { Button } from '@ukhomeoffice/react-components';
 import { Snippet, Link, Tabs } from '@ukhomeoffice/asl-components';
 import { formatDate } from '../../../../lib/utils';

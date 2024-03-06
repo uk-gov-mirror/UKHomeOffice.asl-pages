@@ -2,14 +2,11 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import map from 'lodash/map';
 import isEmpty from 'lodash/isEmpty';
-import addMonths from 'date-fns/add_months';
-import diffInDays from 'date-fns/difference_in_calendar_days';
-import formatDate from 'date-fns/format';
-import distanceInWords from 'date-fns/distance_in_words';
+import { addMonths, differenceInCalendarDays, format as formatDate, formatDistance } from 'date-fns';
 import { Warning } from '@ukhomeoffice/react-components';
 
 const relativeTime = deadline => {
-  const dayDiff = diffInDays(deadline, new Date());
+  const dayDiff = differenceInCalendarDays(deadline, new Date());
 
   if (dayDiff < 0) {
     return <strong>that is overdue</strong>;
@@ -23,7 +20,7 @@ const relativeTime = deadline => {
     return 'tomorrow';
   }
 
-  return `in ${distanceInWords(new Date(), deadline)}`;
+  return `in ${formatDistance(new Date(), deadline)}`;
 };
 
 function Reminder({ reminder, licenceType, licenceNumber }) {

@@ -1,6 +1,6 @@
 const { get } = require('lodash');
 const { page } = require('@asl/service/ui');
-const differenceInYears = require('date-fns/difference_in_years');
+const { differenceInYears } = require('date-fns');
 
 module.exports = settings => {
   const app = page({

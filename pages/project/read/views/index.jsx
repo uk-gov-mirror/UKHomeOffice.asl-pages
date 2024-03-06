@@ -3,7 +3,7 @@ import { useSelector, shallowEqual } from 'react-redux';
 import get from 'lodash/get';
 import { DocumentHeader, Snippet, Tabs, Link } from '@ukhomeoffice/asl-components';
 import { Warning } from '@ukhomeoffice/react-components';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../../constants';
 import ProjectStatusBanner from '../../../project-version/components/project-status-banner';
 import Overview from './sections/overview';

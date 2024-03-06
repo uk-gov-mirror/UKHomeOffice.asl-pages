@@ -12,8 +12,7 @@ import {
 } from '@ukhomeoffice/asl-components';
 import { Warning, Select } from '@ukhomeoffice/react-components';
 import { getUrl } from '@ukhomeoffice/asl-components/src/link';
-import format from 'date-fns/format';
-import isFuture from 'date-fns/is_future';
+import { format, isFuture } from 'date-fns';
 import { dateFormat } from '../../../../constants';
 import { numberWithCommas } from '../../../../lib/utils';
 import EstablishmentHeader from '../../../common/components/establishment-header';

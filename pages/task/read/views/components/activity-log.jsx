@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import get from 'lodash/get';
 import { Link, Snippet, Markdown, Inset } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import {
   daysSinceDate,
   isDeadlineExtension,

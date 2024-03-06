@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import flatten from 'lodash/flatten';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import getSchema from '@asl/projects/client/schema';
 import Field from './field';
 import { dateFormat } from '../../../../../constants';

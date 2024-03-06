@@ -1,6 +1,5 @@
 import React from 'react';
-import formatDate from 'date-fns/format';
-import addDays from 'date-fns/add_days';
+import { format as formatDate, addDays } from 'date-fns';
 import classnames from 'classnames';
 import { Inset, Markdown, Snippet } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';

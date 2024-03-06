@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { LicenceStatusBanner, Snippet, Link } from '@ukhomeoffice/asl-components';
 import sortBy from 'lodash/sortBy';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { dateFormat } from '../../../constants';
 
 export default function ProjectStatusBanner({ model = {}, version = {}, isPdf }) {
