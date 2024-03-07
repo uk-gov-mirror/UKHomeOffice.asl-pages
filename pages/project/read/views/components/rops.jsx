@@ -4,6 +4,7 @@ import { Snippet, Link } from '@ukhomeoffice/asl-components';
 import { Button } from '@ukhomeoffice/react-components';
 import { format, getYear, isBefore, isAfter, endOfDay, addDays, subMilliseconds } from 'date-fns';
 import { dateFormat } from '../../../../../constants';
+import { formatDate } from '../../../../../lib/utils';
 import partition from 'lodash/partition';
 import pick from 'lodash/pick';
 import Subsection from '../components/subsection';
@@ -72,10 +73,10 @@ export function Rop({ rop, project, active, url }) {
     <Fragment>
       <h3>Return of procedures for {rop.year}</h3>
       <Snippet
-        submitted={format(rop.submittedDate, dateFormat.long)}
+        submitted={formatDate(rop.submittedDate, dateFormat.long)}
         endDate={endDate}
         year={rop.year}
-        deadline={format(ropsDeadline, dateFormat.long)}
+        deadline={formatDate(ropsDeadline, dateFormat.long)}
       >{ rop.status === 'submitted' ? 'rops.submitted' : 'rops.incomplete' }</Snippet>
     </Fragment>
 
