@@ -47,7 +47,7 @@ module.exports = () => {
     const { values, meta } = get(req, `session.form[${req.task.id}]`);
 
     meta.refusalNotice = {
-      deadline: moment().add(28, 'days').format('yyyy-MM-dd'),
+      deadline: moment().add(28, 'days').format('yyyy-MM-DD'),
       markdown: getRefusalNoticeMarkdown(req.task, req.user.profile, meta.comment),
       inspectorId: req.user.profile.id
     };
