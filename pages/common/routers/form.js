@@ -255,7 +255,8 @@ module.exports = ({
   },
   editAnswers = (req, res) => {
     return res.redirect(req.baseUrl.replace(/\/confirm/, ''));
-  }
+  },
+  settings = {}
 } = {}) => {
   const form = Router();
 
@@ -292,7 +293,8 @@ module.exports = ({
       );
       return multer({ storage }).fields(options)(req, res, next);
     }
-    return bodyParser.urlencoded({ extended: false })(req, res, next);
+
+    return bodyParser.urlencoded({ extended: false, limit: settings?.bodySizeLimit })(req, res, next);
   };
 
   const _processQuery = (req, res, next) => {

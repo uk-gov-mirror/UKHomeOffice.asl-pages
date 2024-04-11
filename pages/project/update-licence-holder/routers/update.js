@@ -5,7 +5,7 @@ const getSchema = require('../schema');
 const experienceFields = require('../schema/experience-fields');
 const { hydrate } = require('../../../common/middleware');
 
-module.exports = () => {
+module.exports = (settings) => {
   const app = Router();
 
   app.get('/', hydrate());
@@ -62,7 +62,8 @@ module.exports = () => {
       res.locals.static.fields = req.project.isLegacyStub ? [] : req.form.experienceFields.fields;
       res.locals.static.project = req.project;
       next();
-    }
+    },
+    settings
   }));
 
   app.post('/', (req, res, next) => {

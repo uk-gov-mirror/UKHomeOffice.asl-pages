@@ -5,7 +5,7 @@ const success = require('../../success');
 const update = require('./routers/update');
 const endorse = require('./routers/endorse');
 
-module.exports = () => {
+module.exports = (settings) => {
   const app = page({
     root: __dirname,
     paths: ['/confirm', '/success', '/endorse']
@@ -40,10 +40,10 @@ module.exports = () => {
       .catch(next);
   });
 
-  app.use('/', update());
-  app.use('/confirm', confirm());
-  app.use('/endorse', endorse());
-  app.use('/success', success());
+  app.use('/', update(settings));
+  app.use('/confirm', confirm(settings));
+  app.use('/endorse', endorse(settings));
+  app.use('/success', success(settings));
 
   return app;
 };
