@@ -1,6 +1,6 @@
 {
   "name": "@asl/pages",
-  "version": "31.3.0",
+  "version": "31.3.1",
   "description": "",
   "main": "index.js",
   "style": "pages/common/assets/sass/style.scss",
@@ -26,10 +26,10 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-pages#readme",
   "dependencies": {
-    "@asl/projects": "^15.1.0",
-    "@asl/service": "^10.3.1",
+    "@asl/projects": "^15.1.1",
+    "@asl/service": "^10.3.2",
     "@joefitter/docx": "^4.7.0",
-    "@ukhomeoffice/asl-components": "13.4.0 ",
+    "@ukhomeoffice/asl-components": "^13.4.1",
     "@ukhomeoffice/asl-constants": "^2.1.5",
     "@ukhomeoffice/asl-dictionary": "^2.1.0",
     "@ukhomeoffice/frontend-toolkit": "^3.0.0",
