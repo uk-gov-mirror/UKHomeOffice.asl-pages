@@ -13,7 +13,10 @@ export default function RetrospectivePlaceholder({ project, version, field }) {
     return null;
   }
 
-  const content = render(field.content, { raDate: format(project.raDate, dateFormat.long), hasRaDate: !!project.raDate });
+  const hasRaDate = !!project.raDate;
+  const raDate = hasRaDate ? format(project.raDate, dateFormat.long) : null;
+
+  const content = render(field.content, { raDate, hasRaDate });
 
   return (
     <div className="retrospective-placeholder">
