@@ -29,7 +29,7 @@ module.exports = (config) => {
 
     const values = get(req, `session.form[${req.task.id}].values`, {});
     const status = values.status;
-    if (model === 'project' && action === 'grant' && status === 'resolved') {
+    if (model === 'project' && ['grant', 'transfer', 'update'].includes(action) && status === 'resolved') {
       const { hbaToken, hbaFilename } = req.task.data.meta;
 
       if (!hbaToken) {
@@ -80,7 +80,7 @@ module.exports = (config) => {
           set(res.locals.static, 'inspector', req.user.profile);
           set(
             res.locals.static,
-            'content.status.intention-to-refuse.action',
+            'content.status.intention-to-refuse.action.default',
             'Give reason for refusal'
           );
         }

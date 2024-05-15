@@ -23,6 +23,7 @@ function ProjectTitle({ project, establishment }) {
 function ProfileLink({ profile, establishment, type }) {
   const { isAsru } = useSelector(state => state.static);
   const label = `${profile.firstName} ${profile.lastName}`;
+
   return (
     <Fragment>
       <dt><Snippet>{`profileLink.${type}`}</Snippet></dt>
@@ -107,7 +108,8 @@ function ProjectDetails({ task }) {
   const version = useSelector(state => state.static.version);
   const establishment = useSelector(state => state.static.establishment) || task.data.establishment;
   const isApplication = task.type === 'application';
-  const profileType = isApplication ? 'applicant' : 'licenceHolder';
+  const isAmendment = task.type === 'amendment';
+  const profileType = isApplication ? 'applicant' : isAmendment ? 'amendment' : 'licenceHolder';
 
   const profile = isApplication
     ? project.licenceHolder

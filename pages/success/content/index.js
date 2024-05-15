@@ -105,21 +105,21 @@ module.exports = {
       title: 'Approved'
     },
     whatNext: {
-      body: `This request has been approved.`,
+      body: ``,
       internal: 'The relevant people have been emailed.',
       external: ''
     },
     taskLink: {
-      before: 'You can ',
-      linkText: 'view the history of this request.'
+      before: '',
+      linkText: 'View history of application'
     }
   },
   'rejected': {
     panel: {
-      title: 'Rejected'
+      title: 'Refused'
     },
     whatNext: {
-      body: `This request has been rejected.`,
+      body: `This request has been refused.`,
       internal: 'The relevant people have been emailed.'
     },
     taskLink: {
@@ -200,6 +200,34 @@ to protected animals, or to breed, supply, or keep protected animals in any area
 
 The relevant people have been emailed.`
       }
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
+  },
+  'licence-amended': {
+    panel: {
+      title: 'Licence amended'
+    },
+    whatNext: {
+      body: `This request has been approved.`,
+      internal: 'The relevant people have been emailed.',
+      external: ''
+    },
+    taskLink: {
+      before: 'You can ',
+      linkText: 'view the history of this request.'
+    }
+  },
+  'pil-transfer': {
+    panel: {
+      title: 'Transfer approved'
+    },
+    whatNext: {
+      body: `This request has been approved.`,
+      internal: 'The relevant people have been emailed.',
+      external: ''
     },
     taskLink: {
       before: 'You can ',

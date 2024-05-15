@@ -315,7 +315,7 @@ function Comment({ changedBy, comment }) {
     comment && (
       <div className="comment">
         {changedBy.id && (
-          <p className="author">{`${changedBy.firstName} ${changedBy.lastName} remarked:`}</p>
+          <p className="author">{`${changedBy.firstName} ${changedBy.lastName} commented:`}</p>
         )}
         <Inset>
           <Markdown className="content">{comment}</Markdown>

@@ -11,8 +11,23 @@ module.exports = task => {
     .filter(step => step.id !== 'recovered') // don't display recovered as an option (has separate UI)
     .map(option => {
       const label = option.id === 'resubmitted' && model === 'role'
-        ? get(content, `status.${option.id}.action.role-${task.type}`, get(content, `status.${option.id}.action`))
-        : get(content, `status.${option.id}.action.${task.type}`, get(content, `status.${option.id}.action`));
+        ? get(
+          content,
+          `status.${option.id}.action.role-${task.type}`,
+          get(
+            content,
+            `status.${option.id}.action.default`,
+            get(content, `status.${option.id}.action`)
+          ))
+        : get(
+          content,
+          `status.${option.id}.action.${task.type}`,
+          get(
+            content,
+            `status.${option.id}.action.default`,
+            get(content, `status.${option.id}.action`)
+          )
+        );
 
       const hint = option.id === 'resubmitted' && model === 'pil' && action === 'update-conditions'
         ? get(content, `status.${option.id}.hint.updateConditions`, get(content, `status.${option.id}.hint.default`))

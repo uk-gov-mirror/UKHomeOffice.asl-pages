@@ -226,7 +226,7 @@ module.exports = {
   },
   success: {
     whatNext: {
-      title: 'What happens next?'
+      title: 'What happens next'
     }
   },
   notifications: {

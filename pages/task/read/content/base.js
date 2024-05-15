@@ -13,8 +13,8 @@ module.exports = {
       label: ''
     },
     comment: {
-      label: '{{#commentRequired}}Reason for {{commentLabel}}{{/commentRequired}}{{^commentRequired}}Remarks (optional){{/commentRequired}}',
-      hint: 'Your {{#commentRequired}}reason{{/commentRequired}}{{^commentRequired}}remarks{{/commentRequired}} will be recorded and visible to relevant establishment and Home Office personnel.'
+      label: '{{#commentRequired}}Reason for {{commentLabel}}{{/commentRequired}}{{^commentRequired}}Comments (optional){{/commentRequired}}',
+      hint: 'Your {{#commentRequired}}reason{{/commentRequired}}{{^commentRequired}}comments{{/commentRequired}} will be recorded and visible to relevant establishment and Home Office staff.'
     },
     assignedTo: {
       label: 'Assign to:'
@@ -109,6 +109,7 @@ module.exports = {
     global: 'Name',
     applicant: 'Applicant',
     licenceHolder: 'Licence holder',
+    amendment: 'Current licence holder',
     pelh: 'Establishment licence holder',
     nprc: 'Named person responsible for compliance'
   }

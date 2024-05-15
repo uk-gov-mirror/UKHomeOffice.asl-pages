@@ -5,9 +5,12 @@ const tasks = require('../../content/tasks');
 module.exports = merge({}, baseContent, {
   tasks,
   title: 'Upload harm benefit analysis file',
-  intro: `To {{action}} this licence you must upload the PPL assessment form containing the harm benefit analysis (HBA) for this {{type}}.
+  intro: `To {{action}} the licence you must upload the PPL assessment form containing the harm benefit analysis (HBA) for this {{type}}.
 
 The HBA will be visible to ASRU only.`,
+  transferIntro: `To approve this transfer you must upload the PPL assessment form containing the harm benefit analysis (HBA) for this request.
+  
+  The HBA will be visible to ASRU.`,
   fields: {
     upload: {
       label: 'Upload {{#model.hbaToken}}new {{/model.hbaToken}}file',

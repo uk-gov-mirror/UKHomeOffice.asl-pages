@@ -5,6 +5,21 @@ const { get } = require('lodash');
 
 module.exports = (config) => {
   const app = Router({ mergeParams: true });
+  function confirmHbaSchema(taskType) {
+    let actionMessage = '';
+    switch (taskType) {
+      case 'grant':
+        actionMessage = 'Confirm and continue to grant licence';
+        break;
+      case 'transfer':
+        actionMessage = 'Confirm and continue to approve transfer';
+        break;
+      case 'amendment':
+        actionMessage = 'Confirm and continue to amend licence';
+        break;
+    }
+    return actionMessage;
+  }
 
   app.get('/', async (req, res, next) => {
     const { hbaToken, hbaFilename } = req.task.data.meta;
@@ -26,9 +41,18 @@ module.exports = (config) => {
       console.error('No HBA detected, redirecting back to task page');
       return res.redirect(req.buildRoute('task.read'));
     }
+
+    // content overiden for radio buttons.
+    schema.confirmHba.options.forEach(option => {
+      if (option.value === 'yes') {
+        option.label = confirmHbaSchema(req.task.type);
+      }
+    });
+
     next();
   });
 
+  // this middleware is used to create radio buttons...
   app.use(
     form({
       schema,

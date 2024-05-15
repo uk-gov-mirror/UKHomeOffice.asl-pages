@@ -29,7 +29,9 @@ const UploadHba = ({ hba, task }) => {
           subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
         />
         <p>
-          <Snippet action={uploadAction} type={uploadType}>intro</Snippet>
+          { uploadType === 'transfer' ? <Snippet>transferIntro</Snippet>
+            : <Snippet action={uploadAction} type={uploadType}>intro</Snippet>
+          }
         </p>
         {hba && (
           <p>

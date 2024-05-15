@@ -25,7 +25,7 @@ module.exports = merge({}, baseContent, {
       'awerb-no-review-reason'
     ])
   },
-  hba: 'Selected harm benefit analysis file: ',
+  hba: 'Selected HBA file: ',
   declaration: {
     title: 'Declaration',
     endorsed: {
