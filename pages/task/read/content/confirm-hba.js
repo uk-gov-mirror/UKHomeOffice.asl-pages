@@ -19,6 +19,9 @@ module.exports = merge({}, baseContent, {
     applicant: {
       label: 'Applicant:'
     },
+    currentPPLHolder: {
+      label: 'Current PPL holder:'
+    },
     pplHolder: {
       label: 'PPL holder:'
     },

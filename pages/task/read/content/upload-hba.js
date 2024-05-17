@@ -10,7 +10,13 @@ module.exports = merge({}, baseContent, {
 The HBA will be visible to ASRU only.`,
   transferIntro: `To approve this transfer you must upload the PPL assessment form containing the harm benefit analysis (HBA) for this request.
   
-  The HBA will be visible to ASRU.`,
+  The HBA will be visible to ASRU only.`,
+  transferIntroBody: {
+    upload: {
+      label: 'Upload file',
+      hint: 'You can review and confirm the file you\'ve chosen before approving the transfer. You can also update the file in the future, if required.'
+    }
+  },
   fields: {
     upload: {
       label: 'Upload {{#model.hbaToken}}new {{/model.hbaToken}}file',

@@ -211,13 +211,13 @@ The relevant people have been emailed.`
       title: 'Licence amended'
     },
     whatNext: {
-      body: `This request has been approved.`,
+      body: '',
       internal: 'The relevant people have been emailed.',
       external: ''
     },
     taskLink: {
-      before: 'You can ',
-      linkText: 'view the history of this request.'
+      before: '',
+      linkText: 'View the history of this request.'
     }
   },
   'pil-transfer': {
@@ -230,8 +230,8 @@ The relevant people have been emailed.`
       external: ''
     },
     taskLink: {
-      before: 'You can ',
-      linkText: 'view the history of this request.'
+      before: '',
+      linkText: 'View the history of this request.'
     }
   }
 };

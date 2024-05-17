@@ -1,6 +1,6 @@
 {
   "name": "@asl/pages",
-  "version": "31.4.0",
+  "version": "31.4.1",
   "description": "",
   "main": "index.js",
   "style": "pages/common/assets/sass/style.scss",
@@ -29,7 +29,7 @@
     "@asl/projects": "^15.2.1",
     "@asl/service": "^10.3.2",
     "@joefitter/docx": "^4.7.0",
-    "@ukhomeoffice/asl-components": "^13.4.1",
+    "@ukhomeoffice/asl-components": "^13.5.0",
     "@ukhomeoffice/asl-constants": "^2.1.5",
     "@ukhomeoffice/asl-dictionary": "^2.1.0",
     "@ukhomeoffice/frontend-toolkit": "^3.0.0",

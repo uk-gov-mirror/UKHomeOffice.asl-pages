@@ -101,11 +101,11 @@ const getSuccessType = task => {
     return 'discarded';
   }
   // HBA amendment licence holder content change on success
-  if (task?.type === 'amendment' && task?.data?.model === 'project') {
+  if (task.status === 'resolved' && task?.type === 'amendment' && task?.data?.model === 'project') {
     return 'licence-amended';
   }
   // HBA PPL transfer establishment content change on success
-  if (task?.type === 'transfer' && task?.data?.model === 'project') {
+  if (task.status === 'resolved' && task?.type === 'transfer' && task?.data?.model === 'project') {
     return 'pil-transfer';
   }
 

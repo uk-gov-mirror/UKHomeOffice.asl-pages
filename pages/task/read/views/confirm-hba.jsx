@@ -16,7 +16,8 @@ const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
   if (isAmendment(action, task.type)) {
     action = 'update';
   }
-  const proposedEstablishmentName = task?.data?.meta?.establishment?.to ?? '';
+  const proposedEstablishment = task?.data?.meta?.establishment?.to || null;
+  const currentEstablishment = task?.data?.meta?.establishment?.from || null;
 
   return (
     <WidthContainer>
@@ -27,21 +28,21 @@ const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
           subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
         />
         {
-          uploadType === 'transfer'
+          (uploadType === 'transfer' && proposedEstablishment?.name)
             ? <>
               <p>
                 <strong>
                   <Snippet>fields.currentEstablishment.label</Snippet>
                 </strong>
                 <br />
-                {establishment.name}
+                {currentEstablishment.name}
               </p>
               <p>
                 <strong>
                   <Snippet>fields.proposedEstablishment.label</Snippet>
                 </strong>
                 <br />
-                {proposedEstablishmentName.name}
+                {proposedEstablishment.name}
               </p>
             </>
             : <p>
@@ -53,11 +54,11 @@ const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
             </p>
         }
         {
-          uploadType === 'amendment'
+          (uploadType === 'amendment' && licenceHolder.name)
             ? <>
               <p>
                 <strong>
-                  <Snippet>fields.pplHolder.label</Snippet>
+                  <Snippet>fields.currentPPLHolder.label</Snippet>
                 </strong>
                 <br />
                 {task.data.profile.name}
@@ -72,7 +73,7 @@ const ConfirmHba = ({ establishment, licenceHolder, hba, task }) => {
             </>
             : <p>
               <strong>
-                <Snippet>fields.applicant.label</Snippet>
+                <Snippet>fields.pplHolder.label</Snippet>
               </strong>
               <br />
               {task.data.profile.name}

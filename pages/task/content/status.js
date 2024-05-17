@@ -239,7 +239,7 @@ module.exports = {
     'on-behalf-of-pelh': 'Approved on behalf of establishment licence holder by'
   },
   rejected: {
-    state: 'Rejected',
+    state: 'Refused',
     action: {
       application: 'Refuse application',
       amendment: 'Refuse amendment',
