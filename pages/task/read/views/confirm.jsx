@@ -24,8 +24,11 @@ function CommentForm({ formFields, task, errors, values, comment }) {
   }
   const title = (
     <Snippet
-      fallback={[`status.${values.status}.action.${task.type}`,
-        `status.${values.status}.action.default`]}
+      fallback={[
+        `status.${values.status}.action.${task.type}`,
+        `status.${values.status}.action.default`,
+        `status.${values.status}.action`
+      ]}
     >{`status.${values.status}.confirmTitle.${task.type}`}</Snippet>
   );
   const licenceHolder =
