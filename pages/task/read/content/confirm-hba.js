@@ -19,13 +19,13 @@ module.exports = merge({}, baseContent, {
     applicant: {
       label: 'Applicant:'
     },
-    currentPPLHolder: {
-      label: 'Current PPL holder:'
-    },
     pplHolder: {
       label: 'PPL holder:'
     },
-    proposedApplicant: {
+    currentPPLHolder: {
+      label: 'Current PPL licence holder:'
+    },
+    proposedPPLHolder: {
       label: 'Proposed PPL licence holder:'
     },
     hbaFilename: {
@@ -35,12 +35,17 @@ module.exports = merge({}, baseContent, {
     confirmHba: {
       label: 'What do you want to do?',
       options: {
-        yes: 'Confirm and continue to amend licence',
+        yes: {
+          application: 'Confirm and continue to grant licence',
+          transfer: 'Confirm and continue to approve transfer',
+          amendment: 'Confirm and continue to amend licence'
+        },
         no: 'Discard selected file and choose another'
       }
     }
   },
   warning: {
+    application: 'Once confirmed, this HBA file in ASPeL (not SharePoint) will be the single point of reference for this application, for future assessment and audit purposes.',
     transfer: 'Once confirmed, this HBA file in ASPeL (not SharePoint) will be the single point of reference for this transfer request, for future assessment and audit purposes.',
     amendment: 'Once confirmed, this HBA file in ASPeL (not SharePoint) will be the single point of reference for this amendment, for future assessment and audit purposes.'
   },

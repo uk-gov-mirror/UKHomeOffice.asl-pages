@@ -4,7 +4,7 @@ module.exports = {
       title: 'Submitted'
     },
     whatNext: {
-      body: `Your request has been submitted.`,
+      body: ``,
       external: 'You’ll be emailed if any further information is required or when a decision has been made.'
     },
     taskLink: {
@@ -119,12 +119,11 @@ module.exports = {
       title: 'Refused'
     },
     whatNext: {
-      body: `This request has been refused.`,
-      internal: 'The relevant people have been emailed.'
+      body: 'The relevant people have been emailed.'
     },
     taskLink: {
-      before: 'You can ',
-      linkText: 'view the history of this request.'
+      before: '',
+      linkText: 'View history of application'
     }
   },
   'revoked': {
@@ -136,8 +135,8 @@ module.exports = {
       internal: 'The relevant people have been emailed.'
     },
     taskLink: {
-      before: 'You can ',
-      linkText: 'view the history of this request.'
+      before: '',
+      linkText: 'View history of application'
     }
   },
   'refused': {
@@ -145,11 +144,11 @@ module.exports = {
       title: 'Refused'
     },
     whatNext: {
-      body: `This application for a licence has been refused. The applicant and establishment admins have been notified.`
+      body: `The applicant and establishment admins have been emailed.`
     },
     taskLink: {
-      before: 'You can ',
-      linkText: 'view the history of this request.'
+      before: '',
+      linkText: 'View history of application'
     }
   },
   'suspended': {
@@ -217,7 +216,7 @@ The relevant people have been emailed.`
     },
     taskLink: {
       before: '',
-      linkText: 'View the history of this request.'
+      linkText: 'View history of application'
     }
   },
   'pil-transfer': {
@@ -225,13 +224,13 @@ The relevant people have been emailed.`
       title: 'Transfer approved'
     },
     whatNext: {
-      body: `This request has been approved.`,
+      body: '',
       internal: 'The relevant people have been emailed.',
       external: ''
     },
     taskLink: {
       before: '',
-      linkText: 'View the history of this request.'
+      linkText: 'View history of application'
     }
   }
 };

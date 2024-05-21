@@ -3,23 +3,8 @@ const { form } = require('../../../common/routers');
 const schema = require('../../schema/confirm-hba');
 const { get } = require('lodash');
 
-module.exports = (config) => {
+module.exports = () => {
   const app = Router({ mergeParams: true });
-  function confirmHbaSchema(taskType) {
-    let actionMessage = '';
-    switch (taskType) {
-      case 'grant':
-        actionMessage = 'Confirm and continue to grant licence';
-        break;
-      case 'transfer':
-        actionMessage = 'Confirm and continue to approve transfer';
-        break;
-      case 'amendment':
-        actionMessage = 'Confirm and continue to amend licence';
-        break;
-    }
-    return actionMessage;
-  }
 
   app.get('/', async (req, res, next) => {
     const { hbaToken, hbaFilename } = req.task.data.meta;
@@ -42,20 +27,16 @@ module.exports = (config) => {
       return res.redirect(req.buildRoute('task.read'));
     }
 
-    // content overiden for radio buttons.
-    schema.confirmHba.options.forEach(option => {
-      if (option.value === 'yes') {
-        option.label = confirmHbaSchema(req.task.type);
-      }
-    });
-
     next();
   });
 
   // this middleware is used to create radio buttons...
   app.use(
     form({
-      schema,
+      configure(req, res, next) {
+        req.form.schema = schema(req.task.type);
+        next();
+      },
       locals(req, res, next) {
         res.locals.static.establishment = req.task.data.establishment;
         res.locals.static.licenceHolder = req.task.data.licenceHolder;
@@ -109,7 +90,7 @@ module.exports = (config) => {
     }
   });
 
-  app.post('/', (req, res, next) => {
+  app.post('/', (req, res) => {
     const daysSinceDeadline = get(req.task, 'data.deadline.daysSince');
     const hasDeadlinePassedReason = get(
       req.task,

@@ -5,17 +5,16 @@ import {
   Header,
   Form,
   WidthContainer,
-  ErrorSummary
+  ErrorSummary, Link
 } from '@ukhomeoffice/asl-components';
 import {
-  getActionAdjustedWording,
   getTypeAdjustedWording,
   isAmendment
 } from './adjusted-wording';
+import { getFromContentTemplate } from '../../../../lib/utils';
 
-const UploadHba = ({ hba, task }) => {
+const UploadHba = ({ hba, task, content }) => {
   let action = task.data.action;
-  const uploadAction = getActionAdjustedWording(action, task.type);
   const uploadType = getTypeAdjustedWording(action, task.type);
   if (isAmendment(action, task.type)) {
     action = 'update';
@@ -23,42 +22,65 @@ const UploadHba = ({ hba, task }) => {
   return (
     <WidthContainer>
       <ErrorSummary />
-      <Form>
+      <Form
+        cancelLink={
+          <Link
+            page="task.read"
+            taskId={task.id}
+            label={<Snippet>actions.cancel</Snippet>}
+          />
+        }
+        formatters={{
+          upload: {
+            renderContext: {
+              actionContent: getFromContentTemplate(
+                content,
+                [`fields.upload.actionContent.${action}`, 'fields.upload.actionContent.default'],
+                {action}
+              )
+            }
+          }
+        }}
+      >
         <Header
           title={<Snippet>title</Snippet>}
           subtitle={<Snippet>{`tasks.${task.data.model}.${action}`}</Snippet>}
         />
         <p>
-          { uploadType === 'transfer' ? <Snippet>transferIntro</Snippet>
-            : <Snippet action={uploadAction} type={uploadType}>intro</Snippet>
-          }
+          <Snippet
+            actionContent={
+              getFromContentTemplate(
+                content,
+                [`intro.actionContent.${action}`, 'intro.actionContent.default'],
+                {action}
+              )
+
+            }
+            type={uploadType}
+          >
+            intro.template
+          </Snippet>
         </p>
-        {
-          uploadType === 'transfer'
-            ? <p>
-              <strong>
-                <Snippet>transferIntroBody.upload.label</Snippet>
-              </strong>
-            </p>
-            : hba && (
-              <p>
-                <strong>
-                  <Snippet>fields.hba.label</Snippet>
-                </strong>
-                <br />
-                <a href={`/attachment/${hba.hbaToken}`} download={`${hba.hbaFilename}`}>{hba.hbaFilename}</a>{' '}
-              </p>
-            )}
+        {hba && (
+          <p>
+            <strong>
+              <Snippet>fields.hba.label</Snippet>
+            </strong>
+            <br />
+            <a href={`/attachment/${hba.hbaToken}`} download={`${hba.hbaFilename}`}>{hba.hbaFilename}</a>{' '}
+          </p>
+        )}
       </Form>
     </WidthContainer>
   );
 };
 
-const mapStateToProps = ({ static: { task, values, url, hba } }) => ({
+const mapStateToProps = ({ static: { task, values, url, hba, content } }) => ({
   task,
   values,
   url,
-  hba
+  hba,
+  content
 });
 
 export default connect(mapStateToProps)(UploadHba);

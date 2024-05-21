@@ -3,7 +3,13 @@ const getActionAdjustedWording = (action, type) => {
 };
 
 const getTypeAdjustedWording = (action, type) => {
-  return isAmendment(action, type) ? 'amendment' : 'transfer';
+  if (isAmendment(action, type)) {
+    return 'amendment';
+  } else if (action === 'transfer') {
+    return 'transfer';
+  } else {
+    return 'application';
+  }
 };
 
 const isAmendment = (action, type) => {
