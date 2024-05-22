@@ -92,12 +92,14 @@ export default function ProjectLandingPage() {
   const firstSectionName = sectionNames[0];
   const [activeSection, setActiveSection] = useState(firstSectionName);
 
+  const location = typeof window !== 'undefined' ? window.location : null;
+
   useEffect(() => {
-    const hash = (window.location.hash || '').substring(1);
-    if (hash && sectionNames.includes(hash)) {
-      setActiveSection(hash);
+    const sectionFromHash = (window?.location.hash || '').substring(1);
+    if (sectionFromHash && activeSection !== sectionFromHash && sectionNames.includes(sectionFromHash)) {
+      setActiveSection(sectionFromHash);
     }
-  });
+  }, [location?.hash, activeSection]);
 
   return (
     <div className="project-landing-page">
