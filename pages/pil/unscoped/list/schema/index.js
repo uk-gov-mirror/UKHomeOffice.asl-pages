@@ -1,13 +1,12 @@
-const moment = require('moment');
 const { dateFormat } = require('../../../../../constants');
-
-function formatDate(date) {
-  return date ? moment(date).format(dateFormat.long) : '-';
-}
+const { isValid: isValidDate, toDate, format: dateFormatter } = require('date-fns');
 
 function concatArray(arr) {
   return (arr || []).join(', ');
 }
+
+const formatDate = (date) =>
+  isValidDate(toDate(date)) ? dateFormatter(date, dateFormat.long) : '-';
 
 module.exports = {
   id: {

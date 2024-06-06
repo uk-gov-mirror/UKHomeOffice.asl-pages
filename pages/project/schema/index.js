@@ -1,9 +1,9 @@
 const { pick, merge } = require('lodash');
-const moment = require('moment');
 const { dateFormat } = require('../../../constants');
+const { isValid: isValidDate, toDate, format: dateFormatter } = require('date-fns');
 
 function formatCSVDate(date) {
-  return date ? moment(date).format(dateFormat.long) : '-';
+  return isValidDate(toDate(date)) ? dateFormatter(date, dateFormat.long) : '-';
 }
 
 const schema = {
