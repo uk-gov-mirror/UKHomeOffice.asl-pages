@@ -19,9 +19,6 @@ export default function Details() {
     declaredCurrent: {
       format: (value, model) => {
         return model.declaredCurrent ? 'Yes' : 'No';
-      },
-      renderContext: {
-        currentPeriod: '6 April 2024 to 5 April 2025'
       }
     }
   };

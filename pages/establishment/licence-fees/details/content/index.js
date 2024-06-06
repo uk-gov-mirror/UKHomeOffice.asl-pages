@@ -33,7 +33,7 @@ module.exports = merge({}, content, {
       label: 'Other billing information (optional)'
     },
     declaredCurrent: {
-      label: 'These details are correct for the period {{ currentPeriod }}'
+      label: 'I confirm these details are correct for the current billing period'
     }
   },
   errors: {
