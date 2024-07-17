@@ -1,5 +1,5 @@
 {
-  "extends": ["lennym"],
+  "extends": ["./node_modules/@ukhomeoffice/asl-eslint-common/index.js"],
   "parserOptions": {
     "ecmaVersion": 2020
   }
