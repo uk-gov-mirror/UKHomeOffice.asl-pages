@@ -124,7 +124,7 @@ experiment and number of procedures.`,
       },
       {
         name: 'fate-of-animals',
-        label: 'What will happen to animals at the end of this project?',
+        label: 'What will happen to animals used in this project?',
         type: 'FateOfAnimals',
         raSummary: [
           'actual-harms'

@@ -1,5 +1,5 @@
 {
-  "extends": ["./node_modules/@ukhomeoffice/asl-eslint-common/index.js"],
+  "extends": ["@ukhomeoffice/asl"],
   "parserOptions": {
     "ecmaVersion": 2020
   }
