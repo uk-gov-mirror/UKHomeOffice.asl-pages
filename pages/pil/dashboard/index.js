@@ -116,7 +116,7 @@ module.exports = settings => {
   app.use('/confirm', confirm({ sendData }));
   app.get('/success', success());
 
-  app.get((req, res) => res.sendResponse());
+  app.get('/', (req, res) => res.sendResponse());
 
   return app;
 };
