@@ -525,6 +525,7 @@ module.exports = req => {
         'required'
       ],
       options: [
+        'forced_swim_test',
         'household',
         'tobacco',
         'alcohol',

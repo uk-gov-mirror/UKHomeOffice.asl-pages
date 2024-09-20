@@ -503,6 +503,7 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       label: 'Which of the following techniques were used in {{year}}',
       hint: 'Select all that apply',
       options: {
+        forced_swim_test: 'Forced swim test',
         household: 'Household product testing',
         tobacco: 'Tobacco product testing',
         alcohol: 'Alcohol product testing',
