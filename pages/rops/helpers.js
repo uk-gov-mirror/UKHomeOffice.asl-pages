@@ -16,6 +16,7 @@ function hasNhps(req, option) {
     'marmosets',
     'rhesus',
     'cynomolgus',
+    'tamarins',
     'other-nhps'
   ];
   if (option) {
