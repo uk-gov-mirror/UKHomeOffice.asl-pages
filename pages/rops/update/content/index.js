@@ -503,13 +503,14 @@ Crossing a genetically altered animal with a wild type animal will not normally 
       label: 'Which of the following techniques were used in {{year}}',
       hint: 'Select all that apply',
       options: {
-        forced_swim_test: 'Forced swim test',
+        forced_swim_test: 'Forced swim test or forced swimming',
         household: 'Household product testing',
         tobacco: 'Tobacco product testing',
         alcohol: 'Alcohol product testing',
         antibodies: 'Harvesting monoclonal antibodies from ascites fluid'
       },
       hints: {
+        forced_swim_test: 'Any procedure in which an animal is placed into a container of water, out of its depth, with no means of escape.',
         tobacco: 'This does not include testing compounds found in tobacco or the effects of tobacco in disease models',
         alcohol: 'This does not include testing ethanol or the effects of alcohol in disease models',
         antibodies: 'This does not include animals immunised to provide tissues to generate monoclonal antibodies in vitro'

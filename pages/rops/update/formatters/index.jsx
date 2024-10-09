@@ -67,8 +67,12 @@ function ProductTestingHint() {
   return (
     <ul className="product-testing-hint">
       <li>
-        <p><Snippet>fields.productTestingTypes.options.forced_swim_test</Snippet></p>
-      </li><li>
+        <p>
+          <Snippet>fields.productTestingTypes.options.forced_swim_test</Snippet><br />
+          <span className="govuk-hint"><Snippet>fields.productTestingTypes.hints.forced_swim_test</Snippet></span>
+        </p>
+      </li>
+      <li>
         <p><Snippet>fields.productTestingTypes.options.household</Snippet></p>
       </li>
       <li>
