@@ -63,6 +63,12 @@ const formatters = rop => {
     placesOfBirth: {
       format: getRadioOption('placesOfBirth')
     },
+    endangered: {
+      format: yesNo
+    },
+    endangeredDetails: {
+      format: formatNote
+    },
     nhpsOrigin: {
       format: getRadioOption('nhpsOrigin')
     },

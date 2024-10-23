@@ -258,6 +258,7 @@ function getPurposes(req) {
 
 module.exports = (req, addMultiple) => {
   const hasGa = get(req, 'rop.ga', false);
+  const hasEndangered = get(req, 'rop.endangered', false);
   const species = getSpecies(req);
   const newGeneticLine = req.rop.newGeneticLine;
   const newGeneticLineOptions = newGeneticLine ? [false, true] : [false];
@@ -282,6 +283,28 @@ module.exports = (req, addMultiple) => {
           }
         };
       })
+    },
+    endangered: {
+      inputType: 'radioGroup',
+      format: toBoolean,
+      automapReveals: true,
+      options: [
+        false,
+        {
+          value: true,
+          reveal: {
+            endangeredDetails: {
+              inputType: 'textarea',
+              validate: [
+                'required'
+              ]
+            }
+          }
+        }
+      ].filter(opt => hasEndangered || opt === false),
+      validate: [
+        'required'
+      ]
     },
     ga: {
       inputType: 'radioGroup',

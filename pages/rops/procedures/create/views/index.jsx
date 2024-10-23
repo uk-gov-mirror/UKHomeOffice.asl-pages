@@ -86,7 +86,7 @@ export default function Create() {
         <div className="govuk-grid-column-two-thirds">
           <form method="POST" noValidate onSubmit={onFormSubmit} className="procedures">
             <input type="hidden" name="_csrf" value={csrfToken} />
-            <FormSection title="Animals" step="species" fields={['species', 'ga']} />
+            <FormSection title="Animals" step="species" fields={['species', 'endangered', 'ga']} />
             <FormSection title="Purposes" step="purposes" fields={['purposes', 'newGeneticLine']} />
             <FormSection title="Special techniques" step="product-testing" fields={['specialTechniqueUsed']} />
             <FormSection title="Outcomes" fields="severity" />

@@ -45,6 +45,17 @@ const getSchema = rop => {
       label: 'Place of birth',
       toCSVString: radioOption('placesOfBirth')
     },
+    endangered: {
+      show: true,
+      sortable: false,
+      label: 'Endangered species',
+      toCSVString: yn
+    },
+    endangeredDetails: {
+      show: true,
+      sortable: false,
+      label: 'Details of endangered species'
+    },
     nhpsOrigin: {
       show: true,
       sortable: false,

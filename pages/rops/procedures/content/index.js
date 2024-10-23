@@ -54,6 +54,9 @@ module.exports = merge({}, { fields, guidance }, {
     species: {
       required: 'Select an animal type'
     },
+    endangered: {
+      required: 'Select an endangered species option'
+    },
     ga: {
       required: 'Select the animals’ genetic status'
     },
