@@ -289,7 +289,6 @@ module.exports = (req, addMultiple) => {
       format: toBoolean,
       automapReveals: true,
       options: [
-        false,
         {
           value: true,
           reveal: {
@@ -300,7 +299,8 @@ module.exports = (req, addMultiple) => {
               ]
             }
           }
-        }
+        },
+        false
       ].filter(opt => hasEndangered || opt === false),
       validate: [
         'required'
