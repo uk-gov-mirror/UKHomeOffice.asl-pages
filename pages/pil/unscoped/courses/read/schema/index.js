@@ -1,4 +1,4 @@
 const { pick } = require('lodash');
 const schema = require('../../schema');
 
-module.exports = pick(schema, 'title', 'startDate', 'species', 'projectId', 'projectTitle');
+module.exports = pick(schema, 'title', 'coursePurpose', 'startDate', 'species', 'projectId', 'projectTitle');

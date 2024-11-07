@@ -3,6 +3,10 @@ module.exports = {
     label: 'Course title',
     hint: 'For your records'
   },
+  coursePurpose: {
+    name: 'coursePurpose',
+    label: 'Course purpose'
+  },
   startDate: {
     label: 'Course start date',
     hint: `This helps ensure the licences are approved in time. Licences will be valid for 3 months from the date of approval.

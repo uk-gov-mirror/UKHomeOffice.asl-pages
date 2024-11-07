@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { get, pick } = require('lodash');
+const { get } = require('lodash');
 const { form } = require('../../../../../../common/routers');
 
 module.exports = () => {
@@ -13,7 +13,7 @@ module.exports = () => {
     const params = {
       method: 'POST',
       json: {
-        data: pick(values, 'firstName', 'lastName', 'email', 'dob', 'trainingNeed')
+        data: values
       }
     };
 

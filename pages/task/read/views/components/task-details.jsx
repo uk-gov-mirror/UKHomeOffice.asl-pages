@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import get from 'lodash/get';
 import { differenceInYears } from 'date-fns';
 import { Snippet, Link } from '@ukhomeoffice/asl-components';
+import * as participantDetails from '../../../../../pages/pil/unscoped/courses/participants/add/content/index';
 
 function ProjectTitle({ project, establishment }) {
   return (
@@ -75,6 +76,39 @@ function EstablishmentLink({ establishment }) {
   );
 }
 
+function OrgAndQualificationDetails({ trainingTask, trainingCourse }) {
+  const higherEducation = trainingCourse.coursePurpose === 'higherEducation';
+  const training = trainingCourse.coursePurpose === 'training';
+
+  return (
+    <>
+      { trainingTask.organisation &&
+        <Fragment>
+          <dt>{ participantDetails.fields.organisation.label }</dt>
+          <dd>{ trainingTask.organisation }</dd>
+        </Fragment>
+      }
+
+      { higherEducation &&
+        <Fragment>
+          <dt>{ participantDetails.fields.qualificationLevelAndSubject.label }</dt>
+          <dd>{ trainingTask.qualificationLevelAndSubject }</dd>
+        </Fragment>
+      }
+
+      { training &&
+        <Fragment>
+          <dt>{ participantDetails.fields.jobTitleOrQualification.label }</dt>
+          <dd>{ trainingTask.jobTitleOrQualification }</dd>
+
+          <dt>{ participantDetails.fields.fieldOfExpertise.label }</dt>
+          <dd>{ trainingTask.fieldOfExpertise }</dd>
+        </Fragment>
+      }
+    </>
+  );
+}
+
 function EstablishmentsList({ establishments }) {
   return (
     <Fragment>
@@ -132,6 +166,8 @@ function PilDetails({ task }) {
   const establishment = (pil && pil.establishment) ? pil.establishment : get(task, 'data.establishment');
   const isApplication = task.type === 'application';
   const profileType = isApplication ? 'applicant' : 'licenceHolder';
+  const trainingTask = get(task, 'data.data');
+  const trainingCourse = get(task, 'data.modelData.trainingCourse');
 
   return (
     <dl className="inline-wide">
@@ -142,6 +178,7 @@ function PilDetails({ task }) {
           <Link page="pil.read" establishmentId={establishment.id} profileId={profile.id} label={profile.pilLicenceNumber} />
         </LicenceNumber>
       }
+      <OrgAndQualificationDetails trainingTask={trainingTask} trainingCourse={trainingCourse}/>
       <EstablishmentLink establishment={establishment} />
     </dl>
   );

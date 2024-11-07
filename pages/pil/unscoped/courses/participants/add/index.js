@@ -3,6 +3,7 @@ const { page } = require('@asl/service/ui');
 const { form } = require('../../../../../common/routers');
 const { buildModel } = require('../../../../../../lib/utils');
 const confirm = require('./routers/confirm');
+const participantDetailsSchemaHelper = require('./helpers/participant-details-schema-helper');
 const schema = require('./schema');
 
 module.exports = () => {
@@ -11,17 +12,24 @@ module.exports = () => {
     paths: ['/confirm']
   });
 
+  let modifiedSchema;
+
   app.use((req, res, next) => {
     res.locals.static.course = req.trainingCourse;
+
+    modifiedSchema = participantDetailsSchemaHelper(schema, req.trainingCourse);
     req.model = {
       id: 'new-participant',
-      ...buildModel(schema)
+      ...buildModel(modifiedSchema)
     };
     next();
   });
 
   app.use(form({
-    schema,
+    configure: (req, res, next) => {
+      req.form.schema = modifiedSchema;
+      next();
+    },
     process: (req, res, next) => {
       const day = req.body['dob-day'];
       const month = req.body['dob-month'];

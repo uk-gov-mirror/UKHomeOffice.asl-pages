@@ -36,6 +36,27 @@ export function PilProcedures({ task, isPil = false }) {
   return <ProceduresDiff before={sortBy(before, 'key')} after={sortBy(after, 'key')} />;
 }
 
+const showTrainingNeedorCoursePurpose = (data) => {
+  if (data.trainingNeed) {
+    return (
+      <StickyNavAnchor id="trainingNeed" key="trainingNeed">
+        <h2><Snippet>sticky-nav.trainingNeed</Snippet></h2>
+        <p className="gutter">{ data.trainingNeed }</p>
+      </StickyNavAnchor>
+    );
+  } else {
+    return (
+      <StickyNavAnchor id="trainingNeed" key="trainingNeed">
+        <h2><Snippet>sticky-nav.trainingNeed</Snippet></h2>
+        <p className="gutter">{ data.applicantTrainingUseAtWork || data.applicantLearningUse }</p>
+
+        <h2><Snippet>sticky-nav.otherNotes</Snippet></h2>
+        <p className="gutter">{ data.otherNotes }</p>
+      </StickyNavAnchor>
+    );
+  }
+};
+
 export default function TrainingPil({ task }) {
   const data = task.data.data;
   const action = task.data.action;
@@ -48,13 +69,6 @@ export default function TrainingPil({ task }) {
       </div>
     </StickyNavAnchor>,
 
-    (
-      action === 'grant' && (
-        <StickyNavAnchor id="training-need" key="training-need">
-          <h2><Snippet>sticky-nav.training-need</Snippet></h2>
-          <p className="gutter">{ data.trainingNeed }</p>
-        </StickyNavAnchor>
-      )
-    )
+    action === 'grant' && showTrainingNeedorCoursePurpose(data)
   ];
 }

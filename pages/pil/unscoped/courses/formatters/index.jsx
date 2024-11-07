@@ -2,6 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import { Link } from '@ukhomeoffice/asl-components';
 import { dateFormat } from '../../../../../constants';
+import { trainingCoursePurpose } from '@ukhomeoffice/asl-constants';
 
 const formatDate = date => format(date, dateFormat.long);
 
@@ -24,6 +25,9 @@ export default {
         label={values.project.licenceNumber}
       />;
     }
+  },
+  coursePurpose: {
+    format: purpose => trainingCoursePurpose[purpose]
   },
   species: {
     format: species => {

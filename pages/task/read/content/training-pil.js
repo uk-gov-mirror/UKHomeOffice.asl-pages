@@ -7,7 +7,8 @@ module.exports = merge({}, baseContent, {
   'sticky-nav': {
     applicant: 'Applicant',
     procedures: 'Procedures',
-    'training-need': 'Training need'
+    trainingNeed: 'Higher education or training outcomes',
+    otherNotes: 'Other notes'
   },
   'applicant-over-18': 'Applicant over 18?'
 });

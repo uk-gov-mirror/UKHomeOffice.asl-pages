@@ -27,10 +27,25 @@ module.exports = {
       { dateIsBefore: 'now' }
     ]
   },
-  trainingNeed: {
-    inputType: 'textarea',
-    validate: [
-      'required'
-    ]
+  organisation: {
+    inputType: 'inputText'
+  },
+  qualificationLevelAndSubject: {
+    inputType: 'inputText'
+  },
+  applicantLearningUse: {
+    inputType: 'textarea'
+  },
+  jobTitleOrQualification: {
+    inputType: 'inputText'
+  },
+  fieldOfExpertise: {
+    inputType: 'inputText'
+  },
+  applicantTrainingUseAtWork: {
+    inputType: 'textarea'
+  },
+  otherNotes: {
+    inputType: 'textarea'
   }
 };

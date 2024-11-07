@@ -10,6 +10,7 @@ export default function TrainingPil({ className, trainingPil }) {
     'species',
     (trainingPil.issueDate ? 'issueDate' : 'startDate'),
     ...[trainingPil.status && trainingPil.status !== 'inactive' ? 'expiryDate' : []],
+    'coursePurpose',
     'establishment',
     'projectTitle',
     'projectId'
