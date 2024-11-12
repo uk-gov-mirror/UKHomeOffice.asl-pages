@@ -5,6 +5,7 @@ const status = require('../../../../../task/content/status');
 module.exports = merge({}, baseContent, {
   title: 'Manage course participants',
   warning: 'Once you have applied for licences for this course, you will no longer be able to change these details.',
+  coursePurposeRequiredWarning: 'You need to tell us the course purpose before adding participants.',
   participants: {
     title: 'Course participants',
     subtitle: 'Licences will be valid for 3 months from the date of approval.'
