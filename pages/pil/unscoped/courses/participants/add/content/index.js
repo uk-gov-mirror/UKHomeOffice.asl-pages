@@ -25,7 +25,7 @@ module.exports = {
     applicantLearningUse: {
       label: 'How will the applicant use this learning in future scientific work using living animals?',
       checkAnswerLabel: 'Higher education or training outcomes',
-      hint: 'Explain how they intent to use it to design, conduct or analyse research.'
+      hint: 'Explain how they intend to use it to design, conduct or analyse research.'
     },
     jobTitleOrQualification: {
       label: 'Job title, career stage or qualification',
