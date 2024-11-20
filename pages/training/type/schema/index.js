@@ -12,7 +12,7 @@ module.exports = {
       {
         label: 'Ask for an exemption',
         value: true,
-        hint: 'This could be because you trained abroad or you\'ve gained equivalent skills in your profession, for example.'
+        hint: 'This could be because you have equivalent training or professional experience which makes the training unnecessary.'
       }
     ],
     validate: [

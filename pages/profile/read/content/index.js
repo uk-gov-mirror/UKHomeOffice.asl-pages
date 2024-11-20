@@ -1,7 +1,8 @@
 const { merge } = require('lodash');
 const baseContent = require('../../content');
+const training = require('../../../training/content');
 
-module.exports = merge({}, baseContent, {
+module.exports = merge({}, baseContent, training, {
   profile: 'Profile',
   responsibilities: {
     title: 'Roles at this establishment',

@@ -182,7 +182,8 @@ export default function Index({ dedupe, AsruRolesComponent, children }) {
         !model.asruUser && (
           <Fragment>
             <h2><Snippet>pil.training.title</Snippet></h2>
-            <TrainingSummary certificates={model.certificates} />
+            <Snippet>instruction</Snippet>
+            <TrainingSummary certificates={model.certificates}/>
           </Fragment>
         )
       }

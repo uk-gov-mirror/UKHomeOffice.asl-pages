@@ -1,4 +1,7 @@
-module.exports = {
+const training = require('../../../training/content');
+const {merge} = require('lodash');
+
+module.exports = merge({}, training, {
   title: 'Training record',
   modules: {
     title: 'Your current training modules',
@@ -12,4 +15,4 @@ module.exports = {
   pil: 'Personal licence',
   'draft-projects': 'Draft projects',
   'active-projects': 'Active projects'
-};
+});

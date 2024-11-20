@@ -12,11 +12,12 @@ export default function Training() {
         title={<Snippet>title</Snippet>}
         subtitle={`${profile.firstName} ${profile.lastName}`}
       />
+      <Snippet>instruction</Snippet>
       <h2><Snippet>modules.title</Snippet></h2>
       <p className="govuk-hint"><Snippet>modules.hint</Snippet></p>
       <TrainingSummary certificates={profile.certificates} actions={true} basePage={basePage} />
       <p>
-        <Link page={`${basePage}.type`} className="govuk-button" certificateId="create" label={<Snippet>modules.add</Snippet>}/>
+        <Link page={`${basePage}.type`} className="govuk-button" certificateId="create" label={<Snippet>modules.add</Snippet>} />
       </p>
       {
         (referrer || !!draftProjects.length) && (
