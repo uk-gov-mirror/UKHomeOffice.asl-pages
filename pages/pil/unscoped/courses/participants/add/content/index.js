@@ -1,6 +1,7 @@
 module.exports = {
   title: 'Enter participant details',
-  description: 'You are applying for a PIL-E on behalf of this participant. A PIL-E is a personal licence for higher education and training courses.',
+  description:
+    'You are applying for a PIL-E on behalf of this participant. A PIL-E is a personal licence for higher education and training courses.',
   fields: {
     firstName: {
       label: 'First name'
@@ -23,7 +24,8 @@ module.exports = {
       hint: 'For example BSc Pharmacology'
     },
     applicantLearningUse: {
-      label: 'How will the applicant use this learning in future scientific work using living animals?',
+      label:
+        'How will the applicant use this learning in future scientific work using living animals?',
       checkAnswerLabel: 'Higher education or training outcomes',
       hint: 'Explain how they intend to use it to design, conduct or analyse research.'
     },
@@ -60,6 +62,14 @@ module.exports = {
     },
     trainingNeed: {
       required: 'This is a required field.'
+    },
+    applicantTrainingUseAtWork: {
+      lessThanOrEqualToMaxWordCount:
+        'How the applicant will use this training must be 100 characters or less'
+    },
+    applicantLearningUse: {
+      lessThanOrEqualToMaxWordCount:
+        'How the applicant will use this learning must be 250 characters or less'
     }
   },
   buttons: {
