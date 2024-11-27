@@ -4,23 +4,28 @@ import concat from 'lodash/concat';
 
 const groupSpeciesDetails = version => {
   return (version.protocols || []).reduce((species, protocol) => {
-    if (protocol && protocol.speciesDetails && protocol.speciesDetails.length > 0) {
-      protocol.speciesDetails.map(details => {
-        const existingSpecies = species.find(s => s.value === details.value);
+    const activeDetails = (protocol?.species ?? [])
+      .map(speciesKey => protocol?.speciesDetails?.find(d => (d.value ?? d.name) === speciesKey))
+      // Other species have "undefined" in value
+      .map(details => ({...details, value: details.value ?? details.name}))
+      .filter(Boolean);
 
-        if (existingSpecies) {
-          existingSpecies.maximumAnimals += parseInt(details['maximum-animals'], 10);
-          existingSpecies.lifeStages = uniq(concat(existingSpecies.lifeStages, details['life-stages']));
-        } else {
-          species.push({
-            value: details.value,
-            name: details.name,
-            lifeStages: details['life-stages'],
-            maximumAnimals: parseInt(details['maximum-animals'], 10)
-          });
-        }
-      });
-    }
+    activeDetails.forEach(details => {
+      const existingSpecies = species.find(s => s.value === details.value);
+
+      if (existingSpecies) {
+        existingSpecies.maximumAnimals += parseInt(details['maximum-animals'], 10);
+        existingSpecies.lifeStages = uniq(concat(existingSpecies.lifeStages, details['life-stages']));
+      } else {
+        species.push({
+          value: details.value,
+          name: details.name,
+          lifeStages: details['life-stages'],
+          maximumAnimals: parseInt(details['maximum-animals'], 10)
+        });
+      }
+    });
+
     return species;
   }, []);
 };
