@@ -8,10 +8,33 @@ const speciesLabels = flatten(values(SPECIES));
 
 const getSpeciesLabel = speciesKey => {
   const species = speciesLabels.find(s => s.value === speciesKey);
-  return species ? species.label : undefined;
+  return species ? species.label : speciesKey;
 };
 
 const getSpeciesCount = (speciesKey, version) => version[`reduction-quantities-${speciesKey}`] || 'No answer provided';
+
+function SpeciesCountItem({ speciesKey, version }) {
+  if (speciesKey.startsWith('other-')) {
+    const subSpeciesList = version[`species-${speciesKey}`] ?? [];
+
+    if (subSpeciesList.length === 0) {
+      return null;
+    }
+
+    return <li>
+      {getSpeciesLabel(speciesKey)}:
+      <ul>
+        {subSpeciesList.map(otherSpecies =>
+          <SpeciesCountItem key={otherSpecies} speciesKey={otherSpecies} version={version} />
+        )}
+      </ul>
+    </li>;
+  } else {
+    return <li>
+      {getSpeciesLabel(speciesKey)}: {getSpeciesCount(speciesKey, version)}
+    </li>;
+  }
+}
 
 export default function SpeciesCount({ version }) {
   const speciesUsed = concat([], version.species, version['species-other']).filter(Boolean);
@@ -24,9 +47,7 @@ export default function SpeciesCount({ version }) {
     <ul>
       {
         speciesUsed.map(species => (
-          <li key={species}>
-            {getSpeciesLabel(species)}: {getSpeciesCount(species, version)}
-          </li>
+          <SpeciesCountItem key={species} speciesKey={species} version={version} />
         ))
       }
     </ul>
