@@ -66,9 +66,6 @@ const formatters = rop => {
     endangered: {
       format: yesNo
     },
-    endangeredDetails: {
-      format: formatNote
-    },
     nhpsOrigin: {
       format: getRadioOption('nhpsOrigin')
     },

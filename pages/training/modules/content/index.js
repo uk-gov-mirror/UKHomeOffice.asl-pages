@@ -7,7 +7,7 @@ module.exports = merge({}, baseContent, {
   fields: {
     exemptionReason: {
       label: 'Reason for exemption',
-      hint: 'The NTCO should email the relevant certificate and supporting evidence to ASRU Licensing: [ASRULicensing@homeoffice.gov.uk](mailto:ASRULicensing@homeoffice.gov.uk)'
+      hint: 'The NTCO should email the relevant certificates and supporting evidence to ASRU Licensing: [ASRULicensing@homeoffice.gov.uk](mailto:ASRULicensing@homeoffice.gov.uk)'
     },
     modules: {
       label: '{{#isExemption}}Modules exemption applies to{{/isExemption}}',

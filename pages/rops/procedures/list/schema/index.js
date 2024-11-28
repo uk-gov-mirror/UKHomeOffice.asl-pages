@@ -51,11 +51,6 @@ const getSchema = rop => {
       label: 'Endangered species',
       toCSVString: yn
     },
-    endangeredDetails: {
-      show: true,
-      sortable: false,
-      label: 'Details of endangered species'
-    },
     nhpsOrigin: {
       show: true,
       sortable: false,

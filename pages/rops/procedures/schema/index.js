@@ -287,19 +287,8 @@ module.exports = (req, addMultiple) => {
     endangered: {
       inputType: 'radioGroup',
       format: toBoolean,
-      automapReveals: true,
       options: [
-        {
-          value: true,
-          reveal: {
-            endangeredDetails: {
-              inputType: 'textarea',
-              validate: [
-                'required'
-              ]
-            }
-          }
-        },
+        true,
         false
       ].filter(opt => hasEndangered || opt === false),
       validate: [

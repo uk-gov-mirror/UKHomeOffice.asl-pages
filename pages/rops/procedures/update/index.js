@@ -50,11 +50,6 @@ module.exports = () => {
       return key;
     });
 
-    //Ensuring endangered details are cleared, when user select no
-    if (!values.endangered) {
-      values.endangeredDetails = null;
-    }
-
     if (values.specialTechniqueUsed === false) {
       values.specialTechnique = null;
     }
