@@ -25,7 +25,7 @@ module.exports = {
     },
     applicantLearningUse: {
       label:
-        'How will the applicant use this learning in future scientific work using living animals?',
+        'How will the participant use this learning in future scientific work using living animals?',
       checkAnswerLabel: 'Higher education or training outcomes',
       hint: 'Explain how they intend to use it to design, conduct or analyse research.'
     },
@@ -38,7 +38,7 @@ module.exports = {
       hint: 'For example head and neck surgeon'
     },
     applicantTrainingUseAtWork: {
-      label: 'How will the applicant use this training in their work?',
+      label: 'How will the participant use this training in their work?',
       checkAnswerLabel: 'Higher education or training outcomes'
     },
     otherNotes: {
@@ -47,29 +47,45 @@ module.exports = {
   },
   errors: {
     firstName: {
-      required: 'Enter the first name of the participant.'
+      required: 'Enter the first name of the participant'
     },
     lastName: {
-      required: 'Enter the last name of the participant.'
+      required: 'Enter the last name of the participant'
     },
     email: {
-      required: 'Enter the email address of the participant.',
-      customValidate: 'Enter a valid email address.'
+      required: 'Enter the email address of the participant',
+      customValidate: 'Enter a valid email address'
     },
     dob: {
-      required: 'Enter the date of birth of the participant.',
-      dateIsBefore: 'Date of birth must be in the past.'
+      required: 'Enter the date of birth of the participant',
+      dateIsBefore: 'Date of birth must be in the past'
     },
     trainingNeed: {
-      required: 'This is a required field.'
+      required: 'This is a required field'
+    },
+    organisation: {
+      required: `Enter the participant's organisation`
+    },
+    qualificationLevelAndSubject: {
+      required: `Enter the participant's qualification level and subject`
     },
     applicantTrainingUseAtWork: {
       lessThanOrEqualToMaxWordCount:
-        'How the applicant will use this training must be 100 characters or less'
+        'How the participant will use this training must be 100 words or less',
+      required:
+        'Tell us how the participant will use this training in their work'
     },
     applicantLearningUse: {
       lessThanOrEqualToMaxWordCount:
-        'How the applicant will use this learning must be 250 characters or less'
+        'How the participant will use this learning must be 250 words or less',
+      required:
+        'Tell us how the participant will use this learning in future scientific work using living animals'
+    },
+    jobTitleOrQualification: {
+      required: `Enter the participant's job title, career stage or qualification`
+    },
+    fieldOfExpertise: {
+      required: `Enter the participant's field of expertise`
     }
   },
   buttons: {
