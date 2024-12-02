@@ -10,6 +10,7 @@ export default function Type() {
         title={<Snippet>title</Snippet>}
         subtitle={`${profile.firstName} ${profile.lastName}`}
       />
+      <p><Snippet>hint</Snippet></p>
     </FormLayout>
   );
 }

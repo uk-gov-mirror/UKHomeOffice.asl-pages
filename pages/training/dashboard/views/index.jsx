@@ -14,7 +14,6 @@ export default function Training() {
       />
       <Snippet>instruction</Snippet>
       <h2><Snippet>modules.title</Snippet></h2>
-      <p className="govuk-hint"><Snippet>modules.hint</Snippet></p>
       <TrainingSummary certificates={profile.certificates} actions={true} basePage={basePage} />
       <p>
         <Link page={`${basePage}.type`} className="govuk-button" certificateId="create" label={<Snippet>modules.add</Snippet>} />

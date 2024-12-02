@@ -1,9 +1,9 @@
 module.exports = {
   title: 'What are the certificate details?',
+  hint: 'You do not need to send certificates or copies to ASRU.',
   fields: {
     certificateNumber: {
-      label: 'Certificate number',
-      hint: 'You do not need to send certificates or copies to ASRU.'
+      label: 'Certificate number'
     },
     accreditingBody: {
       label: 'Accrediting body or course provider'
