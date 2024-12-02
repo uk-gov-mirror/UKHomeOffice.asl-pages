@@ -61,16 +61,28 @@ const tableFormatters = {
 };
 
 // This check can be removed once all training courses have coursePurpose set
-const checkCoursePurposeBeforeApplyForLicence = (model, canUpdate) => {
+const checkCoursePurposeBeforeApplyForLicence = (model, canUpdate, noOfParticipants) => {
   if (!canUpdate) { return null; }
 
   if (!model.coursePurpose) {
-    return (
-      <>
-        <Warning><Snippet>coursePurposeRequiredWarning</Snippet></Warning>
-        <Link page="pils.courses.update" className="govuk-button button-secondary" label={<Snippet>buttons.edit</Snippet>} />
-      </>
-    );
+    if (noOfParticipants > 0) {
+      return (
+        <>
+          <Warning>
+            <Snippet>coursePurposeRequiredWarningForExistingParticipants</Snippet>
+          </Warning>
+        </>
+      );
+    }
+
+    if (noOfParticipants === 0) {
+      return (
+        <>
+          <Warning><Snippet>coursePurposeRequiredWarning</Snippet></Warning>
+          <Link page="pils.courses.update" className="govuk-button button-secondary" label={<Snippet>buttons.edit</Snippet>} />
+        </>
+      );
+    }
   }
 
   return <Link page="pils.courses.participants.add" className="govuk-button button-secondary" label={<Snippet>buttons.apply</Snippet>} />;
@@ -78,6 +90,7 @@ const checkCoursePurposeBeforeApplyForLicence = (model, canUpdate) => {
 
 export default function Page() {
   const model = useSelector(state => state.model);
+  const noOfParticipants = useSelector(state => state.datatable.data.rows.length);
   const allowedActions = useSelector(state => state.static.allowedActions);
   const deletePath = getUrl({ page: 'pils.courses.delete' });
 
@@ -120,7 +133,7 @@ export default function Page() {
       <hr />
       <h3><Snippet>participants.title</Snippet></h3>
       <p><Snippet>participants.subtitle</Snippet></p>
-      {checkCoursePurposeBeforeApplyForLicence(model, canUpdate)}
+      {checkCoursePurposeBeforeApplyForLicence(model, canUpdate, noOfParticipants)}
       <Datatable formatters={tableFormatters} />
     </Fragment>
   );
