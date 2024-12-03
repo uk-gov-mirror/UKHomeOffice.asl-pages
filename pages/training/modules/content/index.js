@@ -4,6 +4,7 @@ const baseContent = require('../../content');
 
 module.exports = merge({}, baseContent, {
   title: '{{#isExemption}}On what grounds is an exemption being requested?{{/isExemption}}{{^isExemption}}Which modules are covered by this certificate?{{/isExemption}}',
+  exemptionHint: 'The NTCO should email the relevant certificates and supporting evidence to ASRU Licensing: [ASRULicensing@homeoffice.gov.uk](mailto:ASRULicensing@homeoffice.gov.uk)',
   fields: {
     exemptionReason: {
       label: 'Reason for exemption'

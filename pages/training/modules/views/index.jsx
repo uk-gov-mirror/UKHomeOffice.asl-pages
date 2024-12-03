@@ -11,6 +11,7 @@ export default function Type() {
         title={<Snippet isExemption={model.isExemption}>title</Snippet>}
         subtitle={`${profile.firstName} ${profile.lastName}`}
       />
+      { model.isExemption && <p><Snippet>exemptionHint</Snippet></p> }
     </FormLayout>
   );
 }
