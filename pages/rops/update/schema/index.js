@@ -19,6 +19,11 @@ module.exports = req => {
     return opt;
   };
 
+  const disableProcRadio = fieldName => {
+    const field = req.rop.procedures.map(p => p[fieldName]);
+    return field.includes(true);
+  };
+
   function getOtherField(_fieldName) {
     const procIds = flatten(req.rop.procedures.map(p => [p.subpurposeOther, p.legislationOther])).filter(Boolean);
     return {
@@ -140,7 +145,11 @@ module.exports = req => {
       format: toBoolean,
       automapReveals: true,
       options: [
-        false,
+        {
+          value: false,
+          disabled: disableProcRadio('endangered'),
+          ...(disableProcRadio('endangered') && {warning: content.fields.disabledWarning})
+        },
         {
           value: true,
           reveal: {
