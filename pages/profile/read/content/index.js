@@ -9,7 +9,8 @@ module.exports = merge({}, baseContent, training, {
     noRoles: 'None',
     roleApply: 'Add role',
     roleRemove: 'Remove role',
-    rcvsNumber: 'RCVS membership number: {{rcvsNumber}}'
+    rcvsNumber: 'RCVS membership number: {{rcvsNumber}}',
+    guidanceLink: 'Read guidance on adding named person roles (on GOV.UK - opens in new tab)'
   },
   training: 'Training record',
   projects: {
