@@ -67,7 +67,10 @@ module.exports = {
       create: 'Add role',
       delete: 'Remove role',
       confirm: 'Confirm',
-      success: 'Success'
+      success: 'Success',
+      namedPersonMvp: {
+        beforeYouApply: 'Add role'
+      }
     },
     project: {
       list: 'Projects',

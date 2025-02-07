@@ -3,7 +3,18 @@
 @import '@ukhomeoffice/asl-components';
 @import 'images';
 
+@import 'govuk-frontend/dist/govuk/base';
+
 $hint-colour: #696F73;
+
+/* Remove old govuk fix for an IE6 bug that doesn't work with newer govuk frontend using rems*/
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 100%;
+}
 
 .govuk-hint {
   color: $hint-colour;
@@ -32,7 +43,7 @@ $hint-colour: #696F73;
 
   &:last-child {
     padding-bottom: 0;
-  }
+}
 }
 
 .applicant {
