@@ -62,3 +62,4 @@ dist
 screenshots/
 
 pages/**/*.css
+.DS_Store
