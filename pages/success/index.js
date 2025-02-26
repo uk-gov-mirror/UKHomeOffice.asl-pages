@@ -159,12 +159,17 @@ module.exports = () => {
     merge(res.locals.static.content, { success });
     res.locals.static.taskId = req.taskId;
     res.locals.static.taskLabel = getTaskLabel(req.task);
-    res.locals.static.establishment = req.establishment || get(req.task, 'data.establishment');
     res.locals.static.isAsruUser = req.user.profile.asruUser;
     res.locals.static.additionalInfo = getAdditionalInfo(req);
-    if (req.task.data.model === 'project') {
-      res.locals.static.projectId = get(req.project, 'id');
+    res.locals.static.establishment = req.establishment || get(req.task, 'data.establishment');
+
+    // Update the project ID for transfer projects to ensure correct success page links
+    if (req.task?.status === 'resolved' && req.task?.type === 'transfer' && req.task?.data?.model === 'project') {
+      res.locals.static.projectId = res.locals.static.transferredProject?.id;
+    } else if (req.task?.data?.model === 'project') {
+      res.locals.static.projectId = req.project?.id;
     }
+
     next();
   });
 
