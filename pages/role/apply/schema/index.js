@@ -34,9 +34,6 @@ module.exports = (roles, establishment) => {
       ],
       options,
       nullValue: []
-    },
-    comment: {
-      inputType: 'textarea'
     }
   };
 };

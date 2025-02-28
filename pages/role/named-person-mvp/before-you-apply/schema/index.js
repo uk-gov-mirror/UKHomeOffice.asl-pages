@@ -11,7 +11,7 @@ module.exports = (profile) => {
           value: true
         },
         {
-          label: `No, I need to view or update ${profile.firstName}'s traning record`,
+          label: `No, I need to view or update ${profile.firstName}'s training record`,
           value: false
         }
       ],

@@ -10,7 +10,8 @@ module.exports = {
 * __the Named Training and Competency Officer (NTCO) has endorsed their training and exemptions:__
     * the nominee has discussed their training and exemptions with the NTCO
     * the NTCO has checked their mandatory training certificates
-    * the NTCO has checked any certificates showing equivalent training to support exemption requests, and emailed them to ASRU Licensing
+    * the NTCO has checked any certificates and evidence to support exemption requests, and emailed them to ASRU Licensing:
+      [ASRULicensing@homeoffice.gov.uk](mailto:ASRULicensing@homeoffice.gov.uk)
 * you have added them as an ASPeL user
 * they have updated their training and exemptions in their [training record in ASPeL]({{trainingDashboardUrl}})
 * __the PEL holder supports the nomination and is confident that the nominee:__
@@ -24,5 +25,10 @@ module.exports = {
   buttons: {
     submit: 'Continue',
     cancel: 'Cancel'
+  },
+  errors: {
+    type: {
+      required: `Tell us if {{profile.firstName}}'s training record is accurate and up to date`
+    }
   }
 };

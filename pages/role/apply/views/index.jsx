@@ -44,19 +44,19 @@ const Page = ({ addRoleTasks, schema, profile }) => {
     );
   }
 
+  const CancelLink = () => {
+    return <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} />;
+  };
+
   return (
     <Fragment>
-      <FormLayout formatters={formatters}>
+      <FormLayout formatters={formatters} cancelLink={<CancelLink />}>
         <Header
           title={<Snippet>title</Snippet>}
           subtitle={`${profile.firstName} ${profile.lastName}`}
         />
         <OpenTasks roleTasks={addRoleTasks} />
       </FormLayout>
-
-      <p>
-        <Link page="profile.read" label={<Snippet>buttons.cancel</Snippet>} />
-      </p>
     </Fragment>
   );
 };
