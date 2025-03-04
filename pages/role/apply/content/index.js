@@ -17,6 +17,11 @@ module.exports = merge({}, baseContent, {
     },
     rcvsNumber: {
       label: 'RCVS membership number'
+    },
+    comment: {
+      label: 'Why {{^ownProfile}}is this person{{/ownProfile}}{{#ownProfile}}are you{{/ownProfile}} suitable for this role?',
+      hint: 'Where applicable, include any relevant training or explain why training isn’t necessary.'
+
     }
   },
   buttons: {
