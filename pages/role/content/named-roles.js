@@ -6,7 +6,7 @@ const roles = [
   'ntco',
   'nvs',
   'sqp',
-  'pehl',
+  'pelh',
   'nprc',
   'holc'
 ];
