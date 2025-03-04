@@ -38,7 +38,7 @@ module.exports = settings => {
     if (type) {
       return res.redirect(req.buildRoute('role.create'));
     } else {
-      return res.redirect(req.buildRoute('training.read'));
+      return res.redirect(req.buildRoute('training.dashboard'));
     }
   });
 
