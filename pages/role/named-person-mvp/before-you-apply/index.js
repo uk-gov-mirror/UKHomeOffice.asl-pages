@@ -36,7 +36,7 @@ module.exports = settings => {
   app.post('/', (req, res, next) => {
     const { type } = req.form.values;
     if (type) {
-      return res.redirect(req.buildRoute('role.create'));
+      return res.redirect(req.buildRoute('role.namedPersonMvp.create'));
     } else {
       return res.redirect(req.buildRoute('training.dashboard'));
     }

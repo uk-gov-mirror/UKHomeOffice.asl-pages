@@ -47,6 +47,8 @@ module.exports = settings => {
         .catch(next);
     }
     if (action === 'catE') {
+      // legacy TODO
+      // eslint-disable-next-line no-warning-comments
       // TODO: cat e
     }
 

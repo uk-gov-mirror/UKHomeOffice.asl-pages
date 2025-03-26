@@ -1,5 +1,8 @@
 {
   "extends": ["@ukhomeoffice/asl"],
+  "rules": {
+    "no-warning-comments": 2
+  },
   "parserOptions": {
     "ecmaVersion": 2020
   }

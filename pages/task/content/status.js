@@ -140,6 +140,8 @@ module.exports = {
     log: 'Endorsed by',
     currentlyWith: '**Currently with:** Home Office Licensing Officer'
   },
+  // legacy TODO
+  // eslint-disable-next-line no-warning-comments
   // TODO: content
   'awaiting-endorsement': {
     state: 'Awaiting endorsement',
@@ -149,6 +151,8 @@ module.exports = {
       project: '**Currently with:** Establishment Admin'
     }
   },
+  // legacy TODO
+  // eslint-disable-next-line no-warning-comments
   // TODO: content
   endorsed: {
     state: 'Awaiting recommendation',
