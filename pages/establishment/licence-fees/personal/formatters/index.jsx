@@ -1,6 +1,6 @@
 import React from 'react';
-import { format } from 'date-fns';
 import { Link } from '@ukhomeoffice/asl-components';
+import { formatDate } from '../../../../../lib/utils';
 import { dateFormat } from '../../../../../constants';
 
 export default {
@@ -16,10 +16,10 @@ export default {
     }
   },
   startDate: {
-    format: val => format(val, dateFormat.medium)
+    format: val => formatDate(val, dateFormat.medium)
   },
   endDate: {
-    format: val => val ? format(val, dateFormat.medium) : '-'
+    format: val => val ? formatDate(val, dateFormat.medium) : '-'
   },
   waived: {
     format: val => val === true ? <label className="badge">Not billable</label> : <label className="badge blue">Billable</label>
