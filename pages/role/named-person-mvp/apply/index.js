@@ -6,7 +6,7 @@ const getSchema = require('./schema');
 const confirm = require('../../routers/confirm');
 const success = require('../../routers/success');
 const { profileReplaced, PELH_OR_NPRC_ROLES } = require('../../helper');
-
+const mandatoryTrainingRequirments = require('../components/content/index');
 const sendData = (req, params = {}) => {
   const { type, rcvsNumber, comment } = req.session.form[req.model.id].values;
 
@@ -31,7 +31,7 @@ module.exports = settings => {
 
   app.use((req, res, next) => {
     req.model = {
-      id: 'new-role'
+      id: `${req.profile.id}-new-role-named-person`
     };
     next();
   });
@@ -96,10 +96,20 @@ module.exports = settings => {
       res.locals.static.ownProfile = req.user.profile.id === req.profileId;
       res.locals.pageTitle = `${res.locals.static.content.title} - ${req.establishment.name}`;
       next();
+    },
+    saveValues: (req, res, next) => {
+      req.session.form[req.model.id].values = req.form.values;
+      next();
     }
   }));
 
   app.post('/', (req, res, next) => {
+    const { type } = req.session.form[req.model.id].values;
+    const rolesWithRequirements = Object.keys(mandatoryTrainingRequirments);
+    if (rolesWithRequirements.includes(type)) {
+      return res.redirect(req.buildRoute('role.namedPersonMvp.mandatoryTraining'));
+    }
+
     return res.redirect(req.buildRoute('role.create', { suffix: 'confirm' }));
   });
 

@@ -2,9 +2,9 @@ import moment from 'moment';
 import sinon from 'sinon';
 import validators from '../../../lib/validation/validators';
 
-const doTest = (fieldName, value, params, type, expected) => {
+const doTest = (fieldName, value, params, type, expected, values, model, field) => {
   test(`testing '${value}' against ${params}`, () => {
-    expect(validators[type](null, value, params)).toBe(expected);
+    expect(validators[type](null, value, params, values, model, field)).toBe(expected);
   });
 };
 
@@ -228,4 +228,62 @@ describe('validation', () => {
 
   });
 
+  describe('exclusive', () => {
+    describe('should be valid with only exclusive behaviour', () => {
+      const values = { mandatory: 'yes' };
+      const field = {
+        options: [
+          {
+            value: 'yes',
+            behaviour: 'exclusive'
+          },
+          {
+            value: 'exemption'
+          },
+          {
+            value: 'delay'
+          }
+        ]
+      };
+      doTest(null, 'yes', null, 'exclusive', true, values, null, field);
+    });
+
+    describe('should be valid with non exclusive values', () => {
+      const values = { mandatory: ['delay', 'exemption'] };
+      const field = {
+        options: [
+          {
+            value: 'yes',
+            behaviour: 'exclusive'
+          },
+          {
+            value: 'exemption'
+          },
+          {
+            value: 'delay'
+          }
+        ]
+      };
+      doTest(null, ['delay', 'exemption'], null, 'exclusive', true, values, null, field);
+    });
+
+    describe('should be invalid with exclusive and non exclusive values', () => {
+      const values = { mandatory: ['yes', 'delay'] };
+      const field = {
+        options: [
+          {
+            value: 'yes',
+            behaviour: 'exclusive'
+          },
+          {
+            value: 'exemption'
+          },
+          {
+            value: 'delay'
+          }
+        ]
+      };
+      doTest(null, ['yes', 'delay'], null, 'exclusive', false, values, null, field);
+    });
+  });
 });

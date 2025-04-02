@@ -33,7 +33,7 @@
     "@ukhomeoffice/asl-constants": "^2.2.1",
     "@ukhomeoffice/asl-dictionary": "^2.1.0",
     "@ukhomeoffice/frontend-toolkit": "^3.0.0",
-    "@ukhomeoffice/react-components": "^1.3.3",
+    "@ukhomeoffice/react-components": "^1.4.2",
     "@x-govuk/govuk-prototype-components": "^3.0.9",
     "axios": "^1.7.4",
     "body-parser": "^1.18.3",

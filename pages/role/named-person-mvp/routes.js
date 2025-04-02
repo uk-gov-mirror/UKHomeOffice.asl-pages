@@ -1,5 +1,6 @@
 const beforeYouApply = require('./before-you-apply');
 const create = require('./apply');
+const mandatoryTraining = require('./mandatory-training');
 
 module.exports = {
   beforeYouApply: {
@@ -10,6 +11,11 @@ module.exports = {
   create: {
     path: '/create',
     router: create,
+    breadcrumb: false
+  },
+  mandatoryTraining: {
+    path: '/mandatory-training',
+    router: mandatoryTraining,
     breadcrumb: false
   }
 };

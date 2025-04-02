@@ -908,3 +908,25 @@ section#rops {
   }
 
 }
+
+.govuk-checkboxes__divider {
+  @include govuk-font($size: 19);
+  @include govuk-text-colour;
+  $govuk-divider-size: 40px !default;
+  width: $govuk-divider-size;
+  margin-bottom: govuk-spacing(2);
+  text-align: center;
+
+  &.govuk-checkboxes__divider-wide {
+    width: 100%;
+    text-align: left;
+    margin-left: 5px;
+  }
+}
+
+.govuk-box.embedded-content {
+  border: 2px solid #000;
+  border-color: #b1b4b6;
+  padding: 15px;
+  background-color: #fff;
+}
